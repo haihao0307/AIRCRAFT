@@ -1,0 +1,28 @@
+{
+  "schema": "haihao.aircraft/livery-manifest@1.0",
+  "liveryId": "ubangi-bag-iii-v1",
+  "aircraftId": "308bg_374bs_42-73436_ubangi-bag-iii",
+  "status": "approved-reference-awaiting-model-uv-bake",
+  "uvSet": "LiveryUV",
+  "references": {
+    "approvedBoard": "approved-board.webp",
+    "cropPixels": {
+      "leftProfile": [0, 0, 1536, 367],
+      "leftNose": [0, 373, 1536, 334],
+      "nosePatch": [0, 373, 1150, 319],
+      "baseColorPanel": [0, 710, 384, 314],
+      "normalPanel": [384, 710, 384, 314],
+      "heightPanel": [768, 710, 384, 314],
+      "roughnessPanel": [1152, 710, 384, 314]
+    }
+  },
+  "productionMaps": {
+    "baseColor": null,
+    "normal": null,
+    "height": null,
+    "roughness": null,
+    "ao": null,
+    "metallic": null
+  },
+  "note": "The approved board is a visual reference. Production maps must be baked from the authoritative model and dedicated LiveryUV."
+}
