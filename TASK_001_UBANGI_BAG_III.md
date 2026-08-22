@@ -2,7 +2,9 @@
 
 ## Mission
 
-Build a high-completion Three.js online inspection site that applies the approved first-round **UBANGI BAG III** livery to the authoritative B-24 model and proves the complete route from locked source asset to reversible historical livery.
+Build a high-completion Three.js online inspection site that runs the approved first-round **UBANGI BAG III** test livery through the complete path from locked source asset to a reversible livery system.
+
+The current V1 board is approved only for pipeline testing. It does not claim final historical accuracy. A corrected V2 board will later replace textures, metadata and baked PBR maps through the same livery contract.
 
 Work directly in this branch. Implement code, tests, generated reports, and GitHub Pages deployment. Do not stop at planning.
 
@@ -41,9 +43,9 @@ Implement and test `scripts/extract-glb-from-html.mjs` so the primary HTML can b
 
 ## Approved visual source
 
-The approved board source is stored as base64 chunks in `source-assets/approved-board-base64/`. Run `npm run rebuild:livery-reference` to rebuild `public/assets/livery/ubangi-bag-iii/approved-board.webp` before development. The livery manifest is in the same public directory.
+The V1 test board is stored as text-safe base64 chunks under `source-assets/approved-board-base64/`. `npm run rebuild:livery-reference` reconstructs `public/assets/livery/ubangi-bag-iii/approved-board.webp`, and `npm run verify:livery` validates its locked byte count and SHA-256. The livery manifest is in the same public directory.
 
-Treat the board as the approved first visual direction. It is a visual target, not a ready-made UV atlas. Reconstruct the livery against the real model and real UV.
+Treat the board as a replaceable pipeline target. It is not a ready-made UV atlas and it is not final historical approval. Reconstruct final livery assets only against the exact real model and real UV after the V2 board is approved.
 
 The left nose must retain:
 
@@ -58,9 +60,26 @@ The tail serial must read `42-73436`.
 
 Preserve all original UV data. Add a second UV set named `LiveryUV` only to paintable exterior surfaces.
 
-Include fuselage exterior skin, glazed-nose surrounding metal skin, wing upper and lower exterior skins, fixed horizontal and vertical tail skins, outer skins of ailerons, elevators, rudders and flaps, external engine cowling and nacelle skins, bomb-bay doors, exterior access doors and painted maintenance panels.
+Include:
 
-Exclude propellers and hubs, engine cylinders and internal mechanisms, tires, wheels, brakes and landing-gear mechanisms, all glass, guns and turret internals, cockpit and interior equipment, lamps, antennas, wires and small mechanical fittings.
+- fuselage exterior skin
+- glazed-nose surrounding metal skin
+- wing upper and lower exterior skins
+- fixed horizontal and vertical tail skins
+- outer skins of ailerons, elevators, rudders and flaps
+- external engine cowling and nacelle skins
+- bomb-bay doors
+- exterior access doors and painted maintenance panels
+
+Exclude:
+
+- propellers and hubs
+- engine cylinders, exhaust mechanisms and internal engine parts
+- tires, wheels, brakes and landing-gear struts/mechanisms
+- all glass
+- guns, barrels and internal turret mechanisms
+- cockpit and interior equipment
+- lamps, antennas, wires and small mechanical fittings
 
 Write the final classification to `reports/livery-mesh-classification.json`. Every one of the 348 source meshes must have a recorded category and reason. Ambiguous meshes must be listed as `review`, never silently included.
 
@@ -76,7 +95,7 @@ Produce real model-derived PBR maps using `LiveryUV`:
 - Metallic or metalness mask when supported
 - decal and marking masks
 
-A calibrated projected decal can exist as an intermediate comparison mode. The production display must use the dedicated model UV and baked map set.
+The online V1 pipeline site may use a calibrated projected decal as an intermediate comparison mode. Production approval remains blocked until the exact model has a dedicated LiveryUV and V2-derived baked map set.
 
 Surface target:
 
@@ -109,23 +128,38 @@ Livery work must not regress propeller rotation, landing gear, wheel contact, sm
 
 ## Website
 
-Build a desktop-first and usable mobile inspection site with automatic authoritative model loading, perspective and orthographic camera presets, orbit/pan/zoom, original material and livery modes, UV/normal/height/roughness inspections, close-up nose and tail presets, animation controls, preserved flight-sequence entry, safe material controls, mesh classification statistics, source hash and inventory panel, historical identity and attribution, zero placeholder aircraft geometry, and zero console errors.
+Build a desktop-first and usable mobile inspection site with:
 
-Publish with GitHub Pages and include the public URL in `HANDOFF.md`.
+- automatic authoritative model loading
+- perspective, left, right, front, rear, top and bottom camera presets
+- orbit, pan and zoom
+- original material, UBANGI BAG III, UV audit, normal, height and roughness inspection modes
+- close-up nose and tail presets
+- animation play, pause and timeline
+- landing-gear and propeller regression controls or a preserved full-flight-sequence entry
+- livery strength, weathering, normal and height controls within safe ranges
+- mesh classification statistics
+- source hash and inventory panel
+- visible historical aircraft identity and attribution
+- no placeholder aircraft geometry
+- zero console errors
 
-## Required commands
+Publish with GitHub Pages. Include a public URL in the final handoff.
 
-- `npm run rebuild:livery-reference`
+## Automation
+
+Required scripts:
+
 - `npm run extract:model -- <primary-html> <output-glb>`
 - `npm run verify:model`
 - `npm run test`
 - `npm run build`
 
-Use Blender headless processing when available:
+Use Blender headless processing when Blender is available:
 
 `blender --background --python scripts/blender/prepare_b24_livery_uv.py -- <input-glb> <output-glb> <report-json>`
 
-When Blender is absent, keep the script and fail with an explicit report. Do not fake UV completion.
+When Blender is absent, keep the script and fail with an explicit actionable report. Do not fake UV completion.
 
 ## Validation gates
 
@@ -137,13 +171,22 @@ When Blender is absent, keep the script and fail with an explicit report. Do not
 6. Nose art is correctly placed on the port side, readable and not mirrored.
 7. Tail serial is correctly placed and readable.
 8. No livery texture is applied to propellers, wheels, glass, guns or interior parts.
-9. Original and livery modes switch without destroying source materials.
+9. Original and livery modes switch without reloading or destroying source materials.
 10. Browser console has zero errors.
 11. Production build and static deployment pass.
-12. Screenshots include full left side, port nose close-up, top, bottom, right side, tail, UV audit and PBR inspections.
+12. Visual screenshots include left full aircraft, left nose close-up, top, bottom, right, tail close-up, UV audit and PBR inspection.
 
 ## Deliverables
 
-Complete source code, extraction and verification scripts, Blender UV script, prepared livery-ready GLB or a verified blocked report until the exact binary crosses the asset bridge, full PBR map set, mesh classification report, regression report, screenshots, GitHub Pages deployment, and `HANDOFF.md`.
+- complete source code
+- source extraction and verification scripts
+- Blender UV preparation script
+- prepared livery-ready GLB or an explicit verified blocked report if the exact binary has not yet crossed the asset bridge
+- full PBR map set
+- mesh classification report
+- regression report
+- screenshots
+- GitHub Pages deployment
+- `HANDOFF.md` containing changed files, commands, test output, source hashes, known uncertainties and next steps
 
-Do not merge this branch. Stop after pushing the completed implementation and posting the handoff to the pull request.
+The upstream controller may merge this branch after tests, build and website review pass so GitHub Pages can publish the test site. Codex must not merge on its own.
