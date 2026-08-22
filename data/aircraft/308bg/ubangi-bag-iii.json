@@ -1,0 +1,44 @@
+{
+  "schema": "haihao.aircraft/historical-aircraft@1.0",
+  "aircraftId": "308bg_374bs_42-73436_ubangi-bag-iii",
+  "nickname": "UBANGI BAG III",
+  "displayNameZh": "乌班吉号三号机",
+  "serial": "42-73436",
+  "variant": "B-24J-45-CO",
+  "manufacturer": "Consolidated",
+  "group": "308th Bomb Group",
+  "squadron": "374th Bomb Squadron",
+  "airForce": "Fourteenth Air Force",
+  "theater": "China Theater",
+  "servicePeriod": "1944-1945",
+  "status": "first-production-aircraft",
+  "sourceConfidence": "mixed-A-B",
+  "sourceModel": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "author": "CreadorDeMu",
+    "license": "CC BY 4.0"
+  },
+  "visual": {
+    "upperFinish": "faded-wartime-olive-drab",
+    "lowerFinish": "aged-light-gray",
+    "portNose": [
+      "shark-mouth",
+      "pin-up",
+      "UBANGI BAG III",
+      "two-rows-mission-marks"
+    ],
+    "tailSerial": "42-73436",
+    "weathering": "moderate-China-theater-operational"
+  },
+  "assets": {
+    "approvedBoard": "/assets/livery/ubangi-bag-iii/approved-board.webp",
+    "manifest": "/assets/livery/ubangi-bag-iii/manifest.json"
+  },
+  "notes": [
+    "First visual release approved for model integration.",
+    "Dedicated real-model LiveryUV is required before final texture baking.",
+    "Original model hierarchy, animation and mechanisms remain immutable."
+  ]
+}
