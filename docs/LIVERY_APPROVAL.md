@@ -1,6 +1,6 @@
 # UBANGI BAG III visual approval
 
-The reconstructed board stored through `source-assets/approved-board-base64/` was approved as the first production visual direction.
+The board in `public/assets/livery/ubangi-bag-iii/approved-board.webp` was approved as the first production visual direction.
 
 Locked visible content:
 
@@ -14,4 +14,4 @@ Locked visible content:
 - moderate operational weathering
 - visible rivets, panel seams, doors and maintenance panels in close inspection
 
-The board is a visual reference. It does not prove the real model UV and must not be pasted as a full side-view texture. Production textures must be reconstructed against the authoritative model and its dedicated `LiveryUV`.
+The board is a visual reference. It does not prove the real model UV and must not be pasted as a full side-view texture. The production textures must be reconstructed against the authoritative model and its dedicated `LiveryUV`.
