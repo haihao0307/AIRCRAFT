@@ -1,21 +1,10 @@
 {
-  "name": "haihao-aircraft-ubangi-bag-iii",
+  "name": "haihao-aircraft-ubangi-static-v1",
   "private": true,
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "rebuild:livery-reference": "node scripts/rebuild-approved-board.mjs",
-    "extract:model": "node scripts/extract-glb-from-html.mjs",
-    "verify:model": "node scripts/verify-authoritative-glb.mjs",
-    "test": "node --test tests/*.test.mjs",
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "three": "0.185.1"
-  },
-  "devDependencies": {
-    "vite": "^7.1.0"
+    "test": "node scripts/validate-static.mjs",
+    "build": "node scripts/build-static.mjs"
   }
 }
