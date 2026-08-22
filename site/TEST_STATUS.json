@@ -1,0 +1,20 @@
+{
+  "aircraftId": "308bg_374bs_42-73436_ubangi-bag-iii",
+  "version": "v1-pipeline-test",
+  "visualAccuracy": "unverified-awaiting-corrected-v2",
+  "website": "standalone-github-pages-inspection-site",
+  "sourceModelGate": {
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "replaceNext": [
+    "corrected visual board",
+    "real-model LiveryUV atlas",
+    "baked Base Color",
+    "baked Normal",
+    "baked Height",
+    "baked Roughness",
+    "baked AO",
+    "baked Metalness mask"
+  ]
+}
