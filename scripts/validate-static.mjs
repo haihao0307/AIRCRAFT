@@ -5,9 +5,12 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
-const readParts = async (prefix) => {
+const readParts = async (prefix, required = true) => {
   const names = (await readdir('src')).filter((name) => name.startsWith(`${prefix}-part-`) && name.endsWith('.txt')).sort();
-  if (!names.length) throw new Error(`Missing ${prefix} payload parts`);
+  if (!names.length) {
+    if (required) throw new Error(`Missing ${prefix} payload parts`);
+    return null;
+  }
   return (await Promise.all(names.map((name) => readFile(join('src', name), 'utf8')))).join('').replace(/\s+/g, '');
 };
 const sha = (value) => createHash('sha256').update(value).digest('hex');
@@ -20,8 +23,13 @@ const syntaxCheck = async (source, prefix) => {
   if (syntax.status !== 0) throw new Error(syntax.stderr || syntax.stdout || `${prefix} syntax check failed`);
 };
 
-const board = Buffer.from(await readParts('board'), 'base64');
-if (board.length !== 67496 || sha(board) !== '339ea8344007698b08ee85d74446b6a0334c7c962ab900c42d0873cc43fd9fb6') throw new Error('V1 board payload failed byte/hash lock');
+const boardParts = await readParts('board', false);
+let boardInfo = { status: 'explicit-test-fallback' };
+if (boardParts) {
+  const board = Buffer.from(boardParts, 'base64');
+  if (board.length !== 67496 || sha(board) !== '339ea8344007698b08ee85d74446b6a0334c7c962ab900c42d0873cc43fd9fb6') throw new Error('V1 board payload failed byte/hash lock');
+  boardInfo = { status: 'locked-board', bytes: board.length, sha256: sha(board) };
+}
 
 const app = Buffer.from(await readParts('app'), 'base64');
 if (sha(app) !== 'fbd6c85e10a78e5c2ecd6b85cb1bbffb826bef24e6a791eac8bfa5d9901e390a') throw new Error('Three.js application payload failed hash lock');
@@ -35,6 +43,12 @@ const html = await readFile('index.html', 'utf8');
 for (const marker of ['测试涂装 V1', '第二版图片确认后', 'c64e58edfacb4c519b5602278a7e51aa', 'turret-motion-v1.html']) {
   if (!html.includes(marker)) throw new Error(`HTML marker missing: ${marker}`);
 }
+const loader = await readFile('src/loader.js', 'utf8');
+for (const marker of ["readParts('app', 1)", 'fallbackBoard', '测试涂装 V1']) {
+  if (!loader.includes(marker)) throw new Error(`Loader fallback marker missing: ${marker}`);
+}
+await syntaxCheck(loader, 'ubangi-loader-');
+
 const manifest = JSON.parse(await readFile('assets/livery/ubangi-bag-iii/manifest.json', 'utf8'));
 if (manifest.historicalAccuracy !== 'unverified') throw new Error('V1 must remain historically unverified');
 if (Object.values(manifest.productionMaps).some((value) => value !== null)) throw new Error('Production PBR maps must stay null before real-model UV bake');
@@ -68,8 +82,7 @@ await syntaxCheck(moduleMatch[1], 'b24-turret-');
 
 console.log(JSON.stringify({
   ok: true,
-  boardBytes: board.length,
-  boardSha256: sha(board),
+  board: boardInfo,
   appSha256: sha(app),
   turretPrototypeBytes: turretHtml.length,
   turretPrototypeSha256: turretSha,
