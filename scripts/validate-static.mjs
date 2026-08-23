@@ -1,37 +1,69 @@
-import { readFile, readdir, mkdtemp, rm } from 'node:fs/promises';
+import { readFile, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { gunzipSync } from 'node:zlib';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
-const readParts = async (prefix) => {
-  const names = (await readdir('src')).filter((name) => name.startsWith(`${prefix}-part-`) && name.endsWith('.txt')).sort();
-  if (!names.length) throw new Error(`Missing ${prefix} payload parts`);
-  return (await Promise.all(names.map((name) => readFile(join('src', name), 'utf8')))).join('').replace(/\s+/g, '');
-};
 const sha = (value) => createHash('sha256').update(value).digest('hex');
+const syntaxCheck = async (source, prefix) => {
+  const temp = await mkdtemp(join(tmpdir(), prefix));
+  const tempJs = join(temp, 'app.mjs');
+  await writeFile(tempJs, source);
+  const syntax = spawnSync(process.execPath, ['--check', tempJs], { encoding: 'utf8' });
+  await rm(temp, { recursive: true, force: true });
+  if (syntax.status !== 0) throw new Error(syntax.stderr || syntax.stdout || `${prefix} syntax check failed`);
+};
 
-const board = Buffer.from(await readParts('board'), 'base64');
-if (board.length !== 67496 || sha(board) !== '339ea8344007698b08ee85d74446b6a0334c7c962ab900c42d0873cc43fd9fb6') throw new Error('V1 board payload failed byte/hash lock');
-
-const app = Buffer.from(await readParts('app'), 'base64');
-if (sha(app) !== 'fbd6c85e10a78e5c2ecd6b85cb1bbffb826bef24e6a791eac8bfa5d9901e390a') throw new Error('Three.js application payload failed hash lock');
-const source = app.toString('utf8');
-for (const marker of ['23085972', '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d', 'LiveryUV', 'paintable-static']) {
-  if (!source.includes(marker)) throw new Error(`Application marker missing: ${marker}`);
+const indexHtml = await readFile('index.html', 'utf8');
+for (const marker of ['B-24 腹部球形炮塔拆分与动画测试 v0.9.7', 'turret-motion-v1.html', '立即打开网页版']) {
+  if (!indexHtml.includes(marker)) throw new Error(`Root entry marker missing: ${marker}`);
 }
-const temp = await mkdtemp(join(tmpdir(), 'ubangi-static-'));
-const tempJs = join(temp, 'app.mjs');
-await import('node:fs/promises').then((fs) => fs.writeFile(tempJs, source));
-const syntax = spawnSync(process.execPath, ['--check', tempJs], { encoding: 'utf8' });
-await rm(temp, { recursive: true, force: true });
-if (syntax.status !== 0) throw new Error(syntax.stderr || syntax.stdout || 'Application syntax check failed');
 
-const html = await readFile('index.html', 'utf8');
-for (const marker of ['测试涂装 V1', '第二版图片确认后', 'c64e58edfacb4c519b5602278a7e51aa']) {
-  if (!html.includes(marker)) throw new Error(`HTML marker missing: ${marker}`);
-}
+const buildScript = await readFile('scripts/build-static.mjs', 'utf8');
+if (!buildScript.includes("'turret-motion-v1.html'")) throw new Error('Build script does not publish turret-motion-v1.html');
+await syntaxCheck(buildScript, 'b24-build-');
+
 const manifest = JSON.parse(await readFile('assets/livery/ubangi-bag-iii/manifest.json', 'utf8'));
-if (manifest.historicalAccuracy !== 'unverified') throw new Error('V1 must remain historically unverified');
+if (manifest.historicalAccuracy !== 'unverified') throw new Error('V1 livery must remain historically unverified');
 if (Object.values(manifest.productionMaps).some((value) => value !== null)) throw new Error('Production PBR maps must stay null before real-model UV bake');
-console.log(JSON.stringify({ ok: true, boardBytes: board.length, boardSha256: sha(board), appSha256: sha(app) }, null, 2));
+
+const turretBootstrap = await readFile('turret-motion-v1.html', 'utf8');
+for (const marker of ["DecompressionStream('gzip')", '测试站载荷校验失败', 'iframe']) {
+  if (!turretBootstrap.includes(marker)) throw new Error(`Turret bootstrap marker missing: ${marker}`);
+}
+const payloadMatch = turretBootstrap.match(/const payload=`([^`]*)`/);
+if (!payloadMatch) throw new Error('Turret prototype gzip payload missing');
+const turretHtml = gunzipSync(Buffer.from(payloadMatch[1].replace(/\s+/g, ''), 'base64'));
+const turretSha = sha(turretHtml);
+if (turretHtml.length !== 36065 || turretSha !== 'a4acd63e83060bd971fc87b22ebb7fdd32b300fb66b9058132baebd8cd2725dd') {
+  throw new Error(`Turret prototype payload failed byte/hash lock: ${turretHtml.length} ${turretSha}`);
+}
+const turretSource = turretHtml.toString('utf8');
+for (const marker of [
+  'B-24 腹部球形炮塔拆分与动画测试 v0.9.7',
+  'makeProceduralAircraft',
+  'extractGlbFromHtml',
+  '23085972',
+  '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d',
+  'DETACHED_PREVIEW',
+  'AUTO_SCAN',
+  'TRACKING',
+  'FIRING',
+  'buildPreviewRig',
+  '临时脱离',
+  '完整复位',
+]) {
+  if (!turretSource.includes(marker)) throw new Error(`Turret prototype marker missing: ${marker}`);
+}
+const moduleMatch = turretSource.match(/<script type="module">([\s\S]*?)<\/script>/);
+if (!moduleMatch) throw new Error('Turret prototype module script missing');
+await syntaxCheck(moduleMatch[1], 'b24-turret-');
+
+console.log(JSON.stringify({
+  ok: true,
+  turretPrototypeBytes: turretHtml.length,
+  turretPrototypeSha256: turretSha,
+  sourceModelGateBytes: 23085972,
+  sourceModelGateSha256: '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d',
+}, null, 2));
