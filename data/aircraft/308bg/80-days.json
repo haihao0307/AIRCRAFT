@@ -1,0 +1,128 @@
+{
+  "schema": "haihao.aircraft/historical-aircraft@1.0",
+  "aircraftId": "308bg_374bs_42-73257_80-days",
+  "nickname": "80 DAYS",
+  "displayNameZh": "八十天号",
+  "serial": "42-73257",
+  "aircraftNumber": "487",
+  "variant": "B-24J-25-CO",
+  "manufacturer": "Consolidated",
+  "group": "308th Bomb Group",
+  "squadron": "374th Bomb Squadron",
+  "airForce": "Fourteenth Air Force",
+  "theater": "China Theater",
+  "servicePeriod": "1944",
+  "status": "historical-livery-skillpack-spec-ready",
+  "historicalAccuracy": "direct-photo-evidence-with-mission-state-and-color-gates",
+  "sourceConfidence": "mixed-A-B",
+  "sourceModelPolicy": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "author": "CreadorDeMu",
+    "license": "CC BY 4.0",
+    "geometryMutationAllowed": false,
+    "variantCompatibilityStatus": "audit-required-before-bake"
+  },
+  "liveryScope": {
+    "included": [
+      "fuselage-exterior-metal-skin",
+      "glazed-nose-surrounding-metal-skin",
+      "fuselage-exterior-access-panels",
+      "fixed-vertical-fin-painted-skins"
+    ],
+    "excluded": [
+      "propellers",
+      "hubs",
+      "engines",
+      "engine-internals",
+      "wheels",
+      "tires",
+      "landing-gear",
+      "glass",
+      "guns",
+      "turret-interiors",
+      "cockpit",
+      "interior",
+      "lights",
+      "antennas",
+      "wires",
+      "small-mechanical-fittings",
+      "wings-current-scope",
+      "nacelles-current-scope",
+      "horizontal-tail-current-scope"
+    ]
+  },
+  "verifiedMarkings": {
+    "bothSides": [
+      "shark-mouth",
+      "80-DAYS-title-with-quotation-marks",
+      "two-dice",
+      "ROBBY-forward-name",
+      "victory-flag-symbol-row",
+      "bomb-mission-symbol-row"
+    ],
+    "port": [
+      "HUFF-near-cockpit-confirmed",
+      "no-STAM-in-current-evidence"
+    ],
+    "starboard": [
+      "STAM-below-upper-rectangular-side-window"
+    ],
+    "tail": [
+      "273257",
+      "487",
+      "white-triangle"
+    ]
+  },
+  "symbolSemantics": {
+    "japaneseVictoryFlag": "one-colored-flag-per-credited-Japanese-aircraft-destroyed",
+    "bombMark": "one-bomb-per-completed-bombing-mission-or-sortie-in-aircraft-marking-convention",
+    "countPolicy": "select-one-mission-state-never-merge-counts-across-dates"
+  },
+  "visualDirection": {
+    "upperFinish": "faded-wartime-olive-drab-family",
+    "lowerFinish": "aged-neutral-gray-family",
+    "sharkMouthInterior": "deep-red-upstream-approved-reconstruction-pending-original-color-proof",
+    "teeth": "aged-white-with-dark-edging",
+    "weathering": "heavy-maintained-China-theater-operational-wear",
+    "surfaceDetail": [
+      "readable-rivet-rows",
+      "panel-seams",
+      "inspection-hatches",
+      "repair-patches",
+      "paint-chipping",
+      "grime",
+      "oil-streaking",
+      "field-touch-ups",
+      "restrained-oil-canning"
+    ]
+  },
+  "maps": [
+    "base-color",
+    "normal",
+    "roughness",
+    "height-or-displacement",
+    "ao-when-supported",
+    "metallic-when-supported",
+    "editable-marking-and-wear-masks"
+  ],
+  "references": {
+    "inventory": "/docs/aircraft-pipeline/references/b24-80-days/README.md",
+    "historicalOverview": "/docs/aircraft-pipeline/B24_80_DAYS_HISTORICAL_LIVERY_OVERVIEW.md",
+    "textureSpec": "/docs/aircraft-pipeline/B24_80_DAYS_TEXTURE_SPEC.md",
+    "uvChecklist": "/docs/aircraft-pipeline/B24_80_DAYS_UV_AUDIT_CHECKLIST.md",
+    "promptSkillpack": "/docs/aircraft-pipeline/B24_80_DAYS_PROMPT_SKILLPACK.md",
+    "acceptanceChecklist": "/docs/aircraft-pipeline/B24_80_DAYS_ACCEPTANCE_CHECKLIST.md"
+  },
+  "approvalGates": [
+    "single-mission-state-selected-and-counted",
+    "direct-reference-files-verified",
+    "authoritative-model-source-lock-passed",
+    "B-24J-25-CO-variant-compatibility-audited",
+    "LiveryUV-audit-passed",
+    "historical-visual-review-approved",
+    "PBR-map-review-approved",
+    "runtime-regression-approved"
+  ]
+}
