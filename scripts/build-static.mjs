@@ -10,11 +10,15 @@ const publishPaths = [
   'assets',
   'data',
   'docs',
+  'reports',
 ];
 
 for (const path of publishPaths) {
   await cp(path, `dist/${path}`, { recursive: true });
 }
 
+await cp('public/80-days-livery-status.html', 'dist/80-days-livery-status.html');
+
 console.log('Built fail-closed authoritative B-24 correction site in dist/.');
+console.log('Published the “80 DAYS” evidence and mission-state status page.');
 console.log('Procedural aircraft prototypes are intentionally excluded.');

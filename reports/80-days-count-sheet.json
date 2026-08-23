@@ -1,0 +1,21 @@
+{
+  "schema": "haihao.aircraft/symbol-count-sheet@1.0",
+  "aircraftId": "308bg_374bs_42-73257_80-days",
+  "missionStateId": "80days-E03-placement-v1",
+  "generatedAt": "2026-08-23T19:23:05.884Z",
+  "status": "blocked-missing-asset",
+  "source": {
+    "evidenceId": "E01",
+    "filename": "80_Days_China_2_1944.jpg",
+    "path": "source-input/historical/308bg/374bs/80-days/80_Days_China_2_1944.jpg",
+    "expectedBytes": 690771,
+    "expectedSha256": "c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5",
+    "verified": false
+  },
+  "victoryFlagCount": 8,
+  "victoryFlagCountStatus": "historical-record-only-pending-annotation",
+  "bombMarkCount": null,
+  "bombMarkCountStatus": "requires-annotated-count",
+  "annotations": [],
+  "restorationAction": "Restore source-input/historical/308bg/374bs/80-days/80_Days_China_2_1944.jpg with the locked byte count and SHA-256, then rerun this command."
+}

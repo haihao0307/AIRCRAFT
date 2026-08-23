@@ -10,5 +10,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - run: npm run validate:80days:references
+      - run: npm run build:80days:count-sheet
       - run: npm test
       - run: npm run build
