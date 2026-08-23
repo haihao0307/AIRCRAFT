@@ -1,69 +1,70 @@
-import { readFile, mkdtemp, rm, writeFile } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
-import { gunzipSync } from 'node:zlib';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { access, readFile } from 'node:fs/promises';
+import { constants } from 'node:fs';
 
-const sha = (value) => createHash('sha256').update(value).digest('hex');
-const syntaxCheck = async (source, prefix) => {
-  const temp = await mkdtemp(join(tmpdir(), prefix));
-  const tempJs = join(temp, 'app.mjs');
-  await writeFile(tempJs, source);
-  const syntax = spawnSync(process.execPath, ['--check', tempJs], { encoding: 'utf8' });
-  await rm(temp, { recursive: true, force: true });
-  if (syntax.status !== 0) throw new Error(syntax.stderr || syntax.stdout || `${prefix} syntax check failed`);
+const MODEL_BYTES = 23085972;
+const MODEL_BYTES_DISPLAY = '23,085,972';
+const MODEL_SHA256 = '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d';
+const modelPath = 'assets/model/b-24_liberator.glb';
+
+const exists = async (path) => {
+  try {
+    await access(path, constants.F_OK);
+    return true;
+  } catch {
+    return false;
+  }
 };
 
 const indexHtml = await readFile('index.html', 'utf8');
-for (const marker of ['B-24 腹部球形炮塔拆分与动画测试 v0.9.7', 'turret-motion-v1.html', '立即打开网页版']) {
-  if (!indexHtml.includes(marker)) throw new Error(`Root entry marker missing: ${marker}`);
+for (const marker of [
+  'blocked-on-authoritative-binary',
+  'b-24_liberator.glb',
+  MODEL_BYTES_DISPLAY,
+  MODEL_SHA256,
+  '当前页面不会生成替代飞机',
+  'b24-authoritative-turrets-v0.9.9.html',
+]) {
+  if (!indexHtml.includes(marker)) throw new Error(`Authoritative correction marker missing: ${marker}`);
+}
+
+for (const forbidden of [
+  'turret-motion-v1.html',
+  'makeProceduralAircraft',
+  'CylinderGeometry',
+  'BoxGeometry',
+  'SphereGeometry',
+]) {
+  if (indexHtml.includes(forbidden)) throw new Error(`Procedural production marker forbidden in root entry: ${forbidden}`);
+}
+
+const retiredHtml = await readFile('b24-four-turret-v0.9.8.html', 'utf8');
+for (const marker of ['程序化四炮塔示意页已经停用', `${MODEL_BYTES_DISPLAY} B`, MODEL_SHA256]) {
+  if (!retiredHtml.includes(marker)) throw new Error(`Retirement marker missing: ${marker}`);
+}
+for (const forbidden of ['new THREE.', 'makeAircraft', 'makeTurret']) {
+  if (retiredHtml.includes(forbidden)) throw new Error(`Retired page still contains procedural rendering code: ${forbidden}`);
 }
 
 const buildScript = await readFile('scripts/build-static.mjs', 'utf8');
-if (!buildScript.includes("'turret-motion-v1.html'")) throw new Error('Build script does not publish turret-motion-v1.html');
-await syntaxCheck(buildScript, 'b24-build-');
+if (buildScript.includes("'turret-motion-v1.html'")) throw new Error('Procedural turret-motion page must not enter dist/.');
+if (!buildScript.includes("'b24-four-turret-v0.9.8.html'")) throw new Error('Retirement notice must remain publishable.');
 
-const manifest = JSON.parse(await readFile('assets/livery/ubangi-bag-iii/manifest.json', 'utf8'));
-if (manifest.historicalAccuracy !== 'unverified') throw new Error('V1 livery must remain historically unverified');
-if (Object.values(manifest.productionMaps).some((value) => value !== null)) throw new Error('Production PBR maps must stay null before real-model UV bake');
+const aircraftRecord = JSON.parse(await readFile('data/aircraft/308bg/ubangi-bag-iii.json', 'utf8'));
+if (aircraftRecord.sourceModel.bytes !== MODEL_BYTES) throw new Error('Aircraft source byte lock changed.');
+if (aircraftRecord.sourceModel.sha256 !== MODEL_SHA256) throw new Error('Aircraft source hash lock changed.');
 
-const turretBootstrap = await readFile('turret-motion-v1.html', 'utf8');
-for (const marker of ["DecompressionStream('gzip')", '测试站载荷校验失败', 'iframe']) {
-  if (!turretBootstrap.includes(marker)) throw new Error(`Turret bootstrap marker missing: ${marker}`);
+const modelExists = await exists(modelPath);
+if (modelExists) {
+  throw new Error(
+    'Authoritative GLB is present, so the blocked entry must now be replaced by the audited real-model integration before publication.',
+  );
 }
-const payloadMatch = turretBootstrap.match(/const payload=`([^`]*)`/);
-if (!payloadMatch) throw new Error('Turret prototype gzip payload missing');
-const turretHtml = gunzipSync(Buffer.from(payloadMatch[1].replace(/\s+/g, ''), 'base64'));
-const turretSha = sha(turretHtml);
-if (turretHtml.length !== 36065 || turretSha !== 'a4acd63e83060bd971fc87b22ebb7fdd32b300fb66b9058132baebd8cd2725dd') {
-  throw new Error(`Turret prototype payload failed byte/hash lock: ${turretHtml.length} ${turretSha}`);
-}
-const turretSource = turretHtml.toString('utf8');
-for (const marker of [
-  'B-24 腹部球形炮塔拆分与动画测试 v0.9.7',
-  'makeProceduralAircraft',
-  'extractGlbFromHtml',
-  '23085972',
-  '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d',
-  'DETACHED_PREVIEW',
-  'AUTO_SCAN',
-  'TRACKING',
-  'FIRING',
-  'buildPreviewRig',
-  '临时脱离',
-  '完整复位',
-]) {
-  if (!turretSource.includes(marker)) throw new Error(`Turret prototype marker missing: ${marker}`);
-}
-const moduleMatch = turretSource.match(/<script type="module">([\s\S]*?)<\/script>/);
-if (!moduleMatch) throw new Error('Turret prototype module script missing');
-await syntaxCheck(moduleMatch[1], 'b24-turret-');
 
 console.log(JSON.stringify({
   ok: true,
-  turretPrototypeBytes: turretHtml.length,
-  turretPrototypeSha256: turretSha,
-  sourceModelGateBytes: 23085972,
-  sourceModelGateSha256: '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d',
+  status: 'blocked-on-authoritative-binary',
+  proceduralProductionEntry: false,
+  modelPath,
+  requiredBytes: MODEL_BYTES,
+  requiredSha256: MODEL_SHA256,
 }, null, 2));

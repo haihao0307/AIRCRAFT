@@ -3,20 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="refresh" content="0; url=./turret-motion-v1.html" />
-  <title>B-24 腹部炮塔拆分动画测试 v0.9.7</title>
+  <meta name="description" content="B-24 权威原模型炮塔整合修正状态" />
+  <title>B-24 权威原模型炮塔整合 · 修正中</title>
   <style>
-    html,body{height:100%;margin:0;background:#0b0f13;color:#e9e5d8;font-family:Inter,"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}
-    body{display:grid;place-content:center;text-align:center;padding:24px}
-    h1{color:#d4b06b;margin:0 0 10px}p{color:#95a5ad;line-height:1.6}a{display:inline-block;margin-top:10px;padding:10px 16px;border:1px solid #d4b06b;border-radius:999px;color:#ffe0a0;text-decoration:none;background:#5b451f}
+    :root{font-family:Inter,"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;color-scheme:dark;background:#0a0f13;color:#eee8da}
+    *{box-sizing:border-box}html,body{height:100%;margin:0}body{display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 28%,#263943,#0a0f13 68%)}
+    main{width:min(880px,100%);padding:30px;border:1px solid #334650;border-radius:18px;background:#111a20;box-shadow:0 26px 80px #0008}
+    small{color:#d0ab63;font-weight:700;letter-spacing:.12em}h1{margin:9px 0 14px;color:#e8c47d;font-size:clamp(27px,4vw,42px)}p{color:#b8c4c9;line-height:1.75}.state{display:inline-block;margin:5px 0 18px;padding:7px 11px;border:1px solid #bd743f;border-radius:999px;background:#61361d66;color:#f2b989;font-size:12px;font-weight:700;letter-spacing:.05em}.lock{margin:18px 0;padding:16px;border-left:3px solid #d0ab63;background:#302819;color:#efd7a5;line-height:1.75}.lock code{word-break:break-all;color:#9ed5f5}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}.card{padding:13px;border:1px solid #30404a;border-radius:10px;background:#172128}.card b{display:block;color:#ded4bd;margin-bottom:5px}.card span{font-size:12px;color:#91a2aa;line-height:1.5}.links{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}a{padding:10px 14px;border:1px solid #52656f;border-radius:999px;color:#dce7eb;text-decoration:none;background:#1c2930}a.primary{border-color:#d0ab63;background:#59431f;color:#ffe1a5}@media(max-width:650px){.grid{grid-template-columns:1fr}main{padding:22px}}
   </style>
 </head>
 <body>
   <main>
-    <h1>B-24 腹部球形炮塔拆分与动画测试 v0.9.7</h1>
-    <p>正在进入炮塔选择、拆分、旋转、俯仰、射击、临时脱离与恢复的网页版测试站。</p>
-    <a href="./turret-motion-v1.html">立即打开网页版</a>
+    <small>HAIHAO AIRCRAFT PRODUCTION LINE</small>
+    <h1>B-24 权威原模型炮塔整合修正</h1>
+    <span class="state">blocked-on-authoritative-binary</span>
+    <p>程序化示意机已经退出正式入口。当前生产线只接受用户原先提供的 B-24 权威模型。网页会在精确模型进入仓库并通过四重校验后启用真实炮塔拆分、旋转、俯仰、收放、射击与复位功能。当前页面不会生成替代飞机。</p>
+    <div class="lock">
+      <b>唯一权威资产</b><br />
+      文件：<code>b-24_liberator.glb</code><br />
+      大小：<code>23,085,972 B</code><br />
+      SHA-256：<code>541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d</code><br />
+      清单：<code>1 scene · 1784 nodes · 348 meshes · 325358 triangles · 30 materials · 18 images · 1 animation · 2518 channels</code>
+    </div>
+    <div class="grid">
+      <div class="card"><b>原飞机保持</b><span>保留原节点层级、原材质、原贴图、原动画、螺旋桨、起落架、轮子和飞行流程。</span></div>
+      <div class="card"><b>真实炮塔拆分</b><span>只从权威 GLB 中识别机鼻、背部、机腹、尾部与腰部真实枪塔和机枪几何。</span></div>
+      <div class="card"><b>派生资产可追溯</b><span>需要拓扑拆分时生成带源哈希和变更清单的派生 GLB，原始 GLB 始终只读。</span></div>
+      <div class="card"><b>完成后自动替换</b><span>目标页面为 b24-authoritative-turrets-v0.9.9.html，只有真实模型校验与浏览器验收通过后才上线。</span></div>
+    </div>
+    <div class="links">
+      <a class="primary" href="https://github.com/haihao0307/AIRCRAFT/pull/7">查看修正 PR #7</a>
+      <a href="./b24-four-turret-v0.9.8.html">查看 v0.9.8 停用说明</a>
+    </div>
   </main>
-  <script>location.replace('./turret-motion-v1.html');</script>
 </body>
 </html>
