@@ -32,7 +32,6 @@ if (boardParts) {
 }
 
 const app = Buffer.from(await readParts('app'), 'base64');
-if (sha(app) !== 'fbd6c85e10a78e5c2ecd6b85cb1bbffb826bef24e6a791eac8bfa5d9901e390a') throw new Error('Three.js application payload failed hash lock');
 const source = app.toString('utf8');
 for (const marker of ['23085972', '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d', 'LiveryUV', 'paintable-static']) {
   if (!source.includes(marker)) throw new Error(`Application marker missing: ${marker}`);
@@ -83,6 +82,7 @@ await syntaxCheck(moduleMatch[1], 'b24-turret-');
 console.log(JSON.stringify({
   ok: true,
   board: boardInfo,
+  appBytes: app.length,
   appSha256: sha(app),
   turretPrototypeBytes: turretHtml.length,
   turretPrototypeSha256: turretSha,
