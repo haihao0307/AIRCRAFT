@@ -1,0 +1,51 @@
+name: Validate 80 DAYS real-model workbench
+
+on:
+  push:
+    branches:
+      - feature/b24-80days-livery-production-v1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: 80-days-workbench-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static validation and build
+        run: |
+          npm test
+          npm run build
+      - name: Install Chromium QA runtime
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Run real-model browser QA
+        run: |
+          python tools/80_days_browser_qa.py \
+            --site dist \
+            --report reports/80-days-browser-qa.json \
+            --screenshots qa/80-days
+      - name: Upload review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 80-days-real-model-${{ github.sha }}-${{ github.run_attempt }}
+          path: |
+            reports/80-days-browser-qa.json
+            qa/80-days/*.png
+          if-no-files-found: error
+          retention-days: 30
