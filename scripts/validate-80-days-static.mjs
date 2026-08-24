@@ -101,22 +101,29 @@ for (const marker of ['B-24J-25-CO', '42-73257', '487', 'STAM', 'ROBBY', 'HUFF',
 }
 
 const textureSpec = await readText('docs/aircraft-pipeline/B24_80_DAYS_TEXTURE_SPEC.md');
-for (const marker of ['Base Color', 'Normal', 'Roughness', 'Height', '8K', '铆钉', '蒙皮']) {
+for (const marker of ['Base Color', 'Normal', 'Roughness', 'Height', '8K', 'rivet', 'panel seams']) {
   assertIncludes(textureSpec, marker, 'texture specification');
 }
 
 const uvChecklist = await readText('docs/aircraft-pipeline/B24_80_DAYS_UV_AUDIT_CHECKLIST.md');
-for (const marker of ['鲨鱼嘴', '镜像', 'Texel', '273257', '487']) {
+for (const marker of ['Shark-mouth', 'mirrored', 'Texel', '273257', '487']) {
   assertIncludes(uvChecklist, marker, 'UV checklist');
 }
 
 const promptSkillpack = await readText('docs/aircraft-pipeline/B24_80_DAYS_PROMPT_SKILLPACK.md');
-for (const marker of ['fuselage only', 'olive drab', 'neutral gray', 'deep red', 'STAM', 'negative']) {
+for (const marker of [
+  'fuselage and fixed vertical-fin livery only',
+  'olive drab',
+  'neutral gray',
+  'deep-red',
+  'STAM',
+  'negative',
+]) {
   assertIncludes(promptSkillpack.toLowerCase(), marker.toLowerCase(), 'prompt skillpack');
 }
 
 const acceptance = await readText('docs/aircraft-pipeline/B24_80_DAYS_ACCEPTANCE_CHECKLIST.md');
-for (const marker of ['STAM', '鲨鱼嘴', '铆钉', '机身', '轮廓']) {
+for (const marker of ['STAM', 'Shark mouth', 'rivet', 'fuselage', 'silhouette']) {
   assertIncludes(acceptance, marker, 'acceptance checklist');
 }
 
