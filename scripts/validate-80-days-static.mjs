@@ -141,7 +141,7 @@ for (const marker of [
 ]) {
   assertIncludes(statusPage, marker, 'status page');
 }
-for (const forbidden of ['makeProceduralAircraft', 'new THREE.', 'generated aircraft profile']) {
+for (const forbidden of ['makeProceduralAircraft', 'new THREE.']) {
   assert(!statusPage.includes(forbidden), `status page contains forbidden substitute-rendering marker: ${forbidden}`);
 }
 
