@@ -1,0 +1,43 @@
+{
+  "schema": "haihao.aircraft/80-days-review-layer@1.0",
+  "aircraftId": "308bg_374bs_42-73257_80-days",
+  "status": "real-model-browser-review-v1",
+  "sourceModel": {
+    "releaseTag": "80-days-source-v1",
+    "filename": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "missionStateId": "80days-E03-placement-v1",
+  "coordinateSystem": {
+    "nose": "+Z",
+    "tail": "-Z",
+    "port": "-X",
+    "starboard": "+X",
+    "up": "+Y"
+  },
+  "markings": [
+    {"id":"port-shark-mouth","side":"port","evidence":["E04","E05","E06"],"status":"review-vector","mirrored":false},
+    {"id":"starboard-shark-mouth","side":"starboard","evidence":["E01","E02","E03","E07"],"status":"review-vector","mirrored":false},
+    {"id":"port-title-dice","side":"port","evidence":["E04","E06"],"title":"“80 DAYS”","diceCount":2,"status":"review-vector","mirrored":false},
+    {"id":"starboard-title-dice","side":"starboard","evidence":["E01","E02","E03","E07"],"title":"“80 DAYS”","diceCount":2,"status":"review-vector","mirrored":false},
+    {"id":"port-robbby-huff","side":"port","evidence":["E04"],"labels":["ROBBY","HUFF"],"status":"review-vector"},
+    {"id":"starboard-robbby","side":"starboard","evidence":["E01","E02"],"labels":["ROBBY"],"status":"review-vector"},
+    {"id":"starboard-stam","side":"starboard","evidence":["E01","E03"],"placement":"directly below upper rectangular side window","status":"review-vector"},
+    {"id":"victory-flags","sides":["port","starboard"],"evidence":["E01"],"count":8,"status":"verified-visible-review-state"},
+    {"id":"bomb-marks","sides":["port","starboard"],"evidence":[],"count":null,"status":"withheld-pending-reviewed-annotation"},
+    {"id":"fixed-fin-markings","sides":["port","starboard"],"labels":["273257","487","white triangle"],"status":"review-vector"}
+  ],
+  "maps": {
+    "baseColor": "browser review tint plus editable vector marking layers",
+    "normal": "source normal inspection mode only, final LiveryUV bake pending",
+    "roughness": "browser review visualization only",
+    "heightDisplacement": "glancing-light review visualization only",
+    "ao": "source model preserved",
+    "finalBakeApproved": false
+  },
+  "scope": {
+    "include": ["fuselage exterior candidate meshes","fixed vertical fin candidate meshes"],
+    "exclude": ["wings","nacelles","horizontal tail","propellers","engines","wheels","tires","landing gear","glass","guns","turret interiors","cockpit","interior","small mechanisms"]
+  }
+}
