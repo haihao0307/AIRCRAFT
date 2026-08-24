@@ -123,7 +123,7 @@ for (const marker of [
 }
 
 const acceptance = await readText('docs/aircraft-pipeline/B24_80_DAYS_ACCEPTANCE_CHECKLIST.md');
-for (const marker of ['STAM', 'Shark mouth', 'rivet', 'fuselage', 'silhouette']) {
+for (const marker of ['STAM', 'shark mouth', 'rivet', 'fuselage', 'silhouette']) {
   assertIncludes(acceptance, marker, 'acceptance checklist');
 }
 
