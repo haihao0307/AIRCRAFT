@@ -2,7 +2,13 @@
   "schema": "haihao.aircraft/runtime-lock@1.0",
   "runtimeId": "b24-flight-v0.9.6-gold",
   "displayName": "B-24 flight runtime v0.9.6 Gold",
+  "version": "0.9.6",
   "sourceFileName": "B24_飞机生产线_v0.9.6_单一土质地面_隐藏大弧航线_投弹机枪版.html",
+  "sourceArtifact": {
+    "kind": "standalone-html",
+    "sha256": "465c55d24c2e783b09881b294e5b44a9ba1050d27216793ba23f9a52b1d1a3af",
+    "targetPath": "public/runtime/b24/v0.9.6/index.html"
+  },
   "distribution": {
     "fileName": "Haihao_B24_Online_Publish_v0.9.6.zip",
     "bytes": 9455362,
@@ -42,14 +48,24 @@
     "aircraftHeadingFollowsRouteTangent": true,
     "takeoffLandingPreserved": true,
     "propellers": "source-animation-channels",
+    "propellerChannels": 4,
     "landingGear": "verified-endpoints",
-    "combatEffects": ["bombing", "machine-gun"],
+    "combatEffects": [
+      "bombing",
+      "machine-gun"
+    ],
+    "engineSmoke": true,
     "geometryMutationAllowed": false,
     "runtimeLogicMutationAllowed": false
   },
-  "repositoryMaterialization": {
-    "status": "pending-import",
-    "requiredPath": "runtime/b24/v0.9.6-gold/source/",
-    "acceptance": "Every imported file must match this lock before the runtime can be marked ready."
+  "materialization": {
+    "status": "locked-awaiting-materialization",
+    "command": "npm run materialize:runtime -- <local-file>",
+    "acceptance": "The complete source file must match sourceArtifact.sha256 before installation."
+  },
+  "policy": {
+    "goldSourceMutable": false,
+    "changesRequireNewRuntimeVersion": true,
+    "liveryWorkMayModifyRuntime": false
   }
 }

@@ -5,13 +5,7 @@
   "fileName": "b-24_liberator.glb",
   "bytes": 23085972,
   "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
-  "storage": {
-    "kind": "github-release",
-    "repository": "haihao0307/AIRCRAFT",
-    "tag": "80-days-source-v1",
-    "asset": "b-24_liberator.glb",
-    "downloadUrl": "https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb"
-  },
+  "targetPath": "public/assets/models/b24-liberator/b-24_liberator.glb",
   "inventory": {
     "scenes": 1,
     "nodes": 1784,
@@ -21,6 +15,17 @@
     "embeddedImages": 18,
     "animations": 1,
     "animationChannels": 2518
+  },
+  "sourceStore": {
+    "status": "locked-awaiting-generic-release-migration",
+    "repository": "haihao0307/AIRCRAFT",
+    "targetReleaseTag": "aircraft-source-b24-v1",
+    "targetAsset": "b-24_liberator.glb"
+  },
+  "materialization": {
+    "status": "locked-awaiting-materialization",
+    "command": "npm run materialize:model -- <local-file>",
+    "acceptedInput": "complete local byte stream matching bytes and sha256"
   },
   "policy": {
     "immutable": true,

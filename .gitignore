@@ -5,3 +5,5 @@ Thumbs.db
 *.log
 *.tmp
 *.bak
+public/runtime/b24/v0.9.6/index.html
+public/assets/models/b24-liberator/b-24_liberator.glb
