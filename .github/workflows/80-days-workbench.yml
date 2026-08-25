@@ -61,5 +61,6 @@ jobs:
             reports/80-days-liveryuv-qa.json
             reports/80-days-pbr-qa.json
             qa/80-days/*.png
+            dist/**
           if-no-files-found: error
           retention-days: 30
