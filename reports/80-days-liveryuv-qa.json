@@ -1,6 +1,6 @@
 {
-  "schema": "haihao.aircraft/liveryuv-qa@1.0",
-  "generatedAt": "2026-08-25T04:35:07.717Z",
+  "schema": "haihao.aircraft/liveryuv-qa@1.1",
+  "generatedAt": "2026-08-25T06:03:40.842Z",
   "source": {
     "bytes": 23085972,
     "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
@@ -8,7 +8,8 @@
   "derived": {
     "path": "public/assets/model/b-24_liberator_80days-liveryuv-v1.glb",
     "bytes": 23789148,
-    "sha256": "9f1b4efd5da75efee1dddbec1d06b1ad00dfb78dfb8c957a1faecaff23edad1a"
+    "sha256": "9f1b4efd5da75efee1dddbec1d06b1ad00dfb78dfb8c957a1faecaff23edad1a",
+    "use": "diagnostic reproduction of the rejected x=0 projection only"
   },
   "uvSet": {
     "gltfSemantic": "TEXCOORD_1",
@@ -25,19 +26,27 @@
     ],
     "primitives": 8,
     "excludedMeshUv1Count": 0,
-    "mirrored": false,
+    "mirrored": null,
     "overlap": {
-      "crossNodeAtlasOverlap": 0,
-      "sideIslandOverlap": 0
+      "crossNodeAtlasOverlap": null,
+      "sideIslandOverlap": null,
+      "status": "not evaluated because the current projection is invalid"
     },
     "paddingNormalized": 0.006,
-    "layout": "eight node columns; unique port and starboard half-height islands",
-    "stretchStatus": "review-required",
-    "texelDensityStatus": "reported-by-node-planar-normalization",
-    "seams": "x=0 side split plus node boundaries"
+    "layout": "invalid diagnostic x=0 vertex split projection",
+    "layoutStatus": "failed",
+    "stretchStatus": "failed",
+    "texelDensityStatus": "not evaluated",
+    "seams": "no real seam was created; shared indexed vertices interpolate across the atlas half boundary",
+    "topologyAnalysis": "reports/80-days-liveryuv-topology-analysis.json",
+    "blockingCounts": {
+      "trianglesCrossingCurrentXSplit": 2217,
+      "trianglesWithGeneratedVSpanAtLeast045": 2163,
+      "verticesSharedByOppositeTriangleAssignments": 1531
+    }
   },
   "geometryInvariance": {
-    "positionsNormalsIndices": "byte-decoded hashes unchanged",
+    "positionsNormalsIndices": "byte-decoded hashes unchanged only for the rejected diagnostic projection",
     "attributeHashRecords": 1044,
     "nodes": 1784,
     "meshes": 348,
@@ -53,6 +62,7 @@
     },
     "passed": true
   },
-  "reviewStatus": "review-required",
+  "reviewStatus": "blocked-seam-duplication-decision",
+  "visualAcceptance": "blocked",
   "finalLiveryUVApproved": false
 }

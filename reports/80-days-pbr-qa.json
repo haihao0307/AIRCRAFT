@@ -1,7 +1,7 @@
 {
-  "schema": "haihao.aircraft/pbr-qa@1.0",
+  "schema": "haihao.aircraft/pbr-qa@1.1",
   "generatedAt": "2026-08-25T04:38:16.830Z",
-  "uvSet": "TEXCOORD_1 / LiveryUV",
+  "uvSet": "TEXCOORD_1 / rejected diagnostic projection",
   "maps": [
     {
       "file": "base-color-8192.png",
@@ -119,10 +119,13 @@
     "height": true,
     "ao": true,
     "metallic": true,
-    "id": true
+    "id": true,
+    "note": "file pixel variation does not establish physically valid or model registered PBR evidence"
   },
   "sourceTraces": "assets/livery/80-days/traces/manifest.json",
-  "surfaceUse": "candidate meshes only, texture channel 1",
-  "reviewStatus": "review-required",
+  "surfaceUse": "diagnostic candidate rendering only",
+  "reviewStatus": "rejected-invalid-liveryuv",
+  "visualAcceptance": "blocked",
+  "blockingReport": "reports/80-days-liveryuv-topology-analysis.json",
   "finalBakeApproved": false
 }

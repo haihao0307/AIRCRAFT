@@ -59,6 +59,8 @@ jobs:
             reports/80-days-reference-intake.json
             reports/80-days-model-mesh-audit.json
             reports/80-days-liveryuv-qa.json
+            reports/80-days-liveryuv-topology-analysis.json
+            reports/80-days-browser-visual-review-run-32811487861.json
             reports/80-days-pbr-qa.json
             qa/80-days/*.png
             dist/**

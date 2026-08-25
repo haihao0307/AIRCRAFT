@@ -1,0 +1,65 @@
+{
+  "schema": "haihao.aircraft/browser-visual-review@1.0",
+  "reviewedAt": "2026-08-25T06:04:22Z",
+  "reviewer": "Codex manual image review",
+  "source": {
+    "runId": 32811487861,
+    "runUrl": "https://github.com/haihao0307/AIRCRAFT/actions/runs/32811487861",
+    "artifactId": 9550068829,
+    "artifactSha256": "27fafb0052f374512b274e7fd81ad0482a7ae0fab9b405b4bfe03f32a1ddf5be",
+    "commit": "eaa61baa7bdd34bf920e47119962bb22c7e043c0"
+  },
+  "technicalBrowserQa": {
+    "checksPassed": 17,
+    "checksTotal": 17,
+    "visualAcceptanceInferred": false
+  },
+  "manualReview": {
+    "screenshotsExpected": 19,
+    "screenshotsReviewed": 19,
+    "dimensions": "1440x900",
+    "status": "blocked",
+    "finalLiveryUVApproved": false,
+    "finalBakeApproved": false,
+    "blockingFindings": [
+      "The current x=0 TEXCOORD_1 projection creates long white strips across both fuselage sides.",
+      "Port and starboard title, dice and shark mouth are absent or unreadable in model views.",
+      "The STAM model closeup contains no readable registered STAM marking.",
+      "The E03 overlay trace is oversized, rotated and displaced from the photographed lettering.",
+      "The fixed fins retain unsupported source markings including 402366 and circular symbols.",
+      "No model screenshot visibly proves exactly eight starboard victory flags or zero port flags.",
+      "Roughness and height views are nearly uniform and do not prove source matched surface detail.",
+      "No independent screenshot exists for each of the eight candidate nodes."
+    ]
+  },
+  "screenshots": [
+    {"file":"80-days-belly-transition.png","sha256":"b08414f152b0db6f88ab6f32c7fba5341274c06b27e50a9983f6451311b5821d","status":"blocked","observation":"The aircraft is underexposed and the olive drab to neutral gray belly transition cannot be judged."},
+    {"file":"80-days-classification-mask.png","sha256":"e8ed9fa3a5e752af072e1993afe23ec3822de68df8133f7593c4ff27eeefe32f","status":"blocked","observation":"The classification colors show grouped candidates but do not isolate or identify each of the eight nodes."},
+    {"file":"80-days-diff-height.png","sha256":"d1853fac8328f12e2c797882f71c2c57e121060d1308d5dddd499304cd28770e","status":"blocked","observation":"This is pixel identical to the height screenshot and shows an almost uniform light material."},
+    {"file":"80-days-diff-livery.png","sha256":"43daedae1f0fe9b53fe7be1f829a4af282c8d4e941d827c02edcb7e14c02a85b","status":"blocked","observation":"Long white strips replace readable historical markings across the starboard fuselage."},
+    {"file":"80-days-diff-normal.png","sha256":"8c29327b39a8ee50ac1504f32bb1023e4805bf7607c10d59d8bea6ea93fef6c0","status":"blocked","observation":"This is pixel identical to the normal raking screenshot and does not show reviewable rivet or seam relief."},
+    {"file":"80-days-diff-roughness.png","sha256":"a08a379803a94be0eb2c5f3e1f4f6bf0fcddef8c96f2c5deb52fce02b415803f","status":"blocked","observation":"The nearly uniform white rendering does not provide material variation evidence."},
+    {"file":"80-days-diff-source.png","sha256":"dc69685b1cddbf3bda2e580a56c4c2df2e728f389f85c3928928f21e189948ea","status":"reference-only","observation":"The source model visibly carries DIAMOND LIL artwork and cannot serve as 80 DAYS livery evidence."},
+    {"file":"80-days-e03-trace-model-registration.png","sha256":"53ce891b35192d40f5e2ccf1327f8252cb258f00223f710fe9f6dd4c5dd6d27c","status":"blocked","observation":"The traced STAM is too large, too low, rotated incorrectly and does not register to the photographed letters below the upper rectangular window."},
+    {"file":"80-days-fixed-fins.png","sha256":"620fb4f2c9e7e0091641bd42cca4952332ff56b9ad4ed6533e2a0a7522e6e323","status":"blocked","observation":"The fins retain unsupported 402366 text, circular numerals and generic symbols instead of evidence supported 273257, 487 and triangle markings."},
+    {"file":"80-days-height.png","sha256":"d1853fac8328f12e2c797882f71c2c57e121060d1308d5dddd499304cd28770e","status":"blocked","observation":"The height mode is nearly uniform and lacks a visible source matched height pattern."},
+    {"file":"80-days-normal-raking.png","sha256":"8c29327b39a8ee50ac1504f32bb1023e4805bf7607c10d59d8bea6ea93fef6c0","status":"blocked","observation":"The normal mode is nearly uniform lavender and lacks reviewable raking light detail."},
+    {"file":"80-days-port-full.png","sha256":"7b913de72ba6016ee67b9695bcb0e799c09b4fc9ac96684bb2cbf286bae5e452","status":"blocked","observation":"No readable port title, dice or shark mouth is present and white strips cross the fuselage."},
+    {"file":"80-days-port-nose-liveryuv.png","sha256":"abf39bb9b707f550ce305e9b8827bf603c7feec4cb5fa4fc1f3229e87fe512e8","status":"blocked","observation":"The checker appears as wide horizontal bands and does not prove a unique port island or acceptable stretch."},
+    {"file":"80-days-port-nose.png","sha256":"36e4a4ec935212fc4efe1e8843113d606ad32a306fec83e9536a9732c0870861","status":"blocked","observation":"The port nose contains a long white strip and no identifiable 80 DAYS artwork."},
+    {"file":"80-days-roughness.png","sha256":"cae5791dfa30fad0cfccca444c64da34980fc059ebc3997572a3d9458c8df5d5","status":"blocked","observation":"The fuselage is almost uniformly white and the mode does not prove spatially varying roughness."},
+    {"file":"80-days-starboard-full.png","sha256":"b7fa8a6f5526b655e83350d7d48f72b9974c6421e0b8acd72793b06bd6ae28fd","status":"blocked","observation":"No readable starboard title, dice, shark mouth, STAM or eight victory flags is present."},
+    {"file":"80-days-starboard-nose-liveryuv.png","sha256":"4080b2a3b3758dce6934351a89ec054aa425422948d2b187c4594907996f678d","status":"blocked","observation":"The checker appears as wide horizontal bands and does not prove a unique starboard island or acceptable stretch."},
+    {"file":"80-days-starboard-nose-stam.png","sha256":"2b4f2b30bd7f7ae2792481d131b3d7d1d9ae44fe2e0a066718d1afe90e5a070e","status":"blocked","observation":"The closeup shows white streaks and no readable STAM below the upper rectangular window."},
+    {"file":"80-days-top-symbol-area.png","sha256":"bcc4b3028c8459781f4b7a5464b31c41cd374bd8fccee9ba74ddd102c3821073","status":"blocked","observation":"The top view contains stretched white regions and no verifiable evidence supported symbol layout."}
+  ],
+  "historicalState": {
+    "portStamExpected": 0,
+    "portVictoryFlagsExpected": 0,
+    "starboardVictoryFlagsExpected": 8,
+    "bombCount": null,
+    "bombStatus": "blocked-count",
+    "bakedBombMarksAllowed": false,
+    "visualProofPresent": false
+  }
+}
