@@ -1,0 +1,45 @@
+{
+  "schema": "haihao.aircraft/production-dashboard@1.0",
+  "updatedAt": "2026-08-25",
+  "aircraft": {
+    "id": "b24-liberator-authoritative",
+    "label": "B-24 LIBERATOR",
+    "modelStatus": "LOCKED",
+    "runtimeStatus": "IMPORT PENDING",
+    "activeLivery": null
+  },
+  "lines": [
+    {
+      "id": "model",
+      "number": "01",
+      "title": "MODEL LIBRARY",
+      "summary": "One authoritative source model, locked by exact bytes and SHA-256.",
+      "status": "ready",
+      "gate": "SOURCE LOCK"
+    },
+    {
+      "id": "flight",
+      "number": "02",
+      "title": "FLIGHT RUNTIME",
+      "summary": "The v0.9.6 Gold package is located and checksum-locked. Repository import remains pending.",
+      "status": "pending",
+      "gate": "RUNTIME IMPORT"
+    },
+    {
+      "id": "livery",
+      "number": "03",
+      "title": "LIVERY LINE",
+      "summary": "Independent packages live below each airframe. The clean baseline has no active livery.",
+      "status": "open",
+      "gate": "HISTORICAL QA"
+    },
+    {
+      "id": "integration",
+      "number": "04",
+      "title": "INTEGRATION QA",
+      "summary": "Combines an approved model, runtime, and livery without changing any locked input.",
+      "status": "blocked",
+      "gate": "FINAL RELEASE"
+    }
+  ]
+}

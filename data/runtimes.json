@@ -1,0 +1,12 @@
+{
+  "schema": "haihao.aircraft/runtime-registry@1.0",
+  "runtimes": [
+    {
+      "id": "b24-flight-v0.9.6-gold",
+      "airframe": "b24-liberator-authoritative",
+      "name": "B-24 v0.9.6 Gold",
+      "status": "pending-import",
+      "lock": "runtime/b24/v0.9.6-gold/runtime.lock.json"
+    }
+  ]
+}

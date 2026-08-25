@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Haihao Aircraft Production Line">
+  <title>AIRCRAFT Production Line</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div>
+        <p class="kicker">HAIHAO AIRCRAFT SYSTEMS</p>
+        <h1>AIRCRAFT<br>PRODUCTION LINE</h1>
+      </div>
+      <div class="baseline">
+        <span>CLEAN BASELINE</span>
+        <strong>V1.0</strong>
+        <small id="updated-at">LOADING</small>
+      </div>
+    </header>
+
+    <section class="airframe-card" aria-label="Active airframe">
+      <div class="airframe-mark" aria-hidden="true">
+        <span class="wing wing-left"></span>
+        <span class="body"></span>
+        <span class="wing wing-right"></span>
+        <span class="tail"></span>
+      </div>
+      <div class="airframe-copy">
+        <p>ACTIVE AIRFRAME</p>
+        <h2 id="aircraft-label">B-24 LIBERATOR</h2>
+        <div class="status-strip">
+          <span>MODEL <b id="model-status">LOCKED</b></span>
+          <span>RUNTIME <b id="runtime-status">IMPORT PENDING</b></span>
+          <span>LIVERY <b id="livery-status">NONE</b></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="line-map" aria-label="Production lines">
+      <div class="rail rail-primary" aria-hidden="true"></div>
+      <div class="rail rail-livery" aria-hidden="true"></div>
+      <div id="line-list" class="line-list"></div>
+    </section>
+
+    <footer>
+      <span>MODEL</span><i></i><span>RUNTIME</span><i></i><span>LIVERY</span><i></i><span>INTEGRATION</span>
+    </footer>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

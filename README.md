@@ -1,36 +1,25 @@
-# AIRCRAFT · UBANGI BAG III and B-24 turret production line
+# AIRCRAFT Production Line
 
-This repository is the ChatGPT upstream and Codex downstream workspace for the Haihao Aircraft Production Line.
+Clean production repository for authoritative aircraft models, stable flight runtimes, independent historical liveries, and final browser integration.
 
-## Current online result
+## Production structure
 
-[B-24 ventral ball-turret separation and motion prototype v0.9.7](https://raw.githack.com/haihao0307/AIRCRAFT/a7f77a8d6ca3aab7ad831b327fa9a53f2ee076d4/turret-motion-v1.html)
+- `registry/models/` stores immutable model identity locks and provenance.
+- `runtime/` stores approved flight-runtime locks and materialized runtime packages.
+- `liveries/` stores one isolated production package per aircraft livery.
+- `apps/production-line/` is the visual production dashboard source.
+- `data/` is the dashboard registry.
+- `scripts/` validates contracts and builds the static site.
 
-The standalone webpage runs with a procedural B-24 and independent turret immediately, so the complete interaction path can be reviewed before permanent topology extraction. It also accepts the locked GLB or the old embedded-HTML build.
+## Current baseline
 
-Implemented prototype operations:
+The B-24 authoritative model is locked by byte count and SHA-256. The approved B-24 v0.9.6 flight package is located and checksum-locked. Its source files must be materialized into this repository in a later dedicated import commit without altering their bytes.
 
-- component selection and hypothesis classification
-- independent ball shell and twin-gun preview hierarchy
-- exploded inspection view
-- turret yaw and synchronized gun elevation
-- scan mode and virtual-target tracking
-- firing, muzzle-flash, tracer and recoil preview
-- temporary whole-turret detachment and reattachment
-- complete source-state restoration
-- component-map import and export
-
-The separation remains explicitly marked `hypothesis-motion-v1` until the exact source model topology audit is complete.
-
-## Historical livery line
-
-The first historical test aircraft is B-24J-45-CO serial `42-73436`, **UBANGI BAG III**, 308th Bomb Group, 374th Bomb Squadron, Fourteenth Air Force.
-
-The visible V1 livery board is a replaceable pipeline test. It does not claim final historical accuracy. The corrected V2 board will replace imagery and final PBR maps through the same livery contract.
-
-The source model gate accepts only `b-24_liberator.glb`, exactly `23,085,972` bytes with SHA-256 `541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d`.
+## Commands
 
 ```bash
 npm test
 npm run build
 ```
+
+`main` should contain only reviewed production baselines. New model, runtime, livery, and integration work belongs in a dedicated branch and pull request.

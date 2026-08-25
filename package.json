@@ -1,12 +1,10 @@
 {
-  "name": "haihao-aircraft-ubangi-static-v1",
+  "name": "haihao-aircraft-production-line",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "test": "node scripts/validate-static.mjs && node scripts/validate-80-days-static.mjs",
-    "build": "node scripts/build-static.mjs",
-    "validate:80days:references": "node scripts/validate-80-days-references.mjs",
-    "build:80days:count-sheet": "node scripts/build-80-days-count-sheet.mjs"
+    "test": "node scripts/validate.mjs",
+    "build": "node scripts/build.mjs"
   }
 }

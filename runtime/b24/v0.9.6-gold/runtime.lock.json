@@ -1,0 +1,55 @@
+{
+  "schema": "haihao.aircraft/runtime-lock@1.0",
+  "runtimeId": "b24-flight-v0.9.6-gold",
+  "displayName": "B-24 flight runtime v0.9.6 Gold",
+  "sourceFileName": "B24_飞机生产线_v0.9.6_单一土质地面_隐藏大弧航线_投弹机枪版.html",
+  "distribution": {
+    "fileName": "Haihao_B24_Online_Publish_v0.9.6.zip",
+    "bytes": 9455362,
+    "sha256": "3a7e5a311aa12cefbd0db4bd97f5b4162ae43198de19d215debda2e388667bff"
+  },
+  "sourceModel": {
+    "modelId": "b24-liberator-authoritative",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "lockedComponents": {
+    "index.html": {
+      "bytes": 71675,
+      "sha256": "35fac5baeada122c161a36a475cd5573b5a55c2bbf07c3d7b58cb874018eb5cf"
+    },
+    "app.js": {
+      "bytes": 92962,
+      "sha256": "a4470c53e2e6d7971e2c6b201121ca3f913840e205c5ddde39be94ebbeeb73b9"
+    },
+    "styles.css": {
+      "bytes": 8565,
+      "sha256": "8e020d7a0c91dd17013c2ac5bdb6c5b16af31566436370e47670a7deb5f35c1f"
+    },
+    "b24-contract.json": {
+      "bytes": 64109,
+      "sha256": "2184f8c17d94322d1d5a73f0bd6e75d2d3d972bf7e58a0e1fb83ce5ff8d854f8"
+    },
+    "b24-runtime-strong-constraints.v1.5.json": {
+      "bytes": 26570,
+      "sha256": "977d736c082d8bf76b2600f688595e56fb9b897a668379087cd2c45743ad790d"
+    }
+  },
+  "behaviorContract": {
+    "flightPhases": 23,
+    "ground": "single-compacted-earth",
+    "route": "hidden-large-arc",
+    "aircraftHeadingFollowsRouteTangent": true,
+    "takeoffLandingPreserved": true,
+    "propellers": "source-animation-channels",
+    "landingGear": "verified-endpoints",
+    "combatEffects": ["bombing", "machine-gun"],
+    "geometryMutationAllowed": false,
+    "runtimeLogicMutationAllowed": false
+  },
+  "repositoryMaterialization": {
+    "status": "pending-import",
+    "requiredPath": "runtime/b24/v0.9.6-gold/source/",
+    "acceptance": "Every imported file must match this lock before the runtime can be marked ready."
+  }
+}
