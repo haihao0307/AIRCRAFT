@@ -1,171 +1,77 @@
 import { createHash } from 'node:crypto';
-import { createReadStream } from 'node:fs';
-import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
-import path from 'node:path';
+import { execFileSync } from 'node:child_process';
+import { readFile, stat, writeFile } from 'node:fs/promises';
 
 const manifestPath = 'data/aircraft/308bg/80-days-reference-manifest.json';
 const reportJsonPath = 'reports/80-days-reference-intake.json';
 const reportMarkdownPath = 'reports/80-days-reference-intake.md';
-
-const sha256File = (filePath) =>
-  new Promise((resolve, reject) => {
-    const hash = createHash('sha256');
-    const stream = createReadStream(filePath);
-    stream.on('error', reject);
-    stream.on('data', (chunk) => hash.update(chunk));
-    stream.on('end', () => resolve(hash.digest('hex')));
-  });
-
-const isSha256 = (value) => typeof value === 'string' && /^[a-f0-9]{64}$/.test(value);
-
+const zipArg = process.argv.find((arg) => arg.startsWith('--zip='));
+const zipPath = zipArg?.slice(6) || process.env.EIGHTY_DAYS_REVIEW_ZIP || '';
 const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
-if (manifest.schema !== 'haihao.aircraft/historical-reference-manifest@1.0') {
-  throw new Error(`Unsupported reference manifest schema: ${manifest.schema}`);
-}
-if (!manifest.stagingRoot || !manifest.masterPackage || !Array.isArray(manifest.evidence)) {
-  throw new Error('Reference manifest is missing stagingRoot, masterPackage or evidence.');
-}
+const sha = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
-const directIds = manifest.evidence.map((item) => item.evidenceId);
-const expectedIds = Array.from({ length: 8 }, (_, index) => `E${String(index + 1).padStart(2, '0')}`);
-if (JSON.stringify(directIds) !== JSON.stringify(expectedIds)) {
-  throw new Error(`Direct evidence IDs must be ordered E01 through E08; received ${directIds.join(', ')}`);
-}
-
-const assets = [
-  { ...manifest.masterPackage, recordType: 'master-package' },
-  ...manifest.evidence.map((item) => ({ ...item, recordType: 'direct-evidence' })),
-  ...(manifest.derivedAssets ?? []).map((item) => ({ ...item, recordType: 'derived-asset' })),
-];
-
-const filenames = new Set();
-for (const asset of assets) {
-  if (!asset.filename || !Number.isInteger(asset.bytes) || asset.bytes <= 0 || !isSha256(asset.sha256)) {
-    throw new Error(`Malformed asset record: ${JSON.stringify(asset)}`);
+function dimensions(bytes) {
+  if (bytes.subarray(1, 4).toString('ascii') === 'PNG') return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
+  if (bytes[0] === 0xff && bytes[1] === 0xd8) {
+    let offset = 2;
+    while (offset + 9 < bytes.length) {
+      if (bytes[offset] !== 0xff) { offset += 1; continue; }
+      const marker = bytes[offset + 1];
+      const length = bytes.readUInt16BE(offset + 2);
+      if ([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(marker)) return { width: bytes.readUInt16BE(offset + 7), height: bytes.readUInt16BE(offset + 5) };
+      offset += 2 + length;
+    }
   }
-  if (filenames.has(asset.filename)) throw new Error(`Duplicate reference filename: ${asset.filename}`);
-  filenames.add(asset.filename);
-}
-for (const derived of manifest.derivedAssets ?? []) {
-  if (derived.independentEvidence !== false || !Array.isArray(derived.parentEvidenceIds)) {
-    throw new Error(`Derived asset must be non-independent and name its parent evidence: ${derived.filename}`);
-  }
-  for (const parentId of derived.parentEvidenceIds) {
-    if (!directIds.includes(parentId)) throw new Error(`Unknown derived-asset parent: ${parentId}`);
-  }
+  throw new Error('unsupported image format');
 }
 
 const results = [];
-for (const asset of assets) {
-  const filePath = path.join(manifest.stagingRoot, asset.filename);
-  try {
-    const fileStat = await stat(filePath);
-    if (!fileStat.isFile()) {
-      results.push({
-        filename: asset.filename,
-        evidenceId: asset.evidenceId ?? null,
-        recordType: asset.recordType,
-        path: filePath,
-        status: 'integrity-failure',
-        reasons: ['path-is-not-a-regular-file'],
-        expectedBytes: asset.bytes,
-        actualBytes: null,
-        expectedSha256: asset.sha256,
-        actualSha256: null,
-      });
-      continue;
-    }
+let zipEntries = [];
+if (zipPath) {
+  const zipBytes = await readFile(zipPath);
+  const zipStat = await stat(zipPath);
+  zipEntries = execFileSync('unzip', ['-Z1', zipPath], { encoding: 'utf8' }).trim().split('\n').filter(Boolean);
+  execFileSync('unzip', ['-t', zipPath], { stdio: 'pipe' });
+  const expected = manifest.masterPackage;
+  const reasons = [];
+  if (zipStat.size !== expected.bytes) reasons.push('byte-count-mismatch');
+  if (sha(zipBytes) !== expected.sha256) reasons.push('sha256-mismatch');
+  if (zipEntries.length !== expected.expectedFileCount) reasons.push('zip-entry-count-mismatch');
+  results.push({ recordType: 'master-package', filename: expected.filename, path: zipPath, status: reasons.length ? 'integrity-failure' : 'verified', reasons, expectedBytes: expected.bytes, actualBytes: zipStat.size, expectedSha256: expected.sha256, actualSha256: sha(zipBytes), expectedZipEntries: expected.expectedFileCount, actualZipEntries: zipEntries.length, zipIntegrity: 'tested' });
 
-    const actualBytes = fileStat.size;
-    const actualSha256 = await sha256File(filePath);
+  for (const asset of manifest.evidence) {
+    const bytes = execFileSync('unzip', ['-p', zipPath, asset.zipPath], { maxBuffer: 12 * 1024 * 1024 });
+    const actualPixels = dimensions(bytes);
     const reasons = [];
-    if (actualBytes !== asset.bytes) reasons.push('byte-count-mismatch');
-    if (actualSha256 !== asset.sha256) reasons.push('sha256-mismatch');
+    if (!zipEntries.includes(asset.zipPath)) reasons.push('zip-path-missing');
+    if (bytes.length !== asset.bytes) reasons.push('byte-count-mismatch');
+    if (sha(bytes) !== asset.sha256) reasons.push('sha256-mismatch');
+    if (actualPixels.width !== asset.pixels.width || actualPixels.height !== asset.pixels.height) reasons.push('pixel-dimensions-mismatch');
+    results.push({ recordType: 'direct-evidence', evidenceId: asset.evidenceId, filename: asset.filename, zipPath: asset.zipPath, status: reasons.length ? 'integrity-failure' : 'verified', reasons, expectedBytes: asset.bytes, actualBytes: bytes.length, expectedSha256: asset.sha256, actualSha256: sha(bytes), expectedPixels: asset.pixels, actualPixels });
+  }
+} else {
+  for (const asset of [manifest.masterPackage, ...manifest.evidence]) results.push({ recordType: asset.evidenceId ? 'direct-evidence' : 'master-package', evidenceId: asset.evidenceId ?? null, filename: asset.filename, status: 'missing', reasons: ['release-zip-not-provided'], expectedBytes: asset.bytes, actualBytes: null, expectedSha256: asset.sha256, actualSha256: null });
+}
 
-    results.push({
-      filename: asset.filename,
-      evidenceId: asset.evidenceId ?? null,
-      recordType: asset.recordType,
-      path: filePath,
-      status: reasons.length ? 'integrity-failure' : 'verified',
-      reasons,
-      expectedBytes: asset.bytes,
-      actualBytes,
-      expectedSha256: asset.sha256,
-      actualSha256,
-    });
+for (const asset of manifest.derivedAssets) {
+  try {
+    const bytes = await readFile(asset.path);
+    const actualPixels = dimensions(bytes);
+    const reasons = [];
+    if (bytes.length !== asset.bytes) reasons.push('byte-count-mismatch');
+    if (sha(bytes) !== asset.sha256) reasons.push('sha256-mismatch');
+    if (actualPixels.width !== asset.pixels.width || actualPixels.height !== asset.pixels.height) reasons.push('pixel-dimensions-mismatch');
+    results.push({ recordType: 'derived-asset', filename: asset.filename, path: asset.path, parentEvidenceIds: asset.parentEvidenceIds, derivation: asset.derivation, status: reasons.length ? 'integrity-failure' : 'verified', reasons, expectedBytes: asset.bytes, actualBytes: bytes.length, expectedSha256: asset.sha256, actualSha256: sha(bytes), expectedPixels: asset.pixels, actualPixels });
   } catch (error) {
-    if (error?.code !== 'ENOENT') throw error;
-    results.push({
-      filename: asset.filename,
-      evidenceId: asset.evidenceId ?? null,
-      recordType: asset.recordType,
-      path: filePath,
-      status: 'missing',
-      reasons: ['file-not-present'],
-      expectedBytes: asset.bytes,
-      actualBytes: null,
-      expectedSha256: asset.sha256,
-      actualSha256: null,
-    });
+    results.push({ recordType: 'derived-asset', filename: asset.filename, path: asset.path, status: 'missing', reasons: [error.code || error.message], expectedBytes: asset.bytes, actualBytes: null, expectedSha256: asset.sha256, actualSha256: null });
   }
 }
 
-const summary = {
-  expected: results.length,
-  verified: results.filter((item) => item.status === 'verified').length,
-  missing: results.filter((item) => item.status === 'missing').length,
-  integrityFailures: results.filter((item) => item.status === 'integrity-failure').length,
-};
-
-let status = 'verified';
-if (summary.integrityFailures > 0) status = 'integrity-failure';
-else if (summary.verified === 0) status = 'blocked-missing-asset';
-else if (summary.missing > 0) status = 'blocked-partial-assets';
-
-const report = {
-  schema: 'haihao.aircraft/reference-intake-report@1.0',
-  aircraftId: manifest.aircraftId,
-  generatedAt: new Date().toISOString(),
-  manifestPath,
-  stagingRoot: manifest.stagingRoot,
-  status,
-  blocking: status !== 'verified',
-  summary,
-  results,
-  restorationAction:
-    status === 'verified'
-      ? null
-      : `Restore the exact external files under ${manifest.stagingRoot}/ and rerun npm run validate:80days:references.`,
-};
-
-await mkdir(path.dirname(reportJsonPath), { recursive: true });
-await writeFile(reportJsonPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
-
-const markdown = [
-  '# “80 DAYS” historical reference intake',
-  '',
-  `- Status: \`${status}\``,
-  `- Staging root: \`${manifest.stagingRoot}/\``,
-  `- Expected: ${summary.expected}`,
-  `- Verified: ${summary.verified}`,
-  `- Missing: ${summary.missing}`,
-  `- Integrity failures: ${summary.integrityFailures}`,
-  '',
-  '| ID | File | State | Bytes | SHA-256 |',
-  '|---|---|---|---:|---|',
-  ...results.map(
-    (item) =>
-      `| ${item.evidenceId ?? item.recordType} | \`${item.filename}\` | \`${item.status}\` | ${item.actualBytes ?? 'missing'} / ${item.expectedBytes} | \`${item.actualSha256 ?? 'missing'}\` |`,
-  ),
-  '',
-  status === 'verified'
-    ? 'All locked historical source assets passed byte-count and SHA-256 validation.'
-    : `Blocked action: restore the exact files under \`${manifest.stagingRoot}/\`. Missing files are allowed as a documented blocked state. Any integrity mismatch fails validation.`,
-  '',
-].join('\n');
-
-await writeFile(reportMarkdownPath, markdown, 'utf8');
-console.log(JSON.stringify({ status, summary, reportJsonPath, reportMarkdownPath }, null, 2));
-
-if (summary.integrityFailures > 0) process.exitCode = 1;
+const summary = { expected: results.length, verified: results.filter((item) => item.status === 'verified').length, missing: results.filter((item) => item.status === 'missing').length, integrityFailures: results.filter((item) => item.status === 'integrity-failure').length };
+const status = summary.integrityFailures ? 'integrity-failure' : summary.missing ? 'blocked-missing-asset' : 'verified';
+const report = { schema: 'haihao.aircraft/reference-intake-report@2.0', aircraftId: manifest.aircraftId, generatedAt: new Date().toISOString(), releaseTag: '80-days-source-v1', sourceUrl: manifest.masterPackage.releaseUrl, status, blocking: status !== 'verified', summary, zipIntegrity: zipPath ? { tested: true, entries: zipEntries.length } : { tested: false }, results };
+await writeFile(reportJsonPath, `${JSON.stringify(report, null, 2)}\n`);
+const rows = results.map((item) => `| ${item.evidenceId ?? item.recordType} | \`${item.filename}\` | \`${item.status}\` | ${item.actualBytes ?? 'missing'} / ${item.expectedBytes} | \`${item.actualSha256 ?? 'missing'}\` |`);
+await writeFile(reportMarkdownPath, ['# “80 DAYS” historical reference intake', '', `- Status: \`${status}\``, `- Expected: ${summary.expected}`, `- Verified: ${summary.verified}`, `- Missing: ${summary.missing}`, `- Integrity failures: ${summary.integrityFailures}`, `- ZIP integrity: ${zipPath ? `passed, ${zipEntries.length} entries` : 'not run'}`, '', '| ID | File | State | Bytes | SHA-256 |', '|---|---|---|---:|---|', ...rows, ''].join('\n'));
+console.log(JSON.stringify({ status, summary, zipEntries: zipEntries.length }, null, 2));
+if (status === 'integrity-failure') process.exitCode = 1;

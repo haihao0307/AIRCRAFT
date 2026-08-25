@@ -1,0 +1,27 @@
+{
+  "schema": "haihao.aircraft/texture-master-review-status@1.0",
+  "aircraftId": "308bg_374bs_42-73257_80-days",
+  "page": "80-days-texture-master-v2.html",
+  "status": "ready-for-upstream-visual-review",
+  "visualAcceptance": "review-required",
+  "modelBinding": "not-started-by-design",
+  "supportedResolutions": [2048, 4096, 8192],
+  "browserQA": {
+    "ready": true,
+    "consoleErrors": 0,
+    "pageErrors": 0,
+    "requestFailures": 0,
+    "sameOriginPayloadRequests": 5
+  },
+  "historicalGates": {
+    "portStarboardIndependent": true,
+    "stamStarboardOnly": true,
+    "starboardVictoryFlags": 8,
+    "portVictoryFlags": 0,
+    "bombMarkCount": null,
+    "bombMarksRendered": false,
+    "legacySourceMarksRendered": false,
+    "inferredBattleDamageSeparated": true
+  },
+  "nextAuthorizedStage": "Only after user approval: build true LiveryUV triangle-corner mapping and bind approved PBR maps to the authoritative aircraft model."
+}

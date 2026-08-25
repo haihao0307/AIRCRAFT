@@ -1,0 +1,114 @@
+{
+  "schema": "haihao.aircraft/80-days-texture-master@2.0",
+  "aircraft": {
+    "variant": "B-24J-25-CO",
+    "name": "“80 DAYS”",
+    "serial": "42-73257",
+    "aircraftNumber": "487",
+    "unit": "308th Bomb Group / 374th Bomb Squadron",
+    "theater": "China 1944"
+  },
+  "status": "review-master-v2",
+  "modelBinding": "not-started-by-design",
+  "visualAcceptance": "review-required",
+  "sourceModel": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "referencePackage": {
+    "file": "374BS_80_DAYS_review_pack_v2.zip",
+    "bytes": 44303171,
+    "sha256": "23428c52faf5f65d1fa97bf1402c9c4f8a3b721581ee6ba807a2ebe1cf52baee",
+    "evidenceIds": [
+      "E01",
+      "E02",
+      "E03",
+      "E04",
+      "E05",
+      "E06",
+      "E07",
+      "E08"
+    ]
+  },
+  "atlas": {
+    "reviewResolutions": [
+      2048,
+      4096,
+      8192
+    ],
+    "layout": [
+      "port-fuselage",
+      "starboard-fuselage",
+      "port-fixed-fin",
+      "starboard-fixed-fin",
+      "port-nose-high-density",
+      "starboard-nose-high-density"
+    ],
+    "channels": [
+      "baseColor",
+      "normalOpenGL",
+      "roughness",
+      "height",
+      "ambientOcclusion",
+      "metallic",
+      "decalMask",
+      "classificationId",
+      "liveryUVReview"
+    ]
+  },
+  "historicalRules": {
+    "portAndStarboardIndependent": true,
+    "stam": {
+      "side": "starboard",
+      "anchor": "directly-below-upper-rectangular-window",
+      "portCount": 0
+    },
+    "victoryFlags": {
+      "starboard": 8,
+      "port": 0,
+      "source": "E01"
+    },
+    "bombMarks": {
+      "count": null,
+      "status": "blocked-count",
+      "rendered": false
+    },
+    "finMarks": [
+      "273257",
+      "487",
+      "white-triangle"
+    ],
+    "sourceLegacyMarksRendered": false
+  },
+  "layers": {
+    "photoConfirmed": [
+      "aircraft-name",
+      "dice",
+      "shark-mouth",
+      "ROBBY-port",
+      "HUFF-port",
+      "STAM-starboard",
+      "victory-flags-starboard",
+      "fixed-fin-marks"
+    ],
+    "structuralReview": [
+      "windows-exclusion",
+      "panel-seams",
+      "rivet-lines",
+      "inspection-hatches",
+      "paint-boundary"
+    ],
+    "materialReview": [
+      "fading",
+      "grime",
+      "oil-streaks",
+      "chipping",
+      "bare-metal"
+    ],
+    "inferred": [
+      "battle-damage-repair-layer"
+    ]
+  },
+  "bindingGate": "User approval of the complete texture master is required before LiveryUV corner mapping or material binding begins."
+}

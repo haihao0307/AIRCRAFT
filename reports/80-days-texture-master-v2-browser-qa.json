@@ -1,0 +1,56 @@
+{
+  "schema": "haihao.aircraft/browser-qa@1.0",
+  "page": "80-days-texture-master-v2.html",
+  "testedMode": "same-origin-gzip-payload-loader-and-inline-master",
+  "testedPreviewResolution": 2048,
+  "supportedReviewResolutions": [
+    2048,
+    4096,
+    8192
+  ],
+  "browser": "Chromium headless",
+  "ready": true,
+  "consoleErrors": 0,
+  "pageErrors": 0,
+  "requestFailures": 0,
+  "networkDependencies": 5,
+  "checks": {
+    "exactAircraftIdentityVisible": true,
+    "portAndStarboardSeparate": true,
+    "stamStarboardOnlyRuleVisible": true,
+    "victoryFlagsStarboardEightRuleVisible": true,
+    "bombMarksBlockedAndAbsent": true,
+    "finMarks273257487TriangleVisible": true,
+    "sourceLegacyMarksAbsentFromMaster": true,
+    "windowsPanelSeamsRivetsAndHatchesRendered": true,
+    "inferredBattleDamageIsSeparateToggle": true,
+    "modelBindingNotStarted": true,
+    "pbrChannelControlsPresent": true,
+    "parameterControlsRespond": true
+  },
+  "visualAcceptance": "review-required",
+  "nextGate": "user approval of the complete texture master before LiveryUV triangle-corner binding",
+  "delivery": {
+    "loader": "80-days-texture-master-v2.html",
+    "payloadParts": 5,
+    "payloadEncoding": "base64(gzip(html))",
+    "decompressedBytes": 79811,
+    "decompressedSha256": "7220e91233abdfad24ac43df4e17a9b5c3afa39a257cec729bb46f2fb5a20d6b",
+    "sameOriginOnly": true,
+    "overviewScreenshot": {
+      "localAuditSha256": "0bb29666742536c200f0cd97e7b9e0571944529f2578e04e3bc64ab7aad2786f",
+      "repositoryStatus": "deferred-to-actions-artifact"
+    },
+    "loaderBrowserQA": {
+      "status": "pass",
+      "method": "Chromium route-intercepted same-origin payload test",
+      "payloadRequests": 5,
+      "consoleErrors": 0,
+      "pageErrors": 0,
+      "loadedTitle": "B-24 “80 DAYS” 8K 涂装母版 V2",
+      "masterUIVisible": true
+    }
+  },
+  "externalNetworkDependencies": 0,
+  "sameOriginPayloadRequests": 5
+}

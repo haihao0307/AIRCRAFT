@@ -89,7 +89,7 @@ if (activeState.countSourceMode !== 'single-state-only') {
 if (activeState.victoryFlagCount !== 8 || JSON.stringify(activeState.victoryFlagCountEvidence) !== '["E01"]') {
   throw new Error('The provisional eight-victory-flag record must remain sourced only to E01.');
 }
-if (activeState.bombMarkCount !== null || activeState.bombMarkStatus !== 'requires-annotated-count') {
+if (activeState.bombMarkCount !== null || activeState.bombMarkStatus !== 'blocked-count') {
   throw new Error('Bomb count must remain unresolved until reviewer annotation.');
 }
 for (const state of missionStates.states) {
@@ -116,7 +116,7 @@ for (const marker of [
   '42-73257',
   'Aircraft No. 487',
   '80days-E03-placement-v1',
-  'blocked-missing-asset',
+  'verified intake',
   'STAM',
   'starboard only',
   'one colored japanese victory flag',
@@ -129,8 +129,8 @@ if (statusPage.includes('<canvas') || statusPage.includes('three.module') || sta
   throw new Error('The historical status page must not render a substitute aircraft.');
 }
 
-if (intakeReport.aircraftId !== manifest.aircraftId || intakeReport.status !== 'blocked-missing-asset') {
-  throw new Error('Committed intake report must expose the expected blocked state.');
+if (intakeReport.aircraftId !== manifest.aircraftId || intakeReport.status !== 'verified') {
+  throw new Error('Committed intake report must expose the verified state.');
 }
 if (intakeReport.summary?.expected !== 10 || intakeReport.summary?.integrityFailures !== 0) {
   throw new Error('Committed intake report summary is inconsistent with the locked inventory.');
@@ -138,8 +138,8 @@ if (intakeReport.summary?.expected !== 10 || intakeReport.summary?.integrityFail
 if (countSheet.missionStateId !== activeState.missionStateId) {
   throw new Error('Count sheet does not target the active mission state.');
 }
-if (countSheet.status !== 'blocked-missing-asset' || countSheet.bombMarkCount !== null) {
-  throw new Error('Committed count sheet must remain blocked with an unresolved bomb count.');
+if (countSheet.status !== 'review-required' || countSheet.bombMarkCount !== null || countSheet.bombMarkCountStatus !== 'blocked-count') {
+  throw new Error('Committed count sheet must remain review-gated with an unresolved bomb count.');
 }
 
 console.log(JSON.stringify({

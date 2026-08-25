@@ -1,0 +1,23 @@
+{
+  "schema": "haihao.aircraft/release-materialization@1.0",
+  "createdAt": "2026-08-25T01:35:09.190273+00:00",
+  "releaseTag": "80-days-source-v1",
+  "model": {
+    "path": "public/assets/model/b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "sameOriginBrowserUrl": "./assets/model/b-24_liberator.glb"
+  },
+  "reviewPackage": {
+    "verifiedInWorkflow": true,
+    "bytes": 44303171,
+    "sha256": "23428c52faf5f65d1fa97bf1402c9c4f8a3b721581ee6ba807a2ebe1cf52baee",
+    "committedToRepository": false,
+    "reason": "kept as the authoritative Release source package; workflow verified archive integrity"
+  },
+  "corsRepair": {
+    "previousMode": "cross-origin GitHub Release fetch",
+    "currentMode": "same-origin static asset fetch",
+    "workbench": "public/80-days-livery-workbench.html"
+  }
+}

@@ -1,0 +1,89 @@
+name: Validate 80 DAYS real-model workbench
+
+on:
+  push:
+    branches:
+      - feature/b24-80days-livery-production-v1
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 80-days-workbench-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install texture renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
+      - name: Static validation and build
+        run: |
+          curl --fail --location --retry 5 --retry-all-errors --retry-delay 2 --output "$RUNNER_TEMP/374BS_80_DAYS_review_pack_v2.zip" \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/374BS_80_DAYS_review_pack_v2.zip
+          node scripts/validate-80-days-references.mjs \
+            --zip="$RUNNER_TEMP/374BS_80_DAYS_review_pack_v2.zip"
+          npm run build:80days:model-audit
+          npm run build:80days:pbr
+          npm test
+          npm run build
+      - name: Install Chromium QA runtime
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Run real-model browser QA
+        run: |
+          python tools/80_days_browser_qa.py \
+            --site dist \
+            --report reports/80-days-browser-qa.json \
+            --screenshots qa/80-days
+      - name: Materialize raw preview assets on the PR branch
+        if: success() && github.event_name == 'push' && github.actor != 'github-actions[bot]'
+        run: |
+          mkdir -p public/assets/livery/80-days/traces
+          mkdir -p public/assets/livery/80-days/reference-derived
+          cp -R assets/livery/80-days/traces/. public/assets/livery/80-days/traces/
+          cp -R assets/livery/80-days/reference-derived/. public/assets/livery/80-days/reference-derived/
+          cp assets/livery/80-days/review-layer-v1.json public/assets/livery/80-days/review-layer-v1.json
+          cp assets/livery/80-days/victory-flags-e01.annotations.json public/assets/livery/80-days/victory-flags-e01.annotations.json
+          cp assets/livery/80-days/bomb-count-review.json public/assets/livery/80-days/bomb-count-review.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f \
+            public/assets/model/b-24_liberator_80days-liveryuv-v1.glb \
+            public/assets/livery/80-days
+          if git diff --cached --quiet; then
+            echo "Generated preview assets are already current."
+            exit 0
+          fi
+          git commit -m "build: publish 80 DAYS preview assets [skip ci]"
+          git push origin HEAD:feature/b24-80days-livery-production-v1
+      - name: Upload review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 80-days-real-model-${{ github.sha }}-${{ github.run_attempt }}
+          path: |
+            reports/80-days-browser-qa.json
+            reports/80-days-reference-intake.json
+            reports/80-days-model-mesh-audit.json
+            reports/80-days-liveryuv-qa.json
+            reports/80-days-liveryuv-topology-analysis.json
+            reports/80-days-browser-visual-review-run-32811487861.json
+            reports/80-days-pbr-qa.json
+            qa/80-days/*.png
+            dist/**
+          if-no-files-found: error
+          retention-days: 30

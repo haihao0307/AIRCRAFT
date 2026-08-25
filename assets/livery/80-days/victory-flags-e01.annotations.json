@@ -1,0 +1,20 @@
+{
+  "schema": "haihao.aircraft/evidence-annotation@1.0",
+  "evidenceId": "E01",
+  "sourceSha256": "c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5",
+  "sourcePixels": {"width":1332,"height":823},
+  "side": "starboard",
+  "count": 8,
+  "annotations": [
+    {"number":1,"bbox":[687,80,17,18],"visibility":"visible","evidenceCoordinate":{"x":0.5221,"y":0.1081}},
+    {"number":2,"bbox":[709,81,17,18],"visibility":"visible","evidenceCoordinate":{"x":0.5387,"y":0.1094}},
+    {"number":3,"bbox":[731,82,17,18],"visibility":"visible","evidenceCoordinate":{"x":0.5552,"y":0.1106}},
+    {"number":4,"bbox":[753,84,17,18],"visibility":"visible","evidenceCoordinate":{"x":0.5717,"y":0.1130}},
+    {"number":5,"bbox":[775,85,17,18],"visibility":"visible","evidenceCoordinate":{"x":0.5882,"y":0.1142}},
+    {"number":6,"bbox":[797,87,17,18],"visibility":"visible","evidenceCoordinate":{"x":0.6047,"y":0.1166}},
+    {"number":7,"bbox":[819,89,17,18],"visibility":"visible","evidenceCoordinate":{"x":0.6212,"y":0.1191}},
+    {"number":8,"bbox":[841,91,17,18],"visibility":"visible","evidenceCoordinate":{"x":0.6378,"y":0.1215}}
+  ],
+  "portPolicy": "evidence-gated-empty",
+  "reviewStatus": "review-required"
+}

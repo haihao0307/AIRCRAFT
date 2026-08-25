@@ -5,6 +5,7 @@
   "generatedReconstructionBoardsAcceptedAsEvidence": false,
   "masterPackage": {
     "filename": "374BS_80_DAYS_review_pack_v2.zip",
+    "releaseUrl": "https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/374BS_80_DAYS_review_pack_v2.zip",
     "bytes": 44303171,
     "sha256": "23428c52faf5f65d1fa97bf1402c9c4f8a3b721581ee6ba807a2ebe1cf52baee",
     "kind": "review-package",
@@ -161,12 +162,13 @@
   "derivedAssets": [
     {
       "filename": "stam_crop_zoom.png",
+      "path": "assets/livery/80-days/reference-derived/stam_crop_zoom.png",
       "pixels": {
         "width": 720,
         "height": 620
       },
-      "bytes": 343539,
-      "sha256": "2dfdd44a6469f61d41dbe60954ba877effcb18235589bd2f7b5f8d0721839b1d",
+      "bytes": 385065,
+      "sha256": "a84b220ffd3a1a4df1b113ca95757fa5a5d01528aa82708735b76f20f08c4da6",
       "kind": "derived-inspection-crop",
       "parentEvidenceIds": [
         "E03"
@@ -174,7 +176,13 @@
       "principalUse": [
         "STAM-enlarged-inspection"
       ],
-      "independentEvidence": false
+      "independentEvidence": false,
+      "derivation": {
+        "sourceEvidenceId": "E03",
+        "sourceCrop": { "x": 330, "y": 55, "width": 240, "height": 207 },
+        "resize": { "width": 720, "height": 620 },
+        "command": "ImageMagick crop, forced resize, metadata strip"
+      }
     }
   ]
 }
