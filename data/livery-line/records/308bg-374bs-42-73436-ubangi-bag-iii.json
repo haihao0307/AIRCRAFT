@@ -1,0 +1,92 @@
+{
+  "schema": "haihao.livery/historical-record@1.0",
+  "liveryId": "308bg-374bs-42-73436-ubangi-bag-iii",
+  "identity": {
+    "manufacturer": "Consolidated",
+    "aircraftFamily": "B-24 Liberator",
+    "variant": "B-24J-45-CO",
+    "serial": "42-73436",
+    "aircraftNumber": null,
+    "nickname": "UBANGI BAG III",
+    "displayNameZh": "乌班吉号三号机",
+    "identityStatus": "locked-from-current-repository-records"
+  },
+  "organization": {
+    "airForce": "Fourteenth Air Force",
+    "group": "308th Bomb Group",
+    "squadron": "374th Bomb Squadron",
+    "theater": "China Theater",
+    "period": "1944-1945",
+    "organizationStatus": "locked-from-current-repository-records"
+  },
+  "crew": {
+    "crewId": null,
+    "rosterStatus": "research-required",
+    "persons": [],
+    "nameMarkings": [],
+    "researchRule": "The current repository does not yet contain a verified crew roster. Nose art imagery and aircraft identity must not be used to infer person identities."
+  },
+  "events": {
+    "timelineStatus": "research-required",
+    "items": [],
+    "missionStatePolicy": "Mission marks must be counted and dated from one accepted historical state before an export is approved."
+  },
+  "evidence": {
+    "referenceInventory": null,
+    "missionStateRegistry": null,
+    "directEvidenceIds": [],
+    "generatedReconstructionMayProveHistory": false,
+    "currentState": "historical-source-collection-incomplete"
+  },
+  "livery": {
+    "productionState": "v1-pipeline-test-v2-historical-art-required",
+    "sidePolicy": "port-and-starboard-reconstructed-independently",
+    "semanticSurfaceZones": [
+      "port-forward-fuselage",
+      "starboard-forward-fuselage",
+      "mission-symbol-fields",
+      "fixed-vertical-fins"
+    ],
+    "markings": [
+      { "id": "shark-mouth", "description": "Shark mouth nose marking", "state": "historical-review-required" },
+      { "id": "nose-art-figure", "description": "Single nose-art figure associated with the aircraft name", "state": "historical-review-required" },
+      { "id": "title", "description": "UBANGI BAG III aircraft name", "state": "historical-review-required" },
+      { "id": "mission-marks", "description": "Mission and victory symbols", "state": "count-and-placement-review-required" },
+      { "id": "tail-serial", "description": "42-73436", "state": "identity-locked-placement-review-required" }
+    ],
+    "finish": {
+      "upper": "wartime-olive-drab-family-pending-color-review",
+      "lower": "underside-finish-pending-photo-review",
+      "weathering": "China-theater-operational-wear-pending-evidence"
+    }
+  },
+  "export": {
+    "packageSchema": "haihao.livery/package@1.0",
+    "approvalState": "blocked-until-v2-historical-reconstruction-approved",
+    "canonicalSpace": "B-24-family-semantic-airframe-template",
+    "requiredDocuments": [
+      "manifest.json",
+      "identity.json",
+      "organization.json",
+      "crew.json",
+      "events.json",
+      "evidence.json",
+      "markings.json",
+      "mission-state.json",
+      "provenance.json",
+      "checksums.sha256"
+    ],
+    "textureRoles": [
+      "base-color",
+      "normal",
+      "roughness",
+      "height",
+      "ambient-occlusion-optional",
+      "metallic-optional",
+      "editable-marking-masks",
+      "editable-weathering-masks"
+    ],
+    "bindingOwnership": "consumer-aircraft-line",
+    "targetDependencyPolicy": "none-inside-package"
+  }
+}

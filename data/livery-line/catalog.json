@@ -1,0 +1,61 @@
+{
+  "schema": "haihao.livery/catalog@1.0",
+  "lineId": "historical-livery",
+  "displayName": "Historical Livery Production Line",
+  "displayNameZh": "历史涂装生产线",
+  "architecture": "model-agnostic-straight-line",
+  "purpose": "Keep aircraft identity, unit hierarchy, crews, people, events, evidence, markings and exportable texture packages in one independent production line.",
+  "stages": [
+    { "order": 1, "id": "identity", "labelZh": "飞机身份" },
+    { "order": 2, "id": "organization", "labelZh": "部队编制" },
+    { "order": 3, "id": "crew-and-people", "labelZh": "机组与人物" },
+    { "order": 4, "id": "events", "labelZh": "事件与任务" },
+    { "order": 5, "id": "evidence", "labelZh": "照片与证据" },
+    { "order": 6, "id": "reconstruction", "labelZh": "涂装复原" },
+    { "order": 7, "id": "mission-state", "labelZh": "时态冻结" },
+    { "order": 8, "id": "pbr", "labelZh": "贴图与蒙版" },
+    { "order": 9, "id": "historical-qa", "labelZh": "历史验收" },
+    { "order": 10, "id": "package-export", "labelZh": "独立包导出" }
+  ],
+  "records": [
+    {
+      "liveryId": "308bg-374bs-42-73257-80-days",
+      "title": "“80 DAYS”",
+      "displayNameZh": "八十天号",
+      "record": "./records/308bg-374bs-42-73257-80-days.json",
+      "unitLabel": "Fourteenth Air Force · 308th Bomb Group · 374th Bomb Squadron",
+      "status": "evidence-and-mission-state-gated"
+    },
+    {
+      "liveryId": "308bg-374bs-42-73436-ubangi-bag-iii",
+      "title": "UBANGI BAG III",
+      "displayNameZh": "乌班吉号三号机",
+      "record": "./records/308bg-374bs-42-73436-ubangi-bag-iii.json",
+      "unitLabel": "Fourteenth Air Force · 308th Bomb Group · 374th Bomb Squadron",
+      "status": "historical-research-and-v2-art-required"
+    }
+  ],
+  "consumerBoundary": {
+    "packageOwns": [
+      "historical identity",
+      "unit hierarchy",
+      "crew and person records",
+      "event chronology",
+      "evidence provenance",
+      "side-specific markings",
+      "mission-state selections",
+      "decals, masks and PBR texture files",
+      "checksums and approvals"
+    ],
+    "packageExcludes": [
+      "aircraft binary files",
+      "render hierarchy names",
+      "surface geometry",
+      "runtime animation",
+      "target-specific texture coordinates",
+      "target-specific material slots"
+    ],
+    "bindingOwnership": "consumer-aircraft-line",
+    "rule": "The target aircraft supplies its own external binding adapter. The historical livery package remains unchanged."
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "schema": "haihao.livery/historical-record@1.0",
+  "liveryId": "308bg-374bs-42-73257-80-days",
+  "identity": {
+    "manufacturer": "Consolidated",
+    "aircraftFamily": "B-24 Liberator",
+    "variant": "B-24J-25-CO",
+    "serial": "42-73257",
+    "aircraftNumber": "487",
+    "nickname": "“80 DAYS”",
+    "displayNameZh": "八十天号",
+    "identityStatus": "locked-from-current-repository-records"
+  },
+  "organization": {
+    "airForce": "Fourteenth Air Force",
+    "group": "308th Bomb Group",
+    "squadron": "374th Bomb Squadron",
+    "theater": "China Theater",
+    "period": "1944",
+    "organizationStatus": "locked-from-current-repository-records"
+  },
+  "crew": {
+    "crewId": null,
+    "rosterStatus": "research-required",
+    "persons": [],
+    "nameMarkings": [
+      {
+        "text": "ROBBY",
+        "kind": "crew-name-marking",
+        "side": "evidence-specific",
+        "personId": null,
+        "identityStatus": "unresolved"
+      },
+      {
+        "text": "HUFF",
+        "kind": "crew-name-marking",
+        "side": "port-confirmed-starboard-gated",
+        "personId": null,
+        "identityStatus": "unresolved"
+      },
+      {
+        "text": "STAM",
+        "kind": "crew-name-marking",
+        "side": "starboard-only-in-current-evidence",
+        "personId": null,
+        "identityStatus": "unresolved"
+      }
+    ],
+    "researchRule": "A painted name may be recorded before the person's full identity is known, but it must never be promoted into a roster identity without direct evidence."
+  },
+  "events": {
+    "timelineStatus": "research-required",
+    "items": [],
+    "missionStatePolicy": "All victory and mission symbols must come from one photographically supported state. Counts from different dates cannot be combined."
+  },
+  "evidence": {
+    "referenceInventory": "../../aircraft/308bg/80-days-reference-manifest.json",
+    "missionStateRegistry": "../../aircraft/308bg/80-days-mission-states.json",
+    "directEvidenceIds": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08"],
+    "generatedReconstructionMayProveHistory": false,
+    "currentState": "source-assets-and-count-annotation-gated"
+  },
+  "livery": {
+    "productionState": "research-and-layout-gated",
+    "sidePolicy": "port-and-starboard-reconstructed-independently",
+    "semanticSurfaceZones": [
+      "port-forward-fuselage",
+      "starboard-forward-fuselage",
+      "port-mid-fuselage-symbol-field",
+      "starboard-mid-fuselage-symbol-field",
+      "port-fixed-vertical-fin",
+      "starboard-fixed-vertical-fin"
+    ],
+    "markings": [
+      { "id": "title", "description": "White hand-painted “80 DAYS” title including quotation marks", "state": "direct-photo-evidence" },
+      { "id": "dice", "description": "Two white dice with dark pips, reconstructed independently by side", "state": "direct-photo-evidence" },
+      { "id": "shark-mouth", "description": "Shark mouth on both photographed sides", "state": "direct-photo-evidence-color-partly-reconstructed" },
+      { "id": "victory-flags", "description": "Japanese victory flags tied to one selected mission state", "state": "count-state-gated" },
+      { "id": "bomb-marks", "description": "Bomb mission symbols tied to one selected mission state", "state": "annotated-count-required" },
+      { "id": "tail", "description": "273257 above 487 with white triangle", "state": "direct-photo-evidence" }
+    ],
+    "finish": {
+      "upper": "faded-wartime-olive-drab-family",
+      "lower": "aged-neutral-gray-family",
+      "weathering": "heavy-maintained-China-theater-operational-wear"
+    }
+  },
+  "export": {
+    "packageSchema": "haihao.livery/package@1.0",
+    "approvalState": "blocked-until-historical-and-texture-approval",
+    "canonicalSpace": "B-24-family-semantic-airframe-template",
+    "requiredDocuments": [
+      "manifest.json",
+      "identity.json",
+      "organization.json",
+      "crew.json",
+      "events.json",
+      "evidence.json",
+      "markings.json",
+      "mission-state.json",
+      "provenance.json",
+      "checksums.sha256"
+    ],
+    "textureRoles": [
+      "base-color",
+      "normal",
+      "roughness",
+      "height",
+      "ambient-occlusion-optional",
+      "metallic-optional",
+      "editable-marking-masks",
+      "editable-weathering-masks"
+    ],
+    "bindingOwnership": "consumer-aircraft-line",
+    "targetDependencyPolicy": "none-inside-package"
+  }
+}

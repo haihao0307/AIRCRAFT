@@ -1,0 +1,46 @@
+{
+  "schema": "haihao.livery/package@1.0",
+  "liveryId": "replace-with-approved-livery-id",
+  "version": "1.0.0",
+  "approval": {
+    "historical": false,
+    "missionState": false,
+    "texture": false,
+    "export": false
+  },
+  "canonicalSpace": "aircraft-family-semantic-template",
+  "documents": {
+    "identity": "identity.json",
+    "organization": "organization.json",
+    "crew": "crew.json",
+    "events": "events.json",
+    "evidence": "evidence.json",
+    "markings": "markings.json",
+    "missionState": "mission-state.json",
+    "provenance": "provenance.json"
+  },
+  "artwork": {
+    "decals": [],
+    "semanticAnchors": [],
+    "sideSpecific": true
+  },
+  "textures": {
+    "baseColor": null,
+    "normal": null,
+    "roughness": null,
+    "height": null,
+    "ambientOcclusion": null,
+    "metallic": null,
+    "markingMasks": [],
+    "weatheringMasks": []
+  },
+  "integrity": {
+    "checksumFile": "checksums.sha256",
+    "allRequiredFilesPresent": false
+  },
+  "consumerContract": {
+    "bindingOwnership": "consumer-aircraft-line",
+    "requiredSemanticZones": [],
+    "targetDependencyPolicy": "none-inside-package"
+  }
+}

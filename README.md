@@ -30,7 +30,24 @@ The visible V1 livery board is a replaceable pipeline test. It does not claim fi
 
 The source model gate accepts only `b-24_liberator.glb`, exactly `23,085,972` bytes with SHA-256 `541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d`.
 
+## Independent historical livery production line
+
+The repository now defines a second, model-agnostic straight production line for aircraft identity, unit hierarchy, crews, people, events, historical evidence, side-specific artwork, mission states, PBR textures, masks and portable livery packages.
+
+The livery line does not store aircraft binaries, render hierarchy names, geometry, animation, target material slots or target texture coordinates. The aircraft consumer owns an external binding adapter and applies the approved package without modifying its historical record.
+
+Review entry: `livery-production-line.html`
+
+Core files:
+
+- `TASK_009_MODEL_AGNOSTIC_HISTORICAL_LIVERY_LINE.md`
+- `docs/livery-line/README.md`
+- `data/livery-line/catalog.json`
+- `data/livery-line/package-template.json`
+- `schemas/historical-livery-record.schema.json`
+
 ```bash
 npm test
 npm run build
+npm run validate:livery-line
 ```
