@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: 80-days-workbench-${{ github.ref }}
@@ -49,6 +49,27 @@ jobs:
             --site dist \
             --report reports/80-days-browser-qa.json \
             --screenshots qa/80-days
+      - name: Materialize raw preview assets on the PR branch
+        if: success() && github.event_name == 'push' && github.actor != 'github-actions[bot]'
+        run: |
+          mkdir -p public/assets/livery/80-days/traces
+          mkdir -p public/assets/livery/80-days/reference-derived
+          cp -R assets/livery/80-days/traces/. public/assets/livery/80-days/traces/
+          cp -R assets/livery/80-days/reference-derived/. public/assets/livery/80-days/reference-derived/
+          cp assets/livery/80-days/review-layer-v1.json public/assets/livery/80-days/review-layer-v1.json
+          cp assets/livery/80-days/victory-flags-e01.annotations.json public/assets/livery/80-days/victory-flags-e01.annotations.json
+          cp assets/livery/80-days/bomb-count-review.json public/assets/livery/80-days/bomb-count-review.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f \
+            public/assets/model/b-24_liberator_80days-liveryuv-v1.glb \
+            public/assets/livery/80-days
+          if git diff --cached --quiet; then
+            echo "Generated preview assets are already current."
+            exit 0
+          fi
+          git commit -m "build: publish 80 DAYS preview assets [skip ci]"
+          git push origin HEAD:feature/b24-80days-livery-production-v1
       - name: Upload review evidence
         if: always()
         uses: actions/upload-artifact@v4
