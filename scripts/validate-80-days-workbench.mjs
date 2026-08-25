@@ -1,8 +1,12 @@
-import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { readFile, stat } from 'node:fs/promises';
 
 const EXPECTED_SHA = '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d';
 const EXPECTED_BYTES = 23085972;
 const WORKBENCH = 'public/80-days-livery-workbench.html';
+const SAME_ORIGIN_MODEL_URL = './assets/model/b-24_liberator.glb';
+const SAME_ORIGIN_MODEL_FILE = 'public/assets/model/b-24_liberator.glb';
+const RELEASE_MODEL_URL = 'https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb';
 
 const html = await readFile(WORKBENCH, 'utf8');
 const report = JSON.parse(await readFile('reports/80-days-model-compatibility.json', 'utf8'));
@@ -15,7 +19,7 @@ const includes = (source, marker, label) => assert(source.includes(marker), `${l
 
 for (const marker of [
   'B-24J-25-CO “80 DAYS”',
-  'https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb',
+  SAME_ORIGIN_MODEL_URL,
   String(EXPECTED_BYTES),
   EXPECTED_SHA,
   '80days-E03-placement-v1',
@@ -39,7 +43,14 @@ for (const forbidden of [
   'procedural B-24',
   'bombMarkCount: 40',
   'STAM on port',
+  RELEASE_MODEL_URL,
 ]) assert(!html.includes(forbidden), `workbench contains forbidden marker: ${forbidden}`);
+
+const modelStat = await stat(SAME_ORIGIN_MODEL_FILE);
+assert(modelStat.size === EXPECTED_BYTES, `same-origin model byte count changed: ${modelStat.size}`);
+const modelBytes = await readFile(SAME_ORIGIN_MODEL_FILE);
+const modelSha = createHash('sha256').update(modelBytes).digest('hex');
+assert(modelSha === EXPECTED_SHA, `same-origin model SHA-256 changed: ${modelSha}`);
 
 assert(report.source.bytes === EXPECTED_BYTES, 'model compatibility byte lock changed');
 assert(report.source.sha256 === EXPECTED_SHA, 'model compatibility hash lock changed');
@@ -70,7 +81,9 @@ assert(review.maps.finalBakeApproved === false, 'final bake must remain blocked'
 console.log(JSON.stringify({
   ok: true,
   workbench: WORKBENCH,
-  sourceSha256: report.source.sha256,
+  sameOriginModel: SAME_ORIGIN_MODEL_FILE,
+  sourceSha256: modelSha,
+  modelBytes: modelStat.size,
   meshes: report.source.meshes,
   paintCandidates: report.provisionalPaintAllowList.fuselageNodeIds.length + report.provisionalPaintAllowList.fixedFinNodeIds.length,
   markingLayers: review.markings.length,
