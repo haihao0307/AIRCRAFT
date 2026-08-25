@@ -80,7 +80,7 @@ assert(activeState, 'active mission state record missing');
 assert(activeState.victoryFlagCount === 8, 'E01-supported victory-flag count changed');
 assert(activeState.victoryFlagCountEvidence.includes('E01'), 'victory-flag count must cite E01');
 assert(activeState.bombMarkCount === null, 'bomb count must remain unresolved until annotated review');
-assert(activeState.bombMarkStatus === 'requires-annotated-count', 'bomb count status changed');
+assert(activeState.bombMarkStatus === 'blocked-count', 'bomb count status changed');
 assert(activeState.approvedForFinalBake === false, 'final bake must remain blocked');
 assert(activeState.generatedReconstructionBoardsAcceptedAsEvidence === false, 'generated boards cannot become evidence');
 
@@ -134,7 +134,7 @@ const statusPage = await readText('public/80-days-livery-status.html');
 for (const marker of [
   'B-24J-25-CO “80 DAYS”',
   '42-73257',
-  'blocked-missing-asset',
+  'verified',
   '80days-E03-placement-v1',
   'STAM',
   'Final bake: not approved',

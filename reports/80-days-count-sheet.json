@@ -3,19 +3,21 @@
   "aircraftId": "308bg_374bs_42-73257_80-days",
   "missionStateId": "80days-E03-placement-v1",
   "generatedAt": "2026-08-23T19:23:05.884Z",
-  "status": "blocked-missing-asset",
+  "status": "review-required",
   "source": {
     "evidenceId": "E01",
     "filename": "80_Days_China_2_1944.jpg",
-    "path": "source-input/historical/308bg/374bs/80-days/80_Days_China_2_1944.jpg",
+    "path": "374BS_80_DAYS_review_pack_v2.zip::374BS_80_DAYS_review_pack_v2/01_80_DAYS_original/E01_starboard_crew_STAM_mission_marks.jpg",
     "expectedBytes": 690771,
     "expectedSha256": "c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5",
-    "verified": false
+    "verified": true
   },
   "victoryFlagCount": 8,
-  "victoryFlagCountStatus": "historical-record-only-pending-annotation",
+  "victoryFlagCountStatus": "eight-box-annotation-review-required",
   "bombMarkCount": null,
-  "bombMarkCountStatus": "requires-annotated-count",
-  "annotations": [],
-  "restorationAction": "Restore source-input/historical/308bg/374bs/80-days/80_Days_China_2_1944.jpg with the locked byte count and SHA-256, then rerun this command."
+  "bombMarkCountStatus": "blocked-count",
+  "annotations": "assets/livery/80-days/victory-flags-e01.annotations.json",
+  "restorationAction": null,
+  "reviewerApproved": false,
+  "finalBakeApproved": false
 }

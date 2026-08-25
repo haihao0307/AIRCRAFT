@@ -8,6 +8,8 @@
     "build": "node scripts/build-static.mjs",
     "validate:80days:references": "node scripts/validate-80-days-references.mjs",
     "validate:80days:workbench": "node scripts/validate-80-days-workbench.mjs",
-    "build:80days:count-sheet": "node scripts/build-80-days-count-sheet.mjs"
+    "build:80days:count-sheet": "node scripts/build-80-days-count-sheet.mjs",
+    "build:80days:model-audit": "node scripts/build-80-days-model-audit.mjs",
+    "build:80days:pbr": "node scripts/build-80-days-pbr.mjs"
   }
 }

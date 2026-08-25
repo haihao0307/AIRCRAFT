@@ -27,6 +27,12 @@ jobs:
           python-version: '3.12'
       - name: Static validation and build
         run: |
+          curl --fail --location --retry 5 --output "$RUNNER_TEMP/374BS_80_DAYS_review_pack_v2.zip" \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/374BS_80_DAYS_review_pack_v2.zip
+          node scripts/validate-80-days-references.mjs \
+            --zip="$RUNNER_TEMP/374BS_80_DAYS_review_pack_v2.zip"
+          npm run build:80days:model-audit
+          npm run build:80days:pbr
           npm test
           npm run build
       - name: Install Chromium QA runtime
@@ -46,6 +52,10 @@ jobs:
           name: 80-days-real-model-${{ github.sha }}-${{ github.run_attempt }}
           path: |
             reports/80-days-browser-qa.json
+            reports/80-days-reference-intake.json
+            reports/80-days-model-mesh-audit.json
+            reports/80-days-liveryuv-qa.json
+            reports/80-days-pbr-qa.json
             qa/80-days/*.png
           if-no-files-found: error
           retention-days: 30

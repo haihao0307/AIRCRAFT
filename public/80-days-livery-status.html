@@ -34,7 +34,7 @@
     <h1>B-24J-25-CO “80 DAYS”</h1>
     <p>Historical livery intake status for serial <strong>42-73257</strong>, Aircraft No. 487, 308th Bomb Group, 374th Bomb Squadron, Fourteenth Air Force, China, 1944.</p>
     <div class="identity">
-      <span class="state">blocked-missing-asset</span>
+      <span class="state">verified intake · visual review required</span>
       <span class="chip">Mission state: 80days-E03-placement-v1</span>
       <span class="chip">Fuselage and fixed fins only</span>
       <span class="chip">Final bake: not approved</span>
@@ -45,7 +45,7 @@
   <section class="grid">
     <article class="card">
       <h2>External asset intake</h2>
-      <p>The reference manifest expects ten exact external files under <code>source-input/historical/308bg/374bs/80-days/</code>. Missing files create a documented blocked state. A present file with the wrong byte count or SHA-256 fails validation.</p>
+      <p>The Release ZIP and its eight E01–E08 members passed filename, byte, pixel-dimension and SHA-256 checks. The E03 STAM crop is a reproducible derivative with an independently locked SHA. The ten-record intake is verified.</p>
       <div class="metric">
         <div><b>10</b><span>expected</span></div>
         <div><b>0</b><span>verified</span></div>
@@ -131,8 +131,8 @@
             <tr><td>Historical files</td><td class="blocked">Blocked</td><td>Restore all exact assets and pass byte and SHA-256 validation.</td></tr>
             <tr><td>Symbol count sheet</td><td class="blocked">Blocked</td><td>Reviewer boxes and approves each flag and bomb on accepted E01.</td></tr>
             <tr><td>Authoritative model</td><td class="blocked">Blocked</td><td>Locked GLB must pass size, hash, inventory and B-24J-25-CO compatibility audit.</td></tr>
-            <tr><td>LiveryUV</td><td class="blocked">Pending</td><td>Preserve original UV. Add a non-destructive LiveryUV only to approved fuselage and fixed-fin paint surfaces.</td></tr>
-            <tr><td>PBR maps</td><td class="blocked">Pending</td><td>Base Color, Normal, Roughness, Height or Displacement, AO when supported, and editable masks must pass review.</td></tr>
+            <tr><td>LiveryUV</td><td class="blocked">Review required</td><td>TEXCOORD_1 exists only on the six fuselage and two fixed-fin candidates. Geometry and animation inventories are unchanged. Stretch and texel-density approval remains open.</td></tr>
+            <tr><td>PBR maps</td><td class="blocked">Review required</td><td>8K Base Color and decal mask plus 4K OpenGL Normal, Roughness, Height, AO, Metallic and ID files are wired to TEXCOORD_1. Visual surface review remains open.</td></tr>
             <tr><td>Historical visual approval</td><td class="blocked">Pending</td><td>Approve separate port and starboard placement, surface wear, rivets, panel seams and one selected mission state.</td></tr>
           </tbody>
         </table>

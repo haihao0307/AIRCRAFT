@@ -24,6 +24,12 @@ await cp(
   'public/assets/model/b-24_liberator.glb',
   'dist/assets/model/b-24_liberator.glb',
 );
+await cp(
+  'public/assets/model/b-24_liberator_80days-liveryuv-v1.glb',
+  'dist/assets/model/b-24_liberator_80days-liveryuv-v1.glb',
+);
+await mkdir('dist/assets/livery/80-days', { recursive: true });
+await cp('public/assets/livery/80-days', 'dist/assets/livery/80-days', { recursive: true });
 
 console.log('Built authoritative B-24 static production site in dist/.');
 console.log('Published the “80 DAYS” evidence status and real-model livery workbench.');

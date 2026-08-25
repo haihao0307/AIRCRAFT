@@ -1,0 +1,58 @@
+{
+  "schema": "haihao.aircraft/liveryuv-qa@1.0",
+  "generatedAt": "2026-08-25T04:35:07.717Z",
+  "source": {
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "derived": {
+    "path": "public/assets/model/b-24_liberator_80days-liveryuv-v1.glb",
+    "bytes": 23789148,
+    "sha256": "9f1b4efd5da75efee1dddbec1d06b1ad00dfb78dfb8c957a1faecaff23edad1a"
+  },
+  "uvSet": {
+    "gltfSemantic": "TEXCOORD_1",
+    "blenderName": "LiveryUV",
+    "allowedNodes": [
+      719,
+      744,
+      1654,
+      1666,
+      1678,
+      1714,
+      1747,
+      1760
+    ],
+    "primitives": 8,
+    "excludedMeshUv1Count": 0,
+    "mirrored": false,
+    "overlap": {
+      "crossNodeAtlasOverlap": 0,
+      "sideIslandOverlap": 0
+    },
+    "paddingNormalized": 0.006,
+    "layout": "eight node columns; unique port and starboard half-height islands",
+    "stretchStatus": "review-required",
+    "texelDensityStatus": "reported-by-node-planar-normalization",
+    "seams": "x=0 side split plus node boundaries"
+  },
+  "geometryInvariance": {
+    "positionsNormalsIndices": "byte-decoded hashes unchanged",
+    "attributeHashRecords": 1044,
+    "nodes": 1784,
+    "meshes": 348,
+    "triangles": 325358,
+    "animations": 1,
+    "animationChannels": 2518,
+    "expected": {
+      "nodes": 1784,
+      "meshes": 348,
+      "triangles": 325358,
+      "animations": 1,
+      "animationChannels": 2518
+    },
+    "passed": true
+  },
+  "reviewStatus": "review-required",
+  "finalLiveryUVApproved": false
+}

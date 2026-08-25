@@ -51,15 +51,14 @@
         "E01"
       ],
       "bombMarkCount": null,
-      "bombMarkStatus": "requires-annotated-count",
+      "bombMarkStatus": "blocked-count",
       "bombMarkCountEvidence": [],
       "generatedReconstructionBoardsAcceptedAsEvidence": false,
       "approvedForFinalBake": false,
       "approvalBlockers": [
-        "accepted-external-assets-not-yet-intaken",
         "bomb-mark-count-not-reviewed",
-        "authoritative-model-variant-audit-pending",
-        "LiveryUV-audit-pending",
+        "eight-node-surface-mask-review-required",
+        "LiveryUV-stretch-and-texel-density-review-required",
         "historical-visual-approval-pending"
       ]
     }
