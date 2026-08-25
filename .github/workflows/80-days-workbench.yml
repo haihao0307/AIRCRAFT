@@ -25,6 +25,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install texture renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
       - name: Static validation and build
         run: |
           curl --fail --location --retry 5 --output "$RUNNER_TEMP/374BS_80_DAYS_review_pack_v2.zip" \
