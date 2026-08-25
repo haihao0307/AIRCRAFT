@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://haihao.example/schemas/historical-livery-record.schema.json",
+  "title": "Haihao model-agnostic historical livery record",
+  "type": "object",
+  "required": [
+    "schema",
+    "liveryId",
+    "identity",
+    "organization",
+    "crew",
+    "events",
+    "evidence",
+    "livery",
+    "export"
+  ],
+  "properties": {
+    "schema": { "const": "haihao.livery/historical-record@1.0" },
+    "liveryId": { "type": "string", "minLength": 8 },
+    "identity": {
+      "type": "object",
+      "required": ["aircraftFamily", "variant", "serial", "nickname", "identityStatus"],
+      "properties": {
+        "manufacturer": { "type": ["string", "null"] },
+        "aircraftFamily": { "type": "string" },
+        "variant": { "type": "string" },
+        "serial": { "type": "string" },
+        "aircraftNumber": { "type": ["string", "null"] },
+        "nickname": { "type": "string" },
+        "displayNameZh": { "type": ["string", "null"] },
+        "identityStatus": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "organization": {
+      "type": "object",
+      "required": ["airForce", "group", "squadron", "theater", "period", "organizationStatus"],
+      "additionalProperties": true
+    },
+    "crew": {
+      "type": "object",
+      "required": ["rosterStatus", "persons", "nameMarkings", "researchRule"],
+      "properties": {
+        "crewId": { "type": ["string", "null"] },
+        "rosterStatus": { "type": "string" },
+        "persons": { "type": "array" },
+        "nameMarkings": { "type": "array" },
+        "researchRule": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "events": {
+      "type": "object",
+      "required": ["timelineStatus", "items", "missionStatePolicy"],
+      "properties": {
+        "timelineStatus": { "type": "string" },
+        "items": { "type": "array" },
+        "missionStatePolicy": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["generatedReconstructionMayProveHistory", "currentState"],
+      "additionalProperties": true
+    },
+    "livery": {
+      "type": "object",
+      "required": ["productionState", "sidePolicy", "semanticSurfaceZones", "markings", "finish"],
+      "additionalProperties": true
+    },
+    "export": {
+      "type": "object",
+      "required": [
+        "packageSchema",
+        "approvalState",
+        "canonicalSpace",
+        "requiredDocuments",
+        "textureRoles",
+        "bindingOwnership",
+        "targetDependencyPolicy"
+      ],
+      "properties": {
+        "packageSchema": { "const": "haihao.livery/package@1.0" },
+        "bindingOwnership": { "const": "consumer-aircraft-line" },
+        "targetDependencyPolicy": { "const": "none-inside-package" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true,
+  "$comment": "Repository validation additionally rejects target-specific binary, hierarchy, geometry, texture-coordinate and material-slot keys anywhere under data/livery-line."
+}

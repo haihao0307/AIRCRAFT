@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="B-24 权威原模型炮塔整合修正状态" />
-  <title>B-24 权威原模型炮塔整合 · 修正中</title>
+  <meta name="description" content="B-24 权威原模型炮塔整合修正状态与独立历史涂装生产线" />
+  <title>HAIHAO 飞机生产线</title>
   <style>
     :root{font-family:Inter,"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;color-scheme:dark;background:#0a0f13;color:#eee8da}
-    *{box-sizing:border-box}html,body{height:100%;margin:0}body{display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 28%,#263943,#0a0f13 68%)}
-    main{width:min(880px,100%);padding:30px;border:1px solid #334650;border-radius:18px;background:#111a20;box-shadow:0 26px 80px #0008}
-    small{color:#d0ab63;font-weight:700;letter-spacing:.12em}h1{margin:9px 0 14px;color:#e8c47d;font-size:clamp(27px,4vw,42px)}p{color:#b8c4c9;line-height:1.75}.state{display:inline-block;margin:5px 0 18px;padding:7px 11px;border:1px solid #bd743f;border-radius:999px;background:#61361d66;color:#f2b989;font-size:12px;font-weight:700;letter-spacing:.05em}.lock{margin:18px 0;padding:16px;border-left:3px solid #d0ab63;background:#302819;color:#efd7a5;line-height:1.75}.lock code{word-break:break-all;color:#9ed5f5}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}.card{padding:13px;border:1px solid #30404a;border-radius:10px;background:#172128}.card b{display:block;color:#ded4bd;margin-bottom:5px}.card span{font-size:12px;color:#91a2aa;line-height:1.5}.links{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}a{padding:10px 14px;border:1px solid #52656f;border-radius:999px;color:#dce7eb;text-decoration:none;background:#1c2930}a.primary{border-color:#d0ab63;background:#59431f;color:#ffe1a5}@media(max-width:650px){.grid{grid-template-columns:1fr}main{padding:22px}}
+    *{box-sizing:border-box}html,body{min-height:100%;margin:0}body{display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 18%,#263943,#0a0f13 70%)}
+    main{width:min(1040px,100%);padding:30px;border:1px solid #334650;border-radius:18px;background:#111a20;box-shadow:0 26px 80px #0008}
+    small{color:#d0ab63;font-weight:700;letter-spacing:.12em}h1{margin:9px 0 14px;color:#e8c47d;font-size:clamp(27px,4vw,42px)}h2{margin:5px 0 10px;color:#ead7ac;font-size:clamp(21px,3vw,30px)}p{color:#b8c4c9;line-height:1.75}.state{display:inline-block;margin:5px 0 18px;padding:7px 11px;border:1px solid #bd743f;border-radius:999px;background:#61361d66;color:#f2b989;font-size:12px;font-weight:700;letter-spacing:.05em}.lock{margin:18px 0;padding:16px;border-left:3px solid #d0ab63;background:#302819;color:#efd7a5;line-height:1.75}.lock code{word-break:break-all;color:#9ed5f5}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}.card{padding:13px;border:1px solid #30404a;border-radius:10px;background:#172128}.card b{display:block;color:#ded4bd;margin-bottom:5px}.card span{font-size:12px;color:#91a2aa;line-height:1.5}.links{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}a{padding:10px 14px;border:1px solid #52656f;border-radius:999px;color:#dce7eb;text-decoration:none;background:#1c2930}a.primary{border-color:#d0ab63;background:#59431f;color:#ffe1a5}
+    .divider{height:1px;margin:28px 0;background:linear-gradient(90deg,transparent,#465b66,transparent)}.livery-lane{padding:22px;border:1px solid #3d555f;border-radius:14px;background:#0d171c}.lane-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.lane-state{padding:7px 10px;border:1px solid #498065;border-radius:999px;background:#173c2b88;color:#a8dfbd;font-size:12px;font-weight:700;white-space:nowrap}.livery-lane p{margin:0 0 18px}.lane-track{display:flex;align-items:center;gap:7px;overflow-x:auto;padding:10px 2px 14px}.lane-track span{flex:0 0 auto;padding:8px 10px;border:1px solid #52656f;border-radius:8px;background:#18242b;color:#d2dde1;font-size:11px}.lane-track i{font-style:normal;color:#d0ab63}.lane-note{font-size:12px;color:#8fa2ab}
+    @media(max-width:650px){.grid{grid-template-columns:1fr}main{padding:22px}.lane-head{display:block}.lane-state{display:inline-block;margin:4px 0 12px}}
   </style>
 </head>
 <body>
@@ -17,7 +19,7 @@
     <small>HAIHAO AIRCRAFT PRODUCTION LINE</small>
     <h1>B-24 权威原模型炮塔整合修正</h1>
     <span class="state">blocked-on-authoritative-binary</span>
-    <p>程序化示意机已经退出正式入口。当前生产线只接受用户原先提供的 B-24 权威模型。网页会在精确模型进入仓库并通过四重校验后启用真实炮塔拆分、旋转、俯仰、收放、射击与复位功能。当前页面不会生成替代飞机。</p>
+    <p>程序化示意机已经退出正式入口。当前飞机本体线只接受用户原先提供的 B-24 权威模型。网页会在精确模型进入仓库并通过四重校验后启用真实炮塔拆分、旋转、俯仰、收放、射击与复位功能。当前页面不会生成替代飞机。</p>
     <div class="lock">
       <b>唯一权威资产</b><br />
       文件：<code>b-24_liberator.glb</code><br />
@@ -32,9 +34,30 @@
       <div class="card"><b>完成后自动替换</b><span>目标页面为 b24-authoritative-turrets-v0.9.9.html，只有真实模型校验与浏览器验收通过后才上线。</span></div>
     </div>
     <div class="links">
-      <a class="primary" href="https://github.com/haihao0307/AIRCRAFT/pull/7">查看修正 PR #7</a>
+      <a class="primary" href="https://github.com/haihao0307/AIRCRAFT/pull/8">查看飞机本体 PR #8</a>
       <a href="./b24-four-turret-v0.9.8.html">查看 v0.9.8 停用说明</a>
     </div>
+
+    <div class="divider"></div>
+
+    <section class="livery-lane">
+      <div class="lane-head">
+        <div>
+          <small>SECOND STRAIGHT LINE</small>
+          <h2>独立历史涂装生产线</h2>
+        </div>
+        <span class="lane-state">模型依赖 0</span>
+      </div>
+      <p>这条线集中保存飞机身份、空军与大队中队、机组、人物、事件、照片证据、左右舷涂装、任务时态、贴图和蒙版。它可以在权威飞机文件缺失时继续研究与整理，最终通过外部适配器交给飞机消费端。</p>
+      <div class="lane-track" aria-label="历史涂装直线流程">
+        <span>飞机身份</span><i>→</i><span>部队编制</span><i>→</i><span>机组人物</span><i>→</i><span>事件任务</span><i>→</i><span>照片证据</span><i>→</i><span>涂装复原</span><i>→</i><span>时态冻结</span><i>→</i><span>贴图蒙版</span><i>→</i><span>历史验收</span><i>→</i><span>独立包导出</span>
+      </div>
+      <div class="links">
+        <a class="primary" href="./livery-production-line.html">进入历史涂装生产线</a>
+        <a href="./80-days-livery-status.html">查看 “80 DAYS” 证据状态</a>
+      </div>
+      <p class="lane-note">首批记录：B-24J “80 DAYS” 42-73257 与 UBANGI BAG III 42-73436。</p>
+    </section>
   </main>
 </body>
 </html>
