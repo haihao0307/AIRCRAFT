@@ -1,0 +1,102 @@
+{
+  "schema": "haihao.aircraft/evidence-graph@1.0.0",
+  "master_id": "B24J_CO_DATA_NATIVE_MASTER",
+  "status": "foundation",
+  "sources": [
+    {
+      "source_id": "B24-REF-GLB-001",
+      "type": "locked-reference-model",
+      "file": "b-24_liberator.glb",
+      "bytes": 23085972,
+      "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+      "release": "80-days-source-v1",
+      "authority": "visual-reference",
+      "allowed_uses": [
+        "node hierarchy distillation",
+        "animation timing and transform study",
+        "rough measurement and proportion comparison",
+        "material and UV inventory",
+        "component position candidates"
+      ],
+      "prohibited_uses": [
+        "manufacturer dimensional authority",
+        "variant applicability approval",
+        "material or tolerance authority",
+        "automatic promotion to native geometry"
+      ]
+    },
+    {
+      "source_id": "B24-REF-LOCK-001",
+      "type": "repository-source-lock",
+      "path": "docs/SOURCE_LOCK.md",
+      "authority": "repository-identity-lock"
+    },
+    {
+      "source_id": "B24-DISTILL-RUN-001",
+      "type": "deterministic-glb-distillation",
+      "tool": "scripts/distill-b24-reference-glb.mjs",
+      "parent_source_ids": ["B24-REF-GLB-001"],
+      "authority": "derived-measurement",
+      "status": "requires-ci-reproduction"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "B24-CLAIM-INV-001",
+      "subject": "reference-model-inventory",
+      "value": {
+        "nodes": 1784,
+        "meshes": 348,
+        "triangles": 325358,
+        "materials": 30,
+        "embedded_images": 18,
+        "animations": 1,
+        "animation_channels": 2518
+      },
+      "source_ids": ["B24-REF-GLB-001", "B24-DISTILL-RUN-001"],
+      "method": "GLB JSON and accessor audit",
+      "status": "derived-verified-once",
+      "confidence": 1.0
+    },
+    {
+      "claim_id": "B24-CLAIM-UV-001",
+      "subject": "legacy-uv-independence",
+      "value": {
+        "primitives_with_uv0_and_uv1": 299,
+        "decoded_coordinate_relationship": "identical",
+        "independent_livery_uv_present": false
+      },
+      "source_ids": ["B24-REF-GLB-001", "B24-DISTILL-RUN-001"],
+      "method": "decoded accessor equality comparison",
+      "status": "derived-verified-once",
+      "confidence": 1.0
+    },
+    {
+      "claim_id": "B24-CLAIM-NATIVE-001",
+      "subject": "native-foundation-contract",
+      "value": {
+        "assembly_nodes": 31,
+        "behavior_controllers": 13,
+        "surface_slots": 62
+      },
+      "source_ids": ["B24-DISTILL-RUN-001"],
+      "method": "upstream semantic distillation and native contract authoring",
+      "status": "foundation-pending-review",
+      "confidence": 0.8
+    }
+  ],
+  "evidence_status_vocabulary": [
+    "approved",
+    "derived",
+    "provisional",
+    "pending_source",
+    "historical_inference",
+    "visual_reference",
+    "generated_candidate",
+    "rejected"
+  ],
+  "approval": {
+    "evidenceGraphApproved": false,
+    "referenceModelCrossCheckApproved": false
+  }
+}
