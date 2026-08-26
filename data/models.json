@@ -1,0 +1,11 @@
+{
+  "schema": "haihao.aircraft/model-registry@1.0",
+  "models": [
+    {
+      "id": "b24-liberator-authoritative",
+      "name": "B-24 Liberator",
+      "status": "locked",
+      "lock": "registry/models/b24-liberator/source-model.lock.json"
+    }
+  ]
+}

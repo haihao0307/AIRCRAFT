@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="B-24J 42-73257 “80 DAYS” bilingual crew and livery knowledge base">
+  <title>“80 DAYS” Bilingual Knowledge Base</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-shade"></div>
+    <div class="wrap hero-copy">
+      <p class="kicker">HAIHAO AIRCRAFT KNOWLEDGE SYSTEM · KB-001</p>
+      <h1><span>“80 DAYS”</span><br>双语机组与图装知识库</h1>
+      <p class="subtitle zh">B-24J-25-CO，序列号 42-73257，机身编号 487。这里统一保存照片、人员、故事、原始来源与图装事实。</p>
+      <p class="subtitle en">B-24J-25-CO, serial 42-73257, aircraft number 487. This system unifies photographs, people, stories, original sources, and livery facts.</p>
+      <div class="hero-actions">
+        <a href="../../../../" class="button">返回飞机生产线 / Production Line</a>
+        <a href="./data/knowledge-base.json" class="button ghost">Knowledge JSON</a>
+        <a href="./data/source-registry.json" class="button ghost">Source Registry</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toolbar">
+    <div class="wrap toolbar-inner">
+      <div class="language">
+        <button id="show-zh" class="active">中文</button>
+        <button id="show-en">English</button>
+      </div>
+      <input id="search" type="search" placeholder="搜索照片、人物、来源 / Search">
+      <select id="grade-filter">
+        <option value="all">全部证据 / All grades</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+      </select>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="summary-grid" id="summary"></section>
+
+    <section class="section name-section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">NAME EXPLANATION</p>
+          <h2 class="zh">“80 DAYS”大概是什么意思？</h2>
+          <h2 class="en">What does “80 DAYS” mean?</h2>
+        </div>
+        <span class="confidence">CURRENT CONFIDENCE · C</span>
+      </div>
+      <article class="meaning-lead" id="meaning-lead"></article>
+      <div class="cards three" id="meaning-cards"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">LOCKED FACTS</p><h2 class="zh">已锁定视觉事实</h2><h2 class="en">Locked visual facts</h2></div>
+      </div>
+      <article class="panel"><ul id="visual-facts"></ul></article>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">PHOTO EVIDENCE</p><h2 class="zh">照片与证据卡</h2><h2 class="en">Photographs and evidence cards</h2></div>
+        <p class="section-note zh">每张照片具有稳定ID、证据等级、侧别、来源ID和制作用途。</p>
+        <p class="section-note en">Every photograph has a stable ID, evidence grade, side, source ID, and production role.</p>
+      </div>
+      <div class="cards three" id="asset-cards"></div>
+    </section>
+
+    <section class="section two-column">
+      <article class="panel">
+        <p class="eyebrow">FINAL FLIGHT</p>
+        <h2 class="zh">最终一次飞行</h2><h2 class="en">Final flight</h2>
+        <div id="final-flight"></div>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">PEOPLE LEADS</p>
+        <h2 class="zh">人物与收藏线索</h2><h2 class="en">People and collection leads</h2>
+        <div id="people-leads"></div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div><p class="eyebrow">SOURCE REGISTRY</p><h2 class="zh">原始数据与网页链接</h2><h2 class="en">Raw data and web links</h2></div>
+        <p class="section-note zh">来源页、直接图片地址、档案号、访问日期和证据用途都保存在独立JSON中。</p>
+        <p class="section-note en">Source pages, direct media URLs, archive IDs, access dates, and evidence roles are preserved in a separate JSON file.</p>
+      </div>
+      <div class="source-list" id="source-list"></div>
+    </section>
+
+    <section class="section two-column">
+      <article class="panel">
+        <p class="eyebrow">OPEN QUESTIONS</p>
+        <h2 class="zh">待查问题</h2><h2 class="en">Open questions</h2>
+        <ul id="open-questions"></ul>
+      </article>
+      <article class="panel">
+        <p class="eyebrow">LIVERY BRIDGE</p>
+        <h2 class="zh">图装生产对接</h2><h2 class="en">Livery-production bridge</h2>
+        <ul id="livery-bridge"></ul>
+        <a class="button inline" href="../../../../data/knowledge-bases.json">Production Registry JSON</a>
+        <a class="button inline ghost" href="../../../schemas/aircraft-crew-group.schema.json">Shared Schema</a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <span>HAIHAO AIRCRAFT KNOWLEDGE SYSTEM</span>
+    <span id="version"></span>
+  </footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

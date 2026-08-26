@@ -1,36 +1,43 @@
-# AIRCRAFT · UBANGI BAG III and B-24 turret production line
+# AIRCRAFT Production Line
 
-This repository is the ChatGPT upstream and Codex downstream workspace for the Haihao Aircraft Production Line.
+Clean production repository for authoritative aircraft models, stable flight runtimes, independent historical liveries, shared historical knowledge, and final browser integration.
 
-## Current online result
+## Production structure
 
-[B-24 ventral ball-turret separation and motion prototype v0.9.7](https://raw.githack.com/haihao0307/AIRCRAFT/a7f77a8d6ca3aab7ad831b327fa9a53f2ee076d4/turret-motion-v1.html)
+- `registry/models/` stores immutable model identity locks and provenance.
+- `runtime/` stores approved flight-runtime locks and materialized runtime packages.
+- `liveries/` stores one isolated production package per aircraft livery.
+- `knowledge/` stores bilingual, source-traceable aircraft and crew research shared by livery production.
+- `apps/production-line/` contains the visual production dashboard.
+- `data/` contains dashboard, livery and knowledge registries.
+- `scripts/` validates contracts, materializes locked assets, and builds the static site.
 
-The standalone webpage runs with a procedural B-24 and independent turret immediately, so the complete interaction path can be reviewed before permanent topology extraction. It also accepts the locked GLB or the old embedded-HTML build.
+## Current baseline
 
-Implemented prototype operations:
+The authoritative B-24 model is locked by exact byte count and SHA-256. The B-24 v0.9.6 Gold standalone runtime, distribution package, component files, and behavior contract are independently checksum-locked. Their source bytes remain outside ordinary Git history until an exact local file passes the materialization gate.
 
-- component selection and hypothesis classification
-- independent ball shell and twin-gun preview hierarchy
-- exploded inspection view
-- turret yaw and synchronized gun elevation
-- scan mode and virtual-target tracking
-- firing, muzzle-flash, tracer and recoil preview
-- temporary whole-turret detachment and reattachment
-- complete source-state restoration
-- component-map import and export
+The livery registry remains empty. The first curated research package is the bilingual B-24J `42-73257` “80 DAYS” knowledge base. It preserves photographs, source links, crew leads, the aircraft-name explanation, final-flight data and livery facts without marking a final texture as approved.
 
-The separation remains explicitly marked `hypothesis-motion-v1` until the exact source model topology audit is complete.
+## Knowledge entrypoint
 
-## Historical livery line
+After `npm run build`, open:
 
-The first historical test aircraft is B-24J-45-CO serial `42-73436`, **UBANGI BAG III**, 308th Bomb Group, 374th Bomb Squadron, Fourteenth Air Force.
+```text
+./dist/knowledge/aircraft/b24/80-days/index.html
+```
 
-The visible V1 livery board is a replaceable pipeline test. It does not claim final historical accuracy. The corrected V2 board will replace imagery and final PBR maps through the same livery contract.
+The production dashboard links to the same page through the Livery & Knowledge line.
 
-The source model gate accepts only `b-24_liberator.glb`, exactly `23,085,972` bytes with SHA-256 `541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d`.
+## Commands
 
 ```bash
 npm test
 npm run build
+npm run materialize:model -- /absolute/path/to/b-24_liberator.glb
+npm run materialize:runtime -- /absolute/path/to/B24_v0.9.6_Gold.html
+npm run clean
 ```
+
+Materialized model and runtime files are generated, checksum-verified inputs. They are ignored by ordinary Git tracking and included in `dist/` only when present and exact.
+
+`main` accepts reviewed production baselines. Model, runtime, livery, knowledge, and integration work use separate branches and Draft pull requests until their own gates are complete.
