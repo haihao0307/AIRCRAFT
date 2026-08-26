@@ -1,0 +1,137 @@
+{
+  "schema": "haihao.aircraft/behavior-graph@1.0.0",
+  "master_id": "B24J_CO_DATA_NATIVE_MASTER",
+  "controller_count": 13,
+  "status": "reference-animation-distillation-seeds",
+  "policy": {
+    "source_animation_is_reference": true,
+    "semantic_controls_are_native": true,
+    "raw_node_names_are_not_public_api": true,
+    "runtime_renderer_owns_no_aircraft_logic": true
+  },
+  "controllers": [
+    {
+      "controller_id": "propulsion.propeller-spin",
+      "domain": "propulsion",
+      "inputs": ["engine[1..4].rpm"],
+      "targets": ["propulsion.assembly"],
+      "reference_signal": "animation-channel-name-and-transform-search",
+      "reference_patterns": ["prop", "spinner", "blade", "helice"],
+      "status": "pending-channel-audit"
+    },
+    {
+      "controller_id": "landing-gear.deploy",
+      "domain": "landing-gear",
+      "inputs": ["gear.command"],
+      "targets": ["landing-gear.assembly"],
+      "reference_signal": "animation-channel-sequence",
+      "reference_patterns": ["gear", "wheel", "strut", "landing"],
+      "status": "pending-channel-audit"
+    },
+    {
+      "controller_id": "landing-gear.door-sequence",
+      "domain": "landing-gear",
+      "inputs": ["gear.command", "gear.phase"],
+      "targets": ["landing-gear.assembly"],
+      "reference_signal": "animation-channel-sequence",
+      "reference_patterns": ["gear.*door", "door.*gear", "trap"],
+      "status": "pending-channel-audit"
+    },
+    {
+      "controller_id": "bomb-bay.doors",
+      "domain": "payload",
+      "inputs": ["bombBay.command"],
+      "targets": ["fuselage.bomb-bay"],
+      "reference_signal": "animation-channel-sequence",
+      "reference_patterns": ["bomb", "bay", "soute", "door"],
+      "status": "pending-channel-audit"
+    },
+    {
+      "controller_id": "payload.release",
+      "domain": "payload",
+      "inputs": ["payload.releaseCommand"],
+      "targets": ["payload.assembly"],
+      "reference_signal": "existing-demo-behavior-and-rack-position",
+      "reference_patterns": ["bomb", "rack", "payload"],
+      "status": "native-controller-required"
+    },
+    {
+      "controller_id": "flight-control.flaps",
+      "domain": "flight-control",
+      "inputs": ["flap.command"],
+      "targets": ["wing.left.inner", "wing.right.inner"],
+      "reference_signal": "animation-channel-transform-range",
+      "reference_patterns": ["flap", "volet"],
+      "status": "pending-channel-audit"
+    },
+    {
+      "controller_id": "flight-control.ailerons",
+      "domain": "flight-control",
+      "inputs": ["pilot.roll"],
+      "targets": ["wing.left.outer", "wing.right.outer"],
+      "reference_signal": "animation-channel-transform-range",
+      "reference_patterns": ["aileron"],
+      "status": "pending-channel-audit"
+    },
+    {
+      "controller_id": "flight-control.elevators",
+      "domain": "flight-control",
+      "inputs": ["pilot.pitch"],
+      "targets": ["empennage.horizontal.left.elevator", "empennage.horizontal.right.elevator"],
+      "reference_signal": "animation-channel-transform-range",
+      "reference_patterns": ["elevator", "profondeur"],
+      "status": "pending-channel-audit"
+    },
+    {
+      "controller_id": "flight-control.rudders",
+      "domain": "flight-control",
+      "inputs": ["pilot.yaw"],
+      "targets": ["empennage.vertical.left.rudder", "empennage.vertical.right.rudder"],
+      "reference_signal": "animation-channel-transform-range",
+      "reference_patterns": ["rudder", "direction"],
+      "status": "pending-channel-audit"
+    },
+    {
+      "controller_id": "turret.azimuth",
+      "domain": "armament",
+      "inputs": ["turret[*].azimuthCommand"],
+      "targets": ["armament.assembly"],
+      "reference_signal": "node-hierarchy-and-pivot-candidate",
+      "reference_patterns": ["turret", "tourelle", "gun", "mount"],
+      "status": "replace-first-native-controller"
+    },
+    {
+      "controller_id": "turret.elevation",
+      "domain": "armament",
+      "inputs": ["turret[*].elevationCommand"],
+      "targets": ["armament.assembly"],
+      "reference_signal": "node-hierarchy-and-pivot-candidate",
+      "reference_patterns": ["barrel", "gun", "canon", "elevation"],
+      "status": "replace-first-native-controller"
+    },
+    {
+      "controller_id": "engine.cowling-flaps",
+      "domain": "propulsion",
+      "inputs": ["engine[1..4].coolingCommand"],
+      "targets": ["propulsion.assembly"],
+      "reference_signal": "animation-channel-transform-range",
+      "reference_patterns": ["cowl", "cowling", "capot", "flap"],
+      "status": "pending-channel-audit"
+    },
+    {
+      "controller_id": "crew.detach-or-exit",
+      "domain": "crew",
+      "inputs": ["crew[*].exitCommand"],
+      "targets": ["crew.assembly"],
+      "reference_signal": "none-in-reference-model",
+      "reference_patterns": [],
+      "status": "new-native-system"
+    }
+  ],
+  "qa": {
+    "controller_ids_unique": true,
+    "target_components_resolve": true,
+    "controller_count_verified": true,
+    "behaviorGraphApproved": false
+  }
+}
