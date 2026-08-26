@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: b24-strict-mirror-materialize
+  cancel-in-progress: true
+
 jobs:
   materialize:
     if: github.actor != 'github-actions[bot]'
