@@ -1,0 +1,259 @@
+{
+  "schemaVersion": "1.0.0",
+  "component_id": "vertical-tail-assembly",
+  "display_name": {
+    "en": "B24 twin vertical tail assembly",
+    "zh": "B24 双垂直尾翼总成"
+  },
+  "pilot_id": "B24-PILOT-001-VERTICAL-TAIL",
+  "parent_component_id": "empennage-assembly",
+  "role": "fixed_and_movable_aerodynamic_surface_assembly",
+  "side": "paired_left_right",
+  "status": "prepared-awaiting-source-intake",
+  "variant_applicability": {
+    "primary": [
+      "B24J_CO"
+    ],
+    "comparisonOnly": [
+      "B24D",
+      "B24L",
+      "B24M",
+      "PB4Y-1"
+    ],
+    "approvalStatus": "pending_title_block_and_manual_review"
+  },
+  "source_refs": {
+    "required": [
+      {
+        "source_id": "B24-ENG-S002",
+        "use": "general arrangement, datums and major relationships",
+        "status": "pending_file_intake"
+      },
+      {
+        "source_id": "B24-ENG-S003",
+        "use": "three-view tail outline and view relationships",
+        "status": "pending_file_intake"
+      },
+      {
+        "source_id": "B24-ENG-S007",
+        "use": "structural repair figures, skin, frames and materials",
+        "status": "pending_scan_intake"
+      },
+      {
+        "source_id": "B24-ENG-S008",
+        "use": "illustrated parts, assembly and variant applicability",
+        "status": "pending_scan_intake"
+      },
+      {
+        "source_id": "B24-ENG-S009",
+        "use": "factory parts groups and part relationships",
+        "status": "pending_scan_intake"
+      }
+    ],
+    "visualComparison": [
+      {
+        "source_id": "SOURCE_LOCK_GLTF",
+        "asset": "b-24_liberator.glb",
+        "evidence_grade": "E_visual_only",
+        "status": "locked_existing_asset"
+      }
+    ]
+  },
+  "local_frame": {
+    "status": "pending_source",
+    "origin_definition": "intended at approved stabilizer installation datum or hinge reference intersection",
+    "engineering_axes": {
+      "x": "aircraft longitudinal positive toward nose",
+      "y": "aircraft lateral positive toward starboard",
+      "z": "aircraft vertical positive up"
+    },
+    "transform_to_parent": null,
+    "transform_to_aircraft": null
+  },
+  "children": [
+    {
+      "component_id": "empennage.vertical.left.stabilizer",
+      "role": "fixed_surface",
+      "side": "left",
+      "geometry_status": "pending_source",
+      "mirror_policy": "independent_review_required"
+    },
+    {
+      "component_id": "empennage.vertical.left.rudder",
+      "role": "movable_control_surface",
+      "side": "left",
+      "geometry_status": "pending_source",
+      "mirror_policy": "independent_review_required"
+    },
+    {
+      "component_id": "empennage.vertical.right.stabilizer",
+      "role": "fixed_surface",
+      "side": "right",
+      "geometry_status": "pending_source",
+      "mirror_policy": "independent_review_required"
+    },
+    {
+      "component_id": "empennage.vertical.right.rudder",
+      "role": "movable_control_surface",
+      "side": "right",
+      "geometry_status": "pending_source",
+      "mirror_policy": "independent_review_required"
+    }
+  ],
+  "interfaces": [
+    {
+      "interface_id": "vertical-tail.left.installation",
+      "child_component_id": "empennage.vertical.left.stabilizer",
+      "parent_component_id": "empennage-assembly",
+      "type": "installation_datum",
+      "status": "pending_source",
+      "geometry": null,
+      "source_ids": []
+    },
+    {
+      "interface_id": "vertical-tail.right.installation",
+      "child_component_id": "empennage.vertical.right.stabilizer",
+      "parent_component_id": "empennage-assembly",
+      "type": "installation_datum",
+      "status": "pending_source",
+      "geometry": null,
+      "source_ids": []
+    },
+    {
+      "interface_id": "vertical-tail.left.hinge-axis",
+      "child_component_id": "empennage.vertical.left.rudder",
+      "parent_component_id": "empennage.vertical.left.stabilizer",
+      "type": "rotation_axis",
+      "status": "pending_source",
+      "axis": null,
+      "motion_range_deg": null,
+      "source_ids": []
+    },
+    {
+      "interface_id": "vertical-tail.right.hinge-axis",
+      "child_component_id": "empennage.vertical.right.rudder",
+      "parent_component_id": "empennage.vertical.right.stabilizer",
+      "type": "rotation_axis",
+      "status": "pending_source",
+      "axis": null,
+      "motion_range_deg": null,
+      "source_ids": []
+    }
+  ],
+  "control_geometry": {
+    "overall_height": "pending_source",
+    "root_chord": "pending_source",
+    "tip_chord": "pending_source",
+    "leading_edge_curve": "pending_source",
+    "trailing_edge_curve": "pending_source",
+    "airfoil_or_section_profiles": "pending_source",
+    "cant_angle": "pending_source",
+    "lateral_spacing": "pending_source",
+    "rudder_gap": "pending_source",
+    "skin_thickness": "pending_source"
+  },
+  "engineering_assets": {
+    "parameterSource": null,
+    "cadSource": null,
+    "step": null,
+    "projectionQa": null,
+    "status": "not_started"
+  },
+  "visual_proxy_assets": {
+    "tool": "img2threejs",
+    "toolVersion": "1.5.1",
+    "evidenceGrade": "E_visual_only",
+    "requiredInputs": [
+      "calibrated_side_mask",
+      "calibrated_front_or_rear_mask",
+      "calibrated_top_mask_when_available",
+      "component_detail_inventory",
+      "reference_camera_and_scale",
+      "hidden_region_declarations"
+    ],
+    "plannedOutputs": [
+      "object-sculpt-spec.json",
+      "createB24VerticalTailModel.ts",
+      "browser_review_scene",
+      "turntable_captures",
+      "projection_comparison_report",
+      "runtime_component_map"
+    ],
+    "knownLimits": [
+      "visual hull is an upper bound on shape",
+      "concavities invisible in silhouettes cannot be recovered",
+      "visual proxy cannot supply engineering dimensions or tolerances",
+      "hidden regions remain low confidence"
+    ],
+    "status": "not_started"
+  },
+  "runtime_assets": {
+    "glb": null,
+    "threeJsFactory": null,
+    "lod": [],
+    "colliders": [],
+    "motionTest": null,
+    "status": "not_started"
+  },
+  "livery_surfaces": [
+    {
+      "surface_id": "vertical-tail.left.fixed.outer",
+      "component_id": "empennage.vertical.left.stabilizer",
+      "status": "pending_geometry",
+      "allowedHistoricalUses": [
+        "serial",
+        "aircraft_number",
+        "unit_marking",
+        "panel_and_rivet_mapping"
+      ]
+    },
+    {
+      "surface_id": "vertical-tail.left.rudder.outer",
+      "component_id": "empennage.vertical.left.rudder",
+      "status": "pending_geometry",
+      "allowedHistoricalUses": [
+        "control_surface_finish",
+        "panel_and_rivet_mapping"
+      ]
+    },
+    {
+      "surface_id": "vertical-tail.right.fixed.outer",
+      "component_id": "empennage.vertical.right.stabilizer",
+      "status": "pending_geometry",
+      "allowedHistoricalUses": [
+        "serial",
+        "aircraft_number",
+        "unit_marking",
+        "panel_and_rivet_mapping"
+      ]
+    },
+    {
+      "surface_id": "vertical-tail.right.rudder.outer",
+      "component_id": "empennage.vertical.right.rudder",
+      "status": "pending_geometry",
+      "allowedHistoricalUses": [
+        "control_surface_finish",
+        "panel_and_rivet_mapping"
+      ]
+    }
+  ],
+  "unknowns": [
+    "manufacturer datum and exact installation transform",
+    "B24J CO block-specific tail geometry",
+    "left-right interchangeability and manufacturing asymmetry",
+    "airfoil or section profiles",
+    "rudder hinge construction and motion limits",
+    "skin, spar, rib and fastener details",
+    "surface marking boundaries by aircraft and mission state"
+  ],
+  "qa_state": {
+    "sourceIntakeApproved": false,
+    "variantApplicabilityApproved": false,
+    "visualProxyApproved": false,
+    "engineeringCadApproved": false,
+    "assemblyInterfaceApproved": false,
+    "runtimeMeshApproved": false,
+    "liverySurfaceApproved": false,
+    "verticalTailApproved": false
+  }
+}

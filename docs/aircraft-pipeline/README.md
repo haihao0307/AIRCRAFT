@@ -14,13 +14,16 @@ See [`SKILL_INDEX.md`](./SKILL_INDEX.md).
 
 - [Engineering drawings and CAD overview](./B24_ENGINEERING_DRAWINGS_AND_CAD_OVERVIEW.md)
 - [CAD reconstruction specification](./B24_CAD_RECONSTRUCTION_SPEC.md)
+- [Modular whole-aircraft assembly architecture](./B24_MODULAR_ASSEMBLY_ARCHITECTURE.md)
 - [External engineering source inventory](./references/b24-engineering/README.md)
 - [Structured source register](../../data/b24-engineering/source-register.json)
 - [Document taxonomy](../../data/b24-engineering/document-taxonomy.json)
 - [Variant baseline](../../data/b24-engineering/variant-baseline.json)
 - [Reconstruction tool register](../../data/b24-engineering/reconstruction-tools.json)
+- [Whole-aircraft assembly scaffold](../../data/b24-engineering/assembly-master.json)
+- [Vertical-tail pilot component manifest](../../data/b24-engineering/components/vertical-tail.json)
 
-Status: source registry v1 and reconstruction rules prepared. Public-file intake, checksums, page rendering, title-block extraction and CAD reconstruction remain pending. The engineering master is not approved.
+Status: source registry v1, modular assembly contract and the vertical-tail pilot scaffold are prepared. Public-file intake, checksums, page rendering, title-block extraction, img2threejs pilot reconstruction and engineering CAD remain pending. The engineering master and vertical-tail component are not approved.
 
 ## B-24J-25-CO “80 DAYS” review entry
 
