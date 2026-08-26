@@ -37,7 +37,7 @@ jobs:
           rm -rf .bootstrap/b24-strict-mirror
           rm -rf .bootstrap/b24-native-prototype-v1
           rm -f .github/workflows/bootstrap-b24-native-prototype-v1.yml
-          rm -f .github/workflows/materialize-b24-strict-mirror.yml
+          rm -f .github/workflows/b24-reference-full-mirror.yml
       - name: Validate native and strict-mirror contracts
         run: |
           node scripts/validate-b24-native-contracts.mjs
