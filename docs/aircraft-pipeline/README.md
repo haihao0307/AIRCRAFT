@@ -18,6 +18,7 @@ See [`SKILL_INDEX.md`](./SKILL_INDEX.md).
 - [Structured source register](../../data/b24-engineering/source-register.json)
 - [Document taxonomy](../../data/b24-engineering/document-taxonomy.json)
 - [Variant baseline](../../data/b24-engineering/variant-baseline.json)
+- [Reconstruction tool register](../../data/b24-engineering/reconstruction-tools.json)
 
 Status: source registry v1 and reconstruction rules prepared. Public-file intake, checksums, page rendering, title-block extraction and CAD reconstruction remain pending. The engineering master is not approved.
 
