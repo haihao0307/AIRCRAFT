@@ -1,21 +1,32 @@
 # AIRCRAFT Production Line
 
-Clean production repository for authoritative aircraft models, stable flight runtimes, independent historical liveries, and final browser integration.
+Clean production repository for authoritative aircraft models, stable flight runtimes, independent historical liveries, shared historical knowledge, and final browser integration.
 
 ## Production structure
 
 - `registry/models/` stores immutable model identity locks and provenance.
 - `runtime/` stores approved flight-runtime locks and materialized runtime packages.
 - `liveries/` stores one isolated production package per aircraft livery.
+- `knowledge/` stores bilingual, source-traceable aircraft and crew research shared by livery production.
 - `apps/production-line/` contains the visual production dashboard.
-- `data/` contains the dashboard registries.
+- `data/` contains dashboard, livery and knowledge registries.
 - `scripts/` validates contracts, materializes locked assets, and builds the static site.
 
 ## Current baseline
 
 The authoritative B-24 model is locked by exact byte count and SHA-256. The B-24 v0.9.6 Gold standalone runtime, distribution package, component files, and behavior contract are independently checksum-locked. Their source bytes remain outside ordinary Git history until an exact local file passes the materialization gate.
 
-The livery registry is intentionally empty. Every future historical aircraft receives an isolated livery branch and package below its airframe family.
+The livery registry remains empty. The first curated research package is the bilingual B-24J `42-73257` “80 DAYS” knowledge base. It preserves photographs, source links, crew leads, the aircraft-name explanation, final-flight data and livery facts without marking a final texture as approved.
+
+## Knowledge entrypoint
+
+After `npm run build`, open:
+
+```text
+./dist/knowledge/aircraft/b24/80-days/index.html
+```
+
+The production dashboard links to the same page through the Livery & Knowledge line.
 
 ## Commands
 
@@ -29,4 +40,4 @@ npm run clean
 
 Materialized model and runtime files are generated, checksum-verified inputs. They are ignored by ordinary Git tracking and included in `dist/` only when present and exact.
 
-`main` accepts reviewed production baselines. Model, runtime, livery, and integration work use separate branches and Draft pull requests until their own gates are complete.
+`main` accepts reviewed production baselines. Model, runtime, livery, knowledge, and integration work use separate branches and Draft pull requests until their own gates are complete.
