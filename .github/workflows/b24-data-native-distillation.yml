@@ -1,0 +1,51 @@
+name: Validate B24 data-native master
+
+on:
+  push:
+    paths:
+      - 'TASK_011_B24_REFERENCE_GLB_DISTILLATION_AND_SURFACE_MODULES.md'
+      - 'data/b24-native/**'
+      - 'docs/aircraft-pipeline/B24_DATA_NATIVE_MASTER.md'
+      - 'docs/aircraft-pipeline/B24_SURFACE_MODULE_SYSTEM.md'
+      - 'scripts/distill-b24-reference-glb.mjs'
+      - 'scripts/validate-b24-native-contracts.mjs'
+      - '.github/workflows/b24-data-native-distillation.yml'
+      - 'package.json'
+  pull_request:
+    paths:
+      - 'data/b24-native/**'
+      - 'scripts/distill-b24-reference-glb.mjs'
+      - 'scripts/validate-b24-native-contracts.mjs'
+      - '.github/workflows/b24-data-native-distillation.yml'
+  workflow_dispatch:
+
+jobs:
+  distill:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate native contracts
+        run: node scripts/validate-b24-native-contracts.mjs
+      - name: Download locked reference GLB
+        shell: bash
+        run: |
+          curl --fail --location --retry 5 --retry-all-errors --retry-delay 2 \
+            --output "$RUNNER_TEMP/b-24_liberator.glb" \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb
+      - name: Distill authoritative reference model
+        run: |
+          node scripts/distill-b24-reference-glb.mjs \
+            --glb "$RUNNER_TEMP/b-24_liberator.glb" \
+            --out-dir reports/b24-native
+      - name: Upload distillation reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: b24-native-distillation-${{ github.sha }}-${{ github.run_attempt }}
+          path: reports/b24-native
+          if-no-files-found: error
+          retention-days: 30
