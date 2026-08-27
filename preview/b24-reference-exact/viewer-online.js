@@ -30,11 +30,28 @@ function initScene(){
 function resize(){const rect=$('viewport').getBoundingClientRect();state.renderer.setSize(Math.max(1,rect.width),Math.max(1,rect.height),false);state.camera.aspect=Math.max(1,rect.width)/Math.max(1,rect.height);state.camera.updateProjectionMatrix()}
 
 async function fetchModel(){
-  const response=await fetch('https://api.github.com/repos/haihao0307/AIRCRAFT/releases/assets/527810913',{cache:'no-store',headers:{Accept:'application/octet-stream'}});if(!response.ok)throw new Error(`模型下载失败，HTTP ${response.status}`);
-  const total=Number(response.headers.get('content-length'))||LOCK.bytes;const reader=response.body?.getReader();
-  if(!reader){const buffer=await response.arrayBuffer();progress(.72,'下载完成',buffer.byteLength);return buffer}
-  const chunks=[];let received=0;while(true){const {done,value}=await reader.read();if(done)break;chunks.push(value);received+=value.byteLength;progress((received/total)*.72,`${Math.round(received/total*100)}%`,received)}
-  const merged=new Uint8Array(received);let offset=0;for(const chunk of chunks){merged.set(chunk,offset);offset+=chunk.byteLength}return merged.buffer
+  $('loadingText').textContent='正在读取权威 GLB 分块清单。';
+  const manifestResponse=await fetch('./assets/chunks/manifest.json',{cache:'no-store'});
+  if(!manifestResponse.ok)throw new Error(`分块清单下载失败，HTTP ${manifestResponse.status}`);
+  const manifest=await manifestResponse.json();
+  if(manifest.bytes!==LOCK.bytes||manifest.sha256!==LOCK.sha256)throw new Error('分块清单与权威源文件锁不一致');
+  if(!Array.isArray(manifest.chunks)||manifest.chunks.length<1)throw new Error('分块清单为空');
+  const chunks=[];let received=0;
+  for(let index=0;index<manifest.chunks.length;index+=1){
+    const entry=manifest.chunks[index];
+    const response=await fetch(`./assets/chunks/${entry.file}`,{cache:'force-cache'});
+    if(!response.ok)throw new Error(`分块 ${index+1} 下载失败，HTTP ${response.status}`);
+    const buffer=await response.arrayBuffer();
+    if(buffer.byteLength!==entry.bytes)throw new Error(`分块 ${index+1} 字节数不符`);
+    const digest=hex(await crypto.subtle.digest('SHA-256',buffer));
+    if(digest!==entry.sha256)throw new Error(`分块 ${index+1} SHA256 不符`);
+    chunks.push(new Uint8Array(buffer));received+=buffer.byteLength;
+    progress((received/LOCK.bytes)*.72,`分块 ${index+1}/${manifest.chunks.length}`,received);
+  }
+  if(received!==LOCK.bytes)throw new Error(`分块总字节数不符：${received}`);
+  const merged=new Uint8Array(received);let offset=0;
+  for(const chunk of chunks){merged.set(chunk,offset);offset+=chunk.byteLength;}
+  return merged.buffer;
 }
 async function verify(buffer){$('loadingText').textContent='下载完成，正在浏览器内计算 SHA256。';progress(.76,'计算 SHA256',buffer.byteLength);if(buffer.byteLength!==LOCK.bytes)throw new Error(`字节数不符：${buffer.byteLength}`);if(!crypto?.subtle)throw new Error('浏览器无法执行 SHA256 校验');const digest=hex(await crypto.subtle.digest('SHA-256',buffer));if(digest!==LOCK.sha256)throw new Error(`SHA256 不符：${digest}`);pill($('sourcePill'),'权威源文件校验通过','good');progress(.84,'源文件锁通过',buffer.byteLength)}
 const parse=buffer=>new Promise((resolve,reject)=>new GLTFLoader().parse(buffer,'',resolve,reject));
