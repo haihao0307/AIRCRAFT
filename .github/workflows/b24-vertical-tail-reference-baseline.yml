@@ -1,0 +1,124 @@
+name: Materialize B24 vertical-tail reference baseline
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'data/b24-native/components/empennage/vertical-tail-reference-extraction-request.json'
+      - 'scripts/extract-b24-component-reference-candidates.mjs'
+      - 'preview/b24-reference-exact/assets/chunks/**'
+      - '.github/workflows/b24-vertical-tail-reference-baseline.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b24-vertical-tail-reference-baseline
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate native contracts
+        run: |
+          node scripts/validate-b24-native-contracts.mjs
+          node scripts/validate-aircraft-native-forge.mjs
+
+      - name: Extract exact candidate evidence
+        run: |
+          node scripts/extract-b24-component-reference-candidates.mjs \
+            --request data/b24-native/components/empennage/vertical-tail-reference-extraction-request.json \
+            --out reports/b24-native/vertical-tail-reference-candidates.json \
+            | tee reports/b24-native/vertical-tail-reference-candidates.summary.json
+
+      - name: Verify report remains fail-closed
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          report = json.load(open('reports/b24-native/vertical-tail-reference-candidates.json', encoding='utf-8'))
+          assert report['source']['bytes'] == 23085972
+          assert report['source']['sha256'] == '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d'
+          assert report['source']['chunk_count'] == 12
+          assert report['candidate_count'] == 2
+          assert [candidate['reference_node_id'] for candidate in report['candidates']] == [719, 744]
+          for candidate in report['candidates']:
+              assert candidate['semantic_status'] == 'candidate-not-approved'
+              assert candidate['side_assignment'] is None
+              assert candidate['component_boundary_approved'] is False
+              assert candidate['animation_semantics_approved'] is False
+              assert candidate['mesh_evidence']['world_bounds'] is not None
+          assert report['approval']['sourceLockPassed'] is True
+          assert report['approval']['extractionCompleted'] is True
+          assert report['approval']['candidateNodeIdsApproved'] is False
+          assert report['approval']['sideAssignmentsApproved'] is False
+          assert report['approval']['componentBoundariesApproved'] is False
+          assert report['approval']['animationSemanticsApproved'] is False
+          assert report['approval']['referenceNodeMapApproved'] is False
+          print('fail-closed report verification: PASS')
+          PY
+
+      - name: Commit versioned reference evidence
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/b24-native/vertical-tail-reference-candidates.json \
+                  reports/b24-native/vertical-tail-reference-candidates.json.sha256 \
+                  reports/b24-native/vertical-tail-reference-candidates.summary.json
+          if git diff --cached --quiet; then
+            echo 'No candidate evidence changes to commit'
+          else
+            git commit -m "data: materialize B24 vertical-tail reference candidates [skip ci]"
+            git push origin HEAD:research/b24-engineering-drawings-cad-v1
+          fi
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Publish summary
+        shell: bash
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          report = json.load(open('reports/b24-native/vertical-tail-reference-candidates.json', encoding='utf-8'))
+          print('## Versioned B24 vertical-tail reference evidence')
+          print()
+          print(f"Source SHA256: `{report['source']['sha256']}`")
+          print()
+          print('| Node | Name | Subtree nodes | Meshes | Triangles | Animation channels |')
+          print('|---:|---|---:|---:|---:|---:|')
+          for candidate in report['candidates']:
+              print('| {node} | {name} | {subtree} | {meshes} | {triangles} | {channels} |'.format(
+                  node=candidate['reference_node_id'],
+                  name=(candidate['name'] or 'unnamed').replace('|', '/'),
+                  subtree=candidate['subtree_node_count'],
+                  meshes=len(candidate['mesh_evidence']['mesh_ids']),
+                  triangles=candidate['mesh_evidence']['triangle_count'],
+                  channels=candidate['animation_channel_count']))
+          print()
+          print('All semantic approvals remain false.')
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24-vertical-tail-reference-baseline-${{ steps.commit.outputs.sha }}
+          path: |
+            reports/b24-native/vertical-tail-reference-candidates.json
+            reports/b24-native/vertical-tail-reference-candidates.json.sha256
+            reports/b24-native/vertical-tail-reference-candidates.summary.json
+          if-no-files-found: error
+          retention-days: 30
