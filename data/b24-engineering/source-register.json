@@ -1,1 +1,572 @@
-{"schemaVersion":"1.0.0","aircraftFamily":"Consolidated B-24 Liberator","registryStatus":"research-source-registry","engineeringMasterApproved":false,"lastReviewed":"2026-08-26","truthPolicy":{"geometryApprovalLevels":["A","B"],"crossCheckLevel":"C","comparisonOnlyLevels":["D","E"],"rule":"Every dimension, curve, part and applicability claim must retain its source_id and revision context."},"sources":[{"source_id":"B24-ENG-S001","title":"Consolidated B-24 Documents","document_number":null,"drawing_number":null,"date":null,"revision":null,"source_type":"museum_factory_archive_collection","authority_level":"A","holder":"San Diego Air & Space Museum","host":"Internet Archive","source_url":"https://archive.org/details/b-24-production-and-construction-analysis","aircraft_variants":["B-24 family"],"production_plant":null,"block_range":null,"format":["PDF","OCR derivatives"],"pages_or_sheets":null,"access_status":"public_listing_pending_file_intake","rights_status":"review_required_per_item","geometry_scope":["general arrangement","fuselage","wing","undercarriage","production analysis"],"current_verification":"collection metadata and file listing verified; page content pending local intake","next_action":"download allowed files, hash, render every page and extract title blocks","notes":"Consolidated/Convair Collection."},{"source_id":"B24-ENG-S002","title":"B-24 Model 32 General Arrangement","document_number":null,"drawing_number":["D-1840","RD-6894"],"date":null,"revision":null,"source_type":"manufacturer_general_arrangement","authority_level":"A","holder":"San Diego Air & Space Museum","host":"Internet Archive","source_url":"https://archive.org/details/b-24-production-and-construction-analysis","external_filename":"D-1840, RD-6894 B-24 Model 32 General Arrangement.pdf","aircraft_variants":["Model 32","B-24 family applicability pending title-block review"],"production_plant":"Consolidated Aircraft","block_range":null,"format":["PDF"],"pages_or_sheets":null,"access_status":"public_listing_pending_file_intake","rights_status":"review_required","geometry_scope":["overall dimensions","major component relationships","datum candidates"],"current_verification":"filename and drawing-number metadata verified; sheet inspection pending","next_action":"obtain PDF and inspect title block, revision, dimensions and scan distortion","notes":"Priority source for GA baseline."},{"source_id":"B24-ENG-S003","title":"B-24 3-views, wing and undercarriage details","document_number":null,"drawing_number":null,"date":null,"revision":null,"source_type":"manufacturer_or_archive_technical_drawing","authority_level":"A","holder":"San Diego Air & Space Museum","host":"Internet Archive","source_url":"https://archive.org/details/b-24-production-and-construction-analysis","external_filename":"B-24 3-views, wing and undercarriage details.pdf","aircraft_variants":["B-24 family applicability pending sheet review"],"production_plant":null,"block_range":null,"format":["PDF"],"pages_or_sheets":null,"access_status":"public_listing_pending_file_intake","rights_status":"review_required","geometry_scope":["three-view","wing","undercarriage"],"current_verification":"file listing verified; sheet inspection pending","next_action":"download, hash, render and classify","notes":null},{"source_id":"B24-ENG-S004","title":"B-24 Fuselage Cutaway Diagram","document_number":null,"drawing_number":null,"date":null,"revision":null,"source_type":"archive_cutaway","authority_level":"C","holder":"San Diego Air & Space Museum","host":"Internet Archive","source_url":"https://archive.org/details/b-24-production-and-construction-analysis","external_filename":"B-24 Fuselage Cutaway diagram.pdf","aircraft_variants":["B-24 family applicability pending sheet review"],"production_plant":null,"block_range":null,"format":["PDF"],"pages_or_sheets":null,"access_status":"public_listing_pending_file_intake","rights_status":"review_required","geometry_scope":["fuselage interior","major equipment relationships"],"current_verification":"file listing verified; author and technical authority pending","next_action":"download and determine whether source is engineering, technical illustration or publicity art","notes":null},{"source_id":"B24-ENG-S005","title":"B-24 Production and Construction Analysis","document_number":null,"drawing_number":null,"date":null,"revision":null,"source_type":"manufacturer_production_document","authority_level":"A","holder":"San Diego Air & Space Museum","host":"Internet Archive","source_url":"https://archive.org/details/b-24-production-and-construction-analysis","external_filename":"B-24 Production and Construction Analysis.pdf","aircraft_variants":["B-24 family applicability pending document review"],"production_plant":"Consolidated Aircraft","block_range":null,"format":["PDF"],"pages_or_sheets":null,"access_status":"public_listing_pending_file_intake","rights_status":"review_required","geometry_scope":["production breakdown","construction context"],"current_verification":"file listing verified; document content pending","next_action":"download, hash, render and index sections","notes":null},{"source_id":"B24-ENG-S006","title":"Erection and Maintenance Instructions for B-24 Series","document_number":"AN 01-5E-2","drawing_number":null,"date":"1945-03-30","revision":"revision date as listed by AirCorps Library","source_type":"official_military_maintenance_manual","authority_level":"B","holder":"AirCorps Library scan collection","host":"AirCorps Library","source_url":"https://aircorpslibrary.com/library-documents/b-24","aircraft_variants":["B-24 series; exact applicability pending manual cover review"],"production_plant":null,"block_range":null,"format":["scanned manual"],"pages_or_sheets":1218,"access_status":"catalogued_paid_or_account_access_pending_intake","rights_status":"host_terms_and_document_status_review_required","geometry_scope":["assembly","maintenance","systems","rigging","dimensions"],"current_verification":"catalog metadata verified; scan not ingested","next_action":"obtain exact revision and verify cover, change pages and completeness","notes":"Other hosts list different page counts or editions; treat revisions separately."},{"source_id":"B24-ENG-S007","title":"Structural Repair Instructions for B-24 Series, PB4Y-1 and British Liberators","document_number":"AN 01-5E-3","drawing_number":null,"date":"1943-05","revision":null,"source_type":"official_military_structural_repair_manual","authority_level":"B","holder":"B-24 Liberator Restoration Australia reference library","host":"B-24 Liberator Restoration Australia","source_url":"https://www.b24australia.org.au/library/air-craft-manuals-b-24/field-maintenance-manuals","aircraft_variants":["B-24 series","PB4Y-1","British Liberators"],"production_plant":null,"block_range":null,"format":["manual listing; scan availability pending"],"pages_or_sheets":null,"access_status":"catalogued_pending_intake","rights_status":"review_required","geometry_scope":["frames","stringers","skin","repair limits","materials","fasteners"],"current_verification":"manual title, family and date listing verified","next_action":"obtain scan and index structural stations, materials and repair figures","notes":null},{"source_id":"B24-ENG-S008","title":"Illustrated Parts Catalog for B-24D, B-24J and PB4Y-1","document_number":"AN 01-5E-4","drawing_number":null,"date":"1944-06","revision":null,"source_type":"official_military_parts_catalog","authority_level":"B","holder":"B-24 Liberator Restoration Australia reference library","host":"B-24 Liberator Restoration Australia","source_url":"https://www.b24australia.org.au/library/air-craft-manuals-b-24/parts-manuals","aircraft_variants":["B-24D","B-24J","PB4Y-1"],"production_plant":null,"block_range":null,"format":["manual listing; scan availability pending"],"pages_or_sheets":null,"access_status":"catalogued_pending_intake","rights_status":"review_required","geometry_scope":["exploded views","assemblies","part numbers","applicability"],"current_verification":"manual title, variants and date listing verified","next_action":"obtain scan and build assembly-part graph","notes":"Later editions cover additional B-24L and B-24M variants and must be kept separate."},{"source_id":"B24-ENG-S009","title":"Consolidated B-24 Parts Catalog / Fuselage, Wing and Tailplane Groups","document_number":"ZE-32-047","drawing_number":null,"date":"1944-04","revision":null,"source_type":"manufacturer_parts_catalog","authority_level":"A","holder":"B-24 Liberator Restoration Australia reference library","host":"B-24 Liberator Restoration Australia","source_url":"https://www.b24australia.org.au/library/air-craft-manuals-b-24/parts-manuals","aircraft_variants":["B-24 applicability pending catalog cover review"],"production_plant":"Consolidated Aircraft","block_range":null,"format":["manual listing; scan availability pending"],"pages_or_sheets":null,"access_status":"catalogued_pending_intake","rights_status":"review_required","geometry_scope":["fuselage groups","wing groups","tailplane groups","part numbers"],"current_verification":"document number, date and group description listing verified","next_action":"obtain exact scan and extract group hierarchy","notes":null},{"source_id":"B24-ENG-S010","title":"B-24M Liberator Original Drawing Scan Collection","document_number":null,"drawing_number":null,"date":null,"revision":null,"source_type":"bulk_manufacturer_drawing_scan_collection","authority_level":"A","holder":"Warbirds Restoration","host":"Warbirds Restoration","source_url":"https://warbirdsrestoration.com/","aircraft_variants":["B-24M"],"production_plant":null,"block_range":null,"format":["TIFF digital downloads"],"pages_or_sheets":"approximately 25000 drawings as stated by provider","access_status":"contact_and_purchase_required","rights_status":"research_information_use_and_provider_terms_apply","geometry_scope":["airframe","assemblies","parts; exact index pending"],"current_verification":"provider statement verified; drawing manifest not obtained","next_action":"request catalogue, license, sample sheets and original drawing-number manifest","notes":"Do not apply B-24M-specific geometry to B-24J without compatibility review."},{"source_id":"B24-ENG-S011","title":"United States Air Force Aircraft Engineering Drawings Microfilm","document_number":null,"drawing_number":null,"date":null,"revision":null,"source_type":"official_engineering_drawing_microfilm_collection","authority_level":"A","holder":"Smithsonian National Air and Space Museum","host":"Smithsonian Institution","source_url":"https://airandspace.si.edu/collection-archive/united-states-air-force-aircraft-engineering-drawings-microfilm/sova-nasm-xxxx-0521","aircraft_variants":["USAF aircraft including World War II types; B-24 holdings require targeted search"],"production_plant":null,"block_range":null,"format":["35mm microfilm"],"pages_or_sheets":"collection described as 8000 reels","access_status":"archive_request_required","rights_status":"reproduction_and_access_terms_apply","geometry_scope":["engineering drawings"],"current_verification":"collection scope verified; B-24 reel identifiers pending","next_action":"submit targeted search for Consolidated B-24 and known drawing numbers","notes":"Image quality varies and current reproduction availability may be constrained."},{"source_id":"B24-ENG-S012","title":"Blueprints and Technical Drawings Collection","document_number":null,"drawing_number":null,"date":null,"revision":null,"source_type":"museum_blueprint_collection","authority_level":"C","holder":"The Museum of Flight","host":"The Museum of Flight Archives","source_url":"https://archives.museumofflight.org/repositories/2/resources/698","aircraft_variants":["mixed aircraft; Consolidated holdings require archivist search"],"production_plant":null,"block_range":null,"format":["blueprints","technical drawings"],"pages_or_sheets":"42 cubic feet collection scope","access_status":"archive_request_required","rights_status":"research_and_publication_permission_review_required","geometry_scope":["general arrangements","three-views","cutaways","assembly drawings","section details"],"current_verification":"collection description verified; B-24 item list pending","next_action":"request Consolidated B-24 item-level search","notes":null},{"source_id":"B24-ENG-S013","title":"Consolidated B-24J Liberator 3-view line drawing","document_number":"AN 01-5E-3","drawing_number":null,"date":null,"revision":null,"source_type":"official_manual_page_derivative","authority_level":"B","holder":"United States military work; Wikimedia Commons host","host":"Wikimedia Commons","source_url":"https://commons.wikimedia.org/wiki/File:Consolidated_B-24J_Liberator_3-view_line_drawing.png","aircraft_variants":["B-24J"],"production_plant":null,"block_range":null,"format":["PNG"],"pages_or_sheets":"manual page ix derivative","access_status":"public_download","rights_status":"public_domain_marked_on_host; verify source note at intake","geometry_scope":["three-view silhouette"],"current_verification":"host metadata and manual page attribution verified","next_action":"download, hash and compare with complete AN 01-5E-3 scan","notes":"Useful for early silhouette QA; insufficient for part manufacture."},{"source_id":"B24-ENG-S014","title":"Consolidated B-24J Liberator 4-view vector blueprint package","document_number":null,"drawing_number":null,"date":null,"revision":null,"source_type":"commercial_secondary_vector_drawing","authority_level":"D","holder":"Rhino Red Prints","host":"Rhino Red Prints","source_url":"https://rhinoredprints.com/product/consolidated-b-24j-liberator/","aircraft_variants":["B-24J as marketed"],"production_plant":null,"block_range":null,"format":["DWG","DXF","CDR"],"pages_or_sheets":"four views","access_status":"commercial_purchase","rights_status":"vendor_license_applies","geometry_scope":["secondary outlines and views"],"current_verification":"product description verified; engineering provenance absent","next_action":"optional acquisition for comparison only","notes":"Vendor states that discrepancies may exist."},{"source_id":"B24-ENG-S015","title":"img2threejs","document_number":null,"drawing_number":null,"date":null,"revision":null,"source_type":"image_to_threejs_tool","authority_level":"E","holder":"img2threejs GitHub project","host":"GitHub","source_url":"https://github.com/img2threejs/img2threejs","aircraft_variants":[],"production_plant":null,"block_range":null,"format":["software"],"pages_or_sheets":null,"access_status":"public_repository","rights_status":"verify repository license before integration","geometry_scope":["visualization workflow only"],"current_verification":"repository link supplied to project","next_action":"evaluate in isolated tooling experiment after source images are calibrated","notes":"Outputs remain derived visual references and cannot supply engineering provenance."}]}
+{
+  "schemaVersion": "1.1.0",
+  "aircraftFamily": "Consolidated B-24 Liberator",
+  "registryStatus": "research-source-registry-with-reviewed-authority-corrections",
+  "engineeringMasterApproved": false,
+  "lastReviewed": "2026-08-27",
+  "truthPolicy": {
+    "geometryApprovalLevels": [
+      "A",
+      "B"
+    ],
+    "crossCheckLevel": "C",
+    "comparisonOnlyLevels": [
+      "D",
+      "E"
+    ],
+    "rule": "Every dimension, curve, part and applicability claim must retain its source_id and revision context."
+  },
+  "sources": [
+    {
+      "source_id": "B24-ENG-S001",
+      "title": "Consolidated B-24 Documents",
+      "document_number": null,
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "museum_factory_archive_collection",
+      "authority_level": "A",
+      "holder": "San Diego Air & Space Museum",
+      "host": "Internet Archive",
+      "source_url": "https://archive.org/details/b-24-production-and-construction-analysis",
+      "aircraft_variants": [
+        "B-24 family"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "PDF",
+        "OCR derivatives"
+      ],
+      "pages_or_sheets": null,
+      "access_status": "public_listing_pending_file_intake",
+      "rights_status": "review_required_per_item",
+      "geometry_scope": [
+        "general arrangement",
+        "fuselage",
+        "wing",
+        "undercarriage",
+        "production analysis"
+      ],
+      "current_verification": "collection metadata and file listing verified; page content pending local intake",
+      "next_action": "download allowed files, hash, render every page and extract title blocks",
+      "notes": "Consolidated/Convair Collection."
+    },
+    {
+      "source_id": "B24-ENG-S002",
+      "title": "B-24 Model 32 General Arrangement",
+      "document_number": null,
+      "drawing_number": [
+        "D-1840",
+        "RD-6894"
+      ],
+      "date": null,
+      "revision": null,
+      "source_type": "manufacturer_general_arrangement",
+      "authority_level": "A",
+      "holder": "San Diego Air & Space Museum",
+      "host": "Internet Archive",
+      "source_url": "https://archive.org/details/b-24-production-and-construction-analysis",
+      "external_filename": "D-1840, RD-6894 B-24 Model 32 General Arrangement.pdf",
+      "aircraft_variants": [
+        "Model 32",
+        "B-24 family applicability pending title-block review"
+      ],
+      "production_plant": "Consolidated Aircraft",
+      "block_range": null,
+      "format": [
+        "PDF"
+      ],
+      "pages_or_sheets": null,
+      "access_status": "downloaded_and_reviewed_artifact_only",
+      "rights_status": "review_required",
+      "geometry_scope": [
+        "overall dimensions",
+        "major component relationships",
+        "datum candidates"
+      ],
+      "current_verification": "Downloaded, hashed and visually reviewed in Actions run 33034102484. The sheet visibly identifies GENERAL ARRANGEMENT / B-24 CONSOLIDATED MOD. 32. Title-block drawing number, revision, date, B-24J-CO applicability and calibration remain unresolved because the scan is damaged and faded.",
+      "next_action": "Resolve title block, revision, scale and B-24J-CO applicability; calibrate scan distortion; verify candidate control-surface and airfoil data against official manuals.",
+      "notes": "Priority source for GA baseline.",
+      "review_refs": [
+        "data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json",
+        "docs/aircraft-pipeline/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.md"
+      ],
+      "file_lock": {
+        "bytes": 4492789,
+        "sha256": "5ad3742e0462d4a7f2c44ade8b990b11e6ef77141565fb4c9804e9d507ef970e",
+        "workflow_run_id": 33034102484,
+        "artifact_id": 9631369355
+      }
+    },
+    {
+      "source_id": "B24-ENG-S003",
+      "title": "B-24 3-views, wing and undercarriage details",
+      "document_number": null,
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "secondary_mixed_source_mixed_variant_compilation",
+      "authority_level": "D",
+      "holder": "San Diego Air & Space Museum",
+      "host": "Internet Archive",
+      "source_url": "https://archive.org/details/b-24-production-and-construction-analysis",
+      "external_filename": "B-24 3-views, wing and undercarriage details.pdf",
+      "aircraft_variants": [
+        "B-24E printed magazine drawing with conflicting B-24H annotation",
+        "B-24H secondary page",
+        "B-24J specifications summary page",
+        "B-24D-CO and B-24E-FO Aerodata plates"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "PDF"
+      ],
+      "pages_or_sheets": null,
+      "access_status": "downloaded_and_reviewed_artifact_only",
+      "rights_status": "mixed-publication-rights-review-required",
+      "geometry_scope": [
+        "secondary silhouette comparison",
+        "variant difference discovery",
+        "wing and undercarriage visual reference"
+      ],
+      "current_verification": "Downloaded and rendered in Actions run 33034102484. The five-page PDF mixes 1944 magazine material, unresolved B-24H and B-24J summary pages, and 1979 Aerodata B-24D/E plates. It is not one manufacturer drawing set.",
+      "next_action": "Retain for comparison only. Verify every discovered feature against official B-24J drawings or manuals before use.",
+      "notes": "Authority reclassified from candidate A to D by B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001. Production geometry use is prohibited.",
+      "review_refs": [
+        "data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json",
+        "docs/aircraft-pipeline/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.md"
+      ],
+      "file_lock": {
+        "bytes": 606488,
+        "sha256": "4af64c224942c5225cbf784f52a8e17d4ab49d4de5990f0e0f91add7feea63bf",
+        "workflow_run_id": 33034102484,
+        "artifact_id": 9631369355
+      }
+    },
+    {
+      "source_id": "B24-ENG-S004",
+      "title": "B-24 Fuselage Cutaway Diagram",
+      "document_number": null,
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "archive_cutaway",
+      "authority_level": "C",
+      "holder": "San Diego Air & Space Museum",
+      "host": "Internet Archive",
+      "source_url": "https://archive.org/details/b-24-production-and-construction-analysis",
+      "external_filename": "B-24 Fuselage Cutaway diagram.pdf",
+      "aircraft_variants": [
+        "B-24 family applicability pending sheet review"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "PDF"
+      ],
+      "pages_or_sheets": null,
+      "access_status": "public_listing_pending_file_intake",
+      "rights_status": "review_required",
+      "geometry_scope": [
+        "fuselage interior",
+        "major equipment relationships"
+      ],
+      "current_verification": "file listing verified; author and technical authority pending",
+      "next_action": "download and determine whether source is engineering, technical illustration or publicity art",
+      "notes": null
+    },
+    {
+      "source_id": "B24-ENG-S005",
+      "title": "B-24 Production and Construction Analysis",
+      "document_number": null,
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "manufacturer_production_document",
+      "authority_level": "A",
+      "holder": "San Diego Air & Space Museum",
+      "host": "Internet Archive",
+      "source_url": "https://archive.org/details/b-24-production-and-construction-analysis",
+      "external_filename": "B-24 Production and Construction Analysis.pdf",
+      "aircraft_variants": [
+        "B-24 family applicability pending document review"
+      ],
+      "production_plant": "Consolidated Aircraft",
+      "block_range": null,
+      "format": [
+        "PDF"
+      ],
+      "pages_or_sheets": null,
+      "access_status": "public_listing_pending_file_intake",
+      "rights_status": "review_required",
+      "geometry_scope": [
+        "production breakdown",
+        "construction context"
+      ],
+      "current_verification": "file listing verified; document content pending",
+      "next_action": "download, hash, render and index sections",
+      "notes": null
+    },
+    {
+      "source_id": "B24-ENG-S006",
+      "title": "Erection and Maintenance Instructions for B-24 Series",
+      "document_number": "AN 01-5E-2",
+      "drawing_number": null,
+      "date": "1945-03-30",
+      "revision": "revision date as listed by AirCorps Library",
+      "source_type": "official_military_maintenance_manual",
+      "authority_level": "B",
+      "holder": "AirCorps Library scan collection",
+      "host": "AirCorps Library",
+      "source_url": "https://aircorpslibrary.com/library-documents/b-24",
+      "aircraft_variants": [
+        "B-24 series; exact applicability pending manual cover review"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "scanned manual"
+      ],
+      "pages_or_sheets": 1218,
+      "access_status": "catalogued_paid_or_account_access_pending_intake",
+      "rights_status": "host_terms_and_document_status_review_required",
+      "geometry_scope": [
+        "assembly",
+        "maintenance",
+        "systems",
+        "rigging",
+        "dimensions"
+      ],
+      "current_verification": "catalog metadata verified; scan not ingested",
+      "next_action": "obtain exact revision and verify cover, change pages and completeness",
+      "notes": "Other hosts list different page counts or editions; treat revisions separately."
+    },
+    {
+      "source_id": "B24-ENG-S007",
+      "title": "Structural Repair Instructions for B-24 Series, PB4Y-1 and British Liberators",
+      "document_number": "AN 01-5E-3",
+      "drawing_number": null,
+      "date": "1943-05",
+      "revision": null,
+      "source_type": "official_military_structural_repair_manual",
+      "authority_level": "B",
+      "holder": "B-24 Liberator Restoration Australia reference library",
+      "host": "B-24 Liberator Restoration Australia",
+      "source_url": "https://www.b24australia.org.au/library/air-craft-manuals-b-24/field-maintenance-manuals",
+      "aircraft_variants": [
+        "B-24 series",
+        "PB4Y-1",
+        "British Liberators"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "manual listing; scan availability pending"
+      ],
+      "pages_or_sheets": null,
+      "access_status": "catalogued_pending_intake",
+      "rights_status": "review_required",
+      "geometry_scope": [
+        "frames",
+        "stringers",
+        "skin",
+        "repair limits",
+        "materials",
+        "fasteners"
+      ],
+      "current_verification": "manual title, family and date listing verified",
+      "next_action": "obtain scan and index structural stations, materials and repair figures",
+      "notes": null
+    },
+    {
+      "source_id": "B24-ENG-S008",
+      "title": "Illustrated Parts Catalog for B-24D, B-24J and PB4Y-1",
+      "document_number": "AN 01-5E-4",
+      "drawing_number": null,
+      "date": "1944-06",
+      "revision": null,
+      "source_type": "official_military_parts_catalog",
+      "authority_level": "B",
+      "holder": "B-24 Liberator Restoration Australia reference library",
+      "host": "B-24 Liberator Restoration Australia",
+      "source_url": "https://www.b24australia.org.au/library/air-craft-manuals-b-24/parts-manuals",
+      "aircraft_variants": [
+        "B-24D",
+        "B-24J",
+        "PB4Y-1"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "manual listing; scan availability pending"
+      ],
+      "pages_or_sheets": null,
+      "access_status": "catalogued_pending_intake",
+      "rights_status": "review_required",
+      "geometry_scope": [
+        "exploded views",
+        "assemblies",
+        "part numbers",
+        "applicability"
+      ],
+      "current_verification": "manual title, variants and date listing verified",
+      "next_action": "obtain scan and build assembly-part graph",
+      "notes": "Later editions cover additional B-24L and B-24M variants and must be kept separate."
+    },
+    {
+      "source_id": "B24-ENG-S009",
+      "title": "Consolidated B-24 Parts Catalog / Fuselage, Wing and Tailplane Groups",
+      "document_number": "ZE-32-047",
+      "drawing_number": null,
+      "date": "1944-04",
+      "revision": null,
+      "source_type": "manufacturer_parts_catalog",
+      "authority_level": "A",
+      "holder": "B-24 Liberator Restoration Australia reference library",
+      "host": "B-24 Liberator Restoration Australia",
+      "source_url": "https://www.b24australia.org.au/library/air-craft-manuals-b-24/parts-manuals",
+      "aircraft_variants": [
+        "B-24 applicability pending catalog cover review"
+      ],
+      "production_plant": "Consolidated Aircraft",
+      "block_range": null,
+      "format": [
+        "manual listing; scan availability pending"
+      ],
+      "pages_or_sheets": null,
+      "access_status": "catalogued_pending_intake",
+      "rights_status": "review_required",
+      "geometry_scope": [
+        "fuselage groups",
+        "wing groups",
+        "tailplane groups",
+        "part numbers"
+      ],
+      "current_verification": "document number, date and group description listing verified",
+      "next_action": "obtain exact scan and extract group hierarchy",
+      "notes": null
+    },
+    {
+      "source_id": "B24-ENG-S010",
+      "title": "B-24M Liberator Original Drawing Scan Collection",
+      "document_number": null,
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "bulk_manufacturer_drawing_scan_collection",
+      "authority_level": "A",
+      "holder": "Warbirds Restoration",
+      "host": "Warbirds Restoration",
+      "source_url": "https://warbirdsrestoration.com/",
+      "aircraft_variants": [
+        "B-24M"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "TIFF digital downloads"
+      ],
+      "pages_or_sheets": "approximately 25000 drawings as stated by provider",
+      "access_status": "contact_and_purchase_required",
+      "rights_status": "research_information_use_and_provider_terms_apply",
+      "geometry_scope": [
+        "airframe",
+        "assemblies",
+        "parts; exact index pending"
+      ],
+      "current_verification": "provider statement verified; drawing manifest not obtained",
+      "next_action": "request catalogue, license, sample sheets and original drawing-number manifest",
+      "notes": "Do not apply B-24M-specific geometry to B-24J without compatibility review."
+    },
+    {
+      "source_id": "B24-ENG-S011",
+      "title": "United States Air Force Aircraft Engineering Drawings Microfilm",
+      "document_number": null,
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "official_engineering_drawing_microfilm_collection",
+      "authority_level": "A",
+      "holder": "Smithsonian National Air and Space Museum",
+      "host": "Smithsonian Institution",
+      "source_url": "https://airandspace.si.edu/collection-archive/united-states-air-force-aircraft-engineering-drawings-microfilm/sova-nasm-xxxx-0521",
+      "aircraft_variants": [
+        "USAF aircraft including World War II types; B-24 holdings require targeted search"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "35mm microfilm"
+      ],
+      "pages_or_sheets": "collection described as 8000 reels",
+      "access_status": "archive_request_required",
+      "rights_status": "reproduction_and_access_terms_apply",
+      "geometry_scope": [
+        "engineering drawings"
+      ],
+      "current_verification": "collection scope verified; B-24 reel identifiers pending",
+      "next_action": "submit targeted search for Consolidated B-24 and known drawing numbers",
+      "notes": "Image quality varies and current reproduction availability may be constrained."
+    },
+    {
+      "source_id": "B24-ENG-S012",
+      "title": "Blueprints and Technical Drawings Collection",
+      "document_number": null,
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "museum_blueprint_collection",
+      "authority_level": "C",
+      "holder": "The Museum of Flight",
+      "host": "The Museum of Flight Archives",
+      "source_url": "https://archives.museumofflight.org/repositories/2/resources/698",
+      "aircraft_variants": [
+        "mixed aircraft; Consolidated holdings require archivist search"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "blueprints",
+        "technical drawings"
+      ],
+      "pages_or_sheets": "42 cubic feet collection scope",
+      "access_status": "archive_request_required",
+      "rights_status": "research_and_publication_permission_review_required",
+      "geometry_scope": [
+        "general arrangements",
+        "three-views",
+        "cutaways",
+        "assembly drawings",
+        "section details"
+      ],
+      "current_verification": "collection description verified; B-24 item list pending",
+      "next_action": "request Consolidated B-24 item-level search",
+      "notes": null
+    },
+    {
+      "source_id": "B24-ENG-S013",
+      "title": "Consolidated B-24J Liberator 3-view line drawing",
+      "document_number": "AN 01-5E-3",
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "official_manual_page_derivative",
+      "authority_level": "B",
+      "holder": "United States military work; Wikimedia Commons host",
+      "host": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Consolidated_B-24J_Liberator_3-view_line_drawing.png",
+      "aircraft_variants": [
+        "B-24J"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "PNG"
+      ],
+      "pages_or_sheets": "manual page ix derivative",
+      "access_status": "public_download",
+      "rights_status": "public_domain_marked_on_host; verify source note at intake",
+      "geometry_scope": [
+        "three-view silhouette"
+      ],
+      "current_verification": "host metadata and manual page attribution verified",
+      "next_action": "download, hash and compare with complete AN 01-5E-3 scan",
+      "notes": "Useful for early silhouette QA; insufficient for part manufacture."
+    },
+    {
+      "source_id": "B24-ENG-S014",
+      "title": "Consolidated B-24J Liberator 4-view vector blueprint package",
+      "document_number": null,
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "commercial_secondary_vector_drawing",
+      "authority_level": "D",
+      "holder": "Rhino Red Prints",
+      "host": "Rhino Red Prints",
+      "source_url": "https://rhinoredprints.com/product/consolidated-b-24j-liberator/",
+      "aircraft_variants": [
+        "B-24J as marketed"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "DWG",
+        "DXF",
+        "CDR"
+      ],
+      "pages_or_sheets": "four views",
+      "access_status": "commercial_purchase",
+      "rights_status": "vendor_license_applies",
+      "geometry_scope": [
+        "secondary outlines and views"
+      ],
+      "current_verification": "product description verified; engineering provenance absent",
+      "next_action": "optional acquisition for comparison only",
+      "notes": "Vendor states that discrepancies may exist."
+    },
+    {
+      "source_id": "B24-ENG-S015",
+      "title": "img2threejs",
+      "document_number": null,
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "image_to_threejs_tool",
+      "authority_level": "E",
+      "holder": "img2threejs GitHub project",
+      "host": "GitHub",
+      "source_url": "https://github.com/img2threejs/img2threejs",
+      "aircraft_variants": [],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "software"
+      ],
+      "pages_or_sheets": null,
+      "access_status": "public_repository",
+      "rights_status": "verify repository license before integration",
+      "geometry_scope": [
+        "visualization workflow only"
+      ],
+      "current_verification": "repository link supplied to project",
+      "next_action": "evaluate in isolated tooling experiment after source images are calibrated",
+      "notes": "Outputs remain derived visual references and cannot supply engineering provenance."
+    },
+    {
+      "source_id": "B24-ENG-S016",
+      "title": "Consolidated B-24J Liberator three-view line drawing",
+      "document_number": "AN 01-5E-3",
+      "drawing_number": null,
+      "date": null,
+      "revision": null,
+      "source_type": "official_manual_page_scan_and_review_derivative",
+      "authority_level": "A",
+      "holder": "United States military work; Wikimedia Commons host",
+      "host": "Wikimedia Commons",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Consolidated_B-24J_Liberator_3-view_line_drawing.png",
+      "aircraft_variants": [
+        "B-24J"
+      ],
+      "production_plant": null,
+      "block_range": null,
+      "format": [
+        "PNG original upload scan",
+        "PNG cleaned review derivative"
+      ],
+      "pages_or_sheets": "AN 01-5E-3 page ix",
+      "access_status": "public_download_intake_configured",
+      "rights_status": "public_domain_US_federal_government_work_as_marked_by_host",
+      "geometry_scope": [
+        "B-24J three-view silhouette",
+        "orthographic view alignment",
+        "vertical-tail outline candidate"
+      ],
+      "current_verification": "Source description, document/page attribution, author, variant and public-domain marking reviewed. Source bytes and image integrity pending Actions intake.",
+      "next_action": "Download original scan and cleaned derivative, hash, compare, review crop and line preservation, then define calibration strategy.",
+      "notes": "The original scan controls image provenance. The cleaned file is a review derivative only and cannot silently replace source pixels."
+    }
+  ]
+}
