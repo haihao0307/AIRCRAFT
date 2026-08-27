@@ -1,0 +1,125 @@
+{
+  "schema": "haihao.aircraft/reusable-system-library@1.0.0",
+  "library_id": "AIRCRAFT_NATIVE_REUSABLE_SYSTEMS",
+  "status": "foundation",
+  "initial_validation_aircraft": "B24J_CO_DATA_NATIVE_MASTER",
+  "systems": [
+    {
+      "system_id": "core.coordinate-datum",
+      "reuse_scope": "all-aircraft",
+      "reusable_logic": ["units", "aircraft axes", "station datums", "local-to-aircraft transforms"],
+      "aircraft_specific_inputs": ["datum origin", "station definitions", "manufacturer conventions"],
+      "status": "contract-seed"
+    },
+    {
+      "system_id": "core.assembly-interface",
+      "reuse_scope": "all-aircraft",
+      "reusable_logic": ["parent-child graph", "detachable interfaces", "fastener groups", "removal dependencies", "sockets"],
+      "aircraft_specific_inputs": ["component tree", "installation datums", "attachment geometry", "fastener data"],
+      "status": "contract-seed"
+    },
+    {
+      "system_id": "core.geometry-recipe",
+      "reuse_scope": "all-aircraft",
+      "reusable_logic": ["section loft", "planform", "sweep", "tube and fairing generation", "openings", "repeated details"],
+      "aircraft_specific_inputs": ["sections", "dimensions", "outlines", "thickness", "twist", "incidence"],
+      "status": "contract-seed"
+    },
+    {
+      "system_id": "core.surface-program",
+      "reuse_scope": "all-aircraft",
+      "reusable_logic": ["stable surface ids", "layered skin", "live material parameters", "historical locks", "generated UV"],
+      "aircraft_specific_inputs": ["surface partition", "sheet material", "paint system", "markings", "wear state"],
+      "status": "contract-seed"
+    },
+    {
+      "system_id": "core.behavior-state",
+      "reuse_scope": "all-aircraft",
+      "reusable_logic": ["semantic controls", "state machines", "constraints", "reset", "failure states"],
+      "aircraft_specific_inputs": ["mechanism geometry", "travel", "timing", "interlocks"],
+      "status": "contract-seed"
+    },
+    {
+      "system_id": "airframe.flight-controls",
+      "reuse_scope": "fixed-wing-aircraft",
+      "reusable_logic": ["aileron", "elevator", "rudder", "flap", "trim", "control mixing"],
+      "aircraft_specific_inputs": ["surface count", "hinge axes", "travel ranges", "mixing ratios", "actuation"],
+      "status": "B24-reference-distillation"
+    },
+    {
+      "system_id": "propulsion.engine-propeller",
+      "reuse_scope": "propeller-aircraft",
+      "reusable_logic": ["engine state", "propeller rotation", "feathering", "cowling flap", "engine attachment"],
+      "aircraft_specific_inputs": ["engine count", "engine type", "stations", "propeller geometry", "rotation direction"],
+      "status": "B24-reference-distillation"
+    },
+    {
+      "system_id": "ground.landing-gear",
+      "reuse_scope": "retractable-gear-aircraft",
+      "reusable_logic": ["deploy and retract sequence", "door interlocks", "wheel rotation", "shock state", "ground contact"],
+      "aircraft_specific_inputs": ["gear layout", "pivot axes", "door geometry", "timing", "wheel size"],
+      "status": "B24-reference-distillation"
+    },
+    {
+      "system_id": "payload.bomb-bay",
+      "reuse_scope": "internal-bay-aircraft",
+      "reusable_logic": ["door sequence", "rack constraints", "single release", "salvo release", "ballistic handoff"],
+      "aircraft_specific_inputs": ["bay geometry", "door count", "rack layout", "payload types", "release order"],
+      "status": "B24-reference-distillation"
+    },
+    {
+      "system_id": "armament.turret-and-gun",
+      "reuse_scope": "turret-equipped-aircraft",
+      "reusable_logic": ["azimuth", "elevation", "gun mount", "ammunition feed", "crew socket", "fire envelope"],
+      "aircraft_specific_inputs": ["turret type", "gun type", "mount geometry", "limits", "crew station"],
+      "status": "B24-replacement-priority"
+    },
+    {
+      "system_id": "crew.station-and-exit",
+      "reuse_scope": "crewed-aircraft",
+      "reusable_logic": ["seat socket", "crew station", "station transfer", "detach", "exit path", "parachute state"],
+      "aircraft_specific_inputs": ["crew count", "station locations", "interior paths", "exit locations"],
+      "status": "contract-seed"
+    },
+    {
+      "system_id": "mission.flight-sequence",
+      "reuse_scope": "all-aircraft",
+      "reusable_logic": ["startup", "taxi", "takeoff", "climb", "cruise", "mission action", "approach", "landing", "shutdown"],
+      "aircraft_specific_inputs": ["performance data", "configuration schedule", "mission systems", "flight profile"],
+      "status": "B24-sequence-review"
+    },
+    {
+      "system_id": "damage.aircraft-state",
+      "reuse_scope": "all-aircraft",
+      "reusable_logic": ["component damage", "surface damage", "system failure", "detachment", "repair state"],
+      "aircraft_specific_inputs": ["structural zones", "system dependencies", "damage thresholds", "visual programs"],
+      "status": "planned"
+    },
+    {
+      "system_id": "evidence.provenance",
+      "reuse_scope": "all-aircraft",
+      "reusable_logic": ["source locks", "derivation records", "confidence", "conflict resolution", "approval ledger"],
+      "aircraft_specific_inputs": ["sources", "variant applicability", "measurements", "review decisions"],
+      "status": "active-foundation"
+    },
+    {
+      "system_id": "qa.fixed-review",
+      "reuse_scope": "all-aircraft",
+      "reusable_logic": ["fixed camera", "fixed time", "multi-view", "isolation", "motion", "surface", "browser"],
+      "aircraft_specific_inputs": ["reference views", "tolerances", "required states", "historical checkpoints"],
+      "status": "active-foundation"
+    }
+  ],
+  "planned_family_application": {
+    "B24": "initial master and full validation",
+    "B25": "first inheritance test",
+    "B17": "heavy-bomber configuration test",
+    "B29": "pressurized-heavy-bomber and remote-turret extension",
+    "fighter-aircraft": "single-seat and compact-system specialization"
+  },
+  "approval": {
+    "systemIdsUnique": true,
+    "reuseBoundariesReviewed": false,
+    "reusableSystemLibraryApproved": false
+  }
+}

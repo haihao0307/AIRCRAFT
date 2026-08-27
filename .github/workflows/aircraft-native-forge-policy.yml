@@ -1,0 +1,63 @@
+name: Validate Aircraft Native Forge policy
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'AGENTS.md'
+      - 'TASK_013_AIRCRAFT_NATIVE_FORGE_FOUNDATION_AND_VERTICAL_TAIL_PILOT.md'
+      - 'data/aircraft-native/**'
+      - 'data/b24-engineering/reconstruction-tools.json'
+      - 'data/b24-engineering/components/vertical-tail.json'
+      - 'data/b24-native/components/empennage/vertical-tail-production.json'
+      - 'docs/aircraft-pipeline/AIRCRAFT_NATIVE_FORGE_ARCHITECTURE.md'
+      - 'docs/aircraft-pipeline/B24_DATA_NATIVE_MASTER.md'
+      - 'docs/aircraft-pipeline/EXTERNAL_METHOD_STUDY_IMG2THREEJS.md'
+      - 'scripts/validate-aircraft-native-forge-policy.mjs'
+      - 'package.json'
+      - '.github/workflows/aircraft-native-forge-policy.yml'
+  pull_request:
+    paths:
+      - 'AGENTS.md'
+      - 'TASK_013_AIRCRAFT_NATIVE_FORGE_FOUNDATION_AND_VERTICAL_TAIL_PILOT.md'
+      - 'data/aircraft-native/**'
+      - 'data/b24-engineering/reconstruction-tools.json'
+      - 'data/b24-engineering/components/vertical-tail.json'
+      - 'data/b24-native/components/empennage/vertical-tail-production.json'
+      - 'docs/aircraft-pipeline/AIRCRAFT_NATIVE_FORGE_ARCHITECTURE.md'
+      - 'docs/aircraft-pipeline/B24_DATA_NATIVE_MASTER.md'
+      - 'docs/aircraft-pipeline/EXTERNAL_METHOD_STUDY_IMG2THREEJS.md'
+      - 'scripts/validate-aircraft-native-forge-policy.mjs'
+      - 'package.json'
+      - '.github/workflows/aircraft-native-forge-policy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate self-owned aircraft production policy
+        run: node scripts/validate-aircraft-native-forge-policy.mjs
+      - name: Validate B24 native contracts
+        run: node scripts/validate-b24-native-contracts.mjs
+      - name: Record policy summary
+        shell: bash
+        run: |
+          {
+            echo '## Aircraft Native Forge policy'
+            echo
+            echo '* self-owned framework: enabled'
+            echo '* Image2ThreeJS active integration: disabled'
+            echo '* external structural and approval authority: disabled'
+            echo '* first production component: B24 twin vertical tail and rudders'
+            echo '* geometry and behavior approvals: remain false'
+          } >> "$GITHUB_STEP_SUMMARY"
