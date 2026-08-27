@@ -1,0 +1,153 @@
+name: Deploy B24 strict reference preview
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'preview/b24-reference-exact/**'
+      - 'data/b24-native/**'
+      - 'scripts/distill-b24-reference-glb.mjs'
+      - 'scripts/extract-b24-reference-full-mirror.mjs'
+      - 'scripts/validate-b24-reference-full-mirror.mjs'
+      - '.github/workflows/b24-reference-preview-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: aircraft-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}b24-reference-exact/
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate native contracts
+        run: node scripts/validate-b24-native-contracts.mjs
+
+      - name: Download and verify locked reference model
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-all-errors --retry-delay 2 \
+            --output "$RUNNER_TEMP/b-24_liberator.glb" \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb
+          test "$(stat --format=%s "$RUNNER_TEMP/b-24_liberator.glb")" = "23085972"
+          echo "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d  $RUNNER_TEMP/b-24_liberator.glb" | sha256sum --check
+
+      - name: Build exact reference preview
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site/b24-reference-exact/assets
+          cp preview/b24-reference-exact/index.html _site/b24-reference-exact/
+          cp preview/b24-reference-exact/styles.css _site/b24-reference-exact/
+          cp preview/b24-reference-exact/viewer.js _site/b24-reference-exact/
+          cp "$RUNNER_TEMP/b-24_liberator.glb" _site/b24-reference-exact/assets/
+
+          node scripts/distill-b24-reference-glb.mjs \
+            --glb "$RUNNER_TEMP/b-24_liberator.glb" \
+            --out-dir _site/b24-reference-exact/reports/distillation
+
+          node scripts/extract-b24-reference-full-mirror.mjs \
+            --glb "$RUNNER_TEMP/b-24_liberator.glb" \
+            --out-dir _site/b24-reference-exact/reports/full-mirror
+
+          node scripts/validate-b24-reference-full-mirror.mjs \
+            --mirror-dir _site/b24-reference-exact/reports/full-mirror
+
+          rm -f _site/b24-reference-exact/reports/full-mirror/reference-accessor-payload.bin
+          rm -f _site/b24-reference-exact/reports/full-mirror/accessors.json
+          rm -f _site/b24-reference-exact/reports/full-mirror/source-assets.json
+          rm -rf _site/b24-reference-exact/reports/full-mirror/images
+
+          python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          info = {
+              "branch": os.environ["GITHUB_REF_NAME"],
+              "commit": os.environ["GITHUB_SHA"],
+              "run_id": os.environ["GITHUB_RUN_ID"],
+              "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"],
+              "built_at": datetime.now(timezone.utc).isoformat(),
+              "source_model": {
+                  "file": "b-24_liberator.glb",
+                  "bytes": 23085972,
+                  "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+              },
+              "approval": {
+                  "visual_parity_approved": False,
+                  "animation_semantics_approved": False,
+                  "native_geometry_replacement_approved": False
+              }
+          }
+          with open("_site/b24-reference-exact/build-info.json", "w", encoding="utf-8") as handle:
+              json.dump(info, handle, ensure_ascii=False, indent=2)
+              handle.write("\n")
+          PY
+
+          cat > _site/index.html <<'HTML'
+          <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=./b24-reference-exact/"><title>B24 精确镜像审核</title></head><body><p><a href="./b24-reference-exact/">打开 B24 权威参考模型精确镜像审核页</a></p></body></html>
+          HTML
+          touch _site/.nojekyll
+
+      - name: Browser smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          python3 -m http.server 4173 --directory _site >/tmp/b24-preview-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          sleep 2
+          timeout 100s "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --enable-webgl \
+            --ignore-gpu-blocklist \
+            --use-gl=swiftshader \
+            --window-size=1600,1000 \
+            --virtual-time-budget=55000 \
+            --dump-dom \
+            http://127.0.0.1:4173/b24-reference-exact/ > /tmp/b24-preview-dom.html
+          grep -q 'data-qa="pass"' /tmp/b24-preview-dom.html
+          timeout 100s "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --enable-webgl \
+            --ignore-gpu-blocklist \
+            --use-gl=swiftshader \
+            --window-size=1600,1000 \
+            --virtual-time-budget=55000 \
+            --screenshot="$GITHUB_WORKSPACE/_site/b24-reference-exact/reports/browser-smoke.png" \
+            http://127.0.0.1:4173/b24-reference-exact/
+          test -s _site/b24-reference-exact/reports/browser-smoke.png
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
