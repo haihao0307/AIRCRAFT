@@ -1,0 +1,61 @@
+{
+  "schema": "haihao.aircraft/b24-vertical-tail-curve-recipe@2.0.0",
+  "version": "0.0.2",
+  "status": "drawing-trace-visual-candidate-only",
+  "source": {
+    "source_id": "B24-ENG-S016",
+    "document": "AN 01-5E-3",
+    "page": "ix",
+    "variant": "B-24J",
+    "cleaned_review_sha256": "07449d0a39a22ae71851025960a9f0725f9ee3041d0ea6e1e6b6d03b29951df6",
+    "original_scan_sha256": "de0819d07d35f37126ed62b3a6f02131aaded7cbaa5c49ce63187f72dab0f5b6"
+  },
+  "curve": {
+    "type": "periodic-cubic-b-spline",
+    "continuity": "C2",
+    "degree": 3,
+    "control_anchor_count": 31,
+    "render_sample_count": 800,
+    "anchor_fit_max_px": 0.6777982491854255,
+    "anchor_fit_rms_px": 0.32625824119811364,
+    "anchors_px": [
+      [490.0,2056.0],[505.0,2052.0],[525.0,2051.0],[545.0,2053.0],[565.0,2059.0],[583.0,2070.0],[598.0,2085.0],[607.0,2103.0],[612.0,2124.0],[614.0,2147.0],[614.0,2171.0],[612.0,2194.0],[606.0,2215.0],[596.0,2232.0],[582.0,2246.0],[565.0,2256.0],[545.0,2262.0],[523.0,2264.0],[503.0,2262.0],[485.0,2257.0],[469.0,2248.0],[457.0,2236.0],[449.0,2220.0],[444.0,2201.0],[442.0,2180.0],[442.0,2158.0],[442.0,2136.0],[444.0,2114.0],[450.0,2095.0],[460.0,2079.0],[474.0,2066.0]
+    ],
+    "sampling_rule": "Evaluate the periodic cubic B-spline at 800 uniform parameter samples. Generated samples are build output and are not duplicated in the repository contract."
+  },
+  "hinge": {
+    "type": "open-cubic-b-spline",
+    "continuity": "C2",
+    "control_anchor_count": 6,
+    "anchors_px": [[499.0,2059.0],[499.5,2095.0],[500.5,2140.0],[502.0,2190.0],[504.0,2235.0],[506.0,2258.0]],
+    "semantic": "fixed-fin / rudder candidate boundary",
+    "approval": false
+  },
+  "three_dimensional_expression": {
+    "section_model": "symmetric NACA 00xx display candidate",
+    "thickness_ratio_candidate": 0.07,
+    "thickness_authority": false,
+    "tail_center_spacing_m": 7.9248,
+    "spacing_source": "B24-ENG-S016 annotation 26 ft 0 in",
+    "spacing_calibration_approved": false,
+    "fixed_rudder_gap_m_candidate": 0.018
+  },
+  "surface_ids": [
+    "empennage.vertical.left.stabilizer.outer",
+    "empennage.vertical.left.stabilizer.inner",
+    "empennage.vertical.left.rudder.outer",
+    "empennage.vertical.left.rudder.inner",
+    "empennage.vertical.right.stabilizer.outer",
+    "empennage.vertical.right.stabilizer.inner",
+    "empennage.vertical.right.rudder.outer",
+    "empennage.vertical.right.rudder.inner"
+  ],
+  "approvals": {
+    "drawingCalibrationApproved": false,
+    "geometryRecipeApproved": false,
+    "hingeAxisApproved": false,
+    "thicknessApproved": false,
+    "referenceParityApproved": false,
+    "verticalTailApproved": false
+  }
+}
