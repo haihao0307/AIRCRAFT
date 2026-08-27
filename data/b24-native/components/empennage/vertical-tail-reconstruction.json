@@ -1,0 +1,458 @@
+{
+  "schema": "haihao.aircraft/component-reconstruction-contract@1.0.0",
+  "contract_id": "b24j-co-twin-vertical-tail-reconstruction-v1",
+  "identity": {
+    "component_family_id": "b24.empennage.vertical-tail-and-rudder",
+    "display_name": "B24J CO twin vertical stabilizer and rudder assembly",
+    "component_ids": [
+      "empennage.vertical.left.stabilizer",
+      "empennage.vertical.left.rudder",
+      "empennage.vertical.right.stabilizer",
+      "empennage.vertical.right.rudder"
+    ],
+    "system_id": "empennage.vertical"
+  },
+  "aircraft_applicability": {
+    "family": "Consolidated B24 Liberator",
+    "model": "B24J",
+    "variant": "B24J CO",
+    "production_plant": "Consolidated San Diego",
+    "block_scope": [
+      "B24J-25-CO",
+      "B24J-45-CO"
+    ],
+    "serial_scope": [
+      "42-73257",
+      "42-73436"
+    ],
+    "status": "provisional"
+  },
+  "source_ledger": [
+    {
+      "source_id": "REF-GLB-B24-LOCK-001",
+      "source_type": "locked-reference-model",
+      "title": "b-24_liberator.glb authoritative visual reference",
+      "drawing_number": null,
+      "revision": null,
+      "issue_date": null,
+      "sheet_number": null,
+      "file_path": "GitHub Release 80-days-source-v1 / b-24_liberator.glb",
+      "bytes": 23085972,
+      "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+      "acquisition_status": "verified-local-or-release",
+      "applicability_status": "reference-only",
+      "approval_status": "approved-source",
+      "notes": "Provides node hierarchy, mesh geometry, material allocation, relative transforms and animation evidence. It has no engineering dimension authority."
+    },
+    {
+      "source_id": "DRAW-B24-GA-D1840-PENDING",
+      "source_type": "original-drawing",
+      "title": "B24 Model 32 General Arrangement candidate",
+      "drawing_number": "D-1840",
+      "revision": null,
+      "issue_date": null,
+      "sheet_number": null,
+      "file_path": null,
+      "bytes": null,
+      "sha256": null,
+      "acquisition_status": "pending-real-download",
+      "applicability_status": "pending-review",
+      "approval_status": "pending",
+      "notes": "Required for vertical tail station, spacing and general arrangement calibration."
+    },
+    {
+      "source_id": "DRAW-B24-GA-RD6894-PENDING",
+      "source_type": "original-drawing",
+      "title": "B24 Model 32 General Arrangement candidate",
+      "drawing_number": "RD-6894",
+      "revision": null,
+      "issue_date": null,
+      "sheet_number": null,
+      "file_path": null,
+      "bytes": null,
+      "sha256": null,
+      "acquisition_status": "pending-real-download",
+      "applicability_status": "pending-review",
+      "approval_status": "pending",
+      "notes": "Required for vertical tail station, spacing and general arrangement calibration."
+    },
+    {
+      "source_id": "MANUAL-AN-01-5E-3-VTAIL-PENDING",
+      "source_type": "official-manual",
+      "title": "AN 01-5E-3 B24 Structural Repair Instructions",
+      "drawing_number": "AN 01-5E-3",
+      "revision": null,
+      "issue_date": null,
+      "sheet_number": null,
+      "file_path": null,
+      "bytes": null,
+      "sha256": null,
+      "acquisition_status": "pending-real-download",
+      "applicability_status": "pending-review",
+      "approval_status": "pending",
+      "notes": "Required for stabilizer, rudder, frames, skin, material and repair diagrams."
+    },
+    {
+      "source_id": "IPC-AN-01-5E-4-VTAIL-PENDING",
+      "source_type": "illustrated-parts-catalog",
+      "title": "AN 01-5E-4 B24 Illustrated Parts Catalog",
+      "drawing_number": "AN 01-5E-4",
+      "revision": null,
+      "issue_date": null,
+      "sheet_number": null,
+      "file_path": null,
+      "bytes": null,
+      "sha256": null,
+      "acquisition_status": "pending-real-download",
+      "applicability_status": "pending-review",
+      "approval_status": "pending",
+      "notes": "Required for assembly relationships, part numbers and variant applicability."
+    },
+    {
+      "source_id": "IPC-ZE-32-047-VTAIL-PENDING",
+      "source_type": "illustrated-parts-catalog",
+      "title": "Consolidated factory parts and assembly catalog",
+      "drawing_number": "ZE-32-047",
+      "revision": null,
+      "issue_date": null,
+      "sheet_number": null,
+      "file_path": null,
+      "bytes": null,
+      "sha256": null,
+      "acquisition_status": "pending-real-download",
+      "applicability_status": "pending-review",
+      "approval_status": "pending",
+      "notes": "Required for factory assembly group and part-number cross-check."
+    }
+  ],
+  "reference_model_mapping": {
+    "source_id": "REF-GLB-B24-LOCK-001",
+    "mapping_status": "in-review",
+    "candidates": [
+      {
+        "reference_node_id": 719,
+        "stable_node_path": null,
+        "candidate_role": "vertical-tail-major-node-candidate-a",
+        "mesh_ids": [],
+        "animation_channel_ids": [],
+        "review_status": "candidate-not-approved",
+        "evidence_refs": [
+          "REF-GLB-B24-LOCK-001"
+        ]
+      },
+      {
+        "reference_node_id": 744,
+        "stable_node_path": null,
+        "candidate_role": "vertical-tail-major-node-candidate-b",
+        "mesh_ids": [],
+        "animation_channel_ids": [],
+        "review_status": "candidate-not-approved",
+        "evidence_refs": [
+          "REF-GLB-B24-LOCK-001"
+        ]
+      }
+    ]
+  },
+  "geometry_recipe": {
+    "recipe_id": "b24j-co-vertical-tail-recipe",
+    "recipe_version": "0.0.1-pending-source",
+    "status": "pending-source",
+    "coordinate_space": "component-local-millimetres",
+    "datums": [
+      {
+        "field_id": "left-root-datum",
+        "status": "pending-source",
+        "value": null,
+        "unit": "mm",
+        "evidence_refs": [],
+        "notes": "Requires general arrangement and attachment drawing."
+      },
+      {
+        "field_id": "right-root-datum",
+        "status": "pending-source",
+        "value": null,
+        "unit": "mm",
+        "evidence_refs": [],
+        "notes": "Requires general arrangement and attachment drawing."
+      },
+      {
+        "field_id": "aircraft-centerline-to-left-fin",
+        "status": "pending-source",
+        "value": null,
+        "unit": "mm",
+        "evidence_refs": [],
+        "notes": "No guessed spacing is allowed."
+      },
+      {
+        "field_id": "aircraft-centerline-to-right-fin",
+        "status": "pending-source",
+        "value": null,
+        "unit": "mm",
+        "evidence_refs": [],
+        "notes": "No guessed spacing is allowed."
+      }
+    ],
+    "stations": [],
+    "profiles": [],
+    "parameters": [
+      {
+        "field_id": "root-chord",
+        "status": "pending-source",
+        "value": null,
+        "unit": "mm",
+        "evidence_refs": [],
+        "notes": "Requires calibrated original drawing."
+      },
+      {
+        "field_id": "tip-chord",
+        "status": "pending-source",
+        "value": null,
+        "unit": "mm",
+        "evidence_refs": [],
+        "notes": "Requires calibrated original drawing."
+      },
+      {
+        "field_id": "fin-height",
+        "status": "pending-source",
+        "value": null,
+        "unit": "mm",
+        "evidence_refs": [],
+        "notes": "Requires calibrated original drawing."
+      },
+      {
+        "field_id": "leading-edge-curve",
+        "status": "pending-source",
+        "value": null,
+        "unit": null,
+        "evidence_refs": [],
+        "notes": "Requires vectorized drawing curve."
+      },
+      {
+        "field_id": "trailing-edge-curve",
+        "status": "pending-source",
+        "value": null,
+        "unit": null,
+        "evidence_refs": [],
+        "notes": "Requires vectorized drawing curve."
+      },
+      {
+        "field_id": "thickness-distribution",
+        "status": "pending-source",
+        "value": null,
+        "unit": null,
+        "evidence_refs": [],
+        "notes": "Requires section or structural drawing."
+      },
+      {
+        "field_id": "rudder-hinge-axis",
+        "status": "pending-source",
+        "value": null,
+        "unit": null,
+        "evidence_refs": [],
+        "notes": "Reference animation can supply a candidate only."
+      },
+      {
+        "field_id": "root-fillet-geometry",
+        "status": "pending-source",
+        "value": null,
+        "unit": null,
+        "evidence_refs": [],
+        "notes": "Requires attachment and fairing evidence."
+      }
+    ],
+    "unresolved_fields": [
+      "fin spacing",
+      "root and tip chord",
+      "height stations",
+      "section profiles",
+      "thickness distribution",
+      "incidence",
+      "cant or toe angle",
+      "root fillet",
+      "rudder balance geometry",
+      "hinge stations",
+      "skin panel boundaries",
+      "attachment geometry"
+    ]
+  },
+  "assembly_contract": {
+    "status": "pending-source",
+    "parent_component_id": "empennage.horizontal.center",
+    "installation_datums": [],
+    "attachment_interfaces": [],
+    "fastener_groups": [],
+    "removal_dependencies": [
+      "pending-parts-catalog-review"
+    ],
+    "removal_sequence": [
+      "pending-maintenance-manual-review"
+    ]
+  },
+  "motion_contract": {
+    "status": "pending-source",
+    "controller_ids": [
+      "flight-control.rudders.command",
+      "flight-control.rudders.left-angle",
+      "flight-control.rudders.right-angle",
+      "flight-control.rudders.neutral-return"
+    ],
+    "axes": [
+      {
+        "field_id": "left-rudder-hinge-axis",
+        "status": "pending-source",
+        "value": null,
+        "unit": null,
+        "evidence_refs": [],
+        "notes": "Reference animation and drawing must agree."
+      },
+      {
+        "field_id": "right-rudder-hinge-axis",
+        "status": "pending-source",
+        "value": null,
+        "unit": null,
+        "evidence_refs": [],
+        "notes": "Reference animation and drawing must agree."
+      }
+    ],
+    "ranges": [
+      {
+        "field_id": "left-rudder-deflection-range",
+        "status": "pending-source",
+        "value": null,
+        "unit": "degrees",
+        "evidence_refs": [],
+        "notes": "Requires official control-surface range source."
+      },
+      {
+        "field_id": "right-rudder-deflection-range",
+        "status": "pending-source",
+        "value": null,
+        "unit": "degrees",
+        "evidence_refs": [],
+        "notes": "Requires official control-surface range source."
+      }
+    ],
+    "synchronization": [
+      {
+        "field_id": "left-right-rudder-synchronization",
+        "status": "pending-source",
+        "value": null,
+        "unit": null,
+        "evidence_refs": [],
+        "notes": "Requires animation channel mapping and control-system evidence."
+      }
+    ],
+    "reset_policy": {
+      "field_id": "rudder-neutral-return",
+      "status": "provisional-candidate",
+      "value": "return-to-commanded-neutral",
+      "unit": null,
+      "evidence_refs": [],
+      "notes": "Semantic runtime proposal. It has no mechanism approval yet."
+    }
+  },
+  "surface_contract": {
+    "status": "in-review",
+    "surface_ids": [
+      "empennage.vertical.left.stabilizer.outer",
+      "empennage.vertical.left.stabilizer.inner",
+      "empennage.vertical.left.rudder.outer",
+      "empennage.vertical.left.rudder.inner",
+      "empennage.vertical.right.stabilizer.outer",
+      "empennage.vertical.right.stabilizer.inner",
+      "empennage.vertical.right.rudder.outer",
+      "empennage.vertical.right.rudder.inner"
+    ],
+    "parameter_domains": [],
+    "material_parameters": [
+      "baseColor",
+      "metalness",
+      "roughness",
+      "primerVisibility",
+      "paintWear",
+      "oxidation",
+      "panelContrast",
+      "rivetContrast"
+    ],
+    "historical_instance_lock": true
+  },
+  "qa_ledger": {
+    "required_views": [
+      "left",
+      "right",
+      "front",
+      "rear",
+      "top",
+      "bottom",
+      "three-quarter-left",
+      "three-quarter-right",
+      "hinge-closeup",
+      "root-attachment-closeup",
+      "surface-parameter-view",
+      "exploded-assembly-view"
+    ],
+    "gates": [
+      {
+        "gate_id": "source-applicability",
+        "status": "pending",
+        "evidence_refs": []
+      },
+      {
+        "gate_id": "drawing-calibration",
+        "status": "pending",
+        "evidence_refs": []
+      },
+      {
+        "gate_id": "reference-node-map",
+        "status": "pending",
+        "evidence_refs": []
+      },
+      {
+        "gate_id": "multi-view-outline",
+        "status": "pending",
+        "evidence_refs": []
+      },
+      {
+        "gate_id": "section-and-thickness",
+        "status": "pending",
+        "evidence_refs": []
+      },
+      {
+        "gate_id": "attachment-interface",
+        "status": "pending",
+        "evidence_refs": []
+      },
+      {
+        "gate_id": "rudder-axis-and-range",
+        "status": "pending",
+        "evidence_refs": []
+      },
+      {
+        "gate_id": "surface-domains",
+        "status": "pending",
+        "evidence_refs": []
+      },
+      {
+        "gate_id": "detach-attach-runtime",
+        "status": "pending",
+        "evidence_refs": []
+      },
+      {
+        "gate_id": "browser-comparison",
+        "status": "pending",
+        "evidence_refs": []
+      }
+    ],
+    "result": "pending"
+  },
+  "approval": {
+    "verticalTailSourcesApproved": false,
+    "verticalTailReferenceNodeMapApproved": false,
+    "verticalTailGeometryRecipeApproved": false,
+    "verticalTailAssemblyApproved": false,
+    "verticalTailBehaviorApproved": false,
+    "verticalTailSurfaceModuleApproved": false,
+    "verticalTailBrowserQaApproved": false,
+    "aircraftDataMasterApproved": false
+  }
+}
