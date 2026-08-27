@@ -33,27 +33,40 @@
       {
         "source_id": "B24-ENG-S002",
         "purpose": "general arrangement, datums, major dimensions and installation relationship",
-        "status": "pending-file-intake"
+        "status": "intake-reviewed-limited-candidate-use",
+        "review_ref": "data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json",
+        "geometry_use_approved": false
       },
       {
-        "source_id": "B24-ENG-S003",
-        "purpose": "three-view tail outlines and orthographic relationships",
-        "status": "pending-file-intake"
+        "source_id": "B24-ENG-S016",
+        "purpose": "official B-24J orthographic silhouette and view alignment from AN 01-5E-3 page ix",
+        "status": "intake-configured-pending-byte-image-and-calibration-review",
+        "geometry_use_approved": false
       },
       {
         "source_id": "B24-ENG-S007",
         "purpose": "structural repair figures, skin, frames, materials and fasteners",
-        "status": "pending-scan-intake"
+        "status": "pending-complete-manual-intake"
       },
       {
         "source_id": "B24-ENG-S008",
         "purpose": "illustrated parts, assembly breakdown and variant applicability",
-        "status": "pending-scan-intake"
+        "status": "pending-complete-manual-intake"
       },
       {
         "source_id": "B24-ENG-S009",
         "purpose": "factory parts groups and component relationships",
-        "status": "pending-scan-intake"
+        "status": "pending-complete-catalog-intake"
+      }
+    ],
+    "comparison_sources": [
+      {
+        "source_id": "B24-ENG-S003",
+        "purpose": "mixed secondary visual and variant comparison only",
+        "status": "reviewed-secondary-comparison-only",
+        "authority_grade": "D",
+        "geometry_use_approved": false,
+        "review_ref": "data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json"
       }
     ],
     "unknown_policy": "unresolved",
@@ -111,15 +124,30 @@
       "rudder_gap": "unresolved",
       "skin_thickness": "unresolved"
     },
+    "candidate_evidence": [
+      {
+        "source_id": "B24-ENG-S002",
+        "field": "rudder_travel",
+        "observed_value": "30 DEG EACH SIDE",
+        "status": "candidate-unapproved"
+      },
+      {
+        "source_id": "B24-ENG-S002",
+        "field": "vertical_tail_airfoil",
+        "observed_value": "0007",
+        "status": "candidate-unapproved"
+      }
+    ],
     "derivations": [],
     "rules": [
       "No value may be promoted from a visual estimate without a derivation record.",
       "Left and right geometry require independent review even when a shared recipe is used.",
       "A reference-model outline cannot override an approved drawing.",
+      "A mixed secondary drawing compilation cannot control production geometry.",
       "Internal structure remains unresolved until supported by drawings or manuals.",
       "Accepted geometry parameters must remain renderer-independent."
     ],
-    "status": "awaiting-calibrated-drawings"
+    "status": "awaiting-official-b24j-three-view-and-structural-sources"
   },
   "assembly_interfaces": [
     {
@@ -271,14 +299,22 @@
       "component-isolation",
       "browser-render-and-console"
     ],
-    "evidence": [],
+    "evidence": [
+      {
+        "evidence_id": "B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001",
+        "path": "data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json",
+        "result": "source-intake-reviewed-route-corrected"
+      }
+    ],
     "result": "pending"
   },
   "next_actions": [
-    "Intake and hash B24-ENG-S002 and B24-ENG-S003 source files.",
-    "Extract title blocks, revisions, scale and B24J-CO applicability.",
+    "Acquire and visually review B24-ENG-S016 from AN 01-5E-3 page ix.",
+    "Retain B24-ENG-S003 as secondary comparison only.",
+    "Resolve S002 title block, revision, scale and B24J-CO applicability before promoting candidate values.",
+    "Acquire complete AN 01-5E-3, AN 01-5E-4 and ZE-32-047 tail sections.",
     "Identify and isolate reference-model tail candidates in six views.",
-    "Calibrate drawing views to one aircraft datum.",
+    "Calibrate approved drawing views to one aircraft datum.",
     "Author the first source-backed outline and section records.",
     "Keep all geometry and motion approval flags false until browser evidence exists."
   ],

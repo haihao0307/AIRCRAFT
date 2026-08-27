@@ -1,0 +1,239 @@
+{
+  "schema": "haihao.aircraft/engineering-source-review@1.0.0",
+  "review_id": "B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001",
+  "reviewed_at": "2026-08-27",
+  "workflow_run_id": 33034102484,
+  "workflow_head": "10938ae6a007915ef9ca519e2dbc8bc686b01de9",
+  "artifact": {
+    "id": 9631369355,
+    "name": "b24-vertical-tail-priority-source-intake",
+    "bytes": 89756519,
+    "sha256": "4a0be2c3f2cb717f408d9409308deadef42eb012019e1bbc4535a99869f57cc4",
+    "expires_at": "2026-09-26T02:43:47Z"
+  },
+  "sources": [
+    {
+      "source_id": "B24-ENG-S002",
+      "registered_title": "B-24 Model 32 General Arrangement",
+      "file": "B24-ENG-S002_D-1840_RD-6894_Model-32_General-Arrangement.pdf",
+      "bytes": 4492789,
+      "sha256": "5ad3742e0462d4a7f2c44ade8b990b11e6ef77141565fb4c9804e9d507ef970e",
+      "pages": 1,
+      "page_size": "2592 x 5073.48 pt",
+      "page_rotation_deg": 90,
+      "embedded_scan": {
+        "type": "jpeg",
+        "width_px": 5400,
+        "height_px": 10570,
+        "nominal_ppi": 150
+      },
+      "visual_classification": "probable-manufacturer-general-arrangement-scan",
+      "observed_title_text": "GENERAL ARRANGEMENT / B-24 CONSOLIDATED MOD. 32",
+      "archive_filename_drawing_numbers": [
+        "D-1840",
+        "RD-6894"
+      ],
+      "title_block_drawing_number_status": "unreadable-in-current-scan",
+      "revision_status": "unreadable-in-current-scan",
+      "date_status": "unreadable-in-current-scan",
+      "scale_mark_candidate": {
+        "text": "1/40",
+        "confidence": "medium",
+        "approved": false
+      },
+      "scan_condition": [
+        "severe vertical and horizontal fold staining",
+        "uneven exposure and fading",
+        "edge damage",
+        "title block partially illegible",
+        "local contrast loss"
+      ],
+      "clearly_observed_data_candidates": [
+        {
+          "field": "wing_area_total_sq_ft",
+          "value": 1048.0,
+          "confidence": "high",
+          "approved": false
+        },
+        {
+          "field": "vertical_tail_area_total_sq_ft",
+          "value": 181.2,
+          "confidence": "high",
+          "approved": false
+        },
+        {
+          "field": "fins_including_rudder_balance_total_sq_ft",
+          "value": 132.3,
+          "confidence": "high",
+          "approved": false
+        },
+        {
+          "field": "fin_each_sq_ft",
+          "value": 60.65,
+          "confidence": "high",
+          "approved": false
+        },
+        {
+          "field": "rudder_total_sq_ft",
+          "value_text": "59.9",
+          "confidence": "medium",
+          "approved": false
+        },
+        {
+          "field": "each_rudder_including_tab_aft_of_hinge_line_sq_ft",
+          "value": 24.45,
+          "confidence": "high",
+          "approved": false
+        },
+        {
+          "field": "rudder_tabs_total_sq_ft",
+          "value_text": "1.3",
+          "confidence": "medium",
+          "approved": false
+        },
+        {
+          "field": "rudder_travel",
+          "value_text": "30 DEG EACH SIDE",
+          "confidence": "high",
+          "approved": false
+        },
+        {
+          "field": "vertical_tail_airfoil",
+          "value_text": "0007",
+          "context": "AIRFOIL SECTIONS table",
+          "confidence": "high",
+          "approved": false
+        }
+      ],
+      "variant_applicability": {
+        "observed": "B-24 Consolidated Model 32 family",
+        "B24J_CO": "unresolved",
+        "reason": "The sheet title is readable, but revision, date, drawing-number confirmation and block applicability are not readable."
+      },
+      "permitted_current_use": [
+        "whole-aircraft proportion comparison",
+        "candidate control-surface data",
+        "candidate airfoil and motion evidence",
+        "datum and overall-layout investigation"
+      ],
+      "prohibited_current_use": [
+        "approved B24J-CO production curves",
+        "approved installation geometry",
+        "approved control limits",
+        "approved skin or structural detail"
+      ],
+      "approval": {
+        "sourceBytesVerified": true,
+        "visualClassificationReviewed": true,
+        "titleBlockApproved": false,
+        "revisionApproved": false,
+        "variantApplicabilityApproved": false,
+        "drawingCalibrationApproved": false,
+        "geometryUseApproved": false
+      }
+    },
+    {
+      "source_id": "B24-ENG-S003",
+      "registered_title": "B-24 3-views, wing and undercarriage details",
+      "file": "B24-ENG-S003_Three-Views_Wing_Undercarriage.pdf",
+      "bytes": 606488,
+      "sha256": "4af64c224942c5225cbf784f52a8e17d4ab49d4de5990f0e0f91add7feea63bf",
+      "pages": 5,
+      "page_size": "612 x 792 pt letter",
+      "visual_classification": "secondary-mixed-source-mixed-variant-compilation",
+      "page_review": [
+        {
+          "page": 1,
+          "observed_title": "CONSOLIDATED B-24E / The Famous Liberator Bomber",
+          "observed_source": "Model Airplane News, February 1944, page 18",
+          "hand_annotation": "B-24H",
+          "variant": "conflicting B-24E printed title and B-24H annotation",
+          "authority": "secondary-period-magazine"
+        },
+        {
+          "page": 2,
+          "observed_title": "CONSOLIDATED LIBERATOR",
+          "printed_variant": "B-24H",
+          "page_number": 30,
+          "source_publication": "not visible on sheet",
+          "authority": "secondary-unresolved-publication"
+        },
+        {
+          "page": 3,
+          "observed_title": "B-24J Specifications",
+          "page_number": 35,
+          "content": "general three-view and summary dimensions",
+          "source_publication": "not visible on sheet",
+          "authority": "secondary-reference"
+        },
+        {
+          "page": 4,
+          "observed_title": "PLATE 2 WING DETAIL",
+          "credited_author": "A. Granger",
+          "date": 1979,
+          "publication": "Aerodata International No. 11",
+          "variant": "B-24D-CO and B-24E-FO",
+          "scale": "1/72",
+          "authority": "secondary-postwar-reference"
+        },
+        {
+          "page": 5,
+          "observed_title": "PLATE 4 ENGINE NACELLES & UNDERCARRIAGE DETAILS",
+          "credited_author": "A. Granger",
+          "date": 1979,
+          "publication": "Aerodata International No. 11",
+          "variant": "B-24D-CO and B-24E-FO",
+          "scale": "1/72",
+          "authority": "secondary-postwar-reference"
+        }
+      ],
+      "authority_reclassification": {
+        "previous_candidate": "A",
+        "reviewed_grade": "D_secondary_comparison_only",
+        "reason": "The PDF is a compilation of several publications and variants and does not preserve one manufacturer drawing, revision chain or coherent B24J-CO applicability."
+      },
+      "permitted_current_use": [
+        "visual comparison",
+        "variant-difference prompts",
+        "secondary silhouette cross-check",
+        "detail discovery that must be verified elsewhere"
+      ],
+      "prohibited_current_use": [
+        "manufacturer geometry authority",
+        "B24J-CO production dimensions",
+        "tail installation geometry",
+        "section profiles",
+        "control-surface motion approval"
+      ],
+      "source_gap_created": "An official B-24J three-view or manufacturer tail drawing is still required for the vertical-tail GeometryRecipe.",
+      "approval": {
+        "sourceBytesVerified": true,
+        "pageClassificationReviewed": true,
+        "authorityGradeApproved": true,
+        "titleBlockApproved": false,
+        "variantApplicabilityApproved": false,
+        "drawingCalibrationApproved": false,
+        "geometryUseApproved": false
+      }
+    }
+  ],
+  "new_source_candidate": {
+    "source_id": "B24-ENG-S016",
+    "title": "Consolidated B-24J Liberator three-view line drawing",
+    "source_document": "AN 01-5E-3, page ix",
+    "author": "U.S. Military",
+    "rights": "public domain in the United States",
+    "purpose": "Replace the mixed secondary S003 as the primary J-variant orthographic silhouette source.",
+    "status": "intake-configured-pending-byte-and-image-review"
+  },
+  "overall_result": "source-intake-reviewed-route-corrected",
+  "approval": {
+    "prioritySourcesDownloaded": true,
+    "S002LimitedCandidateUseApproved": true,
+    "S002GeometryUseApproved": false,
+    "S003ReclassifiedSecondary": true,
+    "officialB24JThreeViewAcquired": false,
+    "verticalTailSourceSetApproved": false,
+    "verticalTailGeometryRecipeApproved": false
+  }
+}

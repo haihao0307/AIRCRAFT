@@ -1,0 +1,59 @@
+{
+  "schema": "haihao.aircraft/engineering-image-intake-config@1.0.0",
+  "intake_id": "B24J_OFFICIAL_THREE_VIEW_INTAKE_001",
+  "purpose": "Acquire the official B-24J three-view extracted from AN 01-5E-3 page ix and preserve both the original uploaded scan and the current cleaned review derivative.",
+  "source": {
+    "source_id": "B24-ENG-S016",
+    "title": "Consolidated B-24J Liberator three-view line drawing",
+    "source_document": "AN 01-5E-3",
+    "source_page": "ix",
+    "author": "U.S. Military",
+    "variant": "B-24J",
+    "rights": "public-domain-US-federal-government-work",
+    "source_description_page": "https://commons.wikimedia.org/wiki/File:Consolidated_B-24J_Liberator_3-view_line_drawing.png",
+    "authority_candidate": "A_official_manual_page",
+    "geometry_role": "orthographic-silhouette-and-view-alignment",
+    "geometry_use_status": "pending-byte-image-crop-and-calibration-review"
+  },
+  "files": [
+    {
+      "file_role": "original-upload-scan",
+      "requested_url": "https://upload.wikimedia.org/wikipedia/commons/archive/8/88/20230322043441%21Consolidated_B-24J_Liberator_3-view_line_drawing.png",
+      "output_filename": "B24-ENG-S016_AN-01-5E-3_page-ix_B24J_three-view_original-scan.png",
+      "minimum_bytes": 5000000,
+      "expected_width": 2032,
+      "expected_height": 2442,
+      "expected_media_type": "image/png",
+      "review_priority": 1
+    },
+    {
+      "file_role": "cleaned-darkened-review-derivative",
+      "requested_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Consolidated_B-24J_Liberator_3-view_line_drawing.png",
+      "output_filename": "B24-ENG-S016_AN-01-5E-3_page-ix_B24J_three-view_cleaned-review.png",
+      "minimum_bytes": 300000,
+      "expected_width": 2032,
+      "expected_height": 2442,
+      "expected_media_type": "image/png",
+      "review_priority": 2
+    }
+  ],
+  "required_review": [
+    "PNG byte and dimension verification",
+    "original versus cleaned derivative comparison",
+    "B-24J identity confirmation",
+    "view orientation and alignment",
+    "cropping and missing-content check",
+    "line preservation check",
+    "scale or calibration strategy",
+    "vertical-tail outline extraction suitability"
+  ],
+  "approval": {
+    "sourceProvenanceApproved": false,
+    "rightsApproved": true,
+    "imageIntegrityApproved": false,
+    "B24JIdentityApproved": false,
+    "orthographicUseApproved": false,
+    "drawingCalibrationApproved": false,
+    "verticalTailGeometryUseApproved": false
+  }
+}
