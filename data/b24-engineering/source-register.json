@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "1.1.0",
+  "schemaVersion": "1.2.0",
   "aircraftFamily": "Consolidated B-24 Liberator",
-  "registryStatus": "research-source-registry-with-reviewed-authority-corrections",
+  "registryStatus": "research-source-registry-with-reviewed-authority-and-image-locks",
   "engineeringMasterApproved": false,
   "lastReviewed": "2026-08-27",
   "truthPolicy": {
@@ -542,13 +542,13 @@
       "drawing_number": null,
       "date": null,
       "revision": null,
-      "source_type": "official_manual_page_scan_and_review_derivative",
+      "source_type": "official_manual_page_crop_with_review_derivative",
       "authority_level": "A",
       "holder": "United States military work; Wikimedia Commons host",
       "host": "Wikimedia Commons",
       "source_url": "https://commons.wikimedia.org/wiki/File:Consolidated_B-24J_Liberator_3-view_line_drawing.png",
       "aircraft_variants": [
-        "B-24J"
+        "B-24J, illustration qualified to aircraft with nose and ball turrets"
       ],
       "production_plant": null,
       "block_range": null,
@@ -557,16 +557,46 @@
         "PNG cleaned review derivative"
       ],
       "pages_or_sheets": "AN 01-5E-3 page ix",
-      "access_status": "public_download_intake_configured",
+      "access_status": "downloaded_locked_and_reviewed_artifact_only",
       "rights_status": "public_domain_US_federal_government_work_as_marked_by_host",
       "geometry_scope": [
-        "B-24J three-view silhouette",
-        "orthographic view alignment",
-        "vertical-tail outline candidate"
+        "B-24J orthographic silhouette research",
+        "whole-aircraft view alignment",
+        "vertical-tail spacing and envelope dimension-anchor research",
+        "reference-model silhouette cross-check"
       ],
-      "current_verification": "Source description, document/page attribution, author, variant and public-domain marking reviewed. Source bytes and image integrity pending Actions intake.",
-      "next_action": "Download original scan and cleaned derivative, hash, compare, review crop and line preservation, then define calibration strategy.",
-      "notes": "The original scan controls image provenance. The cleaned file is a review derivative only and cannot silently replace source pixels."
+      "current_verification": "Original and cleaned files were downloaded in Actions run 33035435495. Both are 2032 x 2442 pixels. The original scan is source-of-record; the cleaned file is review-only. Limited B-24J orthographic silhouette use is approved, while full-page cross-check, calibration and production geometry use remain false.",
+      "next_action": "Recover or verify complete AN 01-5E-3 page ix context, define exact view crops and calibration transforms, confirm the tail-dimension endpoints, and resolve the 181.2 versus 188 square-foot area conflict.",
+      "notes": "The crop visibly contains plan, front or rear and side views plus dimensions. It lacks a visible manual header, page number, drawing number, revision, scale and title block.",
+      "review_refs": [
+        "data/b24-engineering/source-intake/results/B24J_OFFICIAL_THREE_VIEW_REVIEW_001.json",
+        "docs/aircraft-pipeline/B24J_OFFICIAL_THREE_VIEW_REVIEW_001.md",
+        "data/b24-engineering/source-intake/results/B24J_CO_VERTICAL_TAIL_SOURCE_CONFLICTS.json"
+      ],
+      "file_locks": {
+        "original_scan": {
+          "bytes": 6721623,
+          "sha256": "de0819d07d35f37126ed62b3a6f02131aaded7cbaa5c49ce63187f72dab0f5b6"
+        },
+        "cleaned_review_derivative": {
+          "bytes": 453910,
+          "sha256": "07449d0a39a22ae71851025960a9f0725f9ee3041d0ea6e1e6b6d03b29951df6",
+          "engineering_authority": false
+        },
+        "workflow_run_id": 33035435495,
+        "artifact_id": 9631818927,
+        "artifact_sha256": "d449639de4bbd412685a3249b2d7c058305cf247cd3998cddb156ffb1b8c9cce"
+      },
+      "approval": {
+        "sourceDescriptionProvenanceApproved": true,
+        "rightsApproved": true,
+        "imageIntegrityApproved": true,
+        "B24JIllustrationIdentityApproved": true,
+        "limitedOrthographicSilhouetteUseApproved": true,
+        "fullManualPageCrossCheckApproved": false,
+        "drawingCalibrationApproved": false,
+        "productionGeometryUseApproved": false
+      }
     }
   ]
 }

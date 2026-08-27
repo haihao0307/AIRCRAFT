@@ -40,8 +40,26 @@
       {
         "source_id": "B24-ENG-S016",
         "purpose": "official B-24J orthographic silhouette and view alignment from AN 01-5E-3 page ix",
-        "status": "intake-configured-pending-byte-image-and-calibration-review",
-        "geometry_use_approved": false
+        "status": "intake-reviewed-limited-orthographic-use",
+        "geometry_use_approved": false,
+        "review_ref": "data/b24-engineering/source-intake/results/B24J_OFFICIAL_THREE_VIEW_REVIEW_001.json",
+        "limited_orthographic_silhouette_use_approved": true,
+        "full_manual_page_cross_check_approved": false,
+        "drawing_calibration_approved": false,
+        "file_locks": {
+          "original_scan": {
+            "bytes": 6721623,
+            "sha256": "de0819d07d35f37126ed62b3a6f02131aaded7cbaa5c49ce63187f72dab0f5b6"
+          },
+          "cleaned_review_derivative": {
+            "bytes": 453910,
+            "sha256": "07449d0a39a22ae71851025960a9f0725f9ee3041d0ea6e1e6b6d03b29951df6",
+            "engineering_authority": false
+          },
+          "workflow_run_id": 33035435495,
+          "artifact_id": 9631818927,
+          "artifact_sha256": "d449639de4bbd412685a3249b2d7c058305cf247cd3998cddb156ffb1b8c9cce"
+        }
       },
       {
         "source_id": "B24-ENG-S007",
@@ -79,6 +97,19 @@
       "variant applicability",
       "calibration transform",
       "cropped evidence region"
+    ],
+    "open_conflicts": [
+      {
+        "conflict_id": "B24-VTAIL-CONFLICT-001",
+        "path": "data/b24-engineering/source-intake/results/B24J_CO_VERTICAL_TAIL_SOURCE_CONFLICTS.json",
+        "field": "vertical_tail_area_total_sq_ft",
+        "values": [
+          181.2,
+          188
+        ],
+        "status": "unresolved",
+        "blocking": true
+      }
     ]
   },
   "reference_mapping": {
@@ -136,6 +167,24 @@
         "field": "vertical_tail_airfoil",
         "observed_value": "0007",
         "status": "candidate-unapproved"
+      },
+      {
+        "source_id": "B24-ENG-S016",
+        "field": "twin_tail_lateral_span",
+        "observed_value": "26 FT 0 IN",
+        "status": "illustration-annotation-verified-not-yet-calibrated"
+      },
+      {
+        "source_id": "B24-ENG-S016",
+        "field": "tail_vertical_dimension",
+        "observed_value": "9 FT 3 7/16 IN",
+        "status": "illustration-annotation-verified-definition-pending"
+      },
+      {
+        "source_id": "B24-ENG-S016",
+        "field": "vertical_tail_area_total_sq_ft",
+        "observed_value": 188,
+        "status": "illustration-annotation-verified-conflict-open"
       }
     ],
     "derivations": [],
@@ -147,7 +196,20 @@
       "Internal structure remains unresolved until supported by drawings or manuals.",
       "Accepted geometry parameters must remain renderer-independent."
     ],
-    "status": "awaiting-official-b24j-three-view-and-structural-sources"
+    "status": "official-b24j-three-view-limited-use-approved-awaiting-calibration-and-structural-sources",
+    "source_conflicts": [
+      {
+        "conflict_id": "B24-VTAIL-CONFLICT-001",
+        "path": "data/b24-engineering/source-intake/results/B24J_CO_VERTICAL_TAIL_SOURCE_CONFLICTS.json",
+        "field": "vertical_tail_area_total_sq_ft",
+        "values": [
+          181.2,
+          188
+        ],
+        "status": "unresolved",
+        "blocking": true
+      }
+    ]
   },
   "assembly_interfaces": [
     {
@@ -304,19 +366,24 @@
         "evidence_id": "B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001",
         "path": "data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json",
         "result": "source-intake-reviewed-route-corrected"
+      },
+      {
+        "evidence_id": "B24J_OFFICIAL_THREE_VIEW_REVIEW_001",
+        "path": "data/b24-engineering/source-intake/results/B24J_OFFICIAL_THREE_VIEW_REVIEW_001.json",
+        "result": "official-b24j-three-view-acquired-limited-orthographic-use-approved-production-geometry-blocked"
       }
     ],
     "result": "pending"
   },
   "next_actions": [
-    "Acquire and visually review B24-ENG-S016 from AN 01-5E-3 page ix.",
-    "Retain B24-ENG-S003 as secondary comparison only.",
+    "Recover or verify complete AN 01-5E-3 page ix context and neighboring manual pages.",
+    "Define exact original-scan pixel crops for plan, side and front or rear views.",
+    "Build independent calibration transforms for every orthographic view.",
+    "Resolve the B24-VTAIL-CONFLICT-001 area conflict before any area-derived geometry.",
     "Resolve S002 title block, revision, scale and B24J-CO applicability before promoting candidate values.",
     "Acquire complete AN 01-5E-3, AN 01-5E-4 and ZE-32-047 tail sections.",
     "Identify and isolate reference-model tail candidates in six views.",
-    "Calibrate approved drawing views to one aircraft datum.",
-    "Author the first source-backed outline and section records.",
-    "Keep all geometry and motion approval flags false until browser evidence exists."
+    "Author the first calibrated outline records while all production approvals remain false."
   ],
   "approval": {
     "sourceApproved": false,
