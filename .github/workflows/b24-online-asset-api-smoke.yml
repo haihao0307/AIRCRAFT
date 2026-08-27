@@ -1,0 +1,117 @@
+name: Verify B24 online asset API delivery
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - '.github/workflows/b24-online-asset-api-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Switch immutable viewer to GitHub asset API
+        id: patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          path = Path('preview/b24-reference-exact/viewer-online.js')
+          text = path.read_text(encoding='utf-8')
+          old = "fetch('https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb',{cache:'no-store'})"
+          new = "fetch('https://api.github.com/repos/haihao0307/AIRCRAFT/releases/assets/527810913',{cache:'no-store',headers:{Accept:'application/octet-stream'}})"
+          if old not in text and new not in text:
+              raise SystemExit('Expected release fetch expression was not found')
+          text = text.replace(old, new, 1)
+          path.write_text(text, encoding='utf-8')
+
+          info_path = Path('preview/b24-reference-exact/build-info.json')
+          info = json.loads(info_path.read_text(encoding='utf-8'))
+          info['built_at'] = datetime.now(timezone.utc).isoformat()
+          info['model_delivery'] = {
+              'method': 'GitHub release asset API',
+              'asset_id': 527810913,
+              'api_url': 'https://api.github.com/repos/haihao0307/AIRCRAFT/releases/assets/527810913',
+              'accept': 'application/octet-stream'
+          }
+          info_path.write_text(json.dumps(info, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add preview/b24-reference-exact/viewer-online.js preview/b24-reference-exact/build-info.json
+          if ! git diff --cached --quiet; then
+            git commit -m "fix: load locked B24 asset through GitHub API [skip ci]"
+            git push origin HEAD:research/b24-engineering-drawings-cad-v1
+          fi
+          SHA="$(git rev-parse HEAD)"
+          URL="https://cdn.githubraw.com/haihao0307/AIRCRAFT/${SHA}/preview/b24-reference-exact/online.html"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Verify immutable public page with real browser
+        shell: bash
+        env:
+          ONLINE_URL: ${{ steps.patch.outputs.url }}
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          READY=0
+          for attempt in $(seq 1 18); do
+            if curl --fail --silent --show-error --location "$ONLINE_URL" -o /tmp/page.html; then
+              if grep -q 'B24 权威参考模型精确镜像审核' /tmp/page.html; then
+                READY=1
+                break
+              fi
+            fi
+            sleep 5
+          done
+          test "$READY" = "1"
+          COMMON_FLAGS=(
+            --headless=new
+            --no-sandbox
+            --disable-dev-shm-usage
+            --disable-gpu-sandbox
+            --enable-webgl
+            --ignore-gpu-blocklist
+            --use-gl=angle
+            --use-angle=swiftshader-webgl
+            --enable-unsafe-swiftshader
+            --window-size=1600,1000
+            --virtual-time-budget=70000
+          )
+          timeout 170s "$CHROME" "${COMMON_FLAGS[@]}" --dump-dom "$ONLINE_URL" > /tmp/dom.html
+          if ! grep -q 'data-qa="pass"' /tmp/dom.html; then
+            tail -300 /tmp/dom.html
+            exit 1
+          fi
+          timeout 170s "$CHROME" "${COMMON_FLAGS[@]}" --screenshot="$GITHUB_WORKSPACE/b24-online-api.png" "$ONLINE_URL"
+          test -s "$GITHUB_WORKSPACE/b24-online-api.png"
+          {
+            echo '## B24 immutable online review verified'
+            echo
+            echo "Online URL: $ONLINE_URL"
+            echo
+            echo 'Reference bytes, SHA256, exact inventory and WebGL rendering: PASS'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24-online-api-${{ steps.patch.outputs.sha }}
+          path: b24-online-api.png
+          if-no-files-found: error
+          retention-days: 30
