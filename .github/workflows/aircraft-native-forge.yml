@@ -1,0 +1,62 @@
+name: Validate Aircraft Native Forge
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'TASK_013_AIRCRAFT_NATIVE_FORGE_DRAWING_FIRST_V1.md'
+      - 'docs/aircraft-pipeline/AIRCRAFT_NATIVE_FORGE_ARCHITECTURE.md'
+      - 'data/aircraft-native/**'
+      - 'data/b24-native/components/**'
+      - 'scripts/validate-aircraft-native-forge.mjs'
+      - '.github/workflows/aircraft-native-forge.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'TASK_013_AIRCRAFT_NATIVE_FORGE_DRAWING_FIRST_V1.md'
+      - 'docs/aircraft-pipeline/AIRCRAFT_NATIVE_FORGE_ARCHITECTURE.md'
+      - 'data/aircraft-native/**'
+      - 'data/b24-native/components/**'
+      - 'scripts/validate-aircraft-native-forge.mjs'
+      - '.github/workflows/aircraft-native-forge.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate existing B24 native contracts
+        run: node scripts/validate-b24-native-contracts.mjs
+
+      - name: Validate Aircraft Native Forge policy and first component
+        run: node scripts/validate-aircraft-native-forge.mjs | tee aircraft-native-forge-validation.json
+
+      - name: Publish validation summary
+        shell: bash
+        run: |
+          {
+            echo '## Aircraft Native Forge validation'
+            echo
+            echo 'Drawing-first policy, external-tool isolation, reusable component schema and B24 vertical-tail contract: PASS'
+            echo
+            echo 'All component approvals remain closed until drawings, node mapping, geometry, behavior, surface and browser QA pass.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aircraft-native-forge-validation
+          path: aircraft-native-forge-validation.json
+          if-no-files-found: error
+          retention-days: 30
