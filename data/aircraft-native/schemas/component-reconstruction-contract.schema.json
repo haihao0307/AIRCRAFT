@@ -1,0 +1,615 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "haihao.aircraft/component-reconstruction-contract.schema.json",
+  "title": "Aircraft Native Forge Component Reconstruction Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "contract_id",
+    "identity",
+    "aircraft_applicability",
+    "source_ledger",
+    "reference_model_mapping",
+    "geometry_recipe",
+    "assembly_contract",
+    "motion_contract",
+    "surface_contract",
+    "qa_ledger",
+    "approval"
+  ],
+  "properties": {
+    "schema": {
+      "const": "haihao.aircraft/component-reconstruction-contract@1.0.0"
+    },
+    "contract_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "component_family_id",
+        "display_name",
+        "component_ids",
+        "system_id"
+      ],
+      "properties": {
+        "component_family_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "component_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "system_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "aircraft_applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family",
+        "model",
+        "variant",
+        "production_plant",
+        "block_scope",
+        "serial_scope",
+        "status"
+      ],
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "variant": {
+          "type": "string"
+        },
+        "production_plant": {
+          "type": "string"
+        },
+        "block_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "serial_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "enum": [
+            "approved",
+            "provisional",
+            "pending-source"
+          ]
+        }
+      }
+    },
+    "source_ledger": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "source_type",
+          "title",
+          "acquisition_status",
+          "applicability_status",
+          "approval_status"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_type": {
+            "enum": [
+              "original-drawing",
+              "official-manual",
+              "illustrated-parts-catalog",
+              "historical-photograph",
+              "locked-reference-model",
+              "derived-measurement",
+              "other"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "drawing_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "revision": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "issue_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sheet_number": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "file_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bytes": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "sha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "acquisition_status": {
+            "enum": [
+              "verified-local-or-release",
+              "pending-real-download",
+              "unavailable",
+              "rejected"
+            ]
+          },
+          "applicability_status": {
+            "enum": [
+              "approved",
+              "pending-review",
+              "incompatible",
+              "reference-only"
+            ]
+          },
+          "approval_status": {
+            "enum": [
+              "approved-source",
+              "pending",
+              "rejected",
+              "superseded"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "reference_model_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "mapping_status",
+        "candidates"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string"
+        },
+        "mapping_status": {
+          "enum": [
+            "approved",
+            "in-review",
+            "pending"
+          ]
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "reference_node_id",
+              "candidate_role",
+              "review_status"
+            ],
+            "properties": {
+              "reference_node_id": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "stable_node_path": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "candidate_role": {
+                "type": "string"
+              },
+              "mesh_ids": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "animation_channel_ids": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "review_status": {
+                "enum": [
+                  "candidate-not-approved",
+                  "approved",
+                  "rejected"
+                ]
+              },
+              "evidence_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "geometry_recipe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recipe_id",
+        "recipe_version",
+        "status",
+        "coordinate_space",
+        "datums",
+        "stations",
+        "profiles",
+        "parameters",
+        "unresolved_fields"
+      ],
+      "properties": {
+        "recipe_id": {
+          "type": "string"
+        },
+        "recipe_version": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "approved",
+            "derived-candidate",
+            "pending-source"
+          ]
+        },
+        "coordinate_space": {
+          "type": "string"
+        },
+        "datums": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "stations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "unresolved_fields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assembly_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "parent_component_id",
+        "installation_datums",
+        "attachment_interfaces",
+        "fastener_groups",
+        "removal_dependencies",
+        "removal_sequence"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "approved",
+            "provisional",
+            "pending-source"
+          ]
+        },
+        "parent_component_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "installation_datums": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "attachment_interfaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "fastener_groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "removal_dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "removal_sequence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "motion_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "controller_ids",
+        "axes",
+        "ranges",
+        "synchronization",
+        "reset_policy"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "approved",
+            "in-review",
+            "pending-source"
+          ]
+        },
+        "controller_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "axes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "ranges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "synchronization": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "reset_policy": {
+          "$ref": "#/$defs/evidencedValue"
+        }
+      }
+    },
+    "surface_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "surface_ids",
+        "parameter_domains",
+        "material_parameters",
+        "historical_instance_lock"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "approved",
+            "in-review",
+            "pending-source"
+          ]
+        },
+        "surface_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "parameter_domains": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidencedValue"
+          }
+        },
+        "material_parameters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "historical_instance_lock": {
+          "type": "boolean"
+        }
+      }
+    },
+    "qa_ledger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_views",
+        "gates",
+        "result"
+      ],
+      "properties": {
+        "required_views": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "gates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "gate_id",
+              "status"
+            ],
+            "properties": {
+              "gate_id": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "pass",
+                  "fail",
+                  "pending",
+                  "blocked"
+                ]
+              },
+              "evidence_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "result": {
+          "enum": [
+            "approved",
+            "pending",
+            "blocked",
+            "rejected"
+          ]
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "boolean"
+      },
+      "minProperties": 1
+    }
+  },
+  "$defs": {
+    "evidencedValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field_id",
+        "status",
+        "value",
+        "unit",
+        "evidence_refs"
+      ],
+      "properties": {
+        "field_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "approved-source",
+            "derived-from-approved-source",
+            "reference-model-measurement",
+            "historical-photo-inference",
+            "provisional-candidate",
+            "pending-source",
+            "rejected",
+            "superseded"
+          ]
+        },
+        "value": {},
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
