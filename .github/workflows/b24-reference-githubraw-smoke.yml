@@ -1,0 +1,72 @@
+name: Verify B24 immutable online review
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - '.github/workflows/b24-reference-githubraw-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ONLINE_URL: https://cdn.githubraw.com/haihao0307/AIRCRAFT/1a2118a7aba179ef671d2a39013924891795e474/preview/b24-reference-exact/online.html
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify public response and browser rendering
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          READY=0
+          for attempt in $(seq 1 12); do
+            if curl --fail --silent --show-error --location "$ONLINE_URL" -D /tmp/headers.txt -o /tmp/page.html; then
+              if grep -q 'B24 权威参考模型精确镜像审核' /tmp/page.html; then
+                READY=1
+                break
+              fi
+            fi
+            sleep 5
+          done
+          test "$READY" = "1"
+          cat /tmp/headers.txt
+          grep -i '^content-type:.*text/html' /tmp/headers.txt
+          COMMON_FLAGS=(
+            --headless=new
+            --no-sandbox
+            --disable-dev-shm-usage
+            --disable-gpu-sandbox
+            --enable-webgl
+            --ignore-gpu-blocklist
+            --use-gl=angle
+            --use-angle=swiftshader-webgl
+            --enable-unsafe-swiftshader
+            --window-size=1600,1000
+            --virtual-time-budget=65000
+          )
+          timeout 150s "$CHROME" "${COMMON_FLAGS[@]}" --dump-dom "$ONLINE_URL" > /tmp/dom.html
+          if ! grep -q 'data-qa="pass"' /tmp/dom.html; then
+            tail -300 /tmp/dom.html
+            exit 1
+          fi
+          timeout 150s "$CHROME" "${COMMON_FLAGS[@]}" --screenshot="$GITHUB_WORKSPACE/b24-online.png" "$ONLINE_URL"
+          test -s "$GITHUB_WORKSPACE/b24-online.png"
+          {
+            echo '## B24 immutable online review verified'
+            echo
+            echo "Online URL: $ONLINE_URL"
+            echo
+            echo 'Browser source lock, exact inventory and WebGL rendering: PASS'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24-immutable-online-review
+          path: b24-online.png
+          if-no-files-found: error
+          retention-days: 30
