@@ -30,7 +30,7 @@ function initScene(){
 function resize(){const rect=$('viewport').getBoundingClientRect();state.renderer.setSize(Math.max(1,rect.width),Math.max(1,rect.height),false);state.camera.aspect=Math.max(1,rect.width)/Math.max(1,rect.height);state.camera.updateProjectionMatrix()}
 
 async function fetchModel(){
-  const response=await fetch('https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb',{cache:'no-store'});if(!response.ok)throw new Error(`模型下载失败，HTTP ${response.status}`);
+  const response=await fetch('https://api.github.com/repos/haihao0307/AIRCRAFT/releases/assets/527810913',{cache:'no-store',headers:{Accept:'application/octet-stream'}});if(!response.ok)throw new Error(`模型下载失败，HTTP ${response.status}`);
   const total=Number(response.headers.get('content-length'))||LOCK.bytes;const reader=response.body?.getReader();
   if(!reader){const buffer=await response.arrayBuffer();progress(.72,'下载完成',buffer.byteLength);return buffer}
   const chunks=[];let received=0;while(true){const {done,value}=await reader.read();if(done)break;chunks.push(value);received+=value.byteLength;progress((received/total)*.72,`${Math.round(received/total*100)}%`,received)}

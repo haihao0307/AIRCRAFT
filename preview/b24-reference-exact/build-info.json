@@ -1,7 +1,7 @@
 {
   "branch": "research/b24-engineering-drawings-cad-v1",
   "commit": "4501c9c6868d63659e4ec08e9e818e865a168c3c",
-  "built_at": "2026-08-27T01:47:16.435095+00:00",
+  "built_at": "2026-08-27T01:51:17.321322+00:00",
   "source_model": {
     "url": "https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb",
     "bytes": 23085972,
@@ -11,5 +11,11 @@
     "visual_parity_approved": false,
     "animation_semantics_approved": false,
     "native_geometry_replacement_approved": false
+  },
+  "model_delivery": {
+    "method": "GitHub release asset API",
+    "asset_id": 527810913,
+    "api_url": "https://api.github.com/repos/haihao0307/AIRCRAFT/releases/assets/527810913",
+    "accept": "application/octet-stream"
   }
 }
