@@ -1,0 +1,199 @@
+{
+  "schema": "haihao.aircraft/engineering-image-source-review@1.0.0",
+  "review_id": "B24J_OFFICIAL_THREE_VIEW_REVIEW_001",
+  "reviewed_at": "2026-08-27",
+  "source_id": "B24-ENG-S016",
+  "workflow": {
+    "run_id": 33035435495,
+    "head_sha": "941d64171e4f21c837dd49abf6573dd227d09141",
+    "artifact_id": 9631818927,
+    "artifact_name": "b24j-official-three-view-intake",
+    "artifact_bytes": 7177259,
+    "artifact_sha256": "d449639de4bbd412685a3249b2d7c058305cf247cd3998cddb156ffb1b8c9cce",
+    "expires_at": "2026-09-26T03:08:11Z"
+  },
+  "source_identity": {
+    "title": "Consolidated B-24J Liberator three-view line drawing",
+    "source_document": "AN 01-5E-3",
+    "source_page": "ix",
+    "author": "U.S. Military",
+    "variant": "B-24J",
+    "host": "Wikimedia Commons",
+    "description_page": "https://commons.wikimedia.org/wiki/File:Consolidated_B-24J_Liberator_3-view_line_drawing.png",
+    "rights": "public-domain-US-federal-government-work",
+    "provenance_scope": "host-attributed crop of official manual page",
+    "full_manual_page_cross_check": "pending"
+  },
+  "files": {
+    "original_scan": {
+      "filename": "B24-ENG-S016_AN-01-5E-3_page-ix_B24J_three-view_original-scan.png",
+      "bytes": 6721623,
+      "sha256": "de0819d07d35f37126ed62b3a6f02131aaded7cbaa5c49ce63187f72dab0f5b6",
+      "width_px": 2032,
+      "height_px": 2442,
+      "bit_depth": 8,
+      "png_color_type": 2,
+      "last_modified": "2023-03-22T04:34:43Z",
+      "authority": "source-image-provenance",
+      "geometry_role": "primary source pixels for review and later calibration"
+    },
+    "cleaned_review_derivative": {
+      "filename": "B24-ENG-S016_AN-01-5E-3_page-ix_B24J_three-view_cleaned-review.png",
+      "bytes": 453910,
+      "sha256": "07449d0a39a22ae71851025960a9f0725f9ee3041d0ea6e1e6b6d03b29951df6",
+      "width_px": 2032,
+      "height_px": 2442,
+      "bit_depth": 8,
+      "png_color_type": 3,
+      "last_modified": "2025-06-03T20:14:23Z",
+      "authority": "review-derivative-only",
+      "geometry_role": "line-visibility aid; cannot replace original pixels or become an independent engineering source"
+    }
+  },
+  "derivative_comparison": {
+    "same_pixel_dimensions": true,
+    "byte_identical": false,
+    "major_view_layout_visually_consistent": true,
+    "major_dimension_text_visually_consistent": true,
+    "background_removed_or_whitened": true,
+    "linework_darkened": true,
+    "crop_alignment_visually_consistent": true,
+    "pixel_threshold_diagnostic": {
+      "cleaned_dark_threshold": 128,
+      "original_dark_threshold": 200,
+      "cleaned_dark_pixels_covered_by_original_dark_same_coordinate": 1.0,
+      "original_pixels_below_128_within_2px_of_cleaned_pixels_below_128": 0.99628,
+      "interpretation": "Supports major line preservation at current resolution. It does not prove subpixel, tonal or dimension-label equivalence."
+    },
+    "cleaned_derivative_geometry_authority": false
+  },
+  "visual_observations": {
+    "content_type": "cropped multi-view manual illustration",
+    "visible_views": [
+      "plan view",
+      "front or rear view",
+      "side view"
+    ],
+    "manual_header_visible": false,
+    "manual_page_number_visible": false,
+    "drawing_title_block_visible": false,
+    "view_scale_printed": false,
+    "note": "THIS ILLUSTRATION APPLIES ONLY TO THOSE AIRPLANES WITH THE NOSE AND BALL TURRETS",
+    "tail_evidence": [
+      "twin-fin lateral spacing is dimensioned",
+      "tail vertical envelope is dimensioned",
+      "side-view fin and rudder silhouette is visible",
+      "hinge or balance detail is indicated by solid and dashed linework",
+      "plan view shows twin-tail placement relative to horizontal tail"
+    ],
+    "limitations": [
+      "cropped image lacks the complete manual page and surrounding caption context",
+      "no drawing number, revision or printed scale is visible in the crop",
+      "front versus rear convention requires full-page or manual-caption confirmation",
+      "image is suitable for silhouette and dimension-anchor research, not section thickness or internal structure",
+      "cleaned derivative has no independent engineering authority"
+    ]
+  },
+  "visible_annotation_candidates": [
+    {
+      "field": "wingspan",
+      "value": "110 FT 0 IN",
+      "role": "whole-aircraft calibration anchor",
+      "status": "illustration-annotation-verified-not-yet-calibrated"
+    },
+    {
+      "field": "overall_length",
+      "value": "67 FT 7 5/8 IN",
+      "role": "whole-aircraft calibration anchor",
+      "status": "illustration-annotation-verified-not-yet-calibrated"
+    },
+    {
+      "field": "overall_height",
+      "value": "17 FT 11 IN",
+      "role": "whole-aircraft calibration anchor",
+      "status": "illustration-annotation-verified-not-yet-calibrated"
+    },
+    {
+      "field": "twin_tail_lateral_span",
+      "value": "26 FT 0 IN",
+      "role": "vertical-tail installation and spacing candidate",
+      "status": "illustration-annotation-verified-not-yet-calibrated"
+    },
+    {
+      "field": "tail_vertical_dimension",
+      "value": "9 FT 3 7/16 IN",
+      "role": "vertical-tail envelope candidate",
+      "status": "illustration-annotation-verified-definition-pending"
+    },
+    {
+      "field": "wing_area_total_sq_ft",
+      "value": 1048,
+      "status": "illustration-annotation-verified"
+    },
+    {
+      "field": "horizontal_tail_area_total_sq_ft",
+      "value": 192,
+      "status": "illustration-annotation-verified"
+    },
+    {
+      "field": "vertical_tail_area_total_sq_ft",
+      "value": 188,
+      "status": "illustration-annotation-verified-conflict-open"
+    }
+  ],
+  "source_conflicts": [
+    {
+      "conflict_id": "B24-VTAIL-CONFLICT-001",
+      "field": "vertical_tail_area_total_sq_ft",
+      "this_source_value": 188,
+      "conflicting_source_id": "B24-ENG-S002",
+      "conflicting_value": 181.2,
+      "status": "unresolved",
+      "blocking": [
+        "area-derived scaling",
+        "production geometry approval",
+        "variant applicability approval"
+      ]
+    }
+  ],
+  "permitted_use": [
+    "B-24J orthographic silhouette research",
+    "whole-aircraft view alignment",
+    "vertical-tail spacing and envelope dimension-anchor research",
+    "reference-model silhouette cross-check",
+    "candidate crop definition for later calibrated extraction"
+  ],
+  "prohibited_use": [
+    "automatic production-geometry generation",
+    "section profile or thickness authority",
+    "internal structure or skin construction authority",
+    "rudder hinge-axis authority",
+    "absolute pixel-to-dimension calibration without a recorded transform",
+    "using the cleaned derivative as the source-of-record",
+    "resolving the 181.2 versus 188 square-foot conflict by preference"
+  ],
+  "next_actions": [
+    "Obtain or verify the complete AN 01-5E-3 page ix context and neighboring manual pages.",
+    "Define view-region crops from the original scan and record every pixel rectangle.",
+    "Build independent calibration transforms for plan, front or rear, and side views.",
+    "Confirm what the 9 FT 3 7/16 IN tail dimension measures.",
+    "Resolve front versus rear view convention.",
+    "Investigate the 181.2 versus 188 square-foot vertical-tail area conflict by revision, variant and area-definition context.",
+    "Acquire structural and parts-manual tail pages before section, hinge or skin reconstruction."
+  ],
+  "approval": {
+    "sourceDescriptionProvenanceApproved": true,
+    "rightsApproved": true,
+    "originalBytesLocked": true,
+    "cleanedBytesLocked": true,
+    "imageIntegrityApproved": true,
+    "B24JIllustrationIdentityApproved": true,
+    "limitedOrthographicSilhouetteUseApproved": true,
+    "cleanedDerivativeGeometryAuthorityApproved": false,
+    "fullManualPageCrossCheckApproved": false,
+    "drawingCalibrationApproved": false,
+    "verticalTailProductionGeometryUseApproved": false,
+    "verticalTailSourceSetApproved": false
+  },
+  "result": "official-b24j-three-view-acquired-limited-orthographic-use-approved-production-geometry-blocked"
+}
