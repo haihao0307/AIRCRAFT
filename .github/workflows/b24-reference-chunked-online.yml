@@ -6,6 +6,7 @@ on:
       - research/b24-engineering-drawings-cad-v1
     paths:
       - '.github/workflows/b24-reference-chunked-online.yml'
+      - 'preview/b24-reference-exact/chunk-fetch-function.jsfrag'
   workflow_dispatch:
 
 permissions:
@@ -17,7 +18,7 @@ concurrency:
 
 jobs:
   materialize-and-verify:
-    if: github.actor != 'github-actions[bot]'
+    if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -97,30 +98,7 @@ jobs:
           viewer = (root / 'viewer.js').read_text(encoding='utf-8')
           start = viewer.index('async function fetchModel(){')
           end = viewer.index('\nasync function verify(', start)
-          replacement = r'''async function fetchModel(){
-  $('loadingText').textContent='正在读取权威 GLB 分块清单。';
-  const manifestResponse=await fetch('./assets/chunks/manifest.json',{cache:'no-store'});
-  if(!manifestResponse.ok)throw new Error(`分块清单下载失败，HTTP ${manifestResponse.status}`);
-  const manifest=await manifestResponse.json();
-  if(manifest.bytes!==LOCK.bytes||manifest.sha256!==LOCK.sha256)throw new Error('分块清单与权威源文件锁不一致');
-  if(!Array.isArray(manifest.chunks)||manifest.chunks.length<1)throw new Error('分块清单为空');
-  const chunks=[];let received=0;
-  for(let index=0;index<manifest.chunks.length;index+=1){
-    const entry=manifest.chunks[index];
-    const response=await fetch(`./assets/chunks/${entry.file}`,{cache:'force-cache'});
-    if(!response.ok)throw new Error(`分块 ${index+1} 下载失败，HTTP ${response.status}`);
-    const buffer=await response.arrayBuffer();
-    if(buffer.byteLength!==entry.bytes)throw new Error(`分块 ${index+1} 字节数不符`);
-    const digest=hex(await crypto.subtle.digest('SHA-256',buffer));
-    if(digest!==entry.sha256)throw new Error(`分块 ${index+1} SHA256 不符`);
-    chunks.push(new Uint8Array(buffer));received+=buffer.byteLength;
-    progress((received/LOCK.bytes)*.72,`分块 ${index+1}/${manifest.chunks.length}`,received);
-  }
-  if(received!==LOCK.bytes)throw new Error(`分块总字节数不符：${received}`);
-  const merged=new Uint8Array(received);let offset=0;
-  for(const chunk of chunks){merged.set(chunk,offset);offset+=chunk.byteLength;}
-  return merged.buffer;
-}'''
+          replacement = (root / 'chunk-fetch-function.jsfrag').read_text(encoding='utf-8').rstrip()
           viewer = viewer[:start] + replacement + viewer[end:]
           (root / 'viewer-online.js').write_text(viewer, encoding='utf-8')
 
@@ -172,8 +150,10 @@ jobs:
           set -euo pipefail
           node scripts/validate-b24-native-contracts.mjs
           python3 - <<'PY'
-          import hashlib, json
+          import hashlib
+          import json
           from pathlib import Path
+
           root = Path('preview/b24-reference-exact/assets/chunks')
           manifest = json.loads((root / 'manifest.json').read_text(encoding='utf-8'))
           data = b''.join((root / entry['file']).read_bytes() for entry in manifest['chunks'])
