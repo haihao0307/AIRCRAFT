@@ -1,0 +1,67 @@
+{
+  "schema": "haihao.aircraft/native-direct-mirror-contract@0.1.0",
+  "assetId": "B24J_CO_DIRECT_INHERIT_V001",
+  "status": "visual-review-candidate",
+  "inheritanceMode": "direct-measurement-and-exact-array-copy",
+  "sourceLock": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "nativeFormat": {
+    "manifestSchema": "haihao.aircraft/native-direct-mirror@0.1.0",
+    "payloadEncoding": "raw-little-endian-numeric-blocks",
+    "payloadExtension": ".anfd",
+    "runtimeLoadsGlb": false,
+    "runtimeUsesGltfLoader": false
+  },
+  "statistics": {
+    "scenes": 1,
+    "components": 1784,
+    "meshes": 348,
+    "vertices": 307273,
+    "indices": 976074,
+    "triangles": 325358,
+    "materials": 30,
+    "images": 18,
+    "animations": 1,
+    "animationTracks": 2518,
+    "numericBlocks": 2401
+  },
+  "nativePayload": {
+    "bytes": 16647376,
+    "sha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2"
+  },
+  "exactInheritance": {
+    "positions": true,
+    "normals": true,
+    "indices": true,
+    "uv0WherePresent": true,
+    "uv1WherePresent": true,
+    "componentHierarchy": true,
+    "localTransforms": true,
+    "animationTimes": true,
+    "animationValues": true,
+    "sourceImageBytes": true
+  },
+  "validation": {
+    "meshNumericStreamComparisons": 1666,
+    "animationStreamComparisons": 2518,
+    "sourceImageByteComparisons": 18,
+    "allPassed": true
+  },
+  "preview": {
+    "materialMode": "source-image-average-colour-plus-inherited-pbr-factors",
+    "uniformSkinColourControl": true,
+    "originalAnimationPlayback": true,
+    "staticFallback": true
+  },
+  "drawingCorrectionApplied": false,
+  "approval": {
+    "directInheritanceBuilt": true,
+    "sourceHashVerified": true,
+    "visualParityApproved": false,
+    "engineeringAccuracyApproved": false,
+    "nativeMasterApproved": false
+  }
+}
