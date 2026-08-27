@@ -26,7 +26,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}b24-reference-exact/
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -115,27 +115,31 @@ jobs:
           SERVER_PID=$!
           trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
           sleep 2
-          timeout 100s "$CHROME" \
-            --headless=new \
-            --no-sandbox \
-            --disable-dev-shm-usage \
-            --enable-webgl \
-            --ignore-gpu-blocklist \
-            --use-gl=swiftshader \
-            --window-size=1600,1000 \
-            --virtual-time-budget=55000 \
+          COMMON_FLAGS=(
+            --headless=new
+            --no-sandbox
+            --disable-dev-shm-usage
+            --disable-gpu-sandbox
+            --enable-webgl
+            --ignore-gpu-blocklist
+            --use-gl=angle
+            --use-angle=swiftshader-webgl
+            --enable-unsafe-swiftshader
+            --window-size=1600,1000
+            --virtual-time-budget=55000
+          )
+          if ! timeout 100s "$CHROME" "${COMMON_FLAGS[@]}" \
             --dump-dom \
-            http://127.0.0.1:4173/b24-reference-exact/ > /tmp/b24-preview-dom.html
-          grep -q 'data-qa="pass"' /tmp/b24-preview-dom.html
-          timeout 100s "$CHROME" \
-            --headless=new \
-            --no-sandbox \
-            --disable-dev-shm-usage \
-            --enable-webgl \
-            --ignore-gpu-blocklist \
-            --use-gl=swiftshader \
-            --window-size=1600,1000 \
-            --virtual-time-budget=55000 \
+            http://127.0.0.1:4173/b24-reference-exact/ > /tmp/b24-preview-dom.html; then
+            cat /tmp/b24-preview-server.log || true
+            test -f /tmp/b24-preview-dom.html && tail -200 /tmp/b24-preview-dom.html || true
+            exit 1
+          fi
+          if ! grep -q 'data-qa="pass"' /tmp/b24-preview-dom.html; then
+            tail -300 /tmp/b24-preview-dom.html
+            exit 1
+          fi
+          timeout 100s "$CHROME" "${COMMON_FLAGS[@]}" \
             --screenshot="$GITHUB_WORKSPACE/_site/b24-reference-exact/reports/browser-smoke.png" \
             http://127.0.0.1:4173/b24-reference-exact/
           test -s _site/b24-reference-exact/reports/browser-smoke.png
