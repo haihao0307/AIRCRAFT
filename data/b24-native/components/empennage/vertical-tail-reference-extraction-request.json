@@ -1,0 +1,37 @@
+{
+  "schema": "haihao.aircraft/component-reference-extraction-request@1.0.0",
+  "request_id": "b24-vertical-tail-reference-candidates-v1",
+  "source": {
+    "manifest": "preview/b24-reference-exact/assets/chunks/manifest.json",
+    "expected_file": "b-24_liberator.glb",
+    "expected_bytes": 23085972,
+    "expected_sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "candidate_root_node_ids": [
+    719,
+    744
+  ],
+  "include_descendants": true,
+  "include_parent_chain": true,
+  "include_meshes": true,
+  "include_materials": true,
+  "include_animation_channels": true,
+  "decode_world_bounds": true,
+  "semantic_policy": {
+    "automatic_side_assignment": false,
+    "automatic_component_boundary_approval": false,
+    "automatic_animation_semantic_approval": false,
+    "candidate_status": "candidate-not-approved"
+  },
+  "output": {
+    "path": "reports/b24-native/vertical-tail-reference-candidates.json",
+    "schema": "haihao.aircraft/component-reference-candidate-report@1.0.0"
+  },
+  "approval": {
+    "requestApproved": true,
+    "candidateNodeIdsApproved": false,
+    "referenceNodeMapApproved": false,
+    "componentBoundaryApproved": false,
+    "animationSemanticApproved": false
+  }
+}
