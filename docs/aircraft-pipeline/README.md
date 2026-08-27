@@ -42,15 +42,17 @@ Status: the exact online reference viewer verifies and renders the locked 23,085
 
 - [Engineering drawings and CAD overview](./B24_ENGINEERING_DRAWINGS_AND_CAD_OVERVIEW.md)
 - [CAD reconstruction specification](./B24_CAD_RECONSTRUCTION_SPEC.md)
+- [Vertical-tail priority source intake](./B24_VERTICAL_TAIL_SOURCE_INTAKE.md)
 - [External engineering source inventory](./references/b24-engineering/README.md)
 - [Structured source register](../../data/b24-engineering/source-register.json)
 - [Document taxonomy](../../data/b24-engineering/document-taxonomy.json)
 - [Variant baseline](../../data/b24-engineering/variant-baseline.json)
 - [External method and tool register](../../data/b24-engineering/reconstruction-tools.json)
+- [Vertical-tail source intake configuration](../../data/b24-engineering/source-intake/vertical-tail-priority-sources.json)
 - [Whole-aircraft assembly master](../../data/b24-engineering/assembly-master.json)
 - [Vertical-tail pilot manifest](../../data/b24-engineering/components/vertical-tail.json)
 
-Status: source registry v1 and reconstruction rules are prepared. Public-file intake, title-block extraction and drawing calibration continue as supporting evidence for native replacement geometry. CAD remains an optional verification layer.
+Status: source registry v1 and reconstruction rules are prepared. A repeatable Actions intake downloads the first General Arrangement and three-view PDFs, verifies their bytes and SHA256, extracts PDF metadata and text, renders every page, and keeps the binaries artifact-only until rights, title block, applicability and calibration review are complete. CAD remains an optional verification layer.
 
 ## B-24J-25-CO “80 DAYS” review entry
 

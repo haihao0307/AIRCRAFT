@@ -11,6 +11,7 @@
 - `docs/aircraft-pipeline/B24_REFERENCE_FULL_MIRROR.md`
 - `docs/aircraft-pipeline/B24_SURFACE_MODULE_SYSTEM.md`
 - `docs/aircraft-pipeline/B24_MODULAR_ASSEMBLY_ARCHITECTURE.md`
+- `docs/aircraft-pipeline/B24_VERTICAL_TAIL_SOURCE_INTAKE.md`
 - `docs/aircraft-pipeline/EXTERNAL_METHOD_STUDY_IMG2THREEJS.md`
 
 ## 通用Aircraft Native Forge数据
@@ -32,6 +33,20 @@
 - `data/b24-native/components/empennage/vertical-tail-production.json`
 - `data/b24-engineering/components/vertical-tail.json`
 - `data/b24-native/surface-modules/empennage/vertical-tail-module.template.json`
+
+## 垂尾优先图纸入库
+
+- `data/b24-engineering/source-intake/vertical-tail-priority-sources.json`
+- `scripts/intake-engineering-sources.mjs`
+- `.github/workflows/b24-vertical-tail-source-intake.yml`
+- artifact `b24-vertical-tail-priority-source-intake`
+
+入库对象：
+
+- `B24-ENG-S002`, `D-1840 / RD-6894`, Model 32 General Arrangement
+- `B24-ENG-S003`, B-24 three-views, wing and undercarriage details
+
+PDF在权属、标题栏、适用性和标定审核完成前只保存在短期Actions artifact中。
 
 ## 参考适配器与严格镜像
 
@@ -84,10 +99,11 @@ rough primitive prototype           retired
 
 ## 下一生产阶段
 
-1. 入库并校准B24总体图、三视图和尾翼相关手册页面。
-2. 在精确参考网页中人工定位双垂尾与方向舵的节点子树和动作轨道。
-3. 依据图纸建立第一版垂尾GeometryRecipe。
-4. 完成安装接口、方向舵轴线、八个蒙皮表面和实时颜色调节。
-5. 进行固定视角、固定时间、多视图、拆装和浏览器验收。
+1. 运行垂尾优先图纸入库工作流，取得PDF哈希、页数、文本和逐页渲染。
+2. 审核标题栏、修订、比例、B24J-CO适用性和扫描畸变。
+3. 在精确参考网页中人工定位双垂尾与方向舵节点子树和动作轨道。
+4. 依据批准图纸建立第一版垂尾GeometryRecipe。
+5. 完成安装接口、方向舵轴线、八个蒙皮表面和实时颜色调节。
+6. 进行固定视角、固定时间、多视图、拆装和浏览器验收。
 
 任何新GeometryRecipe都要保留证据、派生过程和未批准字段。任何未明确区域保持`unresolved`。
