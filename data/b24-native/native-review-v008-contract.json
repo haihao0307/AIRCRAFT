@@ -1,0 +1,45 @@
+{
+  "schema": "haihao.aircraft/native-review-contract@0.1.0",
+  "build": "B24_NATIVE_REVIEW_V008_CURRENT_2026-08-28",
+  "base": "B24_NATIVE_REVIEW_V007_CURRENT_2026-08-28",
+  "sourcePayload": {
+    "bytes": 16647376,
+    "sha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2"
+  },
+  "surfaceContracts": {
+    "airframeSkinUsesUv": false,
+    "airframeSkinUsesLegacyRasterAtlas": false,
+    "legacySurfaceOverlaysVisible": false,
+    "externalAirframeOpaqueInPublicReview": true,
+    "publicMechanicalTransparency": false
+  },
+  "propellerContracts": {
+    "manualHideAvailable": false,
+    "blurAuthority": "temporary-flight-state-bridge",
+    "staticBladeMaterial": "numeric-dark-blade",
+    "tipProgram": "local-coordinate-yellow-tip-no-uv",
+    "stencilProgram": "local-coordinate-compact-stencil-no-uv"
+  },
+  "materialContracts": {
+    "smoothVertexNormalWeight": 0.97,
+    "glassAlpha": 0.17,
+    "glassRoughness": 0.035,
+    "cowlFlapsIndependentNumericMaterial": true,
+    "landingGearIndependentNumericMaterial": true,
+    "wheelAndHubIndependentNumericMaterial": true,
+    "interiorDetailIndependentNumericMaterial": true
+  },
+  "statistics": {
+    "components": 1784,
+    "meshes": 348,
+    "vertices": 307273,
+    "triangles": 325358,
+    "animationTracks": 2518
+  },
+  "approval": {
+    "visualReviewCandidate": true,
+    "visualParityApproved": false,
+    "engineeringAccuracyApproved": false,
+    "nativeMasterApproved": false
+  }
+}
