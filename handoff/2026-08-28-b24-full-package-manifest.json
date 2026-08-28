@@ -1,0 +1,36 @@
+{
+  "schema": "haihao.aircraft/full-handoff-package-manifest@1.0.0",
+  "package": {
+    "file": "AIRCRAFT_B24_DATA_NATIVE_FULL_HANDOFF_2026-08-28.zip",
+    "bytes": 79464392,
+    "sha256": "b52325d5dc37ea85e778af21c56621542f86bd085648055ece8738b695e40333"
+  },
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "research/b24-engineering-drawings-cad-v1",
+  "headBeforeHandoffCommits": "ae067c035c6096cbdb6ebac18a558487ef173f1d",
+  "contents": [
+    "00_README_FIRST.md",
+    "01_B24_DATA_NATIVE_FULL_HANDOFF_2026-08-28.md",
+    "02_CURRENT_STATUS.json",
+    "05_NEXT_TASK_V009.md",
+    "github/PR14_CHANGED_FILES_SUMMARY.txt",
+    "github/GITHUB_POINTERS.md",
+    "artifacts/current-v008/B24_NATIVE_REVIEW_V008_CURRENT_PACKAGE.zip",
+    "artifacts/current-v008/B24_NATIVE_REVIEW_V008_CURRENT_2026-08-28.html",
+    "artifacts/current-v008/B24_NATIVE_REVIEW_V008_QA.json",
+    "artifacts/current-v008/B24_NATIVE_REVIEW_V008_RECEIPT.json",
+    "artifacts/current-v008/B24_NATIVE_REVIEW_V008_RENDER.png",
+    "artifacts/current-v008/B24_NATIVE_REVIEW_V008_ENGINE_CLOSEUP.png",
+    "artifacts/current-v008/B24_NATIVE_REVIEW_V008_BOARD.png",
+    "artifacts/baselines/B24_native_direct_inherit_v001_package.zip",
+    "artifacts/baselines/B24_direct_rudder_extract_checkpoint.zip",
+    "artifacts/baselines/B24_reference_exact_online_verified.png",
+    "artifacts/phase1/B24_Aircraft_Native_Forge_phase1_core_2026-08-27.zip",
+    "artifacts/version-receipts/B24_NATIVE_REVIEW_V006_RECEIPT.json",
+    "artifacts/version-receipts/B24_NATIVE_REVIEW_V007_RECEIPT.json",
+    "artifacts/version-receipts/B24_native_review_v005_delivery_receipt.json",
+    "MANIFEST.json"
+  ],
+  "githubArtifactWorkflow": ".github/workflows/b24-full-handoff-package.yml",
+  "note": "The attached local package contains the exact current V008 review artifacts. The GitHub workflow builds a fresh repository-side handoff artifact from the branch, verifies the locked GLB and records the exact git head."
+}
