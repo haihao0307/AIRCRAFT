@@ -23,6 +23,7 @@ jobs:
       - name: Static geometry behavior and surface QA
         run: |
           set -euo pipefail
+          mkdir -p reports/b24-native/generated/vertical-tail-v001
           node scripts/validate-b24-vertical-tail-native-v001.mjs | tee reports/b24-native/generated/vertical-tail-v001/static-qa.log
       - name: Start preview
         run: |
@@ -43,7 +44,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: b24-vertical-tail-native-v001-${{ github.sha }}
+          name: b24-vertical-tail-native-v001-${{ github.event.pull_request.head.sha || github.sha }}
           path: reports/b24-native/generated/vertical-tail-v001/**
           if-no-files-found: error
           retention-days: 90
