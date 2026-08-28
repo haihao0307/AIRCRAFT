@@ -1,0 +1,75 @@
+{
+  "schema": "haihao.aircraft/b24-v009-status@1.0.0",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "research/b24-engineering-drawings-cad-v1",
+  "pullRequest": 14,
+  "pullRequestPolicy": {
+    "keepOpen": true,
+    "keepDraft": true,
+    "mergeForbidden": true,
+    "forcePushForbidden": true,
+    "mainModificationForbidden": true,
+    "ghPagesModificationForbidden": true
+  },
+  "stage": "V009_RUNTIME_PRODUCTION_FOUNDATION",
+  "sourceLock": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "releaseTag": "80-days-source-v1"
+  },
+  "productionEntry": "preview/b24-data-native-v009/index-production.html",
+  "baselineEntry": "preview/b24-data-native-v009/index.html",
+  "contract": "data/b24-native/runtime/b24-v009-runtime-contract.json",
+  "implementation": {
+    "lockedSourceByteAndShaVerification": "implemented",
+    "fourEngineStateMachine": "implemented",
+    "continuousDeltaTimePropellerRotation": "implemented",
+    "animationLedPropellerPivotRecovery": "implemented",
+    "staticSlowBlurVisualSeparation": "implemented",
+    "fourChannelProceduralAudioLifecycle": "implemented-functional-preview",
+    "semanticMechanicalMaterialCalibration": "implemented",
+    "blanketWhiteOverrideRemovalPolicy": "implemented",
+    "physicalGlazingCalibration": "implemented",
+    "deterministicWholeAircraftReset": "implemented",
+    "bellyAndBombBayResetCoverage": "implemented",
+    "staticFailClosedValidation": "implemented",
+    "chromiumFunctionalQa": "workflow-implemented",
+    "fixedViewEvidenceCapture": "workflow-implemented"
+  },
+  "validation": {
+    "staticValidator": "scripts/validate-b24-v009-runtime.mjs",
+    "browserQa": "scripts/qa-b24-v009-browser.mjs",
+    "staticWorkflow": ".github/workflows/validate-b24-v009-runtime.yml",
+    "browserWorkflow": ".github/workflows/qa-b24-v009-browser.yml",
+    "productionBrowserWorkflow": ".github/workflows/qa-b24-v009-production-browser.yml",
+    "requiredProductionScreenshots": 8,
+    "failClosed": true
+  },
+  "approvals": {
+    "runtimeCodeReviewed": false,
+    "browserQaApproved": false,
+    "visualQualityApproved": false,
+    "historicalAudioApproved": false,
+    "engineeringRpmApproved": false,
+    "surfaceSystemApproved": false,
+    "referenceModelCrossCheckApproved": false,
+    "aircraftDataMasterApproved": false,
+    "historicalLivery80DaysApproved": false
+  },
+  "frozen": {
+    "historicalLivery80Days": true,
+    "geometryAuthorityPromotion": true,
+    "mainMerge": true
+  },
+  "nextProductionOrder": [
+    "review V009 browser artifacts and close only the runtime visual blockers",
+    "complete source-approved twin vertical stabilizer and rudder pilot",
+    "build engines nacelles cowlings and propellers as native reusable components",
+    "build turrets and Browning gun modules",
+    "build landing gear and doors",
+    "build bomb bay racks payload constraints and release behavior",
+    "replace remaining fuselage wing and flight-control reference geometry",
+    "resume 80 DAYS historical livery after surface and UV authority approval"
+  ]
+}
