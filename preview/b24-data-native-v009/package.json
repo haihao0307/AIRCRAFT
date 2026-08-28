@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "type": "module",
+  "description": "Module boundary for the B24 data-native V009 browser runtime."
+}
