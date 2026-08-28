@@ -7,6 +7,8 @@ on:
     paths:
       - 'data/b24-native/components/empennage/vertical-tail-reference-extraction-request.json'
       - 'scripts/extract-b24-component-reference-candidates.mjs'
+      - 'scripts/validate-aircraft-native-forge.mjs'
+      - 'scripts/lib/external-tool-invocation-scan.mjs'
       - 'preview/b24-reference-exact/assets/chunks/**'
       - '.github/workflows/b24-vertical-tail-reference-candidates.yml'
   pull_request:
@@ -34,16 +36,21 @@ jobs:
           node-version: 22
 
       - name: Validate source contracts
+        shell: bash
         run: |
+          set -euo pipefail
           node scripts/validate-b24-native-contracts.mjs
           node scripts/validate-aircraft-native-forge.mjs
 
       - name: Extract exact candidate evidence from locked GLB chunks
+        shell: bash
         run: |
+          set -euo pipefail
           node scripts/extract-b24-component-reference-candidates.mjs \
             --request data/b24-native/components/empennage/vertical-tail-reference-extraction-request.json \
             --out reports/b24-native/vertical-tail-reference-candidates.json \
             | tee reports/b24-native/vertical-tail-reference-candidates.summary.json
+          (cd reports/b24-native && sha256sum --check vertical-tail-reference-candidates.json.sha256)
 
       - name: Verify fail-closed report
         shell: bash
@@ -105,6 +112,7 @@ jobs:
           PY
 
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: b24-vertical-tail-reference-candidates
           path: |

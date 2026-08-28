@@ -29,7 +29,7 @@
   },
   "source_ledger": [
     {
-      "source_id": "REF-GLB-B24-LOCK-001",
+      "source_id": "B24-REF-GLB-001",
       "source_type": "locked-reference-model",
       "title": "b-24_liberator.glb authoritative visual reference",
       "drawing_number": null,
@@ -45,41 +45,41 @@
       "notes": "Provides node hierarchy, mesh geometry, material allocation, relative transforms and animation evidence. It has no engineering dimension authority."
     },
     {
-      "source_id": "DRAW-B24-GA-D1840-PENDING",
+      "source_id": "B24-ENG-S002",
       "source_type": "original-drawing",
       "title": "B24 Model 32 General Arrangement candidate",
       "drawing_number": "D-1840",
       "revision": null,
       "issue_date": null,
       "sheet_number": null,
-      "file_path": null,
-      "bytes": null,
-      "sha256": null,
-      "acquisition_status": "pending-real-download",
-      "applicability_status": "pending-review",
-      "approval_status": "pending",
-      "notes": "Required for vertical tail station, spacing and general arrangement calibration."
+      "file_path": "source-intake artifact / D-1840, RD-6894 B-24 Model 32 General Arrangement.pdf",
+      "bytes": 4492789,
+      "sha256": "5ad3742e0462d4a7f2c44ade8b990b11e6ef77141565fb4c9804e9d507ef970e",
+      "acquisition_status": "verified-intake",
+      "applicability_status": "candidate-pending-b24j-co-review",
+      "approval_status": "reviewed-source-candidate",
+      "notes": "The downloaded sheet carries both D-1840 and RD-6894 identifiers. Its revision, scan calibration and B-24J-CO applicability remain unresolved; it cannot approve production geometry."
     },
     {
-      "source_id": "DRAW-B24-GA-RD6894-PENDING",
-      "source_type": "original-drawing",
-      "title": "B24 Model 32 General Arrangement candidate",
-      "drawing_number": "RD-6894",
-      "revision": null,
-      "issue_date": null,
-      "sheet_number": null,
-      "file_path": null,
-      "bytes": null,
-      "sha256": null,
-      "acquisition_status": "pending-real-download",
-      "applicability_status": "pending-review",
-      "approval_status": "pending",
-      "notes": "Required for vertical tail station, spacing and general arrangement calibration."
-    },
-    {
-      "source_id": "MANUAL-AN-01-5E-3-VTAIL-PENDING",
+      "source_id": "B24-ENG-S016",
       "source_type": "official-manual",
       "title": "AN 01-5E-3 B24 Structural Repair Instructions",
+      "drawing_number": "AN 01-5E-3",
+      "revision": null,
+      "issue_date": null,
+      "sheet_number": "ix",
+      "file_path": "public/source-evidence/B24-ENG-S016_AN-01-5E-3_page-ix_B24J_three-view_original-scan.png",
+      "bytes": 6721623,
+      "sha256": "de0819d07d35f37126ed62b3a6f02131aaded7cbaa5c49ce63187f72dab0f5b6",
+      "acquisition_status": "verified-local-hash-lock",
+      "applicability_status": "b24j-three-view-candidate",
+      "approval_status": "reviewed-source-candidate",
+      "notes": "Hash-locked original scan is available locally. Crop calibration, drawing residual, structural detail, hinge definition and B-24J-CO block applicability remain unresolved."
+    },
+    {
+      "source_id": "B24-ENG-S007",
+      "source_type": "official-military-structural-repair-manual",
+      "title": "Structural Repair Instructions for B-24 Series, PB4Y-1 and British Liberators",
       "drawing_number": "AN 01-5E-3",
       "revision": null,
       "issue_date": null,
@@ -93,9 +93,9 @@
       "notes": "Required for stabilizer, rudder, frames, skin, material and repair diagrams."
     },
     {
-      "source_id": "IPC-AN-01-5E-4-VTAIL-PENDING",
+      "source_id": "B24-ENG-S008",
       "source_type": "illustrated-parts-catalog",
-      "title": "AN 01-5E-4 B24 Illustrated Parts Catalog",
+      "title": "Illustrated Parts Catalog for B-24D, B-24J and PB4Y-1",
       "drawing_number": "AN 01-5E-4",
       "revision": null,
       "issue_date": null,
@@ -109,12 +109,12 @@
       "notes": "Required for assembly relationships, part numbers and variant applicability."
     },
     {
-      "source_id": "IPC-ZE-32-047-VTAIL-PENDING",
-      "source_type": "illustrated-parts-catalog",
-      "title": "Consolidated factory parts and assembly catalog",
+      "source_id": "B24-ENG-S009",
+      "source_type": "manufacturer-parts-catalog",
+      "title": "Consolidated B-24 Parts Catalog / Fuselage, Wing and Tailplane Groups",
       "drawing_number": "ZE-32-047",
       "revision": null,
-      "issue_date": null,
+      "issue_date": "1944-04",
       "sheet_number": null,
       "file_path": null,
       "bytes": null,
@@ -126,29 +126,53 @@
     }
   ],
   "reference_model_mapping": {
-    "source_id": "REF-GLB-B24-LOCK-001",
+    "source_id": "B24-REF-GLB-001",
     "mapping_status": "in-review",
     "candidates": [
       {
-        "reference_node_id": 719,
-        "stable_node_path": null,
-        "candidate_role": "vertical-tail-major-node-candidate-a",
-        "mesh_ids": [],
+        "reference_node_id": 1717,
+        "stable_node_path": "0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:node_0_1084/1715:node_29_1043/1716:_1419/1717:Object_1717",
+        "candidate_role": "negative-span-fixed-fin-topology-components",
+        "mesh_ids": [334],
         "animation_channel_ids": [],
+        "review_status": "unresolved-pending-manual-map",
+        "evidence_refs": [
+          "B24-REF-GLB-001",
+          "reports/b24-native/generated/vertical-tail-reference-candidates-v2.json"
+        ]
+      },
+      {
+        "reference_node_id": 1717,
+        "stable_node_path": "0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:node_0_1084/1715:node_29_1043/1716:_1419/1717:Object_1717",
+        "candidate_role": "positive-span-fixed-fin-topology-components",
+        "mesh_ids": [334],
+        "animation_channel_ids": [],
+        "review_status": "unresolved-pending-manual-map",
+        "evidence_refs": [
+          "B24-REF-GLB-001",
+          "reports/b24-native/generated/vertical-tail-reference-candidates-v2.json"
+        ]
+      },
+      {
+        "reference_node_id": 719,
+        "stable_node_path": "0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:node_0_1084/7:node71_1021/705:node469_anim_rudder_percent_key_462/706:rudder_percent_key_AN_key_461/717:node_364_460/718:_1211/719:Object_719",
+        "candidate_role": "positive-span-main-rudder-leaf",
+        "mesh_ids": [125],
+        "animation_channel_ids": [1065],
         "review_status": "candidate-not-approved",
         "evidence_refs": [
-          "REF-GLB-B24-LOCK-001"
+          "B24-REF-GLB-001"
         ]
       },
       {
         "reference_node_id": 744,
-        "stable_node_path": null,
-        "candidate_role": "vertical-tail-major-node-candidate-b",
-        "mesh_ids": [],
-        "animation_channel_ids": [],
+        "stable_node_path": "0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:node_0_1084/7:node71_1021/730:node475_anim_rudder_percent_key_477/731:rudder_percent_key_AN_key.002_476/742:node_374_475/743:_1215/744:Object_744",
+        "candidate_role": "negative-span-main-rudder-leaf",
+        "mesh_ids": [130],
+        "animation_channel_ids": [1101],
         "review_status": "candidate-not-approved",
         "evidence_refs": [
-          "REF-GLB-B24-LOCK-001"
+          "B24-REF-GLB-001"
         ]
       }
     ]

@@ -3,6 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import { scanExternalToolInvocations } from './lib/external-tool-invocation-scan.mjs';
 
 const root = process.cwd();
 const readJson = relativePath => JSON.parse(fs.readFileSync(path.join(root, relativePath), 'utf8'));
@@ -123,12 +124,11 @@ if (fs.existsSync(packageJsonPath)) {
 
 const executableRoots = ['scripts', '.github/workflows'];
 const executableExtensions = new Set(['.js', '.mjs', '.cjs', '.ts', '.tsx', '.py', '.sh', '.yml', '.yaml']);
-const forbiddenPatterns = [
-  /(?:import|require)\s*\(?[^\n]*img2threejs/i,
-  /(?:npm|pnpm|yarn|pip|python|python3)[^\n]*img2threejs/i,
-  /git\s+clone[^\n]*img2threejs/i,
-  /uses:\s*[^\n]*img2threejs/i
-];
+const scanExclusions = new Set([
+  'scripts/validate-aircraft-native-forge.mjs',
+  'scripts/lib/external-tool-invocation-scan.mjs',
+  'scripts/test-aircraft-native-forge-external-tool-scan.mjs'
+]);
 
 const visit = directory => {
   if (!fs.existsSync(directory)) return;
@@ -140,9 +140,10 @@ const visit = directory => {
     }
     if (!executableExtensions.has(path.extname(entry.name))) continue;
     const relative = path.relative(root, full).replaceAll('\\', '/');
+    if (scanExclusions.has(relative)) continue;
     const text = fs.readFileSync(full, 'utf8');
-    for (const pattern of forbiddenPatterns) {
-      if (pattern.test(text)) errors.push(`Active external-tool invocation found in ${relative}: ${pattern}`);
+    for (const finding of scanExternalToolInvocations(relative, text)) {
+      errors.push(`Active external-tool invocation found in ${relative}:${finding.line}: ${finding.text}`);
     }
   }
 };

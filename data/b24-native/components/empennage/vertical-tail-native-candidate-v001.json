@@ -1,0 +1,47 @@
+{
+  "schema": "haihao.aircraft/geometry-recipe-set@1.0.0",
+  "recipe_set_id": "b24j-co-vertical-tail-native-candidate-v001",
+  "status": "executable-candidate-unapproved",
+  "source": {
+    "source_id": "B24-ENG-S016",
+    "local_asset": "public/source-evidence/B24-ENG-S016_AN-01-5E-3_page-ix_B24J_three-view_original-scan.png",
+    "bytes": 6721623,
+    "sha256": "de0819d07d35f37126ed62b3a6f02131aaded7cbaa5c49ce63187f72dab0f5b6",
+    "crop_px": { "x": 442, "y": 2051, "width": 172, "height": 213 },
+    "pixel_to_candidate_metres": {
+      "origin_px": [499, 2258],
+      "x_axis": "drawing chord coordinate; positive toward aircraft nose",
+      "y_axis": "drawing vertical coordinate; positive upward",
+      "uniform_scale_m_per_px": 0.01673,
+      "status": "candidate-from-unapproved-vertical-dimension-endpoints"
+    },
+    "residuals": {
+      "anchor_fit_max_px": 0.6777982491854255,
+      "anchor_fit_rms_px": 0.32625824119811364,
+      "source_drawing_residual": null,
+      "source_drawing_residual_status": "unresolved-until-dimension-endpoints-and-scan-distortion-are-approved"
+    }
+  },
+  "candidate_parameters": {
+    "twin_tail_spacing_m": 7.9248,
+    "thickness_m": 0.195,
+    "rudder_gap_m": 0.018,
+    "rudder_travel_degrees_each_side": 30,
+    "all_parameters_approved": false
+  },
+  "recipes": [
+    { "component_id": "empennage.vertical.left.stabilizer", "side": "left", "profile_id": "fixed-fin-domain-v001", "runtime_mirror": false, "geometryRecipeApproved": false },
+    { "component_id": "empennage.vertical.left.rudder", "side": "left", "profile_id": "rudder-domain-v001", "runtime_mirror": false, "geometryRecipeApproved": false },
+    { "component_id": "empennage.vertical.right.stabilizer", "side": "right", "profile_id": "fixed-fin-domain-v001", "runtime_mirror": false, "geometryRecipeApproved": false },
+    { "component_id": "empennage.vertical.right.rudder", "side": "right", "profile_id": "rudder-domain-v001", "runtime_mirror": false, "geometryRecipeApproved": false }
+  ],
+  "approval": {
+    "sourceApproved": false,
+    "drawingCalibrationApproved": false,
+    "geometryRecipesApproved": false,
+    "hingeAxisApproved": false,
+    "behaviorGraphApproved": false,
+    "surfaceSystemApproved": false,
+    "verticalTailApproved": false
+  }
+}

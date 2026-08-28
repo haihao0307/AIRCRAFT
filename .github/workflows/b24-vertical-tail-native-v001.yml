@@ -1,0 +1,57 @@
+name: QA B24 vertical-tail native candidate v001
+on:
+  push:
+    branches: [research/b24-engineering-drawings-cad-v1]
+    paths: ['src/b24-native/vertical-tail-runtime-v001.js','preview/b24-vertical-tail-v001/**','data/b24-native/components/empennage/vertical-tail-native-candidate-v001.json','data/b24-native/surface-modules/empennage/vertical-tail-module.template.json','scripts/validate-b24-vertical-tail-native-v001.mjs','scripts/qa-b24-vertical-tail-browser-v001.mjs','.github/workflows/b24-vertical-tail-native-v001.yml','public/source-evidence/**']
+  pull_request:
+    paths: ['src/b24-native/vertical-tail-runtime-v001.js','preview/b24-vertical-tail-v001/**','data/b24-native/components/empennage/vertical-tail-native-candidate-v001.json','scripts/qa-b24-vertical-tail-browser-v001.mjs']
+  workflow_dispatch:
+permissions: { contents: read }
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - name: Install pinned QA dependencies
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock three@0.180.0 playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Static geometry behavior and surface QA
+        run: |
+          set -euo pipefail
+          node scripts/validate-b24-vertical-tail-native-v001.mjs | tee reports/b24-native/generated/vertical-tail-v001/static-qa.log
+      - name: Start preview
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > reports/b24-native/generated/vertical-tail-v001/http.log 2>&1 &
+          echo $! > /tmp/b24-tail-http.pid
+          for attempt in $(seq 1 30); do curl -fsS http://127.0.0.1:8765/preview/b24-vertical-tail-v001/ >/dev/null && exit 0; sleep 1; done
+          exit 1
+      - name: Desktop and 390x844 browser QA
+        env:
+          B24_VERTICAL_TAIL_URL: http://127.0.0.1:8765/preview/b24-vertical-tail-v001/
+        run: |
+          set -euo pipefail
+          node scripts/qa-b24-vertical-tail-browser-v001.mjs | tee reports/b24-native/generated/vertical-tail-v001/browser-qa.log
+      - name: Stop preview
+        if: always()
+        run: kill "$(cat /tmp/b24-tail-http.pid)" 2>/dev/null || true
+      - name: Upload complete evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: b24-vertical-tail-native-v001-${{ github.sha }}
+          path: reports/b24-native/generated/vertical-tail-v001/**
+          if-no-files-found: error
+          retention-days: 90
+      - name: Summary
+        if: always()
+        run: |
+          echo '## B24 vertical-tail native candidate v001' >> "$GITHUB_STEP_SUMMARY"
+          echo >> "$GITHUB_STEP_SUMMARY"
+          echo 'Four independent BufferGeometry candidates, pilot.yaw, eight surface domains, and 120 desktop 1440x900 / mobile 390x844 screenshots.' >> "$GITHUB_STEP_SUMMARY"
+          echo >> "$GITHUB_STEP_SUMMARY"
+          echo 'All engineering, component and whole-aircraft approvals remain false.' >> "$GITHUB_STEP_SUMMARY"

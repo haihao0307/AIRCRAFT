@@ -8,11 +8,13 @@ on:
       - 'scripts/extract-b24-tail-candidates-native-v2.mjs'
       - '.github/workflows/b24-tail-reference-candidates-native-v2.yml'
       - 'data/b24-native/components/twin-vertical-tail/**'
+      - 'data/b24-native/components/empennage/**'
   pull_request:
     paths:
       - 'scripts/extract-b24-tail-candidates-native-v2.mjs'
       - '.github/workflows/b24-tail-reference-candidates-native-v2.yml'
       - 'data/b24-native/components/twin-vertical-tail/**'
+      - 'data/b24-native/components/empennage/**'
   workflow_dispatch:
 
 permissions:
@@ -61,21 +63,28 @@ jobs:
           if (report.schema !== 'haihao.aircraft/b24-tail-reference-candidates@2.0.0') throw new Error('Unexpected schema');
           if (report.sourceLock.bytes !== 23085972) throw new Error('Byte lock mismatch');
           if (report.sourceLock.sha256 !== '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d') throw new Error('SHA lock mismatch');
-          if (!Array.isArray(report.recommendations) || report.recommendations.length !== 4) throw new Error('Exactly four recommendations are required');
-          const nodeIds = new Set(report.recommendations.map((item) => item.nodeIndex));
-          if (nodeIds.size !== 4) throw new Error('Recommendations must use four distinct nodes');
+          if (!Array.isArray(report.recommendations) || report.recommendations.length !== 4) throw new Error('Exactly four semantic slots are required');
+          const bySlot = Object.fromEntries(report.recommendations.map((item) => [item.slot, item]));
+          if (bySlot['rudder-negative-span']?.nodeIndex !== 744 || bySlot['rudder-negative-span']?.meshIndex !== 130) throw new Error('Negative-span rudder must remain node 744 / mesh 130');
+          if (bySlot['rudder-positive-span']?.nodeIndex !== 719 || bySlot['rudder-positive-span']?.meshIndex !== 125) throw new Error('Positive-span rudder must remain node 719 / mesh 125');
+          if (bySlot['vertical-stabilizer-negative-span']?.nodeIndex !== 1717 || bySlot['vertical-stabilizer-positive-span']?.nodeIndex !== 1717) throw new Error('Fixed fins must come from static tail node 1717 topology');
+          if (!report.fixedTailTopology?.negativeSpanCandidateCount || !report.fixedTailTopology?.positiveSpanCandidateCount) throw new Error('Both fixed-fin topology groups are required');
+          const audited = new Set(report.semanticAudit?.map((entry) => entry.nodeIndex));
+          for (const node of [706, 713, 708, 731, 738, 733]) if (!audited.has(node)) throw new Error(`Missing animation audit node ${node}`);
           if (report.extractionPolicy.engineeringAuthorityGranted !== false) throw new Error('Engineering authority must remain false');
           if (report.extractionPolicy.geometryApprovalGranted !== false) throw new Error('Geometry approval must remain false');
           if (report.extractionPolicy.leftRightHistoricalOrientationGranted !== false) throw new Error('Historical side authority must remain false');
-          for (const recommendation of report.recommendations) {
-            if (recommendation.status !== 'reference-candidate-pending-manual-map') throw new Error(`Unexpected recommendation status for ${recommendation.slot}`);
-          }
-          console.log('PASS four distinct locked-reference candidates');
+          if (report.recommendations.some((entry) => /approved/.test(entry.status) && entry.status !== 'candidate-not-approved')) throw new Error('No semantic slot may be approved');
+          console.log('PASS four fail-closed semantic slots with explicit rudder and fixed-fin topology evidence');
           console.log('PASS approval boundary remains closed');
           NODE
-          sha256sum --check reports/b24-native/generated/vertical-tail-reference-candidates-v2.json.sha256
+          (
+            cd reports/b24-native/generated
+            sha256sum --check vertical-tail-reference-candidates-v2.json.sha256
+          )
 
       - name: Upload candidate extraction evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: b24-tail-reference-candidates-native-v2-${{ github.sha }}
@@ -88,6 +97,7 @@ jobs:
           retention-days: 90
 
       - name: Write extraction summary
+        if: always()
         shell: bash
         run: |
           set -euo pipefail
@@ -96,7 +106,11 @@ jobs:
             echo
             echo "Commit: $GITHUB_SHA"
             echo
-            cat reports/b24-native/generated/vertical-tail-reference-candidates-v2.md
+            if [ -f reports/b24-native/generated/vertical-tail-reference-candidates-v2.md ]; then
+              cat reports/b24-native/generated/vertical-tail-reference-candidates-v2.md
+            else
+              echo 'Candidate summary was not generated; inspect the uploaded log.'
+            fi
             echo
             echo 'The result is a reference mapping candidate set. Engineering dimensions, geometry, historical side identity, behavior, surfaces and browser QA remain unapproved.'
           } >> "$GITHUB_STEP_SUMMARY"

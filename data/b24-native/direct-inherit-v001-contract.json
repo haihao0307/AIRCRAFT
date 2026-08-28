@@ -1,7 +1,7 @@
 {
   "schema": "haihao.aircraft/native-direct-mirror-contract@0.1.0",
   "assetId": "B24J_CO_DIRECT_INHERIT_V001",
-  "status": "visual-review-candidate",
+  "status": "planned-candidate-artifacts-not-materialized",
   "inheritanceMode": "direct-measurement-and-exact-array-copy",
   "sourceLock": {
     "file": "b-24_liberator.glb",
@@ -29,26 +29,28 @@
     "numericBlocks": 2401
   },
   "nativePayload": {
-    "bytes": 16647376,
-    "sha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2"
+    "bytes": null,
+    "sha256": null,
+    "materialized": false
   },
   "exactInheritance": {
-    "positions": true,
-    "normals": true,
-    "indices": true,
-    "uv0WherePresent": true,
-    "uv1WherePresent": true,
-    "componentHierarchy": true,
-    "localTransforms": true,
-    "animationTimes": true,
-    "animationValues": true,
-    "sourceImageBytes": true
+    "positions": false,
+    "normals": false,
+    "indices": false,
+    "uv0WherePresent": false,
+    "uv1WherePresent": false,
+    "componentHierarchy": false,
+    "localTransforms": false,
+    "animationTimes": false,
+    "animationValues": false,
+    "sourceImageBytes": false
   },
   "validation": {
-    "meshNumericStreamComparisons": 1666,
-    "animationStreamComparisons": 2518,
-    "sourceImageByteComparisons": 18,
-    "allPassed": true
+    "meshNumericStreamComparisons": 0,
+    "animationStreamComparisons": 0,
+    "sourceImageByteComparisons": 0,
+    "allPassed": false,
+    "status": "blocked-until-anfd-manifest-generator-runtime-and-comparison-report-exist"
   },
   "preview": {
     "materialMode": "source-image-average-colour-plus-inherited-pbr-factors",
@@ -58,7 +60,7 @@
   },
   "drawingCorrectionApplied": false,
   "approval": {
-    "directInheritanceBuilt": true,
+    "directInheritanceBuilt": false,
     "sourceHashVerified": true,
     "visualParityApproved": false,
     "engineeringAccuracyApproved": false,

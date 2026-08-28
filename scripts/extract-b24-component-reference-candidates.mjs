@@ -461,7 +461,8 @@ function main() {
   const report = {
     schema: request.output.schema,
     request_id: request.request_id,
-    generated_at: new Date().toISOString(),
+    generated_at: null,
+    deterministic_build: true,
     source: {
       manifest: request.source.manifest,
       file: request.source.expected_file,

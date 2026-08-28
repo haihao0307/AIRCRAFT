@@ -41,7 +41,11 @@ jobs:
         run: node scripts/validate-b24-native-contracts.mjs
 
       - name: Validate Aircraft Native Forge policy and first component
-        run: node scripts/validate-aircraft-native-forge.mjs | tee aircraft-native-forge-validation.json
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/test-aircraft-native-forge-external-tool-scan.mjs
+          node scripts/validate-aircraft-native-forge.mjs | tee aircraft-native-forge-validation.json
 
       - name: Publish validation summary
         shell: bash

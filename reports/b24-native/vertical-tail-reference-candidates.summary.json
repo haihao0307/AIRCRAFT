@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "request": "b24-vertical-tail-reference-candidates-v1",
+  "output": "reports/b24-native/vertical-tail-reference-candidates.json",
+  "output_sha256": "cd866f3407ad64cc24a4309face79677deb8aa5008dbbd6b41a351405dcf5b24",
+  "candidate_count": 2,
+  "candidates": [
+    {
+      "reference_node_id": 719,
+      "name": "Object_719",
+      "subtree_node_count": 1,
+      "mesh_count": 1,
+      "triangle_count": 980,
+      "animation_channel_count": 0,
+      "semantic_status": "candidate-not-approved"
+    },
+    {
+      "reference_node_id": 744,
+      "name": "Object_744",
+      "subtree_node_count": 1,
+      "mesh_count": 1,
+      "triangle_count": 980,
+      "animation_channel_count": 0,
+      "semantic_status": "candidate-not-approved"
+    }
+  ],
+  "approvals": {
+    "sourceLockPassed": true,
+    "extractionCompleted": true,
+    "candidateNodeIdsApproved": false,
+    "sideAssignmentsApproved": false,
+    "componentBoundariesApproved": false,
+    "animationSemanticsApproved": false,
+    "referenceNodeMapApproved": false
+  }
+}

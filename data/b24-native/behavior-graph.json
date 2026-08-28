@@ -17,7 +17,10 @@
       "targets": ["propulsion.assembly"],
       "reference_signal": "animation-channel-name-and-transform-search",
       "reference_patterns": ["prop", "spinner", "blade", "helice"],
-      "status": "pending-channel-audit"
+      "status": "executable-candidate-pending-engineering-approval",
+      "candidate_runtime": "src/b24-native/vertical-tail-runtime-v001.js",
+      "candidate_range": { "minimum": -1, "neutral": 0, "maximum": 1, "rudder_degrees_each_side": 30, "approved": false },
+      "candidate_tests": ["neutral", "maximum-left", "maximum-right", "return-to-neutral", "left-right-synchronization", "fixed-surfaces-static", "pivot-stability", "no-cumulative-error"]
     },
     {
       "controller_id": "landing-gear.deploy",

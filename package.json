@@ -8,7 +8,7 @@
     "build": "node scripts/build-static.mjs",
     "validate:80days:references": "node scripts/validate-80-days-references.mjs",
     "build:80days:count-sheet": "node scripts/build-80-days-count-sheet.mjs",
-    "validate:aircraft:native-forge": "node scripts/validate-aircraft-native-forge-policy.mjs",
+    "validate:aircraft:native-forge": "node scripts/test-aircraft-native-forge-external-tool-scan.mjs && node scripts/validate-aircraft-native-forge.mjs && node scripts/validate-aircraft-native-forge-policy.mjs",
     "validate:b24:source-review": "node scripts/validate-b24-vertical-tail-source-review.mjs",
     "validate:b24:native": "node scripts/validate-b24-native-contracts.mjs",
     "distill:b24:reference": "node scripts/distill-b24-reference-glb.mjs",

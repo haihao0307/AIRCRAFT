@@ -1,7 +1,7 @@
 {
   "schema": "haihao.aircraft/surface-module@1.0.0",
   "module_id": "b24j-co-vertical-tail-surface-template-v1",
-  "module_status": "template-awaiting-calibrated-geometry",
+  "module_status": "executable-candidate-awaiting-calibrated-geometry",
   "surface_ids": [
     "empennage.vertical.left.stabilizer.outer",
     "empennage.vertical.left.stabilizer.inner",
@@ -32,6 +32,16 @@
     "reference_resolution": 4096
   },
   "handedness_policy": "left-and-right-reviewed-independently",
+  "parameter_domains": [
+    { "surface_id": "empennage.vertical.left.stabilizer.outer", "component_id": "empennage.vertical.left.stabilizer", "buffer_geometry_group": 0, "nonzero_required": true, "overlap_allowed": false },
+    { "surface_id": "empennage.vertical.left.stabilizer.inner", "component_id": "empennage.vertical.left.stabilizer", "buffer_geometry_group": 1, "nonzero_required": true, "overlap_allowed": false },
+    { "surface_id": "empennage.vertical.right.stabilizer.outer", "component_id": "empennage.vertical.right.stabilizer", "buffer_geometry_group": 0, "nonzero_required": true, "overlap_allowed": false },
+    { "surface_id": "empennage.vertical.right.stabilizer.inner", "component_id": "empennage.vertical.right.stabilizer", "buffer_geometry_group": 1, "nonzero_required": true, "overlap_allowed": false },
+    { "surface_id": "empennage.vertical.left.rudder.outer", "component_id": "empennage.vertical.left.rudder", "buffer_geometry_group": 0, "nonzero_required": true, "overlap_allowed": false },
+    { "surface_id": "empennage.vertical.left.rudder.inner", "component_id": "empennage.vertical.left.rudder", "buffer_geometry_group": 1, "nonzero_required": true, "overlap_allowed": false },
+    { "surface_id": "empennage.vertical.right.rudder.outer", "component_id": "empennage.vertical.right.rudder", "buffer_geometry_group": 0, "nonzero_required": true, "overlap_allowed": false },
+    { "surface_id": "empennage.vertical.right.rudder.inner", "component_id": "empennage.vertical.right.rudder", "buffer_geometry_group": 1, "nonzero_required": true, "overlap_allowed": false }
+  ],
   "semantic_anchors": [
     {
       "anchor_id": "tail.serial.block",
@@ -59,12 +69,12 @@
     }
   ],
   "surface_programs": {
-    "panel_boundaries": null,
-    "rivet_program": null,
-    "fabric_or_metal_skin_program": null,
-    "roughness_program": null,
-    "normal_program": null,
-    "historical_marking_program": null
+    "panel_boundaries": { "program": "semantic-contour-and-hinge-lines-v001", "status": "candidate" },
+    "rivet_program": { "program": "seeded-contour-rivet-points-v001", "status": "candidate" },
+    "fabric_or_metal_skin_program": { "program": "aluminium-skin-base-v001", "status": "candidate-metal-skin-unapproved" },
+    "roughness_program": { "program": "seeded-low-frequency-roughness-v001", "status": "candidate" },
+    "normal_program": { "program": "buffer-geometry-computed-normal-plus-rivet-detail-v001", "status": "candidate" },
+    "historical_marking_program": { "program": "surface-id-anchored-marking-hook-v001", "status": "candidate-awaiting-aircraft-instance" }
   },
   "legacy_reference": {
     "glb_candidate_nodes": [719, 744],
@@ -75,15 +85,17 @@
   "compatibility": {
     "aircraft_master": "B24J_CO_DATA_NATIVE_MASTER",
     "variants": ["B-24J-CO"],
-    "geometry_recipe_revision": null,
-    "runtime_compiler_minimum": null
+    "geometry_recipe_revision": "b24j-co-vertical-tail-native-candidate-v001",
+    "runtime_compiler_minimum": "vertical-tail-runtime-v001"
   },
   "source_refs": [
     "B24-REF-GLB-001",
     "B24-ENG-S002",
     "B24-ENG-S003",
     "B24-ENG-S007",
-    "B24-ENG-S008"
+    "B24-ENG-S008",
+    "B24-ENG-S009",
+    "B24-ENG-S016"
   ],
   "qa_status": {
     "sourceApproved": false,

@@ -172,6 +172,73 @@ function accessorBounds(gltf, binary, accessorIndex) {
   return validBounds(bounds) ? bounds : null;
 }
 
+function readAccessor(gltf, binary, accessorIndex) {
+  const accessor = gltf.accessors?.[accessorIndex];
+  if (!accessor || accessor.bufferView === undefined) return [];
+  const view = gltf.bufferViews?.[accessor.bufferView];
+  const component = COMPONENTS[accessor.componentType];
+  const componentCount = TYPE_COMPONENTS[accessor.type];
+  if (!view || !component || !componentCount) return [];
+  const stride = view.byteStride ?? component.bytes * componentCount;
+  const start = (view.byteOffset ?? 0) + (accessor.byteOffset ?? 0);
+  const dataView = new DataView(binary.buffer, binary.byteOffset, binary.byteLength);
+  return Array.from({ length: accessor.count }, (_, element) => {
+    const values = Array.from({ length: componentCount }, (_, axis) =>
+      dataView[component.read](start + element * stride + axis * component.bytes, true));
+    return componentCount === 1 ? values[0] : values;
+  });
+}
+
+function connectedComponents(gltf, binary, meshIndex, worldMatrix) {
+  const result = [];
+  for (const [primitiveIndex, primitive] of (gltf.meshes?.[meshIndex]?.primitives ?? []).entries()) {
+    const positions = readAccessor(gltf, binary, primitive.attributes?.POSITION);
+    const indices = primitive.indices === undefined
+      ? Array.from({ length: positions.length }, (_, index) => index)
+      : readAccessor(gltf, binary, primitive.indices);
+    if (!positions.length || !indices.length || primitive.mode !== 4) continue;
+    const parent = Array.from({ length: positions.length }, (_, index) => index);
+    const find = (value) => parent[value] === value ? value : (parent[value] = find(parent[value]));
+    const join = (left, right) => {
+      const a = find(left);
+      const b = find(right);
+      if (a !== b) parent[b] = a;
+    };
+    for (let offset = 0; offset < indices.length; offset += 3) {
+      join(indices[offset], indices[offset + 1]);
+      join(indices[offset + 1], indices[offset + 2]);
+    }
+    const groups = new Map();
+    for (let vertex = 0; vertex < positions.length; vertex += 1) {
+      const key = find(vertex);
+      if (!groups.has(key)) groups.set(key, { vertices: [], triangles: 0, localBounds: emptyBounds(), worldBounds: emptyBounds() });
+      const group = groups.get(key);
+      group.vertices.push(vertex);
+      extendBounds(group.localBounds, positions[vertex]);
+      extendBounds(group.worldBounds, transformPoint(worldMatrix, positions[vertex]));
+    }
+    for (let offset = 0; offset < indices.length; offset += 3) groups.get(find(indices[offset])).triangles += 1;
+    for (const group of groups.values()) {
+      result.push({
+        primitiveIndex,
+        materialIndex: primitive.material ?? null,
+        positionAccessor: primitive.attributes.POSITION,
+        indexAccessor: primitive.indices ?? null,
+        vertexCount: group.vertices.length,
+        triangleCount: group.triangles,
+        localBounds: { min: roundedVector(group.localBounds.min), max: roundedVector(group.localBounds.max) },
+        worldBounds: {
+          min: roundedVector(group.worldBounds.min),
+          max: roundedVector(group.worldBounds.max),
+          size: roundedVector(sizeOf(group.worldBounds)),
+          center: roundedVector(centerOf(group.worldBounds))
+        }
+      });
+    }
+  }
+  return result.sort((left, right) => right.triangleCount - left.triangleCount);
+}
+
 function buildMeshBounds(gltf, binary) {
   return (gltf.meshes ?? []).map((mesh) => {
     const bounds = emptyBounds();
@@ -227,11 +294,43 @@ function animationTargets(gltf) {
         animationName: animation.name ?? null,
         channelIndex,
         path: channel.target?.path ?? null,
-        sampler: channel.sampler
+        sampler: channel.sampler,
+        inputAccessor: animation.samplers?.[channel.sampler]?.input ?? null,
+        outputAccessor: animation.samplers?.[channel.sampler]?.output ?? null,
+        interpolation: animation.samplers?.[channel.sampler]?.interpolation ?? 'LINEAR'
       });
     });
   });
   return map;
+}
+
+function isDescendant(gltf, ancestor, leaf) {
+  const queue = [ancestor];
+  while (queue.length) {
+    const current = queue.shift();
+    if (current === leaf) return true;
+    queue.push(...(gltf.nodes?.[current]?.children ?? []));
+  }
+  return false;
+}
+
+function rotationRange(gltf, binary, channel) {
+  if (channel.path !== 'rotation' || channel.outputAccessor === null) return null;
+  const values = readAccessor(gltf, binary, channel.outputAccessor);
+  if (!values.length) return null;
+  const base = values[0];
+  let maximum = 0;
+  let signedMaximum = 0;
+  for (const value of values) {
+    const dot = Math.max(-1, Math.min(1, base.reduce((sum, item, index) => sum + item * value[index], 0)));
+    const angle = 2 * Math.acos(Math.abs(dot));
+    if (angle > maximum) {
+      maximum = angle;
+      const dominant = [0, 1, 2].sort((a, b) => Math.abs(value[b] - base[b]) - Math.abs(value[a] - base[a]))[0];
+      signedMaximum = Math.sign(value[dominant] - base[dominant]) * angle;
+    }
+  }
+  return { sampleCount: values.length, maximumDegrees: Math.round(maximum * 180 / Math.PI * 1e4) / 1e4, signedMaximumDegrees: Math.round(signedMaximum * 180 / Math.PI * 1e4) / 1e4 };
 }
 
 function nameEvidence(name) {
@@ -351,39 +450,58 @@ function buildCandidates(gltf, binary) {
     };
   }).sort((a, b) => b.score - a.score || a.nodeIndex - b.nodeIndex);
 
-  const filtered = candidates.filter((candidate) => candidate.score >= 32).slice(0, 120);
-  const pool = filtered.length >= 4 ? filtered : candidates.slice(0, Math.min(120, candidates.length));
-  const selected = [];
-  const used = new Set();
-  const choose = (slot, predicate) => {
-    const candidate = pool.find((item) => !used.has(item.nodeIndex) && predicate(item));
-    if (!candidate) return;
-    used.add(candidate.nodeIndex);
-    selected.push({
-      slot,
-      nodeIndex: candidate.nodeIndex,
-      nodeName: candidate.nodeName,
-      meshIndex: candidate.meshIndex,
-      meshName: candidate.meshName,
-      score: candidate.score,
-      role: candidate.role,
-      side: candidate.side,
-      status: 'reference-candidate-pending-manual-map'
-    });
+  const pool = candidates.filter((candidate) => candidate.score >= 32).slice(0, 120);
+  const fixedNode = 1717;
+  const fixedMesh = gltf.nodes?.[fixedNode]?.mesh;
+  const topology = fixedMesh === undefined ? [] : connectedComponents(gltf, binary, fixedMesh, worldMatrices[fixedNode]);
+  const fixedThreshold = globalSize[verticalAxis] * 0.1;
+  const fixedGroups = {
+    'negative-span': topology.filter((entry) => entry.worldBounds.center[spanAxis] < globalCenter[spanAxis] - globalSize[spanAxis] * 0.1 && entry.worldBounds.size[verticalAxis] > fixedThreshold),
+    'positive-span': topology.filter((entry) => entry.worldBounds.center[spanAxis] > globalCenter[spanAxis] + globalSize[spanAxis] * 0.1 && entry.worldBounds.size[verticalAxis] > fixedThreshold)
   };
-
-  choose('vertical-stabilizer-negative-span', (item) => item.side === 'negative-span' && /stabilizer|vertical-surface/.test(item.role) && !/rudder/.test(item.role));
-  choose('vertical-stabilizer-positive-span', (item) => item.side === 'positive-span' && /stabilizer|vertical-surface/.test(item.role) && !/rudder/.test(item.role));
-  choose('rudder-negative-span', (item) => item.side === 'negative-span' && /rudder/.test(item.role));
-  choose('rudder-positive-span', (item) => item.side === 'positive-span' && /rudder/.test(item.role));
-  const fallbackSlots = [
-    'vertical-stabilizer-negative-span',
-    'vertical-stabilizer-positive-span',
-    'rudder-negative-span',
-    'rudder-positive-span'
-  ].filter((slot) => !selected.some((entry) => entry.slot === slot));
-  for (const slot of fallbackSlots) choose(slot, () => true);
-  if (selected.length < 4) fail(`Only ${selected.length} distinct tail candidates could be recommended.`);
+  const auditedNodeIds = [706, 713, 708, 731, 738, 733];
+  const semanticAudit = auditedNodeIds.map((nodeIndex) => ({
+    nodeIndex,
+    name: gltf.nodes?.[nodeIndex]?.name ?? null,
+    stablePath: ancestry(gltf, parents, nodeIndex).reverse().map((entry) => `${entry.index}:${entry.name ?? ''}`).join('/'),
+    localMatrix: roundedVector(matrixFromTrs(gltf.nodes?.[nodeIndex] ?? {})),
+    matrixWorld: roundedVector(worldMatrices[nodeIndex]),
+    pivotWorld: roundedVector(transformPoint(worldMatrices[nodeIndex], [0, 0, 0])),
+    affectsLeafNodes: [719, 744].filter((leaf) => isDescendant(gltf, nodeIndex, leaf)),
+    channels: (animationMap.get(nodeIndex) ?? []).map((channel) => ({ ...channel, rotationRange: rotationRange(gltf, binary, channel) })),
+    reviewerStatus: 'candidate-not-approved'
+  }));
+  const selected = [
+    {
+      slot: 'vertical-stabilizer-negative-span', componentId: 'empennage.vertical.left.stabilizer', componentIdStatus: 'spatial-candidate-not-approved', nodeIndex: fixedNode,
+      meshIndex: fixedMesh, primitiveIndex: 0, topologyComponents: fixedGroups['negative-span'], side: 'negative-span',
+      role: 'fixed-vertical-stabilizer-topology-group', status: fixedGroups['negative-span'].length ? 'unresolved-pending-manual-map' : 'unresolved-no-topology-match'
+    },
+    {
+      slot: 'vertical-stabilizer-positive-span', componentId: 'empennage.vertical.right.stabilizer', componentIdStatus: 'spatial-candidate-not-approved', nodeIndex: fixedNode,
+      meshIndex: fixedMesh, primitiveIndex: 0, topologyComponents: fixedGroups['positive-span'], side: 'positive-span',
+      role: 'fixed-vertical-stabilizer-topology-group', status: fixedGroups['positive-span'].length ? 'unresolved-pending-manual-map' : 'unresolved-no-topology-match'
+    },
+    {
+      slot: 'rudder-negative-span', componentId: 'empennage.vertical.left.rudder', componentIdStatus: 'spatial-candidate-not-approved', nodeIndex: 744, meshIndex: gltf.nodes?.[744]?.mesh,
+      primitiveIndex: 0, side: 'negative-span', role: 'main-rudder-leaf-candidate', status: 'candidate-not-approved'
+    },
+    {
+      slot: 'rudder-positive-span', componentId: 'empennage.vertical.right.rudder', componentIdStatus: 'spatial-candidate-not-approved', nodeIndex: 719, meshIndex: gltf.nodes?.[719]?.mesh,
+      primitiveIndex: 0, side: 'positive-span', role: 'main-rudder-leaf-candidate', status: 'candidate-not-approved'
+    }
+  ].map((entry) => ({
+    ...entry,
+    stablePath: ancestry(gltf, parents, entry.nodeIndex).reverse().map((item) => `${item.index}:${item.name ?? ''}`).join('/'),
+    matrixWorld: roundedVector(worldMatrices[entry.nodeIndex]),
+    worldBounds: candidates.find((candidate) => candidate.nodeIndex === entry.nodeIndex)?.worldBounds ?? null,
+    materialIndex: gltf.meshes?.[entry.meshIndex]?.primitives?.[entry.primitiveIndex]?.material ?? null,
+    accessors: gltf.meshes?.[entry.meshIndex]?.primitives?.[entry.primitiveIndex] ? {
+      position: gltf.meshes[entry.meshIndex].primitives[entry.primitiveIndex].attributes?.POSITION ?? null,
+      normal: gltf.meshes[entry.meshIndex].primitives[entry.primitiveIndex].attributes?.NORMAL ?? null,
+      indices: gltf.meshes[entry.meshIndex].primitives[entry.primitiveIndex].indices ?? null
+    } : null
+  }));
 
   return {
     globalBounds: {
@@ -399,6 +517,15 @@ function buildCandidates(gltf, binary) {
       authority: 'locked-reference-geometry-heuristic-pending-manual-confirmation'
     },
     recommendations: selected,
+    semanticAudit,
+    fixedTailTopology: {
+      nodeIndex: fixedNode,
+      meshIndex: fixedMesh,
+      componentCount: topology.length,
+      negativeSpanCandidateCount: fixedGroups['negative-span'].length,
+      positiveSpanCandidateCount: fixedGroups['positive-span'].length,
+      boundaryApproval: false
+    },
     candidates: pool,
     totals: {
       gltfNodes: gltf.nodes?.length ?? 0,
@@ -418,7 +545,8 @@ const source = readGlb(input);
 const result = buildCandidates(source.json, source.binary);
 const report = {
   schema: 'haihao.aircraft/b24-tail-reference-candidates@2.0.0',
-  generatedAt: new Date().toISOString(),
+  generatedAt: null,
+  deterministicBuild: true,
   sourceLock: SOURCE_LOCK,
   extractionPolicy: {
     sourceAuthority: 'locked-external-reference-only',
@@ -426,7 +554,7 @@ const report = {
     geometryApprovalGranted: false,
     leftRightHistoricalOrientationGranted: false,
     noMissingDimensionMayBeFilled: true,
-    candidateSelection: 'name-animation-bounds-and-spatial-score'
+    candidateSelection: 'explicit-rudder-leaves-plus-static-tail-topology-components-no-fallback'
   },
   ...result
 };
@@ -457,12 +585,11 @@ const lines = [
   '',
   '## Recommended manual-map candidates',
   '',
-  '| Slot | Node | Mesh | Score | Role | Side |',
-  '| --- | ---: | ---: | ---: | --- | --- |',
-  ...report.recommendations.map((entry) => `| ${entry.slot} | ${entry.nodeIndex} ${entry.nodeName ?? ''} | ${entry.meshIndex} ${entry.meshName ?? ''} | ${entry.score} | ${entry.role} | ${entry.side} |`),
+  '| Slot | Node | Mesh | Role | Side | Status |',
+  '| --- | ---: | ---: | --- | --- | --- |',
+  ...report.recommendations.map((entry) => `| ${entry.slot} | ${entry.nodeIndex} | ${entry.meshIndex} | ${entry.role} | ${entry.side} | ${entry.status} |`),
   '',
-  `Candidate JSON SHA256: \`${outputSha}\``,
-  ''
+  `Candidate JSON SHA256: \`${outputSha}\``
 ];
 fs.mkdirSync(path.dirname(summary), { recursive: true });
 fs.writeFileSync(summary, `${lines.join('\n')}\n`, 'utf8');
