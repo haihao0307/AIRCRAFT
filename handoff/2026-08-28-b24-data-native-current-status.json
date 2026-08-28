@@ -1,0 +1,56 @@
+{
+  "schema": "haihao.aircraft/b24-full-handoff@1.0.0",
+  "generatedAt": "2026-08-28",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "research/b24-engineering-drawings-cad-v1",
+  "headBeforeHandoffCommits": "ae067c035c6096cbdb6ebac18a558487ef173f1d",
+  "pullRequest": {
+    "number": 14,
+    "state": "open",
+    "draft": true,
+    "merged": false
+  },
+  "sourceLock": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "nativePayload": {
+    "format": "JSON + ANFD",
+    "bytes": 16647376,
+    "sha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2"
+  },
+  "currentReviewVersion": "V008",
+  "nextRequiredVersion": "V009",
+  "latestUserBlockers": [
+    "audio control produces no audible sound",
+    "propellers do not rotate continuously during flight",
+    "engine cowl nacelle landing gear and wheel bay materials are incomplete",
+    "overall rendering is too pale and low contrast",
+    "reset leaves a belly opening or missing surface",
+    "glass and smooth surface quality require correction"
+  ],
+  "workflowPolicy": {
+    "externalImageReconstructionActive": false,
+    "image2threejsAuthority": "none",
+    "blenderUsedInRuntimeChain": false,
+    "airframeSkinUsesLegacyUv": false,
+    "airframeSkinUsesLegacyRasterTexture": false,
+    "mechanicalStandardPartsMayRetainReferenceAppearance": true
+  },
+  "approval": {
+    "toolAuthorityPolicyApproved": true,
+    "drawingFirstWorkflowApproved": true,
+    "aircraftDataMasterApproved": false,
+    "assemblyGraphApproved": false,
+    "geometryRecipesApproved": false,
+    "behaviorGraphApproved": false,
+    "surfaceSystemApproved": false,
+    "referenceModelCrossCheckApproved": false,
+    "verticalTailSourcesApproved": false,
+    "verticalTailGeometryRecipeApproved": false,
+    "verticalTailBehaviorApproved": false,
+    "verticalTailSurfaceModuleApproved": false,
+    "verticalTailBrowserQaApproved": false
+  }
+}
