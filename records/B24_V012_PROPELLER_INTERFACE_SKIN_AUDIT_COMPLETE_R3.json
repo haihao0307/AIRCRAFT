@@ -1,0 +1,125 @@
+{
+  "schema": "haihao.aircraft/b24-v012-propeller-interface-skin-audit-complete@1.0.0",
+  "date": "2026-08-29",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "feature/b24-v012-propeller-interface-skin-audit",
+  "workflowCommit": "a3a1db245ae00cf2151b128966f1564ddb075f9f",
+  "workflowRun": {
+    "id": 33280757412,
+    "name": "B24 V012 propeller interface and skin audit R3",
+    "conclusion": "success"
+  },
+  "artifact": {
+    "id": 9722927115,
+    "name": "AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R3-a3a1db245ae00cf2151b128966f1564ddb075f9f",
+    "bytes": 22527658,
+    "sha256": "af6e21988a44087951ca06c38e1ed84d7d7da5e664d0d0c8f8b76b39df1f787e",
+    "expiresAt": "2026-11-27T23:20:38Z"
+  },
+  "deliveryZip": {
+    "name": "AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R3.zip",
+    "bytes": 11290156,
+    "sha256": "922a8ea546d0f03d83bcd82bc6759181abacc0601758f4ae3b6e658659825c42",
+    "zipIntegrity": "pass"
+  },
+  "baseline": {
+    "name": "B24 V010 clean aircraft baseline",
+    "integrationCommit": "6587e02d9b91d2e5ed82ceb6c84ca14573488ff8",
+    "sourceHtmlBytes": 12550988,
+    "sourceHtmlSha256": "1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949",
+    "sourceGlbBytes": 23085972,
+    "sourceGlbSha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "generatedPreview": {
+    "name": "B24_V012_PROPELLER_INTERFACE_REVIEW.html",
+    "bytes": 12557938,
+    "sha256": "7cf4c78cea99f9bf3aed5507cbcb2bdb49a71465b3c4aabc29563214f3da2fde",
+    "status": "PASS_PREVIEW_ONLY"
+  },
+  "propellerInterfaceFinding": {
+    "sourceAssemblyCount": 4,
+    "sourceAssembliesStructurallyIdentical": true,
+    "subtreeNodesPerAssembly": 22,
+    "meshNodesPerAssembly": 5,
+    "bladeMembersPerAssembly": 3,
+    "bladeTrianglesPerMember": 1119,
+    "staticHubMembersPerAssembly": 1,
+    "staticHubTriangles": 792,
+    "connectorMembersPerAssembly": 1,
+    "connectorTriangles": 1128,
+    "trianglesPerAssembly": 5277,
+    "sourceConnectorPresentOnAllFour": true,
+    "runtimeRootCause": "V009 and V010 classified the 1128-triangle solid connector as still-disc and assigned alpha 0",
+    "runtimeCorrection": "reclassified as propeller-hub-connector and restored source-derived opaque protected material",
+    "connectorVisibleOnAllFour": true,
+    "newGeometryCreated": false
+  },
+  "browserQa": {
+    "status": "PASS_PREVIEW_ONLY",
+    "checks": 47,
+    "passed": 47,
+    "failed": 0,
+    "pageErrors": 0,
+    "seriousConsoleErrors": 0,
+    "aircraftItems": 330,
+    "aircraftNodes": 1784,
+    "propellerRootCount": 15,
+    "webglError": 0,
+    "propellerMotionPreserved": true,
+    "propellerAxis": "fixed-local-y",
+    "connectorCount": 4,
+    "connectorAlpha": 1,
+    "connectorDamageZone": 0,
+    "connectorsProtectedFromRidged": true
+  },
+  "sourceSkinAndTextureAudit": {
+    "materialCount": 30,
+    "textureCount": 18,
+    "imageCount": 18,
+    "baseColorTextureCount": 18,
+    "metallicRoughnessTextureCount": 10,
+    "normalTextureCount": 0,
+    "occlusionTextureCount": 10,
+    "emissiveTextureCount": 0,
+    "rivetFastenerPanelSeamSemanticNameMatchCount": 0,
+    "conclusion": "The source glTF material contract has no dedicated normalTexture slots and exposes no dedicated rivet, fastener, panel or seam semantic names.",
+    "limitation": "Rivet-like or panel-like pixels may still be baked into base-color or packed metallic-roughness images. Image-content inspection remains open."
+  },
+  "sourceDrivenSurfaceLayers": [
+    "engine-exhaust-soot",
+    "oil-and-fluid-seepage",
+    "crew-foot-traffic",
+    "rivet-grime",
+    "panel-seam-grime",
+    "rain-dust-streaking",
+    "paint-fading-and-chalking",
+    "edge-chipping-and-exposed-metal"
+  ],
+  "protectedSystems": {
+    "sourcePayloadChanged": false,
+    "geometryChanged": false,
+    "animationChanged": false,
+    "liveryIdentityChanged": false,
+    "runwayFlightSequenceChanged": false,
+    "aircraftPrimary": true,
+    "noiseToolLocalOverlay": true
+  },
+  "historicalLiveryStatus": {
+    "aircraftId": "308bg_374bs_42-73257_80-days",
+    "referenceAssetsExpected": 10,
+    "referenceAssetsVerified": 0,
+    "referenceAssetsMissing": 10,
+    "assetIntakeStatus": "blocked-missing-asset",
+    "countSheetStatus": "blocked-missing-asset",
+    "finalBakeApproved": false
+  },
+  "approvalLedger": {
+    "visualApproved": false,
+    "surfaceSystemApproved": false,
+    "historicalApproved": false,
+    "engineeringApproved": false,
+    "wholeAircraftApproved": false,
+    "productionFrozen": false
+  },
+  "activeWorkflow": ".github/workflows/b24-v012-propeller-interface-skin-audit-r3.yml"
+}
