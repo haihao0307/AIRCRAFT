@@ -1,0 +1,198 @@
+{
+  "schema": "haihao.aircraft/b24-source-texture-detail-evidence@1.0.0",
+  "version": "V001",
+  "date": "2026-08-29",
+  "source": {
+    "baseline": "B24 V010 clean aircraft baseline",
+    "html": "handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html",
+    "htmlBytes": 12550988,
+    "htmlSha256": "1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949",
+    "sourceGlbBytes": 23085972,
+    "sourceGlbSha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "embeddedManifestSha256": "8934b65ef1b29fc8b64da5e339815a39f8d03254c0b31638781bc16016a6d307",
+    "embeddedPayloadBytes": 16647376,
+    "embeddedPayloadSha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2"
+  },
+  "inventory": {
+    "imageCount": 18,
+    "materialCount": 30,
+    "baseColorTextureCount": 18,
+    "metallicRoughnessTextureCount": 10,
+    "normalTextureCount": 0,
+    "occlusionTextureCount": 10,
+    "emissiveTextureCount": 0
+  },
+  "visualEvidence": [
+    {
+      "id": "fuselage-and-wing-panel-grid",
+      "imageId": 2,
+      "sourceImage": "image_02.jpg",
+      "materialIds": [3],
+      "materialNames": ["material13"],
+      "surfaceFamily": "airframe-skin",
+      "regions": [
+        {
+          "label": "upper wing panel grid",
+          "box": [270, 0, 1024, 170]
+        },
+        {
+          "label": "fuselage panel and fastener rows",
+          "box": [0, 210, 730, 450]
+        },
+        {
+          "label": "nose-side panel layout",
+          "box": [0, 650, 730, 850]
+        }
+      ],
+      "observedFeatures": [
+        "panel-seam-lines",
+        "repeated-rivet-like-dot-rows",
+        "access-panel-outlines",
+        "baked-tonal-weathering"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "id": "left-wing-and-control-surface-fasteners",
+      "imageId": 5,
+      "sourceImage": "image_05.jpg",
+      "materialIds": [6],
+      "materialNames": ["material21"],
+      "surfaceFamily": "airframe-skin",
+      "regions": [
+        {
+          "label": "wing skin and nacelle stains",
+          "box": [0, 0, 1024, 520]
+        },
+        {
+          "label": "control-surface fastener rows",
+          "box": [0, 500, 1024, 1024]
+        }
+      ],
+      "observedFeatures": [
+        "panel-seam-lines",
+        "dense-rivet-like-dot-rows",
+        "control-surface-fastener-patterns",
+        "baked-dark-nacelle-stains",
+        "baked-fluid-streaks"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "id": "right-wing-and-control-surface-fasteners",
+      "imageId": 9,
+      "sourceImage": "image_09.jpg",
+      "materialIds": [13],
+      "materialNames": ["material24"],
+      "surfaceFamily": "airframe-skin",
+      "regions": [
+        {
+          "label": "wing skin and nacelle stains",
+          "box": [0, 0, 1024, 520]
+        },
+        {
+          "label": "control-surface fastener rows",
+          "box": [0, 500, 1024, 1024]
+        }
+      ],
+      "observedFeatures": [
+        "panel-seam-lines",
+        "dense-rivet-like-dot-rows",
+        "control-surface-fastener-patterns",
+        "baked-dark-nacelle-stains",
+        "baked-fluid-streaks"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "id": "tail-skin-fastener-layout",
+      "imageId": 7,
+      "sourceImage": "image_07.jpg",
+      "materialIds": [9],
+      "materialNames": ["material09"],
+      "surfaceFamily": "airframe-skin",
+      "regions": [
+        {
+          "label": "dual-tail skin panels",
+          "box": [0, 0, 820, 1024]
+        }
+      ],
+      "observedFeatures": [
+        "curved-panel-seam-lines",
+        "repeated-rivet-like-dot-rows",
+        "hinge-and-access-panel-outlines",
+        "baked-tonal-weathering"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "id": "cockpit-and-forward-panel-detail",
+      "imageId": 3,
+      "sourceImage": "image_03.jpg",
+      "materialIds": [4],
+      "materialNames": ["material19"],
+      "surfaceFamily": "airframe-skin",
+      "regions": [
+        {
+          "label": "forward skin and cockpit panels",
+          "box": [120, 130, 830, 620]
+        }
+      ],
+      "observedFeatures": [
+        "panel-seam-lines",
+        "localized-rivet-like-dot-rows",
+        "access-panel-outlines",
+        "baked-smudging"
+      ],
+      "visualEvidenceStrength": "medium",
+      "engineeringAuthority": false
+    }
+  ],
+  "confirmedSourceFacts": {
+    "bakedPanelSeamInformationPresent": true,
+    "bakedRivetLikeInformationPresent": true,
+    "bakedNacelleStainInformationPresent": true,
+    "dedicatedNormalTexturePresent": false,
+    "dedicatedRivetSemanticMaskPresent": false,
+    "dedicatedPanelSeamSemanticMaskPresent": false
+  },
+  "runtimeFinding": {
+    "currentV010PreviewMode": "solid-exterior-no-uv",
+    "currentV010UsesSourceBaseColorTextures": false,
+    "effect": "The V010 clean aircraft preview preserves source geometry and material parameters while omitting the baked UV texture detail visible in the embedded source images."
+  },
+  "allowedUse": [
+    "historical and visual reference",
+    "seed source for panel and rivet mask reconstruction",
+    "source-aligned placement guidance",
+    "comparison evidence for future UV or procedural detail restoration"
+  ],
+  "forbiddenUse": [
+    "claiming exact engineering rivet pitch from a 1024-pixel texture",
+    "treating baked dark stains as universal B-24 exhaust authority",
+    "automatic whole-aircraft assignment without part and UV mapping",
+    "replacing historical aircraft-specific evidence",
+    "approving final 80 DAYS livery from the generic source texture alone"
+  ],
+  "nextStage": {
+    "id": "source-uv-detail-distillation",
+    "tasks": [
+      "map each source airframe-skin material and UV island to aircraft semantic components",
+      "separate panel seams, rivet-like dots and baked stains into independent review masks",
+      "compare generic source stains with 80 DAYS photographic evidence",
+      "promote only confirmed masks into the source-driven weathering contract"
+    ]
+  },
+  "approvalBoundary": {
+    "visualApproved": false,
+    "surfaceSystemApproved": false,
+    "historicalApproved": false,
+    "engineeringApproved": false,
+    "wholeAircraftApproved": false,
+    "productionFrozen": false
+  }
+}
