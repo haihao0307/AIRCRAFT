@@ -113,6 +113,15 @@
     "countSheetStatus": "blocked-missing-asset",
     "finalBakeApproved": false
   },
+  "repositoryCleanup": {
+    "activeWorkflow": ".github/workflows/b24-v012-propeller-interface-skin-audit-r3.yml",
+    "supersededWorkflowFilesRemoved": [
+      ".github/workflows/b24-v012-propeller-interface-skin-audit.yml",
+      ".github/workflows/b24-v012-propeller-interface-skin-audit-r2.yml"
+    ],
+    "failedFirstPassAuditScriptRemoved": "tools/audit-b24-v012-propeller-skin.mjs",
+    "activeAuditScript": "tools/audit-b24-v012-propeller-skin-v2.mjs"
+  },
   "approvalLedger": {
     "visualApproved": false,
     "surfaceSystemApproved": false,
@@ -120,6 +129,5 @@
     "engineeringApproved": false,
     "wholeAircraftApproved": false,
     "productionFrozen": false
-  },
-  "activeWorkflow": ".github/workflows/b24-v012-propeller-interface-skin-audit-r3.yml"
+  }
 }
