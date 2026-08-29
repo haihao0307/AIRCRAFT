@@ -1,0 +1,123 @@
+name: Extract B24 vertical-tail reference candidates
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'data/b24-native/components/empennage/vertical-tail-reference-extraction-request.json'
+      - 'scripts/extract-b24-component-reference-candidates.mjs'
+      - 'scripts/validate-aircraft-native-forge.mjs'
+      - 'scripts/lib/external-tool-invocation-scan.mjs'
+      - 'preview/b24-reference-exact/assets/chunks/**'
+      - '.github/workflows/b24-vertical-tail-reference-candidates.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'data/b24-native/components/empennage/vertical-tail-reference-extraction-request.json'
+      - 'scripts/extract-b24-component-reference-candidates.mjs'
+      - 'preview/b24-reference-exact/assets/chunks/**'
+      - '.github/workflows/b24-vertical-tail-reference-candidates.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate source contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/validate-b24-native-contracts.mjs
+          node scripts/validate-aircraft-native-forge.mjs
+
+      - name: Extract exact candidate evidence from locked GLB chunks
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/extract-b24-component-reference-candidates.mjs \
+            --request data/b24-native/components/empennage/vertical-tail-reference-extraction-request.json \
+            --out reports/b24-native/vertical-tail-reference-candidates.json \
+            | tee reports/b24-native/vertical-tail-reference-candidates.summary.json
+          (cd reports/b24-native && sha256sum --check vertical-tail-reference-candidates.json.sha256)
+
+      - name: Verify fail-closed report
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          report_path = Path('reports/b24-native/vertical-tail-reference-candidates.json')
+          report = json.loads(report_path.read_text(encoding='utf-8'))
+          assert report['source']['bytes'] == 23085972
+          assert report['source']['sha256'] == '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d'
+          assert report['source']['chunk_count'] == 12
+          assert report['inventory']['nodes'] == 1784
+          assert report['inventory']['meshes'] == 348
+          assert report['inventory']['animation_channels'] == 2518
+          assert report['candidate_count'] == 2
+          assert [candidate['reference_node_id'] for candidate in report['candidates']] == [719, 744]
+          for candidate in report['candidates']:
+              assert candidate['semantic_status'] == 'candidate-not-approved'
+              assert candidate['side_assignment'] is None
+              assert candidate['component_boundary_approved'] is False
+              assert candidate['animation_semantics_approved'] is False
+              assert candidate['mesh_evidence']['world_bounds'] is not None
+              assert candidate['subtree_node_count'] >= 1
+          assert report['approval']['sourceLockPassed'] is True
+          assert report['approval']['extractionCompleted'] is True
+          assert report['approval']['candidateNodeIdsApproved'] is False
+          assert report['approval']['sideAssignmentsApproved'] is False
+          assert report['approval']['componentBoundariesApproved'] is False
+          assert report['approval']['animationSemanticsApproved'] is False
+          assert report['approval']['referenceNodeMapApproved'] is False
+          print('vertical-tail reference candidate report: PASS')
+          PY
+
+      - name: Write job summary
+        shell: bash
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          report = json.load(open('reports/b24-native/vertical-tail-reference-candidates.json', encoding='utf-8'))
+          print('## B24 vertical-tail reference candidates')
+          print()
+          print(f"Locked source: `{report['source']['sha256']}`")
+          print()
+          print('| Node | Name | Subtree nodes | Meshes | Triangles | Animation channels | Status |')
+          print('|---:|---|---:|---:|---:|---:|---|')
+          for candidate in report['candidates']:
+              print('| {node} | {name} | {subtree} | {meshes} | {triangles} | {channels} | {status} |'.format(
+                  node=candidate['reference_node_id'],
+                  name=(candidate['name'] or 'unnamed').replace('|', '/'),
+                  subtree=candidate['subtree_node_count'],
+                  meshes=len(candidate['mesh_evidence']['mesh_ids']),
+                  triangles=candidate['mesh_evidence']['triangle_count'],
+                  channels=candidate['animation_channel_count'],
+                  status=candidate['semantic_status']))
+          print()
+          print('Side assignment, component boundary and animation semantics remain unapproved.')
+          PY
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-vertical-tail-reference-candidates
+          path: |
+            reports/b24-native/vertical-tail-reference-candidates.json
+            reports/b24-native/vertical-tail-reference-candidates.json.sha256
+            reports/b24-native/vertical-tail-reference-candidates.summary.json
+          if-no-files-found: error
+          retention-days: 30

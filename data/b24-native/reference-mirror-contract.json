@@ -1,0 +1,103 @@
+{
+  "schema": "haihao.aircraft/reference-mirror-contract@1.0.0",
+  "contract_id": "B24J_CO_REFERENCE_FULL_MIRROR_V1",
+  "status": "structural-mirror-extractor-ready",
+  "source_lock": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "release": "80-days-source-v1",
+    "inventory": {
+      "scenes": 1,
+      "nodes": 1784,
+      "meshes": 348,
+      "triangles": 325358,
+      "materials": 30,
+      "images": 18,
+      "animations": 1,
+      "animationChannels": 2518,
+      "animationSamplers": 2518,
+      "accessors": 6702,
+      "bufferViews": 24
+    }
+  },
+  "authority": {
+    "upstream_controller": "ChatGPT",
+    "img2threejs_role": "downstream visual execution and browser QA only",
+    "img2threejs_analysis_authority": false,
+    "reference_glb_role": "locked source for measurement, hierarchy, appearance and motion evidence",
+    "reference_glb_runtime_authority": false
+  },
+  "no_guess_policy": {
+    "unclassified_by_default": true,
+    "automatic_geometry_substitution": false,
+    "automatic_semantic_approval": false,
+    "primitive_aircraft_fallback_allowed": false,
+    "unknown_nodes_remain_unresolved": true,
+    "candidate_keyword_matches_are_truth": false
+  },
+  "mirror_layers": [
+    {
+      "layer": "container-independent-structural-mirror",
+      "purpose": "Preserve every source scene, node, transform, mesh primitive, accessor payload, material, image and animation channel outside the GLB container.",
+      "status": "implemented-by-extractor"
+    },
+    {
+      "layer": "exact-replay-runtime",
+      "purpose": "Render the structural mirror through the project runtime without loading a GLB container.",
+      "status": "pending"
+    },
+    {
+      "layer": "semantic-aircraft-map",
+      "purpose": "Map source nodes and motions to reviewed aircraft systems and stable component IDs.",
+      "status": "pending-upstream-review"
+    },
+    {
+      "layer": "native-replacement",
+      "purpose": "Replace reviewed reference systems with better GeometryRecipe and BehaviorGraph implementations while preserving visual and motion parity gates.",
+      "status": "blocked-by-parity-and-semantic-gates"
+    }
+  ],
+  "required_artifacts": [
+    "manifest.json",
+    "qa.json",
+    "scene-graph.json",
+    "meshes.json",
+    "accessors.json",
+    "source-assets.json",
+    "animations.json",
+    "semantic-candidates.json",
+    "reference-accessor-payload.bin",
+    "images/"
+  ],
+  "quality_gates": {
+    "source_lock": "exact byte count and SHA-256",
+    "inventory_lock": "all known counts must match",
+    "scene_graph": "1784 nodes, exact parents, children, source transforms and resolved matrices",
+    "mesh_contract": "348 meshes and 325358 source triangles",
+    "accessor_coverage": "all 6702 accessors packed and hash-addressed",
+    "image_coverage": "all 18 embedded images extracted with hashes",
+    "animation_coverage": "all 2518 channels and 2518 samplers preserved",
+    "semantic_safety": "zero automatic approvals",
+    "visual_parity": "pending fixed-camera and fixed-time browser comparison",
+    "replacement_permission": "blocked until semantic and parity approvals"
+  },
+  "manual_review_queue": [
+    "armament turrets",
+    "individual guns and gun mounts",
+    "crew and seat entities",
+    "engine nacelles and cowling boundaries",
+    "landing gear mechanism groups",
+    "bomb-bay doors and bomb rack groups",
+    "control-surface fixed and moving partitions"
+  ],
+  "approvals": {
+    "structural_mirror_extractor_approved": false,
+    "structural_mirror_local_execution_passed": true,
+    "exact_replay_runtime_approved": false,
+    "visual_parity_approved": false,
+    "animation_semantics_approved": false,
+    "aircraft_system_mapping_approved": false,
+    "native_geometry_replacement_approved": false
+  }
+}

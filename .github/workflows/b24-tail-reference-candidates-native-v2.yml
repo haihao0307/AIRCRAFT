@@ -1,0 +1,116 @@
+name: Extract B24 vertical-tail reference candidates native v2
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'scripts/extract-b24-tail-candidates-native-v2.mjs'
+      - '.github/workflows/b24-tail-reference-candidates-native-v2.yml'
+      - 'data/b24-native/components/twin-vertical-tail/**'
+      - 'data/b24-native/components/empennage/**'
+  pull_request:
+    paths:
+      - 'scripts/extract-b24-tail-candidates-native-v2.mjs'
+      - '.github/workflows/b24-tail-reference-candidates-native-v2.yml'
+      - 'data/b24-native/components/twin-vertical-tail/**'
+      - 'data/b24-native/components/empennage/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extract-locked-reference-candidates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Download and verify exact locked B24 reference
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public reports/b24-native/generated
+          curl --fail --location --retry 5 --retry-all-errors --retry-delay 2 \
+            --output public/b-24_liberator.glb \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb
+          test "$(stat --format=%s public/b-24_liberator.glb)" = "23085972"
+          echo "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d  public/b-24_liberator.glb" | sha256sum --check
+
+      - name: Extract geometry-aware reference candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/extract-b24-tail-candidates-native-v2.mjs \
+            --input public/b-24_liberator.glb \
+            --output reports/b24-native/generated/vertical-tail-reference-candidates-v2.json \
+            --summary reports/b24-native/generated/vertical-tail-reference-candidates-v2.md \
+            | tee reports/b24-native/generated/vertical-tail-reference-candidates-v2.log
+
+      - name: Validate candidate evidence and approval boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs = require('node:fs');
+          const file = 'reports/b24-native/generated/vertical-tail-reference-candidates-v2.json';
+          const report = JSON.parse(fs.readFileSync(file, 'utf8'));
+          if (report.schema !== 'haihao.aircraft/b24-tail-reference-candidates@2.0.0') throw new Error('Unexpected schema');
+          if (report.sourceLock.bytes !== 23085972) throw new Error('Byte lock mismatch');
+          if (report.sourceLock.sha256 !== '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d') throw new Error('SHA lock mismatch');
+          if (!Array.isArray(report.recommendations) || report.recommendations.length !== 4) throw new Error('Exactly four semantic slots are required');
+          const bySlot = Object.fromEntries(report.recommendations.map((item) => [item.slot, item]));
+          if (bySlot['rudder-negative-span']?.nodeIndex !== 744 || bySlot['rudder-negative-span']?.meshIndex !== 130) throw new Error('Negative-span rudder must remain node 744 / mesh 130');
+          if (bySlot['rudder-positive-span']?.nodeIndex !== 719 || bySlot['rudder-positive-span']?.meshIndex !== 125) throw new Error('Positive-span rudder must remain node 719 / mesh 125');
+          if (bySlot['vertical-stabilizer-negative-span']?.nodeIndex !== 1717 || bySlot['vertical-stabilizer-positive-span']?.nodeIndex !== 1717) throw new Error('Fixed fins must come from static tail node 1717 topology');
+          if (!report.fixedTailTopology?.negativeSpanCandidateCount || !report.fixedTailTopology?.positiveSpanCandidateCount) throw new Error('Both fixed-fin topology groups are required');
+          const audited = new Set(report.semanticAudit?.map((entry) => entry.nodeIndex));
+          for (const node of [706, 713, 708, 731, 738, 733]) if (!audited.has(node)) throw new Error(`Missing animation audit node ${node}`);
+          if (report.extractionPolicy.engineeringAuthorityGranted !== false) throw new Error('Engineering authority must remain false');
+          if (report.extractionPolicy.geometryApprovalGranted !== false) throw new Error('Geometry approval must remain false');
+          if (report.extractionPolicy.leftRightHistoricalOrientationGranted !== false) throw new Error('Historical side authority must remain false');
+          if (report.recommendations.some((entry) => /approved/.test(entry.status) && entry.status !== 'candidate-not-approved')) throw new Error('No semantic slot may be approved');
+          console.log('PASS four fail-closed semantic slots with explicit rudder and fixed-fin topology evidence');
+          console.log('PASS approval boundary remains closed');
+          NODE
+          (
+            cd reports/b24-native/generated
+            sha256sum --check vertical-tail-reference-candidates-v2.json.sha256
+          )
+
+      - name: Upload candidate extraction evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: b24-tail-reference-candidates-native-v2-${{ github.sha }}
+          path: |
+            reports/b24-native/generated/vertical-tail-reference-candidates-v2.json
+            reports/b24-native/generated/vertical-tail-reference-candidates-v2.json.sha256
+            reports/b24-native/generated/vertical-tail-reference-candidates-v2.md
+            reports/b24-native/generated/vertical-tail-reference-candidates-v2.log
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Write extraction summary
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo '## B24 twin vertical-tail locked-reference candidates V2'
+            echo
+            echo "Commit: $GITHUB_SHA"
+            echo
+            if [ -f reports/b24-native/generated/vertical-tail-reference-candidates-v2.md ]; then
+              cat reports/b24-native/generated/vertical-tail-reference-candidates-v2.md
+            else
+              echo 'Candidate summary was not generated; inspect the uploaded log.'
+            fi
+            echo
+            echo 'The result is a reference mapping candidate set. Engineering dimensions, geometry, historical side identity, behavior, surfaces and browser QA remain unapproved.'
+          } >> "$GITHUB_STEP_SUMMARY"

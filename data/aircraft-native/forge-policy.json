@@ -1,0 +1,119 @@
+{
+  "schema": "haihao.aircraft/native-forge-policy@1.0.0",
+  "system_id": "AIRCRAFT_NATIVE_FORGE",
+  "status": "active-foundation",
+  "purpose": "Repository-owned, renderer-independent production of source-traceable aircraft families and historical instances.",
+  "authority": {
+    "upstream_controller": "ChatGPT",
+    "implementation_executor": "Codex",
+    "user_visual_approval_required": true,
+    "automatic_semantic_approval": false
+  },
+  "mother_data": {
+    "authoritative_contracts": [
+      "AircraftDNA",
+      "AssemblyGraph",
+      "GeometryRecipe",
+      "SurfaceProgram",
+      "BehaviorGraph",
+      "EvidenceGraph",
+      "ApprovalLedger"
+    ],
+    "renderer_independent": true,
+    "regenerable_outputs_required": true
+  },
+  "source_precedence": [
+    {
+      "rank": 1,
+      "class": "approved-original-drawing-or-official-technical-order"
+    },
+    {
+      "rank": 2,
+      "class": "approved-parts-catalog-repair-manual-or-service-data"
+    },
+    {
+      "rank": 3,
+      "class": "verified-surviving-aircraft-measurement"
+    },
+    {
+      "rank": 4,
+      "class": "locked-reference-model-measurement-or-motion-evidence"
+    },
+    {
+      "rank": 5,
+      "class": "historical-photographic-inference"
+    },
+    {
+      "rank": 6,
+      "class": "generated-hypothesis"
+    }
+  ],
+  "uncertainty_policy": {
+    "unknown_state": "unresolved",
+    "hidden_geometry_default": "unresolved",
+    "lower_authority_overwrite_allowed": false,
+    "silent_interpolation_allowed": false,
+    "required_fields": [
+      "source_refs",
+      "derivation",
+      "confidence",
+      "approval_status"
+    ]
+  },
+  "external_tools": {
+    "img2threejs": {
+      "classification": "external-method-study",
+      "reviewed_repository": "https://github.com/img2threejs/img2threejs",
+      "reviewed_commit": "441af85a96523569511154b6321859b79f3592f5",
+      "default_enabled": false,
+      "active_integration": false,
+      "runtime_dependency": false,
+      "generation_authority": false,
+      "structural_authority": false,
+      "surface_authority": false,
+      "behavior_authority": false,
+      "approval_authority": false,
+      "activation": "explicit-user-instruction-and-isolated-task-only",
+      "output_status_when_activated": "external-experiment"
+    }
+  },
+  "format_policy": {
+    "glb": "reference-or-generated-output",
+    "fbx": "generated-output-only",
+    "obj": "generated-output-only",
+    "step": "verification-or-generated-output",
+    "cad": "intermediate-verification",
+    "raster_texture": "generated-cache-or-published-output",
+    "uv_atlas": "replaceable-surface-module-output"
+  },
+  "family_reuse": {
+    "initial_master": "B24J_CO_DATA_NATIVE_MASTER",
+    "planned_families": [
+      "B25",
+      "B17",
+      "B29",
+      "fighter-aircraft"
+    ],
+    "reuse_rule": "Reuse system grammar and algorithms while replacing aircraft-specific evidence, dimensions, configuration and behavior parameters."
+  },
+  "component_replacement_policy": {
+    "reference_remains_visible_until_parity": true,
+    "one_approved_component_at_a_time": true,
+    "unrelated_systems_must_remain_unchanged": true,
+    "required_mapping": [
+      "source_node_indexes",
+      "stable_source_paths",
+      "source_transforms",
+      "source_bounds",
+      "source_animation_channels",
+      "native_component_id",
+      "native_surface_ids"
+    ]
+  },
+  "approval": {
+    "aircraftNativeForgePolicyApproved": false,
+    "reusableSystemLibraryApproved": false,
+    "componentProductionContractApproved": false,
+    "aircraftFamilyMasterApproved": false
+  }
+}

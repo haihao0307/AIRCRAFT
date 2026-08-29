@@ -1,0 +1,57 @@
+name: Apply reviewed B24 source authority corrections
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'scripts/apply-b24-source-register-review.mjs'
+      - 'scripts/validate-b24-vertical-tail-source-review.mjs'
+      - 'data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json'
+      - 'data/b24-engineering/source-intake/results/B24J_OFFICIAL_THREE_VIEW_REVIEW_001.json'
+      - 'data/b24-engineering/source-intake/results/B24J_CO_VERTICAL_TAIL_SOURCE_CONFLICTS.json'
+      - 'data/b24-engineering/source-intake/b24j-official-three-view.json'
+      - '.github/workflows/b24-source-register-review.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b24-source-register-review
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply deterministic source and component review
+        run: node scripts/apply-b24-source-register-review.mjs
+
+      - name: Validate reviewed source route
+        run: node scripts/validate-b24-vertical-tail-source-review.mjs
+
+      - name: Commit corrected registry and component contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/b24-engineering/source-register.json \
+                  data/b24-native/components/empennage/vertical-tail-production.json
+          if git diff --cached --quiet; then
+            echo 'Source register and vertical-tail production contract already match the reviewed authority state.'
+          else
+            git commit -m "research: apply official B24J three-view review [skip ci]"
+            git push origin HEAD:research/b24-engineering-drawings-cad-v1
+          fi

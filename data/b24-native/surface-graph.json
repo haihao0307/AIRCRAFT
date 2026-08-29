@@ -1,0 +1,129 @@
+{
+  "schema": "haihao.aircraft/surface-graph@1.0.0",
+  "master_id": "B24J_CO_DATA_NATIVE_MASTER",
+  "slot_count": 62,
+  "status": "foundation",
+  "surfaceSystemApproved": false,
+  "principle": "A surface slot is a stable semantic interface. UV, vector markings, procedural panels and generated raster products attach to the slot without becoming the aircraft mother data.",
+  "module_contract": {
+    "required": [
+      "module_id",
+      "surface_ids",
+      "coordinate_space",
+      "parameterization_type",
+      "orientation",
+      "seam_policy",
+      "padding_policy",
+      "handedness_policy",
+      "semantic_anchors",
+      "source_refs",
+      "compatibility",
+      "qa_status"
+    ],
+    "allowed_parameterizations": [
+      "surface-parametric",
+      "section-loft",
+      "planar-local",
+      "cylindrical-local",
+      "custom-uv",
+      "vector-native"
+    ],
+    "runtime_outputs": [
+      "generated BufferGeometry attributes",
+      "generated Canvas or GPU surface maps",
+      "temporary UV atlases",
+      "inspection overlays"
+    ]
+  },
+  "legacy_uv": {
+    "TEXCOORD_0": "reference-only",
+    "TEXCOORD_1": "reference-only-unless-independently-proven",
+    "measured_observation": "299 primitives containing both UV sets used identical decoded coordinate data in the first authoritative-GLB distillation run",
+    "approval": false
+  },
+  "slots": [
+    {"surface_id":"fuselage.nose.port.outer","component_id":"fuselage.nose","side":"port","region":"outer-skin"},
+    {"surface_id":"fuselage.nose.starboard.outer","component_id":"fuselage.nose","side":"starboard","region":"outer-skin"},
+    {"surface_id":"fuselage.forward.port.outer","component_id":"fuselage.forward","side":"port","region":"outer-skin"},
+    {"surface_id":"fuselage.forward.starboard.outer","component_id":"fuselage.forward","side":"starboard","region":"outer-skin"},
+    {"surface_id":"fuselage.center.port.outer","component_id":"fuselage.center","side":"port","region":"outer-skin"},
+    {"surface_id":"fuselage.center.starboard.outer","component_id":"fuselage.center","side":"starboard","region":"outer-skin"},
+    {"surface_id":"fuselage.bomb-bay.port.outer","component_id":"fuselage.bomb-bay","side":"port","region":"outer-skin"},
+    {"surface_id":"fuselage.bomb-bay.starboard.outer","component_id":"fuselage.bomb-bay","side":"starboard","region":"outer-skin"},
+    {"surface_id":"fuselage.aft.port.outer","component_id":"fuselage.aft","side":"port","region":"outer-skin"},
+    {"surface_id":"fuselage.aft.starboard.outer","component_id":"fuselage.aft","side":"starboard","region":"outer-skin"},
+    {"surface_id":"fuselage.tail-cone.port.outer","component_id":"fuselage.tail-cone","side":"port","region":"outer-skin"},
+    {"surface_id":"fuselage.tail-cone.starboard.outer","component_id":"fuselage.tail-cone","side":"starboard","region":"outer-skin"},
+
+    {"surface_id":"wing.left.inner.upper","component_id":"wing.left.inner","side":"left","region":"upper-skin"},
+    {"surface_id":"wing.left.inner.lower","component_id":"wing.left.inner","side":"left","region":"lower-skin"},
+    {"surface_id":"wing.left.outer.upper","component_id":"wing.left.outer","side":"left","region":"upper-skin"},
+    {"surface_id":"wing.left.outer.lower","component_id":"wing.left.outer","side":"left","region":"lower-skin"},
+    {"surface_id":"wing.right.inner.upper","component_id":"wing.right.inner","side":"right","region":"upper-skin"},
+    {"surface_id":"wing.right.inner.lower","component_id":"wing.right.inner","side":"right","region":"lower-skin"},
+    {"surface_id":"wing.right.outer.upper","component_id":"wing.right.outer","side":"right","region":"upper-skin"},
+    {"surface_id":"wing.right.outer.lower","component_id":"wing.right.outer","side":"right","region":"lower-skin"},
+    {"surface_id":"wing.left.flap.upper","component_id":"wing.left.inner","side":"left","region":"flap-upper"},
+    {"surface_id":"wing.left.flap.lower","component_id":"wing.left.inner","side":"left","region":"flap-lower"},
+    {"surface_id":"wing.right.flap.upper","component_id":"wing.right.inner","side":"right","region":"flap-upper"},
+    {"surface_id":"wing.right.flap.lower","component_id":"wing.right.inner","side":"right","region":"flap-lower"},
+    {"surface_id":"wing.left.aileron.upper","component_id":"wing.left.outer","side":"left","region":"aileron-upper"},
+    {"surface_id":"wing.left.aileron.lower","component_id":"wing.left.outer","side":"left","region":"aileron-lower"},
+    {"surface_id":"wing.right.aileron.upper","component_id":"wing.right.outer","side":"right","region":"aileron-upper"},
+    {"surface_id":"wing.right.aileron.lower","component_id":"wing.right.outer","side":"right","region":"aileron-lower"},
+
+    {"surface_id":"empennage.horizontal.left.stabilizer.upper","component_id":"empennage.horizontal.left.stabilizer","side":"left","region":"upper-skin"},
+    {"surface_id":"empennage.horizontal.left.stabilizer.lower","component_id":"empennage.horizontal.left.stabilizer","side":"left","region":"lower-skin"},
+    {"surface_id":"empennage.horizontal.right.stabilizer.upper","component_id":"empennage.horizontal.right.stabilizer","side":"right","region":"upper-skin"},
+    {"surface_id":"empennage.horizontal.right.stabilizer.lower","component_id":"empennage.horizontal.right.stabilizer","side":"right","region":"lower-skin"},
+    {"surface_id":"empennage.horizontal.left.elevator.upper","component_id":"empennage.horizontal.left.elevator","side":"left","region":"upper-skin"},
+    {"surface_id":"empennage.horizontal.left.elevator.lower","component_id":"empennage.horizontal.left.elevator","side":"left","region":"lower-skin"},
+    {"surface_id":"empennage.horizontal.right.elevator.upper","component_id":"empennage.horizontal.right.elevator","side":"right","region":"upper-skin"},
+    {"surface_id":"empennage.horizontal.right.elevator.lower","component_id":"empennage.horizontal.right.elevator","side":"right","region":"lower-skin"},
+
+    {"surface_id":"empennage.vertical.left.stabilizer.outer","component_id":"empennage.vertical.left.stabilizer","side":"left","region":"outer-skin"},
+    {"surface_id":"empennage.vertical.left.stabilizer.inner","component_id":"empennage.vertical.left.stabilizer","side":"left","region":"inner-skin"},
+    {"surface_id":"empennage.vertical.right.stabilizer.outer","component_id":"empennage.vertical.right.stabilizer","side":"right","region":"outer-skin"},
+    {"surface_id":"empennage.vertical.right.stabilizer.inner","component_id":"empennage.vertical.right.stabilizer","side":"right","region":"inner-skin"},
+    {"surface_id":"empennage.vertical.left.rudder.outer","component_id":"empennage.vertical.left.rudder","side":"left","region":"outer-skin"},
+    {"surface_id":"empennage.vertical.left.rudder.inner","component_id":"empennage.vertical.left.rudder","side":"left","region":"inner-skin"},
+    {"surface_id":"empennage.vertical.right.rudder.outer","component_id":"empennage.vertical.right.rudder","side":"right","region":"outer-skin"},
+    {"surface_id":"empennage.vertical.right.rudder.inner","component_id":"empennage.vertical.right.rudder","side":"right","region":"inner-skin"},
+
+    {"surface_id":"engine.1.nacelle.outer","component_id":"propulsion.assembly","side":"left-outboard","region":"nacelle-skin"},
+    {"surface_id":"engine.1.cowling.outer","component_id":"propulsion.assembly","side":"left-outboard","region":"cowling-skin"},
+    {"surface_id":"engine.2.nacelle.outer","component_id":"propulsion.assembly","side":"left-inboard","region":"nacelle-skin"},
+    {"surface_id":"engine.2.cowling.outer","component_id":"propulsion.assembly","side":"left-inboard","region":"cowling-skin"},
+    {"surface_id":"engine.3.nacelle.outer","component_id":"propulsion.assembly","side":"right-inboard","region":"nacelle-skin"},
+    {"surface_id":"engine.3.cowling.outer","component_id":"propulsion.assembly","side":"right-inboard","region":"cowling-skin"},
+    {"surface_id":"engine.4.nacelle.outer","component_id":"propulsion.assembly","side":"right-outboard","region":"nacelle-skin"},
+    {"surface_id":"engine.4.cowling.outer","component_id":"propulsion.assembly","side":"right-outboard","region":"cowling-skin"},
+
+    {"surface_id":"bomb-bay.door.left.forward.outer","component_id":"fuselage.bomb-bay","side":"left","region":"movable-door"},
+    {"surface_id":"bomb-bay.door.left.aft.outer","component_id":"fuselage.bomb-bay","side":"left","region":"movable-door"},
+    {"surface_id":"bomb-bay.door.right.forward.outer","component_id":"fuselage.bomb-bay","side":"right","region":"movable-door"},
+    {"surface_id":"bomb-bay.door.right.aft.outer","component_id":"fuselage.bomb-bay","side":"right","region":"movable-door"},
+
+    {"surface_id":"turret.nose.fairing.outer","component_id":"armament.assembly","side":"center","region":"fairing"},
+    {"surface_id":"turret.dorsal.fairing.outer","component_id":"armament.assembly","side":"center","region":"fairing"},
+    {"surface_id":"turret.ventral.fairing.outer","component_id":"armament.assembly","side":"center","region":"fairing"},
+    {"surface_id":"turret.tail.fairing.outer","component_id":"armament.assembly","side":"center","region":"fairing"},
+
+    {"surface_id":"fuselage.cockpit.frame.outer","component_id":"fuselage.nose","side":"center","region":"painted-glazing-frame"},
+    {"surface_id":"fuselage.waist-fairing.outer","component_id":"fuselage.aft","side":"paired","region":"waist-gun-fairing"}
+  ],
+  "slot_defaults": {
+    "qa_status": "pending-geometry",
+    "module_binding": null,
+    "legacy_glb_mapping": "pending-distillation",
+    "historical_anchor_policy": "side-specific-and-time-specific",
+    "automatic_mirroring": false
+  },
+  "qa": {
+    "surface_ids_unique": true,
+    "component_ids_resolve": true,
+    "slot_count_verified": true,
+    "independentLiveryUvApproved": false,
+    "surfaceSystemApproved": false
+  }
+}

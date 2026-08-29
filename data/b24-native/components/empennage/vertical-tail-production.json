@@ -1,0 +1,399 @@
+{
+  "schema": "haihao.aircraft/component-production-contract@1.0.0",
+  "work_package_id": "B24J_CO_VERTICAL_TAIL_NATIVE_001",
+  "component_id": "vertical-tail-assembly",
+  "family_master_id": "B24J_CO_DATA_NATIVE_MASTER",
+  "status": "source-intake",
+  "identity": {
+    "display_name": {
+      "en": "B24 twin vertical stabilizer and rudder assembly",
+      "zh": "B24 双垂直安定面与方向舵总成"
+    },
+    "role": "paired-fixed-and-movable-aerodynamic-surface-assembly",
+    "variant_scope": [
+      "B24J_CO"
+    ],
+    "comparison_only_variants": [
+      "B24D",
+      "B24L",
+      "B24M",
+      "PB4Y-1"
+    ]
+  },
+  "source_plan": {
+    "precedence": [
+      "approved-original-drawing-or-official-technical-order",
+      "approved-parts-catalog-repair-manual-or-service-data",
+      "verified-surviving-aircraft-measurement",
+      "locked-reference-model-measurement-or-motion-evidence",
+      "historical-photographic-inference",
+      "generated-hypothesis"
+    ],
+    "required_sources": [
+      {
+        "source_id": "B24-ENG-S002",
+        "purpose": "general arrangement, datums, major dimensions and installation relationship",
+        "status": "intake-reviewed-limited-candidate-use",
+        "review_ref": "data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json",
+        "geometry_use_approved": false
+      },
+      {
+        "source_id": "B24-ENG-S016",
+        "purpose": "official B-24J orthographic silhouette and view alignment from AN 01-5E-3 page ix",
+        "status": "intake-reviewed-limited-orthographic-use",
+        "geometry_use_approved": false,
+        "review_ref": "data/b24-engineering/source-intake/results/B24J_OFFICIAL_THREE_VIEW_REVIEW_001.json",
+        "limited_orthographic_silhouette_use_approved": true,
+        "full_manual_page_cross_check_approved": false,
+        "drawing_calibration_approved": false,
+        "file_locks": {
+          "original_scan": {
+            "bytes": 6721623,
+            "sha256": "de0819d07d35f37126ed62b3a6f02131aaded7cbaa5c49ce63187f72dab0f5b6"
+          },
+          "cleaned_review_derivative": {
+            "bytes": 453910,
+            "sha256": "07449d0a39a22ae71851025960a9f0725f9ee3041d0ea6e1e6b6d03b29951df6",
+            "engineering_authority": false
+          },
+          "workflow_run_id": 33035435495,
+          "artifact_id": 9631818927,
+          "artifact_sha256": "d449639de4bbd412685a3249b2d7c058305cf247cd3998cddb156ffb1b8c9cce"
+        }
+      },
+      {
+        "source_id": "B24-ENG-S007",
+        "purpose": "structural repair figures, skin, frames, materials and fasteners",
+        "status": "pending-complete-manual-intake"
+      },
+      {
+        "source_id": "B24-ENG-S008",
+        "purpose": "illustrated parts, assembly breakdown and variant applicability",
+        "status": "pending-complete-manual-intake"
+      },
+      {
+        "source_id": "B24-ENG-S009",
+        "purpose": "factory parts groups and component relationships",
+        "status": "pending-complete-catalog-intake"
+      }
+    ],
+    "comparison_sources": [
+      {
+        "source_id": "B24-ENG-S003",
+        "purpose": "mixed secondary visual and variant comparison only",
+        "status": "reviewed-secondary-comparison-only",
+        "authority_grade": "D",
+        "geometry_use_approved": false,
+        "review_ref": "data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json"
+      }
+    ],
+    "unknown_policy": "unresolved",
+    "drawing_intake_requirements": [
+      "file hash",
+      "drawing number",
+      "revision",
+      "sheet scale",
+      "view convention",
+      "variant applicability",
+      "calibration transform",
+      "cropped evidence region"
+    ],
+    "open_conflicts": [
+      {
+        "conflict_id": "B24-VTAIL-CONFLICT-001",
+        "path": "data/b24-engineering/source-intake/results/B24J_CO_VERTICAL_TAIL_SOURCE_CONFLICTS.json",
+        "field": "vertical_tail_area_total_sq_ft",
+        "values": [
+          181.2,
+          188
+        ],
+        "status": "unresolved",
+        "blocking": true
+      }
+    ]
+  },
+  "reference_mapping": {
+    "source_lock": {
+      "file": "b-24_liberator.glb",
+      "bytes": 23085972,
+      "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+      "authority": "reference-model-only"
+    },
+    "mapping_status": "unresolved",
+    "candidate_nodes": [],
+    "required_node_evidence": [
+      "node index",
+      "stable node path",
+      "mesh index",
+      "parent chain",
+      "local transform",
+      "world transform",
+      "world bounds",
+      "animation channels",
+      "six-view isolation captures"
+    ],
+    "automatic_keyword_approval": false,
+    "approval": false
+  },
+  "geometry_recipe": {
+    "authority": "drawing-led-with-reference-model-cross-check",
+    "generator_family": "section-loft-aerodynamic-surface",
+    "parameters": {
+      "aircraft_datum": "unresolved",
+      "left_installation_transform": "unresolved",
+      "right_installation_transform": "unresolved",
+      "lateral_spacing": "unresolved",
+      "cant_angle": "unresolved",
+      "fixed_surface_outline": "unresolved",
+      "rudder_outline": "unresolved",
+      "section_stations": "unresolved",
+      "section_profiles": "unresolved",
+      "thickness_distribution": "unresolved",
+      "leading_edge_geometry": "unresolved",
+      "trailing_edge_geometry": "unresolved",
+      "tip_closure": "unresolved",
+      "rudder_gap": "unresolved",
+      "skin_thickness": "unresolved"
+    },
+    "candidate_evidence": [
+      {
+        "source_id": "B24-ENG-S002",
+        "field": "rudder_travel",
+        "observed_value": "30 DEG EACH SIDE",
+        "status": "candidate-unapproved"
+      },
+      {
+        "source_id": "B24-ENG-S002",
+        "field": "vertical_tail_airfoil",
+        "observed_value": "0007",
+        "status": "candidate-unapproved"
+      },
+      {
+        "source_id": "B24-ENG-S016",
+        "field": "twin_tail_lateral_span",
+        "observed_value": "26 FT 0 IN",
+        "status": "illustration-annotation-verified-not-yet-calibrated"
+      },
+      {
+        "source_id": "B24-ENG-S016",
+        "field": "tail_vertical_dimension",
+        "observed_value": "9 FT 3 7/16 IN",
+        "status": "illustration-annotation-verified-definition-pending"
+      },
+      {
+        "source_id": "B24-ENG-S016",
+        "field": "vertical_tail_area_total_sq_ft",
+        "observed_value": 188,
+        "status": "illustration-annotation-verified-conflict-open"
+      }
+    ],
+    "derivations": [],
+    "rules": [
+      "No value may be promoted from a visual estimate without a derivation record.",
+      "Left and right geometry require independent review even when a shared recipe is used.",
+      "A reference-model outline cannot override an approved drawing.",
+      "A mixed secondary drawing compilation cannot control production geometry.",
+      "Internal structure remains unresolved until supported by drawings or manuals.",
+      "Accepted geometry parameters must remain renderer-independent."
+    ],
+    "status": "official-b24j-three-view-limited-use-approved-awaiting-calibration-and-structural-sources",
+    "source_conflicts": [
+      {
+        "conflict_id": "B24-VTAIL-CONFLICT-001",
+        "path": "data/b24-engineering/source-intake/results/B24J_CO_VERTICAL_TAIL_SOURCE_CONFLICTS.json",
+        "field": "vertical_tail_area_total_sq_ft",
+        "values": [
+          181.2,
+          188
+        ],
+        "status": "unresolved",
+        "blocking": true
+      }
+    ]
+  },
+  "assembly_interfaces": [
+    {
+      "interface_id": "vertical-tail.left.installation",
+      "type": "installation-datum",
+      "parent_component_id": "empennage.assembly",
+      "child_component_id": "empennage.vertical.left.stabilizer",
+      "geometry": null,
+      "fastener_group": null,
+      "removal_dependencies": [],
+      "status": "unresolved"
+    },
+    {
+      "interface_id": "vertical-tail.right.installation",
+      "type": "installation-datum",
+      "parent_component_id": "empennage.assembly",
+      "child_component_id": "empennage.vertical.right.stabilizer",
+      "geometry": null,
+      "fastener_group": null,
+      "removal_dependencies": [],
+      "status": "unresolved"
+    },
+    {
+      "interface_id": "vertical-tail.left.rudder-hinge",
+      "type": "rotation-axis",
+      "parent_component_id": "empennage.vertical.left.stabilizer",
+      "child_component_id": "empennage.vertical.left.rudder",
+      "axis": null,
+      "travel_deg": null,
+      "clearance_envelope": null,
+      "status": "unresolved"
+    },
+    {
+      "interface_id": "vertical-tail.right.rudder-hinge",
+      "type": "rotation-axis",
+      "parent_component_id": "empennage.vertical.right.stabilizer",
+      "child_component_id": "empennage.vertical.right.rudder",
+      "axis": null,
+      "travel_deg": null,
+      "clearance_envelope": null,
+      "status": "unresolved"
+    }
+  ],
+  "surface_program": {
+    "surface_ids": [
+      "empennage.vertical.left.stabilizer.outer",
+      "empennage.vertical.left.stabilizer.inner",
+      "empennage.vertical.right.stabilizer.outer",
+      "empennage.vertical.right.stabilizer.inner",
+      "empennage.vertical.left.rudder.outer",
+      "empennage.vertical.left.rudder.inner",
+      "empennage.vertical.right.rudder.outer",
+      "empennage.vertical.right.rudder.inner"
+    ],
+    "layer_contract": [
+      "substrate",
+      "primer",
+      "base-finish",
+      "local-color-variation",
+      "historical-markings",
+      "panel-seams",
+      "rivets-and-fasteners",
+      "operational-wear",
+      "roughness",
+      "metalness",
+      "normal",
+      "height"
+    ],
+    "parameterization": {
+      "type": "section-loft",
+      "u_direction": "root-to-tip",
+      "v_direction": "leading-edge-to-trailing-edge",
+      "seam_policy": "semantic-boundaries-first",
+      "shared_vertex_policy": "value-preserving-seam-duplication-allowed",
+      "left_right_mirroring": false,
+      "status": "pending-geometry"
+    },
+    "free_design_mode": {
+      "enabled": true,
+      "adjustable": [
+        "baseColor",
+        "metalness",
+        "roughness",
+        "clearcoat",
+        "primerExposure",
+        "wearAmount"
+      ],
+      "preserve_marking_layers": true
+    },
+    "historical_mode": {
+      "enabled": true,
+      "locks": [
+        "approved colors",
+        "side-specific markings",
+        "serial and aircraft number",
+        "unit markings",
+        "mission-state markings"
+      ],
+      "requires_evidence_refs": true
+    },
+    "status": "pending-geometry"
+  },
+  "behavior_contract": {
+    "semantic_controller": "flight-control.rudders",
+    "inputs": [
+      "pilot.yaw",
+      "autopilot.yaw-command",
+      "damage.rudder-authority"
+    ],
+    "outputs": [
+      "empennage.vertical.left.rudder.angle",
+      "empennage.vertical.right.rudder.angle"
+    ],
+    "constraints": [
+      "approved hinge axes",
+      "approved positive and negative travel",
+      "left and right synchronization rule",
+      "neutral reset",
+      "surface-clearance envelope",
+      "damage-state authority limit"
+    ],
+    "reference_animation_evidence": [],
+    "status": "unresolved"
+  },
+  "generated_review_outputs": [
+    "geometry-recipe diagnostic page",
+    "reference versus native fixed-camera comparison",
+    "six-view component isolation captures",
+    "rudder neutral and travel captures",
+    "surface-id overlay",
+    "free-design material adjustment capture",
+    "historical-lock capture",
+    "component detach and reattach test",
+    "browser console report"
+  ],
+  "qa": {
+    "gates": [
+      "source-lock",
+      "variant-applicability",
+      "drawing-calibration",
+      "reference-node-mapping",
+      "outline-parity",
+      "section-and-thickness",
+      "installation-interface",
+      "hinge-axis-and-travel",
+      "surface-id-and-handedness",
+      "free-design-material",
+      "historical-lock",
+      "component-isolation",
+      "browser-render-and-console"
+    ],
+    "evidence": [
+      {
+        "evidence_id": "B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001",
+        "path": "data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json",
+        "result": "source-intake-reviewed-route-corrected"
+      },
+      {
+        "evidence_id": "B24J_OFFICIAL_THREE_VIEW_REVIEW_001",
+        "path": "data/b24-engineering/source-intake/results/B24J_OFFICIAL_THREE_VIEW_REVIEW_001.json",
+        "result": "official-b24j-three-view-acquired-limited-orthographic-use-approved-production-geometry-blocked"
+      }
+    ],
+    "result": "pending"
+  },
+  "next_actions": [
+    "Recover or verify complete AN 01-5E-3 page ix context and neighboring manual pages.",
+    "Define exact original-scan pixel crops for plan, side and front or rear views.",
+    "Build independent calibration transforms for every orthographic view.",
+    "Resolve the B24-VTAIL-CONFLICT-001 area conflict before any area-derived geometry.",
+    "Resolve S002 title block, revision, scale and B24J-CO applicability before promoting candidate values.",
+    "Acquire complete AN 01-5E-3, AN 01-5E-4 and ZE-32-047 tail sections.",
+    "Identify and isolate reference-model tail candidates in six views.",
+    "Author the first calibrated outline records while all production approvals remain false."
+  ],
+  "approval": {
+    "sourceApproved": false,
+    "variantApplicabilityApproved": false,
+    "referenceMappingApproved": false,
+    "geometryRecipeApproved": false,
+    "assemblyInterfacesApproved": false,
+    "behaviorApproved": false,
+    "surfaceProgramApproved": false,
+    "referenceParityApproved": false,
+    "verticalTailApproved": false
+  }
+}

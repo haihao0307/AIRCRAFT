@@ -1,0 +1,992 @@
+{
+  "schema": "haihao.knowledge/noise-catalog@2.0.0",
+  "generatedAt": "2026-08-29T03:54:11.416616+00:00",
+  "sourceBatch": {
+    "title": "10 Noise Functions for Three.js TSL Shaders",
+    "author": "Dan Greenheck",
+    "url": "https://threejsroadmap.com/blog/10-noise-functions-for-threejs-tsl-shaders",
+    "directFetchStatus": "HTTP_403_IN_CURRENT_RESEARCH_ENVIRONMENT",
+    "titleOrderEvidence": "Search index snippets verified all ten headings and order on 2026-08-29.",
+    "exactCodeEvidence": "Only NOISE_07_RIDGED retains readable source screenshot transcription from V001. The other nine entries are concept-level distillations and independent production mappings."
+  },
+  "entryCount": 10,
+  "entries": [
+    {
+      "id": "NOISE_01_WHITE_RANDOM",
+      "sourceOrder": 1,
+      "sourceTitle": "White Noise (Random)",
+      "family": "stochastic-discrete",
+      "sourceEvidence": {
+        "articleTitle": "10 Noise Functions for Three.js TSL Shaders",
+        "articleAuthor": "Dan Greenheck",
+        "titleOrderVerified": true,
+        "exactArticleCodeTranscribed": false,
+        "exactArticleCodeAuthority": "UNAVAILABLE",
+        "distillationBoundary": "CONCEPT_LEVEL_INDEPENDENT_MAPPING"
+      },
+      "mathematics": {
+        "kernelSummary": "A hash or pseudo-random function maps each independent sample coordinate to an uncorrelated value.",
+        "inputDimension": 3,
+        "nominalOutput": {
+          "range": [
+            0,
+            1
+          ],
+          "normalization": "nominal"
+        },
+        "continuity": "discontinuous between samples",
+        "octaveStrategy": "none",
+        "temporalBehavior": "static when seed and coordinates are fixed"
+      },
+      "visualSignature": "Fine grain, dither, salt-and-pepper breakup with no coherent shapes.",
+      "knownArtifacts": [
+        "sparkle and crawling under camera motion when sampled in screen space",
+        "harsh speckle",
+        "aliasing at high amplitude"
+      ],
+      "computationalCost": "LOW",
+      "implementation": {
+        "officialThreeSupport": "Three.js TSL documents hash(seed) and interleavedGradientNoise for related random sampling.",
+        "currentProjectStatus": "NOT_IMPLEMENTED_IN_B24",
+        "articleCodeReproduced": false,
+        "webgpuTslCompileStatus": "PENDING",
+        "webgl2CompileStatus": "PENDING",
+        "lockedThreeVersion": null,
+        "performanceRisk": "LOW"
+      },
+      "b24Policy": {
+        "uses": [
+          "subtle roughness micro-breakup",
+          "mask dithering at very low amplitude"
+        ],
+        "targetChannels": [
+          "roughness-only",
+          "very-low base-color modulation"
+        ],
+        "requiredMasks": [
+          "world-or-object-space lock",
+          "amplitude clamp",
+          "protected-material mask"
+        ],
+        "protectedGroups": [
+          "glass",
+          "propeller",
+          "tire",
+          "landing-mechanism",
+          "propulsion-mechanism",
+          "interior-detail",
+          "legacy-weapon",
+          "gear-paths",
+          "historical-markings-authority-layer"
+        ],
+        "globalMetalnessAuthority": false,
+        "historicalEvidenceAuthority": false
+      },
+      "crossPipelineMappings": {
+        "terrain": [
+          "seed variation",
+          "micro debris distribution"
+        ],
+        "architecture": [
+          "grain and pore occupancy"
+        ]
+      },
+      "qa": {
+        "sourceTitleOrderVerified": true,
+        "exactSourceCodeTranscribed": false,
+        "conceptDistilled": true,
+        "projectCompilePassed": false,
+        "b24BrowserEvidence": [],
+        "visualApproval": false,
+        "sharedStableApproval": false
+      },
+      "approval": {
+        "sharedLibraryApproved": false,
+        "b24Approved": false,
+        "terrainApproved": false,
+        "architectureApproved": false
+      }
+    },
+    {
+      "id": "NOISE_02_VALUE",
+      "sourceOrder": 2,
+      "sourceTitle": "Value Noise",
+      "family": "interpolated-lattice",
+      "sourceEvidence": {
+        "articleTitle": "10 Noise Functions for Three.js TSL Shaders",
+        "articleAuthor": "Dan Greenheck",
+        "titleOrderVerified": true,
+        "exactArticleCodeTranscribed": false,
+        "exactArticleCodeAuthority": "UNAVAILABLE",
+        "distillationBoundary": "CONCEPT_LEVEL_INDEPENDENT_MAPPING"
+      },
+      "mathematics": {
+        "kernelSummary": "Random values are assigned to lattice corners and smoothly interpolated inside each cell.",
+        "inputDimension": 3,
+        "nominalOutput": {
+          "range": [
+            0,
+            1
+          ],
+          "normalization": "current custom implementation"
+        },
+        "continuity": "continuous value, derivative quality depends on interpolation",
+        "octaveStrategy": "single or multi-octave",
+        "temporalBehavior": "static when world coordinates and seed are fixed"
+      },
+      "visualSignature": "Soft cellular clouds with visible grid tendencies at aggressive scales.",
+      "knownArtifacts": [
+        "blocky lattice character",
+        "axis bias",
+        "cloudy sameness when used globally"
+      ],
+      "computationalCost": "LOW",
+      "implementation": {
+        "officialThreeSupport": "Custom project kernel. No claim that current code reproduces the article implementation.",
+        "currentProjectStatus": "PASS_AS_CUSTOM_WEBGL_BRIDGE_V009_V010",
+        "articleCodeReproduced": false,
+        "webgpuTslCompileStatus": "PENDING",
+        "webgl2CompileStatus": "PASS_V010",
+        "lockedThreeVersion": null,
+        "performanceRisk": "LOW"
+      },
+      "b24Policy": {
+        "uses": [
+          "current V009 and V010 base variation",
+          "roughness micro and meso breakup",
+          "broad damage field input"
+        ],
+        "targetChannels": [
+          "base-color-low",
+          "roughness",
+          "mask-input"
+        ],
+        "requiredMasks": [
+          "world-space scale separation",
+          "per-channel amplitude limits",
+          "protected-material mask"
+        ],
+        "protectedGroups": [
+          "glass",
+          "propeller",
+          "tire",
+          "landing-mechanism",
+          "propulsion-mechanism",
+          "interior-detail",
+          "legacy-weapon",
+          "gear-paths",
+          "historical-markings-authority-layer"
+        ],
+        "globalMetalnessAuthority": false,
+        "historicalEvidenceAuthority": false
+      },
+      "crossPipelineMappings": {
+        "terrain": [
+          "soft terrain detail under truth constraints"
+        ],
+        "architecture": [
+          "plaster color variation",
+          "earthen material mottling"
+        ]
+      },
+      "qa": {
+        "sourceTitleOrderVerified": true,
+        "exactSourceCodeTranscribed": false,
+        "conceptDistilled": true,
+        "projectCompilePassed": true,
+        "b24BrowserEvidence": [],
+        "visualApproval": false,
+        "sharedStableApproval": false
+      },
+      "approval": {
+        "sharedLibraryApproved": false,
+        "b24Approved": false,
+        "terrainApproved": false,
+        "architectureApproved": false
+      }
+    },
+    {
+      "id": "NOISE_03_PERLIN",
+      "sourceOrder": 3,
+      "sourceTitle": "Perlin Noise",
+      "family": "gradient-lattice",
+      "sourceEvidence": {
+        "articleTitle": "10 Noise Functions for Three.js TSL Shaders",
+        "articleAuthor": "Dan Greenheck",
+        "titleOrderVerified": true,
+        "exactArticleCodeTranscribed": false,
+        "exactArticleCodeAuthority": "UNAVAILABLE",
+        "distillationBoundary": "CONCEPT_LEVEL_INDEPENDENT_MAPPING"
+      },
+      "mathematics": {
+        "kernelSummary": "Pseudo-random gradients at lattice corners are dotted with local offsets and smoothly interpolated.",
+        "inputDimension": 3,
+        "nominalOutput": {
+          "range": [
+            -1,
+            1
+          ],
+          "normalization": "implementation-dependent"
+        },
+        "continuity": "continuous with smoother gradients than value noise",
+        "octaveStrategy": "single or fBm",
+        "temporalBehavior": "static when coordinates are fixed"
+      },
+      "visualSignature": "Coherent rolling forms with less obvious flat cells than value noise.",
+      "knownArtifacts": [
+        "grid alignment",
+        "repeated directional character",
+        "overly soft procedural cloud look"
+      ],
+      "computationalCost": "MEDIUM",
+      "implementation": {
+        "officialThreeSupport": "Independent implementations available in primary GLSL references. Article code unavailable in this run.",
+        "currentProjectStatus": "CONCEPT_CANDIDATE_ONLY",
+        "articleCodeReproduced": false,
+        "webgpuTslCompileStatus": "PENDING",
+        "webgl2CompileStatus": "PENDING",
+        "lockedThreeVersion": null,
+        "performanceRisk": "MEDIUM"
+      },
+      "b24Policy": {
+        "uses": [
+          "candidate for broad paint fade and coherent roughness only after compile comparison"
+        ],
+        "targetChannels": [
+          "base-color-low",
+          "roughness",
+          "mask-input"
+        ],
+        "requiredMasks": [
+          "macro mask",
+          "directional modulation",
+          "protected-material mask"
+        ],
+        "protectedGroups": [
+          "glass",
+          "propeller",
+          "tire",
+          "landing-mechanism",
+          "propulsion-mechanism",
+          "interior-detail",
+          "legacy-weapon",
+          "gear-paths",
+          "historical-markings-authority-layer"
+        ],
+        "globalMetalnessAuthority": false,
+        "historicalEvidenceAuthority": false
+      },
+      "crossPipelineMappings": {
+        "terrain": [
+          "rolling terrain detail",
+          "erosion seed fields"
+        ],
+        "architecture": [
+          "large plaster and stone color fields"
+        ]
+      },
+      "qa": {
+        "sourceTitleOrderVerified": true,
+        "exactSourceCodeTranscribed": false,
+        "conceptDistilled": true,
+        "projectCompilePassed": false,
+        "b24BrowserEvidence": [],
+        "visualApproval": false,
+        "sharedStableApproval": false
+      },
+      "approval": {
+        "sharedLibraryApproved": false,
+        "b24Approved": false,
+        "terrainApproved": false,
+        "architectureApproved": false
+      }
+    },
+    {
+      "id": "NOISE_04_SIMPLEX",
+      "sourceOrder": 4,
+      "sourceTitle": "Simplex Noise",
+      "family": "simplicial-gradient",
+      "sourceEvidence": {
+        "articleTitle": "10 Noise Functions for Three.js TSL Shaders",
+        "articleAuthor": "Dan Greenheck",
+        "titleOrderVerified": true,
+        "exactArticleCodeTranscribed": false,
+        "exactArticleCodeAuthority": "UNAVAILABLE",
+        "distillationBoundary": "CONCEPT_LEVEL_INDEPENDENT_MAPPING"
+      },
+      "mathematics": {
+        "kernelSummary": "The input domain is partitioned into simplices, with gradient contributions blended around nearby corners.",
+        "inputDimension": 3,
+        "nominalOutput": {
+          "range": "implementation-dependent",
+          "normalization": "verify per function"
+        },
+        "continuity": "continuous coherent gradient noise",
+        "octaveStrategy": "single or fBm",
+        "temporalBehavior": "static unless time is an input"
+      },
+      "visualSignature": "Isotropic coherent forms with reduced axis-aligned lattice impression.",
+      "knownArtifacts": [
+        "cost from repeated samples",
+        "octave overuse",
+        "scale aliasing"
+      ],
+      "computationalCost": "MEDIUM",
+      "implementation": {
+        "officialThreeSupport": "Three.js current TSL documentation and source expose snoise(vec3).",
+        "currentProjectStatus": "OFFICIAL_TSL_AVAILABLE_PROJECT_COMPILE_PENDING",
+        "articleCodeReproduced": false,
+        "webgpuTslCompileStatus": "PENDING",
+        "webgl2CompileStatus": "PENDING",
+        "lockedThreeVersion": null,
+        "performanceRisk": "MEDIUM"
+      },
+      "b24Policy": {
+        "uses": [
+          "candidate 3D world-space mask kernel",
+          "candidate substitute for value noise after side-by-side QA"
+        ],
+        "targetChannels": [
+          "base-color-low",
+          "roughness",
+          "mask-input"
+        ],
+        "requiredMasks": [
+          "world-space lock",
+          "octave budget",
+          "protected-material mask"
+        ],
+        "protectedGroups": [
+          "glass",
+          "propeller",
+          "tire",
+          "landing-mechanism",
+          "propulsion-mechanism",
+          "interior-detail",
+          "legacy-weapon",
+          "gear-paths",
+          "historical-markings-authority-layer"
+        ],
+        "globalMetalnessAuthority": false,
+        "historicalEvidenceAuthority": false
+      },
+      "crossPipelineMappings": {
+        "terrain": [
+          "isotropic terrain detail",
+          "flow field seed"
+        ],
+        "architecture": [
+          "stone and erosion breakup"
+        ]
+      },
+      "qa": {
+        "sourceTitleOrderVerified": true,
+        "exactSourceCodeTranscribed": false,
+        "conceptDistilled": true,
+        "projectCompilePassed": false,
+        "b24BrowserEvidence": [],
+        "visualApproval": false,
+        "sharedStableApproval": false
+      },
+      "approval": {
+        "sharedLibraryApproved": false,
+        "b24Approved": false,
+        "terrainApproved": false,
+        "architectureApproved": false
+      }
+    },
+    {
+      "id": "NOISE_05_WORLEY_VORONOI",
+      "sourceOrder": 5,
+      "sourceTitle": "Worley (Voronoi) Noise",
+      "family": "cellular-distance",
+      "sourceEvidence": {
+        "articleTitle": "10 Noise Functions for Three.js TSL Shaders",
+        "articleAuthor": "Dan Greenheck",
+        "titleOrderVerified": true,
+        "exactArticleCodeTranscribed": false,
+        "exactArticleCodeAuthority": "UNAVAILABLE",
+        "distillationBoundary": "CONCEPT_LEVEL_INDEPENDENT_MAPPING"
+      },
+      "mathematics": {
+        "kernelSummary": "Distances to pseudo-random feature points in neighboring cells produce F1, F2, or derived cellular fields.",
+        "inputDimension": 3,
+        "nominalOutput": {
+          "range": [
+            0,
+            1
+          ],
+          "normalization": "depends on metric and remap"
+        },
+        "continuity": "piecewise smooth with cell-boundary discontinuities in derivatives",
+        "octaveStrategy": "usually single or a few scales",
+        "temporalBehavior": "static when feature points are fixed"
+      },
+      "visualSignature": "Cells, pits, spots, islands, veins and cracked boundaries.",
+      "knownArtifacts": [
+        "obvious honeycomb pattern",
+        "synthetic bubbles",
+        "expensive neighbor search",
+        "scale repetition"
+      ],
+      "computationalCost": "MEDIUM_HIGH",
+      "implementation": {
+        "officialThreeSupport": "Three.js current repository includes MaterialX Worley functions, project integration is pending.",
+        "currentProjectStatus": "CONCEPT_CANDIDATE_ONLY",
+        "articleCodeReproduced": false,
+        "webgpuTslCompileStatus": "PENDING",
+        "webgl2CompileStatus": "PENDING",
+        "lockedThreeVersion": null,
+        "performanceRisk": "HIGH"
+      },
+      "b24Policy": {
+        "uses": [
+          "oxidation spot candidate",
+          "paint island breakup under strong structural and service masks"
+        ],
+        "targetChannels": [
+          "mask-input",
+          "base-color-low",
+          "roughness"
+        ],
+        "requiredMasks": [
+          "localized damage mask",
+          "structural mask",
+          "threshold randomization",
+          "protected-material mask"
+        ],
+        "protectedGroups": [
+          "glass",
+          "propeller",
+          "tire",
+          "landing-mechanism",
+          "propulsion-mechanism",
+          "interior-detail",
+          "legacy-weapon",
+          "gear-paths",
+          "historical-markings-authority-layer"
+        ],
+        "globalMetalnessAuthority": false,
+        "historicalEvidenceAuthority": false
+      },
+      "crossPipelineMappings": {
+        "terrain": [
+          "sinkholes and cellular rock detail under geologic constraints"
+        ],
+        "architecture": [
+          "stone pores",
+          "mineral spots",
+          "layer voids"
+        ]
+      },
+      "qa": {
+        "sourceTitleOrderVerified": true,
+        "exactSourceCodeTranscribed": false,
+        "conceptDistilled": true,
+        "projectCompilePassed": false,
+        "b24BrowserEvidence": [],
+        "visualApproval": false,
+        "sharedStableApproval": false
+      },
+      "approval": {
+        "sharedLibraryApproved": false,
+        "b24Approved": false,
+        "terrainApproved": false,
+        "architectureApproved": false
+      }
+    },
+    {
+      "id": "NOISE_06_FBM",
+      "sourceOrder": 6,
+      "sourceTitle": "Fractal Brownian Motion (fBm)",
+      "family": "octave-operator",
+      "sourceEvidence": {
+        "articleTitle": "10 Noise Functions for Three.js TSL Shaders",
+        "articleAuthor": "Dan Greenheck",
+        "titleOrderVerified": true,
+        "exactArticleCodeTranscribed": false,
+        "exactArticleCodeAuthority": "UNAVAILABLE",
+        "distillationBoundary": "CONCEPT_LEVEL_INDEPENDENT_MAPPING"
+      },
+      "mathematics": {
+        "kernelSummary": "Multiple octaves of a base noise are summed with increasing frequency and decreasing amplitude.",
+        "inputDimension": 3,
+        "nominalOutput": {
+          "range": "normalized weighted sum",
+          "normalization": "required"
+        },
+        "continuity": "inherits base-noise continuity",
+        "octaveStrategy": "V009 and V010 use four octaves with roughly 2x lacunarity and 0.5 gain",
+        "temporalBehavior": "static when coordinates are fixed"
+      },
+      "visualSignature": "Natural multi-scale variation from broad masses to finer breakup.",
+      "knownArtifacts": [
+        "uniform cloudy coverage",
+        "excessive octave cost",
+        "loss of material scale",
+        "fractal sameness"
+      ],
+      "computationalCost": "MEDIUM",
+      "implementation": {
+        "officialThreeSupport": "Operator over custom project value noise. Exact article code unavailable.",
+        "currentProjectStatus": "PASS_AS_CUSTOM_WEBGL_BRIDGE_V009_V010",
+        "articleCodeReproduced": false,
+        "webgpuTslCompileStatus": "PENDING",
+        "webgl2CompileStatus": "PASS_V010",
+        "lockedThreeVersion": null,
+        "performanceRisk": "MEDIUM"
+      },
+      "b24Policy": {
+        "uses": [
+          "current global age distribution",
+          "streak field input",
+          "broad damage field"
+        ],
+        "targetChannels": [
+          "base-color-low",
+          "roughness",
+          "mask-input"
+        ],
+        "requiredMasks": [
+          "separate micro, meso and macro scales",
+          "channel-specific amplitude",
+          "directional and structural masks"
+        ],
+        "protectedGroups": [
+          "glass",
+          "propeller",
+          "tire",
+          "landing-mechanism",
+          "propulsion-mechanism",
+          "interior-detail",
+          "legacy-weapon",
+          "gear-paths",
+          "historical-markings-authority-layer"
+        ],
+        "globalMetalnessAuthority": false,
+        "historicalEvidenceAuthority": false
+      },
+      "crossPipelineMappings": {
+        "terrain": [
+          "terrain detail hierarchy under DEM authority"
+        ],
+        "architecture": [
+          "multi-scale plaster, stone and earth variation"
+        ]
+      },
+      "qa": {
+        "sourceTitleOrderVerified": true,
+        "exactSourceCodeTranscribed": false,
+        "conceptDistilled": true,
+        "projectCompilePassed": true,
+        "b24BrowserEvidence": [],
+        "visualApproval": false,
+        "sharedStableApproval": false
+      },
+      "approval": {
+        "sharedLibraryApproved": false,
+        "b24Approved": false,
+        "terrainApproved": false,
+        "architectureApproved": false
+      }
+    },
+    {
+      "id": "NOISE_07_RIDGED",
+      "sourceOrder": 7,
+      "sourceTitle": "Ridged Noise",
+      "family": "octave-ridge-operator",
+      "sourceEvidence": {
+        "articleTitle": "10 Noise Functions for Three.js TSL Shaders",
+        "articleAuthor": "Dan Greenheck",
+        "titleOrderVerified": true,
+        "exactArticleCodeTranscribed": true,
+        "exactArticleCodeAuthority": "V001_SCREENSHOT_TRANSCRIPTION",
+        "distillationBoundary": "SOURCE_DERIVED"
+      },
+      "mathematics": {
+        "kernelSummary": "A signed base noise is transformed with 1 minus absolute value, squared, weighted, and accumulated over octaves.",
+        "inputDimension": 3,
+        "nominalOutput": {
+          "range": [
+            0,
+            1
+          ],
+          "normalization": "weighted sum normalized in V010"
+        },
+        "continuity": "continuous ridge network inherited from base noise",
+        "octaveStrategy": "six octaves, lacunarity about 2.03, gain 0.5, feedback weight",
+        "temporalBehavior": "static when coordinates are fixed"
+      },
+      "visualSignature": "Sharp connected ridges and narrow exposed bands.",
+      "knownArtifacts": [
+        "mountain or lava appearance",
+        "whole-aircraft cracking",
+        "overexposed metal",
+        "high fragment cost"
+      ],
+      "computationalCost": "HIGH",
+      "implementation": {
+        "officialThreeSupport": "Article screenshot transcription retained in V001. V010 custom GLSL follows the distilled ridge mechanism and does not claim byte-for-byte article code identity.",
+        "currentProjectStatus": "PASS_CUSTOM_WEBGL_V010_LOCAL_EXPERIMENT",
+        "articleCodeReproduced": true,
+        "webgpuTslCompileStatus": "PENDING",
+        "webgl2CompileStatus": "PASS_V010",
+        "lockedThreeVersion": null,
+        "performanceRisk": "HIGH"
+      },
+      "b24Policy": {
+        "uses": [
+          "V010 localized paint loss and exposed metal experiment on cowl flaps, bomb doors, control surfaces and detail parts"
+        ],
+        "targetChannels": [
+          "base-color-local",
+          "roughness-local",
+          "metalness-local-only"
+        ],
+        "requiredMasks": [
+          "semantic part zone",
+          "geometry transition proxy",
+          "broad service damage field",
+          "generic service state",
+          "historical evidence gate before production"
+        ],
+        "protectedGroups": [
+          "glass",
+          "propeller",
+          "tire",
+          "landing-mechanism",
+          "propulsion-mechanism",
+          "interior-detail",
+          "legacy-weapon",
+          "gear-paths",
+          "historical-markings-authority-layer"
+        ],
+        "globalMetalnessAuthority": false,
+        "historicalEvidenceAuthority": false
+      },
+      "crossPipelineMappings": {
+        "terrain": [
+          "ridge and karst structure candidate under terrain truth"
+        ],
+        "architecture": [
+          "erosion edge and plaster loss boundary candidate"
+        ]
+      },
+      "qa": {
+        "sourceTitleOrderVerified": true,
+        "exactSourceCodeTranscribed": true,
+        "conceptDistilled": true,
+        "projectCompilePassed": true,
+        "b24BrowserEvidence": [
+          "B24_V010_BROWSER_QA.json"
+        ],
+        "visualApproval": false,
+        "sharedStableApproval": false
+      },
+      "approval": {
+        "sharedLibraryApproved": false,
+        "b24Approved": false,
+        "terrainApproved": false,
+        "architectureApproved": false
+      }
+    },
+    {
+      "id": "NOISE_08_WOOD_MARBLE",
+      "sourceOrder": 8,
+      "sourceTitle": "Wood/Marble Texture",
+      "family": "organized-banding-operator",
+      "sourceEvidence": {
+        "articleTitle": "10 Noise Functions for Three.js TSL Shaders",
+        "articleAuthor": "Dan Greenheck",
+        "titleOrderVerified": true,
+        "exactArticleCodeTranscribed": false,
+        "exactArticleCodeAuthority": "UNAVAILABLE",
+        "distillationBoundary": "CONCEPT_LEVEL_INDEPENDENT_MAPPING"
+      },
+      "mathematics": {
+        "kernelSummary": "A periodic band or sine field is distorted by coherent noise to create rings or veins.",
+        "inputDimension": 2,
+        "nominalOutput": {
+          "range": [
+            0,
+            1
+          ],
+          "normalization": "remapped periodic field"
+        },
+        "continuity": "continuous when base functions are continuous",
+        "octaveStrategy": "usually a few distortion octaves",
+        "temporalBehavior": "static unless animated"
+      },
+      "visualSignature": "Directional bands, rings, flowing veins and marbling.",
+      "knownArtifacts": [
+        "fake stripes",
+        "wood grain on metal",
+        "moire",
+        "highly recognizable procedural motif"
+      ],
+      "computationalCost": "LOW_MEDIUM",
+      "implementation": {
+        "officialThreeSupport": "Concept mapping only. Exact article implementation unavailable.",
+        "currentProjectStatus": "B24_DEFAULT_REJECT",
+        "articleCodeReproduced": false,
+        "webgpuTslCompileStatus": "PENDING",
+        "webgl2CompileStatus": "PENDING",
+        "lockedThreeVersion": null,
+        "performanceRisk": "MEDIUM"
+      },
+      "b24Policy": {
+        "uses": [
+          "normally rejected for exterior aircraft skin",
+          "possible diagnostic-only streak organization at extremely low strength"
+        ],
+        "targetChannels": [
+          "mask-input-only-on-b24"
+        ],
+        "requiredMasks": [
+          "material identity gate",
+          "directional authority",
+          "very low amplitude on aircraft",
+          "protected-material mask"
+        ],
+        "protectedGroups": [
+          "glass",
+          "propeller",
+          "tire",
+          "landing-mechanism",
+          "propulsion-mechanism",
+          "interior-detail",
+          "legacy-weapon",
+          "gear-paths",
+          "historical-markings-authority-layer"
+        ],
+        "globalMetalnessAuthority": false,
+        "historicalEvidenceAuthority": false
+      },
+      "crossPipelineMappings": {
+        "terrain": [
+          "stratified or folded pattern studies"
+        ],
+        "architecture": [
+          "wood, marble and mineral veins when material identity supports it"
+        ]
+      },
+      "qa": {
+        "sourceTitleOrderVerified": true,
+        "exactSourceCodeTranscribed": false,
+        "conceptDistilled": true,
+        "projectCompilePassed": false,
+        "b24BrowserEvidence": [],
+        "visualApproval": false,
+        "sharedStableApproval": false
+      },
+      "approval": {
+        "sharedLibraryApproved": false,
+        "b24Approved": false,
+        "terrainApproved": false,
+        "architectureApproved": false
+      }
+    },
+    {
+      "id": "NOISE_09_CURL",
+      "sourceOrder": 9,
+      "sourceTitle": "Curl Noise",
+      "family": "vector-field-operator",
+      "sourceEvidence": {
+        "articleTitle": "10 Noise Functions for Three.js TSL Shaders",
+        "articleAuthor": "Dan Greenheck",
+        "titleOrderVerified": true,
+        "exactArticleCodeTranscribed": false,
+        "exactArticleCodeAuthority": "UNAVAILABLE",
+        "distillationBoundary": "CONCEPT_LEVEL_INDEPENDENT_MAPPING"
+      },
+      "mathematics": {
+        "kernelSummary": "Finite differences of a vector-valued noise field form a curl, yielding a divergence-free direction field.",
+        "inputDimension": 3,
+        "nominalOutput": {
+          "range": "vector, unbounded before normalization",
+          "normalization": "normalize or scale"
+        },
+        "continuity": "continuous when source field is continuous",
+        "octaveStrategy": "multiple noise samples per evaluation",
+        "temporalBehavior": "can be static or time-varying"
+      },
+      "visualSignature": "Swirling directional flow without obvious sources or sinks.",
+      "knownArtifacts": [
+        "high sample cost",
+        "turbulent decorative swirls",
+        "unstable animation when time step is uncontrolled"
+      ],
+      "computationalCost": "HIGH",
+      "implementation": {
+        "officialThreeSupport": "Three.js current TSL documentation and source expose curlNoise(vec3), derived from simplex-noise samples.",
+        "currentProjectStatus": "OFFICIAL_TSL_AVAILABLE_PROJECT_COMPILE_PENDING",
+        "articleCodeReproduced": false,
+        "webgpuTslCompileStatus": "PENDING",
+        "webgl2CompileStatus": "PENDING",
+        "lockedThreeVersion": null,
+        "performanceRisk": "HIGH"
+      },
+      "b24Policy": {
+        "uses": [
+          "candidate direction field for grime, rain, exhaust and airflow deposition",
+          "never a direct metalness source"
+        ],
+        "targetChannels": [
+          "vector-mask",
+          "base-color-low",
+          "roughness"
+        ],
+        "requiredMasks": [
+          "airflow or gravity authority",
+          "deposition mask",
+          "temporal stability",
+          "protected-material mask"
+        ],
+        "protectedGroups": [
+          "glass",
+          "propeller",
+          "tire",
+          "landing-mechanism",
+          "propulsion-mechanism",
+          "interior-detail",
+          "legacy-weapon",
+          "gear-paths",
+          "historical-markings-authority-layer"
+        ],
+        "globalMetalnessAuthority": false,
+        "historicalEvidenceAuthority": false
+      },
+      "crossPipelineMappings": {
+        "terrain": [
+          "flow advection and erosion direction experiments"
+        ],
+        "architecture": [
+          "smoke, damp staining and wash direction"
+        ]
+      },
+      "qa": {
+        "sourceTitleOrderVerified": true,
+        "exactSourceCodeTranscribed": false,
+        "conceptDistilled": true,
+        "projectCompilePassed": false,
+        "b24BrowserEvidence": [],
+        "visualApproval": false,
+        "sharedStableApproval": false
+      },
+      "approval": {
+        "sharedLibraryApproved": false,
+        "b24Approved": false,
+        "terrainApproved": false,
+        "architectureApproved": false
+      }
+    },
+    {
+      "id": "NOISE_10_DOMAIN_WARPING",
+      "sourceOrder": 10,
+      "sourceTitle": "Domain Warping",
+      "family": "coordinate-warp-operator",
+      "sourceEvidence": {
+        "articleTitle": "10 Noise Functions for Three.js TSL Shaders",
+        "articleAuthor": "Dan Greenheck",
+        "titleOrderVerified": true,
+        "exactArticleCodeTranscribed": false,
+        "exactArticleCodeAuthority": "UNAVAILABLE",
+        "distillationBoundary": "CONCEPT_LEVEL_INDEPENDENT_MAPPING"
+      },
+      "mathematics": {
+        "kernelSummary": "One or more noise fields distort coordinates before another noise function is sampled.",
+        "inputDimension": 3,
+        "nominalOutput": {
+          "range": "inherits warped source",
+          "normalization": "per source noise"
+        },
+        "continuity": "inherits source continuity but can create steep gradients",
+        "octaveStrategy": "usually nested low-count noise evaluations",
+        "temporalBehavior": "static unless time is included"
+      },
+      "visualSignature": "Twisted, folded and nonuniform coherent structures that break regular cloud patterns.",
+      "knownArtifacts": [
+        "excess cost",
+        "foldover-like visual compression",
+        "chaotic camouflage",
+        "loss of physical direction"
+      ],
+      "computationalCost": "HIGH",
+      "implementation": {
+        "officialThreeSupport": "Concept mapping only. Exact article implementation unavailable.",
+        "currentProjectStatus": "CONCEPT_CANDIDATE_ONLY",
+        "articleCodeReproduced": false,
+        "webgpuTslCompileStatus": "PENDING",
+        "webgl2CompileStatus": "PENDING",
+        "lockedThreeVersion": null,
+        "performanceRisk": "HIGH"
+      },
+      "b24Policy": {
+        "uses": [
+          "future anti-cloud breakup for fBm and Ridged after base layers pass",
+          "no first-round production use"
+        ],
+        "targetChannels": [
+          "mask-coordinate-only"
+        ],
+        "requiredMasks": [
+          "validated base noise first",
+          "warp amplitude clamp",
+          "structural and directional masks",
+          "protected-material mask"
+        ],
+        "protectedGroups": [
+          "glass",
+          "propeller",
+          "tire",
+          "landing-mechanism",
+          "propulsion-mechanism",
+          "interior-detail",
+          "legacy-weapon",
+          "gear-paths",
+          "historical-markings-authority-layer"
+        ],
+        "globalMetalnessAuthority": false,
+        "historicalEvidenceAuthority": false
+      },
+      "crossPipelineMappings": {
+        "terrain": [
+          "complex ridge and drainage seed fields under truth constraints"
+        ],
+        "architecture": [
+          "complex erosion boundaries and mineral patterns"
+        ]
+      },
+      "qa": {
+        "sourceTitleOrderVerified": true,
+        "exactSourceCodeTranscribed": false,
+        "conceptDistilled": true,
+        "projectCompilePassed": false,
+        "b24BrowserEvidence": [],
+        "visualApproval": false,
+        "sharedStableApproval": false
+      },
+      "approval": {
+        "sharedLibraryApproved": false,
+        "b24Approved": false,
+        "terrainApproved": false,
+        "architectureApproved": false
+      }
+    }
+  ],
+  "globalRules": [
+    "Noise never increases historical or evidence authority.",
+    "No single global noise field drives all aircraft channels.",
+    "Global random or fractal fields do not raise metalness.",
+    "Panel lines, rivets and access hatches require real topology or an authoritative map.",
+    "Protected groups opt out by default.",
+    "Livery markings and side-specific artwork remain separate authority layers.",
+    "Every stable kernel needs locked Three.js version, WebGPU and WebGL2 evidence, pixel response, cost data and visual approval."
+  ],
+  "approval": {
+    "sharedStableApproved": false,
+    "b24StableApproved": false,
+    "terrainStableApproved": false,
+    "architectureStableApproved": false
+  }
+}

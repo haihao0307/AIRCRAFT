@@ -1,0 +1,62 @@
+{
+  "schema": "haihao.aircraft/reference-full-mirror-baseline@1.0.0",
+  "generated_from": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "execution": {
+    "environment": "local Node.js extraction against the locked Release asset",
+    "structural_extraction_passed": true,
+    "independent_validator_passed": true,
+    "remote_actions_pending": true,
+    "visual_exact_replay_pending": true
+  },
+  "inventory": {
+    "scenes": 1,
+    "nodes": 1784,
+    "meshes": 348,
+    "triangles": 325358,
+    "materials": 30,
+    "embedded_images": 18,
+    "animations": 1,
+    "animation_channels": 2518,
+    "animation_samplers": 2518,
+    "accessors": 6702,
+    "buffer_views": 24
+  },
+  "native_mirror_payload": {
+    "bytes": 12509172,
+    "sha256": "28af96e0cc84e5768ee2da7de68c478d04b9f30507b08465f74b6c33ec6980ff",
+    "source_accessor_count": 6702,
+    "unique_packed_block_count": 2383,
+    "semantic_auto_approval_count": 0
+  },
+  "animation_timeline": {
+    "start_seconds": 0.0416666679084301,
+    "end_seconds": 16.66666603088379,
+    "duration_seconds": 16.62499936297536
+  },
+  "semantic_candidates": {
+    "propulsion.propeller": {"direct_name_matches": 30, "subtree_members": 222},
+    "landing-gear.structure": {"direct_name_matches": 82, "subtree_members": 288},
+    "landing-gear.wheel": {"direct_name_matches": 2, "subtree_members": 30},
+    "payload.bomb-bay-door": {"direct_name_matches": 255, "subtree_members": 459},
+    "flight-control.flap": {"direct_name_matches": 184, "subtree_members": 454},
+    "flight-control.aileron": {"direct_name_matches": 4, "subtree_members": 10},
+    "flight-control.elevator": {"direct_name_matches": 4, "subtree_members": 10},
+    "flight-control.rudder": {"direct_name_matches": 12, "subtree_members": 30},
+    "propulsion.cowling-flap": {"direct_name_matches": 176, "subtree_members": 440},
+    "armament.turret": {"direct_name_matches": 0, "subtree_members": 0},
+    "armament.gun": {"direct_name_matches": 0, "subtree_members": 0},
+    "crew.entity": {"direct_name_matches": 0, "subtree_members": 0}
+  },
+  "approvals": {
+    "structural_mirror_extractor_approved": false,
+    "exact_replay_runtime_approved": false,
+    "visual_parity_approved": false,
+    "animation_semantics_approved": false,
+    "aircraft_system_mapping_approved": false,
+    "native_geometry_replacement_approved": false
+  }
+}

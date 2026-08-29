@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "haihao://schemas/noise-knowledge-entry-v2.json",
+  "title": "Haihao Noise Knowledge Entry V2",
+  "type": "object",
+  "required": [
+    "id",
+    "sourceOrder",
+    "sourceTitle",
+    "sourceEvidence",
+    "mathematics",
+    "implementation",
+    "b24Policy",
+    "crossPipelineMappings",
+    "qa",
+    "approval"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^NOISE_[0-9]{2}_[A-Z0-9_]+$"
+    },
+    "sourceOrder": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "sourceTitle": {
+      "type": "string"
+    },
+    "family": {
+      "type": "string"
+    },
+    "sourceEvidence": {
+      "type": "object",
+      "required": [
+        "titleOrderVerified",
+        "exactArticleCodeTranscribed",
+        "distillationBoundary"
+      ]
+    },
+    "mathematics": {
+      "type": "object",
+      "required": [
+        "kernelSummary",
+        "inputDimension",
+        "nominalOutput",
+        "continuity",
+        "octaveStrategy",
+        "temporalBehavior"
+      ]
+    },
+    "visualSignature": {
+      "type": "string"
+    },
+    "knownArtifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "computationalCost": {
+      "type": "string"
+    },
+    "implementation": {
+      "type": "object",
+      "required": [
+        "officialThreeSupport",
+        "currentProjectStatus",
+        "webgpuTslCompileStatus",
+        "webgl2CompileStatus",
+        "performanceRisk"
+      ]
+    },
+    "b24Policy": {
+      "type": "object",
+      "required": [
+        "uses",
+        "targetChannels",
+        "requiredMasks",
+        "protectedGroups",
+        "globalMetalnessAuthority",
+        "historicalEvidenceAuthority"
+      ]
+    },
+    "crossPipelineMappings": {
+      "type": "object",
+      "required": [
+        "terrain",
+        "architecture"
+      ]
+    },
+    "qa": {
+      "type": "object"
+    },
+    "approval": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

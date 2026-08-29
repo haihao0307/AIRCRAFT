@@ -1,0 +1,80 @@
+name: Validate B24 vertical-tail smooth curve v002
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'preview/b24-vertical-tail-curve-v002/**'
+      - 'data/b24-native/components/empennage/vertical-tail-curve-v002.json'
+      - 'docs/aircraft-pipeline/B24_VERTICAL_TAIL_CURVE_REFINEMENT_V002.md'
+      - '.github/workflows/b24-vertical-tail-curve-v002.yml'
+  pull_request:
+    paths:
+      - 'preview/b24-vertical-tail-curve-v002/**'
+      - 'data/b24-native/components/empennage/vertical-tail-curve-v002.json'
+      - 'docs/aircraft-pipeline/B24_VERTICAL_TAIL_CURVE_REFINEMENT_V002.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source data and page contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('data/b24-native/components/empennage/vertical-tail-curve-v002.json').read_text())
+          assert data['curve']['type']=='periodic-cubic-b-spline'
+          assert data['curve']['continuity']=='C2'
+          assert data['curve']['control_anchor_count']==31
+          assert data['curve']['render_sample_count']==800
+          assert all(value is False for value in data['approvals'].values())
+          html=Path('preview/b24-vertical-tail-curve-v002/index.html').read_text()
+          assert 'data-qa="pass"' in html
+          assert 'V002 光顺线' in html
+          assert 'V001 折线' in html
+          print('curve and page contracts: PASS')
+          PY
+      - name: Real browser screenshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          python3 -m http.server 8765 --directory "$GITHUB_WORKSPACE" >/tmp/b24-v002-server.log 2>&1 &
+          SERVER=$!
+          trap 'kill $SERVER || true' EXIT
+          sleep 2
+          URL='http://127.0.0.1:8765/preview/b24-vertical-tail-curve-v002/index.html'
+          timeout 120s "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --disable-gpu \
+            --hide-scrollbars \
+            --window-size=1800,1200 \
+            --screenshot="$GITHUB_WORKSPACE/b24-vertical-tail-curve-v002.png" \
+            "$URL"
+          test -s "$GITHUB_WORKSPACE/b24-vertical-tail-curve-v002.png"
+          {
+            echo '## B24 vertical-tail curve v002'
+            echo
+            echo '* C2 periodic cubic B-spline: PASS'
+            echo '* 31 reviewed anchors and 800 render samples: PASS'
+            echo '* Browser screenshot: PASS'
+            echo '* All engineering approval flags remain false: PASS'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24-vertical-tail-curve-v002-browser-review
+          path: b24-vertical-tail-curve-v002.png
+          if-no-files-found: error
+          retention-days: 30

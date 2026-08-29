@@ -1,0 +1,152 @@
+name: Intake B24 vertical-tail priority drawings
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'data/b24-engineering/source-intake/vertical-tail-priority-sources.json'
+      - 'scripts/intake-engineering-sources.mjs'
+      - 'docs/aircraft-pipeline/B24_VERTICAL_TAIL_SOURCE_INTAKE.md'
+      - '.github/workflows/b24-vertical-tail-source-intake.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Ensure PDF inspection tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v pdfinfo >/dev/null || ! command -v pdftoppm >/dev/null || ! command -v pdftotext >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y poppler-utils
+          fi
+          pdfinfo -v 2>&1 | head -1
+
+      - name: Download source-locked PDF candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf _intake
+          node scripts/intake-engineering-sources.mjs \
+            --config data/b24-engineering/source-intake/vertical-tail-priority-sources.json \
+            --out-dir _intake
+
+      - name: Inspect, extract and render every page
+        shell: bash
+        run: |
+          set -euo pipefail
+          for source_dir in _intake/B24-ENG-S002 _intake/B24-ENG-S003; do
+            pdf_file="$(find "$source_dir" -maxdepth 1 -type f -name '*.pdf' -print -quit)"
+            test -n "$pdf_file"
+            pdfinfo "$pdf_file" > "$source_dir/pdfinfo.txt"
+            pdftotext -layout "$pdf_file" "$source_dir/extracted-text.txt"
+            mkdir -p "$source_dir/renders"
+            pdftoppm -png -r 300 "$pdf_file" "$source_dir/renders/page"
+            test "$(find "$source_dir/renders" -type f -name '*.png' | wc -l)" -ge 1
+          done
+
+      - name: Build combined inspection manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import re
+          from pathlib import Path
+
+          root = Path('_intake')
+          download = json.loads((root / 'download-manifest.json').read_text(encoding='utf-8'))
+          reports = []
+          for record in download['records']:
+              source_dir = root / record['source_id']
+              info_text = (source_dir / 'pdfinfo.txt').read_text(encoding='utf-8', errors='replace')
+              text_path = source_dir / 'extracted-text.txt'
+              extracted = text_path.read_text(encoding='utf-8', errors='replace')
+              pages_match = re.search(r'^Pages:\s+(\d+)', info_text, re.MULTILINE)
+              size_match = re.search(r'^Page size:\s+(.+)$', info_text, re.MULTILINE)
+              render_files = sorted(source_dir.glob('renders/page-*.png'))
+              renders = []
+              for path in render_files:
+                  payload = path.read_bytes()
+                  renders.append({
+                      'file': str(path.relative_to(root)).replace('\\', '/'),
+                      'bytes': len(payload),
+                      'sha256': hashlib.sha256(payload).hexdigest()
+                  })
+              reports.append({
+                  'source_id': record['source_id'],
+                  'pdf_file': record['output_filename'],
+                  'pdf_bytes': record['bytes'],
+                  'pdf_sha256': record['sha256'],
+                  'page_count': int(pages_match.group(1)) if pages_match else None,
+                  'page_size': size_match.group(1).strip() if size_match else None,
+                  'extracted_text_bytes': len(extracted.encode('utf-8')),
+                  'render_count': len(renders),
+                  'renders': renders,
+                  'visual_review_status': 'pending-human-and-upstream-review',
+                  'title_block_approved': False,
+                  'variant_applicability_approved': False,
+                  'drawing_calibration_approved': False,
+                  'geometry_use_approved': False
+              })
+          combined = {
+              'schema': 'haihao.aircraft/engineering-source-inspection-report@1.0.0',
+              'intake_id': download['intake_id'],
+              'reports': reports,
+              'binary_commit_policy': download['binary_commit_policy'],
+              'result': 'download-and-render-pass',
+              'approval': {
+                  'sourceBytesAcquired': True,
+                  'titleBlocksApproved': False,
+                  'variantApplicabilityApproved': False,
+                  'rightsApprovedForRepositoryCommit': False,
+                  'drawingCalibrationApproved': False,
+                  'geometryUseApproved': False
+              }
+          }
+          (root / 'combined-intake-report.json').write_text(
+              json.dumps(combined, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8'
+          )
+          print(json.dumps(combined, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Record source intake summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          report = json.loads(Path('_intake/combined-intake-report.json').read_text(encoding='utf-8'))
+          print('## B24 vertical-tail priority drawing intake')
+          print()
+          print('| Source | Bytes | SHA256 | Pages | Rendered pages |')
+          print('|---|---:|---|---:|---:|')
+          for item in report['reports']:
+              print(f"| {item['source_id']} | {item['pdf_bytes']:,} | `{item['pdf_sha256']}` | {item['page_count']} | {item['render_count']} |")
+          print()
+          print('Downloaded binaries remain artifact-only. Title block, rights, applicability, calibration and geometry-use approvals remain false.')
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24-vertical-tail-priority-source-intake
+          path: _intake
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

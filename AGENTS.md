@@ -2,18 +2,54 @@
 
 ## Authority
 
-ChatGPT is the upstream controller. Codex is the downstream engineering executor. Follow the active task file exactly and return verifiable results through GitHub.
+ChatGPT is the upstream controller for research, aircraft-system analysis, geometry decisions, behavior design, surface design, variant judgment, conflict resolution and approval.
+
+Codex is the downstream implementation executor. It may implement approved contracts, generators, tests, review pages and repository changes. It must stop when required evidence is missing and must never invent hidden geometry, dimensions, variant applicability or approval.
+
+Image2ThreeJS is registered only as an external method study. It is disabled by default. It has no active execution, structure, geometry, surface, behavior, runtime or approval role. A future isolated experiment requires an explicit user instruction that names the tool and defines the exact task scope.
 
 ## Current scope
 
-The active production aircraft is B-24J-45-CO serial 42-73436, **UBANGI BAG III**, 308th Bomb Group, 374th Bomb Squadron, Fourteenth Air Force, China Theater, 1944 to 1945.
+The active production framework is `AIRCRAFT_NATIVE_FORGE`. The active family master is `B24J_CO_DATA_NATIVE_MASTER`. Initial historical instances are:
+
+- B-24J-25-CO serial 42-73257, “80 DAYS”
+- B-24J-45-CO serial 42-73436, “UBANGI BAG III”
+
+The first complete native component is the twin vertical stabilizer and rudder assembly.
+
+## Reference lock
+
+The locked `b-24_liberator.glb` is the immutable visual and motion reference sample. Its node hierarchy, geometry, materials, images and 2,518 animation channels must be distilled before the corresponding native system is replaced.
+
+Original manufacturer drawings, official technical orders, parts catalogs and approved measurements carry higher engineering authority than the reference model.
+
+## Aircraft Native Forge
+
+The long-term mother data is renderer-independent and consists of:
+
+1. AircraftDNA
+2. AssemblyGraph
+3. GeometryRecipe
+4. SurfaceProgram
+5. BehaviorGraph
+6. EvidenceGraph
+7. ApprovalLedger
+
+GLB, FBX, OBJ, STEP, CAD files, UV atlases and raster textures are reference inputs, verification artifacts or reproducible outputs.
 
 ## Hard rules
 
-1. Keep the authoritative source GLB immutable and preserve its node hierarchy, original animation, propeller channels, landing-gear calibration, weapons nodes, materials, and textures.
-2. Do not create a substitute aircraft mesh, procedural fallback aircraft, or alternate B-24 model.
-3. Livery work is non-destructive. Preserve the source UV and create a separate `LiveryUV` only on approved exterior paint surfaces.
-4. Exclude propellers, engine internals, wheels, tires, brakes, landing-gear mechanisms, glass, guns, turret interiors, cockpit/interior parts, lights, antennas, and small mechanical fittings from the livery atlas.
-5. Keep external painted cowling and nacelle skins, fuselage skin, nose skin, wing skin, fixed tail skin, control-surface outer skins, bomb-bay doors, and exterior access panels in the livery system.
-6. Every factual source, transformation, generated asset, and test result must be recorded.
-7. No unrelated refactor. No silent asset substitution. No merge until upstream review.
+1. Verify every locked source by filename, byte count, SHA-256 and inventory before extraction.
+2. Do not generate a guessed primitive aircraft, hidden fallback aircraft or approximate substitute for review.
+3. Native reconstruction requires source-traceable extraction, manual semantic mapping, GeometryRecipe, BehaviorGraph, SurfaceProgram and fixed parity gates.
+4. Unknown nodes, hidden structures, uncertain dimensions and uncertain motion groups remain `unresolved`.
+5. Every native replacement must retain source node indexes, stable paths, evidence, transforms, bounds, surfaces, animation channels and review captures.
+6. The exact reference mirror remains available until a replacement meets or exceeds it in fixed-camera, fixed-time and multi-view review.
+7. Original drawings and official manuals control geometry when they conflict with the reference model.
+8. Image2ThreeJS and similar image-led tools remain disabled unless an explicit user instruction authorizes an isolated experiment. Their results receive no automatic path into mother data.
+9. Active generators, schemas, validators and browser workbenches must be repository-owned and reproducible.
+10. Surface work binds through stable semantic `surface_id` values. UV, vector markings, panels, rivets and generated maps are replaceable SurfaceModules.
+11. Free-design material controls may adjust base color and PBR response. Historical mode must preserve evidence-locked colors, side-specific markings and mission state.
+12. Reusable aircraft-system logic must separate from aircraft-specific dimensions, configuration and evidence so later B25, B17, B29 and fighter projects can inherit the framework safely.
+13. Record every factual source, transformation, generated artifact, hash, test result, uncertainty and approval state.
+14. No unrelated refactor, hidden asset substitution, force push or merge before upstream and user review.

@@ -1,0 +1,80 @@
+{
+  "schema": "haihao.aircraft/tool-authority-policy@1.0.0",
+  "policy_id": "aircraft-native-tool-authority-v1",
+  "effective_scope": [
+    "B24J_CO_DATA_NATIVE_MASTER",
+    "future-aircraft-family-masters"
+  ],
+  "authority_order": [
+    "approved_original_drawings",
+    "approved_official_manuals",
+    "approved_historical_photographs",
+    "locked_reference_model_measurements",
+    "derived_geometry_candidates",
+    "visual_proxy_candidates"
+  ],
+  "core_systems": {
+    "aircraft_dna": "self-developed",
+    "assembly_graph": "self-developed",
+    "geometry_recipe": "self-developed",
+    "behavior_graph": "self-developed",
+    "surface_graph": "self-developed",
+    "evidence_graph": "self-developed",
+    "runtime_compiler": "self-developed",
+    "browser_qa": "self-developed"
+  },
+  "external_tools": {
+    "img2threejs": {
+      "status": "disabled-by-default",
+      "classification": "archived-external-research-reference",
+      "runtime_dependency": false,
+      "build_dependency": false,
+      "analysis_authority": false,
+      "structure_authority": false,
+      "geometry_authority": false,
+      "behavior_authority": false,
+      "surface_authority": false,
+      "qa_authority": false,
+      "approval_authority": false,
+      "automatic_invocation_allowed": false,
+      "explicit_user_instruction_required": true,
+      "permitted_knowledge_distillation": [
+        "staged-workflow-organization",
+        "deterministic-gate-patterns",
+        "versioned-state-and-evidence-patterns",
+        "browser-review-organization"
+      ],
+      "forbidden_uses": [
+        "aircraft-structure-inference",
+        "hidden-geometry-inference",
+        "component-boundary-decision",
+        "dimension-decision",
+        "mechanism-axis-decision",
+        "surface-or-uv-decision",
+        "historical-accuracy-decision",
+        "automatic-aircraft-generation"
+      ]
+    }
+  },
+  "drawing_first_rule": {
+    "required_when": [
+      "reference-model-region-is-ambiguous",
+      "reference-model-region-conflicts-with-photographs",
+      "component-interface-is-unclear",
+      "dimension-or-profile-is-missing",
+      "mechanism-axis-or-motion-range-is-unclear"
+    ],
+    "action": "stop-local-approval-and-acquire-corresponding-drawing",
+    "guessing_allowed": false,
+    "candidate_visualization_allowed": true,
+    "candidate_status": "pending-source"
+  },
+  "approval": {
+    "policyApproved": true,
+    "externalToolIsolationApproved": true,
+    "aircraftDataMasterApproved": false,
+    "geometryRecipesApproved": false,
+    "behaviorGraphApproved": false,
+    "surfaceSystemApproved": false
+  }
+}

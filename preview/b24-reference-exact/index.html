@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="B24 权威参考模型精确镜像在线审核页">
+  <title>B24 权威参考模型精确镜像审核</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+  {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"}}
+  </script>
+</head>
+<body data-qa="loading">
+<div class="app">
+  <header>
+    <div class="brand"><small>HAIHAO AIRCRAFT DATA NATIVE LAB</small><h1>B24 权威参考模型精确镜像审核</h1></div>
+    <button id="leftToggle" class="mobile">控制</button><button id="rightToggle" class="mobile">检查器</button>
+    <div class="pills"><span id="sourcePill" class="pill">正在校验源文件</span><span id="runtimePill" class="pill">等待运行时</span><span class="pill warn">语义审批进行中</span></div>
+  </header>
+  <main>
+    <aside id="leftPanel" class="panel left">
+      <section><h2>源文件锁</h2><dl class="lock"><dt>文件</dt><dd>b-24_liberator.glb</dd><dt>大小</dt><dd>23,085,972 字节</dd><dt>SHA256</dt><dd><code>541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d</code></dd><dt>作者</dt><dd>CreadorDeMu</dd><dt>许可</dt><dd>CC BY 4.0</dd></dl></section>
+      <section><h2>视角</h2><div class="buttons views"><button data-view="perspective" class="active">透视</button><button data-view="x+">X+</button><button data-view="x-">X−</button><button data-view="y+">Y+</button><button data-view="y-">Y−</button><button data-view="z+">Z+</button><button data-view="z-">Z−</button><button id="fitBtn">重新取景</button></div></section>
+      <section><h2>显示</h2><label class="toggle">网格线<input id="wireToggle" type="checkbox"></label><label class="toggle">坐标轴<input id="axesToggle" type="checkbox"></label><label class="toggle">地面网格<input id="gridToggle" type="checkbox" checked></label><label class="toggle">自动旋转<input id="rotateToggle" type="checkbox"></label><label class="slider">曝光<input id="exposure" type="range" min="0.5" max="1.8" step="0.01" value="1.05"></label></section>
+      <section><h2>原动画轨道</h2><div class="buttons"><button id="playBtn" class="primary">播放</button><button id="stopBtn">回到起点</button></div><div class="timeline"><span id="timeNow">0.00</span><input id="timeline" type="range" min="0" max="1" step="0.001" value="0" disabled><span id="timeEnd">0.00</span></div><label class="select">播放速度<select id="speed"><option value="0.25">0.25 倍</option><option value="0.5">0.5 倍</option><option value="1" selected>1 倍</option><option value="2">2 倍</option><option value="4">4 倍</option></select></label><label class="toggle">循环播放<input id="loopToggle" type="checkbox" checked></label></section>
+      <section><h2>节点搜索</h2><input id="nodeSearch" class="search" type="search" placeholder="名称、编号、类型"><div class="result-line"><span>匹配</span><output id="nodeResultCount">0</output></div><div id="nodeList" class="node-list"></div></section>
+    </aside>
+
+    <section id="viewport" class="viewport">
+      <canvas id="canvas" tabindex="0"></canvas>
+      <div class="badges"><span>原始节点层级</span><span>原始材质与图像</span><span>原始 2,518 动画通道</span></div>
+      <div class="help">鼠标左键旋转，右键平移，滚轮缩放。双击模型选择部件。</div>
+      <div id="loading" class="loading"><div class="loading-card"><h2>正在装载权威 B24 参考模型</h2><p id="loadingText">准备下载 23 MB 锁定源文件，并在浏览器内计算 SHA256。</p><div class="bar"><i id="progress"></i></div><div class="progress-line"><span id="progressLabel">0%</span><span id="progressBytes">0 MB / 23.09 MB</span></div><pre id="errorBox"></pre></div></div>
+    </section>
+
+    <aside id="rightPanel" class="panel right">
+      <section><h2>参考模型清单</h2><div class="info"><b>场景</b><span id="sceneCount">等待</span><b>节点</b><span id="nodeCount">等待</span><b>网格</b><span id="meshCount">等待</span><b>三角形</b><span id="triangleCount">等待</span><b>材质</b><span id="materialCount">等待</span><b>图像</b><span id="imageCount">等待</span><b>动画</b><span id="animationCount">等待</span><b>动画通道</b><span id="channelCount">等待</span></div></section>
+      <section><h2>当前选择</h2><div class="info"><b>节点编号</b><code id="selectedIndex">无</code><b>名称</b><span id="selectedName">尚未选择</span><b>类型</b><span id="selectedType">无</span><b>父节点</b><span id="selectedParent">无</span><b>子节点</b><span id="selectedChildren">0</span><b>世界位置</b><code id="selectedPosition">无</code><b>包围盒</b><code id="selectedBounds">无</code></div><div class="buttons"><button id="isolateBtn" disabled>隔离子树</button><button id="hideBtn" disabled>隐藏节点</button><button id="restoreBtn">恢复全部</button><button id="focusBtn" disabled>聚焦节点</button></div></section>
+      <section><h2>审批状态</h2><ul class="status"><li class="good">源文件字节数与 SHA256 在浏览器内重新校验</li><li class="good">原始场景、网格、材质和动画直接加载</li><li class="warn">动力、起落架、飞控和武器语义逐节点审核中</li><li class="warn">数据原生重放运行时尚未通过视觉同位验收</li></ul></section>
+      <section><h2>在线证据</h2><nav class="links"><a href="./reports/full-mirror/manifest.json" target="_blank">完整镜像清单</a><a href="./reports/full-mirror/qa.json" target="_blank">完整镜像 QA</a><a href="./reports/full-mirror/animations.json" target="_blank">2,518 通道索引</a><a href="./reports/full-mirror/semantic-candidates.json" target="_blank">语义候选清单</a><a href="./reports/distillation/reference-glb-distillation.json" target="_blank">蒸馏摘要</a><a href="./build-info.json" target="_blank">发布信息</a></nav></section>
+      <section><h2>发布信息</h2><div class="info"><b>分支</b><code id="buildBranch">读取中</code><b>提交</b><code id="buildCommit">读取中</code><b>构建时间</b><span id="buildTime">读取中</span></div></section>
+    </aside>
+  </main>
+</div>
+<script type="module" src="./viewer.js"></script>
+</body>
+</html>

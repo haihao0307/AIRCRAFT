@@ -1,0 +1,370 @@
+{
+  "schema": "haihao.aircraft/component-reference-candidate-report@1.0.0",
+  "request_id": "b24-vertical-tail-reference-candidates-v1",
+  "generated_at": null,
+  "deterministic_build": true,
+  "source": {
+    "manifest": "preview/b24-reference-exact/assets/chunks/manifest.json",
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "chunk_count": 12
+  },
+  "inventory": {
+    "scenes": 1,
+    "nodes": 1784,
+    "meshes": 348,
+    "materials": 30,
+    "images": 18,
+    "animations": 1,
+    "animation_channels": 2518
+  },
+  "extraction_policy": {
+    "automatic_side_assignment": false,
+    "automatic_component_boundary_approval": false,
+    "automatic_animation_semantic_approval": false,
+    "candidate_status": "candidate-not-approved"
+  },
+  "candidate_count": 2,
+  "candidates": [
+    {
+      "reference_node_id": 719,
+      "name": "Object_719",
+      "stable_node_path": "Sketchfab_model[0]/root[1]/GLTF_SceneRootNode[2]/node_0_1084[3]/node71_1021[7]/node469_anim_rudder_percent_key_462[705]/rudder_percent_key_AN_key_461[706]/node_364_460[717]/_1211[718]/Object_719[719]",
+      "parent_chain": [
+        {
+          "node_id": 0,
+          "name": "Sketchfab_model"
+        },
+        {
+          "node_id": 1,
+          "name": "root"
+        },
+        {
+          "node_id": 2,
+          "name": "GLTF_SceneRootNode"
+        },
+        {
+          "node_id": 3,
+          "name": "node_0_1084"
+        },
+        {
+          "node_id": 7,
+          "name": "node71_1021"
+        },
+        {
+          "node_id": 705,
+          "name": "node469_anim_rudder_percent_key_462"
+        },
+        {
+          "node_id": 706,
+          "name": "rudder_percent_key_AN_key_461"
+        },
+        {
+          "node_id": 717,
+          "name": "node_364_460"
+        },
+        {
+          "node_id": 718,
+          "name": "_1211"
+        },
+        {
+          "node_id": 719,
+          "name": "Object_719"
+        }
+      ],
+      "direct_children": [],
+      "subtree_node_ids": [
+        719
+      ],
+      "subtree_node_count": 1,
+      "local_matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "world_matrix": [
+        -1.654047610453644,
+        -0.027571837608471903,
+        -0.6013917023642072,
+        0,
+        -0.6020234980505659,
+        0.07575350444260498,
+        1.6523117447347355,
+        0,
+        1.4640595665485742e-7,
+        1.758353251252874,
+        -0.08061560547463874,
+        0,
+        3.9891595157074446,
+        0.8736175835215263,
+        -11.340428309755202,
+        1
+      ],
+      "world_translation_observation": [
+        3.9891595157074446,
+        0.8736175835215263,
+        -11.340428309755202
+      ],
+      "mesh_evidence": {
+        "mesh_ids": [
+          125
+        ],
+        "material_ids": [
+          9
+        ],
+        "primitive_count": 1,
+        "triangle_count": 980,
+        "primitives": [
+          {
+            "node_id": 719,
+            "mesh_id": 125,
+            "primitive_index": 0,
+            "position_accessor": 599,
+            "index_accessor": 603,
+            "material_id": 9,
+            "mode": 4,
+            "vertex_count": 977,
+            "triangle_count": 980
+          }
+        ],
+        "world_bounds": {
+          "min": [
+            3.7399839412016944,
+            -0.8630498926640877,
+            -11.828524478366706
+          ],
+          "max": [
+            4.2057827492060795,
+            2.653720560147037,
+            -10.779353142049176
+          ],
+          "size": [
+            0.4657988080043851,
+            3.5167704528111248,
+            1.0491713363175297
+          ],
+          "center": [
+            3.972883345203887,
+            0.8953353337414747,
+            -11.303938810207942
+          ],
+          "decoded_point_count": 977
+        }
+      },
+      "material_evidence": [
+        {
+          "material_id": 9,
+          "name": "material09",
+          "alpha_mode": "OPAQUE",
+          "double_sided": false,
+          "base_color_factor": null,
+          "base_color_texture": 7,
+          "metallic_factor": 0.25098,
+          "roughness_factor": 0.486275,
+          "normal_texture": null,
+          "emissive_texture": null
+        }
+      ],
+      "animation_channels": [],
+      "animation_channel_count": 0,
+      "semantic_status": "candidate-not-approved",
+      "side_assignment": null,
+      "component_boundary_approved": false,
+      "animation_semantics_approved": false
+    },
+    {
+      "reference_node_id": 744,
+      "name": "Object_744",
+      "stable_node_path": "Sketchfab_model[0]/root[1]/GLTF_SceneRootNode[2]/node_0_1084[3]/node71_1021[7]/node475_anim_rudder_percent_key_477[730]/rudder_percent_key_AN_key.002_476[731]/node_374_475[742]/_1215[743]/Object_744[744]",
+      "parent_chain": [
+        {
+          "node_id": 0,
+          "name": "Sketchfab_model"
+        },
+        {
+          "node_id": 1,
+          "name": "root"
+        },
+        {
+          "node_id": 2,
+          "name": "GLTF_SceneRootNode"
+        },
+        {
+          "node_id": 3,
+          "name": "node_0_1084"
+        },
+        {
+          "node_id": 7,
+          "name": "node71_1021"
+        },
+        {
+          "node_id": 730,
+          "name": "node475_anim_rudder_percent_key_477"
+        },
+        {
+          "node_id": 731,
+          "name": "rudder_percent_key_AN_key.002_476"
+        },
+        {
+          "node_id": 742,
+          "name": "node_374_475"
+        },
+        {
+          "node_id": 743,
+          "name": "_1215"
+        },
+        {
+          "node_id": 744,
+          "name": "Object_744"
+        }
+      ],
+      "direct_children": [],
+      "subtree_node_ids": [
+        744
+      ],
+      "subtree_node_count": 1,
+      "local_matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "world_matrix": [
+        -1.654047610453644,
+        -0.027571837608471903,
+        -0.6013917023642072,
+        0,
+        -0.6020234980505659,
+        0.07575350444260498,
+        1.6523117447347355,
+        0,
+        1.4640595665485742e-7,
+        1.758353251252874,
+        -0.08061560547463874,
+        0,
+        -3.766374850626354,
+        0.8748115746750259,
+        -11.314385200746413,
+        1
+      ],
+      "world_translation_observation": [
+        -3.766374850626354,
+        0.8748115746750259,
+        -11.314385200746413
+      ],
+      "mesh_evidence": {
+        "mesh_ids": [
+          130
+        ],
+        "material_ids": [
+          9
+        ],
+        "primitive_count": 1,
+        "triangle_count": 980,
+        "primitives": [
+          {
+            "node_id": 744,
+            "mesh_id": 130,
+            "primitive_index": 0,
+            "position_accessor": 624,
+            "index_accessor": 628,
+            "material_id": 9,
+            "mode": 4,
+            "vertex_count": 974,
+            "triangle_count": 980
+          }
+        ],
+        "world_bounds": {
+          "min": [
+            -4.042103735535166,
+            -0.8630473966739302,
+            -11.828543450615337
+          ],
+          "max": [
+            -3.6214318931571614,
+            2.6537196903316485,
+            -10.779372114297805
+          ],
+          "size": [
+            0.4206718423780047,
+            3.5167670870055785,
+            1.0491713363175315
+          ],
+          "center": [
+            -3.831767814346164,
+            0.8953361468288592,
+            -11.303957782456571
+          ],
+          "decoded_point_count": 974
+        }
+      },
+      "material_evidence": [
+        {
+          "material_id": 9,
+          "name": "material09",
+          "alpha_mode": "OPAQUE",
+          "double_sided": false,
+          "base_color_factor": null,
+          "base_color_texture": 7,
+          "metallic_factor": 0.25098,
+          "roughness_factor": 0.486275,
+          "normal_texture": null,
+          "emissive_texture": null
+        }
+      ],
+      "animation_channels": [],
+      "animation_channel_count": 0,
+      "semantic_status": "candidate-not-approved",
+      "side_assignment": null,
+      "component_boundary_approved": false,
+      "animation_semantics_approved": false
+    }
+  ],
+  "cross_candidate_observations": {
+    "world_translation_delta": [
+      -7.755534366333799,
+      0.0011939911534996073,
+      0.026043109008789145
+    ],
+    "shared_mesh_ids": [],
+    "shared_material_ids": [
+      9
+    ],
+    "interpretation_status": "observation-only"
+  },
+  "approval": {
+    "sourceLockPassed": true,
+    "extractionCompleted": true,
+    "candidateNodeIdsApproved": false,
+    "sideAssignmentsApproved": false,
+    "componentBoundariesApproved": false,
+    "animationSemanticsApproved": false,
+    "referenceNodeMapApproved": false
+  }
+}

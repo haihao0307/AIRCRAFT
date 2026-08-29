@@ -1,0 +1,240 @@
+name: Materialize and verify B24 chunked online preview
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - '.github/workflows/b24-reference-chunked-online.yml'
+      - 'preview/b24-reference-exact/chunk-fetch-function.jsfrag'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: b24-reference-chunked-online
+  cancel-in-progress: false
+
+jobs:
+  materialize-and-verify:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Download and verify locked source GLB
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-all-errors --retry-delay 2 \
+            --output "$RUNNER_TEMP/b-24_liberator.glb" \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb
+          test "$(stat --format=%s "$RUNNER_TEMP/b-24_liberator.glb")" = "23085972"
+          echo "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d  $RUNNER_TEMP/b-24_liberator.glb" | sha256sum --check
+
+      - name: Materialize exact same-origin chunks and online loader
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          source_path = Path(os.environ['RUNNER_TEMP']) / 'b-24_liberator.glb'
+          source = source_path.read_bytes()
+          expected_sha = '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d'
+          if len(source) != 23085972 or hashlib.sha256(source).hexdigest() != expected_sha:
+              raise SystemExit('authoritative source lock mismatch before chunking')
+
+          root = Path('preview/b24-reference-exact')
+          chunk_dir = root / 'assets' / 'chunks'
+          if chunk_dir.exists():
+              for path in chunk_dir.iterdir():
+                  if path.is_file():
+                      path.unlink()
+          chunk_dir.mkdir(parents=True, exist_ok=True)
+
+          chunk_size = 2 * 1024 * 1024
+          chunks = []
+          for index, offset in enumerate(range(0, len(source), chunk_size)):
+              payload = source[offset:offset + chunk_size]
+              filename = f'b24-reference.part-{index:03d}.bin'
+              (chunk_dir / filename).write_bytes(payload)
+              chunks.append({
+                  'index': index,
+                  'file': filename,
+                  'offset': offset,
+                  'bytes': len(payload),
+                  'sha256': hashlib.sha256(payload).hexdigest()
+              })
+
+          manifest = {
+              'schema': 'haihao.aircraft/reference-glb-chunks@1.0.0',
+              'file': 'b-24_liberator.glb',
+              'bytes': len(source),
+              'sha256': expected_sha,
+              'chunk_size': chunk_size,
+              'chunk_count': len(chunks),
+              'encoding': 'raw-binary',
+              'assembly_order': 'ascending index',
+              'chunks': chunks
+          }
+          (chunk_dir / 'manifest.json').write_text(
+              json.dumps(manifest, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8'
+          )
+
+          viewer = (root / 'viewer.js').read_text(encoding='utf-8')
+          start = viewer.index('async function fetchModel(){')
+          end = viewer.index('\nasync function verify(', start)
+          replacement = (root / 'chunk-fetch-function.jsfrag').read_text(encoding='utf-8').rstrip()
+          viewer = viewer[:start] + replacement + viewer[end:]
+          (root / 'viewer-online.js').write_text(viewer, encoding='utf-8')
+
+          html = (root / 'index.html').read_text(encoding='utf-8')
+          html = html.replace('src="./viewer.js"', 'src="./viewer-online.js"')
+          replacements = {
+              './reports/full-mirror/manifest.json': 'https://github.com/haihao0307/AIRCRAFT/blob/research/b24-engineering-drawings-cad-v1/docs/aircraft-pipeline/B24_REFERENCE_FULL_MIRROR.md',
+              './reports/full-mirror/qa.json': 'https://github.com/haihao0307/AIRCRAFT/blob/research/b24-engineering-drawings-cad-v1/data/b24-native/reference-mirror-contract.json',
+              './reports/full-mirror/animations.json': 'https://github.com/haihao0307/AIRCRAFT/blob/research/b24-engineering-drawings-cad-v1/data/b24-native/animation-review-queue.json',
+              './reports/full-mirror/semantic-candidates.json': 'https://github.com/haihao0307/AIRCRAFT/pull/14',
+              './reports/distillation/reference-glb-distillation.json': 'https://github.com/haihao0307/AIRCRAFT/blob/research/b24-engineering-drawings-cad-v1/reports/b24-native/reference-glb-distillation-baseline.json',
+              './build-info.json': 'https://raw.githubusercontent.com/haihao0307/AIRCRAFT/research/b24-engineering-drawings-cad-v1/preview/b24-reference-exact/build-info.json'
+          }
+          for old, new in replacements.items():
+              html = html.replace(old, new)
+          (root / 'online.html').write_text(html, encoding='utf-8')
+
+          info = {
+              'branch': os.environ['GITHUB_REF_NAME'],
+              'source_workflow_commit': os.environ['GITHUB_SHA'],
+              'built_at': datetime.now(timezone.utc).isoformat(),
+              'model_delivery': {
+                  'method': 'same-origin immutable raw-binary chunks',
+                  'chunk_count': len(chunks),
+                  'chunk_size': chunk_size,
+                  'manifest': './assets/chunks/manifest.json'
+              },
+              'source_model': {
+                  'file': 'b-24_liberator.glb',
+                  'bytes': len(source),
+                  'sha256': expected_sha
+              },
+              'approval': {
+                  'visual_parity_approved': False,
+                  'animation_semantics_approved': False,
+                  'native_geometry_replacement_approved': False
+              }
+          }
+          (root / 'build-info.json').write_text(
+              json.dumps(info, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8'
+          )
+          print(json.dumps({'chunks': len(chunks), 'bytes': len(source), 'sha256': expected_sha}, indent=2))
+          PY
+
+      - name: Validate chunk reassembly and native contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/validate-b24-native-contracts.mjs
+          python3 - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path('preview/b24-reference-exact/assets/chunks')
+          manifest = json.loads((root / 'manifest.json').read_text(encoding='utf-8'))
+          data = b''.join((root / entry['file']).read_bytes() for entry in manifest['chunks'])
+          assert len(data) == 23085972
+          assert hashlib.sha256(data).hexdigest() == '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d'
+          print('chunk reassembly: PASS')
+          PY
+
+      - name: Commit immutable chunked delivery
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add preview/b24-reference-exact/assets/chunks \
+                  preview/b24-reference-exact/viewer-online.js \
+                  preview/b24-reference-exact/online.html \
+                  preview/b24-reference-exact/build-info.json
+          if git diff --cached --quiet; then
+            echo 'No materialized changes were produced'
+          else
+            git commit -m "build: materialize exact B24 chunked online viewer [skip ci]"
+            git push origin HEAD:research/b24-engineering-drawings-cad-v1
+          fi
+          SHA="$(git rev-parse HEAD)"
+          URL="https://cdn.githubraw.com/haihao0307/AIRCRAFT/${SHA}/preview/b24-reference-exact/online.html"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Verify immutable public page with real browser
+        shell: bash
+        env:
+          ONLINE_URL: ${{ steps.commit.outputs.url }}
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          READY=0
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --show-error --location "$ONLINE_URL" -o /tmp/page.html; then
+              if grep -q 'B24 权威参考模型精确镜像审核' /tmp/page.html; then
+                READY=1
+                break
+              fi
+            fi
+            sleep 5
+          done
+          test "$READY" = "1"
+          COMMON_FLAGS=(
+            --headless=new
+            --no-sandbox
+            --disable-dev-shm-usage
+            --disable-gpu-sandbox
+            --enable-webgl
+            --ignore-gpu-blocklist
+            --use-gl=angle
+            --use-angle=swiftshader-webgl
+            --enable-unsafe-swiftshader
+            --window-size=1600,1000
+            --virtual-time-budget=90000
+          )
+          timeout 210s "$CHROME" "${COMMON_FLAGS[@]}" --dump-dom "$ONLINE_URL" > /tmp/dom.html
+          if ! grep -q 'data-qa="pass"' /tmp/dom.html; then
+            tail -350 /tmp/dom.html
+            exit 1
+          fi
+          timeout 210s "$CHROME" "${COMMON_FLAGS[@]}" \
+            --screenshot="$GITHUB_WORKSPACE/b24-chunked-online.png" \
+            "$ONLINE_URL"
+          test -s "$GITHUB_WORKSPACE/b24-chunked-online.png"
+          {
+            echo '## B24 exact chunked online review verified'
+            echo
+            echo "Online URL: $ONLINE_URL"
+            echo
+            echo 'Chunk hashes, full source SHA256, exact inventory and WebGL rendering: PASS'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24-chunked-online-${{ steps.commit.outputs.sha }}
+          path: b24-chunked-online.png
+          if-no-files-found: error
+          retention-days: 30

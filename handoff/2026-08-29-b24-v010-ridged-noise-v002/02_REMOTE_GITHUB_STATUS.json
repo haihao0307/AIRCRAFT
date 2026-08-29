@@ -1,0 +1,45 @@
+{
+  "schema": "haihao.aircraft/b24-remote-github-status@1.0.0",
+  "observedAt": "2026-08-29",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "research/b24-engineering-drawings-cad-v1",
+  "pullRequest": {
+    "number": 14,
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "1010e49817a62985b94ab8a9e1605ba89b07a759",
+    "base": "main",
+    "commits": 104,
+    "changedFiles": 149
+  },
+  "workflowSummary": {
+    "successful": [
+      "QA B24 vertical-tail native candidate v001",
+      "Validate B24 vertical-tail smooth curve v002",
+      "Extract B24 vertical-tail reference candidates",
+      "Validate B24 strict reference mirror",
+      "Validate",
+      "Validate B24 V009 runtime production foundation",
+      "Extract B24 vertical-tail reference candidates native v2",
+      "Validate Aircraft Native Forge policy",
+      "Validate Aircraft Native Forge",
+      "Validate B24 data-native master"
+    ],
+    "failed": [
+      {
+        "name": "QA B24 V009 production browser runtime",
+        "runId": 33176633947,
+        "knownFailureStep": "Run Chromium production QA and capture fixed views"
+      },
+      {
+        "name": "QA B24 V009 browser runtime",
+        "runId": 33176633961,
+        "knownFailureStep": "failure detail not expanded in this package"
+      }
+    ]
+  },
+  "remoteUpdatedByV010Package": false,
+  "keepDraft": true,
+  "keepUnmerged": true
+}

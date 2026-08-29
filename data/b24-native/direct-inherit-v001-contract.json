@@ -1,0 +1,69 @@
+{
+  "schema": "haihao.aircraft/native-direct-mirror-contract@0.1.0",
+  "assetId": "B24J_CO_DIRECT_INHERIT_V001",
+  "status": "planned-candidate-artifacts-not-materialized",
+  "inheritanceMode": "direct-measurement-and-exact-array-copy",
+  "sourceLock": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "nativeFormat": {
+    "manifestSchema": "haihao.aircraft/native-direct-mirror@0.1.0",
+    "payloadEncoding": "raw-little-endian-numeric-blocks",
+    "payloadExtension": ".anfd",
+    "runtimeLoadsGlb": false,
+    "runtimeUsesGltfLoader": false
+  },
+  "statistics": {
+    "scenes": 1,
+    "components": 1784,
+    "meshes": 348,
+    "vertices": 307273,
+    "indices": 976074,
+    "triangles": 325358,
+    "materials": 30,
+    "images": 18,
+    "animations": 1,
+    "animationTracks": 2518,
+    "numericBlocks": 2401
+  },
+  "nativePayload": {
+    "bytes": null,
+    "sha256": null,
+    "materialized": false
+  },
+  "exactInheritance": {
+    "positions": false,
+    "normals": false,
+    "indices": false,
+    "uv0WherePresent": false,
+    "uv1WherePresent": false,
+    "componentHierarchy": false,
+    "localTransforms": false,
+    "animationTimes": false,
+    "animationValues": false,
+    "sourceImageBytes": false
+  },
+  "validation": {
+    "meshNumericStreamComparisons": 0,
+    "animationStreamComparisons": 0,
+    "sourceImageByteComparisons": 0,
+    "allPassed": false,
+    "status": "blocked-until-anfd-manifest-generator-runtime-and-comparison-report-exist"
+  },
+  "preview": {
+    "materialMode": "source-image-average-colour-plus-inherited-pbr-factors",
+    "uniformSkinColourControl": true,
+    "originalAnimationPlayback": true,
+    "staticFallback": true
+  },
+  "drawingCorrectionApplied": false,
+  "approval": {
+    "directInheritanceBuilt": false,
+    "sourceHashVerified": true,
+    "visualParityApproved": false,
+    "engineeringAccuracyApproved": false,
+    "nativeMasterApproved": false
+  }
+}

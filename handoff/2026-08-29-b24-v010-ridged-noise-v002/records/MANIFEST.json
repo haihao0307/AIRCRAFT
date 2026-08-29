@@ -1,0 +1,219 @@
+{
+  "schema": "haihao.aircraft/b24-full-handoff-manifest@2.0.0",
+  "generatedAt": "2026-08-29T04:01:17.784555+00:00",
+  "package": "AIRCRAFT_B24_FULL_HANDOFF_2026-08-29_V010_RIDGED_NOISE_V002",
+  "fileCount": 42,
+  "totalPayloadBytes": 157375222,
+  "files": [
+    {
+      "path": "00_README_FIRST.md",
+      "bytes": 1913,
+      "sha256": "9e79df7e6649d5d0f058fa53a74afb013cf7374fbc007acc4e9a78c0f6abbee4"
+    },
+    {
+      "path": "01_CURRENT_STATUS.md",
+      "bytes": 1650,
+      "sha256": "394379fde796383ab9c690f92e45c64ae893e7412408f4a900896d3b796858a4"
+    },
+    {
+      "path": "02_REMOTE_GITHUB_STATUS.json",
+      "bytes": 1403,
+      "sha256": "4ab30f6eae0658dd7306bc2895c4d773f893eceb9db95cfdcf496426af633f6e"
+    },
+    {
+      "path": "03_NEXT_TASK.md",
+      "bytes": 1770,
+      "sha256": "c7cea122e9015943a790d2225239d728932e492278fb71fe9c1c1d74fe3e7211"
+    },
+    {
+      "path": "04_MACHINE_STATUS.json",
+      "bytes": 466,
+      "sha256": "27b26e2cc4d6aafcb9a661b760871da93252073cb64b09626d5a7c77ab409f5d"
+    },
+    {
+      "path": "baseline/AIRCRAFT_B24_FULL_HANDOFF_2026-08-29_V009R1_NOISE_V001(1).zip",
+      "bytes": 130636401,
+      "sha256": "f96a0b662b8fcd0569de1ebb04fd15a555d8c80fd983a3d43de2f6d4ac266b41"
+    },
+    {
+      "path": "baseline/B24_V009_R1_BROWSER_QA.json",
+      "bytes": 2163,
+      "sha256": "f202923b8cfa620ec910eca6bdb74ecef26dc61ef962e7b6b99eab5867ccb335"
+    },
+    {
+      "path": "baseline/BASELINE_POINTER.json",
+      "bytes": 301,
+      "sha256": "942815b10843e57b281077f7372ab4990a2891ba4691d103a77f23b27510ebf3"
+    },
+    {
+      "path": "current_v010/B24_V010_BOMB_DOOR_SERVICE.png",
+      "bytes": 115157,
+      "sha256": "85186fb1e7d5ad74bb50f0ba430c18014b5384d0f79f8d1fe42a765279c7bda4"
+    },
+    {
+      "path": "current_v010/B24_V010_BROWSER_QA.json",
+      "bytes": 8792,
+      "sha256": "d2f2ae41c6f77048591aa5c0ec081baf3a8602a18fa0cf570aaaebebf6cd0f21"
+    },
+    {
+      "path": "current_v010/B24_V010_CLEAN_BOMB_DOOR_SERVICE.png",
+      "bytes": 87956,
+      "sha256": "971bd22af8fd2ec837bbbade2f3157558f8385eb99a116582ddfdafb406a8506"
+    },
+    {
+      "path": "current_v010/B24_V010_CLEAN_FULL_SERVICE.png",
+      "bytes": 55774,
+      "sha256": "bc23f4fb04e58552e04872f3c2125eb3ec6d5902d94fbeddd07f06bd88a0149c"
+    },
+    {
+      "path": "current_v010/B24_V010_CLEAN_GEAR_PROTECTED.png",
+      "bytes": 133198,
+      "sha256": "91dfaf8d9cb157e8de1cf49108845cac1a817c85fa14e00a997f459209d4abf3"
+    },
+    {
+      "path": "current_v010/B24_V010_CLEAN_NACELLE_DIAGNOSTIC.png",
+      "bytes": 143728,
+      "sha256": "6b717792714ca7b9bd16797cbb1916a5a4089713fc9321618dda42cf341b4e44"
+    },
+    {
+      "path": "current_v010/B24_V010_CLEAN_NACELLE_SERVICE.png",
+      "bytes": 130254,
+      "sha256": "e87d51fa6016ba757fbe3b3f8bd656e65133534ef0719264c09f0dfccc449b6d"
+    },
+    {
+      "path": "current_v010/B24_V010_DELIVERY_RECEIPT.json",
+      "bytes": 2543,
+      "sha256": "40ea2d5be12a1e8d8223243883713a67c682547f80fd5bbd5c8dfad9d22a1ae0"
+    },
+    {
+      "path": "current_v010/B24_V010_FULL_AIRCRAFT_SERVICE.png",
+      "bytes": 108960,
+      "sha256": "c491f82b536c86bc93bb8973a1176aecc23d89af739a6048332f3be39ebcf9e0"
+    },
+    {
+      "path": "current_v010/B24_V010_GEAR_PROTECTED_DIAGNOSTIC.png",
+      "bytes": 79526,
+      "sha256": "fb5f7127f1fe245565351c540e23b6dd228b126a60ca747bb2f3ee5dda74e5b4"
+    },
+    {
+      "path": "current_v010/B24_V010_IMPLEMENTATION_NOTES.md",
+      "bytes": 2411,
+      "sha256": "05bfd303a065a3f21336632cd800b1e209708a1eeb861f3ba05246e30cf3bf97"
+    },
+    {
+      "path": "current_v010/B24_V010_NACELLE_RIDGED_DIAGNOSTIC.png",
+      "bytes": 161418,
+      "sha256": "15568dfde78a08a0870fd5926d8df8e2a74f8dc40d2c51cbf3656522ba54421d"
+    },
+    {
+      "path": "current_v010/B24_V010_NACELLE_RIDGED_OFF.png",
+      "bytes": 152504,
+      "sha256": "6c9b603aafa676628a9f29dc90bb1269a1d941fbdc38955dea39327be0dd6edc"
+    },
+    {
+      "path": "current_v010/B24_V010_NACELLE_RIDGED_SERVICE.png",
+      "bytes": 154770,
+      "sha256": "e6e89e6128feefca62033b55f8cf4420d334f8d342b4d06a40c83a2459ee701e"
+    },
+    {
+      "path": "current_v010/B24_V010_PIXEL_DIFF.json",
+      "bytes": 1212,
+      "sha256": "654d5e533ba8e003e3d084f5ff734bd4059cc572a314dad2e581c77ec40aefcc"
+    },
+    {
+      "path": "current_v010/B24_V010_PROPELLER_LOCAL_Y_REGRESSION.png",
+      "bytes": 151910,
+      "sha256": "b25a8f4cc77c3c1ff0b76807bbab4a41e78611dbeb3a5f03fc158ac22ce7f7ed"
+    },
+    {
+      "path": "current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_DELIVERY_2026-08-29.zip",
+      "bytes": 11612227,
+      "sha256": "980081d1e4a36edf60f705a1ab71adb250681f1e4d3e9bde95657edb3a437f1c"
+    },
+    {
+      "path": "current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html",
+      "bytes": 12550988,
+      "sha256": "1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949"
+    },
+    {
+      "path": "current_v010/B24_V010_RIDGED_PATCH.js",
+      "bytes": 23877,
+      "sha256": "a103e7b066e5d61d639e3c06c7e6b6bae0428c458656f5133c11a139dd276344"
+    },
+    {
+      "path": "current_v010/B24_V010_VISUAL_REVIEW_BOARD.html",
+      "bytes": 965311,
+      "sha256": "e18bc50c3f4c2b216f6c71ea1ff67fd9c38d6ac2f70b61e01f1c8e3164838974"
+    },
+    {
+      "path": "current_v010/qa_b24_v010_browser.py",
+      "bytes": 12927,
+      "sha256": "afc401bb981772a7000d5f71809d8bd0571228bbc4126b96594557cc2307ca35"
+    },
+    {
+      "path": "external_references/IMG2THREEJS_REFERENCE_POINTER.md",
+      "bytes": 506,
+      "sha256": "db067ff06c9736a78730ce0b7e7a870efee6db5faba54ffa548bac6e3a00361e"
+    },
+    {
+      "path": "github_status/PR14_POINTERS.md",
+      "bytes": 240,
+      "sha256": "33ea15667602761f3b386b5d9232eb6b56d3afe26cb0fb735972d7a5ee03cb1d"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29/B24_NOISE_SURFACE_RECIPE_V002.json",
+      "bytes": 3892,
+      "sha256": "c63c566ea82857b82a8916889c6b5b7889624d94834aa98bad2bac02fdd468b0"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29/CROSS_PIPELINE_HANDOFF_XIAOWANG_XIAOLI_V002.md",
+      "bytes": 1678,
+      "sha256": "dcaa8400b1cc9f566084a1232ce9a740d196d52f0dbb3d79f4136de3dc72c264"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29/MANIFEST.json",
+      "bytes": 1433,
+      "sha256": "e29fe4a2c3b52b263f6e3f1a5474b10fe8a39df09c340e04398a2d5b7a2c8f3b"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29/NOISE_CATALOG_V002.json",
+      "bytes": 34257,
+      "sha256": "1f03cc82bdc61d6b7f386dd699245780682fa756bea30f0b7d8eabbaefee523a"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29/NOISE_ENTRY_SCHEMA_V002.json",
+      "bytes": 2061,
+      "sha256": "43feaaf7ae4714f23c2e61c5aab7a3eec08ac360ed06eeded310927eb267b4d5"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29/NOISE_KNOWLEDGE_MASTER_V002.md",
+      "bytes": 4603,
+      "sha256": "7a540e8c4471e19a6149c3b3051928598e5ac14a7d1fa34cc4e2c2ad5a5ee6d1"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29/README_FIRST.md",
+      "bytes": 1146,
+      "sha256": "366813238412de9e9d36ea98f9690ff285ef9efeaeaf7d120318933323a76a9e"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29/SHA256SUMS.txt",
+      "bytes": 830,
+      "sha256": "2147d9c2775778e3c5a85d63f61186ecd78bb5ef54915643d083a01c69d1165c"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29/SOURCE_REFERENCES.md",
+      "bytes": 1218,
+      "sha256": "d5aed94ec96519d592efb3d9f4a34f563e1f7264f0bcf88f1cfb238f8fe079b6"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29/SOURCE_STATUS.json",
+      "bytes": 4009,
+      "sha256": "05b364d0bbfe9db47c5fa91aab62bcf78dbae15b9fd62d06fc43d32841bfde45"
+    },
+    {
+      "path": "noise_knowledge/NOISE_KNOWLEDGE_DISTILLATION_V002_2026-08-29.zip",
+      "bytes": 17839,
+      "sha256": "dcae2d168d521c6f23d3abc87d14dbdd4d8379e8f624b84e189d371f14738996"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "haihao.aircraft/assembly-graph@1.0.0",
+  "master_id": "B24J_CO_DATA_NATIVE_MASTER",
+  "node_count": 31,
+  "root_component_id": "aircraft.root",
+  "status": "thin-whole-aircraft-skeleton",
+  "interface_policy": {
+    "stable_component_ids": true,
+    "parent_interface_required": true,
+    "unknown_geometry_state": "pending_source",
+    "runtime_mesh_merging_allowed": true,
+    "semantic_identity_must_survive_runtime_merging": true
+  },
+  "nodes": [
+    {"component_id":"aircraft.root","parent":null,"role":"aircraft_root","replacement_state":"native-root"},
+    {"component_id":"aircraft.reference-system","parent":"aircraft.root","role":"datum_and_coordinate_reference","replacement_state":"pending-source-datum"},
+    {"component_id":"fuselage.assembly","parent":"aircraft.root","role":"primary_structure_assembly","replacement_state":"distill-then-rebuild"},
+    {"component_id":"fuselage.nose","parent":"fuselage.assembly","role":"fixed_airframe_section","replacement_state":"high-priority-native-recipe"},
+    {"component_id":"fuselage.forward","parent":"fuselage.assembly","role":"fixed_airframe_section","replacement_state":"native-recipe-planned"},
+    {"component_id":"fuselage.center","parent":"fuselage.assembly","role":"fixed_airframe_section","replacement_state":"native-recipe-planned"},
+    {"component_id":"fuselage.bomb-bay","parent":"fuselage.assembly","role":"fixed_and_movable_payload_section","replacement_state":"high-priority-native-system"},
+    {"component_id":"fuselage.aft","parent":"fuselage.assembly","role":"fixed_airframe_section","replacement_state":"native-recipe-planned"},
+    {"component_id":"fuselage.tail-cone","parent":"fuselage.assembly","role":"fixed_airframe_section","replacement_state":"native-recipe-planned"},
+    {"component_id":"wing.assembly","parent":"aircraft.root","role":"lifting_surface_assembly","replacement_state":"distill-then-rebuild"},
+    {"component_id":"wing.center","parent":"wing.assembly","role":"center_wing_structure","replacement_state":"native-recipe-planned"},
+    {"component_id":"wing.left.inner","parent":"wing.assembly","role":"left_inner_wing_and_flap_owner","replacement_state":"native-recipe-planned"},
+    {"component_id":"wing.left.outer","parent":"wing.assembly","role":"left_outer_wing_and_aileron_owner","replacement_state":"native-recipe-planned"},
+    {"component_id":"wing.right.inner","parent":"wing.assembly","role":"right_inner_wing_and_flap_owner","replacement_state":"native-recipe-planned"},
+    {"component_id":"wing.right.outer","parent":"wing.assembly","role":"right_outer_wing_and_aileron_owner","replacement_state":"native-recipe-planned"},
+    {"component_id":"empennage.assembly","parent":"aircraft.root","role":"tail_assembly","replacement_state":"pilot-in-progress"},
+    {"component_id":"empennage.horizontal.center","parent":"empennage.assembly","role":"horizontal_tail_center_structure","replacement_state":"native-recipe-planned"},
+    {"component_id":"empennage.horizontal.left.stabilizer","parent":"empennage.assembly","role":"fixed_surface","replacement_state":"native-recipe-planned"},
+    {"component_id":"empennage.horizontal.left.elevator","parent":"empennage.horizontal.left.stabilizer","role":"movable_control_surface","replacement_state":"native-behavior-planned"},
+    {"component_id":"empennage.horizontal.right.stabilizer","parent":"empennage.assembly","role":"fixed_surface","replacement_state":"native-recipe-planned"},
+    {"component_id":"empennage.horizontal.right.elevator","parent":"empennage.horizontal.right.stabilizer","role":"movable_control_surface","replacement_state":"native-behavior-planned"},
+    {"component_id":"empennage.vertical.left.stabilizer","parent":"empennage.assembly","role":"fixed_surface","replacement_state":"first-component-pilot"},
+    {"component_id":"empennage.vertical.left.rudder","parent":"empennage.vertical.left.stabilizer","role":"movable_control_surface","replacement_state":"first-component-pilot"},
+    {"component_id":"empennage.vertical.right.stabilizer","parent":"empennage.assembly","role":"fixed_surface","replacement_state":"first-component-pilot"},
+    {"component_id":"empennage.vertical.right.rudder","parent":"empennage.vertical.right.stabilizer","role":"movable_control_surface","replacement_state":"first-component-pilot"},
+    {"component_id":"propulsion.assembly","parent":"aircraft.root","role":"four_engine_propulsion_system","replacement_state":"distill-animation-and-rebuild"},
+    {"component_id":"landing-gear.assembly","parent":"aircraft.root","role":"retractable_landing_gear_system","replacement_state":"distill-animation-and-rebuild"},
+    {"component_id":"armament.assembly","parent":"aircraft.root","role":"turrets_guns_and_mounts","replacement_state":"replace-first"},
+    {"component_id":"payload.assembly","parent":"aircraft.root","role":"bomb_racks_and_releasable_payload","replacement_state":"replace-first"},
+    {"component_id":"crew.assembly","parent":"aircraft.root","role":"crew_entities_seats_and_exit_paths","replacement_state":"replace-first"},
+    {"component_id":"exterior-systems.assembly","parent":"aircraft.root","role":"glazing_antennas_lights_panels_and_fairings","replacement_state":"later-native-rebuild"}
+  ],
+  "qa": {
+    "component_ids_unique": true,
+    "all_non_root_parents_resolve": true,
+    "node_count_verified": true,
+    "assemblyGraphApproved": false
+  }
+}

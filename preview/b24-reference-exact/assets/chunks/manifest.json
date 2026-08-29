@@ -1,0 +1,96 @@
+{
+  "schema": "haihao.aircraft/reference-glb-chunks@1.0.0",
+  "file": "b-24_liberator.glb",
+  "bytes": 23085972,
+  "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+  "chunk_size": 2097152,
+  "chunk_count": 12,
+  "encoding": "raw-binary",
+  "assembly_order": "ascending index",
+  "chunks": [
+    {
+      "index": 0,
+      "file": "b24-reference.part-000.bin",
+      "offset": 0,
+      "bytes": 2097152,
+      "sha256": "5dce5becafd3544e228662f7f33cf98319c27855786418bb240417681b48cdf6"
+    },
+    {
+      "index": 1,
+      "file": "b24-reference.part-001.bin",
+      "offset": 2097152,
+      "bytes": 2097152,
+      "sha256": "a3109fe05ca34eb005072626363c6b8e86e61fdd92c3cf29f4ec8bfd8a6e9dc8"
+    },
+    {
+      "index": 2,
+      "file": "b24-reference.part-002.bin",
+      "offset": 4194304,
+      "bytes": 2097152,
+      "sha256": "73b5263a0be00e00210715db36fe71da01b88d2fd86c5a8313dcdb39df2b7415"
+    },
+    {
+      "index": 3,
+      "file": "b24-reference.part-003.bin",
+      "offset": 6291456,
+      "bytes": 2097152,
+      "sha256": "4a8178103822ad57f26e69ee726a560a82c3b9e26ed21f2f3daaf07a39eac1af"
+    },
+    {
+      "index": 4,
+      "file": "b24-reference.part-004.bin",
+      "offset": 8388608,
+      "bytes": 2097152,
+      "sha256": "c38754b5234fc0bba53a594587f5227c848cf2f02025311ab5689ce531c9cba8"
+    },
+    {
+      "index": 5,
+      "file": "b24-reference.part-005.bin",
+      "offset": 10485760,
+      "bytes": 2097152,
+      "sha256": "e254df452257532ba9f06cf7e574e4c7983b782cf4f6d19c59470a7a597a3743"
+    },
+    {
+      "index": 6,
+      "file": "b24-reference.part-006.bin",
+      "offset": 12582912,
+      "bytes": 2097152,
+      "sha256": "1eb04687408042a35b8b8bfca5a32c3055d903f70ac3098dcd01f838117c3ebc"
+    },
+    {
+      "index": 7,
+      "file": "b24-reference.part-007.bin",
+      "offset": 14680064,
+      "bytes": 2097152,
+      "sha256": "25d7a46f49940624c83d830a2c4dfa1b877ec288836042cdc42bc13d863bc5a6"
+    },
+    {
+      "index": 8,
+      "file": "b24-reference.part-008.bin",
+      "offset": 16777216,
+      "bytes": 2097152,
+      "sha256": "9b8f425eb2500f7c67fe3b721bfe92d6ca79f7c500efa062563bb6499303d09b"
+    },
+    {
+      "index": 9,
+      "file": "b24-reference.part-009.bin",
+      "offset": 18874368,
+      "bytes": 2097152,
+      "sha256": "ce204ff6231dbe56a1679e83541f2376cd769a6eb26cf9ca5ca477f5533d0605"
+    },
+    {
+      "index": 10,
+      "file": "b24-reference.part-010.bin",
+      "offset": 20971520,
+      "bytes": 2097152,
+      "sha256": "410655f98a8bb7a3064cc35e4573aa8e261942695a8763f9201ca1023d2a29e5"
+    },
+    {
+      "index": 11,
+      "file": "b24-reference.part-011.bin",
+      "offset": 23068672,
+      "bytes": 17300,
+      "sha256": "830a3fd8800d4ef4077b240f29e6b4f9391497e836222fb6471b8b7614cc41c7"
+    }
+  ]
+}

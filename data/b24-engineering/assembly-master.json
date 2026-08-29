@@ -1,0 +1,194 @@
+{
+  "schemaVersion": "1.0.0",
+  "aircraftMasterId": "B24J_CO_ENGINEERING_MASTER",
+  "aircraftFamily": "Consolidated B24 Liberator",
+  "primaryVariantLane": "B24J_CO",
+  "status": "modular-assembly-scaffold",
+  "engineeringMasterApproved": false,
+  "createdAt": "2026-08-26",
+  "units": {
+    "length": "millimetre",
+    "angle": "degree"
+  },
+  "engineeringFrame": {
+    "frameId": "AIRCRAFT_ENGINEERING_FRAME",
+    "handedness": "right-handed",
+    "axes": {
+      "x": "longitudinal_positive_toward_nose",
+      "y": "lateral_positive_toward_starboard",
+      "z": "vertical_positive_up"
+    },
+    "origin": {
+      "status": "provisional",
+      "definition": "pending manufacturer general arrangement, station and datum evidence",
+      "coordinates": null,
+      "sourceIds": []
+    },
+    "stationSystem": {
+      "status": "pending_source",
+      "fuselageStations": [],
+      "buttockLines": [],
+      "waterLines": []
+    }
+  },
+  "threeJsFrameMapping": {
+    "threeX": "engineeringY",
+    "threeY": "engineeringZ",
+    "threeZ": "engineeringX",
+    "policy": "all exporters use one shared transform; component code cannot redefine axes"
+  },
+  "assemblyPolicy": {
+    "stableComponentIdsRequired": true,
+    "explicitParentRequired": true,
+    "explicitInterfacesRequired": true,
+    "unknownValuesUse": "pending_source",
+    "silentMirroringAllowed": false,
+    "runtimeMeshMayMerge": true,
+    "runtimeMergeMustPreserveComponentMap": true,
+    "visualProxyMayOverrideEngineeringCad": false,
+    "engineeringDataRequiresSourceTrace": true
+  },
+  "assemblyTree": {
+    "componentId": "aircraft.root",
+    "children": [
+      {
+        "componentId": "reference-system",
+        "children": []
+      },
+      {
+        "componentId": "fuselage-assembly",
+        "children": [
+          "nose-assembly",
+          "forward-fuselage",
+          "center-fuselage",
+          "bomb-bay-assembly",
+          "aft-fuselage",
+          "tail-cone"
+        ]
+      },
+      {
+        "componentId": "wing-assembly",
+        "children": [
+          "center-wing",
+          "left-inner-wing",
+          "left-outer-wing",
+          "right-inner-wing",
+          "right-outer-wing",
+          "flaps",
+          "ailerons"
+        ]
+      },
+      {
+        "componentId": "empennage-assembly",
+        "children": [
+          "horizontal-tail-center",
+          "left-horizontal-stabilizer",
+          "left-elevator",
+          "right-horizontal-stabilizer",
+          "right-elevator",
+          "vertical-tail-assembly"
+        ]
+      },
+      {
+        "componentId": "propulsion-assembly",
+        "children": [
+          "engine-1",
+          "engine-2",
+          "engine-3",
+          "engine-4",
+          "nacelles",
+          "propellers"
+        ]
+      },
+      {
+        "componentId": "landing-gear-assembly",
+        "children": []
+      },
+      {
+        "componentId": "turret-and-armament-assembly",
+        "children": []
+      },
+      {
+        "componentId": "glazing-and-openings",
+        "children": []
+      },
+      {
+        "componentId": "exterior-panels-and-fairings",
+        "children": []
+      },
+      {
+        "componentId": "systems-reference",
+        "children": []
+      },
+      {
+        "componentId": "livery-surface-map",
+        "children": []
+      }
+    ]
+  },
+  "componentContractRequiredFields": [
+    "component_id",
+    "display_name",
+    "parent_component_id",
+    "role",
+    "side",
+    "variant_applicability",
+    "source_refs",
+    "local_frame",
+    "interfaces",
+    "engineering_assets",
+    "visual_proxy_assets",
+    "runtime_assets",
+    "livery_surfaces",
+    "unknowns",
+    "qa_state"
+  ],
+  "toolRoles": {
+    "img2threejs": {
+      "evidenceGrade": "E_visual_only",
+      "allowed": [
+        "component_decomposition",
+        "procedural_threejs_proxy",
+        "runtime_hierarchy_experiment",
+        "silhouette_comparison",
+        "browser_visual_qa",
+        "attachment_and_intersection_checks"
+      ],
+      "prohibited": [
+        "engineering_dimension_authority",
+        "tolerance_authority",
+        "material_specification_authority",
+        "variant_applicability_authority",
+        "manufacturing_release"
+      ]
+    },
+    "parametricCad": {
+      "preferredOutputs": [
+        "source_parameters",
+        "CadQuery_or_FreeCAD_source",
+        "STEP",
+        "projection_QA"
+      ],
+      "approvalRequires": [
+        "A_or_B_level_sources",
+        "dimension_traceability",
+        "variant_review",
+        "interface_review"
+      ]
+    }
+  },
+  "pilot": {
+    "pilotId": "B24-PILOT-001-VERTICAL-TAIL",
+    "componentManifest": "data/b24-engineering/components/vertical-tail.json",
+    "task": "TASK_010_B24_MODULAR_ASSEMBLY_AND_VERTICAL_TAIL_PILOT.md",
+    "status": "prepared-awaiting-source-intake"
+  },
+  "wholeAircraftReleaseGates": {
+    "allRequiredComponentsApproved": false,
+    "allInterfacesApproved": false,
+    "wholeAircraftProjectionQaPassed": false,
+    "wholeAircraftMotionQaPassed": false,
+    "wholeAircraftLiveryMappingPassed": false,
+    "sourceAndVariantAuditPassed": false
+  }
+}

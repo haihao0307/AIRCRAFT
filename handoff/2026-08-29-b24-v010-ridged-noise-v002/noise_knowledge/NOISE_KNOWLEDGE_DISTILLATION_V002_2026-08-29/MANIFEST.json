@@ -1,0 +1,46 @@
+{
+  "schema": "haihao.package/noise-knowledge-v002-manifest@1.0.0",
+  "generatedAt": "2026-08-29T03:54:11.417764+00:00",
+  "files": [
+    {
+      "path": "B24_NOISE_SURFACE_RECIPE_V002.json",
+      "bytes": 3892,
+      "sha256": "c63c566ea82857b82a8916889c6b5b7889624d94834aa98bad2bac02fdd468b0"
+    },
+    {
+      "path": "CROSS_PIPELINE_HANDOFF_XIAOWANG_XIAOLI_V002.md",
+      "bytes": 1678,
+      "sha256": "dcaa8400b1cc9f566084a1232ce9a740d196d52f0dbb3d79f4136de3dc72c264"
+    },
+    {
+      "path": "NOISE_CATALOG_V002.json",
+      "bytes": 34257,
+      "sha256": "1f03cc82bdc61d6b7f386dd699245780682fa756bea30f0b7d8eabbaefee523a"
+    },
+    {
+      "path": "NOISE_ENTRY_SCHEMA_V002.json",
+      "bytes": 2061,
+      "sha256": "43feaaf7ae4714f23c2e61c5aab7a3eec08ac360ed06eeded310927eb267b4d5"
+    },
+    {
+      "path": "NOISE_KNOWLEDGE_MASTER_V002.md",
+      "bytes": 4603,
+      "sha256": "7a540e8c4471e19a6149c3b3051928598e5ac14a7d1fa34cc4e2c2ad5a5ee6d1"
+    },
+    {
+      "path": "README_FIRST.md",
+      "bytes": 1146,
+      "sha256": "366813238412de9e9d36ea98f9690ff285ef9efeaeaf7d120318933323a76a9e"
+    },
+    {
+      "path": "SOURCE_REFERENCES.md",
+      "bytes": 1218,
+      "sha256": "d5aed94ec96519d592efb3d9f4a34f563e1f7264f0bcf88f1cfb238f8fe079b6"
+    },
+    {
+      "path": "SOURCE_STATUS.json",
+      "bytes": 4009,
+      "sha256": "05b364d0bbfe9db47c5fa91aab62bcf78dbae15b9fd62d06fc43d32841bfde45"
+    }
+  ]
+}

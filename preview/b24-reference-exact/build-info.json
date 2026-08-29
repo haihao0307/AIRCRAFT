@@ -1,0 +1,21 @@
+{
+  "branch": "research/b24-engineering-drawings-cad-v1",
+  "source_workflow_commit": "6e25f8440a87b4b16849a668e3eefdae726ade76",
+  "built_at": "2026-08-27T02:00:37.247797+00:00",
+  "model_delivery": {
+    "method": "same-origin immutable raw-binary chunks",
+    "chunk_count": 12,
+    "chunk_size": 2097152,
+    "manifest": "./assets/chunks/manifest.json"
+  },
+  "source_model": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "approval": {
+    "visual_parity_approved": false,
+    "animation_semantics_approved": false,
+    "native_geometry_replacement_approved": false
+  }
+}

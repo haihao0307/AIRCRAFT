@@ -1,0 +1,74 @@
+{
+  "schema": "haihao.aircraft/source-conflict-ledger@1.0.0",
+  "ledger_id": "B24J_CO_VERTICAL_TAIL_SOURCE_CONFLICTS",
+  "component_id": "vertical-tail-assembly",
+  "updated_at": "2026-08-27",
+  "policy": {
+    "automatic_resolution": false,
+    "preferred_source_without_context": false,
+    "geometry_promotion_while_blocking_conflict_open": false,
+    "required_resolution_evidence": [
+      "source revision and date",
+      "variant and configuration applicability",
+      "field-definition equivalence",
+      "complete page or title-block context",
+      "independent higher-authority cross-check"
+    ]
+  },
+  "conflicts": [
+    {
+      "conflict_id": "B24-VTAIL-CONFLICT-001",
+      "field": "vertical_tail_area_total_sq_ft",
+      "status": "unresolved",
+      "severity": "blocking",
+      "values": [
+        {
+          "source_id": "B24-ENG-S002",
+          "source_title": "B-24 Model 32 General Arrangement",
+          "value": 181.2,
+          "unit": "sq_ft",
+          "context": "visible area table candidate",
+          "source_applicability": "Model 32; B24J-CO unresolved",
+          "revision": null,
+          "approved": false
+        },
+        {
+          "source_id": "B24-ENG-S016",
+          "source_title": "AN 01-5E-3 page ix B-24J three-view",
+          "value": 188,
+          "unit": "sq_ft",
+          "context": "visible AREAS summary for B-24J illustration with nose and ball turrets",
+          "source_applicability": "B-24J configuration-qualified illustration",
+          "revision": null,
+          "approved": false
+        }
+      ],
+      "unapproved_explanations": [
+        "variant or configuration difference",
+        "manual or drawing revision difference",
+        "different inclusion of rudder balance or tab area",
+        "different total-area definition",
+        "scan transcription error"
+      ],
+      "blocked_outputs": [
+        "area-derived fin scaling",
+        "area-derived rudder scaling",
+        "vertical-tail GeometryRecipe approval",
+        "B24J-CO variant applicability approval"
+      ],
+      "resolution_actions": [
+        "recover and inspect complete AN 01-5E-3 page ix context and revision information",
+        "resolve S002 drawing-number, revision, date and B24J-CO applicability",
+        "compare exact area-table definitions in structural and parts manuals",
+        "seek a second official B-24J source that states vertical-tail area"
+      ],
+      "resolution": null,
+      "approval": false
+    }
+  ],
+  "approval": {
+    "conflictLedgerCompleteForCurrentSources": true,
+    "allBlockingConflictsResolved": false,
+    "verticalTailGeometryPromotionAllowed": false
+  }
+}

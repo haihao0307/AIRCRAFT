@@ -1,0 +1,77 @@
+name: Validate B24 V009 runtime production foundation
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'data/b24-native/runtime/b24-v009-runtime-contract.json'
+      - 'preview/b24-data-native-v009/**'
+      - 'scripts/validate-b24-v009-runtime.mjs'
+      - '.github/workflows/validate-b24-v009-runtime.yml'
+      - 'reports/b24-native/B24_V009_RUNTIME_PRODUCTION_REPORT.md'
+  pull_request:
+    paths:
+      - 'data/b24-native/runtime/b24-v009-runtime-contract.json'
+      - 'preview/b24-data-native-v009/**'
+      - 'scripts/validate-b24-v009-runtime.mjs'
+      - '.github/workflows/validate-b24-v009-runtime.yml'
+      - 'reports/b24-native/B24_V009_RUNTIME_PRODUCTION_REPORT.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-runtime-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate V009 runtime contract and implementation
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/validate-b24-v009-runtime.mjs | tee b24-v009-validation.log
+
+      - name: Verify browser module syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check preview/b24-data-native-v009/app.js | tee b24-v009-node-check.log
+
+      - name: Upload validation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: b24-v009-runtime-static-evidence-${{ github.sha }}
+          path: |
+            reports/b24-native/generated/b24-v009-static-validation.json
+            b24-v009-validation.log
+            b24-v009-node-check.log
+            data/b24-native/runtime/b24-v009-runtime-contract.json
+            preview/b24-data-native-v009/index.html
+            preview/b24-data-native-v009/styles.css
+            preview/b24-data-native-v009/app.js
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Write job summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo '## B24 V009 runtime production foundation'
+            echo
+            echo "Commit: $GITHUB_SHA"
+            echo
+            echo 'Static runtime contract validation: PASS'
+            echo
+            echo 'Browser module syntax: PASS'
+            echo
+            echo 'This workflow does not grant browser visual, historical audio, engineering RPM, surface-system or aircraft-data-master approval.'
+          } >> "$GITHUB_STEP_SUMMARY"

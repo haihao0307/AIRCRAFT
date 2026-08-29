@@ -1,0 +1,60 @@
+{
+  "schema": "haihao.aircraft/engineering-source-intake-config@1.0.0",
+  "intake_id": "B24_VERTICAL_TAIL_PRIORITY_SOURCE_INTAKE_001",
+  "purpose": "Acquire and inspect the first manufacturer drawing sources needed for the B24J-CO twin vertical-tail GeometryRecipe.",
+  "binary_commit_policy": "artifact-only-until-rights-and-applicability-review",
+  "sources": [
+    {
+      "source_id": "B24-ENG-S002",
+      "title": "B-24 Model 32 General Arrangement",
+      "drawing_numbers": [
+        "D-1840",
+        "RD-6894"
+      ],
+      "requested_url": "https://archive.org/download/b-24-production-and-construction-analysis/D-1840%2C%20RD-6894%20B-24%20Model%2032%20General%20Arrangement.pdf",
+      "output_filename": "B24-ENG-S002_D-1840_RD-6894_Model-32_General-Arrangement.pdf",
+      "minimum_bytes": 1000000,
+      "expected_media_type": "application/pdf",
+      "authority_level": "A",
+      "variant_applicability": "pending-title-block-review",
+      "rights_status": "review-required",
+      "required_observations": [
+        "drawing number",
+        "revision",
+        "sheet scale",
+        "overall dimensions",
+        "aircraft datum",
+        "tail installation relationship",
+        "scan distortion"
+      ]
+    },
+    {
+      "source_id": "B24-ENG-S003",
+      "title": "B-24 3-views, wing and undercarriage details",
+      "drawing_numbers": [],
+      "requested_url": "https://archive.org/download/b-24-production-and-construction-analysis/B-24%203-views%2C%20wing%20and%20undercarriage%20details.pdf",
+      "output_filename": "B24-ENG-S003_Three-Views_Wing_Undercarriage.pdf",
+      "minimum_bytes": 300000,
+      "expected_media_type": "application/pdf",
+      "authority_level": "A-pending-sheet-authority-review",
+      "variant_applicability": "pending-sheet-review",
+      "rights_status": "review-required",
+      "required_observations": [
+        "author or drawing authority",
+        "drawing number",
+        "revision",
+        "sheet scale",
+        "view alignment",
+        "vertical-tail outline",
+        "scan distortion"
+      ]
+    }
+  ],
+  "approval": {
+    "downloadsApproved": false,
+    "rightsApprovedForRepositoryCommit": false,
+    "titleBlocksApproved": false,
+    "variantApplicabilityApproved": false,
+    "drawingCalibrationApproved": false
+  }
+}

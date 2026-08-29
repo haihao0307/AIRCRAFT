@@ -1,0 +1,66 @@
+name: Validate B24 strict reference mirror
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'TASK_012_B24_REFERENCE_FULL_MIRROR_AND_ANIMATION_DISTILLATION.md'
+      - 'data/b24-native/reference-mirror-contract.json'
+      - 'docs/aircraft-pipeline/B24_REFERENCE_FULL_MIRROR.md'
+      - 'docs/aircraft-pipeline/B24_NATIVE_INDEX.md'
+      - 'scripts/extract-b24-reference-full-mirror.mjs'
+      - 'scripts/validate-b24-reference-full-mirror.mjs'
+      - '.github/workflows/b24-reference-full-mirror.yml'
+      - 'package.json'
+  pull_request:
+    paths:
+      - 'data/b24-native/reference-mirror-contract.json'
+      - 'scripts/extract-b24-reference-full-mirror.mjs'
+      - 'scripts/validate-b24-reference-full-mirror.mjs'
+      - '.github/workflows/b24-reference-full-mirror.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: b24-reference-full-mirror-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  full-mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate the fail-closed mirror contract
+        run: node scripts/validate-b24-reference-full-mirror.mjs
+      - name: Download and verify the locked reference GLB
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 5 --retry-all-errors --retry-delay 2 \
+            --output "$RUNNER_TEMP/b-24_liberator.glb" \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb
+          test "$(stat --format=%s "$RUNNER_TEMP/b-24_liberator.glb")" = "23085972"
+          echo "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d  $RUNNER_TEMP/b-24_liberator.glb" | sha256sum --check
+      - name: Extract the container-independent full mirror
+        run: |
+          node scripts/extract-b24-reference-full-mirror.mjs \
+            --glb "$RUNNER_TEMP/b-24_liberator.glb" \
+            --out-dir reports/b24-reference-full-mirror
+      - name: Independently validate every mirror block and contract
+        run: |
+          node scripts/validate-b24-reference-full-mirror.mjs \
+            --mirror-dir reports/b24-reference-full-mirror
+      - name: Upload exact mirror evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: b24-reference-full-mirror-${{ github.sha }}-${{ github.run_attempt }}
+          path: reports/b24-reference-full-mirror
+          if-no-files-found: error
+          retention-days: 30

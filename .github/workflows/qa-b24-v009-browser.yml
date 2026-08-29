@@ -1,0 +1,123 @@
+name: QA B24 V009 browser runtime
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'data/b24-native/runtime/b24-v009-runtime-contract.json'
+      - 'preview/b24-data-native-v009/**'
+      - 'scripts/qa-b24-v009-browser.mjs'
+      - 'scripts/validate-b24-v009-runtime.mjs'
+      - '.github/workflows/qa-b24-v009-browser.yml'
+  pull_request:
+    paths:
+      - 'data/b24-native/runtime/b24-v009-runtime-contract.json'
+      - 'preview/b24-data-native-v009/**'
+      - 'scripts/qa-b24-v009-browser.mjs'
+      - 'scripts/validate-b24-v009-runtime.mjs'
+      - '.github/workflows/qa-b24-v009-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locked-glb-browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install pinned browser QA dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock playwright@1.55.0 three@0.180.0
+          npx playwright install --with-deps chromium
+
+      - name: Download and verify locked B24 reference
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public
+          curl --fail --location --retry 5 --retry-all-errors --retry-delay 2 \
+            --output public/b-24_liberator.glb \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb
+          test "$(stat --format=%s public/b-24_liberator.glb)" = "23085972"
+          echo "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d  public/b-24_liberator.glb" | sha256sum --check
+
+      - name: Run fail-closed static validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/validate-b24-v009-runtime.mjs | tee b24-v009-static-validation.log
+
+      - name: Start local production preview
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8765 --bind 127.0.0.1 > b24-v009-http.log 2>&1 &
+          echo $! > b24-v009-http.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8765/preview/b24-data-native-v009/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat b24-v009-http.log
+          exit 1
+
+      - name: Run real Chromium functional QA and capture views
+        shell: bash
+        env:
+          B24_V009_BASE_URL: http://127.0.0.1:8765/preview/b24-data-native-v009/
+          B24_V009_EVIDENCE_DIR: reports/b24-native/generated/v009-browser-evidence
+        run: |
+          set -euo pipefail
+          node scripts/qa-b24-v009-browser.mjs | tee b24-v009-browser-qa.log
+
+      - name: Stop local preview
+        if: always()
+        shell: bash
+        run: |
+          if [ -f b24-v009-http.pid ]; then
+            kill "$(cat b24-v009-http.pid)" 2>/dev/null || true
+          fi
+
+      - name: Upload V009 browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: b24-v009-browser-evidence-${{ github.sha }}
+          path: |
+            reports/b24-native/generated/v009-browser-evidence/**
+            reports/b24-native/generated/b24-v009-static-validation.json
+            b24-v009-static-validation.log
+            b24-v009-browser-qa.log
+            b24-v009-http.log
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Write browser QA summary
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo '## B24 V009 browser runtime QA'
+            echo
+            echo "Commit: $GITHUB_SHA"
+            echo
+            if [ -f reports/b24-native/generated/v009-browser-evidence/b24-v009-browser-qa.json ]; then
+              node -e "const r=require('./reports/b24-native/generated/v009-browser-evidence/b24-v009-browser-qa.json'); console.log('Functional browser status: ' + r.status.toUpperCase()); console.log('Checks: ' + r.totals.passed + '/' + r.totals.checks); console.log('Screenshots: ' + r.totals.screenshots);"
+            else
+              echo 'Functional browser status: NO REPORT'
+            fi
+            echo
+            echo 'This run does not grant human visual-quality, historical-audio, engineering-RPM, surface-system or aircraft-data-master approval.'
+          } >> "$GITHUB_STEP_SUMMARY"

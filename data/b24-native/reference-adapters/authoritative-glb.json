@@ -1,0 +1,74 @@
+{
+  "schema": "haihao.aircraft/reference-adapter@1.0.0",
+  "adapter_id": "B24-REFERENCE-GLB-ADAPTER-001",
+  "adapter_type": "gltf-binary-reference-model",
+  "runtime_dependency": false,
+  "source": {
+    "file": "b-24_liberator.glb",
+    "release_tag": "80-days-source-v1",
+    "release_asset_url": "https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "license": "CC BY 4.0",
+    "author": "CreadorDeMu"
+  },
+  "locked_inventory": {
+    "nodes": 1784,
+    "meshes": 348,
+    "triangles": 325358,
+    "materials": 30,
+    "embedded_images": 18,
+    "animations": 1,
+    "animation_channels": 2518
+  },
+  "distillation": {
+    "script": "scripts/distill-b24-reference-glb.mjs",
+    "outputs": [
+      "reports/b24-native/reference-glb-distillation.json",
+      "reports/b24-native/reference-glb-node-index.json",
+      "reports/b24-native/reference-glb-animation-index.json",
+      "reports/b24-native/reference-glb-surface-index.json"
+    ],
+    "reproducibility": "GitHub Actions downloads the locked Release asset and runs the same script",
+    "binary_retention": "external Release asset only"
+  },
+  "preserve_as_reference": [
+    "whole-aircraft silhouette and rough proportions",
+    "node hierarchy and relative transforms",
+    "mesh world bounds",
+    "animation timing, ordering and transform ranges",
+    "existing material and UV assignments",
+    "landing gear, propeller, door and control-surface motion examples"
+  ],
+  "distill_then_replace": [
+    "fuselage geometry",
+    "wing geometry",
+    "tail geometry",
+    "engine nacelles and cowlings",
+    "landing gear mechanisms",
+    "control surfaces",
+    "animation clips",
+    "materials",
+    "UV coordinates"
+  ],
+  "replace_first": [
+    "turrets and gun mounts",
+    "gun barrels and elevation pivots",
+    "crew entities, seats and exit paths",
+    "bomb racks and payload constraints",
+    "public control API"
+  ],
+  "uv_assessment": {
+    "uv0_semantic": "TEXCOORD_0",
+    "uv1_semantic": "TEXCOORD_1",
+    "primitives_with_both_in_first_run": 299,
+    "relationship": "decoded arrays identical",
+    "independent_livery_uv_approved": false,
+    "required_replacement": "data/b24-native/surface-graph.json plus pluggable surface modules"
+  },
+  "approval": {
+    "adapterApprovedForReferenceUse": true,
+    "adapterApprovedAsNativeMaster": false,
+    "legacyUvApprovedForLivery": false
+  }
+}

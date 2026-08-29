@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "2.0.0",
+  "name": "B-24 external reconstruction method and tool register",
+  "toolEvidencePolicy": "External capability never increases historical or engineering authority. Active production uses repository-owned Aircraft Native Forge contracts, generators and validators.",
+  "tools": [
+    {
+      "tool_id": "B24-TOOL-001",
+      "name": "img2threejs",
+      "repository": "https://github.com/img2threejs/img2threejs",
+      "reviewed_commit": "441af85a96523569511154b6321859b79f3592f5",
+      "reviewed_version": "1.5.1",
+      "reviewed_at": "2026-08-27",
+      "license_status": "Apache-2.0 according to the reviewed repository; no source is currently copied into AIRCRAFT",
+      "classification": "external-method-study",
+      "lifecycle_status": "study-complete-active-integration-disabled",
+      "default_enabled": false,
+      "runtime_dependency": false,
+      "knowledge_retained": [
+        "staged production with explicit gates",
+        "component decomposition before generation",
+        "deterministic checks before browser review",
+        "multi-view browser inspection",
+        "explicit low-confidence and unresolved states",
+        "bounded correction loops",
+        "evidence-backed resumable state",
+        "stable pivots and sockets"
+      ],
+      "aircraft_adaptation": [
+        "manufacturer datums and stations",
+        "drawing revision and variant applicability",
+        "aerodynamic sections and planforms",
+        "detachable assembly interfaces",
+        "flight-control axes and limits",
+        "stable skin surface identities",
+        "historical side-specific markings",
+        "mission and damage states"
+      ],
+      "approved_use": [
+        "read-only architecture and method study"
+      ],
+      "prohibited_roles": [
+        "whole-aircraft analysis",
+        "component-boundary selection",
+        "hidden-geometry inference",
+        "production geometry generation",
+        "engineering dimensions",
+        "materials and tolerances",
+        "surface or UV approval",
+        "behavior definition",
+        "variant applicability",
+        "browser approval",
+        "runtime integration"
+      ],
+      "activation_policy": {
+        "mode": "explicit-user-instruction-and-isolated-task-only",
+        "default": "disabled",
+        "output_status": "external-experiment",
+        "automatic_promotion": false
+      },
+      "next_test": null
+    },
+    {
+      "tool_id": "B24-TOOL-002",
+      "name": "Ortho2CAD",
+      "repository": "https://github.com/AdityaJoglekar/Ortho2CAD",
+      "paper": "arXiv:2607.08891",
+      "reviewed_version": "main",
+      "reviewed_at": "2026-08-26",
+      "license_status": "repository license and model dependencies require review before any integration",
+      "classification": "optional-intermediate-verification-study",
+      "default_enabled": false,
+      "purpose": "Study translation of calibrated orthographic drawings into editable reconstruction candidates and projection checks.",
+      "approved_use": [
+        "method study",
+        "isolated candidate generation after source calibration",
+        "projection consistency testing"
+      ],
+      "prohibited_authority": [
+        "historical applicability",
+        "hidden geometry truth",
+        "materials and tolerances",
+        "automatic approval of geometry"
+      ],
+      "output_grade": "E_reconstruction_hypothesis",
+      "activation_policy": "explicit-task-approval-only"
+    }
+  ],
+  "sharedGates": [
+    "Input files have verified provenance and SHA-256.",
+    "Units, control dimensions and view conventions are explicit.",
+    "Hidden or inferred regions retain unresolved or low-confidence labels.",
+    "Tool version, parameters, prompts, seeds and parent sources are recorded.",
+    "Generated output cannot overwrite approved higher-authority data.",
+    "Repository-owned review is required before any result can enter a native component contract."
+  ]
+}

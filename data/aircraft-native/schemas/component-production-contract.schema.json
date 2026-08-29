@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://haihao.aircraft/schemas/component-production-contract.schema.json",
+  "title": "Aircraft Native Forge component production contract",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "work_package_id",
+    "component_id",
+    "family_master_id",
+    "status",
+    "identity",
+    "source_plan",
+    "reference_mapping",
+    "geometry_recipe",
+    "assembly_interfaces",
+    "surface_program",
+    "behavior_contract",
+    "qa",
+    "approval"
+  ],
+  "properties": {
+    "schema": {
+      "const": "haihao.aircraft/component-production-contract@1.0.0"
+    },
+    "work_package_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "component_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "family_master_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "source-intake",
+        "reference-mapping",
+        "geometry-reconstruction",
+        "assembly-integration",
+        "surface-integration",
+        "behavior-integration",
+        "qa",
+        "approved",
+        "blocked"
+      ]
+    },
+    "identity": {
+      "type": "object",
+      "required": ["display_name", "role", "variant_scope"],
+      "properties": {
+        "display_name": {"type": "object"},
+        "role": {"type": "string"},
+        "variant_scope": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "source_plan": {
+      "type": "object",
+      "required": ["precedence", "required_sources", "unknown_policy"],
+      "properties": {
+        "precedence": {"type": "array", "items": {"type": "string"}},
+        "required_sources": {"type": "array", "items": {"type": "object"}},
+        "unknown_policy": {"const": "unresolved"}
+      }
+    },
+    "reference_mapping": {
+      "type": "object",
+      "required": ["source_lock", "mapping_status", "candidate_nodes", "approval"],
+      "properties": {
+        "source_lock": {"type": "object"},
+        "mapping_status": {"type": "string"},
+        "candidate_nodes": {"type": "array", "items": {"type": "object"}},
+        "approval": {"type": "boolean"}
+      }
+    },
+    "geometry_recipe": {
+      "type": "object",
+      "required": ["authority", "parameters", "derivations", "status"],
+      "properties": {
+        "authority": {"type": "string"},
+        "parameters": {"type": "object"},
+        "derivations": {"type": "array", "items": {"type": "object"}},
+        "status": {"type": "string"}
+      }
+    },
+    "assembly_interfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["interface_id", "type", "parent_component_id", "child_component_id", "status"]
+      }
+    },
+    "surface_program": {
+      "type": "object",
+      "required": ["surface_ids", "layer_contract", "free_design_mode", "historical_mode", "status"],
+      "properties": {
+        "surface_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "layer_contract": {"type": "array", "items": {"type": "string"}},
+        "free_design_mode": {"type": "object"},
+        "historical_mode": {"type": "object"},
+        "status": {"type": "string"}
+      }
+    },
+    "behavior_contract": {
+      "type": "object",
+      "required": ["semantic_controller", "inputs", "outputs", "constraints", "status"],
+      "properties": {
+        "semantic_controller": {"type": "string"},
+        "inputs": {"type": "array", "items": {"type": "string"}},
+        "outputs": {"type": "array", "items": {"type": "string"}},
+        "constraints": {"type": "array", "items": {"type": "string"}},
+        "status": {"type": "string"}
+      }
+    },
+    "qa": {
+      "type": "object",
+      "required": ["gates", "evidence", "result"],
+      "properties": {
+        "gates": {"type": "array", "items": {"type": "string"}},
+        "evidence": {"type": "array", "items": {"type": "object"}},
+        "result": {"type": "string"}
+      }
+    },
+    "approval": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"type": "boolean"}
+    }
+  }
+}

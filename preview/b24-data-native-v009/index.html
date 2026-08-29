@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>B-24 数据原生数字资产生产线 V009</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main id="app">
+    <section id="viewport" aria-label="B-24 三维数字资产检查视口">
+      <div class="topbar">
+        <div>
+          <p class="eyebrow">AIRCRAFT NATIVE FORGE</p>
+          <h1>B-24 数据原生数字资产生产线 <span>V009</span></h1>
+        </div>
+        <div class="source-lock" id="source-lock" data-state="loading">
+          <span class="dot"></span>
+          <div>
+            <strong>锁定参考资产校验中</strong>
+            <small>23,085,972 bytes</small>
+          </div>
+        </div>
+      </div>
+
+      <div id="canvas-host"></div>
+
+      <div class="viewport-footer">
+        <div class="metric"><span>飞行阶段</span><strong id="phase-readout">OFF</strong></div>
+        <div class="metric"><span>发动机</span><strong id="engine-readout">0 / 4</strong></div>
+        <div class="metric"><span>螺旋桨运行</span><strong id="prop-readout">等待资产</strong></div>
+        <div class="metric"><span>帧率</span><strong id="fps-readout">0</strong></div>
+      </div>
+
+      <div class="loading-panel" id="loading-panel">
+        <div class="spinner"></div>
+        <strong id="loading-title">正在读取锁定 B-24 参考资产</strong>
+        <p id="loading-detail">将先核对文件字节数与 SHA256，再建立 V009 运行时。</p>
+      </div>
+    </section>
+
+    <aside id="control-panel">
+      <header>
+        <p class="eyebrow">PRODUCTION CONTROL</p>
+        <h2>数字资产运行控制</h2>
+        <p>本页验证持续螺旋桨、四发动机状态、声音生命周期、机械材质、玻璃与确定性复位。</p>
+      </header>
+
+      <section class="control-section">
+        <div class="section-heading">
+          <h3>飞行阶段</h3>
+          <span id="runtime-state" class="badge">未启动</span>
+        </div>
+        <div class="phase-grid" id="phase-grid">
+          <button type="button" data-phase="off" class="active">停机</button>
+          <button type="button" data-phase="crank">启动</button>
+          <button type="button" data-phase="idle">怠速</button>
+          <button type="button" data-phase="taxi">滑行</button>
+          <button type="button" data-phase="takeoff">起飞</button>
+          <button type="button" data-phase="cruise">巡航</button>
+          <button type="button" data-phase="approach">进近</button>
+          <button type="button" data-phase="landing">着陆</button>
+          <button type="button" data-phase="shutdown">关车</button>
+        </div>
+      </section>
+
+      <section class="control-section">
+        <div class="section-heading">
+          <h3>四台发动机</h3>
+          <button id="all-engines" class="text-button" type="button">全部启用</button>
+        </div>
+        <div id="engine-controls" class="engine-controls"></div>
+      </section>
+
+      <section class="control-section compact">
+        <h3>运行选项</h3>
+        <label class="toggle-row">
+          <span><strong>发动机声音</strong><small>程序化预览，需点击后启动</small></span>
+          <input id="audio-toggle" type="checkbox">
+        </label>
+        <label class="toggle-row">
+          <span><strong>表面校准</strong><small>按语义分组保留原贴图</small></span>
+          <input id="surface-toggle" type="checkbox" checked>
+        </label>
+        <label class="toggle-row">
+          <span><strong>玻璃物理透射</strong><small>透明、低粗糙度、关闭深度写入</small></span>
+          <input id="glass-toggle" type="checkbox" checked>
+        </label>
+        <label class="toggle-row">
+          <span><strong>旋转诊断标记</strong><small>显示发动机识别与转轴</small></span>
+          <input id="diagnostic-toggle" type="checkbox">
+        </label>
+      </section>
+
+      <section class="control-section">
+        <div class="section-heading">
+          <h3>资产诊断</h3>
+          <span id="qa-summary" class="badge neutral">等待</span>
+        </div>
+        <div id="diagnostic-list" class="diagnostic-list">
+          <div data-check="source"><span></span><p>锁定资产字节与 SHA256</p><strong>等待</strong></div>
+          <div data-check="engines"><span></span><p>四发动机与螺旋桨分组</p><strong>等待</strong></div>
+          <div data-check="rotation"><span></span><p>持续角速度积分</p><strong>等待</strong></div>
+          <div data-check="materials"><span></span><p>机械、外皮与玻璃材质</p><strong>等待</strong></div>
+          <div data-check="reset"><span></span><p>复位前后状态指纹一致</p><strong>等待</strong></div>
+        </div>
+      </section>
+
+      <section class="control-section action-row">
+        <button type="button" id="focus-aircraft">整机视角</button>
+        <button type="button" id="reset-runtime" class="primary">完整复位</button>
+      </section>
+
+      <footer>
+        <p><strong>审批保持冻结</strong></p>
+        <p>浏览器视觉、历史声音、工程转速、表面系统与 80 DAYS 涂装均需独立验收。</p>
+      </footer>
+    </aside>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

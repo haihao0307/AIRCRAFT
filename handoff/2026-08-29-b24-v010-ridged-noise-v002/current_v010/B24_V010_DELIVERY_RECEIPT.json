@@ -1,0 +1,77 @@
+{
+  "schema": "haihao.aircraft/b24-v010-delivery-receipt@1.0.0",
+  "generatedAt": "2026-08-29T04:01:17.176727+00:00",
+  "build": "B24_NATIVE_REVIEW_V010_RIDGED_LOCAL_DAMAGE_EXPERIMENT_2026-08-29",
+  "sourcePayload": {
+    "bytes": 16647376,
+    "sha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2",
+    "changedFromV009R1": false
+  },
+  "geometryChanged": false,
+  "animationChanged": false,
+  "localBrowserQaPassed": true,
+  "visualApproved": false,
+  "remoteUpdated": false,
+  "files": [
+    {
+      "path": "B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html",
+      "bytes": 12550988,
+      "sha256": "1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949"
+    },
+    {
+      "path": "B24_V010_RIDGED_PATCH.js",
+      "bytes": 23877,
+      "sha256": "a103e7b066e5d61d639e3c06c7e6b6bae0428c458656f5133c11a139dd276344"
+    },
+    {
+      "path": "B24_V010_BROWSER_QA.json",
+      "bytes": 8792,
+      "sha256": "d2f2ae41c6f77048591aa5c0ec081baf3a8602a18fa0cf570aaaebebf6cd0f21"
+    },
+    {
+      "path": "B24_V010_PIXEL_DIFF.json",
+      "bytes": 1212,
+      "sha256": "654d5e533ba8e003e3d084f5ff734bd4059cc572a314dad2e581c77ec40aefcc"
+    },
+    {
+      "path": "B24_V010_VISUAL_REVIEW_BOARD.html",
+      "bytes": 965311,
+      "sha256": "e18bc50c3f4c2b216f6c71ea1ff67fd9c38d6ac2f70b61e01f1c8e3164838974"
+    },
+    {
+      "path": "B24_V010_CLEAN_FULL_SERVICE.png",
+      "bytes": 55774,
+      "sha256": "bc23f4fb04e58552e04872f3c2125eb3ec6d5902d94fbeddd07f06bd88a0149c"
+    },
+    {
+      "path": "B24_V010_NACELLE_RIDGED_OFF.png",
+      "bytes": 152504,
+      "sha256": "6c9b603aafa676628a9f29dc90bb1269a1d941fbdc38955dea39327be0dd6edc"
+    },
+    {
+      "path": "B24_V010_CLEAN_NACELLE_SERVICE.png",
+      "bytes": 130254,
+      "sha256": "e87d51fa6016ba757fbe3b3f8bd656e65133534ef0719264c09f0dfccc449b6d"
+    },
+    {
+      "path": "B24_V010_CLEAN_NACELLE_DIAGNOSTIC.png",
+      "bytes": 143728,
+      "sha256": "6b717792714ca7b9bd16797cbb1916a5a4089713fc9321618dda42cf341b4e44"
+    },
+    {
+      "path": "B24_V010_CLEAN_BOMB_DOOR_SERVICE.png",
+      "bytes": 87956,
+      "sha256": "971bd22af8fd2ec837bbbade2f3157558f8385eb99a116582ddfdafb406a8506"
+    },
+    {
+      "path": "B24_V010_PROPELLER_LOCAL_Y_REGRESSION.png",
+      "bytes": 151910,
+      "sha256": "b25a8f4cc77c3c1ff0b76807bbab4a41e78611dbeb3a5f03fc158ac22ce7f7ed"
+    },
+    {
+      "path": "B24_V010_IMPLEMENTATION_NOTES.md",
+      "bytes": 2411,
+      "sha256": "05bfd303a065a3f21336632cd800b1e209708a1eeb861f3ba05246e30cf3bf97"
+    }
+  ]
+}

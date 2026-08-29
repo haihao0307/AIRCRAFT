@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema": "haihao.aircraft/b24-runtime-contract@1.0.0",
+  "id": "b24-data-native-runtime-v009",
+  "aircraftFamily": "Consolidated B-24 Liberator",
+  "variantSeed": "B-24J-CO",
+  "status": "implementation-complete-pending-browser-visual-approval",
+  "sourceLock": {
+    "file": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "releaseTag": "80-days-source-v1",
+    "authority": "locked-external-reference"
+  },
+  "runtime": {
+    "clock": {
+      "mode": "delta-time-integration",
+      "maximumStepSeconds": 0.05,
+      "pauseWhenDocumentHidden": true
+    },
+    "engineCount": 4,
+    "engineStateMachine": {
+      "states": [
+        "off",
+        "crank",
+        "idle",
+        "taxi",
+        "takeoff",
+        "cruise",
+        "approach",
+        "landing",
+        "shutdown"
+      ],
+      "visualRpmAuthority": "runtime-presentation-only-pending-engineering-source",
+      "synchronization": "independent-engine-state-with-shared-flight-phase"
+    },
+    "propeller": {
+      "continuousRotationRequired": true,
+      "rotationSource": "integrated-angular-velocity",
+      "referenceAnimationMayProvideAxisEvidence": true,
+      "visualRepresentations": [
+        "static",
+        "slow",
+        "blur"
+      ],
+      "representationSwitchingMayNotStopRotation": true
+    },
+    "audio": {
+      "implementation": "procedural-web-audio-preview",
+      "channels": 4,
+      "startsOnlyAfterUserGesture": true,
+      "historicalRecordingAuthority": "pending-source",
+      "mustDisposeOnReset": true
+    },
+    "surfaceCalibration": {
+      "policy": "semantic-material-groups-only",
+      "blanketWhiteOverrideForbidden": true,
+      "groups": [
+        "exterior-metal",
+        "painted-surface",
+        "mechanical-hardware",
+        "glazing",
+        "interior",
+        "rubber",
+        "emissive-or-instrument"
+      ],
+      "preserveTextureMaps": true,
+      "preservePerMaterialColorEvidence": true
+    },
+    "glazing": {
+      "physicalTransmission": true,
+      "depthWrite": false,
+      "doubleSidedOnlyWhenRequiredByReference": true,
+      "classificationMustBeReported": true
+    },
+    "reset": {
+      "restoreTransforms": true,
+      "restoreVisibility": true,
+      "restoreMaterials": true,
+      "restoreCamera": true,
+      "restoreEngineState": true,
+      "restoreAudioLifecycle": true,
+      "bellyAndBombBayVisibilityCovered": true,
+      "deterministicStateFingerprintRequired": true
+    }
+  },
+  "implementationClaims": {
+    "lockedSourceVerificationImplemented": true,
+    "continuousPropellerRuntimeImplemented": true,
+    "fourEnginePhaseControllerImplemented": true,
+    "proceduralEngineAudioImplemented": true,
+    "semanticMaterialCalibrationImplemented": true,
+    "glazingCalibrationImplemented": true,
+    "deterministicResetImplemented": true,
+    "staticValidationImplemented": true
+  },
+  "approvals": {
+    "runtimeCodeReviewed": false,
+    "browserQaApproved": false,
+    "visualQualityApproved": false,
+    "historicalAudioApproved": false,
+    "engineeringRpmApproved": false,
+    "surfaceSystemApproved": false,
+    "referenceModelCrossCheckApproved": false,
+    "aircraftDataMasterApproved": false
+  },
+  "frozenUntilApproval": {
+    "historicalLivery80Days": true,
+    "geometryAuthorityPromotion": true,
+    "mainBranchMerge": true
+  }
+}

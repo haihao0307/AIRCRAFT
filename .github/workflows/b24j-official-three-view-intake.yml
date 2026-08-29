@@ -1,0 +1,116 @@
+name: Intake official B24J three-view
+
+on:
+  push:
+    branches:
+      - research/b24-engineering-drawings-cad-v1
+    paths:
+      - 'data/b24-engineering/source-intake/results/B24_VERTICAL_TAIL_PRIORITY_SOURCE_REVIEW_001.json'
+      - 'data/b24-engineering/source-intake/b24j-official-three-view.json'
+      - 'data/b24-native/components/empennage/vertical-tail-production.json'
+      - 'scripts/validate-b24-vertical-tail-source-review.mjs'
+      - 'scripts/intake-engineering-images.mjs'
+      - '.github/workflows/b24j-official-three-view-intake.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate corrected source route
+        run: node scripts/validate-b24-vertical-tail-source-review.mjs
+
+      - name: Download and verify official manual-page images
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf _three_view_intake
+          mkdir -p _three_view_intake
+          node scripts/intake-engineering-images.mjs \
+            --config data/b24-engineering/source-intake/b24j-official-three-view.json \
+            --out-dir _three_view_intake
+
+      - name: Compare original and cleaned files
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('_three_view_intake')
+          manifest = json.loads((root / 'intake-manifest.json').read_text(encoding='utf-8'))
+          records = manifest['records']
+          assert len(records) == 2
+          original = next(item for item in records if item['file_role'] == 'original-upload-scan')
+          cleaned = next(item for item in records if item['file_role'] == 'cleaned-darkened-review-derivative')
+          assert original['png']['width'] == cleaned['png']['width'] == 2032
+          assert original['png']['height'] == cleaned['png']['height'] == 2442
+          assert original['sha256'] != cleaned['sha256']
+          report = {
+              'schema': 'haihao.aircraft/official-three-view-comparison@1.0.0',
+              'source_id': manifest['source']['source_id'],
+              'source_document': manifest['source']['source_document'],
+              'source_page': manifest['source']['source_page'],
+              'variant': manifest['source']['variant'],
+              'original': original,
+              'cleaned': cleaned,
+              'same_dimensions': True,
+              'different_bytes': True,
+              'visual_review_status': 'pending-upstream-review',
+              'original_geometry_authority': 'manual-page-scan-pending-identity-and-crop-review',
+              'cleaned_geometry_authority': 'review-derivative-only',
+              'approval': {
+                  'sourceProvenanceApproved': False,
+                  'imageIntegrityApproved': True,
+                  'B24JIdentityApproved': False,
+                  'orthographicUseApproved': False,
+                  'drawingCalibrationApproved': False,
+                  'verticalTailGeometryUseApproved': False
+              }
+          }
+          (root / 'comparison-report.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8'
+          )
+          print(json.dumps(report, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Record source summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          report = json.loads(Path('_three_view_intake/comparison-report.json').read_text(encoding='utf-8'))
+          print('## Official B24J three-view intake')
+          print()
+          print(f"Source: `{report['source_document']}`, page `{report['source_page']}`, variant `{report['variant']}`")
+          print()
+          print('| Role | Bytes | SHA256 | Dimensions |')
+          print('|---|---:|---|---|')
+          for key in ('original', 'cleaned'):
+              item = report[key]
+              print(f"| {item['file_role']} | {item['bytes']:,} | `{item['sha256']}` | {item['png']['width']} x {item['png']['height']} |")
+          print()
+          print('Image integrity passed. Identity, crop, orthographic calibration and geometry-use approvals remain false pending visual review.')
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24j-official-three-view-intake
+          path: _three_view_intake
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30

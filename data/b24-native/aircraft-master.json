@@ -1,0 +1,95 @@
+{
+  "schema": "haihao.aircraft/data-native-master@1.0.0",
+  "master_id": "B24J_CO_DATA_NATIVE_MASTER",
+  "display_name": {
+    "en": "B-24J-CO Data-Native Aircraft Master",
+    "zh": "B24J-CO 数据原生飞机母体"
+  },
+  "status": "foundation-with-reference-distillation",
+  "aircraftDataMasterApproved": false,
+  "family": "Consolidated B-24 Liberator",
+  "primary_variant": "B-24J-CO",
+  "initial_instances": [
+    "308bg_374bs_42-73257_80-days",
+    "308bg_374bs_42-73436_ubangi-bag-iii"
+  ],
+  "native_assets": {
+    "aircraftDNA": "data/b24-native/aircraft-master.json",
+    "assemblyGraph": "data/b24-native/assembly-graph.json",
+    "behaviorGraph": "data/b24-native/behavior-graph.json",
+    "surfaceGraph": "data/b24-native/surface-graph.json",
+    "evidenceGraph": "data/b24-native/evidence-graph.json"
+  },
+  "coordinate_system": {
+    "name": "haihao-aircraft-engineering",
+    "units": "millimetres",
+    "handedness": "right-handed",
+    "axes": {
+      "x": "positive toward nose",
+      "y": "positive toward starboard",
+      "z": "positive upward"
+    },
+    "origin": {
+      "status": "provisional",
+      "definition": "awaiting manufacturer datum and station approval"
+    },
+    "threejs_mapping": {
+      "three.x": "engineering.y",
+      "three.y": "engineering.z",
+      "three.z": "engineering.x"
+    }
+  },
+  "format_policy": {
+    "source_of_truth": [
+      "structured aircraft data",
+      "parametric geometry recipes",
+      "semantic surfaces",
+      "behavior controllers",
+      "evidence links"
+    ],
+    "reference_only": [
+      "GLB",
+      "FBX",
+      "OBJ",
+      "raster texture atlases"
+    ],
+    "optional_intermediate": [
+      "CadQuery",
+      "FreeCAD",
+      "STEP",
+      "DXF"
+    ],
+    "runtime_output": "generated in memory or as disposable build artifacts"
+  },
+  "reference_adapters": [
+    "data/b24-native/reference-adapters/authoritative-glb.json"
+  ],
+  "compilers": {
+    "threejs": {
+      "status": "planned",
+      "input": [
+        "assemblyGraph",
+        "geometryRecipes",
+        "behaviorGraph",
+        "surfaceGraph"
+      ],
+      "binary_model_dependency": false
+    },
+    "img2threejs": {
+      "status": "execution-adapter",
+      "authority": "visual execution only",
+      "analysis_authority": false
+    },
+    "cad": {
+      "status": "optional verification adapter",
+      "authority": "intermediate geometry cross-check only"
+    }
+  },
+  "approval": {
+    "assemblyGraphApproved": false,
+    "geometryRecipesApproved": false,
+    "behaviorGraphApproved": false,
+    "surfaceSystemApproved": false,
+    "referenceModelCrossCheckApproved": false
+  }
+}

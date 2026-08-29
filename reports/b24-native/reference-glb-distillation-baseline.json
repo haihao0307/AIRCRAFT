@@ -1,0 +1,68 @@
+{
+  "schema": "haihao.aircraft/reference-glb-distillation-baseline@1.0.0",
+  "run_id": "B24-DISTILL-RUN-001",
+  "run_status": "authoritative-source-locally-verified",
+  "source": {
+    "file": "b-24_liberator.glb",
+    "release": "80-days-source-v1",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+  },
+  "inventory": {
+    "nodes": 1784,
+    "meshes": 348,
+    "triangles": 325358,
+    "materials": 30,
+    "embedded_images": 18,
+    "animations": 1,
+    "animation_channels": 2518
+  },
+  "uv_audit": {
+    "primitives_with_texcoord_0_and_1": 299,
+    "identical_decoded_arrays": 299,
+    "different_decoded_arrays": 0,
+    "independent_livery_uv_present": false,
+    "conclusion": "legacy UV sets are location references; native livery and surface work must use pluggable SurfaceModules"
+  },
+  "native_foundation": {
+    "assembly_nodes": 31,
+    "semantic_behavior_controllers": 13,
+    "pluggable_surface_slots": 62
+  },
+  "distillation_value": {
+    "retain": [
+      "node hierarchy",
+      "relative transforms",
+      "world bounds",
+      "rough proportions",
+      "animation timing and channel ranges",
+      "material and UV assignment inventory"
+    ],
+    "replace_first": [
+      "turrets and guns",
+      "crew entities",
+      "payload racks and release constraints",
+      "semantic public controls"
+    ],
+    "rebuild_after_measurement": [
+      "fuselage",
+      "wing",
+      "empennage",
+      "nacelles",
+      "landing gear",
+      "control surfaces",
+      "materials and UV"
+    ]
+  },
+  "approval": {
+    "referenceDistillationAcceptedAsEvidence": true,
+    "aircraftDataMasterApproved": false,
+    "independentLiveryUvApproved": false,
+    "surfaceSystemApproved": false
+  },
+  "reproduction": {
+    "script": "scripts/distill-b24-reference-glb.mjs",
+    "workflow": ".github/workflows/b24-data-native-distillation.yml",
+    "ci_status": "workflow-created-awaiting-or-running-current-head"
+  }
+}
