@@ -1,0 +1,95 @@
+{
+  "schema": "haihao.aircraft/b24-v011-start-contract@1.0.0",
+  "generatedAt": "2026-08-29",
+  "repository": "haihao0307/AIRCRAFT",
+  "source": {
+    "branch": "research/b24-engineering-drawings-cad-v1",
+    "pullRequest": 14,
+    "sourceExperimentBaselineCommit": "1010e49817a62985b94ab8a9e1605ba89b07a759",
+    "handoffImportCommit": "6587e02d9b91d2e5ed82ceb6c84ca14573488ff8",
+    "currentIntegrationHeadAtAudit": "6587e02d9b91d2e5ed82ceb6c84ca14573488ff8"
+  },
+  "runtimeFoundation": {
+    "version": "V009_R1",
+    "referenceGlb": {
+      "file": "b-24_liberator.glb",
+      "bytes": 23085972,
+      "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+    },
+    "geometry": {
+      "components": 1784,
+      "meshes": 348,
+      "vertices": 307273,
+      "triangles": 325358,
+      "animationTracks": 2518
+    }
+  },
+  "v010": {
+    "deliveryZip": {
+      "path": "handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_DELIVERY_2026-08-29.zip",
+      "gitBlobSha": "477f27a5c1b2d08762cc30487da75ab3b1605630",
+      "bytes": 11612227
+    },
+    "protectedDrawItems": 121,
+    "protectedMaxRidgedWeight": 0,
+    "coverage": {
+      "protected": 121,
+      "low": 24,
+      "medium": 14,
+      "high": 171
+    },
+    "channels": {
+      "baseColor": true,
+      "roughness": true,
+      "localizedMetalness": true,
+      "globalMetalness": false,
+      "height": false,
+      "normal": false
+    }
+  },
+  "knownRemoteQa": {
+    "run33176633947": {
+      "status": "fail",
+      "passed": 9,
+      "failed": 2,
+      "failures": ["semantic-material-groups", "physical-glazing"]
+    },
+    "run33176633961": {
+      "status": "fail",
+      "passed": 9,
+      "failed": 2,
+      "failures": ["semantic-material-groups", "physical-glazing"]
+    }
+  },
+  "v011Gates": [
+    "source-material-inventory",
+    "evidence-based-glazing-classification",
+    "v009-browser-qa-11-of-11",
+    "v010-fixed-view-replay",
+    "simplex-tsl-compile-ab",
+    "four-state-local-damage",
+    "user-visual-review"
+  ],
+  "damageStateHypotheses": [
+    "fresh_exposed_aluminum",
+    "oxidized_exposed_aluminum",
+    "paint_chip_edge",
+    "grime_filled_damage"
+  ],
+  "externalMethod": {
+    "name": "img2threejs",
+    "defaultEnabled": false,
+    "geometryAuthority": false,
+    "runtimeAuthority": false,
+    "approvalAuthority": false
+  },
+  "approvals": {
+    "visualApproved": false,
+    "ridgedLayerApproved": false,
+    "surfaceSystemApproved": false,
+    "historicalApproved": false,
+    "engineeringApproved": false,
+    "wholeAircraftApproved": false,
+    "productionFrozen": false
+  }
+}
