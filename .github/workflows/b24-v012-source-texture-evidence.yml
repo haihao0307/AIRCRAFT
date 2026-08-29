@@ -1,0 +1,230 @@
+name: B24 V012 source texture rivet and panel evidence
+
+on:
+  push:
+    branches:
+      - feature/b24-v012-propeller-interface-skin-audit
+    paths:
+      - 'data/b24-native/surface-modules/B24_SOURCE_TEXTURE_DETAIL_EVIDENCE_V001.json'
+      - 'tools/extract-b24-v010-source-texture-evidence.py'
+      - '.github/workflows/b24-v012-source-texture-evidence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  extract-audit-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SOURCE_HTML: handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html
+      EVIDENCE_CONTRACT: data/b24-native/surface-modules/B24_SOURCE_TEXTURE_DETAIL_EVIDENCE_V001.json
+      DELIVERY_PARENT: delivery
+      DELIVERY_NAME: AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE
+      DELIVERY_ROOT: delivery/AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE
+      EXTRACTION_ROOT: delivery/AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE/source-texture-evidence
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify frozen V010 source identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(stat --format=%s "$SOURCE_HTML")" = "12550988"
+          echo '1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html' | sha256sum --check
+          test -f "$EVIDENCE_CONTRACT"
+
+      - name: Run repository validation before evidence generation
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run validate:80days:references
+          npm run build:80days:count-sheet
+          npm test
+          npm run build
+
+      - name: Install pinned texture evidence dependency
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check pillow==11.3.0
+
+      - name: Extract and audit all embedded source textures
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$DELIVERY_ROOT"
+          mkdir -p "$DELIVERY_ROOT/records"
+          python tools/extract-b24-v010-source-texture-evidence.py \
+            --html "$SOURCE_HTML" \
+            --evidence "$EVIDENCE_CONTRACT" \
+            --output "$EXTRACTION_ROOT" \
+            | tee "$DELIVERY_ROOT/records/source-texture-extraction.log"
+
+      - name: Enforce source texture evidence gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path(os.environ['EXTRACTION_ROOT'])
+          report = json.loads((root / 'B24_SOURCE_TEXTURE_EXTRACTION_AUDIT.json').read_text(encoding='utf-8'))
+          assert report['status'] == 'PASS_SOURCE_TEXTURE_EVIDENCE_ONLY'
+          assert report['source']['htmlBytes'] == 12550988
+          assert report['source']['htmlSha256'] == '1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949'
+          assert report['source']['sourceGlbBytes'] == 23085972
+          assert report['source']['sourceGlbSha256'] == '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d'
+          assert report['source']['embeddedManifestSha256'] == '8934b65ef1b29fc8b64da5e339815a39f8d03254c0b31638781bc16016a6d307'
+          assert report['source']['embeddedPayloadBytes'] == 16647376
+          assert report['source']['embeddedPayloadSha256'] == '7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2'
+          assert all(report['contractChecks'].values())
+          assert report['inventory']['sourceImageCount'] == 18
+          assert report['inventory']['materialCount'] == 30
+          assert report['inventory']['textureCount'] == 18
+          assert report['inventory']['textureSlotCounts']['baseColorTexture'] == 18
+          assert report['inventory']['textureSlotCounts']['metallicRoughnessTexture'] == 10
+          assert report['inventory']['textureSlotCounts']['normalTexture'] == 0
+          assert report['inventory']['textureSlotCounts']['occlusionTexture'] == 10
+          assert report['inventory']['allSourceImageBlocksVerified'] is True
+          assert report['confirmedSourceFacts']['bakedPanelSeamInformationPresent'] is True
+          assert report['confirmedSourceFacts']['bakedRivetLikeInformationPresent'] is True
+          assert report['confirmedSourceFacts']['bakedNacelleStainInformationPresent'] is True
+          assert report['confirmedSourceFacts']['dedicatedNormalTexturePresent'] is False
+          assert report['runtimeFinding']['currentV010UsesSourceBaseColorTextures'] is False
+          assert report['runtimeFinding']['runtimeMarkers']['solidExteriorNoUv'] is True
+          assert report['runtimeFinding']['runtimeMarkers']['noUvCopy'] is True
+          assert len(report['visualEvidence']) == 9
+          assert all(value is False for value in report['approvalBoundary'].values())
+          assert all(value is False for value in report['protectedSystems'].values())
+          print('B24_V012_SOURCE_TEXTURE_EVIDENCE_PASS')
+          PY
+          echo '1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html' | sha256sum --check
+
+      - name: Assemble versioned source texture evidence delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp "$EVIDENCE_CONTRACT" "$DELIVERY_ROOT/"
+          cp tools/extract-b24-v010-source-texture-evidence.py "$DELIVERY_ROOT/"
+          cat > "$DELIVERY_ROOT/README_FIRST.md" <<'EOF'
+          # B24 V012 原始蒙皮、铆钉与板缝贴图证据
+
+          先看：
+
+          `source-texture-evidence/B24_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE_BOARD.png`
+
+          `source-texture-evidence/B24_SOURCE_TEXTURES_CONTACT_SHEET.png`
+
+          本包从冻结 V010 HTML 的嵌入载荷中逐字节提取 18 张原始图像。源贴图中可见蒙皮板缝、铆钉状点列、检修盖轮廓和部分发动机舱污迹。当前 V010 整机页面采用无 UV 数字蒙皮，所以这些细节没有显示在整机表面。
+
+          源 glTF 没有专用 normalTexture。铆钉和板缝目前属于基础色贴图中的烘焙视觉信息，尚未形成工程级几何、法线或独立语义遮罩。
+
+          所有视觉、表面、历史、工程、整机和生产批准继续关闭。
+          EOF
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          out = Path(os.environ['DELIVERY_ROOT'])
+          report = json.loads((Path(os.environ['EXTRACTION_ROOT']) / 'B24_SOURCE_TEXTURE_EXTRACTION_AUDIT.json').read_text(encoding='utf-8'))
+          files = []
+          for path in sorted(out.rglob('*')):
+              if path.is_file():
+                  data = path.read_bytes()
+                  files.append({
+                      'path': path.relative_to(out).as_posix(),
+                      'bytes': len(data),
+                      'sha256': hashlib.sha256(data).hexdigest(),
+                  })
+          receipt = {
+              'schema': 'haihao.aircraft/b24-v012-source-texture-evidence-delivery@1.0.0',
+              'repository': 'haihao0307/AIRCRAFT',
+              'branch': os.environ.get('GITHUB_REF_NAME'),
+              'commit': os.environ.get('GITHUB_SHA'),
+              'status': report['status'],
+              'sourceImageCount': report['inventory']['sourceImageCount'],
+              'visualEvidenceCropCount': len(report['visualEvidence']),
+              'bakedPanelSeamInformationPresent': True,
+              'bakedRivetLikeInformationPresent': True,
+              'bakedNacelleStainInformationPresent': True,
+              'normalTextureCount': 0,
+              'currentV010UsesSourceBaseColorTextures': False,
+              'sourcePayloadChanged': False,
+              'sourceGlbChanged': False,
+              'geometryChanged': False,
+              'animationChanged': False,
+              'runwayFlightSequenceChanged': False,
+              'productionApproved': False,
+              'files': files,
+          }
+          (out / 'records/B24_V012_SOURCE_TEXTURE_EVIDENCE_RECEIPT.json').write_text(
+              json.dumps(receipt, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          PY
+          find "$DELIVERY_ROOT" -type f -print0 | sort -z | xargs -0 sha256sum > "$DELIVERY_ROOT/records/SHA256SUMS.txt"
+          cd "$DELIVERY_PARENT"
+          zip -q -r -9 "$DELIVERY_NAME.zip" "$DELIVERY_NAME"
+          sha256sum "$DELIVERY_NAME.zip" > "$DELIVERY_NAME.zip.sha256"
+          unzip -t "$DELIVERY_NAME.zip"
+
+      - name: Upload source texture evidence delivery
+        uses: actions/upload-artifact@v4
+        with:
+          name: AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE-${{ github.sha }}
+          path: |
+            delivery/AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE.zip
+            delivery/AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE.zip.sha256
+            delivery/AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE/source-texture-evidence/B24_SOURCE_TEXTURE_EXTRACTION_AUDIT.json
+            delivery/AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE/source-texture-evidence/B24_SOURCE_TEXTURE_INVENTORY.json
+            delivery/AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE/source-texture-evidence/B24_SOURCE_TEXTURES_CONTACT_SHEET.png
+            delivery/AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE/source-texture-evidence/B24_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE_BOARD.png
+            delivery/AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE/records/B24_V012_SOURCE_TEXTURE_EVIDENCE_RECEIPT.json
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Write source texture evidence summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## B24 V012 source texture rivet and panel evidence'
+            echo
+            echo "Branch: $GITHUB_REF_NAME"
+            echo
+            echo "Commit: $GITHUB_SHA"
+            echo
+            if [ -f "$EXTRACTION_ROOT/B24_SOURCE_TEXTURE_EXTRACTION_AUDIT.json" ]; then
+              python - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads((Path(os.environ['EXTRACTION_ROOT']) / 'B24_SOURCE_TEXTURE_EXTRACTION_AUDIT.json').read_text())
+          print(f"Status: {report['status']}")
+          print(f"Source images: {report['inventory']['sourceImageCount']}")
+          print(f"Evidence crops: {len(report['visualEvidence'])}")
+          print(f"Baked panel seams present: {report['confirmedSourceFacts']['bakedPanelSeamInformationPresent']}")
+          print(f"Baked rivet-like rows present: {report['confirmedSourceFacts']['bakedRivetLikeInformationPresent']}")
+          print(f"Dedicated normalTexture count: {report['inventory']['textureSlotCounts']['normalTexture']}")
+          PY
+            fi
+            if [ -f "$DELIVERY_PARENT/$DELIVERY_NAME.zip.sha256" ]; then
+              cat "$DELIVERY_PARENT/$DELIVERY_NAME.zip.sha256"
+            fi
+            echo
+            echo 'All approval gates remain false.'
+          } >> "$GITHUB_STEP_SUMMARY"
