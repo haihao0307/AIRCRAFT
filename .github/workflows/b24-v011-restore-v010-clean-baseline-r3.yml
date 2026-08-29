@@ -1,0 +1,211 @@
+name: Restore B24 V010 clean aircraft baseline R3
+
+on:
+  push:
+    branches:
+      - fix/b24-v011-restore-v010-clean-baseline
+    paths:
+      - '.github/workflows/b24-v011-restore-v010-clean-baseline-r3.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-v010-recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      V010_ROOT: handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010
+      RECOVERY_ROOT: handoff/2026-08-29-b24-v011-restore-v010-clean-baseline
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify frozen V010 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/v010.sha256" <<'EOF'
+          1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html
+          980081d1e4a36edf60f705a1ab71adb250681f1e4d3e9bde95657edb3a437f1c  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_DELIVERY_2026-08-29.zip
+          bc23f4fb04e58552e04872f3c2125eb3ec6d5902d94fbeddd07f06bd88a0149c  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_CLEAN_FULL_SERVICE.png
+          a103e7b066e5d61d639e3c06c7e6b6bae0428c458656f5133c11a139dd276344  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_PATCH.js
+          afc401bb981772a7000d5f71809d8bd0571228bbc4126b96594557cc2307ca35  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/qa_b24_v010_browser.py
+          EOF
+          sha256sum --check "$RUNNER_TEMP/v010.sha256"
+
+      - name: Install pinned browser QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check pillow==11.3.0 playwright==1.55.0
+          python -m playwright install --with-deps chromium
+
+      - name: Build recovery QA runner without touching V010 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/b24-v010-recovery"
+          cp "$V010_ROOT/qa_b24_v010_browser.py" "$RUNNER_TEMP/b24-v010-recovery/qa.py"
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('/home/runner/work/_temp/b24-v010-recovery/qa.py')
+          text = path.read_text(encoding='utf-8')
+          text = text.replace(
+              'ROOT = Path(__file__).resolve().parent',
+              "ROOT = Path.cwd()"
+          )
+          text = text.replace(
+              'headless=False,\n            executable_path="/usr/bin/chromium",',
+              'headless=False,'
+          )
+          helper = '''async def capture_canvas(page, path: Path) -> None:\n    box = await page.locator("#canvas").bounding_box()\n    if not box:\n        raise RuntimeError("B24 canvas has no bounding box")\n    await page.screenshot(path=str(path), clip=box, animations="disabled")\n\n\n'''
+          text = text.replace('async def main() -> None:\n', helper + 'async def main() -> None:\n', 1)
+          for key in [
+              'nacelleOff', 'nacelleService', 'nacelleDiagnostic',
+              'bombDoorService', 'gearProtected', 'propellerRegression'
+          ]:
+              old = f'await page.locator("#canvas").screenshot(path=str(screenshots["{key}"]))'
+              new = f'await capture_canvas(page, screenshots["{key}"])'
+              if old not in text:
+                  raise RuntimeError(f'Missing screenshot call for {key}')
+              text = text.replace(old, new)
+          marker = 'page = await browser.new_page(viewport={"width": 1440, "height": 900}, device_scale_factor=1)\n'
+          text = text.replace(marker, marker + '        page.set_default_timeout(120000)\n', 1)
+          old_prop = "window.__B24_V010_CAPTURE__.setView('propeller'); const v=window.__B24_NATIVE_V010__; return"
+          new_prop = "window.__B24_V010_CAPTURE__.setView('propeller'); const v=window.__B24_NATIVE_V010__; v.playing=true; v.setFlightState?.('startup',false); return"
+          if old_prop not in text:
+              raise RuntimeError('Missing propeller sampling block')
+          text = text.replace(old_prop, new_prop, 1)
+          text = text.replace('await page.wait_for_timeout(1200)', 'await page.wait_for_timeout(3500)', 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Start exact V010 page
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$V010_ROOT"
+          python -m http.server 8766 --bind 127.0.0.1 > "$GITHUB_WORKSPACE/b24-v010-recovery-http.log" 2>&1 &
+          echo $! > "$GITHUB_WORKSPACE/b24-v010-recovery-http.pid"
+          for attempt in $(seq 1 40); do
+            curl --fail --silent http://127.0.0.1:8766/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html > /dev/null && exit 0
+            sleep 1
+          done
+          cat "$GITHUB_WORKSPACE/b24-v010-recovery-http.log"
+          exit 1
+
+      - name: Run real Chromium recovery QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$V010_ROOT"
+          xvfb-run -a python "$RUNNER_TEMP/b24-v010-recovery/qa.py" | tee "$GITHUB_WORKSPACE/b24-v010-recovery-browser.log"
+
+      - name: Verify full recovery gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html' | sha256sum --check
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_BROWSER_QA.json').read_text(encoding='utf-8'))
+          assert report['localBrowserQaPassed'] is True, report['gates']
+          assert report['allApprovalsRemainFalse'] is True
+          assert report['locks'] == {
+              'sourceLockMatchesV009R1': True,
+              'geometryMatchesV009R1': True,
+              'sourcePayloadChanged': False,
+              'geometryChanged': False,
+              'animationChanged': False,
+          }
+          assert report['browser']['pageErrors'] == []
+          assert report['browser']['consoleErrors'] == []
+          assert report['gates']['protectedGroupsZeroZone'] is True
+          assert report['regressions']['propeller']['angleChanged'] is True
+          assert report['regressions']['propeller']['localYAxisPreserved'] is True
+          print('RESTORE_V010_CLEAN_BASELINE_R3_PASS')
+          PY
+
+      - name: Stop exact V010 page
+        if: always()
+        shell: bash
+        run: |
+          if [ -f b24-v010-recovery-http.pid ]; then
+            kill "$(cat b24-v010-recovery-http.pid)" 2>/dev/null || true
+          fi
+
+      - name: Package exact recovered baseline
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="$GITHUB_WORKSPACE/dist/AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3"
+          rm -rf "$OUT"
+          mkdir -p "$OUT/v010_exact" "$OUT/evidence" "$OUT/recovery" "$OUT/records"
+          cp "$RECOVERY_ROOT/00_README_FIRST.md" "$OUT/recovery/"
+          cp "$RECOVERY_ROOT/B24_V011_RECOVERY_CONTRACT.json" "$OUT/recovery/"
+          cp "$V010_ROOT/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html" "$OUT/v010_exact/"
+          cp "$V010_ROOT/B24_V010_RIDGED_LOCAL_DAMAGE_DELIVERY_2026-08-29.zip" "$OUT/v010_exact/"
+          cp "$V010_ROOT/B24_V010_RIDGED_PATCH.js" "$OUT/v010_exact/"
+          cp "$V010_ROOT/B24_V010_IMPLEMENTATION_NOTES.md" "$OUT/v010_exact/"
+          cp "$V010_ROOT/B24_V010_BROWSER_QA.json" "$OUT/evidence/"
+          cp "$V010_ROOT/B24_V010_PIXEL_DIFF.json" "$OUT/evidence/"
+          cp "$V010_ROOT"/B24_V010_*png "$OUT/evidence/"
+          cp handoff/2026-08-29-b24-v010-ridged-noise-v002/records/MANIFEST.json "$OUT/records/V010_SOURCE_MANIFEST.json"
+          cp b24-v010-recovery-browser.log "$OUT/records/"
+          cp b24-v010-recovery-http.log "$OUT/records/"
+          cat > "$OUT/README_FIRST.md" <<'EOF'
+          # B24 已恢复到冻结 V010 整机基线
+
+          打开 `v010_exact/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html`。
+
+          该文件是仓库冻结 V010 的逐字节副本。飞机主体保持主对象，Ridged Noise 保持局部表面工具层。错误的本地 V011R1 污染预览已排除。
+          EOF
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          out = Path('dist/AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3')
+          qa = json.loads((out/'evidence/B24_V010_BROWSER_QA.json').read_text(encoding='utf-8'))
+          files=[]
+          for p in sorted(out.rglob('*')):
+              if p.is_file():
+                  b=p.read_bytes(); files.append({'path':p.relative_to(out).as_posix(),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+          receipt={
+              'schema':'haihao.aircraft/b24-v011-recovery-receipt@1.0.0',
+              'branch':os.environ.get('GITHUB_REF_NAME'),
+              'commit':os.environ.get('GITHUB_SHA'),
+              'status':'PASS_PREVIEW_ONLY' if qa.get('localBrowserQaPassed') else 'QA_FAILED',
+              'rejectedLocalV011R1Excluded':True,
+              'productionApproved':False,
+              'files':files,
+          }
+          (out/'records/RECOVERY_RECEIPT.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+          find "$OUT" -type f -print0 | sort -z | xargs -0 sha256sum > "$OUT/records/SHA256SUMS.txt"
+          cd "$GITHUB_WORKSPACE/dist"
+          zip -q -r -9 AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3.zip AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3
+          sha256sum AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3.zip > AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3.zip.sha256
+
+      - name: Upload recovered B24 artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3-${{ github.sha }}
+          path: |
+            dist/AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3.zip
+            dist/AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3.zip.sha256
+            dist/AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3/v010_exact/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html
+            dist/AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3/evidence/B24_V010_FULL_AIRCRAFT_SERVICE.png
+            dist/AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3/evidence/B24_V010_CLEAN_FULL_SERVICE.png
+            dist/AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3/evidence/B24_V010_BROWSER_QA.json
+            dist/AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R3/records/RECOVERY_RECEIPT.json
+          if-no-files-found: error
+          retention-days: 90
