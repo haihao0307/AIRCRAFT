@@ -1,0 +1,77 @@
+{
+  "schema": "haihao.aircraft/b24-v011-recovery-complete@1.0.0",
+  "date": "2026-08-29",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "fix/b24-v011-restore-v010-clean-baseline",
+  "recoveryWorkflowCommit": "ade87aa98783d57995eaacff4ea763f5ea012794",
+  "recoveryWorkflowRunId": 33245465029,
+  "recoveryWorkflowConclusion": "success",
+  "artifact": {
+    "id": 9712705793,
+    "name": "AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R5-ade87aa98783d57995eaacff4ea763f5ea012794",
+    "bytes": 31954906,
+    "sha256": "e9aa6ef996afe99c076ee8b2d4c51f9faad34e81a674ce4a0b1ae2ebb356b571",
+    "expiresAt": "2026-11-27T09:25:43Z"
+  },
+  "deliveryZip": {
+    "name": "AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE_R5.zip",
+    "bytes": 22126778,
+    "sha256": "07c1613fa429a069955600f2048a21d1f2aeba11a439a75b1f8e82aac4d973bc",
+    "zipIntegrity": "pass"
+  },
+  "restoredBaseline": {
+    "integrationCommit": "6587e02d9b91d2e5ed82ceb6c84ca14573488ff8",
+    "sourceExperimentCommit": "1010e49817a62985b94ab8a9e1605ba89b07a759",
+    "html": "B24_V010_RESTORED_CLEAN_BASELINE.html",
+    "bytes": 12550988,
+    "sha256": "1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949"
+  },
+  "rejectedArtifact": {
+    "name": "B24_V011R1_AIRCRAFT_FIRST_PREVIEW.html",
+    "reason": "early 80 DAYS livery runtime with visible black fuselage contamination",
+    "excludedFromDelivery": true,
+    "allowedForFurtherDistillation": false,
+    "allowedForPublication": false
+  },
+  "freshBrowserQa": {
+    "status": "PASS_RECOVERY_PREVIEW_ONLY",
+    "checks": 24,
+    "passed": 24,
+    "failed": 0,
+    "pageErrors": 0,
+    "seriousConsoleErrors": 0,
+    "sourcePayloadChanged": false,
+    "geometryChanged": false,
+    "animationChanged": false,
+    "aircraftItems": 330,
+    "aircraftNodes": 1784,
+    "protectedItems": 121,
+    "protectedTriangles": 92293,
+    "totalTriangles": 319037,
+    "propellerRoots": 15,
+    "propellerMotionQaPassed": true,
+    "propellerAxis": "fixed-local-y"
+  },
+  "surfaceLayer": {
+    "aircraftPrimary": true,
+    "noiseToolLocalOverlay": true,
+    "serviceChangedRatio": 0.006130193425275392,
+    "diagnosticChangedRatio": 0.04109744990892532,
+    "sourceMaterialReplacementAllowed": false,
+    "wholeAircraftAutoAssignmentAllowed": false
+  },
+  "approvalLedger": {
+    "visualApproved": false,
+    "surfaceSystemApproved": false,
+    "historicalApproved": false,
+    "engineeringApproved": false,
+    "wholeAircraftApproved": false,
+    "productionFrozen": false
+  },
+  "supersededWorkflowFilesRemoved": [
+    ".github/workflows/b24-v011-restore-v010-clean-baseline.yml",
+    ".github/workflows/b24-v011-restore-v010-clean-baseline-r3.yml",
+    ".github/workflows/b24-v011-restore-v010-clean-baseline-r4.yml"
+  ],
+  "activeRecoveryWorkflow": ".github/workflows/b24-v011-restore-v010-clean-baseline-r5.yml"
+}
