@@ -181,11 +181,15 @@ async def run(args: argparse.Namespace) -> int:
             service_diagnostic["changedRatio"] > 0.002 and service_diagnostic["meanAbsoluteChannelDelta"] > 0.02,
             service_diagnostic,
         )
-        check("service-preset-state", service_state["ridged"]["preset"] == "service", service_state["ridged"])
+        check(
+            "service-preset-state",
+            service_state["surface"]["preset"] == "service",
+            service_state["surface"],
+        )
         check(
             "diagnostic-preset-state",
-            diagnostic_state["ridged"]["preset"] == "diagnostic",
-            diagnostic_state["ridged"],
+            diagnostic_state["surface"]["preset"] == "diagnostic",
+            diagnostic_state["surface"],
         )
 
         propeller_before = await page.evaluate(
@@ -265,8 +269,8 @@ async def run(args: argparse.Namespace) -> int:
         "surfaceLayer": {
             "offToService": off_service,
             "serviceToDiagnostic": service_diagnostic,
-            "serviceState": service_state.get("ridged", {}),
-            "diagnosticState": diagnostic_state.get("ridged", {}),
+            "serviceState": service_state.get("surface", {}),
+            "diagnosticState": diagnostic_state.get("surface", {}),
         },
         "propeller": {
             "before": propeller_before,
