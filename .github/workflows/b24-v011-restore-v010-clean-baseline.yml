@@ -60,7 +60,27 @@ jobs:
           from pathlib import Path
           path = Path('handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/qa_b24_v010_recovery.py')
           text = path.read_text(encoding='utf-8')
-          text = text.replace('headless=False,\n            executable_path="/usr/bin/chromium",', 'headless=True,')
+          text = text.replace(
+              'headless=False,\n            executable_path="/usr/bin/chromium",',
+              'headless=False,'
+          )
+          helper = '''async def capture_canvas(page, path: Path) -> None:\n    box = await page.locator("#canvas").bounding_box()\n    if not box:\n        raise RuntimeError("B24 canvas has no bounding box")\n    await page.screenshot(path=str(path), clip=box, animations="disabled")\n\n\n'''
+          text = text.replace('async def main() -> None:\n', helper + 'async def main() -> None:\n', 1)
+          for key in [
+              'nacelleOff',
+              'nacelleService',
+              'nacelleDiagnostic',
+              'bombDoorService',
+              'gearProtected',
+              'propellerRegression',
+          ]:
+              old = f'await page.locator("#canvas").screenshot(path=str(screenshots["{key}"]))'
+              new = f'await capture_canvas(page, screenshots["{key}"])'
+              if old not in text:
+                  raise RuntimeError(f'Missing screenshot call for {key}')
+              text = text.replace(old, new)
+          marker = 'page = await browser.new_page(viewport={"width": 1440, "height": 900}, device_scale_factor=1)\n'
+          text = text.replace(marker, marker + '        page.set_default_timeout(120000)\n', 1)
           path.write_text(text, encoding='utf-8')
           PY
 
@@ -85,7 +105,7 @@ jobs:
         run: |
           set -euo pipefail
           cd "$V010_ROOT"
-          python qa_b24_v010_recovery.py | tee "$GITHUB_WORKSPACE/b24-v010-recovery-browser.log"
+          xvfb-run -a python qa_b24_v010_recovery.py | tee "$GITHUB_WORKSPACE/b24-v010-recovery-browser.log"
 
       - name: Verify recovery gates and source immutability
         shell: bash
@@ -148,7 +168,7 @@ jobs:
           当前仅恢复正确基线并重新运行浏览器 QA。所有批准门继续关闭。
           EOF
           python - <<'PY'
-          import hashlib, json, os, subprocess
+          import hashlib, json, os
           from pathlib import Path
           out = Path('dist/AIRCRAFT_B24_V011_RECOVERED_TO_V010_CLEAN_BASELINE')
           files = []
