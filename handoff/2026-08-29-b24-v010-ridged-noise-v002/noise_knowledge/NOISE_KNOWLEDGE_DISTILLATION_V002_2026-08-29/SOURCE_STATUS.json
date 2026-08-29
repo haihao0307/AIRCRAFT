@@ -1,0 +1,117 @@
+{
+  "schema": "haihao.knowledge/noise-source-status@2.0.0",
+  "generatedAt": "2026-08-29T03:54:11.416988+00:00",
+  "sourceBatch": {
+    "title": "10 Noise Functions for Three.js TSL Shaders",
+    "author": "Dan Greenheck",
+    "url": "https://threejsroadmap.com/blog/10-noise-functions-for-threejs-tsl-shaders",
+    "directFetchStatus": "HTTP_403_IN_CURRENT_RESEARCH_ENVIRONMENT",
+    "titleOrderEvidence": "Search index snippets verified all ten headings and order on 2026-08-29.",
+    "exactCodeEvidence": "Only NOISE_07_RIDGED retains readable source screenshot transcription from V001. The other nine entries are concept-level distillations and independent production mappings."
+  },
+  "entries": [
+    {
+      "order": 1,
+      "id": "NOISE_01_WHITE_RANDOM",
+      "title": "White Noise (Random)",
+      "titleOrderVerified": true,
+      "exactArticleCodeTranscribed": false,
+      "conceptDistilled": true,
+      "projectStatus": "NOT_IMPLEMENTED_IN_B24",
+      "sharedStableApproved": false
+    },
+    {
+      "order": 2,
+      "id": "NOISE_02_VALUE",
+      "title": "Value Noise",
+      "titleOrderVerified": true,
+      "exactArticleCodeTranscribed": false,
+      "conceptDistilled": true,
+      "projectStatus": "PASS_AS_CUSTOM_WEBGL_BRIDGE_V009_V010",
+      "sharedStableApproved": false
+    },
+    {
+      "order": 3,
+      "id": "NOISE_03_PERLIN",
+      "title": "Perlin Noise",
+      "titleOrderVerified": true,
+      "exactArticleCodeTranscribed": false,
+      "conceptDistilled": true,
+      "projectStatus": "CONCEPT_CANDIDATE_ONLY",
+      "sharedStableApproved": false
+    },
+    {
+      "order": 4,
+      "id": "NOISE_04_SIMPLEX",
+      "title": "Simplex Noise",
+      "titleOrderVerified": true,
+      "exactArticleCodeTranscribed": false,
+      "conceptDistilled": true,
+      "projectStatus": "OFFICIAL_TSL_AVAILABLE_PROJECT_COMPILE_PENDING",
+      "sharedStableApproved": false
+    },
+    {
+      "order": 5,
+      "id": "NOISE_05_WORLEY_VORONOI",
+      "title": "Worley (Voronoi) Noise",
+      "titleOrderVerified": true,
+      "exactArticleCodeTranscribed": false,
+      "conceptDistilled": true,
+      "projectStatus": "CONCEPT_CANDIDATE_ONLY",
+      "sharedStableApproved": false
+    },
+    {
+      "order": 6,
+      "id": "NOISE_06_FBM",
+      "title": "Fractal Brownian Motion (fBm)",
+      "titleOrderVerified": true,
+      "exactArticleCodeTranscribed": false,
+      "conceptDistilled": true,
+      "projectStatus": "PASS_AS_CUSTOM_WEBGL_BRIDGE_V009_V010",
+      "sharedStableApproved": false
+    },
+    {
+      "order": 7,
+      "id": "NOISE_07_RIDGED",
+      "title": "Ridged Noise",
+      "titleOrderVerified": true,
+      "exactArticleCodeTranscribed": true,
+      "conceptDistilled": true,
+      "projectStatus": "PASS_CUSTOM_WEBGL_V010_LOCAL_EXPERIMENT",
+      "sharedStableApproved": false
+    },
+    {
+      "order": 8,
+      "id": "NOISE_08_WOOD_MARBLE",
+      "title": "Wood/Marble Texture",
+      "titleOrderVerified": true,
+      "exactArticleCodeTranscribed": false,
+      "conceptDistilled": true,
+      "projectStatus": "B24_DEFAULT_REJECT",
+      "sharedStableApproved": false
+    },
+    {
+      "order": 9,
+      "id": "NOISE_09_CURL",
+      "title": "Curl Noise",
+      "titleOrderVerified": true,
+      "exactArticleCodeTranscribed": false,
+      "conceptDistilled": true,
+      "projectStatus": "OFFICIAL_TSL_AVAILABLE_PROJECT_COMPILE_PENDING",
+      "sharedStableApproved": false
+    },
+    {
+      "order": 10,
+      "id": "NOISE_10_DOMAIN_WARPING",
+      "title": "Domain Warping",
+      "titleOrderVerified": true,
+      "exactArticleCodeTranscribed": false,
+      "conceptDistilled": true,
+      "projectStatus": "CONCEPT_CANDIDATE_ONLY",
+      "sharedStableApproved": false
+    }
+  ],
+  "importantBoundary": "Titles and ordering are source-derived. Detailed descriptions for entries other than Ridged are independent technical distillation and project mapping, not reconstructed article text.",
+  "noSilentFill": true,
+  "sharedStableApproved": false
+}

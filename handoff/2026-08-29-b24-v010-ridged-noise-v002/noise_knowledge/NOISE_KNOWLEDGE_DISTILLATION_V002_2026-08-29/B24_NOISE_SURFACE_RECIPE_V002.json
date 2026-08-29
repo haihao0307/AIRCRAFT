@@ -1,0 +1,131 @@
+{
+  "schema": "haihao.aircraft/b24-noise-surface-recipe@2.0.0",
+  "status": "V010_LOCAL_EXPERIMENT_BROWSER_QA_PENDING_FINAL_RECEIPT",
+  "aircraft": "B-24 Liberator",
+  "baseline": {
+    "build": "B24_NATIVE_REVIEW_V009_R1_ACCEPTANCE_2026-08-29",
+    "sourcePayloadSha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2",
+    "geometryChanged": false
+  },
+  "experiment": {
+    "build": "B24_NATIVE_REVIEW_V010_RIDGED_LOCAL_DAMAGE_EXPERIMENT_2026-08-29",
+    "entry": "NOISE_07_RIDGED",
+    "rendererPath": "custom WebGL shader in single-file review HTML",
+    "baseKernels": [
+      "NOISE_02_VALUE",
+      "NOISE_06_FBM"
+    ],
+    "localizedKernel": "NOISE_07_RIDGED",
+    "heightEnabled": false,
+    "normalEnabled": false,
+    "servicePreset": {
+      "age": 0.46,
+      "broadDamage": 0.22,
+      "baseNoiseScale": 0.56,
+      "ridgedEnabled": true,
+      "ridgedStrength": 0.34,
+      "ridgedScale": 0.62,
+      "ridgedThreshold": 0.64,
+      "genericServiceGate": 0.48
+    },
+    "diagnosticPreset": {
+      "ridgedStrength": 0.88,
+      "ridgedScale": 0.78,
+      "ridgedThreshold": 0.48,
+      "genericServiceGate": 0.86
+    },
+    "maskStack": [
+      "semantic-part-zone",
+      "geometry-transition-proxy",
+      "broad-service-damage-field",
+      "generic-service-state"
+    ],
+    "historicalEvidenceGateOpen": false,
+    "semanticWeights": {
+      "cowlFlaps": 0.96,
+      "bombDoors": 0.82,
+      "waistOrSideDoor": 0.76,
+      "rudderElevatorAileron": 0.72,
+      "otherDoors": 0.66,
+      "airframeDetail": 0.54,
+      "genericSkin": 0.18,
+      "protected": 0.0
+    }
+  },
+  "sixLayerArchitecture": [
+    {
+      "id": "micro",
+      "purpose": "fine roughness breakup",
+      "candidateEntries": [
+        "NOISE_01_WHITE_RANDOM",
+        "NOISE_02_VALUE"
+      ],
+      "metalnessAuthority": false
+    },
+    {
+      "id": "meso",
+      "purpose": "paint chalking, mottling and local fade",
+      "candidateEntries": [
+        "NOISE_02_VALUE",
+        "NOISE_03_PERLIN",
+        "NOISE_04_SIMPLEX"
+      ],
+      "metalnessAuthority": false
+    },
+    {
+      "id": "macro",
+      "purpose": "broad service, sun, rain and maintenance variation",
+      "candidateEntries": [
+        "NOISE_06_FBM"
+      ],
+      "metalnessAuthority": false
+    },
+    {
+      "id": "structural",
+      "purpose": "real panels, rivets, doors, leading edges and maintenance zones",
+      "authority": "topology-or-authoritative-map",
+      "noiseSubstitutionAllowed": false
+    },
+    {
+      "id": "directional",
+      "purpose": "airflow, gravity, rain and exhaust direction",
+      "candidateEntries": [
+        "NOISE_09_CURL"
+      ],
+      "metalnessAuthority": false
+    },
+    {
+      "id": "protected",
+      "purpose": "explicit opt-out for incompatible materials and historical markings",
+      "default": "enabled"
+    }
+  ],
+  "protectedMaterialGroups": [
+    "glass",
+    "propeller",
+    "tire",
+    "landing-mechanism",
+    "propulsion-mechanism",
+    "interior-detail",
+    "legacy-weapon",
+    "gear-paths",
+    "historical-markings-authority-layer"
+  ],
+  "hardRules": [
+    "Noise never increases historical or evidence authority.",
+    "No single global noise field drives all aircraft channels.",
+    "Global random or fractal fields do not raise metalness.",
+    "Panel lines, rivets and access hatches require real topology or an authoritative map.",
+    "Protected groups opt out by default.",
+    "Livery markings and side-specific artwork remain separate authority layers.",
+    "Every stable kernel needs locked Three.js version, WebGPU and WebGL2 evidence, pixel response, cost data and visual approval."
+  ],
+  "approvals": {
+    "webgpuTslCompileValidated": false,
+    "localWebglBrowserQa": false,
+    "userVisualApproved": false,
+    "ridgedLayerApproved": false,
+    "wholeAircraftApproved": false,
+    "productionFrozen": false
+  }
+}

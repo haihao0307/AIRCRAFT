@@ -1,0 +1,315 @@
+{
+  "schema": "haihao.aircraft/b24-v010-browser-qa@1.0.0",
+  "generatedAt": "2026-08-29T03:57:47.358810+00:00",
+  "build": "B24_NATIVE_REVIEW_V010_RIDGED_LOCAL_DAMAGE_EXPERIMENT_2026-08-29",
+  "browser": {
+    "engine": "Chromium 144.0.7559.96",
+    "viewport": [
+      800,
+      500
+    ],
+    "runner": "Playwright headed Chromium under Xvfb with ANGLE SwiftShader",
+    "httpStatus": 200,
+    "pageErrors": [],
+    "consoleErrors": [],
+    "consoleMessages": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+      }
+    ],
+    "webglError": 0
+  },
+  "locks": {
+    "sourceLockMatchesV009R1": true,
+    "geometryMatchesV009R1": true,
+    "sourcePayloadChanged": false,
+    "geometryChanged": false,
+    "animationChanged": false
+  },
+  "noiseImplementation": {
+    "baseLayer": [
+      "value-noise",
+      "fbm4"
+    ],
+    "localizedLayer": "ridged6",
+    "maskStack": [
+      "semantic-part-zone",
+      "geometry-transition-proxy",
+      "broad-service-damage-field",
+      "generic-service-state"
+    ],
+    "channels": [
+      "baseColor",
+      "roughness",
+      "localized-metalness"
+    ],
+    "protectedGroups": [
+      "glass",
+      "propeller",
+      "tire",
+      "landing-mechanism",
+      "propulsion-mechanism",
+      "interior-detail",
+      "legacy-weapon",
+      "gear-paths"
+    ],
+    "panelTopologyAuthority": false,
+    "historicalAircraftDamageAuthority": false
+  },
+  "surface": {
+    "preset": "service",
+    "ridgedEnabled": true,
+    "ridgedStrength": 0.34,
+    "ridgedScale": 0.62,
+    "ridgedThreshold": 0.64,
+    "serviceGate": 0.48,
+    "baseAge": 0.46,
+    "baseDamage": 0.22,
+    "baseNoiseScale": 0.56,
+    "skinMetalness": 0.42,
+    "skinRoughness": 0.5,
+    "shader": "world-space-value-noise-fbm4-plus-ridged6-localized",
+    "globalNoiseRaisesMetalness": false,
+    "localizedRidgedRaisesMetalness": true,
+    "heightChannel": false,
+    "normalChannel": false,
+    "historicalEvidenceGateOpen": false
+  },
+  "materialMaskChecks": {
+    "total": 330,
+    "protectedCount": 121,
+    "protectedAllZero": true,
+    "protectedMaxZone": 0,
+    "cowlCount": 88,
+    "cowlMinZone": 0.96,
+    "bombDoorCount": 64,
+    "bombDoorMinZone": 0.82,
+    "controlSurfaceCount": 10,
+    "controlSurfaceMinZone": 0.72,
+    "coverage": {
+      "counts": {
+        "protected": 121,
+        "low": 24,
+        "medium": 14,
+        "high": 171
+      },
+      "triangles": {
+        "protected": 92293,
+        "low": 193137,
+        "medium": 3215,
+        "high": 30392
+      },
+      "totalItems": 330,
+      "totalTriangles": 319037
+    }
+  },
+  "pixelDiff": {
+    "nacelleServiceVsOff": {
+      "a": "B24_V010_NACELLE_RIDGED_OFF.png",
+      "b": "B24_V010_NACELLE_RIDGED_SERVICE.png",
+      "size": [
+        800,
+        451
+      ],
+      "meanAbsoluteRgb": [
+        0.290928,
+        0.296649,
+        0.299349
+      ],
+      "meanAbsoluteOverall": 0.295642,
+      "changedPixelRatioThreshold2": 0.00832317,
+      "changedPixelRatioThreshold8": 0.00395787,
+      "differenceBoundingBox": [
+        0,
+        91,
+        737,
+        451
+      ],
+      "channelExtrema": [
+        [
+          0,
+          157
+        ],
+        [
+          0,
+          161
+        ],
+        [
+          0,
+          164
+        ]
+      ]
+    },
+    "nacelleDiagnosticVsOff": {
+      "a": "B24_V010_NACELLE_RIDGED_OFF.png",
+      "b": "B24_V010_NACELLE_RIDGED_DIAGNOSTIC.png",
+      "size": [
+        800,
+        451
+      ],
+      "meanAbsoluteRgb": [
+        0.52786,
+        0.515593,
+        0.54931
+      ],
+      "meanAbsoluteOverall": 0.530921,
+      "changedPixelRatioThreshold2": 0.03758592,
+      "changedPixelRatioThreshold8": 0.01224224,
+      "differenceBoundingBox": [
+        0,
+        76,
+        737,
+        451
+      ],
+      "channelExtrema": [
+        [
+          0,
+          157
+        ],
+        [
+          0,
+          161
+        ],
+        [
+          0,
+          164
+        ]
+      ]
+    }
+  },
+  "regressions": {
+    "propeller": {
+      "before": {
+        "angle": 0,
+        "axis": "local-y",
+        "roots": 15
+      },
+      "after": {
+        "angle": 5.88353976762798,
+        "axis": "local-y",
+        "roots": 15,
+        "rpm": 0.2375939679498513,
+        "glError": 0
+      },
+      "angleChanged": true,
+      "localYAxisPreserved": true
+    },
+    "nacelleSkin": "unified",
+    "landingGearMaterial": "preserved"
+  },
+  "approvals": {
+    "visualApproved": false,
+    "engineeringApproved": false,
+    "productionFrozen": false,
+    "wholeAircraftApproved": false,
+    "ridgedLayerApproved": false
+  },
+  "allApprovalsRemainFalse": true,
+  "limitations": [
+    "geometry transition proxy is not a panel-line map",
+    "generic service gate has no aircraft-specific historical authority",
+    "height and normal channels are intentionally disabled",
+    "remote browser workflows were not changed by this local experiment"
+  ],
+  "gates": {
+    "browserLoad": true,
+    "noPageErrors": true,
+    "noConsoleErrors": true,
+    "webglNoError": true,
+    "sourceLock": true,
+    "geometryLock": true,
+    "sourcePayloadUnchanged": true,
+    "geometryUnchanged": true,
+    "animationUnchanged": true,
+    "protectedGroupsZeroZone": true,
+    "cowlSemanticZoneActive": true,
+    "bombDoorSemanticZoneActive": true,
+    "servicePixelResponse": true,
+    "diagnosticAmplifiesResponse": true,
+    "propellerLocalYRegression": true,
+    "allApprovalsClosed": true,
+    "historicalEvidenceGateClosed": true,
+    "heightAndNormalClosed": true
+  },
+  "localBrowserQaPassed": true,
+  "files": {
+    "html": {
+      "path": "B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html",
+      "bytes": 12550988,
+      "sha256": "1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949"
+    },
+    "patch": {
+      "path": "B24_V010_RIDGED_PATCH.js",
+      "bytes": 23877,
+      "sha256": "a103e7b066e5d61d639e3c06c7e6b6bae0428c458656f5133c11a139dd276344"
+    },
+    "pixelDiff": {
+      "path": "B24_V010_PIXEL_DIFF.json",
+      "bytes": 1212,
+      "sha256": "654d5e533ba8e003e3d084f5ff734bd4059cc572a314dad2e581c77ec40aefcc"
+    },
+    "screenshots": {
+      "B24_V010_BOMB_DOOR_SERVICE": {
+        "path": "B24_V010_BOMB_DOOR_SERVICE.png",
+        "bytes": 115157,
+        "sha256": "85186fb1e7d5ad74bb50f0ba430c18014b5384d0f79f8d1fe42a765279c7bda4"
+      },
+      "B24_V010_CLEAN_BOMB_DOOR_SERVICE": {
+        "path": "B24_V010_CLEAN_BOMB_DOOR_SERVICE.png",
+        "bytes": 87956,
+        "sha256": "971bd22af8fd2ec837bbbade2f3157558f8385eb99a116582ddfdafb406a8506"
+      },
+      "B24_V010_CLEAN_FULL_SERVICE": {
+        "path": "B24_V010_CLEAN_FULL_SERVICE.png",
+        "bytes": 55774,
+        "sha256": "bc23f4fb04e58552e04872f3c2125eb3ec6d5902d94fbeddd07f06bd88a0149c"
+      },
+      "B24_V010_CLEAN_GEAR_PROTECTED": {
+        "path": "B24_V010_CLEAN_GEAR_PROTECTED.png",
+        "bytes": 133198,
+        "sha256": "91dfaf8d9cb157e8de1cf49108845cac1a817c85fa14e00a997f459209d4abf3"
+      },
+      "B24_V010_CLEAN_NACELLE_DIAGNOSTIC": {
+        "path": "B24_V010_CLEAN_NACELLE_DIAGNOSTIC.png",
+        "bytes": 143728,
+        "sha256": "6b717792714ca7b9bd16797cbb1916a5a4089713fc9321618dda42cf341b4e44"
+      },
+      "B24_V010_CLEAN_NACELLE_SERVICE": {
+        "path": "B24_V010_CLEAN_NACELLE_SERVICE.png",
+        "bytes": 130254,
+        "sha256": "e87d51fa6016ba757fbe3b3f8bd656e65133534ef0719264c09f0dfccc449b6d"
+      },
+      "B24_V010_FULL_AIRCRAFT_SERVICE": {
+        "path": "B24_V010_FULL_AIRCRAFT_SERVICE.png",
+        "bytes": 108960,
+        "sha256": "c491f82b536c86bc93bb8973a1176aecc23d89af739a6048332f3be39ebcf9e0"
+      },
+      "B24_V010_GEAR_PROTECTED_DIAGNOSTIC": {
+        "path": "B24_V010_GEAR_PROTECTED_DIAGNOSTIC.png",
+        "bytes": 79526,
+        "sha256": "fb5f7127f1fe245565351c540e23b6dd228b126a60ca747bb2f3ee5dda74e5b4"
+      },
+      "B24_V010_NACELLE_RIDGED_DIAGNOSTIC": {
+        "path": "B24_V010_NACELLE_RIDGED_DIAGNOSTIC.png",
+        "bytes": 161418,
+        "sha256": "15568dfde78a08a0870fd5926d8df8e2a74f8dc40d2c51cbf3656522ba54421d"
+      },
+      "B24_V010_NACELLE_RIDGED_OFF": {
+        "path": "B24_V010_NACELLE_RIDGED_OFF.png",
+        "bytes": 152504,
+        "sha256": "6c9b603aafa676628a9f29dc90bb1269a1d941fbdc38955dea39327be0dd6edc"
+      },
+      "B24_V010_NACELLE_RIDGED_SERVICE": {
+        "path": "B24_V010_NACELLE_RIDGED_SERVICE.png",
+        "bytes": 154770,
+        "sha256": "e6e89e6128feefca62033b55f8cf4420d334f8d342b4d06a40c83a2459ee701e"
+      },
+      "B24_V010_PROPELLER_LOCAL_Y_REGRESSION": {
+        "path": "B24_V010_PROPELLER_LOCAL_Y_REGRESSION.png",
+        "bytes": 151910,
+        "sha256": "b25a8f4cc77c3c1ff0b76807bbab4a41e78611dbeb3a5f03fc158ac22ce7f7ed"
+      }
+    }
+  }
+}

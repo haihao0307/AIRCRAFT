@@ -1,0 +1,7 @@
+{
+  "schema": "haihao.aircraft/b24-baseline-pointer@1.0.0",
+  "file": "AIRCRAFT_B24_FULL_HANDOFF_2026-08-29_V009R1_NOISE_V001(1).zip",
+  "bytes": 130636401,
+  "sha256": "f96a0b662b8fcd0569de1ebb04fd15a555d8c80fd983a3d43de2f6d4ac266b41",
+  "contains": "V009 R1 full handoff and Noise Knowledge V001"
+}

@@ -1,0 +1,83 @@
+{
+  "schema": "haihao.aircraft/b24-v009-r1-browser-qa@1.0.0",
+  "generatedAt": "2026-08-29T00:13:58.659971+00:00",
+  "build": "B24_NATIVE_REVIEW_V009_R1_ACCEPTANCE_2026-08-29",
+  "browser": {
+    "engine": "Chromium 144.0.7559.96",
+    "viewport": [
+      1440,
+      900
+    ],
+    "pageErrors": [],
+    "consoleErrors": [],
+    "webglWarningsOnly": [
+      "GPU stall due to ReadPixels during screenshot capture"
+    ]
+  },
+  "sourceLock": {
+    "payloadBytes": 16647376,
+    "payloadSha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2"
+  },
+  "geometry": {
+    "components": 1784,
+    "meshes": 348,
+    "vertices": 307273,
+    "triangles": 325358,
+    "animationTracks": 2518
+  },
+  "regressions": {
+    "propellerAxis": {
+      "status": "fixed",
+      "axis": "local-y",
+      "directionSigns": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "controlledRoots": 15,
+      "continuousLowSpeedCheck": true
+    },
+    "nacelleExterior": {
+      "status": "unified-with-airframe-skin"
+    },
+    "landingGear": {
+      "status": "source-derived-material-preserved",
+      "excludedFromGlobalAging": true
+    },
+    "surfaceAging": {
+      "status": "active",
+      "method": "world-space value noise + four-octave FBM",
+      "controls": [
+        "metalness",
+        "roughness",
+        "age",
+        "damage",
+        "noiseScale"
+      ]
+    }
+  },
+  "files": {
+    "html": {
+      "path": "B24_V009_R1_REVIEW_READY.html",
+      "bytes": 12527091,
+      "sha256": "f656506bf96cc427dd31e4311c7c38b5ef97b1b95f29346b76e4a678cf691b32"
+    },
+    "fullAircraftScreenshot": {
+      "path": "B24_V009_R1_FULL_AIRCRAFT.png",
+      "bytes": 247591,
+      "sha256": "6373c0ca75acc2254b72886b853c66a5a3f920c08dbb5218c2c9cec1a33807fc"
+    },
+    "propellerCloseupScreenshot": {
+      "path": "B24_V009_R1_PROPELLER_CLOSEUP.png",
+      "bytes": 358538,
+      "sha256": "937eff99824dfececc8b3f8ffa2d937d0776ef5fa7b33fb83b5aa5a679f847a0"
+    }
+  },
+  "approval": {
+    "visualApproved": false,
+    "engineeringApproved": false,
+    "productionFrozen": false,
+    "note": "Awaiting user visual acceptance before final packaging."
+  }
+}

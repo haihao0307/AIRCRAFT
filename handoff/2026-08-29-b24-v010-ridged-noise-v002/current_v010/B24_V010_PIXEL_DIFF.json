@@ -1,0 +1,74 @@
+{
+  "nacelleServiceVsOff": {
+    "a": "B24_V010_NACELLE_RIDGED_OFF.png",
+    "b": "B24_V010_NACELLE_RIDGED_SERVICE.png",
+    "size": [
+      800,
+      451
+    ],
+    "meanAbsoluteRgb": [
+      0.290928,
+      0.296649,
+      0.299349
+    ],
+    "meanAbsoluteOverall": 0.295642,
+    "changedPixelRatioThreshold2": 0.00832317,
+    "changedPixelRatioThreshold8": 0.00395787,
+    "differenceBoundingBox": [
+      0,
+      91,
+      737,
+      451
+    ],
+    "channelExtrema": [
+      [
+        0,
+        157
+      ],
+      [
+        0,
+        161
+      ],
+      [
+        0,
+        164
+      ]
+    ]
+  },
+  "nacelleDiagnosticVsOff": {
+    "a": "B24_V010_NACELLE_RIDGED_OFF.png",
+    "b": "B24_V010_NACELLE_RIDGED_DIAGNOSTIC.png",
+    "size": [
+      800,
+      451
+    ],
+    "meanAbsoluteRgb": [
+      0.52786,
+      0.515593,
+      0.54931
+    ],
+    "meanAbsoluteOverall": 0.530921,
+    "changedPixelRatioThreshold2": 0.03758592,
+    "changedPixelRatioThreshold8": 0.01224224,
+    "differenceBoundingBox": [
+      0,
+      76,
+      737,
+      451
+    ],
+    "channelExtrema": [
+      [
+        0,
+        157
+      ],
+      [
+        0,
+        161
+      ],
+      [
+        0,
+        164
+      ]
+    ]
+  }
+}
