@@ -1,0 +1,262 @@
+name: B24 V012 propeller interface and skin audit R2
+
+on:
+  push:
+    branches:
+      - feature/b24-v012-propeller-interface-skin-audit
+    paths:
+      - 'handoff/2026-08-29-b24-v012-propeller-interface-skin-audit/**'
+      - 'data/b24-native/surface-modules/B24_SOURCE_DRIVEN_WEATHERING_CONTRACT_V001.json'
+      - 'docs/aircraft-pipeline/B24_V012_PROPELLER_INTERFACE_AND_SKIN_AUDIT.md'
+      - 'tools/audit-b24-v012-propeller-skin-v2.mjs'
+      - 'tools/qa_b24_v012_propeller_interface.py'
+      - '.github/workflows/b24-v012-propeller-interface-skin-audit-r2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-and-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      V010_ROOT: handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010
+      V012_ROOT: handoff/2026-08-29-b24-v012-propeller-interface-skin-audit
+      DIST_ROOT: dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2
+      EVIDENCE_ROOT: dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/evidence
+      PREVIEW_ROOT: dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/preview
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify frozen inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(stat --format=%s "$V010_ROOT/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html")" = "12550988"
+          echo '1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html' | sha256sum --check
+          test -f preview/b24-reference-exact/assets/chunks/manifest.json
+          test -f "$V012_ROOT/B24_V012_PROPELLER_INTERFACE_PATCH.js"
+
+      - name: Audit exact GLB, propeller source and texture slots
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$EVIDENCE_ROOT/source"
+          node tools/audit-b24-v012-propeller-skin-v2.mjs \
+            --output "$EVIDENCE_ROOT/source/B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT.json"
+
+      - name: Generate self-contained V012 review page
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$PREVIEW_ROOT"
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          source = Path(os.environ['V010_ROOT']) / 'B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html'
+          patch = Path(os.environ['V012_ROOT']) / 'B24_V012_PROPELLER_INTERFACE_PATCH.js'
+          output = Path(os.environ['PREVIEW_ROOT']) / 'B24_V012_PROPELLER_INTERFACE_REVIEW.html'
+          html = source.read_text(encoding='utf-8')
+          patch_text = patch.read_text(encoding='utf-8')
+          html = html.replace('</head>', '<link rel="icon" href="data:,">\n</head>', 1)
+          head, tail = html.rsplit('</body>', 1)
+          output.write_text(f'{head}<script>\n{patch_text}\n</script>\n</body>{tail}', encoding='utf-8')
+          print(output, output.stat().st_size)
+          PY
+
+      - name: Install real-browser QA dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check playwright==1.55.0
+          python -m playwright install --with-deps chromium
+
+      - name: Start V012 page
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$PREVIEW_ROOT"
+          python -m http.server 8772 --bind 127.0.0.1 > "$GITHUB_WORKSPACE/b24-v012-r2-http.log" 2>&1 &
+          echo $! > "$GITHUB_WORKSPACE/b24-v012-r2-http.pid"
+          for attempt in $(seq 1 40); do
+            curl --fail --silent http://127.0.0.1:8772/B24_V012_PROPELLER_INTERFACE_REVIEW.html > /dev/null && exit 0
+            sleep 1
+          done
+          cat "$GITHUB_WORKSPACE/b24-v012-r2-http.log"
+          exit 1
+
+      - name: Run real Chromium QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$EVIDENCE_ROOT/browser"
+          xvfb-run -a python tools/qa_b24_v012_propeller_interface.py \
+            --source-html "$V010_ROOT/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html" \
+            --generated-html "$PREVIEW_ROOT/B24_V012_PROPELLER_INTERFACE_REVIEW.html" \
+            --output "$EVIDENCE_ROOT/browser" \
+            --url http://127.0.0.1:8772/B24_V012_PROPELLER_INTERFACE_REVIEW.html \
+            | tee b24-v012-r2-browser.log
+
+      - name: Stop V012 page
+        if: always()
+        shell: bash
+        run: |
+          if [ -f b24-v012-r2-http.pid ]; then
+            kill "$(cat b24-v012-r2-http.pid)" 2>/dev/null || true
+          fi
+
+      - name: Enforce V012 recovery gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          evidence = Path(os.environ['EVIDENCE_ROOT'])
+          source = json.loads((evidence / 'source/B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT.json').read_text(encoding='utf-8'))
+          browser = json.loads((evidence / 'browser/B24_V012_PROPELLER_INTERFACE_BROWSER_QA.json').read_text(encoding='utf-8'))
+          assert source['status'] == 'PASS_AUDIT_ONLY'
+          assert source['propellerInterface']['sourceAssemblyCount'] == 4
+          assert source['propellerInterface']['sourceConnectorPresentOnAllFour'] is True
+          assert source['propellerInterface']['runtimeClassification']['rootCauseConfirmed'] is True
+          assert browser['status'] == 'PASS_PREVIEW_ONLY'
+          assert browser['totals']['failed'] == 0
+          assert len(browser['connectorDetails']) == 4
+          assert all(item['triangleCount'] == 1128 and item['alpha'] == 1 for item in browser['connectorDetails'])
+          assert all(item['protectedFromRidged'] is True and item['damageZone'] == 0 for item in browser['connectorDetails'])
+          assert browser['v012State']['sourcePayloadChanged'] is False
+          assert browser['v012State']['geometryChanged'] is False
+          assert browser['v012State']['animationChanged'] is False
+          assert browser['v012State']['runwayFlightSequenceChanged'] is False
+          assert all(value is False for value in browser['approvalBoundary'].values())
+          print('B24_V012_R2_PASS')
+          PY
+          echo '1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html' | sha256sum --check
+
+      - name: Run repository validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run validate:80days:references
+          npm run build:80days:count-sheet
+          npm test
+          npm run build
+
+      - name: Assemble delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$DIST_ROOT/contracts" "$DIST_ROOT/docs" "$DIST_ROOT/records"
+          cp "$V012_ROOT/B24_V012_PROPELLER_INTERFACE_PATCH.js" "$DIST_ROOT/contracts/"
+          cp data/b24-native/surface-modules/B24_SOURCE_DRIVEN_WEATHERING_CONTRACT_V001.json "$DIST_ROOT/contracts/"
+          cp docs/aircraft-pipeline/B24_V012_PROPELLER_INTERFACE_AND_SKIN_AUDIT.md "$DIST_ROOT/docs/"
+          cp b24-v012-r2-browser.log "$DIST_ROOT/records/"
+          cp b24-v012-r2-http.log "$DIST_ROOT/records/"
+          cat > "$DIST_ROOT/README_FIRST.md" <<'EOF'
+          # B24 V012 螺旋桨连接件与蒙皮来源审计 R2
+
+          打开 `preview/B24_V012_PROPELLER_INTERFACE_REVIEW.html`。
+
+          完整 B24 飞机保持主对象。四套源文件中已有的 1,128 三角形轮毂连接机构恢复可见。源载荷、几何、动画、80 DAYS 涂装身份和跑道飞行动作系统保持不变。噪波继续作为局部表面工具。
+
+          所有批准门继续关闭。
+          EOF
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          out = Path(os.environ['DIST_ROOT'])
+          source = json.loads((out / 'evidence/source/B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT.json').read_text(encoding='utf-8'))
+          browser = json.loads((out / 'evidence/browser/B24_V012_PROPELLER_INTERFACE_BROWSER_QA.json').read_text(encoding='utf-8'))
+          receipt = {
+              'schema': 'haihao.aircraft/b24-v012-propeller-interface-delivery@1.0.0',
+              'repository': 'haihao0307/AIRCRAFT',
+              'branch': os.environ.get('GITHUB_REF_NAME'),
+              'commit': os.environ.get('GITHUB_SHA'),
+              'status': 'PASS_PREVIEW_ONLY',
+              'sourceGlbSha256': source['source']['sha256'],
+              'sourceV010HtmlSha256': browser['source']['sha256'],
+              'sourceConnectorPresentOnAllFour': True,
+              'connectorVisibleOnAllFour': True,
+              'normalTextureCount': source['sourceSkinAndTextureInventory']['textureSlots']['slotCounts']['normalTexture'],
+              'semanticNameMatchCount': source['sourceSkinAndTextureInventory']['semanticNames']['matchCount'],
+              'sourcePayloadChanged': False,
+              'geometryChanged': False,
+              'animationChanged': False,
+              'runwayFlightSequenceChanged': False,
+              'productionApproved': False,
+          }
+          (out / 'records/B24_V012_DELIVERY_RECEIPT.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+          find "$DIST_ROOT" -type f -print0 | sort -z | xargs -0 sha256sum > "$DIST_ROOT/records/SHA256SUMS.txt"
+          cd dist
+          zip -q -r -9 AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2.zip AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2
+          sha256sum AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2.zip > AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2.zip.sha256
+
+      - name: Upload V012 R2 delivery
+        uses: actions/upload-artifact@v4
+        with:
+          name: AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2-${{ github.sha }}
+          path: |
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2.zip
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2.zip.sha256
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/preview/B24_V012_PROPELLER_INTERFACE_REVIEW.html
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/evidence/source/B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT.json
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/evidence/browser/B24_V012_PROPELLER_INTERFACE_BROWSER_QA.json
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/evidence/browser/B24_V012_FULL_PAGE.png
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/evidence/browser/B24_V012_FULL_AIRCRAFT_NOISE_OFF.png
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/evidence/browser/B24_V012_FULL_AIRCRAFT_SERVICE.png
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/evidence/browser/B24_V012_PROP0_HUB_CONNECTOR.png
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/evidence/browser/B24_V012_PROP1_HUB_CONNECTOR.png
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/evidence/browser/B24_V012_PROP2_HUB_CONNECTOR.png
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/evidence/browser/B24_V012_PROP3_HUB_CONNECTOR.png
+            dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2/records/B24_V012_DELIVERY_RECEIPT.json
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Write summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## B24 V012 R2'
+            echo
+            echo "Branch: $GITHUB_REF_NAME"
+            echo
+            echo "Commit: $GITHUB_SHA"
+            echo
+            if [ -f "$EVIDENCE_ROOT/source/B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT.json" ]; then
+              python - <<'PY'
+          import json, os
+          from pathlib import Path
+          source = json.loads((Path(os.environ['EVIDENCE_ROOT']) / 'source/B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT.json').read_text())
+          print(f"Source connectors on all four: {source['propellerInterface']['sourceConnectorPresentOnAllFour']}")
+          print(f"normalTexture count: {source['sourceSkinAndTextureInventory']['textureSlots']['slotCounts']['normalTexture']}")
+          print(f"semantic name matches: {source['sourceSkinAndTextureInventory']['semanticNames']['matchCount']}")
+          PY
+            fi
+            if [ -f "$EVIDENCE_ROOT/browser/B24_V012_PROPELLER_INTERFACE_BROWSER_QA.json" ]; then
+              python - <<'PY'
+          import json, os
+          from pathlib import Path
+          browser = json.loads((Path(os.environ['EVIDENCE_ROOT']) / 'browser/B24_V012_PROPELLER_INTERFACE_BROWSER_QA.json').read_text())
+          print(f"Browser QA: {browser['status']} {browser['totals']}")
+          PY
+            fi
+            if [ -f dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2.zip.sha256 ]; then
+              cat dist/AIRCRAFT_B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_R2.zip.sha256
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
