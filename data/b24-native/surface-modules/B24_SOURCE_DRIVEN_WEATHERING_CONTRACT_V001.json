@@ -1,0 +1,208 @@
+{
+  "schema": "haihao.aircraft/b24-source-driven-weathering-contract@1.0.0",
+  "version": "V001",
+  "date": "2026-08-29",
+  "aircraftPrimary": true,
+  "surfaceToolsAreSubordinate": true,
+  "baseline": {
+    "name": "B24 V010 clean aircraft baseline",
+    "integrationCommit": "6587e02d9b91d2e5ed82ceb6c84ca14573488ff8",
+    "sourceGlbSha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "sourcePayloadChanged": false,
+    "geometryChanged": false,
+    "animationChanged": false,
+    "runwayFlightSequenceChanged": false
+  },
+  "noiseSubstrate": {
+    "allowedFunctions": [
+      "value-noise",
+      "fbm",
+      "ridged-multifractal"
+    ],
+    "role": [
+      "break uniformity inside an evidence-backed semantic mask",
+      "vary edge softness and density",
+      "provide deterministic seeded microvariation"
+    ],
+    "forbiddenRole": [
+      "invent a feature location without a semantic source",
+      "replace a source-driven emitter, service point, walk zone, rivet mask or panel seam map",
+      "apply one global damage field to the complete aircraft",
+      "overwrite protected glass, propeller, tire, landing mechanism, propulsion mechanism or interior groups"
+    ]
+  },
+  "layers": [
+    {
+      "id": "engine-exhaust-soot",
+      "label": "Engine exhaust soot",
+      "requiredInputs": [
+        "exhaustEmitterAnchor",
+        "exhaustDirection",
+        "localAirflowDirection",
+        "engineOperatingIntensity",
+        "componentLocalFrame"
+      ],
+      "optionalInputs": [
+        "historicalPhotoMask",
+        "exhaustTemperatureBand",
+        "rainWashFactor"
+      ],
+      "projection": "emitter-origin plume advected by local airflow over eligible airframe skin",
+      "noiseUse": "internal plume breakup only",
+      "failClosed": true,
+      "currentStatus": "anchor-and-airflow-data-required"
+    },
+    {
+      "id": "oil-and-fluid-seepage",
+      "label": "Oil and fluid seepage",
+      "requiredInputs": [
+        "servicePointAnchor",
+        "fluidSourceType",
+        "gravityDirection",
+        "localAirflowDirection",
+        "eligibleSurfaceMask"
+      ],
+      "optionalInputs": [
+        "maintenanceFrequency",
+        "historicalPhotoMask"
+      ],
+      "projection": "short gravity streak near source transitioning into airflow tail",
+      "noiseUse": "edge breakup and accumulation variation only",
+      "failClosed": true,
+      "currentStatus": "service-point-map-required"
+    },
+    {
+      "id": "crew-foot-traffic",
+      "label": "Crew footsteps and walk-zone wear",
+      "requiredInputs": [
+        "walkZoneMask",
+        "accessDirection",
+        "trafficDensity",
+        "eligibleSurfaceMask"
+      ],
+      "optionalInputs": [
+        "shoePrintStampSet",
+        "maintenanceRouteGraph"
+      ],
+      "projection": "oriented repeated contact marks concentrated along documented access routes",
+      "noiseUse": "spacing and opacity variation inside walk zones",
+      "failClosed": true,
+      "currentStatus": "walk-zone-map-required"
+    },
+    {
+      "id": "rivet-grime",
+      "label": "Rivet and fastener grime",
+      "requiredInputs": [
+        "rivetOrFastenerMask",
+        "surfaceNormal",
+        "gravityDirection",
+        "localAirflowDirection"
+      ],
+      "optionalInputs": [
+        "fastenerType",
+        "historicalPhotoMask"
+      ],
+      "projection": "small contact halo with directionally biased downstream tail",
+      "noiseUse": "subpixel halo breakup only",
+      "failClosed": true,
+      "currentStatus": "dedicated-source-mask-not-yet-confirmed",
+      "forbiddenFallback": "random dot distribution"
+    },
+    {
+      "id": "panel-seam-grime",
+      "label": "Panel seam and access-cover grime",
+      "requiredInputs": [
+        "panelSeamMap",
+        "panelSideClassification",
+        "gravityDirection",
+        "localAirflowDirection"
+      ],
+      "optionalInputs": [
+        "maintenanceOpenFrequency",
+        "historicalPhotoMask"
+      ],
+      "projection": "line-following accumulation with asymmetric downstream feather",
+      "noiseUse": "line-width and deposition variation inside the seam map",
+      "failClosed": true,
+      "currentStatus": "panel-seam-map-not-yet-confirmed",
+      "forbiddenFallback": "procedural panel lines without source topology"
+    },
+    {
+      "id": "rain-dust-streaking",
+      "label": "Rain-washed dust streaking",
+      "requiredInputs": [
+        "gravityDirection",
+        "localAirflowDirection",
+        "waterRunoffMask",
+        "dustExposure"
+      ],
+      "optionalInputs": [
+        "parkingOrientationHistory",
+        "historicalPhotoMask"
+      ],
+      "projection": "gravity-led runoff blended with flight-direction tailing",
+      "noiseUse": "streak continuity and density variation",
+      "failClosed": true,
+      "currentStatus": "runoff-map-required"
+    },
+    {
+      "id": "paint-fading-and-chalking",
+      "label": "Paint fading and chalking",
+      "requiredInputs": [
+        "paintedSurfaceMask",
+        "orientationExposure",
+        "serviceAge"
+      ],
+      "optionalInputs": [
+        "theatreClimateProfile",
+        "historicalPhotoMask"
+      ],
+      "projection": "broad low-frequency change governed by exposure and paint system",
+      "noiseUse": "low-amplitude breakup inside painted regions",
+      "failClosed": true,
+      "currentStatus": "paint-system-and-exposure-data-required"
+    },
+    {
+      "id": "edge-chipping-and-exposed-metal",
+      "label": "Edge chipping and exposed metal",
+      "requiredInputs": [
+        "eligiblePaintedSurfaceMask",
+        "serviceEdgeMask",
+        "contactFrequency"
+      ],
+      "optionalInputs": [
+        "panelEdgeMap",
+        "historicalPhotoMask"
+      ],
+      "projection": "contact-localized edge loss with bounded exposed-metal response",
+      "noiseUse": "chip contour breakup only",
+      "failClosed": true,
+      "currentStatus": "service-edge-map-required"
+    }
+  ],
+  "protectedGroups": [
+    "glass",
+    "propeller",
+    "tire",
+    "landing-mechanism",
+    "propulsion-mechanism",
+    "interior-detail",
+    "legacy-weapon",
+    "gear-paths"
+  ],
+  "separationRules": {
+    "historicalLiveryIdentity": "separate versioned layer",
+    "runwayAndFlightBehavior": "preserved independent system",
+    "aircraftGeometry": "immutable during surface-layer experiments",
+    "propellerInterfaceCorrection": "runtime material classification correction only",
+    "diagnosticPreset": "diagnostic evidence only"
+  },
+  "approvalBoundary": {
+    "visualApproved": false,
+    "surfaceSystemApproved": false,
+    "historicalApproved": false,
+    "engineeringApproved": false,
+    "wholeAircraftApproved": false,
+    "productionFrozen": false
+  }
+}
