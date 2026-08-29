@@ -1,0 +1,149 @@
+{
+  "schema": "haihao.aircraft/b24-v012-source-texture-rivet-panel-evidence-complete@1.0.0",
+  "date": "2026-08-29",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "feature/b24-v012-propeller-interface-skin-audit",
+  "workflowCommit": "67c1b321b9683ab759770210bb044ad0e1fcc68a",
+  "workflowRun": {
+    "id": 33281295626,
+    "name": "B24 V012 source texture rivet and panel evidence",
+    "conclusion": "success"
+  },
+  "artifact": {
+    "id": 9723061269,
+    "name": "AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE-67c1b321b9683ab759770210bb044ad0e1fcc68a",
+    "bytes": 16520775,
+    "sha256": "89073cb9a26bae7096de36a885dd1babaf60d3bbf5e5631b2ac938c91c2ff218",
+    "expiresAt": "2026-11-27T23:34:34Z"
+  },
+  "deliveryZip": {
+    "name": "AIRCRAFT_B24_V012_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE.zip",
+    "bytes": 11858366,
+    "sha256": "9fa0622e65e756544615a3066b34655110920fc4731a67ae3c1eb09c894578a7",
+    "zipIntegrity": "pass"
+  },
+  "frozenSource": {
+    "html": "B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html",
+    "htmlBytes": 12550988,
+    "htmlSha256": "1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949",
+    "sourceGlbBytes": 23085972,
+    "sourceGlbSha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "embeddedManifestBytes": 2169385,
+    "embeddedManifestSha256": "8934b65ef1b29fc8b64da5e339815a39f8d03254c0b31638781bc16016a6d307",
+    "embeddedPayloadBytes": 16647376,
+    "embeddedPayloadSha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2"
+  },
+  "inventory": {
+    "sourceImageCount": 18,
+    "sourceImageBlocksVerified": 18,
+    "materialCount": 30,
+    "textureCount": 18,
+    "baseColorTextureCount": 18,
+    "metallicRoughnessTextureCount": 10,
+    "normalTextureCount": 0,
+    "occlusionTextureCount": 10,
+    "emissiveTextureCount": 0,
+    "visualEvidenceCropCount": 9
+  },
+  "confirmedVisualSourceFacts": {
+    "bakedPanelSeamInformationPresent": true,
+    "bakedRivetLikeInformationPresent": true,
+    "bakedAccessPanelOutlineInformationPresent": true,
+    "bakedNacelleStainInformationPresent": true,
+    "bakedFluidStreakInformationPresent": true,
+    "dedicatedNormalTexturePresent": false,
+    "dedicatedRivetSemanticMaskPresent": false,
+    "dedicatedPanelSeamSemanticMaskPresent": false
+  },
+  "strongEvidenceImages": [
+    {
+      "imageId": 2,
+      "materialName": "material13",
+      "evidence": [
+        "upper-wing-panel-grid",
+        "fuselage-panel-and-fastener-rows",
+        "nose-side-panel-layout"
+      ]
+    },
+    {
+      "imageId": 5,
+      "materialName": "material21",
+      "evidence": [
+        "wing-skin-panel-seams",
+        "control-surface-fastener-rows",
+        "nacelle-stains",
+        "fluid-streaks"
+      ]
+    },
+    {
+      "imageId": 9,
+      "materialName": "material24",
+      "evidence": [
+        "mirrored-wing-skin-panel-seams",
+        "control-surface-fastener-rows",
+        "nacelle-stains",
+        "fluid-streaks"
+      ]
+    },
+    {
+      "imageId": 7,
+      "materialName": "material09",
+      "evidence": [
+        "dual-tail-panel-seams",
+        "tail-rivet-like-rows",
+        "hinge-and-access-panel-outlines"
+      ]
+    },
+    {
+      "imageId": 3,
+      "materialName": "material19",
+      "evidence": [
+        "cockpit-and-forward-panel-seams",
+        "localized-rivet-like-rows",
+        "access-panel-outlines"
+      ]
+    }
+  ],
+  "runtimeFinding": {
+    "currentV010PreviewMode": "solid-exterior-no-uv",
+    "currentV010UsesSourceBaseColorTextures": false,
+    "effect": "The embedded source textures retain visible panel seams, rivet-like rows and baked stains, while the current V010 clean aircraft preview omits those UV texture details."
+  },
+  "nextStage": {
+    "id": "source-uv-detail-distillation",
+    "tasks": [
+      "map each source airframe-skin material and UV island to aircraft semantic components",
+      "separate panel seams, rivet-like rows and baked stains into independent review masks",
+      "compare generic source stains with 80 DAYS photographic evidence",
+      "promote only confirmed masks into the source-driven weathering contract"
+    ]
+  },
+  "protectedSystems": {
+    "sourcePayloadChanged": false,
+    "sourceGlbChanged": false,
+    "geometryChanged": false,
+    "animationChanged": false,
+    "liveryIdentityChanged": false,
+    "runwayFlightSequenceChanged": false,
+    "aircraftPrimary": true,
+    "noiseToolLocalOverlay": true
+  },
+  "historicalLiveryStatus": {
+    "aircraftId": "308bg_374bs_42-73257_80-days",
+    "referenceAssetsExpected": 10,
+    "referenceAssetsVerified": 0,
+    "referenceAssetsMissing": 10,
+    "assetIntakeStatus": "blocked-missing-asset",
+    "countSheetStatus": "blocked-missing-asset",
+    "finalBakeApproved": false
+  },
+  "approvalLedger": {
+    "visualApproved": false,
+    "surfaceSystemApproved": false,
+    "historicalApproved": false,
+    "engineeringApproved": false,
+    "wholeAircraftApproved": false,
+    "productionFrozen": false
+  },
+  "activeWorkflow": ".github/workflows/b24-v012-source-texture-evidence.yml"
+}
