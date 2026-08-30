@@ -1,0 +1,102 @@
+name: B24 V014 bootstrap publisher R2
+
+on:
+  push:
+    branches:
+      - bootstrap/b24-v014-procedural-field-metal-pilot
+    paths:
+      - '.github/workflows/b24-v014-bootstrap-r2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish-clean-final-branch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BASE_COMMIT: 4868116e098d78bd29ce847ecf0809fb6fbc3f2e
+      FINAL_BRANCH: feature/b24-v014-procedural-field-metal-pilot
+      BOOTSTRAP_BRANCH: bootstrap/b24-v014-procedural-field-metal-pilot
+      PATCH_SHA256: b70f0211a279b1198c667ecee4a08816d44a1654f5ee2135c3d6e44a143f845e
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct and verify V014 repository patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          parts=[]
+          for index in range(5):
+              text=Path(f'bootstrap/b24-v014/part-{index:03d}.b64').read_text(encoding='ascii')
+              if index == 2:
+                  if len(text) != 17999:
+                      raise SystemExit(f'unexpected part-002 length: {len(text)}')
+                  text = text[:4094] + 'T' + text[4094:]
+              parts.append(text)
+          decoded=base64.b64decode(''.join(parts), validate=True)
+          Path('/tmp/b24-v014-repo-patch.tar.gz').write_bytes(decoded)
+          print(f'decoded_bytes={len(decoded)}')
+          PY
+          echo "$PATCH_SHA256  /tmp/b24-v014-repo-patch.tar.gz" | sha256sum --check
+          tar -xzf /tmp/b24-v014-repo-patch.tar.gz -C .
+          rm -rf tools/__pycache__
+          test -f .github/workflows/b24-v014-procedural-field-metal-pilot.yml
+          test -f handoff/2026-08-30-b24-v014-procedural-field-metal-pilot/B24_V014_PROCEDURAL_FIELD_METAL_PATCH.js
+          test -f knowledge/procedural-field/v1.0.0/SOURCE_LOCK.json
+          test -f data/b24-native/surface-fields/B24_V014_METAL_PILOT_CONTRACT.json
+
+      - name: Remove temporary, superseded and failed working files
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf bootstrap/b24-v014
+          rm -f .github/workflows/b24-v014-bootstrap.yml
+          rm -f .github/workflows/b24-v014-bootstrap-r2.yml
+          rm -f .github/workflows/b24-v011-restore-v010-clean-baseline-r5.yml
+          rm -f .github/workflows/b24-v012-propeller-interface-skin-audit-r3.yml
+          rm -f .github/workflows/b24-v012-source-texture-evidence.yml
+          rm -f handoff/2026-08-29-b24-v011-noise-distillation-v003-start/00_README_FIRST.md
+          rm -f handoff/2026-08-29-b24-v011-noise-distillation-v003-start/B24_V011_START_CONTRACT.json
+          rm -f handoff/2026-08-29-b24-v011-noise-distillation-v003-start/patches/V009_GLAZING_CLASSIFIER_FIX_PROPOSAL.js
+          rm -f handoff/2026-08-29-b24-v011-noise-distillation-v003-start/scripts/material_inventory_extractor_v001.js
+          find handoff/2026-08-29-b24-v011-noise-distillation-v003-start -type d -empty -delete 2>/dev/null || true
+
+      - name: Publish one clean commit from frozen V013 base
+        shell: bash
+        run: |
+          set -euo pipefail
+          final_head="$(git ls-remote origin "refs/heads/$FINAL_BRANCH" | cut -f1)"
+          test "$final_head" = "$BASE_COMMIT"
+          git config user.name 'Haihao Aircraft Production'
+          git config user.email 'haihao0307@gmail.com'
+          git add -A
+          tree="$(git write-tree)"
+          commit="$(printf '%s\n' 'feat: add B24 V014 procedural field coated-metal pilot' | git commit-tree "$tree" -p "$BASE_COMMIT")"
+          git push origin "$commit:refs/heads/$FINAL_BRANCH"
+          echo "FINAL_COMMIT=$commit" >> "$GITHUB_ENV"
+          echo "$commit" > /tmp/B24_V014_FINAL_COMMIT.txt
+
+      - name: Remove temporary bootstrap branch
+        shell: bash
+        run: |
+          git push origin --delete "$BOOTSTRAP_BRANCH"
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## B24 V014 clean publisher'
+            echo
+            echo "Final branch: $FINAL_BRANCH"
+            echo "Final commit: ${FINAL_COMMIT:-not-published}"
+            echo
+            echo 'The final branch now owns the full static and Chromium QA workflow.'
+          } >> "$GITHUB_STEP_SUMMARY"
