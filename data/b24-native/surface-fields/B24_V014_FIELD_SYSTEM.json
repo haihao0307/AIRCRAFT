@@ -76,13 +76,15 @@
         "space": "aircraft-world-field-anchored-to-source-components",
         "engineCentre": [3.38, 0.0, 3.2],
         "wingSoftRegion": {
-          "xRadius": 1.72,
-          "zRadius": 2.28,
+          "centre": [3.38, 0.0, 1.54],
+          "xRadius": 1.92,
+          "zRadius": 2.62,
           "softEdge": true
         },
         "nacelleCore": {
-          "xRadius": 1.12,
-          "zRadius": 1.02,
+          "centre": [3.38, 0.0, 2.38],
+          "xRadius": 1.42,
+          "zRadius": 1.48,
           "fullCoverage": true
         },
         "wholeAircraftAssignment": false
@@ -198,6 +200,11 @@
       "roughnessDebug",
       "metallicDebug"
     ],
+    "defaultControls": {
+      "metalResponse": 0.86,
+      "weatheringStrength": 0.38,
+      "clearCoatStrength": 0.075
+    },
     "shapeImpact": "none",
     "sourceGeometryMutation": false,
     "deterministic": true,
