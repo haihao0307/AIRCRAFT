@@ -1,0 +1,269 @@
+name: B24 V014 bootstrap and publish
+
+on:
+  push:
+    branches:
+      - bootstrap/b24-v014-procedural-field-metal-pilot
+    paths:
+      - 'bootstrap/b24-v014/**'
+      - '.github/workflows/b24-v014-bootstrap.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap-validate-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    env:
+      BASE_COMMIT: 4868116e098d78bd29ce847ecf0809fb6fbc3f2e
+      FINAL_BRANCH: feature/b24-v014-procedural-field-metal-pilot
+      PATCH_SHA256: b70f0211a279b1198c667ecee4a08816d44a1654f5ee2135c3d6e44a143f845e
+      V010: handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html
+      V012: handoff/2026-08-29-b24-v012-propeller-interface-skin-audit/B24_V012_PROPELLER_INTERFACE_PATCH.js
+      V013: handoff/2026-08-30-b24-v014-procedural-field-metal-pilot/B24_V013_SOURCE_MECHANICAL_COLOR_PATCH.js
+      V014: handoff/2026-08-30-b24-v014-procedural-field-metal-pilot/B24_V014_PROCEDURAL_FIELD_METAL_PATCH.js
+      DELIVERY: delivery/AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1
+      PORT: '8814'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Reconstruct and verify V014 repository patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat bootstrap/b24-v014/part-*.b64 | base64 --decode > /tmp/b24-v014-repo-patch.tar.gz
+          echo "$PATCH_SHA256  /tmp/b24-v014-repo-patch.tar.gz" | sha256sum --check
+          tar -xzf /tmp/b24-v014-repo-patch.tar.gz -C .
+          rm -rf tools/__pycache__
+          test -f "$V013"
+          test -f "$V014"
+          test -f knowledge/procedural-field/v1.0.0/SOURCE_LOCK.json
+          test -f data/b24-native/surface-fields/B24_V014_METAL_PILOT_CONTRACT.json
+
+      - name: Remove superseded and failed working files
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/b24-v011-restore-v010-clean-baseline-r5.yml
+          rm -f .github/workflows/b24-v012-propeller-interface-skin-audit-r3.yml
+          rm -f .github/workflows/b24-v012-source-texture-evidence.yml
+          rm -f handoff/2026-08-29-b24-v011-noise-distillation-v003-start/00_README_FIRST.md
+          rm -f handoff/2026-08-29-b24-v011-noise-distillation-v003-start/B24_V011_START_CONTRACT.json
+          rm -f handoff/2026-08-29-b24-v011-noise-distillation-v003-start/patches/V009_GLAZING_CLASSIFIER_FIX_PROPOSAL.js
+          rm -f handoff/2026-08-29-b24-v011-noise-distillation-v003-start/scripts/material_inventory_extractor_v001.js
+          find handoff/2026-08-29-b24-v011-noise-distillation-v003-start -type d -empty -delete 2>/dev/null || true
+
+      - name: Verify frozen aircraft and source contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(stat --format=%s "$V010")" = 12550988
+          echo '1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949  handoff/2026-08-29-b24-v010-ridged-noise-v002/current_v010/B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html' | sha256sum --check
+          node --check "$V012"
+          node --check "$V013"
+          node --check "$V014"
+          python tools/validate-b24-v014-static.py
+          npm run validate:80days:references
+          npm run build:80days:count-sheet
+          npm test
+          npm run build
+
+      - name: Build self-contained V014 one-click HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$DELIVERY"
+          mkdir -p "$DELIVERY/preview" "$DELIVERY/evidence/browser" "$DELIVERY/evidence/static" "$DELIVERY/contracts" "$DELIVERY/knowledge" "$DELIVERY/records" "$DELIVERY/docs"
+          python tools/build-b24-v014-one-click.py \
+            --source "$V010" --v012 "$V012" --v013 "$V013" --v014 "$V014" \
+            --output "$DELIVERY/preview/B24_ONE_CLICK_V014_PROCEDURAL_FIELD_METAL.html"
+          cp reports/B24_V014_STATIC_QA.json "$DELIVERY/evidence/static/"
+          cp data/b24-native/surface-fields/*.json "$DELIVERY/contracts/"
+          cp knowledge/procedural-field/v1.0.0/SOURCE_LOCK.json "$DELIVERY/knowledge/"
+          cp docs/aircraft-pipeline/B24_PROCEDURAL_FIELD_METAL_PILOT_V1.md "$DELIVERY/docs/"
+          cp records/B24_V014_CLEANUP_LEDGER.json "$DELIVERY/records/"
+
+      - name: Install pinned browser QA dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check pillow==11.3.0 playwright==1.55.0
+          python -m playwright install --with-deps chromium
+
+      - name: Start V014 review page
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$DELIVERY/preview"
+          python -m http.server "$PORT" --bind 127.0.0.1 > "$GITHUB_WORKSPACE/b24-v014-http.log" 2>&1 &
+          echo $! > "$GITHUB_WORKSPACE/b24-v014-http.pid"
+          for attempt in $(seq 1 60); do
+            curl --fail --silent "http://127.0.0.1:$PORT/B24_ONE_CLICK_V014_PROCEDURAL_FIELD_METAL.html" >/dev/null && exit 0
+            sleep 1
+          done
+          cat "$GITHUB_WORKSPACE/b24-v014-http.log"
+          exit 1
+
+      - name: Run real Chromium QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          xvfb-run -a python tools/qa-b24-v014-browser.py \
+            --url "http://127.0.0.1:$PORT/B24_ONE_CLICK_V014_PROCEDURAL_FIELD_METAL.html" \
+            --source-html "$V010" \
+            --generated-html "$DELIVERY/preview/B24_ONE_CLICK_V014_PROCEDURAL_FIELD_METAL.html" \
+            --output "$DELIVERY/evidence/browser" | tee b24-v014-browser.log
+
+      - name: Stop V014 review page
+        if: always()
+        shell: bash
+        run: |
+          if [ -f b24-v014-http.pid ]; then kill "$(cat b24-v014-http.pid)" 2>/dev/null || true; fi
+
+      - name: Enforce V014 quality and protection gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          root=Path(os.environ['DELIVERY'])
+          static=json.loads((root/'evidence/static/B24_V014_STATIC_QA.json').read_text())
+          browser=json.loads((root/'evidence/browser/B24_V014_BROWSER_QA.json').read_text())
+          assert static['status']=='PASS_CONTRACT_ONLY' and static['totals']['failed']==0
+          assert browser['status']=='PASS_PREVIEW_ONLY' and browser['totals']['failed']==0
+          state=browser['state']
+          assert state['pilotScope']['targetCount']==23
+          assert state['v013MechanicalColoursPreserved'] is True
+          assert all(state[k] is False for k in ['sourcePayloadChanged','sourceGlbChanged','geometryChanged','animationChanged','runwayFlightSequenceChanged','liveryIdentityChanged','wholeAircraftAutoAssignment','noiseDefaultEnabled'])
+          assert all(value is False for value in state['approvals'].values())
+          assert browser['browser']['externalRequests']==[]
+          print('B24_V014_QUALITY_GATES_PASS')
+          PY
+
+      - name: Assemble locked V014 delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp b24-v014-browser.log "$DELIVERY/records/"
+          cp b24-v014-http.log "$DELIVERY/records/"
+          cat > "$DELIVERY/README_FIRST.md" <<'EOF'
+          # B24 V014 程序化场涂层金属试验区
+
+          直接打开：
+
+          `preview/B24_ONE_CLICK_V014_PROCEDURAL_FIELD_METAL.html`
+
+          这是单文件、自包含、零 iframe、零外部网络请求的整机页面。V014 仅覆盖右侧内侧发动机舱与相邻机翼的 23 个来源锁定绘制件。V013 的机械颜色、原始机械贴图、几何、动画、跑道飞行序列和历史涂装身份全部保持不变。
+
+          页面提供整机、试验区、俯视和发动机视角，并提供 Source、Parent、Exhaust、Oil、Roughness、Clearcoat 和 Fields 诊断模式。所有批准门保持 false。
+          EOF
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          root=Path(os.environ['DELIVERY'])
+          browser=json.loads((root/'evidence/browser/B24_V014_BROWSER_QA.json').read_text())
+          static=json.loads((root/'evidence/static/B24_V014_STATIC_QA.json').read_text())
+          receipt={
+            'schema':'haihao.aircraft/b24-v014-delivery@1.0.0',
+            'repository':'haihao0307/AIRCRAFT',
+            'sourceBaseCommit':os.environ['BASE_COMMIT'],
+            'targetBranch':os.environ['FINAL_BRANCH'],
+            'status':'PASS_PREVIEW_ONLY',
+            'sourceGlbSha256':'541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d',
+            'sourceV010Sha256':'1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949',
+            'v013MechanicalColoursPreserved':True,
+            'targetNodeCount':23,
+            'shapeImpact':'none',
+            'qualityTarget':'AAA_VISUAL_TARGET',
+            'pixelDiff':browser['pixelDiff'],
+            'staticChecks':static['totals'],
+            'browserChecks':browser['totals'],
+            'productionApproved':False,
+          }
+          (root/'records/B24_V014_DELIVERY_RECEIPT.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+          rows=[]
+          for p in sorted(root.rglob('*')):
+            if p.is_file() and p.name!='SHA256SUMS.txt':
+              rows.append(f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.relative_to(root).as_posix()}")
+          (root/'records/SHA256SUMS.txt').write_text('\n'.join(rows)+'\n')
+          PY
+          cd delivery
+          zip -q -r -9 AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1.zip AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1
+          sha256sum AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1.zip > AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1.zip.sha256
+          unzip -t AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1.zip
+
+      - name: Publish one clean V014 commit to final branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          remote_head="$(git ls-remote origin "refs/heads/$FINAL_BRANCH" | cut -f1)"
+          test "$remote_head" = "$BASE_COMMIT"
+          rm -rf bootstrap/b24-v014
+          rm -f .github/workflows/b24-v014-bootstrap.yml
+          rm -rf tools/__pycache__
+          printf 'delivery/\ndist/\nreports/B24_V014_STATIC_QA.json\nb24-v014-*.log\nb24-v014-*.pid\n' >> .git/info/exclude
+          git config user.name 'Haihao Aircraft Production'
+          git config user.email 'haihao0307@gmail.com'
+          git add -A
+          tree="$(git write-tree)"
+          commit="$(printf '%s\n' 'feat: add B24 V014 procedural field coated-metal pilot' | git commit-tree "$tree" -p "$BASE_COMMIT")"
+          echo "FINAL_COMMIT=$commit" >> "$GITHUB_ENV"
+          git push origin "$commit:refs/heads/$FINAL_BRANCH"
+          echo "$commit" > "$DELIVERY/records/B24_V014_FINAL_COMMIT.txt"
+
+      - name: Upload V014 delivery
+        uses: actions/upload-artifact@v4
+        with:
+          name: AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1-${{ github.sha }}
+          path: |
+            delivery/AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1.zip
+            delivery/AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1.zip.sha256
+            delivery/AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1/preview/B24_ONE_CLICK_V014_PROCEDURAL_FIELD_METAL.html
+            delivery/AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1/evidence/browser/**
+            delivery/AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1/evidence/static/**
+            delivery/AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1/records/**
+            delivery/AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1/records/B24_V014_FINAL_COMMIT.txt
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Remove temporary bootstrap branch
+        if: success()
+        shell: bash
+        run: |
+          git push origin --delete bootstrap/b24-v014-procedural-field-metal-pilot
+
+      - name: Final summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## B24 V014 procedural field coated-metal pilot'
+            echo
+            echo "Final branch: $FINAL_BRANCH"
+            echo "Final commit: ${FINAL_COMMIT:-not-published}"
+            echo
+            test -f "$DELIVERY/evidence/browser/B24_V014_BROWSER_QA.json" && python - <<'PY'
+          import json, os
+          from pathlib import Path
+          r=json.loads((Path(os.environ['DELIVERY'])/'evidence/browser/B24_V014_BROWSER_QA.json').read_text())
+          print(f"Browser QA: {r['status']} {r['totals']}")
+          print(f"Pilot pixel diff: {r['pixelDiff']['pilot']}")
+          print(f"Full-aircraft pixel diff: {r['pixelDiff']['full']}")
+          PY
+            test -f delivery/AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1.zip.sha256 && cat delivery/AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1.zip.sha256
+            echo
+            echo 'All visual, metal-material, surface, historical, engineering, whole-aircraft and production approvals remain false.'
+          } >> "$GITHUB_STEP_SUMMARY"
