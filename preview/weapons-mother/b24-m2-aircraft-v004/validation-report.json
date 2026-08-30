@@ -1,8 +1,8 @@
 {
   "schema": "haihao.aircraft/weapons-mother-validation@1.0.0",
   "status": "PASS",
-  "htmlBytes": 66309,
-  "htmlSha256": "62db9d22e44b95a17185475ab28fe4e01445858188d469674bfd71ce36ccda84",
+  "htmlBytes": 67249,
+  "htmlSha256": "2e69a5d526ab5794ce570991fa79c524f53e3d60a4b568c030fd9349e048d793",
   "glbBytes": 7730168,
   "glbSha256": "4670e8f2c34477e516eb3b5164897d02ce0d0434c4c1ddc08254ff494f7d9c7f",
   "nodes": 38,
@@ -18,10 +18,10 @@
     "projectile and source coordinate axes",
     "side-specific source-datum alignment",
     "source aircraft support and live-round feed assembly",
-    "ballistic debris settling",
+    "Cannon rigid-body case and link settling",
     "non-conical layered muzzle effect",
     "procedural surface controls",
-    "external cached GLB delivery",
+    "remote source asset outside the hosted Site",
     "template-entry redirect",
     "HTML size budget",
     "Image2ThreeJS exclusion"

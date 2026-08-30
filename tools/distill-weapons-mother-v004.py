@@ -401,38 +401,134 @@ def normalized_column(values: list[float]) -> list[float]:
     return [value / length for value in values]
 
 
-def gun_alignment(matrix_values: list[float], muzzle_sign: int) -> dict[str, Any]:
-    # glTF matrices are column-major.  The two B-24 waist gun meshes are true
-    # side-specific mirrors: starboard points along local +Y, port along -Y.
-    # Build a proper right-handed basis instead of swapping axes into a
-    # reflection matrix.  High-detail AN/M2 local axes are +X forward, +Y
-    # width, +Z up.
-    muzzle_column = normalized_column(matrix_values[4:7])
-    muzzle = [value * muzzle_sign for value in muzzle_column]
-    up = normalized_column(matrix_values[8:11])
-    width = [
-        up[1] * muzzle[2] - up[2] * muzzle[1],
-        up[2] * muzzle[0] - up[0] * muzzle[2],
-        up[0] * muzzle[1] - up[1] * muzzle[0],
+def vector_subtract(left: list[float], right: list[float]) -> list[float]:
+    return [left[axis] - right[axis] for axis in range(3)]
+
+
+def vector_dot(left: list[float], right: list[float]) -> float:
+    return sum(left[axis] * right[axis] for axis in range(3))
+
+
+def vector_cross(left: list[float], right: list[float]) -> list[float]:
+    return [
+        left[1] * right[2] - left[2] * right[1],
+        left[2] * right[0] - left[0] * right[2],
+        left[0] * right[1] - left[1] * right[0],
     ]
-    width = normalized_column(width)
-    target_half_length = math.sqrt(sum(value * value for value in matrix_values[4:7]))
-    source_min_x = -0.5267140865325928
-    source_max_x = 0.97957444190979
-    source_center = [
-        (source_min_x + source_max_x) * 0.5,
-        (-0.08551083505153656 + 0.07788069546222687) * 0.5,
-        (-0.07730422914028168 + 0.1394633650779724) * 0.5,
+
+
+def vector_length(value: list[float]) -> float:
+    return math.sqrt(vector_dot(value, value))
+
+
+def vector_normalized(value: list[float]) -> list[float]:
+    length = vector_length(value)
+    if length < 1e-9:
+        raise ValueError("cannot normalize zero-length landmark vector")
+    return [component / length for component in value]
+
+
+def point_mean(points: list[list[float]]) -> list[float]:
+    if not points:
+        raise ValueError("cannot average an empty landmark selection")
+    return [sum(point[axis] for point in points) / len(points) for axis in range(3)]
+
+
+def point_bounds_center(points: list[list[float]]) -> list[float]:
+    return [
+        (min(point[axis] for point in points) + max(point[axis] for point in points)) * 0.5
+        for axis in range(3)
     ]
-    scale = target_half_length / ((source_max_x - source_min_x) * 0.5)
-    target_center = matrix_values[12:15]
-    rotation_scale = [
-        [muzzle[0] * scale, width[0] * scale, up[0] * scale],
-        [muzzle[1] * scale, width[1] * scale, up[1] * scale],
-        [muzzle[2] * scale, width[2] * scale, up[2] * scale],
+
+
+def transform_point(matrix: list[list[float]], point: tuple[float | int, ...]) -> list[float]:
+    value = [float(point[0]), float(point[1]), float(point[2]), 1.0]
+    return [sum(matrix[row][axis] * value[axis] for axis in range(4)) for row in range(3)]
+
+
+def node_world_positions(
+    glb: Glb,
+    matrices: dict[int, list[list[float]]],
+    node_index: int,
+    selected_roots: set[int] | None = None,
+) -> list[list[float]]:
+    node = glb.document["nodes"][node_index]
+    primitive = glb.document["meshes"][node["mesh"]]["primitives"][0]
+    positions = read_accessor(glb, primitive["attributes"]["POSITION"])
+    selected_indexes = list(range(len(positions)))
+    if selected_roots is not None:
+        indices = [int(value[0]) for value in read_accessor(glb, primitive["indices"])]
+        members, bounds, _ = connected_components(positions, indices)
+        if not selected_roots.issubset(bounds):
+            raise ValueError(f"landmark roots changed at source node {node_index}")
+        selected_indexes = [index for root in selected_roots for index in members[root]]
+    matrix = matrices[node_index]
+    return [transform_point(matrix, positions[index]) for index in selected_indexes]
+
+
+def projected_radial(point: list[float], origin: list[float], forward: list[float]) -> list[float]:
+    delta = vector_subtract(point, origin)
+    along = vector_dot(delta, forward)
+    return [delta[axis] - forward[axis] * along for axis in range(3)]
+
+
+def gun_alignment(
+    anm2: Glb,
+    anm2_matrices: dict[int, list[list[float]]],
+    b24: Glb,
+    b24_matrices: dict[int, list[list[float]]],
+    gun_node: int,
+    muzzle_sign: int,
+    sight_roots: set[int],
+) -> dict[str, Any]:
+    # Calibrate from actual geometry landmarks, not a node origin or transform
+    # column magnitude.  Both source models are right-handed, but their gun
+    # axes differ (+X on the AN/M2 donor and side-specific +/-Y on the B-24).
+    source_points = []
+    for node_index in (9, 15, 17, 19, 21, 23, 25, 27):
+        source_points.extend(node_world_positions(anm2, anm2_matrices, node_index))
+    source_sight_points = node_world_positions(anm2, anm2_matrices, 19)
+    source_min = min(point[0] for point in source_points)
+    source_max = max(point[0] for point in source_points)
+    source_muzzle = point_mean([point for point in source_points if point[0] > source_max - 0.018])
+    source_rear = point_mean([point for point in source_points if point[0] < source_min + 0.018])
+    source_sight = point_bounds_center(source_sight_points)
+    source_forward = vector_normalized(vector_subtract(source_muzzle, source_rear))
+    source_up = vector_normalized(projected_radial(source_sight, source_muzzle, source_forward))
+    source_width = vector_normalized(vector_cross(source_up, source_forward))
+
+    target_points = node_world_positions(b24, b24_matrices, gun_node)
+    target_axis = vector_normalized(
+        [b24_matrices[gun_node][row][1] * muzzle_sign for row in range(3)]
+    )
+    target_projections = [vector_dot(point, target_axis) for point in target_points]
+    target_min = min(target_projections)
+    target_max = max(target_projections)
+    target_muzzle = point_mean(
+        [point for point, projection in zip(target_points, target_projections) if projection > target_max - 0.014]
+    )
+    target_rear = point_mean(
+        [point for point, projection in zip(target_points, target_projections) if projection < target_min + 0.014]
+    )
+    target_forward = vector_normalized(vector_subtract(target_muzzle, target_rear))
+    target_sight = point_bounds_center(
+        node_world_positions(b24, b24_matrices, gun_node, sight_roots)
+    )
+    target_up = vector_normalized(projected_radial(target_sight, target_muzzle, target_forward))
+    target_width = vector_normalized(vector_cross(target_up, target_forward))
+
+    source_length = vector_length(vector_subtract(source_muzzle, source_rear))
+    target_length = vector_length(vector_subtract(target_muzzle, target_rear))
+    scale = target_length / source_length
+    source_basis = [source_forward, source_width, source_up]
+    target_basis = [target_forward, target_width, target_up]
+    rotation = [
+        [sum(target_basis[axis][row] * source_basis[axis][column] for axis in range(3)) for column in range(3)]
+        for row in range(3)
     ]
+    rotation_scale = [[rotation[row][column] * scale for column in range(3)] for row in range(3)]
     translation = [
-        target_center[row] - sum(rotation_scale[row][axis] * source_center[axis] for axis in range(3))
+        target_muzzle[row] - sum(rotation_scale[row][axis] * source_muzzle[axis] for axis in range(3))
         for row in range(3)
     ]
     row_major = [
@@ -446,9 +542,11 @@ def gun_alignment(matrix_values: list[float], muzzle_sign: int) -> dict[str, Any
         "uniformScale": scale,
         "referenceMuzzleLocalAxis": f"{'+' if muzzle_sign > 0 else '-'}Y",
         "basisDeterminant": 1.0,
-        "sourcePrimaryLengthMeters": source_max_x - source_min_x,
-        "targetReferenceLengthMeters": target_half_length * 2,
-        "method": "uniform scale and right-handed rigid axis alignment from exact side-specific source matrices",
+        "sourcePrimaryLengthMeters": source_length,
+        "targetReferenceLengthMeters": target_length,
+        "sourceLandmarks": {"muzzle": source_muzzle, "rear": source_rear, "sight": source_sight},
+        "targetLandmarks": {"muzzle": target_muzzle, "rear": target_rear, "sight": target_sight},
+        "method": "uniform scale and right-handed rigid calibration from measured muzzle, rear-axis and sight-roll landmarks",
     }
 
 
@@ -686,11 +784,18 @@ def main() -> None:
             },
         )
         station_groups.append(group)
-        matrix_values = column_major(matrices["b24"][gun_node])
         station_manifest[station_id] = {
             "sourceGunNodeIndex": gun_node,
             "sourceRearSightComponentRoots": sorted(sight_roots),
-            "highDetailGunAlignment": gun_alignment(matrix_values, muzzle_sign),
+            "highDetailGunAlignment": gun_alignment(
+                sources["anm2"],
+                matrices["anm2"],
+                sources["b24"],
+                matrices["b24"],
+                gun_node,
+                muzzle_sign,
+                sight_roots,
+            ),
         }
 
     roots = [gun_group, feed_group, cartridge_group, link_group, mechanism_group] + station_groups

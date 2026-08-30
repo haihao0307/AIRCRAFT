@@ -81,7 +81,7 @@ def main() -> None:
         "externalGlbUrl": args.external_glb_url,
         "singleFile": not bool(args.external_glb_url),
         "directFileOpen": not bool(args.external_glb_url),
-        "runtimeDependency": "Three.js ESM from jsDelivr",
+        "runtimeDependency": "Three.js and cannon-es ESM from jsDelivr",
     }
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(

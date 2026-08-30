@@ -4,10 +4,14 @@
 from __future__ import annotations
 
 import argparse
+import gzip
 import hashlib
 import json
 import struct
 from pathlib import Path
+
+
+REMOTE_SOURCE_URL = "https://raw.githubusercontent.com/haihao0307/AIRCRAFT/refs/heads/feature/b24-weapons-mother-v1/data/weapons-mother/b24-m2-aircraft-v004/distilled-reference.glb.gz"
 
 
 def sha256(path: Path) -> str:
@@ -28,6 +32,20 @@ def glb_json(path: Path) -> dict:
     json_length, json_type = struct.unpack_from("<II", data, 12)
     assert json_type == 0x4E4F534A, "first GLB chunk is not JSON"
     return json.loads(data[20 : 20 + json_length].decode("utf-8"))
+
+
+def transform_column_major(matrix: list[float], point: list[float]) -> list[float]:
+    return [
+        matrix[row] * point[0]
+        + matrix[4 + row] * point[1]
+        + matrix[8 + row] * point[2]
+        + matrix[12 + row]
+        for row in range(3)
+    ]
+
+
+def point_error(left: list[float], right: list[float]) -> float:
+    return sum((left[axis] - right[axis]) ** 2 for axis in range(3)) ** 0.5
 
 
 def main() -> None:
@@ -75,10 +93,14 @@ def main() -> None:
     assert build["embeddedGlbSha256"] == glb_hash, "source GLB build hash drift"
     assert build["sha256"] == sha256(args.html), "HTML build hash drift"
     assert build["assetMode"] == "external", "online external-asset mode drift"
-    assert build["externalGlbUrl"] == "./distilled-reference.glb"
+    assert build["externalGlbUrl"] == REMOTE_SOURCE_URL
     assert not build["singleFile"] and not build["directFileOpen"], "online delivery contract drift"
     assert len(html.encode("utf-8")) <= contract["budgets"]["htmlBytes"], "HTML budget exceeded"
     assert args.glb.stat().st_size <= contract["budgets"]["externalGlbBytes"], "GLB budget exceeded"
+    compressed_source = args.glb.with_suffix(args.glb.suffix + ".gz")
+    assert compressed_source.is_file(), "compressed remote source missing"
+    assert compressed_source.stat().st_size <= contract["budgets"]["remoteCompressedSourceBytes"], "compressed source budget exceeded"
+    assert hashlib.sha256(gzip.open(compressed_source, "rb").read()).hexdigest() == glb_hash, "compressed source does not restore the exact GLB"
 
     for token in (
         "__GLB_BASE64__",
@@ -125,12 +147,28 @@ def main() -> None:
     assert "makeAirframeInterface" not in html, "invented generic airframe interface returned"
     assert "B24_WAIST_FEED_AMMO_BOX_REFERENCE_ATTACHMENT" not in html, "unapproved generic ammunition box returned"
     assert "addFeedRounds" in html and "LIVE_12_7X99_ROUND_RACK" in html, "live-round feed system missing"
-    assert "landingQuaternion" in html and "9.81" in html and "pileRadius" in html, "ballistic pile physics regression"
+    assert "forwardLocal" in html and "connectedToReference:true" in html, "feed rounds are not bore-aligned and connected"
+    assert "cannon-es@0.20.0" in html and "new CANNON.Plane" in html, "rigid-body solver missing"
+    assert "physicsWorld.step(1/60,dt,4)" in html, "fixed-step debris physics missing"
+    assert "data.up.clone().multiplyScalar(-1.28)" in html, "case ejection is not initially downward"
+    assert "physicsWorld.removeBody" in html, "debris clear does not remove rigid bodies"
+    assert "landingQuaternion" not in html and "pileRadius" not in html and "supportHeight" not in html, "obsolete floating-pile solver returned"
+    assert "DecompressionStream" in html and "force-cache" in html, "compressed remote source loading missing"
     assert "spring.scale.z" in html and "bolt.position.z" in html and "barrel.position.x" in html, "mechanical cycle animation incomplete"
     assert "new THREE.ConeGeometry" not in html, "cartoon cone muzzle flash returned"
     assert "const pressure=new THREE.Mesh(new THREE.TorusGeometry" not in html, "cartoon ring muzzle flash returned"
     assert "data:image" not in html.lower(), "embedded image payload returned"
-    assert 'const PACK_URL="./distilled-reference.glb"' in html, "external GLB URL missing"
+    assert f'const PACK_URL="{REMOTE_SOURCE_URL}"' in html, "remote source URL missing"
+    assert "外置 GLB" not in html and "exact GLB" not in html, "hosted-GLB wording returned to the interface"
+
+    for station_id, station_alignment in manifest["stationAlignments"].items():
+        alignment = station_alignment["highDetailGunAlignment"]
+        matrix = alignment["matrixColumnMajor"]
+        source = alignment["sourceLandmarks"]
+        target = alignment["targetLandmarks"]
+        assert alignment["basisDeterminant"] == 1.0, f"left-handed alignment: {station_id}"
+        assert point_error(transform_column_major(matrix, source["muzzle"]), target["muzzle"]) < 1e-6, f"muzzle landmark drift: {station_id}"
+        assert point_error(transform_column_major(matrix, source["rear"]), target["rear"]) < 1e-6, f"rear-axis landmark drift: {station_id}"
 
     names = {node.get("name", "") for node in document.get("nodes", [])}
     required_nodes = {
@@ -222,10 +260,10 @@ def main() -> None:
             "projectile and source coordinate axes",
             "side-specific source-datum alignment",
             "source aircraft support and live-round feed assembly",
-            "ballistic debris settling",
+            "Cannon rigid-body case and link settling",
             "non-conical layered muzzle effect",
             "procedural surface controls",
-            "external cached GLB delivery",
+            "remote source asset outside the hosted Site",
             "template-entry redirect",
             "HTML size budget",
             "Image2ThreeJS exclusion",

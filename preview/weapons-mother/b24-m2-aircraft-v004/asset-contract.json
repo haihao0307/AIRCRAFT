@@ -1,14 +1,14 @@
 {
   "schema": "haihao.aircraft/production-asset-contract@1.0.0",
-  "assetId": "WM_B24_ANM2_V005",
-  "status": "source-datum-corrected-online-station-study",
+  "assetId": "WM_B24_ANM2_V006",
+  "status": "landmark-calibrated-rigid-body-online-station-study",
   "runtimeRole": "hero source-parity and aircraft-installation review",
   "construction": {
     "declaredUnit": "meter",
     "gunForwardAxis": "+X",
     "animationSemantics": {
-      "muzzleSocketMeters": [0.9795744419, 0, 0],
-      "muzzleSocketMethod": "AN/M2 barrel source accessor +X maximum; no visual offset",
+      "muzzleSocketMeters": [0.9795744419, -0.0000965208, -0.0036395122],
+      "muzzleSocketMethod": "mean center of AN/M2 source muzzle landmark slice; no visual offset",
       "sourceProjectileAxis": "+Z",
       "runtimeProjectileAxis": "source +Z tip aligned directly to measured world trajectory",
       "sourceCaseAxis": "+Z",
@@ -21,7 +21,7 @@
       "barrelRecoilMeters": 0.028575,
       "mechanicalCycle": ["barrel and barrel extension short recoil", "bolt full recoil", "driving spring compression", "cocking-handle reference motion", "trigger reset"],
       "caseAndLinkLifetime": "persistent until user clears the test area",
-      "caseAndLinkCollision": "per-object gravity, bounce, floor support and settled-object pile support",
+      "caseAndLinkCollision": "Cannon rigid bodies with SI gravity, floor collision, inter-object collision, friction, restitution and sleep",
       "tracerCadence": "one tracer per five rounds when enabled"
     },
     "sourceExactExterior": true,
@@ -49,7 +49,7 @@
   "requirements": {
     "interaction": ["isolated gun", "port waist", "starboard waist", "A-13 evidence", "service separation", "internal reference overlay", "ammo separation"],
     "surface": ["stable surface_id", "deterministic macro/meso/micro fields", "color/roughness only", "editable seeds and wear controls"],
-    "delivery": "online HTML with external cached distilled GLB; no embedded image payloads"
+    "delivery": "online HTML with remote source asset stored outside the hosted Site; no hosted GLB and no embedded image payloads"
   },
   "budgets": {
     "baseTriangles": 186160,
@@ -57,7 +57,8 @@
     "runtimeFieldTextureResolution": 256,
     "decodedGeneratedTextureMemoryMiB": 2.5,
     "htmlBytes": 250000,
-    "externalGlbBytes": 8000000
+    "externalGlbBytes": 8000000,
+    "remoteCompressedSourceBytes": 3500000
   },
   "approvalGates": {
     "sourceHash": "required",
