@@ -1,0 +1,51 @@
+{
+  "schema": "haihao.aircraft/production-asset-contract@1.0.0",
+  "assetId": "WM_B24_AIRCRAFT_M2_TWIN_V003",
+  "status": "historical-visual-reconstruction-prototype",
+  "runtimeRole": "hero interactive weapons-system review",
+  "shots": {
+    "closestCameraDistanceMeters": 0.45,
+    "maximumScreenCoveragePercent": 88,
+    "silhouetteCriticalViews": ["left-quarter", "right-quarter", "muzzle", "feed-side", "rear-mechanism"],
+    "lockedReviewViews": ["hero", "left", "right", "muzzle", "feed", "ammo"]
+  },
+  "construction": {
+    "declaredUnit": "meter",
+    "forwardAxis": "+Y",
+    "upAxis": "+Z",
+    "aircraftM2OverallLengthMeters": 1.448,
+    "gunCount": 2,
+    "stationSpecificTwinSpacing": "unresolved",
+    "stationSpecificMount": "unresolved",
+    "stationSpecificFeedAndEjectionRoutes": "unresolved"
+  },
+  "requirements": {
+    "animation": ["independent recoil", "bolt cycle", "charging handle cycle", "belt indexing", "case ejection", "link ejection", "service separation"],
+    "effects": ["layered muzzle flame", "pressure ring", "sparks", "expanding smoke", "optional tracer cadence"],
+    "interaction": ["continuous fire", "single shot", "gun selection", "material variants", "semantic sockets", "ammo disassembly"],
+    "delivery": "single directly-openable HTML file using Three.js from jsDelivr"
+  },
+  "target": {
+    "renderer": "Three.js WebGLRenderer",
+    "lighting": "linear-sRGB PBR with ACES tone mapping",
+    "desktop": "current Chromium-class browser with WebGL2",
+    "mobile": "modern mobile WebGL2, reduced effects quality"
+  },
+  "budgets": {
+    "htmlBytes": 260000,
+    "baseRuntimeTrianglesBeforeUserDebris": 400000,
+    "drawCalls": 180,
+    "materials": 18,
+    "decodedTextureMemoryMiB": 8,
+    "simultaneousDynamicCases": "persistent in dynamically allocated batches; deliberate user-controlled triangle growth",
+    "simultaneousDynamicLinks": "persistent in dynamically allocated batches; deliberate user-controlled triangle growth"
+  },
+  "approvalGates": {
+    "visual": "required",
+    "semanticNodes": "required",
+    "boreAxis": "required",
+    "runtimeBudget": "required",
+    "exactB24StationMount": "blocked until position, batch and turret are supplied",
+    "engineeringApproval": false
+  }
+}

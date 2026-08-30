@@ -1,0 +1,39 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-runtime-qa@1.0.0",
+  "date": "2026-08-30",
+  "artifact": "index.html",
+  "browser": "Chromium-class WebGL2",
+  "viewport": "1280x720 review capture",
+  "checks": {
+    "moduleSyntax": "pass",
+    "staticSemanticValidation": "pass",
+    "serverHostedRuntime": "pass",
+    "defaultHeroView": "pass",
+    "muzzleViewAndSharedBoreAxis": "pass",
+    "feedView": "pass",
+    "ammoDisassembly": "pass",
+    "serviceDisassembly": "pass",
+    "persistentCases": "pass",
+    "persistentDisintegratingLinks": "pass",
+    "tracerCadence": "pass",
+    "paintVariants": "pass",
+    "runtimeErrorSentinel": "clear"
+  },
+  "measuredSample": {
+    "shotsAndPersistentCases": 38,
+    "persistentLinks": 38,
+    "reportedTriangles": 353000,
+    "reportedDrawCalls": 166,
+    "reportedFps": 60
+  },
+  "budgetResult": {
+    "triangles": "pass at measured sample; grows deliberately as cases and links accumulate",
+    "drawCalls": "pass",
+    "htmlBytes": "pass",
+    "embeddedReferenceGlb": "none"
+  },
+  "limitations": [
+    "The automated browser safety policy does not permit file navigation, so direct-file opening remains a user-browser confirmation item.",
+    "The exact B-24 station mount, feed direction and ejection routes remain unresolved until the gun position and aircraft/turret applicability are supplied."
+  ]
+}
