@@ -1,0 +1,132 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-asset-contract@2.0.0",
+  "asset": {
+    "name": "B24_M2_AIRCRAFT_TWIN_BEHAVIOR_V002",
+    "role": "hero",
+    "sourceMethod": "hybrid-selected-donor-source-derived-components-and-procedural-runtime-effects",
+    "provenance": [
+      {
+        "file": "m2_browning.glb",
+        "bytes": 18536776,
+        "sha256": "3cb10b4c2cb6ae96656146f55e81f54a66338bcb817ed4727e4d79c38843d813",
+        "title": "M2 Browning",
+        "author": "buh",
+        "url": "https://sketchfab.com/3d-models/m2-browning-ccf212e16b6748419cea6d7b14b30b48",
+        "license": "CC BY 4.0",
+        "use": "selected donor node M2_0; muzzle datum and connected-component service modules"
+      },
+      {
+        "file": "m2_browning_.50_cal_machine_gun.glb",
+        "bytes": 43682696,
+        "sha256": "d62531f0f9b3a7b65293e22615d51e48bd12d9ae7529214a9bfdc2c5f4887bb8",
+        "title": "M2 Browning .50 Cal Machine Gun",
+        "author": "8sianDude",
+        "url": "https://sketchfab.com/3d-models/m2-browning-50-cal-machine-gun-5006cff7b57249fbb2ac7cc64cb9af72",
+        "license": "CC BY 4.0",
+        "use": "one Object_11 cartridge isolated into case_component and projectile_component; full source GLB is not embedded"
+      },
+      {
+        "title": "Aircrewman's Gunnery Manual",
+        "url": "https://www.ibiblio.org/hyperwar/USN/ref/AirGunnery/index.html",
+        "authority": "1944 U.S. Navy manual prepared with the U.S. Army Air Forces",
+        "use": "aircraft M2 operation, feed, ejection, ammunition handling, and turret context"
+      },
+      {
+        "title": "FM 44-2 Employment of Antiaircraft Automatic Weapons",
+        "url": "https://ibiblio.org/hyperwar/USA/ref/FM/PDFs/FM44-2.PDF",
+        "authority": "War Department field manual",
+        "use": "evidence that a 2 AP, 2 incendiary, 1 tracer belt was a normal mix and mission could change the combination; V002 exposes tracer cadence instead of hard-coding every round"
+      }
+    ],
+    "licenseNotes": "The page retains both authors, source links, CC BY 4.0 link, and modification notice. Neither donor is presented as an approved aircraft M2 reconstruction or ordnance manufacturing model."
+  },
+  "visual": {
+    "approvedReferences": [],
+    "closestCameraMeters": 0.65,
+    "maximumScreenCoveragePercent": 88,
+    "silhouetteCriticalViews": ["three-quarter-front", "gun-side", "muzzle-front", "receiver-rear", "service-exploded"],
+    "artDirectionNotes": "Source-readable twin-gun demonstrator with a lightweight skeletal aircraft interface, layered three-dimensional flash volumes, warm sparks, expanding smoke, persistent brass accumulation, and switchable non-historical visualization paint schemes."
+  },
+  "runtime": {
+    "renderer": "Three.js 0.185.1",
+    "targetDevices": ["desktop WebGL2 review", "tablet WebGL2 review"],
+    "weakestTestDevice": "current Codex desktop host with software fallback excluded",
+    "animation": true,
+    "physics": true,
+    "requiredNodeNames": [
+      "WM_B24_TWIN_M2_ROOT",
+      "azimuth_pivot",
+      "elevation_pivot",
+      "twin_mount_root",
+      "gun_L",
+      "gun_R",
+      "recoil_root_L",
+      "recoil_root_R",
+      "muzzle_L",
+      "muzzle_R",
+      "bore_axis_L",
+      "bore_axis_R",
+      "feed_L",
+      "feed_R",
+      "case_eject_L",
+      "case_eject_R",
+      "barrel_module",
+      "receiver_module",
+      "backplate_module",
+      "case_component",
+      "projectile_component"
+    ],
+    "muzzleDatum": {
+      "method": "centroid and bounding-box center of 111 source vertices at forward Y=1.30915",
+      "socketLocal": [0.0, 1.316, -0.00548],
+      "axis": "+local Y transformed by muzzle world matrix",
+      "status": "geometry-derived review datum"
+    },
+    "requiredExtensions": ["KHR_materials_specular"]
+  },
+  "budgets": {
+    "standaloneHtmlMiB": 27,
+    "decodedTextureMiB": 95,
+    "baselineTriangles": 125000,
+    "baselineDrawCalls": 58,
+    "persistentCaseBatchSize": 256,
+    "persistentCaseDrawCallGrowth": "one draw call per additional 256 accumulated cases",
+    "bones": 0,
+    "frameTimeMs": 0
+  },
+  "variants": [
+    {
+      "name": "paint-schemes",
+      "trigger": "manual",
+      "options": ["original black steel", "olive drab", "aircraft dark gray", "desert brown"],
+      "approval": "visualization only; not historical color approval"
+    },
+    {
+      "name": "tracer-load",
+      "trigger": "manual",
+      "options": ["off", "one per 2 through one per 10"],
+      "default": "one per 5"
+    },
+    {
+      "name": "reduced-motion",
+      "trigger": "prefers-reduced-motion or manual pause",
+      "geometryPolicy": "continuous fire starts paused and transient flash pools remain inactive"
+    }
+  ],
+  "acceptanceEvidence": {
+    "lockedCameraComparisons": [],
+    "neutralLightingCapture": "",
+    "targetDeviceCapture": "",
+    "validatorReport": "records/B24_WEAPONS_MOTHER_M2_AIRCRAFT_TWIN_VALIDATION_V002.json",
+    "glbAuditReport": "records/B24_WEAPONS_MOTHER_M2_COMPONENT_EXTRACTION_V002.json",
+    "browserQaReport": "records/B24_WEAPONS_MOTHER_M2_AIRCRAFT_TWIN_BROWSER_QA_V002.json"
+  },
+  "unresolved": [
+    "exact B-24 station and turret model",
+    "aircraft M2 barrel, jacket, receiver details, and approved 57-inch envelope",
+    "approved twin spacing and light cradle dimensions",
+    "left/right feed and case/link routing",
+    "harmonization, elevation, azimuth, and fire-interrupt limits",
+    "service-module mapping against an approved M2 parts catalog"
+  ]
+}

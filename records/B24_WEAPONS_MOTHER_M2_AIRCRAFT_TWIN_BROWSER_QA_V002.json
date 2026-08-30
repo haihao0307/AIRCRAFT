@@ -1,0 +1,61 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-browser-qa@2.0.0",
+  "status": "PASS",
+  "artifact": "preview/weapons-mother/b24-m2-aircraft-twin-v002/index.html",
+  "browserUrl": "http://127.0.0.1:8765/preview/weapons-mother/b24-m2-aircraft-twin-v002/index.html",
+  "deployedUrl": "https://weapons-mother-b24.sunhaihao.chatgpt.site/twin-m2.html",
+  "deploymentVerification": "PASS - deployed V002 title, live counters, tracer cadence, paint controls, separation controls, provenance, and locked muzzle-datum notice loaded in the in-app browser",
+  "checks": {
+    "readyState": "body[data-qa=ready]",
+    "muzzleDatum": "body[data-muzzle-datum=locked]",
+    "casePersistence": "body[data-case-persistence=persistent]",
+    "muzzleFrontVisual": "PASS - left and right muzzle markers centered in the visible bore openings",
+    "tracerOff": {
+      "shotsBefore": 459,
+      "shotsAfterTwinSingle": 461,
+      "activeTracers": 0,
+      "accumulatedCases": 2
+    },
+    "tracerCadence": {
+      "setting": "one-per-3",
+      "twinSingleShots": 3,
+      "additionalCases": 6,
+      "activeTracerObserved": true
+    },
+    "persistentCases": {
+      "countBeforeWait": 8,
+      "waitSeconds": 4.5,
+      "countAfterWait": 8,
+      "spontaneousRemoval": false
+    },
+    "paintScheme": {
+      "selected": "olive drab",
+      "bodyDataPaintScheme": "od",
+      "visualChangeObserved": true
+    },
+    "serviceSeparation": {
+      "shotsBeforeBlockedSingle": 467,
+      "shotsAfterBlockedSingle": 467,
+      "bodyFireState": "service",
+      "barrelReceiverBackplateExplodedViewObserved": true
+    },
+    "twinAssemblySeparation": {
+      "shotsBeforeBlockedSingle": 467,
+      "shotsAfterBlockedSingle": 467,
+      "bodyFireState": "separated"
+    },
+    "volumetricEffects": "PASS - three-dimensional flame core, irregular lobes, pressure ring, sparks, dynamic light, and expanding smoke observed",
+    "lightAircraftMount": "PASS - large V001 datum pedestal replaced by a low-mass bearing, slim spindle, yoke arms, and narrow cradle"
+  },
+  "performanceObservation": {
+    "sample": "continuous twin fire with approximately 205 accumulated cases",
+    "renderCalls": 63,
+    "renderedTrianglesIncludingShadowPass": 1331574,
+    "caseLodPolicy": "first 256 cases retain source-derived detail; later persistent batches use a profiled low-detail case"
+  },
+  "limitations": [
+    "Visual QA was performed on the current Codex desktop host, not the weakest target tablet.",
+    "The muzzle datum is source-geometry-derived but has not been checked against an approved aircraft-M2 engineering drawing.",
+    "Service modules are connected-component review groups, not catalog-approved field-strip groups."
+  ]
+}

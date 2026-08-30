@@ -1,0 +1,83 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-aircraft-twin-build@2.0.0",
+  "status": "behavior-prototype-user-review",
+  "source": {
+    "file": "m2_browning.glb",
+    "bytes": 18536776,
+    "sha256": "3cb10b4c2cb6ae96656146f55e81f54a66338bcb817ed4727e4d79c38843d813",
+    "selectedNode": "M2_0",
+    "sourceGeometryStatus": "M2HB-like donor; not approved as aircraft M2 geometry",
+    "license": "CC BY 4.0",
+    "author": "buh",
+    "url": "https://sketchfab.com/3d-models/m2-browning-ccf212e16b6748419cea6d7b14b30b48"
+  },
+  "componentPack": {
+    "file": "data/weapons-mother/b24-m2-aircraft-twin-v002/components.glb",
+    "bytes": 1133936,
+    "sha256": "fa08c876c09dc4a346406f971cb78769e469a7d32e2b552770cf7191627183ce",
+    "nodes": [
+      "barrel_module",
+      "receiver_module",
+      "backplate_module",
+      "case_component",
+      "projectile_component"
+    ],
+    "ammoSourceRole": "Object_11 bullet geometry from candidate 02; source GLB not embedded"
+  },
+  "output": {
+    "file": "preview/weapons-mother/b24-m2-aircraft-twin-v002/index.html",
+    "bytes": 26288933,
+    "sha256": "53eb55d63c69646140e377a27f94864a875b8bc78df96db3a1fa180125182416",
+    "standaloneHtml": true,
+    "embeddedSourceGlb": true,
+    "embeddedComponentGlb": true,
+    "externalRuntime": "Three.js 0.185.1 via jsDelivr"
+  },
+  "rig": {
+    "root": "WM_B24_TWIN_M2_ROOT",
+    "nodes": [
+      "azimuth_pivot",
+      "elevation_pivot",
+      "twin_mount_root",
+      "gun_L",
+      "gun_R",
+      "recoil_root_L",
+      "recoil_root_R",
+      "muzzle_L",
+      "muzzle_R",
+      "bore_axis_L",
+      "bore_axis_R",
+      "feed_L",
+      "feed_R",
+      "case_eject_L",
+      "case_eject_R"
+    ],
+    "runtimeEffects": [
+      "independent recoil cycles",
+      "layered volumetric muzzle flash with smoke, sparks, and dynamic light",
+      "configurable tracer cadence with tracer-off mode",
+      "persistent dynamically batched shell-case accumulation with gravity and bounce",
+      "belt-feed stepping",
+      "continuous and single-shot controls",
+      "paint scheme switching",
+      "twin-assembly and service-module separation review"
+    ],
+    "muzzleDatum": {
+      "sourceForwardVertexCount": 111,
+      "sourceForwardY": 1.30915,
+      "sourceCenterX": 0.0,
+      "sourceCenterZ": -0.00548,
+      "socket": [
+        0.0,
+        1.316,
+        -0.00548
+      ]
+    }
+  },
+  "limitations": [
+    "The normal rendered donor remains one fused mesh; service modules are connected-component review groupings, not an approved parts catalog.",
+    "Projectile paths and shell-case trajectories are review visualization, not approved ballistics.",
+    "Twin spacing, mount geometry, feed routing, ejection routing, and fire limits remain unresolved until a B-24 station is assigned.",
+    "No image-led 3D generation workflow is used."
+  ]
+}

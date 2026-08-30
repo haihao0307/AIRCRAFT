@@ -1,0 +1,24 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-aircraft-twin-validation@2.0.0",
+  "status": "PASS",
+  "artifact": {
+    "file": "G:\\AIRCRAFT\\b24-v010-push\\preview\\weapons-mother\\b24-m2-aircraft-twin-v002\\index.html",
+    "bytes": 26288933,
+    "sha256": "53eb55d63c69646140e377a27f94864a875b8bc78df96db3a1fa180125182416",
+    "embeddedGlbBytes": 18536776,
+    "embeddedGlbSha256": "3cb10b4c2cb6ae96656146f55e81f54a66338bcb817ed4727e4d79c38843d813",
+    "embeddedComponentGlbBytes": 1133936,
+    "embeddedComponentGlbSha256": "fa08c876c09dc4a346406f971cb78769e469a7d32e2b552770cf7191627183ce"
+  },
+  "checks": {
+    "semanticNodes": 21,
+    "interactiveControls": 13,
+    "selectedDonorNode": "M2_0",
+    "retiredCandidatesAbsent": true,
+    "imageLedExternal3dGenerationEnabled": false,
+    "muzzleDatumLocked": true,
+    "persistentCases": true,
+    "configurableTracerCadence": true
+  },
+  "errors": []
+}

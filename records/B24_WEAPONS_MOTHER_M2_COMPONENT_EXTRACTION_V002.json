@@ -1,0 +1,43 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-component-extraction@1.0.0",
+  "status": "source-derived-visual-components-user-review",
+  "sources": [
+    {
+      "file": "m2_browning.glb",
+      "bytes": 18536776,
+      "sha256": "3cb10b4c2cb6ae96656146f55e81f54a66338bcb817ed4727e4d79c38843d813",
+      "node": "M2_0",
+      "role": "service modules"
+    },
+    {
+      "file": "m2_browning_.50_cal_machine_gun.glb",
+      "bytes": 43682696,
+      "sha256": "d62531f0f9b3a7b65293e22615d51e48bd12d9ae7529214a9bfdc2c5f4887bb8",
+      "node": "Object_11",
+      "role": "case and projectile geometry"
+    }
+  ],
+  "output": {
+    "file": "G:\\AIRCRAFT\\b24-v010-push\\data\\weapons-mother\\b24-m2-aircraft-twin-v002\\components.glb",
+    "bytes": 1133936,
+    "sha256": "fa08c876c09dc4a346406f971cb78769e469a7d32e2b552770cf7191627183ce"
+  },
+  "nodes": [
+    "barrel_module",
+    "receiver_module",
+    "backplate_module",
+    "case_component",
+    "projectile_component"
+  ],
+  "componentCounts": {
+    "gunSourceConnectedComponents": 313,
+    "ammoSourceConnectedComponents": 266,
+    "selectedCaseComponents": 7,
+    "selectedProjectileComponents": 10
+  },
+  "limitations": [
+    "Gun modules are grouped by connected-component position, not an approved M2 parts catalog.",
+    "Cartridge geometry is source-derived and rescaled to review dimensions; it is not an ordnance manufacturing model.",
+    "No retired candidate GLB is embedded wholesale in the review artifact."
+  ]
+}
