@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import crypto from 'node:crypto';
 import fs from 'node:fs';
+import vm from 'node:vm';
 
 const ROOT = process.cwd();
 const readJson = (path) => JSON.parse(fs.readFileSync(`${ROOT}/${path}`, 'utf8'));
@@ -51,15 +52,15 @@ check('receipt-preview-pass', receipt.status === 'PASS_PREVIEW_ONLY', receipt.st
 check('receipt-one-click', receipt.generatedDelivery.oneClickHtml.singleFile === true && receipt.generatedDelivery.oneClickHtml.iframeCount === 0 && receipt.generatedDelivery.oneClickHtml.networkRequests === 0, receipt.generatedDelivery.oneClickHtml);
 check('receipt-browser-pass', receipt.qa.browser.failed === 0 && receipt.qa.browser.pageErrors === 0 && receipt.qa.browser.consoleErrors === 0 && receipt.qa.browser.networkRequests === 0 && receipt.qa.browser.webglErrors === 0, receipt.qa.browser);
 check('receipt-static-pass', receipt.qa.static.failed === 0 && receipt.qa.static.passed === 16, receipt.qa.static);
-check('receipt-protected', Object.values(receipt.protectedSystems).every((value) => value === false || value === true) && receipt.protectedSystems.v013MechanicalColoursPreserved === true && receipt.protectedSystems.geometryChanged === false, receipt.protectedSystems);
+check('receipt-protected', receipt.protectedSystems.v013MechanicalColoursPreserved === true && receipt.protectedSystems.geometryChanged === false && receipt.protectedSystems.animationChanged === false && receipt.protectedSystems.runwayFlightSequenceChanged === false, receipt.protectedSystems);
 check('receipt-approvals-closed', Object.values(receipt.approvalLedger).every((value) => value === false), receipt.approvalLedger);
 
-const reference = await import(`file://${ROOT}/${referencePath}`);
-const api = reference.default || globalThis.ProceduralFieldReference;
-const referenceApi = api || (typeof module !== 'undefined' ? module.exports : null);
-const derived = referenceApi?.deriveSeeds?.(24014357);
-const fieldA = referenceApi?.evaluateFields?.(3.38, 3.2, derived, { worldScale: 0.41 });
-const fieldB = referenceApi?.evaluateFields?.(3.38, 3.2, derived, { worldScale: 0.41 });
+const sandbox = { module: { exports: {} }, exports: {} };
+vm.runInNewContext(fs.readFileSync(`${ROOT}/${referencePath}`, 'utf8'), sandbox, { filename: referencePath });
+const referenceApi = sandbox.module.exports;
+const derived = referenceApi.deriveSeeds(24014357);
+const fieldA = referenceApi.evaluateFields(3.38, 3.2, derived, { worldScale: 0.41 });
+const fieldB = referenceApi.evaluateFields(3.38, 3.2, derived, { worldScale: 0.41 });
 check('reference-runtime-api', Boolean(derived && fieldA), { derived, fieldA });
 check('reference-determinism', JSON.stringify(fieldA) === JSON.stringify(fieldB), { fieldA, fieldB });
 
