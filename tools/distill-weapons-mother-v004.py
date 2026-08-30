@@ -481,40 +481,38 @@ def gun_alignment(
     muzzle_sign: int,
     sight_roots: set[int],
 ) -> dict[str, Any]:
-    # Calibrate from actual geometry landmarks, not a node origin or transform
-    # column magnitude.  Both source models are right-handed, but their gun
-    # axes differ (+X on the AN/M2 donor and side-specific +/-Y on the B-24).
+    # The locked B-24 gun nodes are authored on a normalized local Y axis.  That
+    # node axis is the only rigid datum shared by the receiver, barrel and exact
+    # rear-sight subset.  Inferring a bore line from the centroid of the whole
+    # exterior mesh tilts the gun because grips and the back plate are not
+    # radially symmetric.  Keep the source gun on its declared +X bore axis and
+    # map it directly to the station's side-specific local +/-Y node axis.
     source_points = []
     for node_index in (9, 15, 17, 19, 21, 23, 25, 27):
         source_points.extend(node_world_positions(anm2, anm2_matrices, node_index))
     source_sight_points = node_world_positions(anm2, anm2_matrices, 19)
     source_min = min(point[0] for point in source_points)
     source_max = max(point[0] for point in source_points)
-    source_muzzle = point_mean([point for point in source_points if point[0] > source_max - 0.018])
-    source_rear = point_mean([point for point in source_points if point[0] < source_min + 0.018])
+    source_muzzle_slice = point_mean(
+        [point for point in source_points if point[0] > source_max - 0.018]
+    )
+    source_muzzle = [source_max, source_muzzle_slice[1], source_muzzle_slice[2]]
+    source_rear = [source_min, source_muzzle_slice[1], source_muzzle_slice[2]]
     source_sight = point_bounds_center(source_sight_points)
-    source_forward = vector_normalized(vector_subtract(source_muzzle, source_rear))
-    source_up = vector_normalized(projected_radial(source_sight, source_muzzle, source_forward))
+    source_forward = [1.0, 0.0, 0.0]
+    source_up = [0.0, 0.0, 1.0]
     source_width = vector_normalized(vector_cross(source_up, source_forward))
 
-    target_points = node_world_positions(b24, b24_matrices, gun_node)
-    target_axis = vector_normalized(
-        [b24_matrices[gun_node][row][1] * muzzle_sign for row in range(3)]
+    target_matrix = b24_matrices[gun_node]
+    target_muzzle = transform_point(target_matrix, (0.0, float(muzzle_sign), 0.0))
+    target_rear = transform_point(target_matrix, (0.0, float(-muzzle_sign), 0.0))
+    target_forward = vector_normalized(
+        [target_matrix[row][1] * muzzle_sign for row in range(3)]
     )
-    target_projections = [vector_dot(point, target_axis) for point in target_points]
-    target_min = min(target_projections)
-    target_max = max(target_projections)
-    target_muzzle = point_mean(
-        [point for point, projection in zip(target_points, target_projections) if projection > target_max - 0.014]
-    )
-    target_rear = point_mean(
-        [point for point, projection in zip(target_points, target_projections) if projection < target_min + 0.014]
-    )
-    target_forward = vector_normalized(vector_subtract(target_muzzle, target_rear))
+    target_up = vector_normalized([target_matrix[row][2] for row in range(3)])
     target_sight = point_bounds_center(
         node_world_positions(b24, b24_matrices, gun_node, sight_roots)
     )
-    target_up = vector_normalized(projected_radial(target_sight, target_muzzle, target_forward))
     target_width = vector_normalized(vector_cross(target_up, target_forward))
 
     source_length = vector_length(vector_subtract(source_muzzle, source_rear))
@@ -546,7 +544,7 @@ def gun_alignment(
         "targetReferenceLengthMeters": target_length,
         "sourceLandmarks": {"muzzle": source_muzzle, "rear": source_rear, "sight": source_sight},
         "targetLandmarks": {"muzzle": target_muzzle, "rear": target_rear, "sight": target_sight},
-        "method": "uniform scale and right-handed rigid calibration from measured muzzle, rear-axis and sight-roll landmarks",
+        "method": "uniform scale and right-handed rigid calibration from declared source +X bore to exact B-24 gun-node local axis",
     }
 
 

@@ -1,14 +1,14 @@
 {
   "schema": "haihao.aircraft/production-asset-contract@1.0.0",
-  "assetId": "WM_B24_ANM2_V006",
-  "status": "landmark-calibrated-rigid-body-online-station-study",
+  "assetId": "WM_B24_ANM2_V007",
+  "status": "node-axis-calibrated-bounded-physics-online-station-study",
   "runtimeRole": "hero source-parity and aircraft-installation review",
   "construction": {
     "declaredUnit": "meter",
     "gunForwardAxis": "+X",
     "animationSemantics": {
       "muzzleSocketMeters": [0.9795744419, -0.0000965208, -0.0036395122],
-      "muzzleSocketMethod": "mean center of AN/M2 source muzzle landmark slice; no visual offset",
+      "muzzleSocketMethod": "AN/M2 source muzzle-slice radial center on the declared +X bore axis; no visual offset",
       "sourceProjectileAxis": "+Z",
       "runtimeProjectileAxis": "source +Z tip aligned directly to measured world trajectory",
       "sourceCaseAxis": "+Z",
@@ -21,11 +21,12 @@
       "barrelRecoilMeters": 0.028575,
       "mechanicalCycle": ["barrel and barrel extension short recoil", "bolt full recoil", "driving spring compression", "cocking-handle reference motion", "trigger reset"],
       "caseAndLinkLifetime": "persistent until user clears the test area",
-      "caseAndLinkCollision": "Cannon rigid bodies with SI gravity, floor collision, inter-object collision, friction, restitution and sleep",
+      "caseAndLinkCollision": "Cannon rigid bodies with SI gravity, floor and inter-object collision; each body becomes static after 2-4 debounced impacts or normal sleep",
       "tracerCadence": "one tracer per five rounds when enabled"
     },
     "sourceExactExterior": true,
     "sourceUvPreserved": true,
+    "runtimeWaistFeed": "source-exact 12.7x99 mm rounds, extracted M2 disintegrating-link components and source ammunition box; original B-24 black routing meshes 799 and 818 retained only as hidden evidence",
     "defaultReviewStage": "B-24 starboard waist complete installation",
     "stationMounts": ["B-24 port waist flexible", "B-24 starboard waist flexible", "A-13 manual evidence envelope"],
     "sourceStationAssemblies": {
