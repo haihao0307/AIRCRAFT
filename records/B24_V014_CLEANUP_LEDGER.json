@@ -1,0 +1,24 @@
+{
+  "schema": "haihao.aircraft/b24-v014-cleanup-ledger@1.0.0",
+  "branch": "feature/b24-v014-procedural-field-metal-pilot",
+  "policy": "remove only clearly superseded one-shot recovery and failed tool-first experiment files; preserve locked source provenance and correct historical handoffs",
+  "removed": [
+    ".github/workflows/b24-v011-restore-v010-clean-baseline-r5.yml",
+    ".github/workflows/b24-v012-propeller-interface-skin-audit-r3.yml",
+    ".github/workflows/b24-v012-source-texture-evidence.yml",
+    "handoff/2026-08-29-b24-v011-noise-distillation-v003-start/00_README_FIRST.md",
+    "handoff/2026-08-29-b24-v011-noise-distillation-v003-start/B24_V011_START_CONTRACT.json",
+    "handoff/2026-08-29-b24-v011-noise-distillation-v003-start/patches/V009_GLAZING_CLASSIFIER_FIX_PROPOSAL.js",
+    "handoff/2026-08-29-b24-v011-noise-distillation-v003-start/scripts/material_inventory_extractor_v001.js"
+  ],
+  "preserved": [
+    "handoff/2026-08-29-b24-v010-ridged-noise-v002",
+    "handoff/2026-08-29-b24-v011-restore-v010-clean-baseline",
+    "handoff/2026-08-29-b24-v012-propeller-interface-skin-audit",
+    "records/B24_V012_PROPELLER_INTERFACE_SKIN_AUDIT_COMPLETE_R3.json",
+    "records/B24_V013_SOURCE_MECHANICAL_COLOURS_COMPLETE_R1.json",
+    "records/B24_V013_SOURCE_TEXTURE_EVIDENCE_COMPLETE.json"
+  ],
+  "reason": "The preserved directories contain source locks, recovery evidence and the current mechanical-colour provenance required by V014.",
+  "result": "active V014 line contains one current material contract and one current validation workflow; superseded one-shot workflows no longer run"
+}
