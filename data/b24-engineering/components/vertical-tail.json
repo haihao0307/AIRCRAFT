@@ -163,15 +163,6 @@
     "browser_review": null,
     "status": "source-intake"
   },
-  "external_method_studies": [
-    {
-      "name": "img2threejs",
-      "status": "method-study-only",
-      "active_integration": false,
-      "default_enabled": false,
-      "authority": "none"
-    }
-  ],
   "render_outputs": {
     "threejs_runtime": null,
     "webgpu_runtime": null,

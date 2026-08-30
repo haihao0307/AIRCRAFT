@@ -31,8 +31,6 @@
     "glass and smooth surface quality require correction"
   ],
   "workflowPolicy": {
-    "externalImageReconstructionActive": false,
-    "image2threejsAuthority": "none",
     "blenderUsedInRuntimeChain": false,
     "airframeSkinUsesLegacyUv": false,
     "airframeSkinUsesLegacyRasterTexture": false,

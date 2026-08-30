@@ -508,34 +508,6 @@
       "notes": "Vendor states that discrepancies may exist."
     },
     {
-      "source_id": "B24-ENG-S015",
-      "title": "img2threejs",
-      "document_number": null,
-      "drawing_number": null,
-      "date": null,
-      "revision": null,
-      "source_type": "image_to_threejs_tool",
-      "authority_level": "E",
-      "holder": "img2threejs GitHub project",
-      "host": "GitHub",
-      "source_url": "https://github.com/img2threejs/img2threejs",
-      "aircraft_variants": [],
-      "production_plant": null,
-      "block_range": null,
-      "format": [
-        "software"
-      ],
-      "pages_or_sheets": null,
-      "access_status": "public_repository",
-      "rights_status": "verify repository license before integration",
-      "geometry_scope": [
-        "visualization workflow only"
-      ],
-      "current_verification": "repository link supplied to project",
-      "next_action": "evaluate in isolated tooling experiment after source images are calibrated",
-      "notes": "Outputs remain derived visual references and cannot supply engineering provenance."
-    },
-    {
       "source_id": "B24-ENG-S016",
       "title": "Consolidated B-24J Liberator three-view line drawing",
       "document_number": "AN 01-5E-3",

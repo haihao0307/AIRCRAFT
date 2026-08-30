@@ -2,8 +2,8 @@
   "schema": "haihao.aircraft/b24-full-handoff-manifest@2.0.0",
   "generatedAt": "2026-08-29T04:01:17.784555+00:00",
   "package": "AIRCRAFT_B24_FULL_HANDOFF_2026-08-29_V010_RIDGED_NOISE_V002",
-  "fileCount": 42,
-  "totalPayloadBytes": 157375222,
+  "fileCount": 41,
+  "totalPayloadBytes": 157374716,
   "files": [
     {
       "path": "00_README_FIRST.md",
@@ -149,11 +149,6 @@
       "path": "current_v010/qa_b24_v010_browser.py",
       "bytes": 12927,
       "sha256": "afc401bb981772a7000d5f71809d8bd0571228bbc4126b96594557cc2307ca35"
-    },
-    {
-      "path": "external_references/IMG2THREEJS_REFERENCE_POINTER.md",
-      "bytes": 506,
-      "sha256": "db067ff06c9736a78730ce0b7e7a870efee6db5faba54ffa548bac6e3a00361e"
     },
     {
       "path": "github_status/PR14_POINTERS.md",

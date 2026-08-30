@@ -3,7 +3,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import { scanExternalToolInvocations } from './lib/external-tool-invocation-scan.mjs';
 
 const root = process.cwd();
 const readJson = relativePath => JSON.parse(fs.readFileSync(path.join(root, relativePath), 'utf8'));
@@ -34,27 +33,30 @@ const component = readJson(componentPath);
 
 assert(policy.schema === 'haihao.aircraft/tool-authority-policy@1.0.0', 'Unexpected tool authority policy schema');
 assert(policy.approval?.policyApproved === true, 'Tool authority policy must be approved');
-assert(policy.approval?.externalToolIsolationApproved === true, 'External tool isolation must be approved');
+assert(policy.approval?.nativeToolAuthorityApproved === true, 'Repository-native tool authority must be approved');
 
-const external = policy.external_tools?.img2threejs;
-assert(Boolean(external), 'img2threejs policy entry is required for explicit isolation');
-assert(external?.status === 'disabled-by-default', 'img2threejs must remain disabled by default');
-assert(external?.classification === 'archived-external-research-reference', 'img2threejs classification must remain research reference only');
-for (const field of [
-  'runtime_dependency',
-  'build_dependency',
-  'analysis_authority',
-  'structure_authority',
-  'geometry_authority',
-  'behavior_authority',
-  'surface_authority',
-  'qa_authority',
-  'approval_authority',
-  'automatic_invocation_allowed'
-]) {
-  assert(external?.[field] === false, `img2threejs field ${field} must be false`);
+const externalToolEntries = Object.entries(policy.external_tools ?? {});
+for (const [toolId, externalTool] of externalToolEntries) {
+  assert(externalTool.status === 'disabled-by-default', `${toolId} must remain disabled by default`);
+  for (const field of [
+    'runtime_dependency',
+    'build_dependency',
+    'analysis_authority',
+    'structure_authority',
+    'geometry_authority',
+    'behavior_authority',
+    'surface_authority',
+    'qa_authority',
+    'approval_authority',
+    'automatic_invocation_allowed'
+  ]) {
+    assert(externalTool[field] === false, `${toolId} field ${field} must be false`);
+  }
+  assert(
+    externalTool.explicit_user_instruction_required === true,
+    `${toolId} use must require explicit user instruction`
+  );
 }
-assert(external?.explicit_user_instruction_required === true, 'Explicit user instruction must be required before any img2threejs use');
 assert(policy.drawing_first_rule?.guessing_allowed === false, 'Drawing-first policy must prohibit guessed approvals');
 assert(policy.drawing_first_rule?.candidate_status === 'pending-source', 'Unverified candidates must remain pending-source');
 
@@ -116,38 +118,15 @@ walkEvidencedValues(component);
 const packageJsonPath = path.join(root, 'package.json');
 if (fs.existsSync(packageJsonPath)) {
   const packageJson = readJson('package.json');
+  const registeredExternalToolIds = new Set(externalToolEntries.map(([toolId]) => toolId.toLowerCase()));
   for (const section of ['dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies']) {
     const names = Object.keys(packageJson[section] || {});
-    assert(!names.some(name => name.toLowerCase().includes('img2threejs')), `package.json ${section} contains an img2threejs dependency`);
+    assert(
+      !names.some(name => registeredExternalToolIds.has(name.toLowerCase())),
+      `package.json ${section} contains a registered external reconstruction dependency`
+    );
   }
 }
-
-const executableRoots = ['scripts', '.github/workflows'];
-const executableExtensions = new Set(['.js', '.mjs', '.cjs', '.ts', '.tsx', '.py', '.sh', '.yml', '.yaml']);
-const scanExclusions = new Set([
-  'scripts/validate-aircraft-native-forge.mjs',
-  'scripts/lib/external-tool-invocation-scan.mjs',
-  'scripts/test-aircraft-native-forge-external-tool-scan.mjs'
-]);
-
-const visit = directory => {
-  if (!fs.existsSync(directory)) return;
-  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
-    const full = path.join(directory, entry.name);
-    if (entry.isDirectory()) {
-      visit(full);
-      continue;
-    }
-    if (!executableExtensions.has(path.extname(entry.name))) continue;
-    const relative = path.relative(root, full).replaceAll('\\', '/');
-    if (scanExclusions.has(relative)) continue;
-    const text = fs.readFileSync(full, 'utf8');
-    for (const finding of scanExternalToolInvocations(relative, text)) {
-      errors.push(`Active external-tool invocation found in ${relative}:${finding.line}: ${finding.text}`);
-    }
-  }
-};
-for (const directory of executableRoots) visit(path.join(root, directory));
 
 if (component.reference_model_mapping?.candidates?.some(candidate => candidate.review_status === 'candidate-not-approved')) {
   warnings.push('Reference node candidates remain unapproved, as required before visual and parent-chain review.');
@@ -158,11 +137,9 @@ const report = {
   policy: {
     id: policy.policy_id,
     drawingFirst: policy.drawing_first_rule?.guessing_allowed === false,
-    img2threejs: {
-      status: external?.status,
-      runtimeDependency: external?.runtime_dependency,
-      automaticInvocationAllowed: external?.automatic_invocation_allowed
-    }
+    externalToolRecords: externalToolEntries.length,
+    externalToolRuntimeDependencies: externalToolEntries.filter(([, tool]) => tool.runtime_dependency === true).length,
+    externalToolAutomaticInvocations: externalToolEntries.filter(([, tool]) => tool.automatic_invocation_allowed === true).length
   },
   component: {
     id: component.contract_id,

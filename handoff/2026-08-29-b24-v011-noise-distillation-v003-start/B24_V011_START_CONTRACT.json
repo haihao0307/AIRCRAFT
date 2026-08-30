@@ -76,13 +76,6 @@
     "paint_chip_edge",
     "grime_filled_damage"
   ],
-  "externalMethod": {
-    "name": "img2threejs",
-    "defaultEnabled": false,
-    "geometryAuthority": false,
-    "runtimeAuthority": false,
-    "approvalAuthority": false
-  },
   "approvals": {
     "visualApproved": false,
     "ridgedLayerApproved": false,

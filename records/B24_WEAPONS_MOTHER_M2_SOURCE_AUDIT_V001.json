@@ -2,7 +2,6 @@
   "schema": "haihao.aircraft/weapons-mother-m2-intake@1.0.0",
   "status": "source-candidates-only",
   "b24MountAssignment": "unresolved-user-mapping-required",
-  "image2ThreeJsEnabled": false,
   "assets": [
     {
       "schema": "haihao.aircraft/weapons-mother-source-glb-audit@1.0.0",

@@ -164,7 +164,6 @@ def main() -> None:
             "The normal rendered donor remains one fused mesh; service modules are connected-component review groupings, not an approved parts catalog.",
             "Projectile paths and shell-case trajectories are review visualization, not approved ballistics.",
             "Twin spacing, mount geometry, feed routing, ejection routing, and fire limits remain unresolved until a B-24 station is assigned.",
-            "No image-led 3D generation workflow is used.",
         ],
     }
     manifest_output.parent.mkdir(parents=True, exist_ok=True)

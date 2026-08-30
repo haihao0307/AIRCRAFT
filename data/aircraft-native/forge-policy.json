@@ -60,23 +60,6 @@
       "approval_status"
     ]
   },
-  "external_tools": {
-    "img2threejs": {
-      "classification": "external-method-study",
-      "reviewed_repository": "https://github.com/img2threejs/img2threejs",
-      "reviewed_commit": "441af85a96523569511154b6321859b79f3592f5",
-      "default_enabled": false,
-      "active_integration": false,
-      "runtime_dependency": false,
-      "generation_authority": false,
-      "structural_authority": false,
-      "surface_authority": false,
-      "behavior_authority": false,
-      "approval_authority": false,
-      "activation": "explicit-user-instruction-and-isolated-task-only",
-      "output_status_when_activated": "external-experiment"
-    }
-  },
   "format_policy": {
     "glb": "reference-or-generated-output",
     "fbx": "generated-output-only",

@@ -184,7 +184,6 @@ def main() -> None:
                     "browning-m2.html",
                 ]
             ),
-            "imageLedExternal3dGenerationEnabled": False,
             "muzzleDatumLocked": 'muzzle.position.set(0,1.316,-0.00548)' in text,
             "persistentCases": 'data-case-persistence' in text,
             "configurableTracerCadence": 'id="tracer-interval"' in text,

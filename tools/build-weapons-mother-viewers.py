@@ -88,7 +88,6 @@ def make_html(candidate_id: str, source: Path, audit: dict[str, Any]) -> str:
       <div class="badges">
         <span class="badge warn">B-24 挂位未解析</span>
         <span class="badge">SOURCE CANDIDATE</span>
-        <span class="badge ok">NO IMAGE2THREEJS</span>
       </div>
       <div class="warning">当前页面只证明该 GLB 能被独立加载和检查，不代表型号、尺度、安装位置、历史适用性或 B-24 回接已经批准。显示归一化仅用于检视，不会改写源资产。</div>
 
@@ -442,7 +441,6 @@ def main() -> None:
                 "schema": "haihao.aircraft/weapons-mother-m2-intake@1.0.0",
                 "status": "source-candidates-only",
                 "b24MountAssignment": "unresolved-user-mapping-required",
-                "image2ThreeJsEnabled": False,
                 "assets": audits,
             },
             ensure_ascii=False,

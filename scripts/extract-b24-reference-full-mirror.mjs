@@ -465,7 +465,6 @@ const manifest = {
   semantic_policy: {
     upstream_controller: 'ChatGPT',
     automatic_semantic_approval: false,
-    img2threejs_analysis_authority: false,
     unreviewed_candidates_are_truth: false,
     unresolved_groups: unresolvedGroups
   },

@@ -12,8 +12,7 @@
     "semanticNodes": 14,
     "interactiveControls": 9,
     "selectedDonorNode": "M2_0",
-    "retiredCandidatesAbsent": true,
-    "imageLedExternal3dGenerationEnabled": false
+    "retiredCandidatesAbsent": true
   },
   "errors": []
 }

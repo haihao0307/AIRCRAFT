@@ -13,12 +13,11 @@ See [`SKILL_INDEX.md`](./SKILL_INDEX.md).
 ## Aircraft Native Forge
 
 - [Aircraft Native Forge architecture](./AIRCRAFT_NATIVE_FORGE_ARCHITECTURE.md)
-- [External method study: Image2ThreeJS](./EXTERNAL_METHOD_STUDY_IMG2THREEJS.md)
 - [Forge policy](../../data/aircraft-native/forge-policy.json)
 - [Reusable system library](../../data/aircraft-native/reusable-system-library.json)
 - [Component production schema](../../data/aircraft-native/schemas/component-production-contract.schema.json)
 
-Status: the self-owned framework is active at foundation stage. Image2ThreeJS active integration is disabled. Public methods have been distilled into repository-owned contracts. No external reconstruction tool has structure, generation, runtime or approval authority.
+Status: the self-owned framework is active at foundation stage. Production contracts, generators, validators and review pages are repository-owned and remain subordinate to the evidence and approval ledger.
 
 ## B-24 data-native aircraft master
 

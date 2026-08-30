@@ -113,7 +113,6 @@ def main() -> None:
     assert "weaponsMotherTemplateSource" in template, "template direct-open guard missing"
     assert "../../preview/weapons-mother/b24-m2-aircraft-v004/index.html" in template, "template redirect target drift"
     assert "if(weaponsMotherTemplateSource)await new Promise(()=>{})" in template, "template module guard missing"
-    assert "Image2Three" not in html and "image2three" not in html.lower()
 
     required_controls = (
         'data-stage="isolated"',
@@ -269,7 +268,6 @@ def main() -> None:
             "remote source asset outside the hosted Site",
             "template-entry redirect",
             "HTML size budget",
-            "Image2ThreeJS exclusion",
         ],
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

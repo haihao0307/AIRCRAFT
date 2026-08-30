@@ -11,7 +11,6 @@
 - `docs/aircraft-pipeline/B24_REFERENCE_FULL_MIRROR.md`
 - `docs/aircraft-pipeline/B24_SURFACE_MODULE_SYSTEM.md`
 - `docs/aircraft-pipeline/B24_MODULAR_ASSEMBLY_ARCHITECTURE.md`
-- `docs/aircraft-pipeline/EXTERNAL_METHOD_STUDY_IMG2THREEJS.md`
 
 ## 通用 Aircraft Native Forge 数据
 
@@ -120,8 +119,6 @@ semantic auto approvals   0
 
 ```text
 active framework                    Aircraft Native Forge
-Image2ThreeJS active integration    disabled
-Image2ThreeJS retained role         external method study only
 AssemblyGraph                       31 nodes
 BehaviorGraph                       13 controllers
 SurfaceGraph                        62 slots

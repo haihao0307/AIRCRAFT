@@ -75,11 +75,6 @@
       ],
       "binary_model_dependency": false
     },
-    "img2threejs": {
-      "status": "execution-adapter",
-      "authority": "visual execution only",
-      "analysis_authority": false
-    },
     "cad": {
       "status": "optional verification adapter",
       "authority": "intermediate geometry cross-check only"

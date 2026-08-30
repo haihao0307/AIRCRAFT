@@ -4,7 +4,6 @@
   "status": "PASS_SOURCE_VIEWERS_ONLY",
   "renderer": "Three.js 0.185.1",
   "browser": "Codex in-app Chromium",
-  "image2ThreeJsEnabled": false,
   "sharedInteractionChecks": {
     "lockedAxisViewSwitch": true,
     "lightingModeSwitch": true,

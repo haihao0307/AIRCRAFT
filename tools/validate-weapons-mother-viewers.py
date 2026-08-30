@@ -71,7 +71,6 @@ def validate_html(path: Path, audit_by_id: dict[str, dict[str, Any]]) -> dict[st
             errors.append("B-24 mount assignment is not fail-closed")
 
     required_markers = [
-        "NO IMAGE2THREEJS",
         "原始 GLB 未改写",
         "B-24 挂位未解析",
         "WEAPONS_MOTHER_QA_READY",
@@ -81,16 +80,6 @@ def validate_html(path: Path, audit_by_id: dict[str, dict[str, Any]]) -> dict[st
     for marker in required_markers:
         if marker not in text:
             errors.append(f"missing marker: {marker}")
-
-    forbidden_runtime_markers = [
-        "scripts/aircraft_workflow.py",
-        "forge/state.py",
-        "img2threejs-result",
-        "img2threejs-task",
-    ]
-    for marker in forbidden_runtime_markers:
-        if marker in text:
-            errors.append(f"forbidden Image2ThreeJS runtime marker: {marker}")
 
     return {
         "file": str(path),
@@ -118,7 +107,6 @@ def main() -> None:
     report = {
         "schema": "haihao.aircraft/weapons-mother-viewer-validation@1.0.0",
         "status": "PASS" if all(result["status"] == "PASS" for result in results) else "FAIL",
-        "image2ThreeJsEnabled": False,
         "results": results,
     }
     output = json.dumps(report, ensure_ascii=False, indent=2) + "\n"

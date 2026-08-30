@@ -20,5 +20,3 @@ The page also adds:
 - connected-component barrel, receiver, and backplate service separation.
 
 The selected gun remains an M2HB-like donor rather than approved 57-inch aircraft-M2 geometry. The B-24 station, real mount, feed routing, ejection routing, harmonization, and fire-interrupt limits remain unresolved pending user mapping.
-
-No image-led external 3D generation workflow is used.

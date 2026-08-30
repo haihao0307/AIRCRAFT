@@ -21,7 +21,7 @@ ChatGPT controls:
 
 Codex implements approved contracts, generators, tests and review pages. It must preserve uncertainty and stop when an input required by the contract is missing.
 
-Image-led reconstruction systems are external method studies. They remain disabled unless the user explicitly names a tool and authorizes a narrowly scoped experiment. Their output has no automatic path into the aircraft master.
+All production contracts, generators, validators and review pages are repository-owned. Their outputs remain subordinate to the evidence and approval ledger.
 
 ## 3. Eight production layers
 
@@ -230,5 +230,4 @@ componentProductionContractApproved     false
 B24 reference mirror available          true
 B24 native whole-aircraft approved       false
 first component                          twin vertical tail and rudders
-Image2ThreeJS active integration         disabled
 ```

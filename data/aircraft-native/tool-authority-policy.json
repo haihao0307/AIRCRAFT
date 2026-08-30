@@ -11,7 +11,7 @@
     "approved_historical_photographs",
     "locked_reference_model_measurements",
     "derived_geometry_candidates",
-    "visual_proxy_candidates"
+    "runtime_preview_candidates"
   ],
   "core_systems": {
     "aircraft_dna": "self-developed",
@@ -22,39 +22,6 @@
     "evidence_graph": "self-developed",
     "runtime_compiler": "self-developed",
     "browser_qa": "self-developed"
-  },
-  "external_tools": {
-    "img2threejs": {
-      "status": "disabled-by-default",
-      "classification": "archived-external-research-reference",
-      "runtime_dependency": false,
-      "build_dependency": false,
-      "analysis_authority": false,
-      "structure_authority": false,
-      "geometry_authority": false,
-      "behavior_authority": false,
-      "surface_authority": false,
-      "qa_authority": false,
-      "approval_authority": false,
-      "automatic_invocation_allowed": false,
-      "explicit_user_instruction_required": true,
-      "permitted_knowledge_distillation": [
-        "staged-workflow-organization",
-        "deterministic-gate-patterns",
-        "versioned-state-and-evidence-patterns",
-        "browser-review-organization"
-      ],
-      "forbidden_uses": [
-        "aircraft-structure-inference",
-        "hidden-geometry-inference",
-        "component-boundary-decision",
-        "dimension-decision",
-        "mechanism-axis-decision",
-        "surface-or-uv-decision",
-        "historical-accuracy-decision",
-        "automatic-aircraft-generation"
-      ]
-    }
   },
   "drawing_first_rule": {
     "required_when": [
@@ -71,7 +38,7 @@
   },
   "approval": {
     "policyApproved": true,
-    "externalToolIsolationApproved": true,
+    "nativeToolAuthorityApproved": true,
     "aircraftDataMasterApproved": false,
     "geometryRecipesApproved": false,
     "behaviorGraphApproved": false,

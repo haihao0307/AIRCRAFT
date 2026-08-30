@@ -15,5 +15,3 @@ The selected source is locked at 18,536,776 bytes and SHA-256 3cb10b4c2cb6ae9665
 The donor is selected for manageable topology, an isolated M2_0 gun-core node, stable provenance, and a plausible source scale. Its approximately 65-inch envelope remains M2HB-like. It is not approved as a 57-inch aircraft M2 reconstruction.
 
 Candidate 02 and Candidate 03 embedded HTML pages, QA images, and per-candidate contracts were removed from the project at the user's request. Their small audit records remain as selection evidence. The external source GLBs under the user's aircraft library were intentionally not deleted.
-
-No image-led external 3D generation workflow is used.

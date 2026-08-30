@@ -137,31 +137,12 @@
     "local_frame",
     "interfaces",
     "engineering_assets",
-    "visual_proxy_assets",
     "runtime_assets",
     "livery_surfaces",
     "unknowns",
     "qa_state"
   ],
   "toolRoles": {
-    "img2threejs": {
-      "evidenceGrade": "E_visual_only",
-      "allowed": [
-        "component_decomposition",
-        "procedural_threejs_proxy",
-        "runtime_hierarchy_experiment",
-        "silhouette_comparison",
-        "browser_visual_qa",
-        "attachment_and_intersection_checks"
-      ],
-      "prohibited": [
-        "engineering_dimension_authority",
-        "tolerance_authority",
-        "material_specification_authority",
-        "variant_applicability_authority",
-        "manufacturing_release"
-      ]
-    },
     "parametricCad": {
       "preferredOutputs": [
         "source_parameters",

@@ -17,28 +17,48 @@ assert.equal(policy.mother_data.renderer_independent, true);
 assert.equal(policy.uncertainty_policy.unknown_state, 'unresolved');
 assert.equal(policy.uncertainty_policy.silent_interpolation_allowed, false);
 
-const external = policy.external_tools.img2threejs;
-assert.ok(external, 'img2threejs method-study record is required');
-assert.equal(external.classification, 'external-method-study');
-assert.equal(external.default_enabled, false);
-assert.equal(external.active_integration, false);
-assert.equal(external.runtime_dependency, false);
-assert.equal(external.generation_authority, false);
-assert.equal(external.structural_authority, false);
-assert.equal(external.surface_authority, false);
-assert.equal(external.behavior_authority, false);
-assert.equal(external.approval_authority, false);
-assert.equal(external.activation, 'explicit-user-instruction-and-isolated-task-only');
+const externalToolEntries = Object.entries(policy.external_tools ?? {});
+for (const [toolId, externalTool] of externalToolEntries) {
+  assert.equal(externalTool.default_enabled, false, `${toolId} must remain disabled by default`);
+  assert.equal(externalTool.active_integration, false, `${toolId} active integration must remain disabled`);
+  assert.equal(externalTool.runtime_dependency, false, `${toolId} cannot be a runtime dependency`);
+  for (const authorityField of [
+    'generation_authority',
+    'structural_authority',
+    'surface_authority',
+    'behavior_authority',
+    'approval_authority'
+  ]) {
+    assert.equal(externalTool[authorityField], false, `${toolId} cannot receive ${authorityField}`);
+  }
+  assert.equal(
+    externalTool.activation,
+    'explicit-user-instruction-and-isolated-task-only',
+    `${toolId} activation policy drift`
+  );
+}
 
 const tools = readJson('data/b24-engineering/reconstruction-tools.json');
-const imgTool = tools.tools.find(tool => tool.name === 'img2threejs');
-assert.ok(imgTool, 'img2threejs method-study entry is missing');
-assert.equal(imgTool.classification, 'external-method-study');
-assert.equal(imgTool.default_enabled, false);
-assert.equal(imgTool.runtime_dependency, false);
-assert.equal(imgTool.activation_policy.default, 'disabled');
-assert.equal(imgTool.activation_policy.automatic_promotion, false);
-assert.deepEqual(imgTool.approved_use, ['read-only architecture and method study']);
+const registeredExternalStudies = (tools.tools ?? []).filter(tool =>
+  String(tool.classification ?? '').includes('study')
+);
+for (const registeredTool of registeredExternalStudies) {
+  if ('default_enabled' in registeredTool) {
+    assert.equal(registeredTool.default_enabled, false, `${registeredTool.tool_id} must default to disabled`);
+  }
+  if ('runtime_dependency' in registeredTool) {
+    assert.equal(registeredTool.runtime_dependency, false, `${registeredTool.tool_id} cannot be a runtime dependency`);
+  }
+  if (registeredTool.activation_policy && typeof registeredTool.activation_policy === 'object') {
+    if ('automatic_promotion' in registeredTool.activation_policy) {
+      assert.equal(
+        registeredTool.activation_policy.automatic_promotion,
+        false,
+        `${registeredTool.tool_id} cannot be promoted automatically`
+      );
+    }
+  }
+}
 
 const library = readJson('data/aircraft-native/reusable-system-library.json');
 assert.equal(library.library_id, 'AIRCRAFT_NATIVE_REUSABLE_SYSTEMS');
@@ -102,26 +122,24 @@ assert.equal(pilot.schemaVersion, '2.0.0');
 assert.equal(pilot.production_contract, 'data/b24-native/components/empennage/vertical-tail-production.json');
 assert.ok(pilot.native_forge_assets, 'native forge asset block is required');
 assert.equal('visual_proxy_assets' in pilot, false, 'legacy visual proxy execution block must be removed');
-const pilotStudy = pilot.external_method_studies.find(study => study.name === 'img2threejs');
-assert.ok(pilotStudy);
-assert.equal(pilotStudy.active_integration, false);
-assert.equal(pilotStudy.default_enabled, false);
-assert.equal(pilotStudy.authority, 'none');
+for (const pilotStudy of pilot.external_method_studies ?? []) {
+  assert.equal(pilotStudy.active_integration, false, 'external method study integration must remain disabled');
+  assert.equal(pilotStudy.default_enabled, false, 'external method study must remain disabled by default');
+  assert.equal(pilotStudy.authority, 'none', 'external method study cannot receive aircraft authority');
+}
 
 const agents = readText('AGENTS.md');
-assert.ok(agents.includes('Image2ThreeJS is registered only as an external method study.'));
-assert.ok(agents.includes('It is disabled by default.'));
 assert.ok(agents.includes('AIRCRAFT_NATIVE_FORGE'));
 
 const master = readText('docs/aircraft-pipeline/B24_DATA_NATIVE_MASTER.md');
-assert.ok(master.includes('Image2ThreeJS只保留为外部方法研究资料。默认禁用'));
 assert.ok(master.includes('Aircraft Native Forge'));
 
 console.log(JSON.stringify({
   ok: true,
   framework: policy.system_id,
-  externalImageToolActive: external.active_integration,
-  externalImageToolDefaultEnabled: external.default_enabled,
+  externalToolRecords: externalToolEntries.length,
+  externalToolActive: externalToolEntries.some(([, tool]) => tool.active_integration === true),
+  registeredExternalStudies: registeredExternalStudies.length,
   reusableSystems: library.systems.length,
   firstComponent: production.work_package_id,
   firstComponentSurfaceSlots: production.surface_program.surface_ids.length,

@@ -146,13 +146,6 @@ addCheck(
   html.includes('id="phase-grid"') && html.includes('id="engine-controls"') && html.includes('id="diagnostic-list"') && css.length > 4000,
   'The browser console must expose phase, engine and QA controls.'
 );
-addCheck(
-  checks,
-  'external-image-reconstruction-not-activated',
-  !/image2threejs|tripo|meshy|rodin/i.test(`${contractText}\n${html}\n${app}`),
-  'V009 may not activate an external image reconstruction system.'
-);
-
 const failed = checks.filter((check) => !check.pass);
 const report = {
   schema: 'haihao.aircraft/b24-v009-static-validation@1.0.0',

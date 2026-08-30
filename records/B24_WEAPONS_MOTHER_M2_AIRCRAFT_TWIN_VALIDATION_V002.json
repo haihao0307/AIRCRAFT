@@ -15,7 +15,6 @@
     "interactiveControls": 13,
     "selectedDonorNode": "M2_0",
     "retiredCandidatesAbsent": true,
-    "imageLedExternal3dGenerationEnabled": false,
     "muzzleDatumLocked": true,
     "persistentCases": true,
     "configurableTracerCadence": true

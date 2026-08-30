@@ -49,7 +49,6 @@
   "limitations": [
     "The donor gun core remains one fused mesh; recoil currently moves the complete gun visual.",
     "Projectile paths and shell-case trajectories are review visualization, not approved ballistics.",
-    "Twin spacing, mount geometry, feed routing, ejection routing, and fire limits remain unresolved until a B-24 station is assigned.",
-    "No image-led 3D generation workflow is used."
+    "Twin spacing, mount geometry, feed routing, ejection routing, and fire limits remain unresolved until a B-24 station is assigned."
   ]
 }

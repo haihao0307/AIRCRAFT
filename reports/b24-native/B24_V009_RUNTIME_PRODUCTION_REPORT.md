@@ -120,7 +120,6 @@ The validator checks:
 - closed approval ledger
 - frozen `80 DAYS` historical livery
 - complete browser control surface
-- continued exclusion of external image reconstruction systems
 
 GitHub Actions runs the validator with `set -euo pipefail`, performs a JavaScript syntax check, uploads the validation JSON, logs, contract and browser files, and writes a job summary.
 

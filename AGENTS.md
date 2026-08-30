@@ -6,8 +6,6 @@ ChatGPT is the upstream controller for research, aircraft-system analysis, geome
 
 Codex is the downstream implementation executor. It may implement approved contracts, generators, tests, review pages and repository changes. It must stop when required evidence is missing and must never invent hidden geometry, dimensions, variant applicability or approval.
 
-Image2ThreeJS is registered only as an external method study. It is disabled by default. It has no active execution, structure, geometry, surface, behavior, runtime or approval role. A future isolated experiment requires an explicit user instruction that names the tool and defines the exact task scope.
-
 ## Current scope
 
 The active production framework is `AIRCRAFT_NATIVE_FORGE`. The active family master is `B24J_CO_DATA_NATIVE_MASTER`. Initial historical instances are:
@@ -46,10 +44,9 @@ GLB, FBX, OBJ, STEP, CAD files, UV atlases and raster textures are reference inp
 5. Every native replacement must retain source node indexes, stable paths, evidence, transforms, bounds, surfaces, animation channels and review captures.
 6. The exact reference mirror remains available until a replacement meets or exceeds it in fixed-camera, fixed-time and multi-view review.
 7. Original drawings and official manuals control geometry when they conflict with the reference model.
-8. Image2ThreeJS and similar image-led tools remain disabled unless an explicit user instruction authorizes an isolated experiment. Their results receive no automatic path into mother data.
-9. Active generators, schemas, validators and browser workbenches must be repository-owned and reproducible.
-10. Surface work binds through stable semantic `surface_id` values. UV, vector markings, panels, rivets and generated maps are replaceable SurfaceModules.
-11. Free-design material controls may adjust base color and PBR response. Historical mode must preserve evidence-locked colors, side-specific markings and mission state.
-12. Reusable aircraft-system logic must separate from aircraft-specific dimensions, configuration and evidence so later B25, B17, B29 and fighter projects can inherit the framework safely.
-13. Record every factual source, transformation, generated artifact, hash, test result, uncertainty and approval state.
-14. No unrelated refactor, hidden asset substitution, force push or merge before upstream and user review.
+8. Active generators, schemas, validators and browser workbenches must be repository-owned and reproducible.
+9. Surface work binds through stable semantic `surface_id` values. UV, vector markings, panels, rivets and generated maps are replaceable SurfaceModules.
+10. Free-design material controls may adjust base color and PBR response. Historical mode must preserve evidence-locked colors, side-specific markings and mission state.
+11. Reusable aircraft-system logic must separate from aircraft-specific dimensions, configuration and evidence so later B25, B17, B29 and fighter projects can inherit the framework safely.
+12. Record every factual source, transformation, generated artifact, hash, test result, uncertainty and approval state.
+13. No unrelated refactor, hidden asset substitution, force push or merge before upstream and user review.

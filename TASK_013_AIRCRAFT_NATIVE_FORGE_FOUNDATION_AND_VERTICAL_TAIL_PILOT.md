@@ -9,7 +9,7 @@ Create the first self-owned aircraft production framework for the AIRCRAFT repos
 1. `Aircraft Native Forge` is the active production framework.
 2. ChatGPT owns research synthesis, engineering interpretation, component boundaries, geometry decisions, behavior design, surface design and approval.
 3. Codex may implement approved contracts and tests. It may not invent geometry, hidden structure or variant applicability.
-4. Image2ThreeJS is retained only as an external method study. It is disabled by default and has no structural, generation, runtime or approval role.
+4. All active production contracts, generators, runtimes, validators and review pages are repository-owned and reproducible.
 5. GLB, CAD, STEP, FBX, OBJ and raster maps are reference inputs, verification artifacts or generated outputs. They never replace the structured mother data.
 6. Unclear geometry must remain `unresolved` until a drawing, manual, measured reference or approved derivation resolves it.
 7. Original drawings and official manuals control engineering reconstruction. The locked GLB supplies visual proportion, node, material and motion evidence at a lower authority level.
@@ -21,7 +21,7 @@ Create the first self-owned aircraft production framework for the AIRCRAFT repos
 Create a machine-readable policy that defines:
 
 - authority and source precedence
-- active and prohibited external-tool roles
+- repository-owned tool authority and execution boundaries
 - renderer-independent mother-data contracts
 - unresolved-data behavior
 - family-level reuse rules

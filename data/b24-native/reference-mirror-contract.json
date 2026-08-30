@@ -23,8 +23,6 @@
   },
   "authority": {
     "upstream_controller": "ChatGPT",
-    "img2threejs_role": "downstream visual execution and browser QA only",
-    "img2threejs_analysis_authority": false,
     "reference_glb_role": "locked source for measurement, hierarchy, appearance and motion evidence",
     "reference_glb_runtime_authority": false
   },

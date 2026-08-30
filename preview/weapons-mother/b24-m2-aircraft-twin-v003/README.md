@@ -20,5 +20,3 @@ Files:
 - `qa-report.json` — browser views, interaction checks and measured runtime sample.
 
 Measured browser sample: 38 persistent cases plus 38 persistent disintegrating links, about 353k rendered triangles, 166 draw calls and 60 FPS. Debris geometry intentionally grows as the user continues firing; use **清理试验区** when a clean performance comparison is needed.
-
-No Image2ThreeJS or other image-led geometry generator is used.

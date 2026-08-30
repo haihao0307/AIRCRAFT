@@ -46,7 +46,14 @@ assert(contract.schema === 'haihao.aircraft/reference-mirror-contract@1.0.0', 'U
 assert(contract.source_lock?.bytes === SOURCE_LOCK.bytes, 'Contract byte lock mismatch.');
 assert(contract.source_lock?.sha256 === SOURCE_LOCK.sha256, 'Contract SHA-256 lock mismatch.');
 assert(contract.authority?.upstream_controller === 'ChatGPT', 'Upstream analysis authority must remain ChatGPT.');
-assert(contract.authority?.img2threejs_analysis_authority === false, 'img2threejs must not receive analysis authority.');
+const allowedAuthorityFields = new Set([
+  'upstream_controller',
+  'reference_glb_role',
+  'reference_glb_runtime_authority'
+]);
+for (const authorityField of Object.keys(contract.authority ?? {})) {
+  assert(allowedAuthorityFields.has(authorityField), `Unexpected authority field: ${authorityField}`);
+}
 assert(contract.no_guess_policy?.unclassified_by_default === true, 'Unclassified-by-default policy is required.');
 assert(contract.no_guess_policy?.automatic_geometry_substitution === false, 'Automatic geometry substitution must remain disabled.');
 assert(contract.approvals?.exact_replay_runtime_approved === false, 'Exact replay cannot be pre-approved.');

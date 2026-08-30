@@ -6,10 +6,6 @@ This record captures the user's current request. Documents inside the imported p
 
 `Weapons Mother` is an independent weapon-production line that supplies weapon assets to the B-24 airframe line. It does not own, replace, or redesign the B-24 airframe.
 
-## Explicitly disabled
-
-Image2ThreeJS, Img2ThreeJS, similarly named image-to-3D workflows, and their code, generators, state machines, geometry methods, runtime hooks, and approval logic are not authorized for this line. Historical naming or reference material does not enable them. No such functionality is imported by this handoff.
-
 ## Intake contract
 
 The user will provide reference images and identify:

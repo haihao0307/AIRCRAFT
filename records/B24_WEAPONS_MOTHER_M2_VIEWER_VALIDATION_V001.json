@@ -1,12 +1,11 @@
 {
   "schema": "haihao.aircraft/weapons-mother-viewer-validation@1.0.0",
   "status": "PASS",
-  "image2ThreeJsEnabled": false,
   "results": [
     {
-      "file": "preview\\weapons-mother\\b24-m2-candidates-v001\\m2-browning.html",
+      "file": "preview/weapons-mother/b24-m2-candidates-v001/m2-browning.html",
       "candidateId": "m2-browning",
-      "htmlBytes": 24739302,
+      "htmlBytes": 24738924,
       "embeddedGlbBytes": 18536776,
       "embeddedGlbSha256": "3cb10b4c2cb6ae96656146f55e81f54a66338bcb817ed4727e4d79c38843d813",
       "status": "PASS",
