@@ -1,0 +1,115 @@
+{
+  "schema": "haihao.knowledge/procedural-field-library@1.0.0",
+  "sourceLock": {
+    "package": "PROCEDURAL_FIELD_KNOWLEDGE_MINI_V1.0_2026-08-30(3).zip",
+    "packageBytes": 13456,
+    "packageSha256": "d69ecd2677507db9342a1d66092a8d6cf4255141346b14cc4629303bf1c4f396",
+    "readOnly": true,
+    "files": [
+      {
+        "path": "01_CORE_KNOWLEDGE.md",
+        "bytes": 5600,
+        "sha256": "f065c18f67629281038167903162f49adba681deead185ccb07b3c1c5b6316d7"
+      },
+      {
+        "path": "02_ADAPTATION_GUIDE.md",
+        "bytes": 2294,
+        "sha256": "a717c16542b6e9e24cc05370caa71fbd341a1f921019a0a764ef3ac321e6438a"
+      },
+      {
+        "path": "field_contract.schema.json",
+        "bytes": 2906,
+        "sha256": "2b954934c7bdc87aa15b5ded86513928a069b4246689addff769e4c204e7928f"
+      },
+      {
+        "path": "field_graph_recipes.json",
+        "bytes": 2154,
+        "sha256": "d88e95ed5b2fe4205de70e48ebd090092da5781dd9d24483a22afa22d78330e2"
+      },
+      {
+        "path": "field_reference.js",
+        "bytes": 5622,
+        "sha256": "8fd54c74b44a6abd6fe35619a10b08b396c7c71ac57ee37e77246b4c531078a5"
+      }
+    ]
+  },
+  "pipeline": [
+    "source-field",
+    "shape-field",
+    "data-and-mask-field",
+    "color-field",
+    "render-field",
+    "qa"
+  ],
+  "maskFamilies": [
+    "truth-mask",
+    "parent-mask",
+    "process-mask",
+    "separation-mask"
+  ],
+  "noiseFamilies": [
+    "gradient-or-value-noise",
+    "fractal-brownian-motion",
+    "ridged-field",
+    "turbulence",
+    "cellular-field",
+    "domain-warp"
+  ],
+  "scaleBudget": {
+    "macro": "object-scale regions, broad tone, exposure and primary material separation",
+    "meso": "wear paths, deposits, scratches, runoff and local material breakup",
+    "micro": "normal, roughness and detail colour; primary shape remains protected"
+  },
+  "principles": [
+    "source-field-read-only",
+    "bounded-shape-impact",
+    "truth-parent-process-separation-masks",
+    "shared-domain-warp",
+    "macro-meso-micro-budget",
+    "low-strength-multi-pass",
+    "data-driven-colour",
+    "five-stop-colour-map",
+    "normalized-splat",
+    "multi-channel-event-correlation",
+    "deterministic-seeds",
+    "diagnostic-outputs-before-promotion"
+  ],
+  "graphRecipes": [
+    {
+      "id": "measured-surface",
+      "inputs": ["source-shape", "distance-error", "normal-difference", "curvature", "confidence"],
+      "graph": ["source-read-only", "auto-level", "clarity", "confidence-mask", "five-stop-colour-map", "normalized-splat", "diagnostics"],
+      "outputs": ["colour", "roughness", "normal-debug", "confidence-debug"],
+      "shapeImpact": "none"
+    },
+    {
+      "id": "generic-surface-material",
+      "inputs": ["source-shape", "material-region", "exposure", "moisture"],
+      "graph": ["shared-domain-warp", "macro-fbm", "meso-ridged-a", "meso-ridged-b", "micro-turbulence", "cavity-and-protrusion", "separation-mask", "five-stop-colour-map", "normalized-splat"],
+      "outputs": ["shape-delta", "albedo", "roughness", "normal", "ao"],
+      "shapeImpact": "bounded"
+    },
+    {
+      "id": "weathered-surface",
+      "inputs": ["source-shape", "exposure", "runoff", "contact"],
+      "graph": ["broad-weather-field", "runoff-mask", "contact-wear", "deposit-mask", "colour-correction", "roughness-correlation"],
+      "outputs": ["weather-mask", "albedo", "roughness", "wetness"],
+      "shapeImpact": "visual-first"
+    }
+  ],
+  "metalAndCoatingAdaptation": {
+    "inputs": ["substrate", "coating-thickness", "scratch", "oxidation", "water-stain", "heat"],
+    "mapping": {
+      "coating-loss": "separation-mask",
+      "scratch": "directional-damage",
+      "oxidation": ["colour", "roughness"],
+      "heat": "broad-colour-field",
+      "wetness": ["darkening", "gloss"]
+    }
+  },
+  "referenceImplementation": {
+    "path": "knowledge/procedural-field/v1.0.0/field_reference.js",
+    "sha256": "8fd54c74b44a6abd6fe35619a10b08b396c7c71ac57ee37e77246b4c531078a5",
+    "deterministic": true
+  }
+}
