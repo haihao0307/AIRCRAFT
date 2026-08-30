@@ -1,0 +1,284 @@
+{
+  "schema": "haihao.aircraft/b24-source-texture-extraction-audit@1.0.0",
+  "status": "PASS_SOURCE_TEXTURE_EVIDENCE_ONLY",
+  "source": {
+    "html": "B24_V010_RIDGED_LOCAL_DAMAGE_REVIEW.html",
+    "htmlBytes": 12550988,
+    "htmlSha256": "1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949",
+    "sourceGlbBytes": 23085972,
+    "sourceGlbSha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "embeddedManifestBytes": 2169385,
+    "embeddedManifestSha256": "8934b65ef1b29fc8b64da5e339815a39f8d03254c0b31638781bc16016a6d307",
+    "embeddedPayloadBytes": 16647376,
+    "embeddedPayloadSha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2"
+  },
+  "contractChecks": {
+    "htmlBytes": true,
+    "htmlSha256": true,
+    "sourceGlbBytes": true,
+    "sourceGlbSha256": true,
+    "embeddedManifestSha256": true,
+    "embeddedPayloadBytes": true,
+    "embeddedPayloadSha256": true
+  },
+  "inventory": {
+    "sourceImageCount": 18,
+    "materialCount": 30,
+    "textureCount": 18,
+    "textureSlotCounts": {
+      "baseColorTexture": 18,
+      "metallicRoughnessTexture": 10,
+      "normalTexture": 0,
+      "occlusionTexture": 10,
+      "emissiveTexture": 0
+    },
+    "allSourceImageBlocksVerified": true
+  },
+  "confirmedSourceFacts": {
+    "bakedPanelSeamInformationPresent": true,
+    "bakedRivetLikeInformationPresent": true,
+    "bakedNacelleStainInformationPresent": true,
+    "dedicatedNormalTexturePresent": false,
+    "dedicatedRivetSemanticMaskPresent": false,
+    "dedicatedPanelSeamSemanticMaskPresent": false
+  },
+  "runtimeFinding": {
+    "currentV010PreviewMode": "solid-exterior-no-uv",
+    "currentV010UsesSourceBaseColorTextures": false,
+    "effect": "The V010 clean aircraft preview preserves source geometry and material parameters while omitting the baked UV texture detail visible in the embedded source images.",
+    "runtimeMarkers": {
+      "solidExteriorNoUv": true,
+      "noUvCopy": true,
+      "v010BuildPresent": true
+    }
+  },
+  "visualEvidence": [
+    {
+      "evidenceId": "fuselage-and-wing-panel-grid",
+      "imageId": 2,
+      "sourceImage": "image_02.jpg",
+      "label": "upper wing panel grid",
+      "box": [
+        270,
+        0,
+        1024,
+        170
+      ],
+      "file": "02_00_fuselage-and-wing-panel-grid.png",
+      "observedFeatures": [
+        "panel-seam-lines",
+        "repeated-rivet-like-dot-rows",
+        "access-panel-outlines",
+        "baked-tonal-weathering"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "evidenceId": "fuselage-and-wing-panel-grid",
+      "imageId": 2,
+      "sourceImage": "image_02.jpg",
+      "label": "fuselage panel and fastener rows",
+      "box": [
+        0,
+        210,
+        730,
+        450
+      ],
+      "file": "02_01_fuselage-and-wing-panel-grid.png",
+      "observedFeatures": [
+        "panel-seam-lines",
+        "repeated-rivet-like-dot-rows",
+        "access-panel-outlines",
+        "baked-tonal-weathering"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "evidenceId": "fuselage-and-wing-panel-grid",
+      "imageId": 2,
+      "sourceImage": "image_02.jpg",
+      "label": "nose-side panel layout",
+      "box": [
+        0,
+        650,
+        730,
+        850
+      ],
+      "file": "02_02_fuselage-and-wing-panel-grid.png",
+      "observedFeatures": [
+        "panel-seam-lines",
+        "repeated-rivet-like-dot-rows",
+        "access-panel-outlines",
+        "baked-tonal-weathering"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "evidenceId": "left-wing-and-control-surface-fasteners",
+      "imageId": 5,
+      "sourceImage": "image_05.jpg",
+      "label": "wing skin and nacelle stains",
+      "box": [
+        0,
+        0,
+        1024,
+        520
+      ],
+      "file": "05_00_left-wing-and-control-surface-fasteners.png",
+      "observedFeatures": [
+        "panel-seam-lines",
+        "dense-rivet-like-dot-rows",
+        "control-surface-fastener-patterns",
+        "baked-dark-nacelle-stains",
+        "baked-fluid-streaks"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "evidenceId": "left-wing-and-control-surface-fasteners",
+      "imageId": 5,
+      "sourceImage": "image_05.jpg",
+      "label": "control-surface fastener rows",
+      "box": [
+        0,
+        500,
+        1024,
+        1024
+      ],
+      "file": "05_01_left-wing-and-control-surface-fasteners.png",
+      "observedFeatures": [
+        "panel-seam-lines",
+        "dense-rivet-like-dot-rows",
+        "control-surface-fastener-patterns",
+        "baked-dark-nacelle-stains",
+        "baked-fluid-streaks"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "evidenceId": "right-wing-and-control-surface-fasteners",
+      "imageId": 9,
+      "sourceImage": "image_09.jpg",
+      "label": "wing skin and nacelle stains",
+      "box": [
+        0,
+        0,
+        1024,
+        520
+      ],
+      "file": "09_00_right-wing-and-control-surface-fasteners.png",
+      "observedFeatures": [
+        "panel-seam-lines",
+        "dense-rivet-like-dot-rows",
+        "control-surface-fastener-patterns",
+        "baked-dark-nacelle-stains",
+        "baked-fluid-streaks"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "evidenceId": "right-wing-and-control-surface-fasteners",
+      "imageId": 9,
+      "sourceImage": "image_09.jpg",
+      "label": "control-surface fastener rows",
+      "box": [
+        0,
+        500,
+        1024,
+        1024
+      ],
+      "file": "09_01_right-wing-and-control-surface-fasteners.png",
+      "observedFeatures": [
+        "panel-seam-lines",
+        "dense-rivet-like-dot-rows",
+        "control-surface-fastener-patterns",
+        "baked-dark-nacelle-stains",
+        "baked-fluid-streaks"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "evidenceId": "tail-skin-fastener-layout",
+      "imageId": 7,
+      "sourceImage": "image_07.jpg",
+      "label": "dual-tail skin panels",
+      "box": [
+        0,
+        0,
+        820,
+        1024
+      ],
+      "file": "07_00_tail-skin-fastener-layout.png",
+      "observedFeatures": [
+        "curved-panel-seam-lines",
+        "repeated-rivet-like-dot-rows",
+        "hinge-and-access-panel-outlines",
+        "baked-tonal-weathering"
+      ],
+      "visualEvidenceStrength": "high",
+      "engineeringAuthority": false
+    },
+    {
+      "evidenceId": "cockpit-and-forward-panel-detail",
+      "imageId": 3,
+      "sourceImage": "image_03.jpg",
+      "label": "forward skin and cockpit panels",
+      "box": [
+        120,
+        130,
+        830,
+        620
+      ],
+      "file": "03_00_cockpit-and-forward-panel-detail.png",
+      "observedFeatures": [
+        "panel-seam-lines",
+        "localized-rivet-like-dot-rows",
+        "access-panel-outlines",
+        "baked-smudging"
+      ],
+      "visualEvidenceStrength": "medium",
+      "engineeringAuthority": false
+    }
+  ],
+  "files": {
+    "inventory": {
+      "path": "B24_SOURCE_TEXTURE_INVENTORY.json",
+      "bytes": 11239,
+      "sha256": "5c4252a21be8968b52ecc66c745bdf46781e7be199d6ded5fdb3dd52f2e9dead"
+    },
+    "contactSheet": {
+      "path": "B24_SOURCE_TEXTURES_CONTACT_SHEET.png",
+      "bytes": 2682138,
+      "sha256": "ea584b81a88361d40974a870091a721e6937131024f9c7fe79d6c2138215362e"
+    },
+    "evidenceBoard": {
+      "path": "B24_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE_BOARD.png",
+      "bytes": 2022976,
+      "sha256": "dfbdf4096fe06d8b33d662cc63d08c8654831f66cecbc47b836cc54413d3733e"
+    }
+  },
+  "protectedSystems": {
+    "sourceHtmlChanged": false,
+    "sourcePayloadChanged": false,
+    "sourceGlbChanged": false,
+    "geometryChanged": false,
+    "animationChanged": false,
+    "liveryIdentityChanged": false,
+    "runwayFlightSequenceChanged": false
+  },
+  "approvalBoundary": {
+    "visualApproved": false,
+    "surfaceSystemApproved": false,
+    "historicalApproved": false,
+    "engineeringApproved": false,
+    "wholeAircraftApproved": false,
+    "productionFrozen": false
+  }
+}

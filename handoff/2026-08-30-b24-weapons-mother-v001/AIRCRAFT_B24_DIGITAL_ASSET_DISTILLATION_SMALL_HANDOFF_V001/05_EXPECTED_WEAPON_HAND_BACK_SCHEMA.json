@@ -1,0 +1,32 @@
+{
+  "schema": "haihao.aircraft/b24-weapon-subline-handback@1.0.0",
+  "requiredFiles": [
+    "README_FIRST.md",
+    "B24_WEAPON_ASSET_REGISTRY.json",
+    "B24_WEAPON_TO_AIRFRAME_INTERFACE.json",
+    "B24_WEAPON_RUNTIME_RULES.md",
+    "B24_WEAPON_QA_SUMMARY.md"
+  ],
+  "requiredConcepts": {
+    "separateFromAirframe": true,
+    "weaponFamilies": [
+      "machine-gun",
+      "bomb",
+      "rack",
+      "mount",
+      "ammo-or-store"
+    ],
+    "perWeaponFields": [
+      "weaponId",
+      "displayName",
+      "sourceEvidence",
+      "geometryAsset",
+      "textureAssets",
+      "materialDefinition",
+      "mountPointName",
+      "runtimeToggle",
+      "qaEvidence"
+    ],
+    "doNotModifyAirframeCore": true
+  }
+}

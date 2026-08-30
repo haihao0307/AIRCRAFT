@@ -1,0 +1,22 @@
+{
+  "aircraftLine": "B24 airframe production line",
+  "currentAirframeFocusVersion": "V012",
+  "cleanBaselineVersion": "V010 restored clean baseline R5",
+  "sourceGlbBytes": 23085972,
+  "sourceGlbSha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+  "sourceHtmlBytes": 12550988,
+  "sourceHtmlSha256": "1b5b860ca78a7d55ea25d0d972a1d323125a57982d09452e7f7e0cb55d64a949",
+  "propellerConnectorRecovered": true,
+  "connectorTriangleCountPerPropeller": 1128,
+  "sourceTextureImageCount": 18,
+  "materialCount": 30,
+  "textureCount": 18,
+  "baseColorTextureCount": 18,
+  "metallicRoughnessTextureCount": 10,
+  "occlusionTextureCount": 10,
+  "normalTextureCount": 0,
+  "historicalLiveryApproved": false,
+  "surfaceSystemApproved": false,
+  "wholeAircraftApproved": false,
+  "generatedAtUtc": "2026-08-30T00:28:23.932916+00:00"
+}

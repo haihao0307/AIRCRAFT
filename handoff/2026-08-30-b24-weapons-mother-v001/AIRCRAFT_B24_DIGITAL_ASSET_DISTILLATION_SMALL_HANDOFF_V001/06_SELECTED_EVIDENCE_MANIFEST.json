@@ -1,0 +1,16 @@
+{
+  "selectedFiles": [
+    {
+      "path": "evidence/B24_V012_FULL_AIRCRAFT_NOISE_OFF.png",
+      "purpose": "Current clean whole-aircraft orientation for downstream context"
+    },
+    {
+      "path": "evidence/B24_V012_FOUR_PROPELLER_CONNECTORS_BOARD.png",
+      "purpose": "Proof that propeller interface issue is solved on airframe line"
+    },
+    {
+      "path": "evidence/B24_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE_BOARD.png",
+      "purpose": "Proof that original texture set contains skin, rivet and panel information"
+    }
+  ]
+}

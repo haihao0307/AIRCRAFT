@@ -1,0 +1,72 @@
+{
+  "packageName": "AIRCRAFT_B24_DIGITAL_ASSET_DISTILLATION_SMALL_HANDOFF_V001",
+  "version": "V001",
+  "purpose": "Small handoff package for B24 digital asset distillation and weapon subline split",
+  "files": [
+    {
+      "path": "00_README_FIRST.md",
+      "bytes": 1512,
+      "sha256": "028a295fdadef26b0d9f98229b690582ba34c3782224b39f035c7e419a04a2ab"
+    },
+    {
+      "path": "01_B24_DIGITAL_ASSET_DISTILLATION_METHOD.md",
+      "bytes": 2462,
+      "sha256": "16cc18b51d5460e6ea5484e21d45e1986cdc103f8e51187dd884b1eaef5bf9f0"
+    },
+    {
+      "path": "02_AIRFRAME_WEAPON_SPLIT_RULES.md",
+      "bytes": 1023,
+      "sha256": "e32863aaeca084bf8e296881044e84375765ba643a5ab5344608268c2d7d22db"
+    },
+    {
+      "path": "03_AIRFRAME_BASELINE_STATUS.json",
+      "bytes": 847,
+      "sha256": "bda6b36bc6a284661b33ac110bf6c5e2c4f282bbc944fa06535dd27af21c54f9"
+    },
+    {
+      "path": "04_WEAPON_SUBLINE_START_PROMPT.md",
+      "bytes": 1291,
+      "sha256": "057432fcbfc3916b02d589709f1bc0ec685fd277462de51d52fbe4d7f51ac805"
+    },
+    {
+      "path": "05_EXPECTED_WEAPON_HAND_BACK_SCHEMA.json",
+      "bytes": 717,
+      "sha256": "de8efd344fdc26ffb8759e83911a821e30cf7a39f7fac4eab9b572102425f55b"
+    },
+    {
+      "path": "06_SELECTED_EVIDENCE_MANIFEST.json",
+      "bytes": 537,
+      "sha256": "3a87ad94bdc98c6170a3f7964be6b9466cf52afa86be870867032e8c8b142f4c"
+    },
+    {
+      "path": "evidence/B24_SOURCE_TEXTURE_RIVET_PANEL_EVIDENCE_BOARD.png",
+      "bytes": 2022976,
+      "sha256": "dfbdf4096fe06d8b33d662cc63d08c8654831f66cecbc47b836cc54413d3733e"
+    },
+    {
+      "path": "evidence/B24_V012_FOUR_PROPELLER_CONNECTORS_BOARD.png",
+      "bytes": 441214,
+      "sha256": "2ff8d6bc18790d89a50dba6806b4bd6226189562dd1ea76132aafb7902006846"
+    },
+    {
+      "path": "evidence/B24_V012_FULL_AIRCRAFT_NOISE_OFF.png",
+      "bytes": 155153,
+      "sha256": "a3b7671c69ce8e03da5add2116363e7bbb27ef88fc0cae31011cacaa2caa3d78"
+    },
+    {
+      "path": "receipts/B24_SOURCE_TEXTURE_EXTRACTION_AUDIT.json",
+      "bytes": 8304,
+      "sha256": "4db08ac11333739d600a19748b70d3406a6ed1fec8c71bc59a41bcdbb986b175"
+    },
+    {
+      "path": "receipts/B24_SOURCE_TEXTURE_INVENTORY.json",
+      "bytes": 11239,
+      "sha256": "5c4252a21be8968b52ecc66c745bdf46781e7be199d6ded5fdb3dd52f2e9dead"
+    },
+    {
+      "path": "receipts/B24_V012_CURRENT_EXECUTION_SUMMARY.md",
+      "bytes": 3420,
+      "sha256": "56b358d4331542df3112e1e1c38516d65be05bcf0e5afa1fac9ee36a072a4d5a"
+    }
+  ]
+}

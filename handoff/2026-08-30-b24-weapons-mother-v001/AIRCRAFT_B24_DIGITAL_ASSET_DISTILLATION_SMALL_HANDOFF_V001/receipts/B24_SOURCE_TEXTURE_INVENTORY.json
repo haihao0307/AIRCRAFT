@@ -1,0 +1,482 @@
+[
+  {
+    "imageId": 0,
+    "file": "image_00.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 153787,
+    "sha256": "9a536080dc2ca2be274f28d67a7014564cb402a877a713186d6d587de6fbfc05",
+    "sourceBlock": 866,
+    "materialUsage": [
+      {
+        "materialId": 2,
+        "materialName": "material05",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      },
+      {
+        "materialId": 29,
+        "materialName": "material06",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 1,
+    "file": "image_01.png",
+    "mimeType": "image/png",
+    "dimensions": [
+      512,
+      512
+    ],
+    "bytes": 126,
+    "sha256": "5d92d08d08629bea8c2f43f8a595e80585d446d7e008e543a6c331d1bc33469d",
+    "sourceBlock": 867,
+    "materialUsage": [
+      {
+        "materialId": 2,
+        "materialName": "material05",
+        "surfaceFamily": "airframe-skin",
+        "slot": "metallicRoughnessTexture"
+      },
+      {
+        "materialId": 2,
+        "materialName": "material05",
+        "surfaceFamily": "airframe-skin",
+        "slot": "occlusionTexture"
+      },
+      {
+        "materialId": 3,
+        "materialName": "material13",
+        "surfaceFamily": "airframe-skin",
+        "slot": "metallicRoughnessTexture"
+      },
+      {
+        "materialId": 3,
+        "materialName": "material13",
+        "surfaceFamily": "airframe-skin",
+        "slot": "occlusionTexture"
+      },
+      {
+        "materialId": 4,
+        "materialName": "material19",
+        "surfaceFamily": "airframe-skin",
+        "slot": "metallicRoughnessTexture"
+      },
+      {
+        "materialId": 4,
+        "materialName": "material19",
+        "surfaceFamily": "airframe-skin",
+        "slot": "occlusionTexture"
+      },
+      {
+        "materialId": 6,
+        "materialName": "material21",
+        "surfaceFamily": "airframe-skin",
+        "slot": "metallicRoughnessTexture"
+      },
+      {
+        "materialId": 6,
+        "materialName": "material21",
+        "surfaceFamily": "airframe-skin",
+        "slot": "occlusionTexture"
+      },
+      {
+        "materialId": 7,
+        "materialName": "material02",
+        "surfaceFamily": "airframe-skin",
+        "slot": "metallicRoughnessTexture"
+      },
+      {
+        "materialId": 7,
+        "materialName": "material02",
+        "surfaceFamily": "airframe-skin",
+        "slot": "occlusionTexture"
+      },
+      {
+        "materialId": 9,
+        "materialName": "material09",
+        "surfaceFamily": "airframe-skin",
+        "slot": "metallicRoughnessTexture"
+      },
+      {
+        "materialId": 9,
+        "materialName": "material09",
+        "surfaceFamily": "airframe-skin",
+        "slot": "occlusionTexture"
+      },
+      {
+        "materialId": 12,
+        "materialName": "material04",
+        "surfaceFamily": "airframe-skin",
+        "slot": "metallicRoughnessTexture"
+      },
+      {
+        "materialId": 12,
+        "materialName": "material04",
+        "surfaceFamily": "airframe-skin",
+        "slot": "occlusionTexture"
+      },
+      {
+        "materialId": 13,
+        "materialName": "material24",
+        "surfaceFamily": "airframe-skin",
+        "slot": "metallicRoughnessTexture"
+      },
+      {
+        "materialId": 13,
+        "materialName": "material24",
+        "surfaceFamily": "airframe-skin",
+        "slot": "occlusionTexture"
+      },
+      {
+        "materialId": 15,
+        "materialName": "material10",
+        "surfaceFamily": "airframe-skin",
+        "slot": "metallicRoughnessTexture"
+      },
+      {
+        "materialId": 15,
+        "materialName": "material10",
+        "surfaceFamily": "airframe-skin",
+        "slot": "occlusionTexture"
+      },
+      {
+        "materialId": 20,
+        "materialName": "material16",
+        "surfaceFamily": "airframe-skin",
+        "slot": "metallicRoughnessTexture"
+      },
+      {
+        "materialId": 20,
+        "materialName": "material16",
+        "surfaceFamily": "airframe-skin",
+        "slot": "occlusionTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 2,
+    "file": "image_02.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 405140,
+    "sha256": "0297e90c957b50cdce5cfe0c053bf27817560fbaad60edf0b000c11299a420f9",
+    "sourceBlock": 868,
+    "materialUsage": [
+      {
+        "materialId": 3,
+        "materialName": "material13",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 3,
+    "file": "image_03.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 248754,
+    "sha256": "5d51cf3a854a825c4303b1287c5c04a9282cbad2d382a2cf8705142234551272",
+    "sourceBlock": 869,
+    "materialUsage": [
+      {
+        "materialId": 4,
+        "materialName": "material19",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 4,
+    "file": "image_04.png",
+    "mimeType": "image/png",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 217180,
+    "sha256": "a873e1576afc35d23dffe7bc1f41ec2f0f725e3bb0cc7e0bf17f2fa8be7d1df3",
+    "sourceBlock": 870,
+    "materialUsage": [
+      {
+        "materialId": 5,
+        "materialName": "material37",
+        "surfaceFamily": "detail",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 5,
+    "file": "image_05.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 353536,
+    "sha256": "f2aab67461342a8a44b93398124d68e8b406c4038496bf1052ead90876ab4f84",
+    "sourceBlock": 871,
+    "materialUsage": [
+      {
+        "materialId": 6,
+        "materialName": "material21",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 6,
+    "file": "image_06.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 282399,
+    "sha256": "d26c1b671c6ca0b903510694fa816c874be87b379774e9b78c971a94316f2d53",
+    "sourceBlock": 872,
+    "materialUsage": [
+      {
+        "materialId": 7,
+        "materialName": "material02",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 7,
+    "file": "image_07.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 323425,
+    "sha256": "944784e8b6d07f9635b0f225df8746428427964aef40e75c453f4a0f1db2d810",
+    "sourceBlock": 873,
+    "materialUsage": [
+      {
+        "materialId": 9,
+        "materialName": "material09",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 8,
+    "file": "image_08.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 105596,
+    "sha256": "d45a1406e81a2a3889f7a0bb3b69410d9293ffeb4a577317487184d2e437d322",
+    "sourceBlock": 874,
+    "materialUsage": [
+      {
+        "materialId": 12,
+        "materialName": "material04",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 9,
+    "file": "image_09.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 374340,
+    "sha256": "12e31d3702803e9832993137543f4ab08a7cc591a1b9a93a138e1fed85fd2835",
+    "sourceBlock": 875,
+    "materialUsage": [
+      {
+        "materialId": 13,
+        "materialName": "material24",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 10,
+    "file": "image_10.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 44011,
+    "sha256": "f000677d1ae7c44c29d149d348964d894a53ababfde5465b6f2311fae0409907",
+    "sourceBlock": 876,
+    "materialUsage": [
+      {
+        "materialId": 14,
+        "materialName": "material14",
+        "surfaceFamily": "detail",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 11,
+    "file": "image_11.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 103075,
+    "sha256": "d01d85973052a6c5c0bac2ab026854aa6223cf113754122ae5c75aa785d66e2d",
+    "sourceBlock": 877,
+    "materialUsage": [
+      {
+        "materialId": 15,
+        "materialName": "material10",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 12,
+    "file": "image_12.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 156811,
+    "sha256": "789f0a8b597e6c4ec7d0789801c72dad2a262711f349cdcc1fcca8da32ac6d19",
+    "sourceBlock": 878,
+    "materialUsage": [
+      {
+        "materialId": 16,
+        "materialName": "material25",
+        "surfaceFamily": "detail",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 13,
+    "file": "image_13.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 227259,
+    "sha256": "049a10f3770d6e922d657474a200a1ddec091b8aee6c3eb47495d64a39113e6d",
+    "sourceBlock": 879,
+    "materialUsage": [
+      {
+        "materialId": 17,
+        "materialName": "material07",
+        "surfaceFamily": "detail",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 14,
+    "file": "image_14.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 238418,
+    "sha256": "96d226773f8f66219fc9bee36bcedd748b3a092edae90b078071b769ff6c187e",
+    "sourceBlock": 880,
+    "materialUsage": [
+      {
+        "materialId": 18,
+        "materialName": "material08",
+        "surfaceFamily": "detail",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 15,
+    "file": "image_15.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 401943,
+    "sha256": "457387ca36fe4a4e41a3e51ddff00b2d9ac82b86e7bd9b1144062e470d780c94",
+    "sourceBlock": 881,
+    "materialUsage": [
+      {
+        "materialId": 19,
+        "materialName": "material17",
+        "surfaceFamily": "detail",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 16,
+    "file": "image_16.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 280687,
+    "sha256": "cae7ad42ca7becf8c3702c290dfdb007fc088a0069279cef2148d93e456b9b22",
+    "sourceBlock": 882,
+    "materialUsage": [
+      {
+        "materialId": 20,
+        "materialName": "material16",
+        "surfaceFamily": "airframe-skin",
+        "slot": "baseColorTexture"
+      }
+    ]
+  },
+  {
+    "imageId": 17,
+    "file": "image_17.jpg",
+    "mimeType": "image/jpeg",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "bytes": 221697,
+    "sha256": "9f884a4a3b1fdbacb084f637444362839408d626d1484a9955441eeb5523ccaf",
+    "sourceBlock": 883,
+    "materialUsage": [
+      {
+        "materialId": 21,
+        "materialName": "material11",
+        "surfaceFamily": "detail",
+        "slot": "baseColorTexture"
+      }
+    ]
+  }
+]
