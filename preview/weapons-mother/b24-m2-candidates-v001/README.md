@@ -2,6 +2,8 @@
 
 Each review page is one standalone HTML file with its source GLB embedded. The Three.js review runtime is loaded from the repository-standard jsDelivr import map.
 
+Open `index.html` for the local one-click launcher. It uses only local CSS and the checked-in QA thumbnails; its three buttons link directly to the standalone review pages below.
+
 - `m2-browning.html` — `m2_browning.glb`
 - `m2-browning-50cal-machine-gun.html` — `m2_browning_.50_cal_machine_gun.glb`
 - `browning-m2.html` — `browning_m2.glb`
