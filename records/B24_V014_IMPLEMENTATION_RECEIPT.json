@@ -1,0 +1,87 @@
+{
+  "schema": "haihao.aircraft/b24-v014-implementation-receipt@1.0.0",
+  "branch": "feature/b24-v014-procedural-field-metal-pilot",
+  "sourceCommit": "4868116e098d78bd29ce847ecf0809fb6fbc3f2e",
+  "status": "PASS_PREVIEW_ONLY",
+  "generatedDelivery": {
+    "oneClickHtml": {
+      "file": "B24_V014_ONE_CLICK_METAL_PILOT.html",
+      "bytes": 12609893,
+      "sha256": "b027e174380f8ef0a6e208b44290d4888b82076ce1c43030b1fe83dcf25f546e",
+      "singleFile": true,
+      "iframeCount": 0,
+      "networkRequests": 0
+    },
+    "runtimePatch": {
+      "file": "B24_V014_PROCEDURAL_FIELD_METAL_PATCH.js",
+      "bytes": 30614,
+      "sha256": "ca2b5fa987c12661536e39f8b1c732c42278e25e4323d15563864a11258e402f"
+    },
+    "package": {
+      "file": "AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1.zip",
+      "bytes": 14285024,
+      "sha256": "604467cd92b80f0ae5292fb6d3890a945176d32c622237165ef625d8ae592e6e",
+      "zipIntegrity": "pass"
+    }
+  },
+  "pilotScope": {
+    "surface": "starboard-inboard-nacelle-and-adjacent-wing",
+    "targetCount": 23,
+    "wingCount": 1,
+    "cowlCount": 22,
+    "sourceBaseColorTexture": 5,
+    "sourceMetallicRoughnessTexture": 1,
+    "loadedTextureCount": 2,
+    "wholeAircraftAutoAssignment": false
+  },
+  "materialSystem": {
+    "sourceFieldReadOnly": true,
+    "shapeImpact": "none",
+    "sharedDomainWarp": true,
+    "macroMesoMicro": true,
+    "sourceStructure": true,
+    "engineExhaustSoot": true,
+    "oilSeepage": true,
+    "fiveStopMetalPalette": true,
+    "roughnessCorrelation": true,
+    "detailNormal": true,
+    "ggxMetal": true,
+    "lightClearCoat": true,
+    "diagnosticChannels": ["source-detail", "parent-mask", "exhaust", "roughness", "metalness"]
+  },
+  "qa": {
+    "browser": {
+      "status": "PASS_PREVIEW_ONLY",
+      "checks": 32,
+      "passed": 32,
+      "failed": 0,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "networkRequests": 0,
+      "webglErrors": 0
+    },
+    "static": {
+      "status": "PASS_PREVIEW_ONLY",
+      "checks": 16,
+      "passed": 16,
+      "failed": 0
+    }
+  },
+  "protectedSystems": {
+    "sourcePayloadChanged": false,
+    "geometryChanged": false,
+    "animationChanged": false,
+    "runwayFlightSequenceChanged": false,
+    "v013MechanicalColoursPreserved": true,
+    "noiseDefaultEnabled": false
+  },
+  "approvalLedger": {
+    "visualApproved": false,
+    "materialApproved": false,
+    "historicalApproved": false,
+    "engineeringApproved": false,
+    "wholeAircraftApproved": false,
+    "productionFrozen": false
+  },
+  "promotionRule": "user visual approval is required before the same field graph can expand to the other three engines or the whole aircraft"
+}
