@@ -1,0 +1,103 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-asset-contract@1.0.0",
+  "asset": {
+    "name": "B24_M2_AIRCRAFT_TWIN_BEHAVIOR_V001",
+    "role": "hero",
+    "sourceMethod": "hybrid-selected-donor-and-procedural-runtime-rig",
+    "provenance": [
+      {
+        "file": "m2_browning.glb",
+        "bytes": 18536776,
+        "sha256": "3cb10b4c2cb6ae96656146f55e81f54a66338bcb817ed4727e4d79c38843d813",
+        "title": "M2 Browning",
+        "author": "buh",
+        "url": "https://sketchfab.com/3d-models/m2-browning-ccf212e16b6748419cea6d7b14b30b48",
+        "license": "CC BY 4.0",
+        "use": "selected donor node M2_0 only; modified twin behavior prototype"
+      },
+      {
+        "title": "Aircrewman's Gunnery Manual: This Is Your Gun",
+        "url": "https://www.ibiblio.org/hyperwar/USN/ref/AirGunnery/GUNS.html",
+        "authority": "official wartime training manual transcription",
+        "use": "aircraft M2 functional groups and left/right feed capability"
+      },
+      {
+        "title": "Aircrewman's Gunnery Manual: Power Turrets",
+        "url": "https://www.ibiblio.org/hyperwar/USN/ref/AirGunnery/TURRETS.html",
+        "authority": "official wartime training manual transcription",
+        "use": "twin-gun turret charging, recoil, trigger, feed, ejection, and limit systems"
+      }
+    ],
+    "licenseNotes": "The page retains author, source, CC BY 4.0 link, and modification notice. The donor may not be presented as an approved aircraft M2 reconstruction."
+  },
+  "visual": {
+    "approvedReferences": [],
+    "closestCameraMeters": 0.65,
+    "maximumScreenCoveragePercent": 86,
+    "silhouetteCriticalViews": ["three-quarter-front", "gun-side", "muzzle-front", "receiver-rear"],
+    "artDirectionNotes": "Functional twin-gun behavior demonstrator. Selected donor silhouette remains M2HB-like; generic datum cradle is intentionally visually distinct from an approved B-24 turret installation."
+  },
+  "runtime": {
+    "renderer": "Three.js 0.185.1",
+    "targetDevices": ["desktop WebGL2 review", "tablet WebGL2 review"],
+    "weakestTestDevice": "current Codex desktop host with software fallback excluded",
+    "animation": true,
+    "physics": true,
+    "requiredNodeNames": [
+      "WM_B24_TWIN_M2_ROOT",
+      "azimuth_pivot",
+      "elevation_pivot",
+      "twin_mount_root",
+      "gun_L",
+      "gun_R",
+      "recoil_root_L",
+      "recoil_root_R",
+      "muzzle_L",
+      "muzzle_R",
+      "feed_L",
+      "feed_R",
+      "case_eject_L",
+      "case_eject_R"
+    ],
+    "requiredExtensions": ["KHR_materials_specular"]
+  },
+  "budgets": {
+    "downloadMiB": 24.5,
+    "decodedTextureMiB": 95,
+    "triangles": 46000,
+    "primitives": 18,
+    "materials": 12,
+    "drawCalls": 40,
+    "bones": 0,
+    "frameTimeMs": 0
+  },
+  "variants": [
+    {
+      "name": "desktop",
+      "trigger": "default",
+      "texturePolicy": "preserve selected donor material for source-parity review",
+      "geometryPolicy": "two shared-geometry M2_0 instances; up to 96 pooled tracers and 96 pooled cases"
+    },
+    {
+      "name": "reduced-motion",
+      "trigger": "prefers-reduced-motion or manual pause",
+      "texturePolicy": "same",
+      "geometryPolicy": "continuous fire starts paused and transient pools remain inactive"
+    }
+  ],
+  "acceptanceEvidence": {
+    "lockedCameraComparisons": [],
+    "neutralLightingCapture": "",
+    "targetDeviceCapture": "",
+    "validatorReport": "not-applicable: embedded source GLB already validated; no derived GLB exported",
+    "glbAuditReport": "records/B24_WEAPONS_MOTHER_M2_SOURCE_AUDIT_V001.json"
+  },
+  "unresolved": [
+    "exact B-24 station and turret model",
+    "aircraft M2 barrel, jacket, receiver details, and approved 57-inch envelope",
+    "approved twin spacing and cradle dimensions",
+    "left/right feed and case/link routing",
+    "harmonization, elevation, azimuth, and fire-interrupt limits",
+    "semantic split of fused donor node M2_0"
+  ]
+}

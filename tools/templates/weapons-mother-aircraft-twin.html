@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Weapons Mother B-24 双联航空 M2 连续射击行为原型。">
+  <title>Weapons Mother · B-24 双联 M2 连续射击</title>
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"}}
+  </script>
+  <style>
+    :root{color-scheme:dark;--bg:#050b0e;--panel:#0b171c;--panel2:#10252c;--line:#29424a;--text:#edf4f2;--muted:#8fa7a5;--amber:#e5a747;--amber2:#ffd994;--green:#72d6a5;--red:#ff8175}
+    *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0}body{overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif}
+    button,input{font:inherit}.app{display:grid;grid-template-columns:360px minmax(0,1fr);height:100%}.panel{position:relative;z-index:3;overflow:auto;padding:20px 19px 28px;border-right:1px solid var(--line);background:linear-gradient(180deg,rgba(15,34,40,.99),rgba(5,13,16,.99));box-shadow:18px 0 55px rgba(0,0,0,.28)}
+    .eyebrow{color:var(--amber);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.title{margin:7px 0 4px;font-size:28px;line-height:1.02;letter-spacing:-.03em}.subtitle{margin:0;color:var(--muted);font-size:12px;line-height:1.55}.chips{display:flex;flex-wrap:wrap;gap:6px;margin:13px 0}.chip{padding:5px 8px;border:1px solid var(--line);border-radius:999px;background:#081318;color:#b7c9c6;font-size:9px;font-weight:700;letter-spacing:.05em}.chip.ok{border-color:#315e4a;color:#9ae7bb}.chip.warn{border-color:#76582e;color:#ffd790}
+    .notice{padding:11px 12px;border:1px solid #6f512b;border-radius:11px;background:rgba(149,97,28,.13);color:#f1d09a;font-size:11px;line-height:1.55}.section{margin-top:17px}.section h2{margin:0 0 8px;color:#aec2c0;font-size:10px;letter-spacing:.14em;text-transform:uppercase}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.metric{padding:8px;border:1px solid #21383f;border-radius:9px;background:rgba(4,12,15,.58)}.metric strong{display:block;color:#fff;font-size:14px}.metric span{display:block;margin-top:2px;color:var(--muted);font-size:8px}
+    .primary{width:100%;min-height:46px;border:1px solid #b37d32;border-radius:10px;background:linear-gradient(135deg,#f1bd61,#cb8331);color:#1a1207;font-size:13px;font-weight:900;cursor:pointer}.primary.stop{border-color:#73463f;background:linear-gradient(135deg,#ff9a84,#d66858);color:#210b08}.grid2,.grid3{display:grid;gap:6px}.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:repeat(3,1fr)}.control{min-height:36px;padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:#10242a;color:#dbe8e6;font-size:10px;cursor:pointer}.control:hover,.control.active{border-color:var(--amber);background:#1b3034;color:var(--amber2)}.control:disabled{opacity:.42;cursor:not-allowed}
+    .range-row{display:grid;grid-template-columns:58px 1fr 42px;gap:8px;align-items:center;margin-top:8px;color:#b6c8c5;font-size:10px}.range-row output{text-align:right;color:var(--amber2);font-family:"Cascadia Mono",Consolas,monospace}.range-row input{width:100%;accent-color:var(--amber)}.switch-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(50,76,83,.45);font-size:10px;color:#b8cac8}.switch-row:last-child{border-bottom:0}.switch-row button{min-width:88px}
+    .legend{display:grid;gap:5px}.legend-item{display:grid;grid-template-columns:9px 1fr;gap:8px;align-items:start;color:#a8bcba;font-size:9px;line-height:1.45}.dot{width:7px;height:7px;margin-top:3px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px currentColor}.dot.blue{background:#67bbed}.dot.green{background:#72d6a5}.dot.red{background:#ff7b70}.source{color:#839b99;font-size:9px;line-height:1.55;overflow-wrap:anywhere}.source a{color:#e8bb70}.hash{font-family:"Cascadia Mono",Consolas,monospace;word-break:break-all}
+    .viewport{position:relative;min-width:0;background:radial-gradient(circle at 50% 35%,#20343a 0,#0b171b 44%,#04090b 100%)}canvas{display:block;width:100%;height:100%}.hud{position:absolute;top:14px;right:14px;z-index:2;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:7px;max-width:70%}.hud-chip{padding:7px 10px;border:1px solid rgba(158,189,185,.25);border-radius:999px;background:rgba(5,14,17,.78);backdrop-filter:blur(12px);color:#bcd0cd;font-size:9px}.hud-chip.live{border-color:#6b5733;color:#ffd38a}.axis-note{position:absolute;left:14px;bottom:14px;z-index:2;max-width:560px;padding:9px 11px;border:1px solid rgba(154,188,184,.22);border-radius:9px;background:rgba(5,14,17,.8);color:#91aaa7;font-size:9px;line-height:1.45}.load{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:#071014;transition:opacity .3s}.load.hidden{opacity:0;pointer-events:none}.load-card{width:min(430px,78%);text-align:center}.load-card strong{display:block;margin-bottom:7px;font-size:18px}.load-card span{color:var(--muted);font-size:11px}.bar{height:5px;margin-top:13px;overflow:hidden;border-radius:99px;background:#162a30}.bar i{display:block;width:12%;height:100%;background:linear-gradient(90deg,#c9822d,#f4ca78);transition:width .25s}.error{color:#ff9a90}
+    .socket-label{position:absolute;z-index:2;display:none;padding:4px 6px;border:1px solid #46626a;border-radius:6px;background:rgba(5,14,17,.82);font-size:8px;color:#d8e8e5;pointer-events:none}.socket-label.visible{display:block}
+    @media(max-width:820px){body{overflow:auto}.app{height:auto;min-height:100%;grid-template-columns:1fr}.panel{border-right:0;border-bottom:1px solid var(--line)}.viewport{min-height:68vh}.hud{max-width:92%}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+  </style>
+</head>
+<body data-qa="loading" data-fire-state="loading">
+  <main class="app">
+    <aside class="panel">
+      <div class="eyebrow">B-24 · Weapons Mother · Behavior Prototype V001</div>
+      <h1 class="title">双联航空 M2<br>连续射击系统</h1>
+      <p class="subtitle">一号母体 · 左右独立循环 · 单文件网页</p>
+      <div class="chips"><span class="chip ok">SELECTED DONOR 01</span><span class="chip">TWIN RIG</span><span class="chip warn">STATION UNRESOLVED</span></div>
+      <div class="notice">这是可操作的射击与拆装结构原型。枪芯仍是 M2HB 外形来源网格，尚未完成 57 英寸航空型的几何重建；炮架是接口基准架，不冒充任何已批准的 B-24 炮塔。</div>
+
+      <section class="section">
+        <h2>连续射击</h2>
+        <button class="primary" id="fire-toggle" type="button">停止连续射击</button>
+        <div class="grid2" style="margin-top:6px">
+          <button class="control" id="single-shot" type="button">单发测试</button>
+          <button class="control" id="clear-effects" type="button">清空弹道/弹壳</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>枪组选择</h2>
+        <div class="grid3" id="gun-select">
+          <button class="control" data-guns="left" type="button">左枪</button>
+          <button class="control active" data-guns="both" type="button">双枪</button>
+          <button class="control" data-guns="right" type="button">右枪</button>
+        </div>
+        <div class="range-row"><label for="rpm">射速</label><input id="rpm" type="range" min="600" max="900" step="25" value="800"><output id="rpm-out">800</output></div>
+        <div class="range-row"><label for="timescale">时间</label><input id="timescale" type="range" min="0.2" max="1" step="0.1" value="1"><output id="timescale-out">1.0×</output></div>
+      </section>
+
+      <section class="section">
+        <h2>炮塔接口运动</h2>
+        <div class="range-row"><label for="yaw">方位</label><input id="yaw" type="range" min="-35" max="35" step="1" value="0"><output id="yaw-out">0°</output></div>
+        <div class="range-row"><label for="elevation">俯仰</label><input id="elevation" type="range" min="-12" max="42" step="1" value="8"><output id="elevation-out">8°</output></div>
+      </section>
+
+      <section class="section">
+        <h2>结构检查</h2>
+        <div class="grid2">
+          <button class="control" id="separate-toggle" type="button">分离双枪总成</button>
+          <button class="control" id="sockets-toggle" type="button">显示接口节点</button>
+        </div>
+        <div class="grid3" id="views" style="margin-top:6px">
+          <button class="control active" data-view="iso" type="button">斜视</button>
+          <button class="control" data-view="side" type="button">侧视</button>
+          <button class="control" data-view="muzzle" type="button">枪口</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>实时状态</h2>
+        <div class="metrics">
+          <div class="metric"><strong id="shots">0</strong><span>已触发枪次</span></div>
+          <div class="metric"><strong id="tracers">0</strong><span>活动曳光弹</span></div>
+          <div class="metric"><strong id="cases">0</strong><span>活动弹壳</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>语义层级</h2>
+        <div class="legend">
+          <div class="legend-item"><span class="dot"></span><span><b>muzzle_L / muzzle_R</b>：枪口焰与弹道起点</span></div>
+          <div class="legend-item"><span class="dot blue"></span><span><b>feed_L / feed_R</b>：左右独立弹链推进</span></div>
+          <div class="legend-item"><span class="dot green"></span><span><b>case_eject_L / case_eject_R</b>：弹壳抛出点</span></div>
+          <div class="legend-item"><span class="dot red"></span><span><b>recoil_root_L / recoil_root_R</b>：独立后坐循环</span></div>
+        </div>
+      </section>
+
+      <section class="section source">
+        <h2>来源与边界</h2>
+        <div>来源：<a href="https://sketchfab.com/3d-models/m2-browning-ccf212e16b6748419cea6d7b14b30b48" target="_blank" rel="noreferrer">M2 Browning by buh</a></div>
+        <div>许可：<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a> · 修改：抽取枪芯并建立双联运行时行为架构</div>
+        <div>母体：__SOURCE_MIB__ MiB · __SOURCE_TRIANGLES__ triangles · __SOURCE_NODES__ nodes</div>
+        <div>估算源纹理解码：__SOURCE_TEXTURE_MIB__ MiB</div>
+        <div class="hash">SHA-256 __SOURCE_SHA256__</div>
+        <div>射击、弹道、抛壳和通用炮架均为数字资产行为验证，不是弹道仿真或 B-24 具体炮塔批准数据。</div>
+      </section>
+    </aside>
+
+    <section class="viewport" id="viewport">
+      <div class="hud"><span class="hud-chip live" id="state-chip">载入母体</span><span class="hud-chip" id="rate-chip">800 RPM · 双枪</span><span class="hud-chip" id="render-chip">0 calls · 0 tris</span></div>
+      <div class="axis-note">黄色：枪口　蓝色：供弹　绿色：抛壳　红色：后坐根节点。B-24 具体枪位未指定，因此间距、供弹方向与射界暂不作为工程批准数据。</div>
+      <div class="socket-label" id="label-muzzle-l">muzzle_L</div><div class="socket-label" id="label-muzzle-r">muzzle_R</div>
+      <div class="socket-label" id="label-feed-l">feed_L</div><div class="socket-label" id="label-feed-r">feed_R</div>
+      <div class="socket-label" id="label-eject-l">case_eject_L</div><div class="socket-label" id="label-eject-r">case_eject_R</div>
+      <div class="load" id="load"><div class="load-card"><strong>建立双联 M2 行为架构</strong><span id="load-label">正在解码内嵌母体 GLB…</span><div class="bar"><i id="load-bar"></i></div></div></div>
+    </section>
+  </main>
+
+  <script id="model-data" type="application/octet-stream">__MODEL_BASE64__</script>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+    import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+    const viewport = document.getElementById("viewport");
+    const load = document.getElementById("load");
+    const loadLabel = document.getElementById("load-label");
+    const loadBar = document.getElementById("load-bar");
+    const stateChip = document.getElementById("state-chip");
+    const rateChip = document.getElementById("rate-chip");
+    const renderChip = document.getElementById("render-chip");
+    const shotsOut = document.getElementById("shots");
+    const tracersOut = document.getElementById("tracers");
+    const casesOut = document.getElementById("cases");
+    const fireToggle = document.getElementById("fire-toggle");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x071014);
+    scene.fog = new THREE.FogExp2(0x071014, 0.055);
+    const camera = new THREE.PerspectiveCamera(37, 1, 0.01, 80);
+    camera.position.set(2.65, 1.3, 3.5);
+    const renderer = new THREE.WebGLRenderer({antialias:true,powerPreference:"high-performance"});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.08;
+    renderer.shadowMap.enabled = true;
+    viewport.prepend(renderer.domElement);
+
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const room = new RoomEnvironment();
+    scene.environment = pmrem.fromScene(room, 0.035).texture;
+    room.dispose();
+    pmrem.dispose();
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.065;
+    controls.target.set(0, 0.04, 0.28);
+    controls.minDistance = 0.65;
+    controls.maxDistance = 9;
+    controls.update();
+
+    const hemi = new THREE.HemisphereLight(0xdcecf0, 0x242b28, 1.55);
+    const key = new THREE.DirectionalLight(0xffe8c5, 4.7);
+    key.position.set(4, 5, 4);
+    key.castShadow = true;
+    const rim = new THREE.DirectionalLight(0x79bfff, 2.3);
+    rim.position.set(-4, 2, -3);
+    scene.add(hemi, key, rim);
+
+    const floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(18, 18),
+      new THREE.MeshStandardMaterial({color:0x0a1518,roughness:0.86,metalness:0.05})
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -0.43;
+    floor.receiveShadow = true;
+    scene.add(floor);
+    const grid = new THREE.GridHelper(10, 50, 0x526a6e, 0x1d3035);
+    grid.position.y = -0.425;
+    grid.material.transparent = true;
+    grid.material.opacity = 0.26;
+    scene.add(grid);
+
+    const colors = {muzzle:0xffb338,feed:0x4db9f1,eject:0x65d39b,recoil:0xff7066};
+    const mountMaterial = new THREE.MeshStandardMaterial({color:0x26343a,metalness:0.8,roughness:0.34});
+    const accentMaterial = new THREE.MeshStandardMaterial({color:0x9f783d,metalness:0.72,roughness:0.3});
+    const brassMaterial = new THREE.MeshStandardMaterial({color:0xb97828,metalness:0.85,roughness:0.28});
+    const copperMaterial = new THREE.MeshStandardMaterial({color:0xb94d25,metalness:0.76,roughness:0.3});
+    const tracerMaterial = new THREE.MeshBasicMaterial({color:0xffd06d,toneMapped:false});
+    const flashMaterial = new THREE.MeshBasicMaterial({color:0xffb12f,transparent:true,opacity:0.92,depthWrite:false,blending:THREE.AdditiveBlending,toneMapped:false});
+    const flashCoreMaterial = new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0.96,depthWrite:false,blending:THREE.AdditiveBlending,toneMapped:false});
+    const beltCaseGeometry = new THREE.CylinderGeometry(0.0068,0.0068,0.052,10);
+    const beltTipGeometry = new THREE.ConeGeometry(0.0067,0.019,10);
+    const tracerGeometry = new THREE.CylinderGeometry(0.006,0.009,0.18,7);
+    const caseGeometry = new THREE.CylinderGeometry(0.007,0.008,0.041,10);
+
+    const rigRoot = new THREE.Group();
+    rigRoot.name = "WM_B24_TWIN_M2_ROOT";
+    const azimuthPivot = new THREE.Group();
+    azimuthPivot.name = "azimuth_pivot";
+    const elevationPivot = new THREE.Group();
+    elevationPivot.name = "elevation_pivot";
+    const twinMountRoot = new THREE.Group();
+    twinMountRoot.name = "twin_mount_root";
+    scene.add(rigRoot);
+    rigRoot.add(azimuthPivot);
+    azimuthPivot.add(elevationPivot);
+    elevationPivot.add(twinMountRoot);
+
+    const socketMarkers = [];
+    const labelBindings = [];
+    const guns = [];
+    const maxTracers = 96;
+    const maxCases = 96;
+    const hiddenMatrix = new THREE.Matrix4().makeScale(0,0,0);
+    const instanceMatrix = new THREE.Matrix4();
+    const instanceQuaternion = new THREE.Quaternion();
+    const instanceEuler = new THREE.Euler();
+    const instanceScale = new THREE.Vector3(1,1,1);
+    const tracerInstances = new THREE.InstancedMesh(tracerGeometry,tracerMaterial,maxTracers);
+    tracerInstances.name = "tracer_pool";
+    tracerInstances.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    tracerInstances.frustumCulled = false;
+    const caseInstances = new THREE.InstancedMesh(caseGeometry,brassMaterial,maxCases);
+    caseInstances.name = "case_pool";
+    caseInstances.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    caseInstances.frustumCulled = false;
+    caseInstances.castShadow = true;
+    const tracers = Array.from({length:maxTracers},function(){return {position:new THREE.Vector3(),velocity:new THREE.Vector3(),quaternion:new THREE.Quaternion(),active:false,life:0};});
+    const cases = Array.from({length:maxCases},function(){return {position:new THREE.Vector3(),velocity:new THREE.Vector3(),rotation:new THREE.Vector3(),angular:new THREE.Vector3(),active:false,life:0};});
+    for (let poolIndex=0;poolIndex<maxTracers;poolIndex+=1) tracerInstances.setMatrixAt(poolIndex,hiddenMatrix);
+    for (let poolIndex=0;poolIndex<maxCases;poolIndex+=1) caseInstances.setMatrixAt(poolIndex,hiddenMatrix);
+    tracerInstances.instanceMatrix.needsUpdate = true;
+    caseInstances.instanceMatrix.needsUpdate = true;
+    scene.add(tracerInstances,caseInstances);
+    let firing = !reducedMotion;
+    let selectedGuns = "both";
+    let rpm = 800;
+    let timeScale = 1;
+    let simulationTime = 0;
+    let shotCount = 0;
+    let separated = false;
+    let showSockets = false;
+    let ready = false;
+    let lastHudUpdate = 0;
+
+    function addBox(parent, name, size, position, material) {
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(size[0],size[1],size[2]), material);
+      mesh.name = name;
+      mesh.position.fromArray(position);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      parent.add(mesh);
+      return mesh;
+    }
+
+    function addCylinder(parent, name, radius, length, position, rotation, material, segments) {
+      const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius,radius,length,segments || 18), material);
+      mesh.name = name;
+      mesh.position.fromArray(position);
+      mesh.rotation.set(rotation[0],rotation[1],rotation[2]);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      parent.add(mesh);
+      return mesh;
+    }
+
+    function buildDatumMount() {
+      const baseRing = addCylinder(azimuthPivot,"azimuth_datum_ring",0.36,0.09,[0,-0.37,-0.18],[0,0,0],mountMaterial,32);
+      baseRing.material = mountMaterial;
+      addCylinder(azimuthPivot,"azimuth_column",0.13,0.33,[0,-0.22,-0.18],[0,0,0],mountMaterial,24);
+      addBox(twinMountRoot,"cradle_crossbar",[0.82,0.075,0.12],[0,-0.18,-0.16],mountMaterial);
+      addBox(twinMountRoot,"rear_bridge",[0.7,0.055,0.1],[0,-0.05,-0.43],mountMaterial);
+      [-0.31,0.31].forEach(function(x,index){
+        addBox(twinMountRoot,"cradle_rail_" + (index ? "R" : "L"),[0.06,0.075,0.48],[x,-0.14,-0.02],mountMaterial);
+        addCylinder(twinMountRoot,"trunnion_" + (index ? "R" : "L"),0.055,0.13,[x,-0.05,-0.08],[0,0,Math.PI/2],accentMaterial,20);
+        addBox(twinMountRoot,"rear_mount_" + (index ? "R" : "L"),[0.11,0.14,0.08],[x,-0.02,-0.39],accentMaterial);
+      });
+    }
+
+    function makeMarker(socket, color, labelId) {
+      const marker = new THREE.Mesh(
+        new THREE.SphereGeometry(0.025,14,10),
+        new THREE.MeshBasicMaterial({color:color,transparent:true,opacity:0.92,depthTest:false,toneMapped:false})
+      );
+      marker.renderOrder = 5;
+      marker.visible = false;
+      socket.add(marker);
+      socketMarkers.push(marker);
+      if (labelId) labelBindings.push({socket:socket,element:document.getElementById(labelId)});
+    }
+
+    function makeFlash(parent) {
+      const group = new THREE.Group();
+      group.name = "muzzle_flash";
+      group.visible = false;
+      const outer = new THREE.Mesh(new THREE.ConeGeometry(0.105,0.36,8,1,true),flashMaterial);
+      outer.position.y = 0.17;
+      outer.rotation.y = Math.PI / 8;
+      const inner = new THREE.Mesh(new THREE.ConeGeometry(0.047,0.24,7,1,true),flashCoreMaterial);
+      inner.position.y = 0.11;
+      const cross = outer.clone();
+      cross.scale.set(0.58,0.8,1.42);
+      cross.rotation.y = Math.PI / 2;
+      const light = new THREE.PointLight(0xff9f38,0,1.8,2);
+      light.position.y = 0.08;
+      group.add(outer,inner,cross,light);
+      parent.add(group);
+      return {group:group,light:light,energy:0};
+    }
+
+    function makeBelt(parent, side) {
+      const beltRoot = new THREE.Group();
+      beltRoot.name = "belt_feed_visual_" + side;
+      const sign = side === "L" ? -1 : 1;
+      beltRoot.position.set(sign * 0.15,-0.045,0.005);
+      const caseBelt = new THREE.InstancedMesh(beltCaseGeometry,brassMaterial,9);
+      const tipBelt = new THREE.InstancedMesh(beltTipGeometry,copperMaterial,9);
+      caseBelt.castShadow = true;
+      tipBelt.castShadow = true;
+      for (let index=0;index<9;index+=1) {
+        instanceMatrix.makeTranslation(sign * index * 0.029,0,0);
+        caseBelt.setMatrixAt(index,instanceMatrix);
+        instanceMatrix.makeTranslation(sign * index * 0.029,0.035,0);
+        tipBelt.setMatrixAt(index,instanceMatrix);
+      }
+      caseBelt.instanceMatrix.needsUpdate = true;
+      tipBelt.instanceMatrix.needsUpdate = true;
+      beltRoot.add(caseBelt,tipBelt);
+      parent.add(beltRoot);
+      return beltRoot;
+    }
+
+    function makeGun(donor, side) {
+      const sign = side === "L" ? -1 : 1;
+      const gunRoot = new THREE.Group();
+      gunRoot.name = "gun_" + side;
+      gunRoot.userData.baseX = sign * 0.22;
+      gunRoot.position.set(gunRoot.userData.baseX,0.02,-0.25);
+      gunRoot.rotation.x = Math.PI / 2;
+      const recoilRoot = new THREE.Group();
+      recoilRoot.name = "recoil_root_" + side;
+      const gunVisual = donor.clone(true);
+      gunVisual.name = "aircraft_m2_donor_visual_" + side;
+      gunVisual.castShadow = true;
+      gunVisual.receiveShadow = true;
+      gunVisual.traverse(function(node){if(node.isMesh){node.castShadow=true;node.receiveShadow=true;}});
+      recoilRoot.add(gunVisual);
+      gunRoot.add(recoilRoot);
+
+      const muzzle = new THREE.Object3D();
+      muzzle.name = "muzzle_" + side;
+      muzzle.position.set(0.035,1.325,0.012);
+      gunRoot.add(muzzle);
+      const feed = new THREE.Object3D();
+      feed.name = "feed_" + side;
+      feed.position.set(sign * 0.16,-0.03,0.01);
+      gunRoot.add(feed);
+      const eject = new THREE.Object3D();
+      eject.name = "case_eject_" + side;
+      eject.position.set(-sign * 0.105,-0.03,0.09);
+      gunRoot.add(eject);
+      const recoilMarker = new THREE.Object3D();
+      recoilMarker.name = "recoil_marker_" + side;
+      recoilMarker.position.set(0,-0.16,0);
+      gunRoot.add(recoilMarker);
+      makeMarker(muzzle,colors.muzzle,"label-muzzle-" + side.toLowerCase());
+      makeMarker(feed,colors.feed,"label-feed-" + side.toLowerCase());
+      makeMarker(eject,colors.eject,"label-eject-" + side.toLowerCase());
+      makeMarker(recoilMarker,colors.recoil,null);
+      const flash = makeFlash(muzzle);
+      const belt = makeBelt(gunRoot,side);
+      twinMountRoot.add(gunRoot);
+      const gun = {side:side,sign:sign,root:gunRoot,recoilRoot:recoilRoot,muzzle:muzzle,feed:feed,eject:eject,flash:flash,belt:belt,recoilAge:10,nextShot:0,enabled:true};
+      guns.push(gun);
+      return gun;
+    }
+
+    function spawnTracer(gun) {
+      let tracer = tracers.find(function(item){return !item.active;});
+      if (!tracer) return;
+      gun.root.updateWorldMatrix(true,false);
+      gun.muzzle.getWorldPosition(tracer.position);
+      const direction = new THREE.Vector3(0,1,0).transformDirection(gun.root.matrixWorld).normalize();
+      direction.x += (Math.random() - 0.5) * 0.004;
+      direction.y += (Math.random() - 0.5) * 0.004;
+      direction.normalize();
+      tracer.velocity.copy(direction).multiplyScalar(18);
+      tracer.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),direction);
+      tracer.active = true;
+      tracer.life = 0.78;
+    }
+
+    function spawnCase(gun) {
+      let item = cases.find(function(entry){return !entry.active;});
+      if (!item) return;
+      gun.root.updateWorldMatrix(true,false);
+      gun.eject.getWorldPosition(item.position);
+      item.velocity.set(gun.sign * 0.72,0.68,-0.28 + Math.random() * 0.22);
+      item.velocity.x += (Math.random() - 0.5) * 0.22;
+      item.velocity.y += Math.random() * 0.22;
+      item.angular.set(7+Math.random()*8,8+Math.random()*10,5+Math.random()*9);
+      item.rotation.set(Math.random()*3,Math.random()*3,Math.random()*3);
+      item.active = true;
+      item.life = 3.2;
+    }
+
+    function gunIsSelected(gun) {
+      return selectedGuns === "both" || (selectedGuns === "left" && gun.side === "L") || (selectedGuns === "right" && gun.side === "R");
+    }
+
+    function fireGun(gun) {
+      if (!ready || separated || !gunIsSelected(gun)) return;
+      gun.recoilAge = 0;
+      gun.flash.energy = 1;
+      gun.flash.group.visible = true;
+      gun.belt.userData.step = ((gun.belt.userData.step || 0) + 1) % 9;
+      spawnTracer(gun);
+      spawnCase(gun);
+      shotCount += 1;
+    }
+
+    function scheduleNow() {
+      const interval = 60 / rpm;
+      guns.forEach(function(gun,index){gun.nextShot = simulationTime + index * interval * 0.5;});
+    }
+
+    function clearEffects() {
+      tracers.forEach(function(item){item.active=false;});
+      cases.forEach(function(item){item.active=false;});
+    }
+
+    function setFiring(value) {
+      firing = Boolean(value) && !separated;
+      fireToggle.textContent = firing ? "停止连续射击" : "开始连续射击";
+      fireToggle.classList.toggle("stop",firing);
+      stateChip.textContent = separated ? "结构分离检查" : (firing ? "连续射击中" : "射击已暂停");
+      stateChip.classList.toggle("live",firing);
+      document.body.dataset.fireState = separated ? "separated" : (firing ? "firing" : "paused");
+      if (firing) scheduleNow();
+    }
+
+    function updateRateChip() {
+      const label = selectedGuns === "both" ? "双枪" : (selectedGuns === "left" ? "左枪" : "右枪");
+      rateChip.textContent = rpm + " RPM · " + label;
+    }
+
+    function setSeparated(value) {
+      separated = value;
+      document.getElementById("separate-toggle").classList.toggle("active",separated);
+      document.getElementById("separate-toggle").textContent = separated ? "恢复双枪总成" : "分离双枪总成";
+      if (separated) setFiring(false);
+      guns.forEach(function(gun){gun.root.userData.targetX = separated ? gun.sign * 0.78 : gun.root.userData.baseX;});
+      stateChip.textContent = separated ? "结构分离检查" : "射击已暂停";
+      document.body.dataset.fireState = separated ? "separated" : "paused";
+    }
+
+    function setSockets(value) {
+      showSockets = value;
+      socketMarkers.forEach(function(marker){marker.visible=showSockets;});
+      document.getElementById("sockets-toggle").classList.toggle("active",showSockets);
+      document.getElementById("sockets-toggle").textContent = showSockets ? "隐藏接口节点" : "显示接口节点";
+      labelBindings.forEach(function(binding){binding.element.classList.toggle("visible",showSockets);});
+    }
+
+    function setView(name) {
+      const views = {
+        iso:{position:[2.65,1.3,3.5],target:[0,0.04,0.28]},
+        side:{position:[3.8,0.35,0.15],target:[0,0.02,0.2]},
+        muzzle:{position:[0,0.18,4.25],target:[0,0.02,0.2]}
+      };
+      const view = views[name] || views.iso;
+      camera.position.fromArray(view.position);
+      controls.target.fromArray(view.target);
+      controls.update();
+      document.querySelectorAll("[data-view]").forEach(function(button){button.classList.toggle("active",button.dataset.view===name);});
+    }
+
+    function updateLabels() {
+      if (!showSockets) return;
+      const bounds = viewport.getBoundingClientRect();
+      labelBindings.forEach(function(binding){
+        const p = new THREE.Vector3();
+        binding.socket.getWorldPosition(p);
+        p.project(camera);
+        binding.element.style.left = ((p.x * 0.5 + 0.5) * bounds.width + 6) + "px";
+        binding.element.style.top = ((-p.y * 0.5 + 0.5) * bounds.height + 6) + "px";
+        binding.element.style.opacity = p.z > 1 ? "0" : "1";
+      });
+    }
+
+    function resize() {
+      const width = viewport.clientWidth;
+      const height = Math.max(viewport.clientHeight,1);
+      renderer.setSize(width,height,false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener("resize",resize);
+    resize();
+
+    buildDatumMount();
+    loadBar.style.width = "34%";
+    const encoded = document.getElementById("model-data").textContent.trim();
+    const binary = Uint8Array.from(atob(encoded),function(character){return character.charCodeAt(0);});
+    loadBar.style.width = "67%";
+    const loader = new GLTFLoader();
+    loader.parse(binary.buffer,"",function(gltf){
+      const donor = gltf.scene.getObjectByName("M2_0");
+      if (!donor || !donor.isMesh) throw new Error("selected donor node M2_0 was not found");
+      loadLabel.textContent = "正在建立左右枪、后坐、供弹、枪口和抛壳节点…";
+      makeGun(donor,"L");
+      makeGun(donor,"R");
+      elevationPivot.rotation.x = THREE.MathUtils.degToRad(-8);
+      ready = true;
+      document.body.dataset.qa = "ready";
+      loadBar.style.width = "100%";
+      window.setTimeout(function(){load.classList.add("hidden");},180);
+      setFiring(!reducedMotion);
+      updateRateChip();
+    },function(error){
+      console.error(error);
+      document.body.dataset.qa = "error";
+      document.body.dataset.fireState = "error";
+      loadLabel.textContent = "载入失败：" + (error && error.message ? error.message : String(error));
+      loadLabel.classList.add("error");
+      stateChip.textContent = "载入失败";
+    });
+
+    fireToggle.addEventListener("click",function(){setFiring(!firing);});
+    document.getElementById("single-shot").addEventListener("click",function(){
+      if (!ready || separated) return;
+      guns.filter(gunIsSelected).forEach(fireGun);
+      setFiring(false);
+    });
+    document.getElementById("clear-effects").addEventListener("click",clearEffects);
+    document.getElementById("gun-select").addEventListener("click",function(event){
+      const button = event.target.closest("[data-guns]");
+      if (!button) return;
+      selectedGuns = button.dataset.guns;
+      document.querySelectorAll("[data-guns]").forEach(function(item){item.classList.toggle("active",item===button);});
+      updateRateChip();
+      if (firing) scheduleNow();
+    });
+    document.getElementById("rpm").addEventListener("input",function(event){
+      rpm = Number(event.target.value);
+      document.getElementById("rpm-out").textContent = String(rpm);
+      updateRateChip();
+      scheduleNow();
+    });
+    document.getElementById("timescale").addEventListener("input",function(event){
+      timeScale = Number(event.target.value);
+      document.getElementById("timescale-out").textContent = timeScale.toFixed(1) + "×";
+    });
+    document.getElementById("yaw").addEventListener("input",function(event){
+      const value = Number(event.target.value);
+      azimuthPivot.rotation.y = THREE.MathUtils.degToRad(value);
+      document.getElementById("yaw-out").textContent = value + "°";
+    });
+    document.getElementById("elevation").addEventListener("input",function(event){
+      const value = Number(event.target.value);
+      elevationPivot.rotation.x = THREE.MathUtils.degToRad(-value);
+      document.getElementById("elevation-out").textContent = value + "°";
+    });
+    document.getElementById("separate-toggle").addEventListener("click",function(){setSeparated(!separated);});
+    document.getElementById("sockets-toggle").addEventListener("click",function(){setSockets(!showSockets);});
+    document.getElementById("views").addEventListener("click",function(event){
+      const button = event.target.closest("[data-view]");
+      if (button) setView(button.dataset.view);
+    });
+
+    let previousFrameTime = performance.now();
+    function animate(frameTime) {
+      requestAnimationFrame(animate);
+      const rawDelta = Math.min(Math.max((frameTime - previousFrameTime) / 1000,0),0.05);
+      previousFrameTime = frameTime;
+      const delta = rawDelta * timeScale;
+      simulationTime += delta;
+
+      if (ready) {
+        const interval = 60 / rpm;
+        guns.forEach(function(gun){
+          const targetX = gun.root.userData.targetX === undefined ? gun.root.userData.baseX : gun.root.userData.targetX;
+          gun.root.position.x += (targetX - gun.root.position.x) * Math.min(1,rawDelta * 6);
+          if (firing && gunIsSelected(gun)) {
+            let guard = 0;
+            while (simulationTime >= gun.nextShot && guard < 4) {
+              fireGun(gun);
+              gun.nextShot += interval;
+              guard += 1;
+            }
+          }
+          gun.recoilAge += delta;
+          const recoilDuration = 0.09;
+          const p = Math.min(gun.recoilAge / recoilDuration,1);
+          const recoil = p < 1 ? -0.034 * Math.sin(Math.PI * p) * Math.exp(-p * 0.8) : 0;
+          gun.recoilRoot.position.y = recoil;
+          gun.flash.energy = Math.max(0,gun.flash.energy - delta * 18);
+          gun.flash.group.visible = gun.flash.energy > 0.025;
+          gun.flash.group.scale.setScalar(0.62 + gun.flash.energy * 0.58);
+          gun.flash.light.intensity = gun.flash.energy * 22;
+          const beltStep = gun.belt.userData.step || 0;
+          gun.belt.position.x = gun.sign * (0.15 + beltStep * 0.0032);
+        });
+      }
+
+      tracers.forEach(function(item,index){
+        if (item.active) {
+          item.life -= delta;
+          item.position.addScaledVector(item.velocity,delta);
+          if (item.life <= 0 || item.position.length() > 16) item.active=false;
+        }
+        if (item.active) {
+          instanceScale.set(1,0.75 + Math.min(1,item.velocity.length()/18) * 0.45,1);
+          instanceMatrix.compose(item.position,item.quaternion,instanceScale);
+          tracerInstances.setMatrixAt(index,instanceMatrix);
+        } else {
+          tracerInstances.setMatrixAt(index,hiddenMatrix);
+        }
+      });
+      tracerInstances.instanceMatrix.needsUpdate = true;
+      cases.forEach(function(item,index){
+        if (item.active) {
+          item.life -= delta;
+          item.velocity.y -= 3.7 * delta;
+          item.position.addScaledVector(item.velocity,delta);
+          item.rotation.addScaledVector(item.angular,delta);
+          if (item.position.y < -0.405 && item.velocity.y < 0) {
+            item.position.y = -0.405;
+            item.velocity.y *= -0.34;
+            item.velocity.x *= 0.72;
+            item.velocity.z *= 0.72;
+            item.angular.multiplyScalar(0.78);
+          }
+          if (item.life <= 0) item.active=false;
+        }
+        if (item.active) {
+          instanceEuler.set(item.rotation.x,item.rotation.y,item.rotation.z);
+          instanceQuaternion.setFromEuler(instanceEuler);
+          instanceScale.set(1,1,1);
+          instanceMatrix.compose(item.position,instanceQuaternion,instanceScale);
+          caseInstances.setMatrixAt(index,instanceMatrix);
+        } else {
+          caseInstances.setMatrixAt(index,hiddenMatrix);
+        }
+      });
+      caseInstances.instanceMatrix.needsUpdate = true;
+
+      controls.update();
+      updateLabels();
+      renderer.render(scene,camera);
+      if (simulationTime - lastHudUpdate > 0.15) {
+        lastHudUpdate = simulationTime;
+        shotsOut.textContent = shotCount.toLocaleString("zh-CN");
+        tracersOut.textContent = String(tracers.filter(function(item){return item.active;}).length);
+        casesOut.textContent = String(cases.filter(function(item){return item.active;}).length);
+        renderChip.textContent = renderer.info.render.calls + " calls · " + renderer.info.render.triangles.toLocaleString("en-US") + " tris";
+      }
+    }
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

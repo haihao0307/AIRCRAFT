@@ -1,0 +1,41 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-aircraft-twin-browser-qa@1.0.0",
+  "testedAt": "2026-08-30",
+  "browserSurface": "Codex in-app browser",
+  "renderer": "Three.js 0.185.1",
+  "artifact": "preview/weapons-mother/b24-m2-aircraft-twin-v001/index.html",
+  "status": "PASS",
+  "initialState": {
+    "bodyQa": "ready",
+    "fireState": "firing",
+    "defaultRateRpm": 800,
+    "selectedGuns": "both",
+    "consoleErrors": 0
+  },
+  "interactionChecks": {
+    "pauseCounterStable": true,
+    "leftSingleShotCounterDelta": 1,
+    "twinSingleShotCounterDelta": 2,
+    "separatedAssemblyBlocksFire": true,
+    "separatedState": "separated",
+    "restoreAssembly": true,
+    "socketLabelsVisible": 6,
+    "rateControl850Rpm": true,
+    "yawControl15Degrees": true,
+    "elevationControl20Degrees": true,
+    "muzzleView": true
+  },
+  "runtimeObservation": {
+    "renderCallsIncludingShadowPass": 40,
+    "renderedTrianglesIncludingShadowPass": 85093,
+    "activeTracerPoolObserved": true,
+    "activeCasePoolObserved": true,
+    "noBlockingRuntimeErrors": true
+  },
+  "engineeringBoundary": {
+    "geometryApproval": false,
+    "ballisticsApproval": false,
+    "b24StationAssignment": "unresolved",
+    "reason": "Behavior prototype only; donor gun core remains a fused M2HB-like source mesh."
+  }
+}
