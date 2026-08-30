@@ -72,13 +72,17 @@ def main() -> None:
     html = args.html.read_text(encoding="utf-8")
 
     glb_hash = sha256(args.glb)
-    assert build["embeddedGlbSha256"] == glb_hash, "embedded GLB build hash drift"
+    assert build["embeddedGlbSha256"] == glb_hash, "source GLB build hash drift"
     assert build["sha256"] == sha256(args.html), "HTML build hash drift"
-    assert build["singleFile"] and build["directFileOpen"], "delivery contract drift"
+    assert build["assetMode"] == "external", "online external-asset mode drift"
+    assert build["externalGlbUrl"] == "./distilled-reference.glb"
+    assert not build["singleFile"] and not build["directFileOpen"], "online delivery contract drift"
     assert len(html.encode("utf-8")) <= contract["budgets"]["htmlBytes"], "HTML budget exceeded"
+    assert args.glb.stat().st_size <= contract["budgets"]["externalGlbBytes"], "GLB budget exceeded"
 
     for token in (
         "__GLB_BASE64__",
+        "__GLB_URL_JSON__",
         "__MANIFEST_JSON__",
         "__STATION_EVIDENCE_JSON__",
         "__SURFACE_CONTRACT_JSON__",
@@ -116,13 +120,17 @@ def main() -> None:
 
     assert 'class="control active" data-stage="waist-starboard"' in html, "default stage is not the complete starboard waist installation"
     assert 'setStage("waist-starboard")' in html, "runtime default stage drift"
-    assert "const zToX=" in html, "projectile source +Z to gun-forward +X correction missing"
+    assert "root.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),data.direction)" in html, "projectile tip is not aligned directly to trajectory"
     assert "const yToX=" not in html, "obsolete projectile-axis mapping returned"
-    assert "makeAirframeInterface" in html, "aircraft interface context missing"
-    assert "B24_WAIST_FEED_AMMO_BOX_REFERENCE_ATTACHMENT" in html, "waist feed/ammunition-box attachment missing"
-    assert "landingQuaternion" in html and "9.81" in html, "ballistic debris settling regression"
+    assert "makeAirframeInterface" not in html, "invented generic airframe interface returned"
+    assert "B24_WAIST_FEED_AMMO_BOX_REFERENCE_ATTACHMENT" not in html, "unapproved generic ammunition box returned"
+    assert "addFeedRounds" in html and "LIVE_12_7X99_ROUND_RACK" in html, "live-round feed system missing"
+    assert "landingQuaternion" in html and "9.81" in html and "pileRadius" in html, "ballistic pile physics regression"
+    assert "spring.scale.z" in html and "bolt.position.z" in html and "barrel.position.x" in html, "mechanical cycle animation incomplete"
     assert "new THREE.ConeGeometry" not in html, "cartoon cone muzzle flash returned"
     assert "const pressure=new THREE.Mesh(new THREE.TorusGeometry" not in html, "cartoon ring muzzle flash returned"
+    assert "data:image" not in html.lower(), "embedded image payload returned"
+    assert 'const PACK_URL="./distilled-reference.glb"' in html, "external GLB URL missing"
 
     names = {node.get("name", "") for node in document.get("nodes", [])}
     required_nodes = {
@@ -137,6 +145,8 @@ def main() -> None:
         "b24.waist.starboard.flexible.aircraft_adapter_cradle.source_n0808",
         "b24.waist.starboard.flexible.airframe_triangular_brace.source_n0811",
         "b24.waist.port.flexible.airframe_triangular_brace.source_n0824",
+        "b24.waist.starboard.flexible.rear_sight_exact.source_n0802",
+        "b24.waist.port.flexible.rear_sight_exact.source_n0821",
     }
     missing_nodes = sorted(required_nodes - names)
     assert not missing_nodes, f"missing semantic nodes: {missing_nodes}"
@@ -155,9 +165,12 @@ def main() -> None:
     semantics = contract["construction"]["animationSemantics"]
     assert abs(semantics["muzzleSocketMeters"][0] - 0.9795744419) < 1e-10
     assert semantics["sourceProjectileAxis"] == "+Z"
-    assert semantics["runtimeProjectileAxis"] == "+X gun-forward"
+    assert semantics["runtimeProjectileAxis"] == "source +Z tip aligned directly to measured world trajectory"
     assert semantics["sourceCaseAxis"] == "+Z"
     assert semantics["b24SourceUp"] == "+Y" and semantics["rendererUp"] == "+Z"
+    assert semantics["starboardReferenceMuzzleAxis"] == "+Y"
+    assert semantics["portReferenceMuzzleAxis"] == "-Y"
+    assert semantics["alignmentBasis"] == "right-handed; determinant +1"
     assert contract["construction"]["defaultReviewStage"] == "B-24 starboard waist complete installation"
     starboard = contract["construction"]["sourceStationAssemblies"]["starboardWaist"]
     assert starboard == {
@@ -166,6 +179,7 @@ def main() -> None:
         "pivotNode": 805,
         "adapterCradleNode": 808,
         "airframeBraceNode": 811,
+        "rearSightComponentRoots": [796, 800],
     }
     assert ".9795744419" in html, "runtime muzzle socket no longer matches source barrel maximum"
     assert "A-13" in " ".join(contract["construction"]["stationMounts"])
@@ -206,11 +220,12 @@ def main() -> None:
             "UV preservation",
             "station evidence",
             "projectile and source coordinate axes",
-            "aircraft support and feed assembly",
+            "side-specific source-datum alignment",
+            "source aircraft support and live-round feed assembly",
             "ballistic debris settling",
             "non-conical layered muzzle effect",
             "procedural surface controls",
-            "single-file delivery",
+            "external cached GLB delivery",
             "template-entry redirect",
             "HTML size budget",
             "Image2ThreeJS exclusion",

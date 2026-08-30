@@ -1,7 +1,7 @@
 {
   "schema": "haihao.aircraft/production-asset-contract@1.0.0",
-  "assetId": "WM_B24_ANM2_V004",
-  "status": "source-distilled-station-study",
+  "assetId": "WM_B24_ANM2_V005",
+  "status": "source-datum-corrected-online-station-study",
   "runtimeRole": "hero source-parity and aircraft-installation review",
   "construction": {
     "declaredUnit": "meter",
@@ -10,13 +10,18 @@
       "muzzleSocketMeters": [0.9795744419, 0, 0],
       "muzzleSocketMethod": "AN/M2 barrel source accessor +X maximum; no visual offset",
       "sourceProjectileAxis": "+Z",
-      "runtimeProjectileAxis": "+X gun-forward",
+      "runtimeProjectileAxis": "source +Z tip aligned directly to measured world trajectory",
       "sourceCaseAxis": "+Z",
       "b24SourceUp": "+Y",
       "rendererUp": "+Z",
       "stationConversion": "rotation +90 degrees about X",
+      "starboardReferenceMuzzleAxis": "+Y",
+      "portReferenceMuzzleAxis": "-Y",
+      "alignmentBasis": "right-handed; determinant +1",
       "barrelRecoilMeters": 0.028575,
+      "mechanicalCycle": ["barrel and barrel extension short recoil", "bolt full recoil", "driving spring compression", "cocking-handle reference motion", "trigger reset"],
       "caseAndLinkLifetime": "persistent until user clears the test area",
+      "caseAndLinkCollision": "per-object gravity, bounce, floor support and settled-object pile support",
       "tracerCadence": "one tracer per five rounds when enabled"
     },
     "sourceExactExterior": true,
@@ -29,12 +34,14 @@
         "gunNode": 802,
         "pivotNode": 805,
         "adapterCradleNode": 808,
-        "airframeBraceNode": 811
+        "airframeBraceNode": 811,
+        "rearSightComponentRoots": [796, 800]
       },
       "portWaist": {
         "feedNode": 818,
         "gunNode": 821,
-        "airframeBraceNode": 824
+        "airframeBraceNode": 824,
+        "rearSightComponentRoots": [971, 975]
       }
     },
     "seatedMountPolicy": "A-13 integrated ball turret; no generic seat pedestal"
@@ -42,14 +49,15 @@
   "requirements": {
     "interaction": ["isolated gun", "port waist", "starboard waist", "A-13 evidence", "service separation", "internal reference overlay", "ammo separation"],
     "surface": ["stable surface_id", "deterministic macro/meso/micro fields", "color/roughness only", "editable seeds and wear controls"],
-    "delivery": "single directly-openable HTML using embedded distilled GLB"
+    "delivery": "online HTML with external cached distilled GLB; no embedded image payloads"
   },
   "budgets": {
     "baseTriangles": 186160,
     "drawCalls": 80,
     "runtimeFieldTextureResolution": 256,
     "decodedGeneratedTextureMemoryMiB": 2.5,
-    "htmlBytes": 11000000
+    "htmlBytes": 250000,
+    "externalGlbBytes": 8000000
   },
   "approvalGates": {
     "sourceHash": "required",

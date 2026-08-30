@@ -322,6 +322,45 @@ def add_link_subset(
     return output_index
 
 
+def add_source_component_subset(
+    builder: Any,
+    glb: Glb,
+    matrices: dict[int, list[list[float]]],
+    source_node_index: int,
+    selected_roots: set[int],
+    semantic_name: str,
+    material_index: int,
+    role: str,
+) -> int:
+    """Copy selected connected components without changing source vertices or UVs."""
+    node = glb.document["nodes"][source_node_index]
+    primitive = glb.document["meshes"][node["mesh"]]["primitives"][0]
+    positions = read_accessor(glb, primitive["attributes"]["POSITION"])
+    indices = [int(value[0]) for value in read_accessor(glb, primitive["indices"])]
+    _, bounds, roots = connected_components(positions, indices)
+    if not selected_roots.issubset(bounds):
+        raise ValueError(
+            f"locked component roots changed for source node {source_node_index}: {selected_roots}"
+        )
+    subset = subset_primitive(glb, primitive, selected_roots, roots)
+    builder.add_mesh(semantic_name, subset, material=material_index)
+    output_index = len(builder.nodes) - 1
+    builder.nodes[output_index]["matrix"] = column_major(matrices[source_node_index])
+    builder.nodes[output_index]["extras"] = {
+        "sourceFile": glb.path.name,
+        "sourceSha256": glb.sha256,
+        "sourceNodeIndex": source_node_index,
+        "sourceNodeName": node.get("name"),
+        "sourceStablePath": source_path(glb, source_node_index),
+        "selectedConnectedComponentRoots": sorted(selected_roots),
+        "sourceAttributes": sorted(subset["attributes"]),
+        "uvPreserved": "TEXCOORD_0" in subset["attributes"],
+        "geometryOperation": "exact connected-component accessor copy; source world matrix preserved",
+        "role": role,
+    }
+    return output_index
+
+
 def serialize(builder: Any, roots: list[int], extras: dict[str, Any]) -> bytes:
     builder.align()
     document = {
@@ -362,19 +401,28 @@ def normalized_column(values: list[float]) -> list[float]:
     return [value / length for value in values]
 
 
-def gun_alignment(matrix_values: list[float]) -> dict[str, Any]:
-    # glTF matrices are column-major.  B-24 donor local +Y is the muzzle axis,
-    # local +Z is aircraft vertical, and local +X is the receiver width axis.
-    width = normalized_column(matrix_values[0:3])
-    muzzle = normalized_column(matrix_values[4:7])
+def gun_alignment(matrix_values: list[float], muzzle_sign: int) -> dict[str, Any]:
+    # glTF matrices are column-major.  The two B-24 waist gun meshes are true
+    # side-specific mirrors: starboard points along local +Y, port along -Y.
+    # Build a proper right-handed basis instead of swapping axes into a
+    # reflection matrix.  High-detail AN/M2 local axes are +X forward, +Y
+    # width, +Z up.
+    muzzle_column = normalized_column(matrix_values[4:7])
+    muzzle = [value * muzzle_sign for value in muzzle_column]
     up = normalized_column(matrix_values[8:11])
+    width = [
+        up[1] * muzzle[2] - up[2] * muzzle[1],
+        up[2] * muzzle[0] - up[0] * muzzle[2],
+        up[0] * muzzle[1] - up[1] * muzzle[0],
+    ]
+    width = normalized_column(width)
     target_half_length = math.sqrt(sum(value * value for value in matrix_values[4:7]))
-    source_min_x = -0.46095073223114014
+    source_min_x = -0.5267140865325928
     source_max_x = 0.97957444190979
     source_center = [
         (source_min_x + source_max_x) * 0.5,
         (-0.08551083505153656 + 0.07788069546222687) * 0.5,
-        (-0.05990447849035263 + 0.04270065575838089) * 0.5,
+        (-0.07730422914028168 + 0.1394633650779724) * 0.5,
     ]
     scale = target_half_length / ((source_max_x - source_min_x) * 0.5)
     target_center = matrix_values[12:15]
@@ -396,9 +444,11 @@ def gun_alignment(matrix_values: list[float]) -> dict[str, Any]:
     return {
         "matrixColumnMajor": column_major(row_major),
         "uniformScale": scale,
+        "referenceMuzzleLocalAxis": f"{'+' if muzzle_sign > 0 else '-'}Y",
+        "basisDeterminant": 1.0,
         "sourcePrimaryLengthMeters": source_max_x - source_min_x,
         "targetReferenceLengthMeters": target_half_length * 2,
-        "method": "uniform scale and rigid axis alignment from exact source matrices",
+        "method": "uniform scale and right-handed rigid axis alignment from exact side-specific source matrices",
     }
 
 
@@ -574,10 +624,12 @@ def main() -> None:
 
     station_groups = []
     station_manifest = {}
-    for station_id, gun_node, node_specs in [
+    for station_id, gun_node, muzzle_sign, sight_roots, node_specs in [
         (
             "b24.waist.starboard.flexible",
             802,
+            1,
+            {796, 800},
             [
                 (799, "feed_belt", 3),
                 (802, "reference_gun", 8),
@@ -589,6 +641,8 @@ def main() -> None:
         (
             "b24.waist.port.flexible",
             821,
+            -1,
+            {971, 975},
             [
                 (818, "feed_belt", 3),
                 (821, "reference_gun", 8),
@@ -609,6 +663,18 @@ def main() -> None:
                     f"locked B-24 reference {component}",
                 )
             )
+        children.append(
+            add_source_component_subset(
+                builder,
+                sources["b24"],
+                matrices["b24"],
+                gun_node,
+                sight_roots,
+                f"{station_id}.rear_sight_exact.source_n{gun_node:04d}",
+                2,
+                "locked B-24 reference rear sight components",
+            )
+        )
         group = add_group(
             builder,
             station_id,
@@ -623,7 +689,8 @@ def main() -> None:
         matrix_values = column_major(matrices["b24"][gun_node])
         station_manifest[station_id] = {
             "sourceGunNodeIndex": gun_node,
-            "highDetailGunAlignment": gun_alignment(matrix_values),
+            "sourceRearSightComponentRoots": sorted(sight_roots),
+            "highDetailGunAlignment": gun_alignment(matrix_values, muzzle_sign),
         }
 
     roots = [gun_group, feed_group, cartridge_group, link_group, mechanism_group] + station_groups

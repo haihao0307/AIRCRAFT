@@ -57,64 +57,76 @@
   ],
   "output": {
     "file": "G:\\AIRCRAFT\\b24-v010-push\\data\\weapons-mother\\b24-m2-aircraft-v004\\distilled-reference.glb",
-    "bytes": 7717448,
-    "sha256": "ffeaa4d9a1dbe4873d65698a0bae64504ed7cee9c9e67a252562f8563f28ac31",
+    "bytes": 7730168,
+    "sha256": "4670e8f2c34477e516eb3b5164897d02ce0d0434c4c1ddc08254ff494f7d9c7f",
     "materials": 9,
-    "meshNodes": 29
+    "meshNodes": 31
   },
   "stationAlignments": {
     "b24.waist.starboard.flexible": {
       "sourceGunNodeIndex": 802,
+      "sourceRearSightComponentRoots": [
+        796,
+        800
+      ],
       "highDetailGunAlignment": {
         "matrixColumnMajor": [
-          0.6794584100079788,
-          -0.11404585165101981,
-          -0.7350345995754323,
+          0.6497937984101846,
+          -0.10906670083952652,
+          -0.7029435759216234,
           0,
-          0.7397901588245195,
-          -9.732944530936454e-08,
-          0.6838542028011352,
+          -0.7074914236522083,
+          -8.266686269204194e-08,
+          -0.6539977691646957,
           0,
-          0.07741445815541052,
-          1.0009693019703079,
-          -0.0837466892717104,
+          0.07403460473184781,
+          0.9572677815727375,
+          -0.08009037569422847,
           0,
-          0.7917270007473943,
-          -0.17627483480423756,
-          -5.98803817825091,
+          0.8122973400107985,
+          -0.21951400192304904,
+          -6.02136816761152,
           1
         ],
-        "uniformScale": 1.0074453085812616,
-        "sourcePrimaryLengthMeters": 1.4405251741409302,
+        "uniformScale": 0.9634610509064877,
+        "referenceMuzzleLocalAxis": "+Y",
+        "basisDeterminant": 1.0,
+        "sourcePrimaryLengthMeters": 1.5062885284423828,
         "targetReferenceLengthMeters": 1.451250328581485,
-        "method": "uniform scale and rigid axis alignment from exact source matrices"
+        "method": "uniform scale and right-handed rigid axis alignment from exact side-specific source matrices"
       }
     },
     "b24.waist.port.flexible": {
       "sourceGunNodeIndex": 821,
+      "sourceRearSightComponentRoots": [
+        971,
+        975
+      ],
       "highDetailGunAlignment": {
         "matrixColumnMajor": [
-          0.687217870735541,
-          -9.901592652562888e-08,
-          0.7369513427949874,
+          -0.6572144872787173,
+          9.469297024292715e-08,
+          -0.7047766356628327,
           0,
-          -0.7369514349038452,
-          -9.233378145562421e-08,
-          0.6872177719608179,
+          -0.7047766356628271,
+          8.830257524140918e-08,
+          0.6572144872787241,
           0,
-          1.851009346376381e-16,
-          1.0076535533136461,
-          -1.3538716096585538e-07,
+          1.7701957564415713e-16,
+          0.9636602038401506,
+          -1.2947626563183046e-07,
           0,
-          -1.1010633788769146,
-          -0.2274774129440836,
-          -6.403283400828739,
+          -0.7739236958989755,
+          -0.266095348729639,
+          -6.052714941794808,
           1
         ],
-        "uniformScale": 1.0076535533136552,
-        "sourcePrimaryLengthMeters": 1.4405251741409302,
+        "uniformScale": 0.9636602038401593,
+        "referenceMuzzleLocalAxis": "-Y",
+        "basisDeterminant": 1.0,
+        "sourcePrimaryLengthMeters": 1.5062885284423828,
         "targetReferenceLengthMeters": 1.4515503103608802,
-        "method": "uniform scale and rigid axis alignment from exact source matrices"
+        "method": "uniform scale and right-handed rigid axis alignment from exact side-specific source matrices"
       }
     }
   },
