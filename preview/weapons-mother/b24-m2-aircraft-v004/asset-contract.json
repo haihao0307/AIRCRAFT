@@ -9,13 +9,34 @@
     "animationSemantics": {
       "muzzleSocketMeters": [0.9795744419, 0, 0],
       "muzzleSocketMethod": "AN/M2 barrel source accessor +X maximum; no visual offset",
+      "sourceProjectileAxis": "+Z",
+      "runtimeProjectileAxis": "+X gun-forward",
+      "sourceCaseAxis": "+Z",
+      "b24SourceUp": "+Y",
+      "rendererUp": "+Z",
+      "stationConversion": "rotation +90 degrees about X",
       "barrelRecoilMeters": 0.028575,
       "caseAndLinkLifetime": "persistent until user clears the test area",
       "tracerCadence": "one tracer per five rounds when enabled"
     },
     "sourceExactExterior": true,
     "sourceUvPreserved": true,
+    "defaultReviewStage": "B-24 starboard waist complete installation",
     "stationMounts": ["B-24 port waist flexible", "B-24 starboard waist flexible", "A-13 manual evidence envelope"],
+    "sourceStationAssemblies": {
+      "starboardWaist": {
+        "feedNode": 799,
+        "gunNode": 802,
+        "pivotNode": 805,
+        "adapterCradleNode": 808,
+        "airframeBraceNode": 811
+      },
+      "portWaist": {
+        "feedNode": 818,
+        "gunNode": 821,
+        "airframeBraceNode": 824
+      }
+    },
     "seatedMountPolicy": "A-13 integrated ball turret; no generic seat pedestal"
   },
   "requirements": {

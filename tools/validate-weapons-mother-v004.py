@@ -114,6 +114,16 @@ def main() -> None:
     for item in required_controls:
         assert item in html, f"missing control: {item}"
 
+    assert 'class="control active" data-stage="waist-starboard"' in html, "default stage is not the complete starboard waist installation"
+    assert 'setStage("waist-starboard")' in html, "runtime default stage drift"
+    assert "const zToX=" in html, "projectile source +Z to gun-forward +X correction missing"
+    assert "const yToX=" not in html, "obsolete projectile-axis mapping returned"
+    assert "makeAirframeInterface" in html, "aircraft interface context missing"
+    assert "B24_WAIST_FEED_AMMO_BOX_REFERENCE_ATTACHMENT" in html, "waist feed/ammunition-box attachment missing"
+    assert "landingQuaternion" in html and "9.81" in html, "ballistic debris settling regression"
+    assert "new THREE.ConeGeometry" not in html, "cartoon cone muzzle flash returned"
+    assert "const pressure=new THREE.Mesh(new THREE.TorusGeometry" not in html, "cartoon ring muzzle flash returned"
+
     names = {node.get("name", "") for node in document.get("nodes", [])}
     required_nodes = {
         "gun.receiver_body.source_n023",
@@ -142,7 +152,21 @@ def main() -> None:
 
     assert contract["construction"]["sourceExactExterior"] is True
     assert contract["construction"]["sourceUvPreserved"] is True
-    assert abs(contract["construction"]["animationSemantics"]["muzzleSocketMeters"][0] - 0.9795744419) < 1e-10
+    semantics = contract["construction"]["animationSemantics"]
+    assert abs(semantics["muzzleSocketMeters"][0] - 0.9795744419) < 1e-10
+    assert semantics["sourceProjectileAxis"] == "+Z"
+    assert semantics["runtimeProjectileAxis"] == "+X gun-forward"
+    assert semantics["sourceCaseAxis"] == "+Z"
+    assert semantics["b24SourceUp"] == "+Y" and semantics["rendererUp"] == "+Z"
+    assert contract["construction"]["defaultReviewStage"] == "B-24 starboard waist complete installation"
+    starboard = contract["construction"]["sourceStationAssemblies"]["starboardWaist"]
+    assert starboard == {
+        "feedNode": 799,
+        "gunNode": 802,
+        "pivotNode": 805,
+        "adapterCradleNode": 808,
+        "airframeBraceNode": 811,
+    }
     assert ".9795744419" in html, "runtime muzzle socket no longer matches source barrel maximum"
     assert "A-13" in " ".join(contract["construction"]["stationMounts"])
     assert contract["approvalGates"]["A13FullGeometry"].startswith("blocked")
@@ -181,6 +205,10 @@ def main() -> None:
             "semantic nodes",
             "UV preservation",
             "station evidence",
+            "projectile and source coordinate axes",
+            "aircraft support and feed assembly",
+            "ballistic debris settling",
+            "non-conical layered muzzle effect",
             "procedural surface controls",
             "single-file delivery",
             "template-entry redirect",
