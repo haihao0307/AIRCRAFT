@@ -1,26 +1,31 @@
 {
-  "schema": "haihao.aircraft/b24-v014-implementation-receipt@1.0.0",
+  "schema": "haihao.aircraft/b24-v014-implementation-receipt@1.0.1",
   "branch": "feature/b24-v014-procedural-field-metal-pilot",
   "sourceCommit": "4868116e098d78bd29ce847ecf0809fb6fbc3f2e",
   "status": "PASS_PREVIEW_ONLY",
   "generatedDelivery": {
     "oneClickHtml": {
       "file": "B24_V014_ONE_CLICK_METAL_PILOT.html",
-      "bytes": 12609893,
-      "sha256": "b027e174380f8ef0a6e208b44290d4888b82076ce1c43030b1fe83dcf25f546e",
+      "bytes": 12609904,
+      "sha256": "a553a17e96fbec65356d1b7c767d7e8b5762a72fd94cf84065c255ab73ff5506",
       "singleFile": true,
       "iframeCount": 0,
       "networkRequests": 0
     },
     "runtimePatch": {
       "file": "B24_V014_PROCEDURAL_FIELD_METAL_PATCH.js",
-      "bytes": 30614,
-      "sha256": "ca2b5fa987c12661536e39f8b1c732c42278e25e4323d15563864a11258e402f"
+      "bytes": 30626,
+      "sha256": "66e53ca767a8f6fc2db4405698e07e99b9cca8f7838612d0574bc1ca5af242ea"
+    },
+    "reviewBoard": {
+      "file": "B24_V014_METAL_PILOT_REVIEW_BOARD.png",
+      "bytes": 714406,
+      "sha256": "542c22327252bb8d80f927b6d3154c434852aa89cc32a10d98e64276f2367c6a"
     },
     "package": {
       "file": "AIRCRAFT_B24_V014_PROCEDURAL_FIELD_METAL_PILOT_R1.zip",
-      "bytes": 14285024,
-      "sha256": "604467cd92b80f0ae5292fb6d3890a945176d32c622237165ef625d8ae592e6e",
+      "bytes": 15360806,
+      "sha256": "864e7e02661075dd83ca8d0af4c6e27a030ded3c3172137ee3daaf6fdca2713f",
       "zipIntegrity": "pass"
     }
   },
@@ -47,6 +52,11 @@
     "detailNormal": true,
     "ggxMetal": true,
     "lightClearCoat": true,
+    "defaultControls": {
+      "metalResponse": 0.86,
+      "weatheringStrength": 0.38,
+      "clearCoatStrength": 0.075
+    },
     "diagnosticChannels": ["source-detail", "parent-mask", "exhaust", "roughness", "metalness"]
   },
   "qa": {
