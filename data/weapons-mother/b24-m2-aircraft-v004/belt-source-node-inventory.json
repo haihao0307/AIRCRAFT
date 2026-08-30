@@ -1,0 +1,1589 @@
+[
+  {
+    "schema": "haihao.aircraft/weapons-mother-source-node-inventory@1.0.0",
+    "source": {
+      "file": "m2_browning_.50_cal_machine_gun.glb",
+      "absolutePath": "G:\\飞虎队十四航空队\\各种机型\\B-24_CBI\\m2_browning_.50_cal_machine_gun.glb",
+      "bytes": 43682696,
+      "sha256": "d62531f0f9b3a7b65293e22615d51e48bd12d9ae7529214a9bfdc2c5f4887bb8",
+      "asset": {
+        "extras": {
+          "author": "8sianDude (https://sketchfab.com/haoliu95)",
+          "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+          "source": "https://sketchfab.com/3d-models/m2-browning-50-cal-machine-gun-5006cff7b57249fbb2ac7cc64cb9af72",
+          "title": "M2 Browning .50 Cal Machine Gun"
+        },
+        "generator": "Sketchfab-12.68.0",
+        "version": "2.0"
+      }
+    },
+    "counts": {
+      "nodes": 17,
+      "meshes": 13,
+      "materials": 8,
+      "animations": 0,
+      "animationChannels": 0
+    },
+    "sceneRootNodeIndexes": [
+      0
+    ],
+    "nodes": [
+      {
+        "nodeIndex": 0,
+        "name": "Sketchfab_model",
+        "stablePath": "/0:Sketchfab_model",
+        "parentNodeIndex": null,
+        "childNodeIndexes": [
+          1
+        ],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "worldMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "mesh": null,
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 1,
+        "name": "root",
+        "stablePath": "/0:Sketchfab_model/1:root",
+        "parentNodeIndex": 0,
+        "childNodeIndexes": [
+          2
+        ],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "mesh": null,
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 2,
+        "name": "GLTF_SceneRootNode",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode",
+        "parentNodeIndex": 1,
+        "childNodeIndexes": [
+          3
+        ],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "worldMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "mesh": null,
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 3,
+        "name": "m2hb_mount_0",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0",
+        "parentNodeIndex": 2,
+        "childNodeIndexes": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16
+        ],
+        "localMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": null,
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 4,
+        "name": "Object_4",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/4:Object_4",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 0,
+          "meshName": "Object_0",
+          "triangles": 115130,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 115130,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 0,
+              "sourceAccessorBounds": {
+                "min": [
+                  0.2600046396255493,
+                  0.23397313058376312,
+                  -0.28162020444869995
+                ],
+                "max": [
+                  3.08559513092041,
+                  1.0363718271255493,
+                  0.4419165253639221
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -1.01526056,
+                  2.85102448,
+                  -0.11024204
+                ],
+                "max": [
+                  -0.23714663,
+                  3.07198983,
+                  0.08900623
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -1.01526056,
+              2.85102448,
+              -0.11024204
+            ],
+            "max": [
+              -0.23714663,
+              3.07198983,
+              0.08900623
+            ],
+            "size": [
+              0.77811393,
+              0.22096535,
+              0.19924827
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 5,
+        "name": "Object_5",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/5:Object_5",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 1,
+          "meshName": "Object_1",
+          "triangles": 124020,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 124020,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 0,
+              "sourceAccessorBounds": {
+                "min": [
+                  0.38980916142463684,
+                  0.47265979647636414,
+                  -0.2023821324110031
+                ],
+                "max": [
+                  3.0180959701538086,
+                  0.8864760994911194,
+                  0.336465448141098
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -0.97951486,
+                  2.91675425,
+                  -0.08842138
+                ],
+                "max": [
+                  -0.25573461,
+                  3.0307114,
+                  0.05996701
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -0.97951486,
+              2.91675425,
+              -0.08842138
+            ],
+            "max": [
+              -0.25573461,
+              3.0307114,
+              0.05996701
+            ],
+            "size": [
+              0.72378025,
+              0.11395715,
+              0.14838838
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 6,
+        "name": "Object_6",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/6:Object_6",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 2,
+          "meshName": "Object_2",
+          "triangles": 112497,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 112497,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 0,
+              "sourceAccessorBounds": {
+                "min": [
+                  1.5792596340179443,
+                  0.2963792085647583,
+                  -0.4343099892139435
+                ],
+                "max": [
+                  3.381572961807251,
+                  0.9348812699317932,
+                  0.5460605025291443
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -0.6519628,
+                  2.86820992,
+                  -0.1522899
+                ],
+                "max": [
+                  -0.15563996,
+                  3.04404126,
+                  0.1176855
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -0.6519628,
+              2.86820992,
+              -0.1522899
+            ],
+            "max": [
+              -0.15563996,
+              3.04404126,
+              0.1176855
+            ],
+            "size": [
+              0.49632284,
+              0.17583134,
+              0.26997541
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 7,
+        "name": "Object_7",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/7:Object_7",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 3,
+          "meshName": "Object_3",
+          "triangles": 100748,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 100748,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 0,
+              "sourceAccessorBounds": {
+                "min": [
+                  0.2797800302505493,
+                  0.1019594743847847,
+                  -0.2239166498184204
+                ],
+                "max": [
+                  2.975921869277954,
+                  1.186028003692627,
+                  0.4417034685611725
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -1.00981479,
+                  2.81467042,
+                  -0.09435157
+                ],
+                "max": [
+                  -0.26734856,
+                  3.1132023,
+                  0.08894756
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -1.00981479,
+              2.81467042,
+              -0.09435157
+            ],
+            "max": [
+              -0.26734856,
+              3.1132023,
+              0.08894756
+            ],
+            "size": [
+              0.74246623,
+              0.29853187,
+              0.18329913
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 8,
+        "name": "Object_8",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/8:Object_8",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 4,
+          "meshName": "Object_4",
+          "triangles": 101900,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 101900,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 0,
+              "sourceAccessorBounds": {
+                "min": [
+                  -4.4874067306518555,
+                  0.25611111521720886,
+                  -0.7093347311019897
+                ],
+                "max": [
+                  3.3277978897094727,
+                  0.9111303091049194,
+                  0.3877096176147461
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -2.32260744,
+                  2.85712086,
+                  -0.22802649
+                ],
+                "max": [
+                  -0.17044859,
+                  3.0375007,
+                  0.07407868
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -2.32260744,
+              2.85712086,
+              -0.22802649
+            ],
+            "max": [
+              -0.17044859,
+              3.0375007,
+              0.07407868
+            ],
+            "size": [
+              2.15215885,
+              0.18037984,
+              0.30210517
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 9,
+        "name": "Object_9",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/9:Object_9",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 5,
+          "meshName": "Object_5",
+          "triangles": 24137,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 24137,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 0,
+              "sourceAccessorBounds": {
+                "min": [
+                  0.2600046396255493,
+                  0.2339731603860855,
+                  -0.21707813441753387
+                ],
+                "max": [
+                  3.08559513092041,
+                  1.0484286546707153,
+                  0.44191649556159973
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -1.01526056,
+                  2.85102448,
+                  -0.09246838
+                ],
+                "max": [
+                  -0.23714663,
+                  3.07531005,
+                  0.08900622
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -1.01526056,
+              2.85102448,
+              -0.09246838
+            ],
+            "max": [
+              -0.23714663,
+              3.07531005,
+              0.08900622
+            ],
+            "size": [
+              0.77811393,
+              0.22428557,
+              0.1814746
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 10,
+        "name": "Object_10",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/10:Object_10",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 6,
+          "meshName": "Object_6",
+          "triangles": 4352,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 4352,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 1,
+              "sourceAccessorBounds": {
+                "min": [
+                  1.7894392013549805,
+                  0.38555991649627686,
+                  -0.37683799862861633
+                ],
+                "max": [
+                  3.3980822563171387,
+                  0.8262922763824463,
+                  0.562569797039032
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -0.59408334,
+                  2.8927686,
+                  -0.13646321
+                ],
+                "max": [
+                  -0.15109361,
+                  3.01413791,
+                  0.12223185
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -0.59408334,
+              2.8927686,
+              -0.13646321
+            ],
+            "max": [
+              -0.15109361,
+              3.01413791,
+              0.12223185
+            ],
+            "size": [
+              0.44298973,
+              0.12136932,
+              0.25869506
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 11,
+        "name": "Object_11",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/11:Object_11",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 7,
+          "meshName": "Object_7",
+          "triangles": 94848,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 94848,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 2,
+              "sourceAccessorBounds": {
+                "min": [
+                  0.28574925661087036,
+                  0.4145446717739105,
+                  -0.06007634475827217
+                ],
+                "max": [
+                  1.0995001792907715,
+                  0.7397109866142273,
+                  1.2912733554840088
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -1.00817098,
+                  2.90075045,
+                  -0.04923307
+                ],
+                "max": [
+                  -0.78407944,
+                  2.99029507,
+                  0.32290296
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -1.00817098,
+              2.90075045,
+              -0.04923307
+            ],
+            "max": [
+              -0.78407944,
+              2.99029507,
+              0.32290296
+            ],
+            "size": [
+              0.22409154,
+              0.08954462,
+              0.37213603
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 12,
+        "name": "Object_12",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/12:Object_12",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 8,
+          "meshName": "Object_8",
+          "triangles": 16288,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 16288,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 3,
+              "sourceAccessorBounds": {
+                "min": [
+                  0.4901360869407654,
+                  0.41051429510116577,
+                  -0.13919532299041748
+                ],
+                "max": [
+                  0.924198567867279,
+                  0.7450835704803467,
+                  1.274563193321228
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -0.95188673,
+                  2.89964056,
+                  -0.07102093
+                ],
+                "max": [
+                  -0.83235417,
+                  2.99177458,
+                  0.3183013
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -0.95188673,
+              2.89964056,
+              -0.07102093
+            ],
+            "max": [
+              -0.83235417,
+              2.99177458,
+              0.3183013
+            ],
+            "size": [
+              0.11953256,
+              0.09213402,
+              0.38932223
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 13,
+        "name": "Object_13",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/13:Object_13",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 9,
+          "meshName": "Object_9",
+          "triangles": 28832,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 28832,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 4,
+              "sourceAccessorBounds": {
+                "min": [
+                  0.13270221650600433,
+                  -0.2539368271827698,
+                  0.3919481933116913
+                ],
+                "max": [
+                  1.1412783861160278,
+                  0.6794393062591553,
+                  1.9598972797393799
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -1.05031723,
+                  2.71666334,
+                  0.0752459
+                ],
+                "max": [
+                  -0.77257451,
+                  2.9736974,
+                  0.50702929
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -1.05031723,
+              2.71666334,
+              0.0752459
+            ],
+            "max": [
+              -0.77257451,
+              2.9736974,
+              0.50702929
+            ],
+            "size": [
+              0.27774271,
+              0.25703405,
+              0.43178339
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 14,
+        "name": "Object_14",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/14:Object_14",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 10,
+          "meshName": "Object_10",
+          "triangles": 10752,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 10752,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 5,
+              "sourceAccessorBounds": {
+                "min": [
+                  0.22235679626464844,
+                  -0.10340842604637146,
+                  0.8676093816757202
+                ],
+                "max": [
+                  0.8905064463615417,
+                  0.6636804938316345,
+                  1.941056728363037
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -1.02562806,
+                  2.75811601,
+                  0.20623395
+                ],
+                "max": [
+                  -0.84163234,
+                  2.96935772,
+                  0.50184096
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -1.02562806,
+              2.75811601,
+              0.20623395
+            ],
+            "max": [
+              -0.84163234,
+              2.96935772,
+              0.50184096
+            ],
+            "size": [
+              0.18399572,
+              0.21124171,
+              0.295607
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 15,
+        "name": "Object_15",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/15:Object_15",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 11,
+          "meshName": "Object_11",
+          "triangles": 832,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 832,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 6,
+              "sourceAccessorBounds": {
+                "min": [
+                  0.5271376967430115,
+                  0.6037823557853699,
+                  0.9948949813842773
+                ],
+                "max": [
+                  0.7221611142158508,
+                  0.6599684357643127,
+                  1.5896908044815063
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -0.94169719,
+                  2.95286291,
+                  0.24128599
+                ],
+                "max": [
+                  -0.88799145,
+                  2.96833549,
+                  0.40508146
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -0.94169719,
+              2.95286291,
+              0.24128599
+            ],
+            "max": [
+              -0.88799145,
+              2.96833549,
+              0.40508146
+            ],
+            "size": [
+              0.05370574,
+              0.01547258,
+              0.16379547
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      },
+      {
+        "nodeIndex": 16,
+        "name": "Object_16",
+        "stablePath": "/0:Sketchfab_model/1:root/2:GLTF_SceneRootNode/3:m2hb_mount_0/16:Object_16",
+        "parentNodeIndex": 3,
+        "childNodeIndexes": [],
+        "localMatrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1
+        ],
+        "worldMatrixColumnMajor": [
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.275381,
+          0.0,
+          -1.0868609,
+          2.78659272,
+          -0.03268918,
+          1.0
+        ],
+        "mesh": {
+          "meshIndex": 12,
+          "meshName": "Object_12",
+          "triangles": 75648,
+          "primitives": [
+            {
+              "primitiveIndex": 0,
+              "triangles": 75648,
+              "attributes": [
+                "NORMAL",
+                "POSITION",
+                "TANGENT",
+                "TEXCOORD_0"
+              ],
+              "materialIndex": 7,
+              "sourceAccessorBounds": {
+                "min": [
+                  0.19784057140350342,
+                  -1.9830682277679443,
+                  -2.2782249450683594
+                ],
+                "max": [
+                  7.222821235656738,
+                  0.6694109439849854,
+                  3.099303722381592
+                ]
+              },
+              "worldAccessorBounds": {
+                "min": [
+                  -1.03237936,
+                  2.24049341,
+                  -0.66006904
+                ],
+                "max": [
+                  0.90216683,
+                  2.97093578,
+                  0.82080017
+                ]
+              }
+            }
+          ],
+          "worldAccessorBounds": {
+            "min": [
+              -1.03237936,
+              2.24049341,
+              -0.66006904
+            ],
+            "max": [
+              0.90216683,
+              2.97093578,
+              0.82080017
+            ],
+            "size": [
+              1.93454619,
+              0.73044236,
+              1.48086922
+            ]
+          }
+        },
+        "skinIndex": null,
+        "cameraIndex": null
+      }
+    ]
+  }
+]

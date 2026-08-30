@@ -1,0 +1,96 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-station-evidence@1.0.0",
+  "assetId": "WM_B24_ANM2_V004",
+  "policy": "A gunner posture is not a mount type. Each B-24 station is modeled as its own installation and remains block-specific until applicability is confirmed.",
+  "stations": [
+    {
+      "stationId": "b24.waist.flexible.port-starboard",
+      "gunnerPosture": "standing/flexible",
+      "gunCount": 1,
+      "mountSystem": [
+        "aircraft adapter/cradle",
+        "pivot and buffer elements",
+        "airframe triangular brace",
+        "station-routed flexible feed belt"
+      ],
+      "geometryEvidence": {
+        "sourceFile": "b-24_liberator.glb",
+        "bytes": 23085972,
+        "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+        "portNodeIndexes": [818, 821, 824],
+        "starboardNodeIndexes": [799, 802, 805, 808, 811],
+        "status": "exact locked-reference mirror; final aircraft-block applicability pending"
+      },
+      "manualEvidence": [
+        {
+          "title": "1944 Aircrewman's Gunnery Manual - Gun Mounts and Adapters",
+          "url": "https://www.ibiblio.org/hyperwar/USN/ref/AirGunnery/GUNS3.html",
+          "finding": "Flexible aircraft adapters provide traverse/elevation and recoil absorption; aircraft manufacturers supply installation-specific yokes."
+        },
+        {
+          "title": "1944 Aircrewman's Gunnery Manual - Ammunition",
+          "url": "https://www.ibiblio.org/hyperwar/USN/ref/AirGunnery/GUNS4.html",
+          "finding": "Hand-held bomber installations route the belt from a container through rollers and a flexible chute; link orientation and chute adapter side are controlled by feed direction."
+        }
+      ],
+      "approval": "visual-reference-ready; engineering and B-24 block approval false"
+    },
+    {
+      "stationId": "b24.lower.a13.ball-turret",
+      "gunnerPosture": "seated inside turret ball",
+      "gunCount": 2,
+      "mountSystem": [
+        "top mounting swivel and hydraulic retraction assembly",
+        "trunnion ring support",
+        "left and right end bells",
+        "front E-10 Edgewater supports",
+        "rear adjustable gun mounting brackets",
+        "integrated ammunition boxes and link-ejection chutes",
+        "armor-plate seat"
+      ],
+      "manualEvidence": {
+        "title": "AN 11-45G-1 Handbook of Instructions for Lower Ball Turrets Types A-2, A-2A and A-13",
+        "sourceUrl": "https://hangarthirteen.org/wp-content/uploads/2020/08/11-45G-1-Handbook-for-Sperry-Lower-Ball-Turrets-A-2-A-2A-A-13.pdf",
+        "pages": [
+          {
+            "pdfPageIndex": 4,
+            "finding": "A-13 is the B-24 lower ball turret and carries two caliber .50 type M-2 aircraft machine guns."
+          },
+          {
+            "pdfPageIndex": 5,
+            "finding": "Ball diameter 44 in; fuselage opening 46.75 in; extension about 24 in; A-13 retraction 28 in."
+          },
+          {
+            "pdfPageIndex": 18,
+            "finding": "Front support accepts E-10 Edgewater adapter; rear brackets provide lateral and vertical gun adjustment; seat is secured to the armor plate section."
+          },
+          {
+            "pdfPageIndex": 19,
+            "figure": 13,
+            "finding": "Exploded assembly identifies ammunition boxes, trunnion support, end bells, front/rear gun mounts, armor seat and door."
+          },
+          {
+            "pdfPageIndex": 37,
+            "finding": "Installation sequence slides guns into rear brackets, installs link-ejection chutes, and secures front mounts with Edgewater adapter bolts."
+          },
+          {
+            "pdfPageIndex": 44,
+            "figure": 56,
+            "finding": "Complete B-24 A-13 installation shows the retraction system and surrounding airframe support."
+          }
+        ]
+      },
+      "geometryEvidence": {
+        "separableSourceMeshAvailable": false,
+        "implemented": "manual-dimensioned review envelope and evidence plate only",
+        "prohibitedSubstitution": "generic pedestal, tripod or invented full turret"
+      },
+      "approval": "manual evidence locked; full 3D reconstruction unresolved"
+    }
+  ],
+  "unresolved": [
+    "Exact aircraft serial/block and modification state for each waist installation.",
+    "Production-quality A-13 turret surface and internal geometry donor or complete dimensioned drawing set.",
+    "Martin upper turret and nose/tail turret seated-system variants are separate assemblies and are not represented by the A-13 envelope."
+  ]
+}

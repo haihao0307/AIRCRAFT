@@ -1,0 +1,207 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-distillation-manifest@1.0.0",
+  "assetId": "WM_B24_ANM2_V004",
+  "status": "user-review",
+  "sources": [
+    {
+      "role": "b24",
+      "file": "b-24_liberator.glb",
+      "bytes": 23085972,
+      "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "author": "CreadorDeMu (https://sketchfab.com/creadordemu)",
+      "sourceUrl": "https://sketchfab.com/3d-models/b-24-liberator-c64e58edfacb4c519b5602278a7e51aa"
+    },
+    {
+      "role": "anm2",
+      "file": "anm2_browning_.50_cal_aircraft_machine_gun.glb",
+      "bytes": 6548040,
+      "sha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "author": "Misja van Laatum (https://sketchfab.com/miezpiez66)",
+      "sourceUrl": "https://sketchfab.com/3d-models/anm2-browning-50-cal-aircraft-machine-gun-83d967f5d3ea4fe18603514741c781d5"
+    },
+    {
+      "role": "mechanism",
+      "file": "m2_browning_machine_gun.glb",
+      "bytes": 11057836,
+      "sha256": "16c6d1e5edbba99d7a9b6dbff75d55b4abe5cd8974432086d576722f728a499d",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "author": "ChemicalFX (https://sketchfab.com/ChemicalFX_YT)",
+      "sourceUrl": "https://sketchfab.com/3d-models/m2-browning-machine-gun-766427b4adaf49b3aa23f72c524290d7"
+    },
+    {
+      "role": "cartridge",
+      "file": "12.7x99mm_m2_ball_still_practice_no_texture.glb",
+      "bytes": 777908,
+      "sha256": "f109fb80201d3c2339394c41155a4ca5e8f912f732c7d5d83832087356d81026",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "author": "HKM4 (https://sketchfab.com/HKM4A5)",
+      "sourceUrl": "https://sketchfab.com/3d-models/127x99mm-m2-ball-still-practice-no-texture-57f4f57322cf4ab998363321e9ed3e19"
+    },
+    {
+      "role": "belt",
+      "file": "m2_browning_.50_cal_machine_gun.glb",
+      "bytes": 43682696,
+      "sha256": "d62531f0f9b3a7b65293e22615d51e48bd12d9ae7529214a9bfdc2c5f4887bb8",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "author": "8sianDude (https://sketchfab.com/haoliu95)",
+      "sourceUrl": "https://sketchfab.com/3d-models/m2-browning-50-cal-machine-gun-5006cff7b57249fbb2ac7cc64cb9af72"
+    },
+    {
+      "role": "procedural-field-knowledge",
+      "file": "PROCEDURAL_FIELD_KNOWLEDGE_MINI_V1.0_2026-08-30.zip",
+      "bytes": 13456,
+      "sha256": "d69ecd2677507db9342a1d66092a8d6cf4255141346b14cc4629303bf1c4f396"
+    }
+  ],
+  "output": {
+    "file": "G:\\AIRCRAFT\\b24-v010-push\\data\\weapons-mother\\b24-m2-aircraft-v004\\distilled-reference.glb",
+    "bytes": 7717448,
+    "sha256": "ffeaa4d9a1dbe4873d65698a0bae64504ed7cee9c9e67a252562f8563f28ac31",
+    "materials": 9,
+    "meshNodes": 29
+  },
+  "stationAlignments": {
+    "b24.waist.starboard.flexible": {
+      "sourceGunNodeIndex": 802,
+      "highDetailGunAlignment": {
+        "matrixColumnMajor": [
+          0.6794584100079788,
+          -0.11404585165101981,
+          -0.7350345995754323,
+          0,
+          0.7397901588245195,
+          -9.732944530936454e-08,
+          0.6838542028011352,
+          0,
+          0.07741445815541052,
+          1.0009693019703079,
+          -0.0837466892717104,
+          0,
+          0.7917270007473943,
+          -0.17627483480423756,
+          -5.98803817825091,
+          1
+        ],
+        "uniformScale": 1.0074453085812616,
+        "sourcePrimaryLengthMeters": 1.4405251741409302,
+        "targetReferenceLengthMeters": 1.451250328581485,
+        "method": "uniform scale and rigid axis alignment from exact source matrices"
+      }
+    },
+    "b24.waist.port.flexible": {
+      "sourceGunNodeIndex": 821,
+      "highDetailGunAlignment": {
+        "matrixColumnMajor": [
+          0.687217870735541,
+          -9.901592652562888e-08,
+          0.7369513427949874,
+          0,
+          -0.7369514349038452,
+          -9.233378145562421e-08,
+          0.6872177719608179,
+          0,
+          1.851009346376381e-16,
+          1.0076535533136461,
+          -1.3538716096585538e-07,
+          0,
+          -1.1010633788769146,
+          -0.2274774129440836,
+          -6.403283400828739,
+          1
+        ],
+        "uniformScale": 1.0076535533136552,
+        "sourcePrimaryLengthMeters": 1.4405251741409302,
+        "targetReferenceLengthMeters": 1.4515503103608802,
+        "method": "uniform scale and rigid axis alignment from exact source matrices"
+      }
+    }
+  },
+  "mechanismOverlay": {
+    "status": "mechanical-reference-only-not-aircraft-parts-catalog-approved",
+    "sourceUnitInference": "centimeter-like; isolated mirror preserved raw",
+    "aircraftOverlayMatrixRowMajor": [
+      [
+        0.0,
+        0.0,
+        -0.01,
+        0.23896
+      ],
+      [
+        0.01,
+        0.0,
+        0.0,
+        -0.0038
+      ],
+      [
+        0.0,
+        0.01,
+        0.0,
+        -0.0916
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "sourceSelections": {
+    "aircraftGunExterior": [
+      9,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27
+    ],
+    "aircraftFeedReferences": [
+      4,
+      6,
+      7,
+      11
+    ],
+    "cartridge": [
+      2,
+      4,
+      3
+    ],
+    "beltLink": {
+      "sourceNodeIndex": 12,
+      "connectedComponentRoots": [
+        174,
+        199,
+        224
+      ]
+    },
+    "mechanismReference": [
+      12,
+      14,
+      16,
+      18,
+      20
+    ],
+    "b24WaistStarboard": [
+      799,
+      802,
+      805,
+      808,
+      811
+    ],
+    "b24WaistPort": [
+      818,
+      821,
+      824
+    ]
+  },
+  "limitations": [
+    "The mechanism donor is not an approved aircraft AN/M2 internal parts catalog; spring, bolt and cocking handle remain reference-only.",
+    "The locked B-24 GLB supplies standing waist station geometry but no separable A-13 lower ball turret mesh.",
+    "A-13 seated installation remains controlled by AN 11-45G-1 evidence and must not be replaced by an invented generic pedestal.",
+    "The procedural field package affects runtime surface color and roughness only; it does not alter source geometry."
+  ]
+}

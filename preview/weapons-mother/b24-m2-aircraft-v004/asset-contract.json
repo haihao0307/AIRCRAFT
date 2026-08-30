@@ -1,0 +1,41 @@
+{
+  "schema": "haihao.aircraft/production-asset-contract@1.0.0",
+  "assetId": "WM_B24_ANM2_V004",
+  "status": "source-distilled-station-study",
+  "runtimeRole": "hero source-parity and aircraft-installation review",
+  "construction": {
+    "declaredUnit": "meter",
+    "gunForwardAxis": "+X",
+    "animationSemantics": {
+      "muzzleSocketMeters": [0.9795744419, 0, 0],
+      "muzzleSocketMethod": "AN/M2 barrel source accessor +X maximum; no visual offset",
+      "barrelRecoilMeters": 0.028575,
+      "caseAndLinkLifetime": "persistent until user clears the test area",
+      "tracerCadence": "one tracer per five rounds when enabled"
+    },
+    "sourceExactExterior": true,
+    "sourceUvPreserved": true,
+    "stationMounts": ["B-24 port waist flexible", "B-24 starboard waist flexible", "A-13 manual evidence envelope"],
+    "seatedMountPolicy": "A-13 integrated ball turret; no generic seat pedestal"
+  },
+  "requirements": {
+    "interaction": ["isolated gun", "port waist", "starboard waist", "A-13 evidence", "service separation", "internal reference overlay", "ammo separation"],
+    "surface": ["stable surface_id", "deterministic macro/meso/micro fields", "color/roughness only", "editable seeds and wear controls"],
+    "delivery": "single directly-openable HTML using embedded distilled GLB"
+  },
+  "budgets": {
+    "baseTriangles": 186160,
+    "drawCalls": 80,
+    "runtimeFieldTextureResolution": 256,
+    "decodedGeneratedTextureMemoryMiB": 2.5,
+    "htmlBytes": 11000000
+  },
+  "approvalGates": {
+    "sourceHash": "required",
+    "sourceNodeAndUvParity": "required",
+    "waistMountVisualParity": "required",
+    "A13FullGeometry": "blocked until dimensioned geometry evidence exists",
+    "aircraftBlockApplicability": "required before airframe integration",
+    "engineeringApproval": false
+  }
+}
