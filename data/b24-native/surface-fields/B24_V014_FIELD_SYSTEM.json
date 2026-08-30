@@ -1,22 +1,41 @@
 {
   "schema": "haihao.aircraft/b24-v014-field-system@1.0.0",
-  "id": "B24_V014_STARBOARD_INBOARD_NACELLE_METAL_PILOT",
-  "stage": "visual-pilot-preapproval",
   "sourceLock": {
-    "baselineBranch": "feature/b24-v013-source-mechanical-colours",
-    "baselineCommit": "4868116e098d78bd29ce847ecf0809fb6fbc3f2e",
-    "oneClickHtml": {
-      "file": "B24_ONE_CLICK_CURRENT.html",
-      "bytes": 12579258,
-      "sha256": "76c5db05b3056987af83107778912e62d263b6703cb2fcf5a8693be90082920e"
+    "baseline": {
+      "branch": "feature/b24-v013-source-mechanical-colours",
+      "commit": "4868116e098d78bd29ce847ecf0809fb6fbc3f2e",
+      "oneClickHtml": {
+        "file": "B24_ONE_CLICK_CURRENT.html",
+        "bytes": 12579258,
+        "sha256": "76c5db05b3056987af83107778912e62d263b6703cb2fcf5a8693be90082920e"
+      },
+      "lockedGlb": {
+        "file": "b-24_liberator.glb",
+        "bytes": 23085972,
+        "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
+      },
+      "payload": {
+        "bytes": 16647376,
+        "sha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2"
+      }
     },
-    "lockedGlb": {
-      "file": "b-24_liberator.glb",
-      "bytes": 23085972,
-      "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d"
-    },
-    "sourceFieldReadOnly": true,
-    "shapeImpact": "none"
+    "sourceFields": [
+      "geometry",
+      "component-hierarchy",
+      "world-transform",
+      "surface-family",
+      "material-slot",
+      "uv0",
+      "uv1",
+      "base-color-image",
+      "metallic-roughness-image",
+      "occlusion-image",
+      "mechanical-source-colour",
+      "panel-and-rivet-image-evidence"
+    ],
+    "readOnly": true,
+    "shapeImpact": "none",
+    "unknownsRemainUnresolved": true
   },
   "knowledgeSource": {
     "version": "PROCEDURAL_FIELD_KNOWLEDGE_MINI_V1.0",
@@ -27,7 +46,7 @@
     "derivation": "sha256(aircraft_id + component_id + surface_id + event_id + channel_id)",
     "stableAcrossSessions": true,
     "independentEventSeeds": true,
-    "events": {
+    "seeds": {
       "sharedDomainWarp": 174023981,
       "macroField": 275109733,
       "mesoField": 88412311,
@@ -42,141 +61,178 @@
       "clearCoatBreakup": 81812791
     }
   },
-  "pilotMask": {
-    "surfaceId": "starboard-inboard-nacelle-and-adjacent-wing",
-    "truthMask": {
-      "wingNodeId": 1711,
-      "wingMeshId": 332,
-      "wingTriangles": 8948,
-      "cowlNodeIds": [460, 463, 470, 475, 478, 485, 490, 493, 500, 505, 508, 515, 520, 523, 530, 533, 540, 545, 548, 555, 560, 563],
-      "sourceMaterialId": 6,
-      "baseColorTexture": 5,
-      "metallicRoughnessTexture": 1,
-      "occlusionTexture": 1
-    },
-    "parentMask": {
-      "engineCentre": [3.38, 0.0, 3.2],
-      "wingSoftRegion": {
-        "xRadius": 1.72,
-        "zRadius": 2.28
+  "maskRegistry": {
+    "pilot": {
+      "id": "starboard-inboard-nacelle-metal-pilot-v1",
+      "truthMask": {
+        "sourceNodeIds": [1711, 460, 463, 470, 475, 478, 485, 490, 493, 500, 505, 508, 515, 520, 523, 530, 533, 540, 545, 548, 555, 560, 563],
+        "sourceMeshIds": [332, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91],
+        "sourceMaterialId": 6,
+        "sourceBaseColorTexture": 5,
+        "sourceMetallicRoughnessTexture": 1,
+        "sourceOcclusionTexture": 1
       },
-      "nacelleCore": {
-        "xRadius": 1.12,
-        "zRadius": 1.02,
-        "fullCoverage": true
+      "parentMask": {
+        "space": "aircraft-world-field-anchored-to-source-components",
+        "engineCentre": [3.38, 0.0, 3.2],
+        "wingSoftRegion": {
+          "xRadius": 1.72,
+          "zRadius": 2.28,
+          "softEdge": true
+        },
+        "nacelleCore": {
+          "xRadius": 1.12,
+          "zRadius": 1.02,
+          "fullCoverage": true
+        },
+        "wholeAircraftAssignment": false
       },
-      "wholeAircraftAutoAssignment": false
-    },
-    "processMasks": [
-      "source-structure",
-      "engine-exhaust-soot",
-      "oil-seepage",
-      "panel-grime",
-      "broad-fading",
-      "edge-chipping"
+      "processMasks": [
+        "source-structure",
+        "engine-exhaust-soot",
+        "oil-seepage",
+        "panel-grime",
+        "broad-fading",
+        "edge-chipping"
+      ],
+      "separationMasks": [
+        "coating-loss",
+        "soot-to-clean-metal",
+        "oil-to-dry-metal"
+      ],
+      "protectedRegions": [
+        "v013-mechanical-source-colours",
+        "propeller-hub-connector",
+        "engine-internal-system",
+        "landing-hydraulic-support",
+        "belly-white-support",
+        "glass",
+        "tire",
+        "historical-marking-outside-pilot"
+      ]
+    }
+  },
+  "eventLibrary": {
+    "events": [
+      {
+        "id": "engine-exhaust-soot",
+        "source": "starboard-inboard-engine",
+        "direction": "rearward-airflow",
+        "channels": ["albedo", "roughness", "normal"],
+        "noiseRole": "mask-interior-variation-only"
+      },
+      {
+        "id": "oil-seepage",
+        "source": "engine-seams-and-service-points",
+        "direction": "gravity-plus-airflow",
+        "channels": ["albedo", "roughness", "wetness"],
+        "noiseRole": "flow-breakup-only"
+      },
+      {
+        "id": "panel-and-rivet-grime",
+        "source": "source-base-colour-high-pass",
+        "channels": ["albedo", "roughness", "normal"],
+        "noiseRole": "density-modulation-only"
+      },
+      {
+        "id": "broad-fading",
+        "source": "exposure-and-macro-field",
+        "channels": ["albedo", "roughness"],
+        "noiseRole": "broad-low-frequency-variation"
+      },
+      {
+        "id": "edge-chipping",
+        "source": "source-structure-times-ridged-field",
+        "channels": ["albedo", "metallic", "roughness"],
+        "noiseRole": "edge-breakup-only"
+      },
+      {
+        "id": "light-clear-coat",
+        "source": "approved-coated-region",
+        "channels": ["specular", "coat-roughness"],
+        "noiseRole": "very-low-strength-breakup"
+      }
     ],
-    "protectedRegions": [
-      "v013-mechanical-source-colours",
-      "propeller-hub-connector",
-      "engine-internal-system",
-      "landing-hydraulic-support",
-      "belly-white-support",
-      "glass",
-      "tire",
-      "historical-marking-outside-pilot"
+    "forbidden": [
+      "global-random-grime",
+      "screen-space-dirt",
+      "whole-aircraft-noise-replacement",
+      "shape-displacement",
+      "historical-marking-invention",
+      "v013-mechanical-colour-overwrite"
     ]
   },
-  "fieldGraph": [
-    "sourceReadOnly",
-    "truthMask",
-    "parentMask",
-    "sharedDomainWarp",
-    "macroFbm",
-    "mesoFbm",
-    "microFbm",
-    "sourceStructure",
-    "engineExhaustSoot",
-    "oilSeepage",
-    "panelGrime",
-    "broadFading",
-    "edgeChipping",
-    "fiveStopMetalPalette",
-    "roughnessCorrelation",
-    "detailNormal",
-    "ggxMetal",
-    "lightClearCoat",
-    "diagnosticChannels"
-  ],
-  "eventLibrary": [
-    {
-      "id": "engine-exhaust-soot",
-      "source": "starboard-inboard-engine",
-      "direction": "rearward-airflow",
-      "channels": ["albedo", "roughness", "normal"],
-      "noiseRole": "mask-interior-variation-only"
+  "fieldGraph": {
+    "id": "B24_V014_STARBOARD_INBOARD_NACELLE_METAL_PILOT",
+    "pipeline": [
+      "sourceReadOnly",
+      "truthMask",
+      "parentMask",
+      "sharedDomainWarp",
+      "macroFbm",
+      "mesoFbm",
+      "microFbm",
+      "sourceStructure",
+      "engineExhaustSoot",
+      "oilSeepage",
+      "panelGrime",
+      "broadFading",
+      "edgeChipping",
+      "fiveStopMetalPalette",
+      "roughnessCorrelation",
+      "detailNormal",
+      "ggxMetal",
+      "lightClearCoat",
+      "diagnosticChannels"
+    ],
+    "outputs": [
+      "albedo",
+      "metallic",
+      "roughness",
+      "normal",
+      "occlusion",
+      "clearCoat",
+      "sourceDetailDebug",
+      "parentMaskDebug",
+      "exhaustDebug",
+      "roughnessDebug",
+      "metallicDebug"
+    ],
+    "shapeImpact": "none",
+    "sourceGeometryMutation": false,
+    "deterministic": true,
+    "wholeAircraftAutoAssignment": false,
+    "stage": "visual-pilot-preapproval"
+  },
+  "qaContract": {
+    "required": {
+      "sourceIdentityLock": true,
+      "singleSelfContainedHtml": true,
+      "networkRequests": 0,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "webglErrors": 0,
+      "sourceFieldReadOnly": true,
+      "shapeImpactNone": true,
+      "geometryChanged": false,
+      "animationChanged": false,
+      "runwaySequenceChanged": false,
+      "v013MechanicalColoursPreserved": true,
+      "pilotWingCount": 1,
+      "pilotCowlCount": 22,
+      "diagnosticChannels": 5,
+      "allHumanApprovalsRemainFalse": true
     },
-    {
-      "id": "oil-seepage",
-      "source": "engine-seams-and-service-points",
-      "direction": "gravity-plus-airflow",
-      "channels": ["albedo", "roughness", "wetness"],
-      "noiseRole": "flow-breakup-only"
-    },
-    {
-      "id": "panel-and-rivet-grime",
-      "source": "source-base-colour-high-pass",
-      "channels": ["albedo", "roughness", "normal"],
-      "noiseRole": "density-modulation-only"
-    },
-    {
-      "id": "broad-fading",
-      "source": "exposure-and-macro-field",
-      "channels": ["albedo", "roughness"],
-      "noiseRole": "broad-low-frequency-variation"
-    },
-    {
-      "id": "edge-chipping",
-      "source": "source-structure-times-ridged-field",
-      "channels": ["albedo", "metallic", "roughness"],
-      "noiseRole": "edge-breakup-only"
-    },
-    {
-      "id": "light-clear-coat",
-      "source": "approved-coated-region",
-      "channels": ["specular", "coat-roughness"],
-      "noiseRole": "very-low-strength-breakup"
-    }
-  ],
-  "renderOutputs": [
-    "albedo",
-    "metallic",
-    "roughness",
-    "normal",
-    "occlusion",
-    "clearCoat",
-    "sourceDetailDebug",
-    "parentMaskDebug",
-    "exhaustDebug",
-    "roughnessDebug",
-    "metallicDebug"
-  ],
-  "forbidden": [
-    "global-random-grime",
-    "screen-space-dirt",
-    "whole-aircraft-noise-replacement",
-    "shape-displacement",
-    "historical-marking-invention",
-    "v013-mechanical-colour-overwrite"
-  ],
-  "qa": {
-    "singleSelfContainedHtml": true,
-    "networkRequests": 0,
-    "pageErrors": 0,
-    "consoleErrors": 0,
-    "webglErrors": 0,
-    "pilotWingCount": 1,
-    "pilotCowlCount": 22,
-    "diagnosticChannels": 5,
+    "visualReview": [
+      "neutral-metal-readability",
+      "clear-coat-not-plastic",
+      "exhaust-direction-plausible",
+      "oil-seepage-localized",
+      "panel-detail-source-driven",
+      "quiet-areas-preserved",
+      "no-old-livery-contamination",
+      "no-hard-mask-edge"
+    ],
     "promotion": "requires-user-visual-approval-before-expansion"
   },
   "approvalLedger": {
