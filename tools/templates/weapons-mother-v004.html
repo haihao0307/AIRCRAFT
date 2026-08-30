@@ -6,6 +6,8 @@
   <meta name="description" content="Weapons Mother V004：B-24 AN/M2 源数据蒸馏、腰部航空枪架、A-13 坐姿炮塔证据与可调程序化材质。">
   <title>Weapons Mother · B-24 AN/M2 数据蒸馏 V004</title>
   <script>
+    const weaponsMotherTemplateSource=location.pathname.replace(/\\/g,"/").endsWith("/tools/templates/weapons-mother-v004.html");
+    if(weaponsMotherTemplateSource){location.replace(new URL("../../preview/weapons-mother/b24-m2-aircraft-v004/index.html",location.href).href)}
     addEventListener("error",event=>{const box=document.getElementById("runtime-error");if(box){box.hidden=false;box.textContent="运行时错误："+event.message}});
     addEventListener("unhandledrejection",event=>{const box=document.getElementById("runtime-error");if(box){box.hidden=false;box.textContent="运行时错误："+String(event.reason)}});
   </script>
@@ -97,6 +99,7 @@
     import { OrbitControls } from "three/addons/controls/OrbitControls.js";
     import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
     import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+    if(weaponsMotherTemplateSource)await new Promise(()=>{});
 
     const PACK_BASE64="__GLB_BASE64__";
     const MANIFEST=__MANIFEST_JSON__;

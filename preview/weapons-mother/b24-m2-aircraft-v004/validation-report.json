@@ -1,8 +1,8 @@
 {
   "schema": "haihao.aircraft/weapons-mother-validation@1.0.0",
   "status": "PASS",
-  "htmlBytes": 10345979,
-  "htmlSha256": "49ce0dfdc4a92ec048b531083a930e892090ba5226f77fd9cf00cca429008e9b",
+  "htmlBytes": 10346317,
+  "htmlSha256": "f5b45d187adf0010cc63abadf26a37f0b1a0ea63ac4a1f4109e692aa803f4a09",
   "glbBytes": 7717448,
   "glbSha256": "ffeaa4d9a1dbe4873d65698a0bae64504ed7cee9c9e67a252562f8563f28ac31",
   "nodes": 36,
@@ -17,6 +17,7 @@
     "station evidence",
     "procedural surface controls",
     "single-file delivery",
+    "template-entry redirect",
     "HTML size budget",
     "Image2ThreeJS exclusion"
   ]

@@ -37,6 +37,7 @@ def main() -> None:
     parser.add_argument("--station-evidence", type=Path, required=True)
     parser.add_argument("--surface-contract", type=Path, required=True)
     parser.add_argument("--asset-contract", type=Path, required=True)
+    parser.add_argument("--template", type=Path, required=True)
     parser.add_argument("--html", type=Path, required=True)
     parser.add_argument("--build-report", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
@@ -55,6 +56,7 @@ def main() -> None:
         args.station_evidence,
         args.surface_contract,
         args.asset_contract,
+        args.template,
         args.html,
         args.build_report,
     ):
@@ -66,6 +68,7 @@ def main() -> None:
     contract = json.loads(args.asset_contract.read_text(encoding="utf-8"))
     build = json.loads(args.build_report.read_text(encoding="utf-8"))
     document = glb_json(args.glb)
+    template = args.template.read_text(encoding="utf-8")
     html = args.html.read_text(encoding="utf-8")
 
     glb_hash = sha256(args.glb)
@@ -81,6 +84,9 @@ def main() -> None:
         "__SURFACE_CONTRACT_JSON__",
     ):
         assert token not in html, f"unresolved token {token}"
+    assert "weaponsMotherTemplateSource" in template, "template direct-open guard missing"
+    assert "../../preview/weapons-mother/b24-m2-aircraft-v004/index.html" in template, "template redirect target drift"
+    assert "if(weaponsMotherTemplateSource)await new Promise(()=>{})" in template, "template module guard missing"
     assert "Image2Three" not in html and "image2three" not in html.lower()
 
     required_controls = (
@@ -177,6 +183,7 @@ def main() -> None:
             "station evidence",
             "procedural surface controls",
             "single-file delivery",
+            "template-entry redirect",
             "HTML size budget",
             "Image2ThreeJS exclusion",
         ],

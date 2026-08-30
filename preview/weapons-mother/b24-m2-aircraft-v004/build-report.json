@@ -1,8 +1,8 @@
 {
   "schema": "haihao.aircraft/weapons-mother-html-build@1.0.0",
   "output": "preview/weapons-mother/b24-m2-aircraft-v004/index.html",
-  "bytes": 10345979,
-  "sha256": "49ce0dfdc4a92ec048b531083a930e892090ba5226f77fd9cf00cca429008e9b",
+  "bytes": 10346317,
+  "sha256": "f5b45d187adf0010cc63abadf26a37f0b1a0ea63ac4a1f4109e692aa803f4a09",
   "embeddedGlbBytes": 7717448,
   "embeddedGlbSha256": "ffeaa4d9a1dbe4873d65698a0bae64504ed7cee9c9e67a252562f8563f28ac31",
   "singleFile": true,
