@@ -1,0 +1,34 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-viewer-validation@1.0.0",
+  "status": "PASS",
+  "image2ThreeJsEnabled": false,
+  "results": [
+    {
+      "file": "preview\\weapons-mother\\b24-m2-candidates-v001\\m2-browning.html",
+      "candidateId": "m2-browning",
+      "htmlBytes": 24738979,
+      "embeddedGlbBytes": 18536776,
+      "embeddedGlbSha256": "3cb10b4c2cb6ae96656146f55e81f54a66338bcb817ed4727e4d79c38843d813",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "file": "preview\\weapons-mother\\b24-m2-candidates-v001\\m2-browning-50cal-machine-gun.html",
+      "candidateId": "m2-browning-50cal-machine-gun",
+      "htmlBytes": 58267637,
+      "embeddedGlbBytes": 43682696,
+      "embeddedGlbSha256": "d62531f0f9b3a7b65293e22615d51e48bd12d9ae7529214a9bfdc2c5f4887bb8",
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "file": "preview\\weapons-mother\\b24-m2-candidates-v001\\browning-m2.html",
+      "candidateId": "browning-m2",
+      "htmlBytes": 24213268,
+      "embeddedGlbBytes": 18143688,
+      "embeddedGlbSha256": "23273a3232a479d118e87ebeb82348498bd8f57b5559f6012a3b1476272d0fbb",
+      "status": "PASS",
+      "errors": []
+    }
+  ]
+}

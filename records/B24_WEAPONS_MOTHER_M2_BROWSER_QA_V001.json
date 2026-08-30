@@ -1,0 +1,89 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-browser-qa@1.0.0",
+  "testedAtUtc": "2026-08-30T01:05:11.5346587Z",
+  "status": "PASS_SOURCE_VIEWERS_ONLY",
+  "renderer": "Three.js 0.185.1",
+  "browser": "Codex in-app Chromium",
+  "image2ThreeJsEnabled": false,
+  "sharedInteractionChecks": {
+    "lockedAxisViewSwitch": true,
+    "lightingModeSwitch": true,
+    "wireframeToggle": true,
+    "gridAndAxesToggle": true,
+    "meshVisibilityToggle": true,
+    "displayNormalizationOnly": true,
+    "sourceGlbRewritten": false
+  },
+  "pages": [
+    {
+      "candidateId": "m2-browning",
+      "html": "preview/weapons-mother/b24-m2-candidates-v001/m2-browning.html",
+      "qaState": "passed",
+      "runtimeMeshes": 22,
+      "runtimeDrawCalls": 24,
+      "runtimeTriangles": 44431,
+      "consoleErrors": 0,
+      "screenshots": [
+        {
+          "path": "preview/weapons-mother/b24-m2-candidates-v001/qa/m2-browning-iso-neutral.png",
+          "bytes": 79953,
+          "sha256": "15c8f93704a545270d1dcd59168d2cf5d941b9b2936342170f6d70ed8c30314a"
+        },
+        {
+          "path": "preview/weapons-mother/b24-m2-candidates-v001/qa/m2-browning-px-grazing.png",
+          "bytes": 65696,
+          "sha256": "f24bda2015a2dd69cf0ceb0a07deb1a08bfa012ea24304a095eb1f17678ad59e"
+        }
+      ]
+    },
+    {
+      "candidateId": "m2-browning-50cal-machine-gun",
+      "html": "preview/weapons-mother/b24-m2-candidates-v001/m2-browning-50cal-machine-gun.html",
+      "qaState": "passed",
+      "runtimeMeshes": 13,
+      "runtimeDrawCalls": 15,
+      "runtimeTriangles": 809984,
+      "consoleErrors": 0,
+      "screenshots": [
+        {
+          "path": "preview/weapons-mother/b24-m2-candidates-v001/qa/m2-browning-50cal-iso-neutral.png",
+          "bytes": 78680,
+          "sha256": "11757fbeee8cf882bee3c05d76078f1fd232448ed2d2ff830e69880fdb5a9120"
+        }
+      ]
+    },
+    {
+      "candidateId": "browning-m2",
+      "html": "preview/weapons-mother/b24-m2-candidates-v001/browning-m2.html",
+      "qaState": "passed",
+      "runtimeMeshes": 7,
+      "runtimeDrawCalls": 9,
+      "runtimeTriangles": 207207,
+      "consoleErrors": 0,
+      "screenshots": [
+        {
+          "path": "preview/weapons-mother/b24-m2-candidates-v001/qa/browning-m2-iso-neutral.png",
+          "bytes": 80575,
+          "sha256": "89bb2ce3ebf53369faa6670839a6e5402b77e2d2c67225f80ab10239ca850713"
+        }
+      ]
+    }
+  ],
+  "sessionWarnings": [
+    {
+      "source": "Three.js WebGL shader compiler",
+      "code": "X4122",
+      "severity": "non-blocking-driver-precision-warning",
+      "pageFailure": false
+    }
+  ],
+  "approvalBoundary": {
+    "sourceViewerApproved": true,
+    "weaponIdentityApproved": false,
+    "sourceScaleApproved": false,
+    "b24MountApproved": false,
+    "geometryApproved": false,
+    "runtimeWeaponBehaviorApproved": false,
+    "productionApproved": false
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-asset-contract@1.0.0",
+  "asset": {
+    "name": "browning-m2",
+    "role": "hero",
+    "sourceMethod": "unresolved-third-party-authored",
+    "provenance": [
+      {
+        "title": "Browning M2",
+        "author": "emran.bayati",
+        "url": "https://sketchfab.com/3d-models/browning-m2-381c0f1939e843ceae232500e24e7231",
+        "license": "CC BY 4.0",
+        "verification": "GLB metadata, Sketchfab public page, and Sketchfab public API checked 2026-08-30"
+      }
+    ],
+    "licenseNotes": "Attribution, source link, license link, and modification notice must remain with every redistributed derivative."
+  },
+  "visual": {
+    "approvedReferences": [],
+    "closestCameraMeters": 0,
+    "maximumScreenCoveragePercent": 80,
+    "silhouetteCriticalViews": ["+X", "-X", "+Y", "+Z", "-Z"],
+    "artDirectionNotes": "Source candidate only. Its bounds are approximately 227.91 source units long, so unit conversion is unresolved and must be locked before B-24 integration."
+  },
+  "runtime": {
+    "renderer": "Three.js 0.185.1",
+    "targetDevices": ["desktop review"],
+    "weakestTestDevice": "current Codex desktop host",
+    "animation": false,
+    "physics": false,
+    "requiredNodeNames": [],
+    "requiredExtensions": ["KHR_materials_specular"]
+  },
+  "budgets": {
+    "downloadMiB": 17.3,
+    "decodedTextureMiB": 48.0,
+    "triangles": 207207,
+    "primitives": 7,
+    "materials": 3,
+    "drawCalls": 7,
+    "bones": 0,
+    "frameTimeMs": 0
+  },
+  "variants": [
+    {
+      "name": "source",
+      "trigger": "intake review only",
+      "texturePolicy": "preserve embedded source textures",
+      "geometryPolicy": "preserve source GLB; source-unit conversion and B-24 production approval are pending"
+    }
+  ],
+  "acceptanceEvidence": {
+    "lockedCameraComparisons": [
+      "preview/weapons-mother/b24-m2-candidates-v001/qa/browning-m2-iso-neutral.png"
+    ],
+    "neutralLightingCapture": "preview/weapons-mother/b24-m2-candidates-v001/qa/browning-m2-iso-neutral.png",
+    "targetDeviceCapture": "preview/weapons-mother/b24-m2-candidates-v001/qa/browning-m2-iso-neutral.png",
+    "validatorReport": "records/B24_WEAPONS_MOTHER_M2_KHRONOS_VALIDATION_V001.json",
+    "glbAuditReport": "records/B24_WEAPONS_MOTHER_M2_SOURCE_AUDIT_V001.json"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-asset-contract@1.0.0",
+  "asset": {
+    "name": "m2-browning-50cal-machine-gun",
+    "role": "hero",
+    "sourceMethod": "unresolved-third-party-authored",
+    "provenance": [
+      {
+        "title": "M2 Browning .50 Cal Machine Gun",
+        "author": "8sianDude",
+        "url": "https://sketchfab.com/3d-models/m2-browning-50-cal-machine-gun-5006cff7b57249fbb2ac7cc64cb9af72",
+        "license": "CC BY 4.0",
+        "verification": "GLB metadata and Sketchfab public API checked 2026-08-30"
+      }
+    ],
+    "licenseNotes": "Attribution, source link, license link, and modification notice must remain with every redistributed derivative."
+  },
+  "visual": {
+    "approvedReferences": [],
+    "closestCameraMeters": 0,
+    "maximumScreenCoveragePercent": 80,
+    "silhouetteCriticalViews": ["+X", "-X", "+Y", "+Z", "-Z"],
+    "artDirectionNotes": "Source candidate contains gun, mount, ammunition, links, and crate-related material families. Do not classify it as an isolated B-24 gun until the user supplies the installation mapping."
+  },
+  "runtime": {
+    "renderer": "Three.js 0.185.1",
+    "targetDevices": ["desktop review"],
+    "weakestTestDevice": "current Codex desktop host",
+    "animation": false,
+    "physics": false,
+    "requiredNodeNames": [],
+    "requiredExtensions": []
+  },
+  "budgets": {
+    "downloadMiB": 41.66,
+    "decodedTextureMiB": 128.0,
+    "triangles": 809984,
+    "primitives": 13,
+    "materials": 8,
+    "drawCalls": 13,
+    "bones": 0,
+    "frameTimeMs": 0
+  },
+  "variants": [
+    {
+      "name": "source",
+      "trigger": "intake review only",
+      "texturePolicy": "preserve embedded source textures",
+      "geometryPolicy": "preserve source GLB; optimization is required before repeated B-24 installation"
+    }
+  ],
+  "acceptanceEvidence": {
+    "lockedCameraComparisons": [
+      "preview/weapons-mother/b24-m2-candidates-v001/qa/m2-browning-50cal-iso-neutral.png"
+    ],
+    "neutralLightingCapture": "preview/weapons-mother/b24-m2-candidates-v001/qa/m2-browning-50cal-iso-neutral.png",
+    "targetDeviceCapture": "preview/weapons-mother/b24-m2-candidates-v001/qa/m2-browning-50cal-iso-neutral.png",
+    "validatorReport": "records/B24_WEAPONS_MOTHER_M2_KHRONOS_VALIDATION_V001.json",
+    "glbAuditReport": "records/B24_WEAPONS_MOTHER_M2_SOURCE_AUDIT_V001.json"
+  }
+}

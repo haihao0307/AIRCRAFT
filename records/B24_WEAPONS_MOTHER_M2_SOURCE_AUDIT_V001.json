@@ -1,0 +1,951 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-m2-intake@1.0.0",
+  "status": "source-candidates-only",
+  "b24MountAssignment": "unresolved-user-mapping-required",
+  "image2ThreeJsEnabled": false,
+  "assets": [
+    {
+      "schema": "haihao.aircraft/weapons-mother-source-glb-audit@1.0.0",
+      "file": "m2_browning.glb",
+      "bytes": 18536776,
+      "sha256": "3cb10b4c2cb6ae96656146f55e81f54a66338bcb817ed4727e4d79c38843d813",
+      "glbVersion": 2,
+      "assetMetadata": {
+        "generator": "Sketchfab-14.87.0",
+        "title": "M2 Browning",
+        "author": "buh (https://sketchfab.com/inobi_ll)",
+        "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+        "source": "https://sketchfab.com/3d-models/m2-browning-ccf212e16b6748419cea6d7b14b30b48"
+      },
+      "extensionsUsed": [
+        "KHR_materials_specular"
+      ],
+      "extensionsRequired": [],
+      "counts": {
+        "scenes": 1,
+        "nodes": 48,
+        "meshes": 22,
+        "primitives": 22,
+        "vertices": 30885,
+        "triangles": 44431,
+        "morphTargets": 0,
+        "materials": 5,
+        "textures": 20,
+        "images": 20,
+        "animations": 0,
+        "skins": 0,
+        "cameras": 0
+      },
+      "sceneInstances": {
+        "meshInstances": 22,
+        "primitiveInstances": 22,
+        "triangleInstances": 44431
+      },
+      "bounds": {
+        "min": [
+          -0.41189,
+          -0.35843,
+          -1.30915
+        ],
+        "max": [
+          0.17885,
+          0.12682,
+          0.33319
+        ],
+        "size": [
+          0.59074,
+          0.48525,
+          1.64234
+        ],
+        "center": [
+          -0.11652,
+          -0.115805,
+          -0.48798
+        ],
+        "staticAccessorBoundsOnly": true
+      },
+      "duplicateNodeNames": [
+        {
+          "name": "����������",
+          "nodeIndexes": [
+            46,
+            47
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "index": 0,
+          "name": ".012",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": [
+            "KHR_materials_specular"
+          ]
+        },
+        {
+          "index": 1,
+          "name": ".006",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": [
+            "KHR_materials_specular"
+          ]
+        },
+        {
+          "index": 2,
+          "name": "material",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": [
+            "KHR_materials_specular"
+          ]
+        },
+        {
+          "index": 3,
+          "name": ".009",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": [
+            "KHR_materials_specular"
+          ]
+        },
+        {
+          "index": 4,
+          "name": ".013",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": [
+            "KHR_materials_specular"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "index": 0,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 847850,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 1,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1249599,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 2,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1047727,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 3,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 475628,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 4,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 809578,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 5,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1349820,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 6,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1188990,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 7,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 464760,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 8,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1117284,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 9,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1522042,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 10,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1435893,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 11,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 631323,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 12,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 227891,
+          "dimensions": [
+            512,
+            512
+          ],
+          "estimatedRgba8MipBytes": 1398102
+        },
+        {
+          "index": 13,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 81468,
+          "dimensions": [
+            512,
+            512
+          ],
+          "estimatedRgba8MipBytes": 1398102
+        },
+        {
+          "index": 14,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 204842,
+          "dimensions": [
+            512,
+            512
+          ],
+          "estimatedRgba8MipBytes": 1398102
+        },
+        {
+          "index": 15,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 106230,
+          "dimensions": [
+            512,
+            512
+          ],
+          "estimatedRgba8MipBytes": 1398102
+        },
+        {
+          "index": 16,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 694060,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 17,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1053558,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 18,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1073099,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 19,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 403446,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        }
+      ],
+      "estimatedDecodedTextureMiB": 90.67,
+      "animations": [],
+      "skins": [],
+      "intakeStatus": "source-candidate-only",
+      "b24MountAssignment": "unresolved-user-mapping-required",
+      "geometryApproval": false,
+      "runtimeApproval": false,
+      "candidateId": "m2-browning"
+    },
+    {
+      "schema": "haihao.aircraft/weapons-mother-source-glb-audit@1.0.0",
+      "file": "m2_browning_.50_cal_machine_gun.glb",
+      "bytes": 43682696,
+      "sha256": "d62531f0f9b3a7b65293e22615d51e48bd12d9ae7529214a9bfdc2c5f4887bb8",
+      "glbVersion": 2,
+      "assetMetadata": {
+        "generator": "Sketchfab-12.68.0",
+        "title": "M2 Browning .50 Cal Machine Gun",
+        "author": "8sianDude (https://sketchfab.com/haoliu95)",
+        "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+        "source": "https://sketchfab.com/3d-models/m2-browning-50-cal-machine-gun-5006cff7b57249fbb2ac7cc64cb9af72"
+      },
+      "extensionsUsed": [],
+      "extensionsRequired": [],
+      "counts": {
+        "scenes": 1,
+        "nodes": 17,
+        "meshes": 13,
+        "primitives": 13,
+        "vertices": 485120,
+        "triangles": 809984,
+        "morphTargets": 0,
+        "materials": 8,
+        "textures": 24,
+        "images": 24,
+        "animations": 0,
+        "skins": 0,
+        "cameras": 0
+      },
+      "sceneInstances": {
+        "meshInstances": 13,
+        "primitiveInstances": 13,
+        "triangleInstances": 809984
+      },
+      "bounds": {
+        "min": [
+          -2.322607,
+          2.240493,
+          -0.660069
+        ],
+        "max": [
+          0.902167,
+          3.113202,
+          0.8208
+        ],
+        "size": [
+          3.224774,
+          0.872709,
+          1.480869
+        ],
+        "center": [
+          -0.71022,
+          2.676848,
+          0.080366
+        ],
+        "staticAccessorBoundsOnly": true
+      },
+      "duplicateNodeNames": [],
+      "materials": [
+        {
+          "index": 0,
+          "name": "m2hb",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": []
+        },
+        {
+          "index": 1,
+          "name": "m2hb_grips",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": []
+        },
+        {
+          "index": 2,
+          "name": "bullets",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": []
+        },
+        {
+          "index": 3,
+          "name": "bullet_links",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": []
+        },
+        {
+          "index": 4,
+          "name": "crate_metal",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": []
+        },
+        {
+          "index": 5,
+          "name": "crate_swivel",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": []
+        },
+        {
+          "index": 6,
+          "name": "crate_handle",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": []
+        },
+        {
+          "index": 7,
+          "name": "turret_mount",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": []
+        }
+      ],
+      "images": [
+        {
+          "index": 0,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1497246,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 1,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1601234,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 2,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 533000,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 3,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 95672,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 4,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 17593,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 5,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 445414,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 6,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 67886,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 7,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 26270,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 8,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 508759,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 9,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 77623,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 10,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 93797,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 11,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 234124,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 12,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 662744,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 13,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 600044,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 14,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1115229,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 15,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 22145,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 16,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 41943,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 17,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 324386,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 18,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 21178,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 19,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 5139,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 20,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 361126,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 21,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 823754,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 22,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 998006,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 23,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 482426,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        }
+      ],
+      "estimatedDecodedTextureMiB": 128.0,
+      "animations": [],
+      "skins": [],
+      "intakeStatus": "source-candidate-only",
+      "b24MountAssignment": "unresolved-user-mapping-required",
+      "geometryApproval": false,
+      "runtimeApproval": false,
+      "candidateId": "m2-browning-50cal-machine-gun"
+    },
+    {
+      "schema": "haihao.aircraft/weapons-mother-source-glb-audit@1.0.0",
+      "file": "browning_m2.glb",
+      "bytes": 18143688,
+      "sha256": "23273a3232a479d118e87ebeb82348498bd8f57b5559f6012a3b1476272d0fbb",
+      "glbVersion": 2,
+      "assetMetadata": {
+        "generator": "Sketchfab-16.45.0",
+        "title": "Browning M2",
+        "author": "emran.bayati (https://sketchfab.com/emran.bayati)",
+        "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+        "source": "https://sketchfab.com/3d-models/browning-m2-381c0f1939e843ceae232500e24e7231"
+      },
+      "extensionsUsed": [
+        "KHR_materials_specular"
+      ],
+      "extensionsRequired": [],
+      "counts": {
+        "scenes": 1,
+        "nodes": 17,
+        "meshes": 7,
+        "primitives": 7,
+        "vertices": 171967,
+        "triangles": 207207,
+        "morphTargets": 0,
+        "materials": 3,
+        "textures": 9,
+        "images": 9,
+        "animations": 0,
+        "skins": 0,
+        "cameras": 0
+      },
+      "sceneInstances": {
+        "meshInstances": 7,
+        "primitiveInstances": 7,
+        "triangleInstances": 207207
+      },
+      "bounds": {
+        "min": [
+          -98.117648,
+          -8.810987,
+          -99.388306
+        ],
+        "max": [
+          129.78891,
+          48.905283,
+          99.388115
+        ],
+        "size": [
+          227.906558,
+          57.71627,
+          198.776421
+        ],
+        "center": [
+          15.835631,
+          20.047148,
+          -9.5e-05
+        ],
+        "staticAccessorBoundsOnly": true
+      },
+      "duplicateNodeNames": [
+        {
+          "name": "box_low002_T_BrowningM2_02_0",
+          "nodeIndexes": [
+            13,
+            14
+          ]
+        }
+      ],
+      "materials": [
+        {
+          "index": 0,
+          "name": "T_BrowningM2_03",
+          "alphaMode": "OPAQUE",
+          "doubleSided": false,
+          "extensions": []
+        },
+        {
+          "index": 1,
+          "name": "T_BrowningM2_02",
+          "alphaMode": "OPAQUE",
+          "doubleSided": true,
+          "extensions": []
+        },
+        {
+          "index": 2,
+          "name": "T_BrowningM2_01",
+          "alphaMode": "OPAQUE",
+          "doubleSided": false,
+          "extensions": [
+            "KHR_materials_specular"
+          ]
+        }
+      ],
+      "images": [
+        {
+          "index": 0,
+          "name": null,
+          "mimeType": "image/jpeg",
+          "encodedBytes": 425284,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 1,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1330069,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 2,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 1516593,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 3,
+          "name": null,
+          "mimeType": "image/jpeg",
+          "encodedBytes": 337098,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 4,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 923029,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 5,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 974302,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 6,
+          "name": null,
+          "mimeType": "image/jpeg",
+          "encodedBytes": 441432,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 7,
+          "name": null,
+          "mimeType": "image/png",
+          "encodedBytes": 915734,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        },
+        {
+          "index": 8,
+          "name": null,
+          "mimeType": "image/jpeg",
+          "encodedBytes": 527400,
+          "dimensions": [
+            1024,
+            1024
+          ],
+          "estimatedRgba8MipBytes": 5592406
+        }
+      ],
+      "estimatedDecodedTextureMiB": 48.0,
+      "animations": [],
+      "skins": [],
+      "intakeStatus": "source-candidate-only",
+      "b24MountAssignment": "unresolved-user-mapping-required",
+      "geometryApproval": false,
+      "runtimeApproval": false,
+      "candidateId": "browning-m2"
+    }
+  ]
+}
