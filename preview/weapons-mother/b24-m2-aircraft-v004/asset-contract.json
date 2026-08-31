@@ -1,7 +1,7 @@
 {
   "schema": "haihao.aircraft/production-asset-contract@1.0.0",
-  "assetId": "WM_B24_ANM2_V007",
-  "status": "node-axis-calibrated-bounded-physics-online-station-study",
+  "assetId": "WM_B24_ANM2_V008",
+  "status": "rear-sight-roll-calibrated-pooled-aaa-cycle-online-station-study",
   "runtimeRole": "hero source-parity and aircraft-installation review",
   "construction": {
     "declaredUnit": "meter",
@@ -17,16 +17,22 @@
       "stationConversion": "rotation +90 degrees about X",
       "starboardReferenceMuzzleAxis": "+Y",
       "portReferenceMuzzleAxis": "-Y",
-      "alignmentBasis": "right-handed; determinant +1",
+      "alignmentBasis": "right-handed; determinant +1; bore plus exact rear-sight radial roll datum",
       "barrelRecoilMeters": 0.028575,
-      "mechanicalCycle": ["barrel and barrel extension short recoil", "bolt full recoil", "driving spring compression", "cocking-handle reference motion", "trigger reset"],
+      "mechanicalCycle": ["locked barrel and barrel-extension short recoil", "breech-lock drop and accelerator rotation", "bolt full recoil and driving-spring compression", "extractor downward transfer and bottom case ejection", "belt-feed lever, slide, feed pawl and holding pawl motion", "counter-recoil, chambering and relock"],
+      "mechanicalEvidence": "1944 Aircrewman's Gunnery Manual cycle of operation; manual-cycle proxy parts are labeled and are not claimed as exact catalog geometry",
       "caseAndLinkLifetime": "persistent until user clears the test area",
-      "caseAndLinkCollision": "Cannon rigid bodies with SI gravity, floor and inter-object collision; each body becomes static after 2-4 debounced impacts or normal sleep",
+      "caseAndLinkCollision": "Cannon rigid bodies with SI gravity; only floor or settled-pile contacts count toward 2-4 bounces, quiet supported bodies transfer to persistent instanced rendering, and coarse pile support colliders preserve stacking",
+      "physicsActiveBodyLimit": 96,
+      "settledInstanceCapacityPerType": 32768,
+      "muzzleEffects": "fixed-capacity pooled textured flash, white smoke and fine sparks; one reusable light per gun",
+      "audioStages": ["muzzle report", "receiver impulse", "bolt recoil", "feed pawl and slide", "counter-recoil lock", "ammunition box and flexible chute rattle", "case and link support impact"],
+      "audioSourcePolicy": "deterministic Web Audio synthesis; no unlicensed external recordings",
       "tracerCadence": "one tracer per five rounds when enabled"
     },
     "sourceExactExterior": true,
     "sourceUvPreserved": true,
-    "runtimeWaistFeed": "source-exact 12.7x99 mm rounds, extracted M2 disintegrating-link components and source ammunition box; original B-24 black routing meshes 799 and 818 retained only as hidden evidence",
+    "runtimeWaistFeed": "source-exact 12.7x99 mm rounds, extracted M2 disintegrating-link components, filled source ammunition box, box exit, flexible chute rails/bands and receiver feedway; original B-24 black routing meshes 799 and 818 retained only as hidden evidence",
     "defaultReviewStage": "B-24 starboard waist complete installation",
     "stationMounts": ["B-24 port waist flexible", "B-24 starboard waist flexible", "A-13 manual evidence envelope"],
     "sourceStationAssemblies": {
@@ -48,13 +54,18 @@
     "seatedMountPolicy": "A-13 integrated ball turret; no generic seat pedestal"
   },
   "requirements": {
-    "interaction": ["isolated gun", "port waist", "starboard waist", "A-13 evidence", "service separation", "internal reference overlay", "ammo separation"],
+    "interaction": ["isolated gun", "port waist", "starboard waist", "A-13 evidence", "service separation", "internal reference overlay", "ammo separation", "layered audio mute"],
     "surface": ["stable surface_id", "deterministic macro/meso/micro fields", "color/roughness only", "editable seeds and wear controls"],
     "delivery": "online HTML with remote source asset stored outside the hosted Site; no hosted GLB and no embedded image payloads"
   },
   "budgets": {
     "baseTriangles": 186160,
-    "drawCalls": 80,
+    "drawCalls": 120,
+    "burstDynamicBodies": 96,
+    "settledDebrisDrawCalls": 2,
+    "smokePool": 192,
+    "sparkPool": 160,
+    "adaptiveDpr": {"aaa": 1.5, "balanced": 1.0, "degradeBelowFps": 42, "recoverAboveFps": 55},
     "runtimeFieldTextureResolution": 256,
     "decodedGeneratedTextureMemoryMiB": 2.5,
     "htmlBytes": 250000,

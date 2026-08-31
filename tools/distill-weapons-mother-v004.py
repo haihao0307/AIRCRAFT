@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the traceable V004 AN/M2 geometry distillation pack.
+"""Build the traceable V008 AN/M2 geometry distillation pack.
 
 The source vertex data, normals and UVs are copied exactly.  Only hierarchy,
 semantic names, placeholder surface bindings and documented group transforms
@@ -366,11 +366,11 @@ def serialize(builder: Any, roots: list[int], extras: dict[str, Any]) -> bytes:
     document = {
         "asset": {
             "version": "2.0",
-            "generator": "AIRCRAFT_NATIVE_FORGE Weapons Mother V004 distiller",
+            "generator": "AIRCRAFT_NATIVE_FORGE Weapons Mother V008 distiller",
             "extras": extras,
         },
         "scene": 0,
-        "scenes": [{"name": "WM_B24_M2_V004", "nodes": roots}],
+        "scenes": [{"name": "WM_B24_M2_V008", "nodes": roots}],
         "nodes": builder.nodes,
         "meshes": builder.meshes,
         "materials": MATERIALS,
@@ -500,8 +500,6 @@ def gun_alignment(
     source_rear = [source_min, source_muzzle_slice[1], source_muzzle_slice[2]]
     source_sight = point_bounds_center(source_sight_points)
     source_forward = [1.0, 0.0, 0.0]
-    source_up = [0.0, 0.0, 1.0]
-    source_width = vector_normalized(vector_cross(source_up, source_forward))
 
     target_matrix = b24_matrices[gun_node]
     target_muzzle = transform_point(target_matrix, (0.0, float(muzzle_sign), 0.0))
@@ -509,10 +507,24 @@ def gun_alignment(
     target_forward = vector_normalized(
         [target_matrix[row][1] * muzzle_sign for row in range(3)]
     )
-    target_up = vector_normalized([target_matrix[row][2] for row in range(3)])
     target_sight = point_bounds_center(
         node_world_positions(b24, b24_matrices, gun_node, sight_roots)
     )
+
+    # The normalized B-24 gun mesh has a trustworthy bore axis, but its local Z
+    # is not the visual roll datum on both mirrored waist stations.  The exact
+    # rear-sight subset is the second measured landmark shared by the source
+    # AN/M2 and the B-24 installation.  Project both sight offsets off the bore
+    # and use those radial directions to lock roll.  This preserves muzzle and
+    # rear bore points while preventing the receiver from appearing rotated
+    # relative to the retained B-24 sight ring.
+    source_up = vector_normalized(
+        projected_radial(source_sight, source_rear, source_forward)
+    )
+    target_up = vector_normalized(
+        projected_radial(target_sight, target_rear, target_forward)
+    )
+    source_width = vector_normalized(vector_cross(source_up, source_forward))
     target_width = vector_normalized(vector_cross(target_up, target_forward))
 
     source_length = vector_length(vector_subtract(source_muzzle, source_rear))
@@ -544,7 +556,7 @@ def gun_alignment(
         "targetReferenceLengthMeters": target_length,
         "sourceLandmarks": {"muzzle": source_muzzle, "rear": source_rear, "sight": source_sight},
         "targetLandmarks": {"muzzle": target_muzzle, "rear": target_rear, "sight": target_sight},
-        "method": "uniform scale and right-handed rigid calibration from declared source +X bore to exact B-24 gun-node local axis",
+        "method": "uniform scale and right-handed rigid calibration from source +X bore plus exact source/B-24 rear-sight radial roll datum",
     }
 
 
@@ -799,7 +811,7 @@ def main() -> None:
     roots = [gun_group, feed_group, cartridge_group, link_group, mechanism_group] + station_groups
     pack_extras = {
         "schema": "haihao.aircraft/weapons-mother-distilled-geometry-pack@1.0.0",
-        "assetId": "WM_B24_ANM2_V004",
+        "assetId": "WM_B24_ANM2_V008",
         "status": "review-source-mirrors-and-semantic-distillation",
         "geometryPolicy": "source vertex data exact; only documented rigid/uniform transforms allowed",
         "materials": "placeholder stable surface_id bindings; geometry UV preserved",
@@ -812,7 +824,7 @@ def main() -> None:
 
     manifest = {
         "schema": "haihao.aircraft/weapons-mother-distillation-manifest@1.0.0",
-        "assetId": "WM_B24_ANM2_V004",
+        "assetId": "WM_B24_ANM2_V008",
         "status": "user-review",
         "sources": [
             {

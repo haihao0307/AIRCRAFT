@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate V004 source parity, delivery integrity, and user-facing controls."""
+"""Validate the V008 source-parity, cycle, audio, physics and delivery contract."""
 
 from __future__ import annotations
 
@@ -46,6 +46,26 @@ def transform_column_major(matrix: list[float], point: list[float]) -> list[floa
 
 def point_error(left: list[float], right: list[float]) -> float:
     return sum((left[axis] - right[axis]) ** 2 for axis in range(3)) ** 0.5
+
+
+def vector_subtract(left: list[float], right: list[float]) -> list[float]:
+    return [left[axis] - right[axis] for axis in range(3)]
+
+
+def vector_dot(left: list[float], right: list[float]) -> float:
+    return sum(left[axis] * right[axis] for axis in range(3))
+
+
+def vector_normalized(value: list[float]) -> list[float]:
+    length = vector_dot(value, value) ** 0.5
+    assert length > 1e-9, "zero-length landmark vector"
+    return [component / length for component in value]
+
+
+def projected_radial(point: list[float], origin: list[float], forward: list[float]) -> list[float]:
+    delta = vector_subtract(point, origin)
+    along = vector_dot(delta, forward)
+    return [delta[axis] - forward[axis] * along for axis in range(3)]
 
 
 def main() -> None:
@@ -134,6 +154,7 @@ def main() -> None:
         'id="fire-toggle"',
         'id="single-shot"',
         'id="tracer-toggle"',
+        'id="audio-toggle"',
         'id="clear-debris"',
     )
     for item in required_controls:
@@ -146,17 +167,27 @@ def main() -> None:
     assert "makeAirframeInterface" not in html, "invented generic airframe interface returned"
     assert "B24_WAIST_FEED_AMMO_BOX_REFERENCE_ATTACHMENT" not in html, "unapproved generic ammunition box returned"
     assert "makeAircraftFeedAssembly" in html and "LIVE_12_7X99_LINKED_BELT" in html, "live-round feed system missing"
+    assert "AMMUNITION_BOX_FULL_INTERIOR" in html and "FLEXIBLE_FEED_CHUTE_BANDS" in html, "filled box-to-feedway route missing"
     assert "connectedToGun:true" in html and "originalRoutingMeshVisible:false" in html, "feed rounds are not bore-aligned and connected"
     assert "sourceFeedNode.parent.remove(sourceFeedNode)" in html, "obsolete B-24 routing ribbon is still visible"
     assert "cannon-es@0.20.0" in html and "new CANNON.Plane" in html, "rigid-body solver missing"
-    assert "physicsWorld.step(1/60,dt,4)" in html, "fixed-step debris physics missing"
+    assert "physicsWorld.step(1/60,dt,3)" in html, "fixed-step debris physics missing"
     assert "impactLimit:2+Math.floor(Math.random()*3)" in html, "debris impact limit must remain 2-4"
-    assert "body.type=CANNON.Body.STATIC" in html, "settled debris is not removed from dynamic simulation"
-    assert "data.up.clone().multiplyScalar(-1.28)" in html, "case ejection is not initially downward"
+    assert "findSupportBody(event)" in html and "isSupport:true" in html, "only support collisions may count toward settling"
+    assert "MAX_ACTIVE_DEBRIS=96" in html and "MAX_SETTLED_PER_TYPE=32768" in html, "bounded debris pools missing"
+    assert "new THREE.InstancedMesh(cachedRuntimeGeometry(type)" in html, "settled debris instancing missing"
+    assert "physicsWorld.removeBody(body)" in html, "settled debris remains in the dynamic solver"
+    assert "data.up.clone().multiplyScalar(-1.5)" in html, "case ejection is not initially downward"
     assert "physicsWorld.removeBody" in html, "debris clear does not remove rigid bodies"
     assert "landingQuaternion" not in html and "pileRadius" not in html and "supportHeight" not in html, "obsolete floating-pile solver returned"
     assert "DecompressionStream" in html and "force-cache" in html, "compressed remote source loading missing"
     assert "spring.scale.z" in html and "bolt.position.z" in html and "barrel.position.x" in html, "mechanical cycle animation incomplete"
+    for semantic in ("cycle.breech_lock", "cycle.accelerator", "cycle.belt_feed_lever", "cycle.feed_slide", "cycle.feed_pawl", "cycle.holding_pawl", "cycle.extractor"):
+        assert semantic in html, f"manual-cycle action missing: {semantic}"
+    assert "audioDirector" in html and "audioDirector.shot" in html and "audioDirector.feed" in html and "audioDirector.impact" in html, "layered Web Audio event map missing"
+    assert "Audio(" not in html and ".mp3" not in html.lower() and ".wav" not in html.lower(), "unlicensed external audio returned"
+    assert "smokeInstances" in html and "sparkInstances" in html and "muzzleRigs" in html, "pooled firing effects missing"
+    assert "effects.push" not in html and "new THREE.PointLight(0xffa554,18" not in html, "per-shot effects or lights returned"
     assert "new THREE.ConeGeometry" not in html, "cartoon cone muzzle flash returned"
     assert "const pressure=new THREE.Mesh(new THREE.TorusGeometry" not in html, "cartoon ring muzzle flash returned"
     assert "data:image" not in html.lower(), "embedded image payload returned"
@@ -171,6 +202,14 @@ def main() -> None:
         assert alignment["basisDeterminant"] == 1.0, f"left-handed alignment: {station_id}"
         assert point_error(transform_column_major(matrix, source["muzzle"]), target["muzzle"]) < 1e-6, f"muzzle landmark drift: {station_id}"
         assert point_error(transform_column_major(matrix, source["rear"]), target["rear"]) < 1e-6, f"rear-axis landmark drift: {station_id}"
+        mapped_muzzle = transform_column_major(matrix, source["muzzle"])
+        mapped_rear = transform_column_major(matrix, source["rear"])
+        mapped_sight = transform_column_major(matrix, source["sight"])
+        mapped_forward = vector_normalized(vector_subtract(mapped_muzzle, mapped_rear))
+        target_forward = vector_normalized(vector_subtract(target["muzzle"], target["rear"]))
+        mapped_roll = vector_normalized(projected_radial(mapped_sight, mapped_rear, mapped_forward))
+        target_roll = vector_normalized(projected_radial(target["sight"], target["rear"], target_forward))
+        assert vector_dot(mapped_roll, target_roll) > 0.999999, f"rear-sight roll datum drift: {station_id}"
 
     names = {node.get("name", "") for node in document.get("nodes", [])}
     required_nodes = {
@@ -210,7 +249,10 @@ def main() -> None:
     assert semantics["b24SourceUp"] == "+Y" and semantics["rendererUp"] == "+Z"
     assert semantics["starboardReferenceMuzzleAxis"] == "+Y"
     assert semantics["portReferenceMuzzleAxis"] == "-Y"
-    assert semantics["alignmentBasis"] == "right-handed; determinant +1"
+    assert semantics["alignmentBasis"].startswith("right-handed; determinant +1")
+    assert semantics["physicsActiveBodyLimit"] == 96
+    assert semantics["settledInstanceCapacityPerType"] == 32768
+    assert len(semantics["audioStages"]) >= 7
     assert contract["construction"]["defaultReviewStage"] == "B-24 starboard waist complete installation"
     starboard = contract["construction"]["sourceStationAssemblies"]["starboardWaist"]
     assert starboard == {
@@ -262,8 +304,11 @@ def main() -> None:
             "projectile and source coordinate axes",
             "side-specific source-datum alignment",
             "source aircraft support and live-round feed assembly",
-            "Cannon rigid-body case and link settling",
-            "non-conical layered muzzle effect",
+            "support-contact-only bounded Cannon case and link settling",
+            "persistent settled debris instancing and pile support",
+            "pooled non-conical flash, white smoke and fine sparks",
+            "six-stage manual-evidence mechanism cycle",
+            "layered procedural Web Audio events",
             "procedural surface controls",
             "remote source asset outside the hosted Site",
             "template-entry redirect",
