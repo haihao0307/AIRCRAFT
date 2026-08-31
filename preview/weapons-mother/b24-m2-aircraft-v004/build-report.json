@@ -1,13 +1,13 @@
 {
   "schema": "haihao.aircraft/weapons-mother-html-build@1.0.0",
   "output": "preview/weapons-mother/b24-m2-aircraft-v004/index.html",
-  "bytes": 101558,
-  "sha256": "ed5eff2009726395bacffebf177c3ac0b4d5c68455149a9a91b36b51a6291f39",
+  "bytes": 101631,
+  "sha256": "37a8c7931075991730c6db2136dbae045862b30b8fcbf4cb5efc3ca9898498a8",
   "embeddedGlbBytes": 0,
   "embeddedGlbSha256": "258ad74080dafd1b8f1cc951254078f8e6f24e72c8499377f0640dc74bf85326",
   "sourceGlbBytes": 7730180,
   "assetMode": "external",
-  "externalGlbUrl": "http://127.0.0.1:8765/data/weapons-mother/b24-m2-aircraft-v004/distilled-reference.glb.gz",
+  "externalGlbUrl": "https://raw.githubusercontent.com/haihao0307/AIRCRAFT/9bac72dfe4a120b71a9911492b9282f39f142006/data/weapons-mother/b24-m2-aircraft-v004/distilled-reference.glb.gz",
   "singleFile": false,
   "directFileOpen": false,
   "runtimeDependency": "Three.js and cannon-es ESM from jsDelivr"
