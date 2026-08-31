@@ -1,6 +1,6 @@
 {
   "schema": "haihao.aircraft/weapons-mother-distillation-manifest@1.0.0",
-  "assetId": "WM_B24_ANM2_V008",
+  "assetId": "WM_B24_ANM2_V009",
   "status": "user-review",
   "sources": [
     {
@@ -57,8 +57,8 @@
   ],
   "output": {
     "file": "G:\\AIRCRAFT\\b24-v010-push\\data\\weapons-mother\\b24-m2-aircraft-v004\\distilled-reference.glb",
-    "bytes": 7730168,
-    "sha256": "4f2d2184c9cfbd340eed694165b17dbc78ff56f76a60ab130066ea020b1e04c5",
+    "bytes": 7730180,
+    "sha256": "84ce74a3ed21cfb2c932e3c39a94168d397b6b1f48493b244856bf558b699e59",
     "materials": 9,
     "meshNodes": 31
   },
@@ -75,17 +75,17 @@
           -0.10906670083952653,
           -0.7029435759216235,
           0,
-          -0.710264114785747,
-          -0.046781145857842266,
-          -0.6493024012381907,
+          -0.6984244452283599,
+          -0.27851711311834626,
+          -0.6024024473900433,
           0,
-          0.03937135264525727,
-          0.9561240378601735,
-          -0.11195497948137155,
+          -0.13501300111084033,
+          0.9158547205108666,
+          -0.26690600791821967,
           0,
-          0.8173721699553022,
-          -0.18628722276979767,
-          -6.021832427457077,
+          0.8167386387450322,
+          -0.18645615078415054,
+          -6.022391846795695,
           1
         ],
         "uniformScale": 0.9634610509064878,
@@ -104,10 +104,10 @@
             -9.652080529547752e-05,
             -0.0036395122098954436
           ],
-          "sight": [
-            -0.25754228979349136,
-            0.019211169332265854,
-            0.07314983010292053
+          "rollDatum": [
+            -0.5267140865325928,
+            -9.652080529547752e-05,
+            0.9963604877901046
           ]
         },
         "targetLandmarks": {
@@ -121,13 +121,15 @@
             -0.13231556482207868,
             -5.651112011276135
           ],
-          "sight": [
+          "rollDatum": [
             0.6465943530044893,
             -0.07784762019492544,
             -5.875192594047469
           ]
         },
-        "method": "uniform scale and right-handed rigid calibration from source +X bore plus exact source/B-24 rear-sight radial roll datum"
+        "sourceUpAxis": "+Z",
+        "targetRollDatum": "exact B-24 rear-sight connected-component subset",
+        "method": "uniform scale and right-handed rigid calibration from source +X bore and source-authored +Z vertical to the exact B-24 rear-sight radial roll datum"
       }
     },
     "b24.waist.port.flexible": {
@@ -142,17 +144,17 @@
           9.469297024292713e-08,
           -0.7047766356628324,
           0,
-          -0.704058507809993,
-          0.043491313007895466,
-          0.6565448284302241,
+          -0.69056176450729,
+          -0.19256788399897012,
+          0.6439588868227493,
           0,
-          0.0318076053263355,
-          0.962678292140265,
-          -0.029660926326798676,
+          -0.1408352071635783,
+          0.944223807429895,
+          0.13133101069831818,
           0,
-          -0.771187115970476,
-          -0.23263732904739748,
-          -6.055266846025871,
+          -0.7718141488779512,
+          -0.2327272789936207,
+          -6.054682128710593,
           1
         ],
         "uniformScale": 0.963660203840159,
@@ -171,10 +173,10 @@
             -9.652080529547752e-05,
             -0.0036395122098954436
           ],
-          "sight": [
-            -0.25754228979349136,
-            0.019211169332265854,
-            0.07314983010292053
+          "rollDatum": [
+            -0.5267140865325928,
+            -9.652080529547752e-05,
+            0.9963604877901046
           ]
         },
         "targetLandmarks": {
@@ -188,13 +190,15 @@
             -0.23614525613851947,
             -5.684006483095239
           ],
-          "sight": [
+          "rollDatum": [
             -0.6338402972043882,
             -0.09908366324780735,
             -5.866897933073034
           ]
         },
-        "method": "uniform scale and right-handed rigid calibration from source +X bore plus exact source/B-24 rear-sight radial roll datum"
+        "sourceUpAxis": "+Z",
+        "targetRollDatum": "exact B-24 rear-sight connected-component subset",
+        "method": "uniform scale and right-handed rigid calibration from source +X bore and source-authored +Z vertical to the exact B-24 rear-sight radial roll datum"
       }
     }
   },

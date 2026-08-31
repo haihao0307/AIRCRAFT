@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the V008 source-parity, cycle, audio, physics and delivery contract."""
+"""Validate the V009 source-parity, hierarchy, cycle, physics and delivery contract."""
 
 from __future__ import annotations
 
@@ -160,26 +160,34 @@ def main() -> None:
     for item in required_controls:
         assert item in html, f"missing control: {item}"
 
-    assert 'class="control active" data-stage="waist-starboard"' in html, "default stage is not the complete starboard waist installation"
+    assert 'class="control active" data-stage="waist-starboard"' in html, "default stage is not the starboard source-calibration view"
     assert 'setStage("waist-starboard")' in html, "runtime default stage drift"
     assert "root.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),data.direction)" in html, "projectile tip is not aligned directly to trajectory"
     assert "const yToX=" not in html, "obsolete projectile-axis mapping returned"
     assert "makeAirframeInterface" not in html, "invented generic airframe interface returned"
     assert "B24_WAIST_FEED_AMMO_BOX_REFERENCE_ATTACHMENT" not in html, "unapproved generic ammunition box returned"
-    assert "makeAircraftFeedAssembly" in html and "LIVE_12_7X99_LINKED_BELT" in html, "live-round feed system missing"
-    assert "AMMUNITION_BOX_FULL_INTERIOR" in html and "FLEXIBLE_FEED_CHUTE_BANDS" in html, "filled box-to-feedway route missing"
-    assert "connectedToGun:true" in html and "originalRoutingMeshVisible:false" in html, "feed rounds are not bore-aligned and connected"
-    assert "sourceFeedNode.parent.remove(sourceFeedNode)" in html, "obsolete B-24 routing ribbon is still visible"
+    assert "makeAircraftFeedAssembly" in html and "deriveSourceFeedCurve" in html and "LIVE_12_7X99_LINKED_BELT" in html, "source-routed live-round feed system missing"
+    assert "AMMUNITION_BOX_FULL_INTERIOR" in html and "OPEN_SOURCE_ROUTE_GUIDE_RAIL" in html, "filled box-to-feedway route missing"
+    assert "connectedToGun:true" in html and "airframeFixed:true" in html and 'parentSpace:"station-mount"' in html, "feed hierarchy is not airframe-fixed and gun-connected"
+    assert "sourceFeedNode.visible=false" in html and "sourceFeedNode.parent.remove(sourceFeedNode)" not in html, "source B-24 route evidence was deleted instead of retained hidden"
+    assert "mount.add(assembly)" in html and "gun.add(assembly)" not in html, "ammunition box and chute incorrectly inherit gun motion"
+    assert "feedFrame(curve" in html and "roundAxis.dot(tangent)" in html, "round axes are not derived from belt tangent and gun bore"
     assert "cannon-es@0.20.0" in html and "new CANNON.Plane" in html, "rigid-body solver missing"
     assert "physicsWorld.step(1/60,dt,3)" in html, "fixed-step debris physics missing"
     assert "impactLimit:2+Math.floor(Math.random()*3)" in html, "debris impact limit must remain 2-4"
     assert "findSupportBody(event)" in html and "isSupport:true" in html, "only support collisions may count toward settling"
+    assert "refreshSupportContacts()" in html and "physicsWorld.contacts" in html, "settling does not verify current support contact"
+    assert "state.supported=false;state.supportBody=null" in html, "stale support state can still freeze debris in midair"
+    assert 'body.addEventListener("sleep"' in html and "pendingSupport" in html, "sleeping debris is not finalized from its last verified support contact"
+    assert "state.impactCount>=state.impactLimit&&state.supported" in html, "2-4 impact debris stop rule is not enforced"
     assert "MAX_ACTIVE_DEBRIS=96" in html and "MAX_SETTLED_PER_TYPE=32768" in html, "bounded debris pools missing"
     assert "new THREE.InstancedMesh(cachedRuntimeGeometry(type)" in html, "settled debris instancing missing"
     assert "physicsWorld.removeBody(body)" in html, "settled debris remains in the dynamic solver"
     assert "data.up.clone().multiplyScalar(-1.5)" in html, "case ejection is not initially downward"
     assert "physicsWorld.removeBody" in html, "debris clear does not remove rigid bodies"
     assert "landingQuaternion" not in html and "pileRadius" not in html and "supportHeight" not in html, "obsolete floating-pile solver returned"
+    assert "supportTop(state.supportBody)+halfHeight" in html, "settled debris is not snapped to its current support surface"
+    assert 'pileCell(type){return type==="case"?.025:.018}' in html and "pileHeightCap(type)" in html, "debris pile cells are too coarse or unbounded"
     assert "DecompressionStream" in html and "force-cache" in html, "compressed remote source loading missing"
     assert "spring.scale.z" in html and "bolt.position.z" in html and "barrel.position.x" in html, "mechanical cycle animation incomplete"
     for semantic in ("cycle.breech_lock", "cycle.accelerator", "cycle.belt_feed_lever", "cycle.feed_slide", "cycle.feed_pawl", "cycle.holding_pawl", "cycle.extractor"):
@@ -193,6 +201,8 @@ def main() -> None:
     assert "data:image" not in html.lower(), "embedded image payload returned"
     assert f'const PACK_URL="{REMOTE_SOURCE_URL}"' in html, "remote source URL missing"
     assert "外置 GLB" not in html and "exact GLB" not in html, "hosted-GLB wording returned to the interface"
+    assert "publishAlignmentQA()" in html and "window.__WM_QA__" in html, "final-world hierarchy alignment QA missing"
+    assert 'version:"V009"' in html, "runtime QA version drift"
 
     for station_id, station_alignment in manifest["stationAlignments"].items():
         alignment = station_alignment["highDetailGunAlignment"]
@@ -204,11 +214,12 @@ def main() -> None:
         assert point_error(transform_column_major(matrix, source["rear"]), target["rear"]) < 1e-6, f"rear-axis landmark drift: {station_id}"
         mapped_muzzle = transform_column_major(matrix, source["muzzle"])
         mapped_rear = transform_column_major(matrix, source["rear"])
-        mapped_sight = transform_column_major(matrix, source["sight"])
+        mapped_roll_datum = transform_column_major(matrix, source["rollDatum"])
         mapped_forward = vector_normalized(vector_subtract(mapped_muzzle, mapped_rear))
         target_forward = vector_normalized(vector_subtract(target["muzzle"], target["rear"]))
-        mapped_roll = vector_normalized(projected_radial(mapped_sight, mapped_rear, mapped_forward))
-        target_roll = vector_normalized(projected_radial(target["sight"], target["rear"], target_forward))
+        mapped_roll = vector_normalized(projected_radial(mapped_roll_datum, mapped_rear, mapped_forward))
+        target_roll = vector_normalized(projected_radial(target["rollDatum"], target["rear"], target_forward))
+        assert alignment["sourceUpAxis"] == "+Z", f"source vertical datum drift: {station_id}"
         assert vector_dot(mapped_roll, target_roll) > 0.999999, f"rear-sight roll datum drift: {station_id}"
 
     names = {node.get("name", "") for node in document.get("nodes", [])}
@@ -253,7 +264,8 @@ def main() -> None:
     assert semantics["physicsActiveBodyLimit"] == 96
     assert semantics["settledInstanceCapacityPerType"] == 32768
     assert len(semantics["audioStages"]) >= 7
-    assert contract["construction"]["defaultReviewStage"] == "B-24 starboard waist complete installation"
+    assert contract["construction"]["defaultReviewStage"] == "B-24 starboard waist source calibration"
+    assert contract["construction"]["completionClaim"] == "corrective review; not AAA-final or engineering-approved"
     starboard = contract["construction"]["sourceStationAssemblies"]["starboardWaist"]
     assert starboard == {
         "feedNode": 799,
@@ -302,10 +314,10 @@ def main() -> None:
             "UV preservation",
             "station evidence",
             "projectile and source coordinate axes",
-            "side-specific source-datum alignment",
-            "source aircraft support and live-round feed assembly",
-            "support-contact-only bounded Cannon case and link settling",
-            "persistent settled debris instancing and pile support",
+            "side-specific source +Z final-hierarchy alignment contract",
+            "source-routed airframe-fixed live-round feed assembly",
+            "current-support-contact-only bounded Cannon case and link settling",
+            "support-surface-snapped persistent debris instancing",
             "pooled non-conical flash, white smoke and fine sparks",
             "six-stage manual-evidence mechanism cycle",
             "layered procedural Web Audio events",

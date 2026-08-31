@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the traceable V008 AN/M2 geometry distillation pack.
+"""Build the traceable V009 AN/M2 geometry distillation pack.
 
 The source vertex data, normals and UVs are copied exactly.  Only hierarchy,
 semantic names, placeholder surface bindings and documented group transforms
@@ -490,7 +490,6 @@ def gun_alignment(
     source_points = []
     for node_index in (9, 15, 17, 19, 21, 23, 25, 27):
         source_points.extend(node_world_positions(anm2, anm2_matrices, node_index))
-    source_sight_points = node_world_positions(anm2, anm2_matrices, 19)
     source_min = min(point[0] for point in source_points)
     source_max = max(point[0] for point in source_points)
     source_muzzle_slice = point_mean(
@@ -498,8 +497,15 @@ def gun_alignment(
     )
     source_muzzle = [source_max, source_muzzle_slice[1], source_muzzle_slice[2]]
     source_rear = [source_min, source_muzzle_slice[1], source_muzzle_slice[2]]
-    source_sight = point_bounds_center(source_sight_points)
     source_forward = [1.0, 0.0, 0.0]
+    # The aircraft AN/M2 donor is authored with +X along the bore and +Z as the
+    # receiver vertical.  V008 incorrectly inferred the roll datum from node 19
+    # (a grip/control component).  Its off-axis center introduced an artificial
+    # roll of roughly fourteen degrees even though the bore landmarks passed.
+    # Use the source-authored +Z axis directly and reserve the exact B-24 rear
+    # sight subset for the station-side target roll datum.
+    source_up = [0.0, 0.0, 1.0]
+    source_roll_datum = [source_rear[0], source_rear[1], source_rear[2] + 1.0]
 
     target_matrix = b24_matrices[gun_node]
     target_muzzle = transform_point(target_matrix, (0.0, float(muzzle_sign), 0.0))
@@ -518,9 +524,6 @@ def gun_alignment(
     # and use those radial directions to lock roll.  This preserves muzzle and
     # rear bore points while preventing the receiver from appearing rotated
     # relative to the retained B-24 sight ring.
-    source_up = vector_normalized(
-        projected_radial(source_sight, source_rear, source_forward)
-    )
     target_up = vector_normalized(
         projected_radial(target_sight, target_rear, target_forward)
     )
@@ -554,9 +557,19 @@ def gun_alignment(
         "basisDeterminant": 1.0,
         "sourcePrimaryLengthMeters": source_length,
         "targetReferenceLengthMeters": target_length,
-        "sourceLandmarks": {"muzzle": source_muzzle, "rear": source_rear, "sight": source_sight},
-        "targetLandmarks": {"muzzle": target_muzzle, "rear": target_rear, "sight": target_sight},
-        "method": "uniform scale and right-handed rigid calibration from source +X bore plus exact source/B-24 rear-sight radial roll datum",
+        "sourceLandmarks": {
+            "muzzle": source_muzzle,
+            "rear": source_rear,
+            "rollDatum": source_roll_datum,
+        },
+        "targetLandmarks": {
+            "muzzle": target_muzzle,
+            "rear": target_rear,
+            "rollDatum": target_sight,
+        },
+        "sourceUpAxis": "+Z",
+        "targetRollDatum": "exact B-24 rear-sight connected-component subset",
+        "method": "uniform scale and right-handed rigid calibration from source +X bore and source-authored +Z vertical to the exact B-24 rear-sight radial roll datum",
     }
 
 
@@ -631,6 +644,7 @@ def main() -> None:
             "status": "source-exact-exterior-geometry",
             "declaredUnits": "meter",
             "forwardAxis": "+X",
+            "upAxis": "+Z",
             "engineeringApproval": False,
         },
     )
@@ -811,7 +825,7 @@ def main() -> None:
     roots = [gun_group, feed_group, cartridge_group, link_group, mechanism_group] + station_groups
     pack_extras = {
         "schema": "haihao.aircraft/weapons-mother-distilled-geometry-pack@1.0.0",
-        "assetId": "WM_B24_ANM2_V008",
+        "assetId": "WM_B24_ANM2_V009",
         "status": "review-source-mirrors-and-semantic-distillation",
         "geometryPolicy": "source vertex data exact; only documented rigid/uniform transforms allowed",
         "materials": "placeholder stable surface_id bindings; geometry UV preserved",
@@ -824,7 +838,7 @@ def main() -> None:
 
     manifest = {
         "schema": "haihao.aircraft/weapons-mother-distillation-manifest@1.0.0",
-        "assetId": "WM_B24_ANM2_V008",
+        "assetId": "WM_B24_ANM2_V009",
         "status": "user-review",
         "sources": [
             {
