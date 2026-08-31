@@ -1,0 +1,448 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-distillation-manifest@1.0.0",
+  "assetId": "WM_B24_ANM2_V015",
+  "status": "user-review",
+  "sources": [
+    {
+      "role": "b24",
+      "file": "b-24_liberator.glb",
+      "bytes": 23085972,
+      "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "author": "CreadorDeMu (https://sketchfab.com/creadordemu)",
+      "sourceUrl": "https://sketchfab.com/3d-models/b-24-liberator-c64e58edfacb4c519b5602278a7e51aa"
+    },
+    {
+      "role": "anm2",
+      "file": "anm2_browning_.50_cal_aircraft_machine_gun.glb",
+      "bytes": 6548040,
+      "sha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "author": "Misja van Laatum (https://sketchfab.com/miezpiez66)",
+      "sourceUrl": "https://sketchfab.com/3d-models/anm2-browning-50-cal-aircraft-machine-gun-83d967f5d3ea4fe18603514741c781d5"
+    },
+    {
+      "role": "mechanism",
+      "file": "m2_browning_machine_gun.glb",
+      "bytes": 11057836,
+      "sha256": "16c6d1e5edbba99d7a9b6dbff75d55b4abe5cd8974432086d576722f728a499d",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "author": "ChemicalFX (https://sketchfab.com/ChemicalFX_YT)",
+      "sourceUrl": "https://sketchfab.com/3d-models/m2-browning-machine-gun-766427b4adaf49b3aa23f72c524290d7"
+    },
+    {
+      "role": "cartridge",
+      "file": "12.7x99mm_m2_ball_still_practice_no_texture.glb",
+      "bytes": 777908,
+      "sha256": "f109fb80201d3c2339394c41155a4ca5e8f912f732c7d5d83832087356d81026",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "author": "HKM4 (https://sketchfab.com/HKM4A5)",
+      "sourceUrl": "https://sketchfab.com/3d-models/127x99mm-m2-ball-still-practice-no-texture-57f4f57322cf4ab998363321e9ed3e19"
+    },
+    {
+      "role": "belt",
+      "file": "m2_browning_.50_cal_machine_gun.glb",
+      "bytes": 43682696,
+      "sha256": "d62531f0f9b3a7b65293e22615d51e48bd12d9ae7529214a9bfdc2c5f4887bb8",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "author": "8sianDude (https://sketchfab.com/haoliu95)",
+      "sourceUrl": "https://sketchfab.com/3d-models/m2-browning-50-cal-machine-gun-5006cff7b57249fbb2ac7cc64cb9af72"
+    },
+    {
+      "role": "procedural-field-knowledge",
+      "file": "PROCEDURAL_FIELD_KNOWLEDGE_MINI_V1.0_2026-08-30.zip",
+      "bytes": 13456,
+      "sha256": "d69ecd2677507db9342a1d66092a8d6cf4255141346b14cc4629303bf1c4f396"
+    }
+  ],
+  "output": {
+    "file": "G:\\AIRCRAFT\\b24-v010-push\\data\\weapons-mother\\b24-m2-aircraft-v015\\distilled-reference.glb",
+    "bytes": 8585888,
+    "sha256": "81ec8016743c6e9cb86b6221c1d665be1d061b42ae73e241c7ddc572ea3af6c4",
+    "materials": 9,
+    "meshNodes": 33
+  },
+  "stationAlignments": {
+    "b24.waist.starboard.flexible": {
+      "sourceGunNodeIndex": 802,
+      "sourceRearSightComponentRoots": [
+        569,
+        591,
+        600,
+        616,
+        617,
+        796,
+        798,
+        800,
+        802
+      ],
+      "reviewTransform": {
+        "matrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          -0.8050758987070856,
+          -6.047046339680771,
+          1.3282194362354325,
+          1.0
+        ],
+        "basisConversion": "B-24 source +Y up to renderer +Z up; +90 degrees about X",
+        "anchorNodeIndex": 808,
+        "anchorSourceWorldMeters": [
+          0.8050758987070856,
+          -0.3146002174827506,
+          -6.047046339680771
+        ],
+        "floorNodeIndex": 811,
+        "sourceFloorYMeters": -1.3282194362354325,
+        "reviewFloorZMeters": 0.0,
+        "method": "exact source world placement plus one documented basis conversion and datum translation; no bounding-box auto-centering"
+      },
+      "highDetailGunAlignment": {
+        "matrixColumnMajor": [
+          0.6504635616044161,
+          -0.10917911936693829,
+          -0.703668122286833,
+          0.0,
+          0.05938817444061825,
+          0.9580477457283705,
+          -0.09375039794567178,
+          0.0,
+          0.7096070247798951,
+          0.019898800248383544,
+          0.6528657721464216,
+          0.0,
+          0.7985180363288806,
+          -0.2249378751391379,
+          -6.032955858589085,
+          1.0
+        ],
+        "uniformScale": 0.9644541209427846,
+        "referenceMuzzleLocalAxis": "+Y",
+        "basisDeterminant": 1.0,
+        "sourcePrimaryLengthMeters": 1.5062885284423828,
+        "targetReferenceLengthMeters": 1.4512503285814853,
+        "sourceLandmarks": {
+          "muzzle": [
+            0.97957444190979,
+            0.0013871534227504509,
+            0.002354761636104845
+          ],
+          "rear": [
+            -0.5267140594817235,
+            0.0013871534227504509,
+            0.002354761636104845
+          ],
+          "rollDatum": [
+            -0.5267140594817235,
+            0.0013871534227504509,
+            1.0023547616361048
+          ]
+        },
+        "targetLandmarks": {
+          "muzzle": [
+            1.4538188301350605,
+            -0.2966014851317147,
+            -6.709947855829144
+          ],
+          "rear": [
+            0.47504188573679723,
+            -0.13231556482207868,
+            -5.651112011276135
+          ],
+          "rollDatum": [
+            0.5518840811857137,
+            0.8612563129049973,
+            -5.734239628759635
+          ],
+          "rearSight": [
+            0.6465943530044893,
+            -0.08537252612084328,
+            -5.875192594047469
+          ]
+        },
+        "sourceUpAxis": "+Z",
+        "targetRollDatum": "locked B-24 gun-node local +Z, orthogonalized to the side-specific local +/-Y bore axis",
+        "rearSightRole": "independent retained reference landmark; not an alignment controller",
+        "method": "V015 locked surface registration plus documented target-local bore-midpoint datum correction; physical matrix remains locked and a 2 degree display pitch is applied about the rear datum",
+        "surfaceRegistration": {
+          "rmsMeters": 0.01978752697599527,
+          "meanMeters": 0.015605768405387535,
+          "medianMeters": 0.01227425267518404,
+          "p95Meters": 0.03872360303158024,
+          "maxMeters": 0.10305379390429183
+        },
+        "axisDot": 1.0,
+        "calibrationGate": {
+          "axisDotMinimum": 0.999999,
+          "surfaceP95MetersMaximum": 0.045,
+          "surfaceRmsMetersMaximum": 0.03,
+          "pass": true
+        },
+        "calibrationTargetNode": 802,
+        "calibrationMethod": "V015 locked surface registration plus documented target-local bore-midpoint datum correction; physical matrix remains locked and a 2 degree display pitch is applied about the rear datum",
+        "targetLocalTranslation": [
+          -0.02984992589777169,
+          -0.3009563734940755,
+          -0.04882485439000694
+        ],
+        "targetLocalMatrixColumnMajor": [
+          0.0,
+          1.329135438522841,
+          0.0,
+          0.0,
+          -0.027600525630686622,
+          0.0,
+          1.3288488344887897,
+          0.0,
+          1.3288488344887897,
+          0.0,
+          0.027600525630686622,
+          0.0,
+          -0.02984992589777169,
+          -0.3009563734940755,
+          -0.04882485439000694,
+          1.0
+        ],
+        "datumCorrection": {
+          "frame": "target node 802 local",
+          "translationMeters": [
+            0.0,
+            0.0549763481855,
+            0.0
+          ],
+          "reason": "V012 mapped source bore midpoint was 0.0549763481855 m behind the node-802 plus/minus-Y registration midpoint; correction centers muzzle and rear endpoints without changing axis, roll, scale, or surface solve.",
+          "sourceRevision": "WM_B24_ANM2_V011"
+        },
+        "presentationLiftMeters": 0.0,
+        "presentationLiftFrame": "no display-only lift; visible matrix equals physical alignment matrix",
+        "presentationElevationDegrees": 2.0,
+        "presentationElevationFrame": "display-only +2 degree muzzle elevation about the source rear datum; physical matrix and feed socket remain locked"
+      }
+    },
+    "b24.waist.port.flexible": {
+      "sourceGunNodeIndex": 821,
+      "sourceRearSightComponentRoots": [
+        736,
+        757,
+        768,
+        770,
+        787,
+        792,
+        799,
+        971,
+        973,
+        975,
+        977
+      ],
+      "reviewTransform": {
+        "matrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.9275744761527019,
+          -6.182904941803054,
+          1.3282194362891766,
+          1.0
+        ],
+        "basisConversion": "B-24 source +Y up to renderer +Z up; +90 degrees about X",
+        "anchorNodeIndex": 821,
+        "anchorSourceWorldMeters": [
+          -0.9275744761527019,
+          -0.23614522281120456,
+          -6.182904941803054
+        ],
+        "floorNodeIndex": 824,
+        "sourceFloorYMeters": -1.3282194362891766,
+        "reviewFloorZMeters": 0.0,
+        "method": "exact source world placement plus one documented basis conversion and datum translation; no bounding-box auto-centering"
+      },
+      "highDetailGunAlignment": {
+        "matrixColumnMajor": [
+          -0.6572144872787172,
+          9.469297024292713e-08,
+          -0.7047766356628324,
+          0,
+          -0.704776635662827,
+          8.830257524140914e-08,
+          0.6572144872787241,
+          0,
+          1.2916086322763045e-07,
+          0.9636602038401504,
+          9.031877877049887e-09,
+          0,
+          -0.7713029489826247,
+          -0.23263795317580854,
+          -6.055158830053466,
+          1
+        ],
+        "uniformScale": 0.963660203840159,
+        "referenceMuzzleLocalAxis": "-Y",
+        "basisDeterminant": 1.0,
+        "sourcePrimaryLengthMeters": 1.5062885284423828,
+        "targetReferenceLengthMeters": 1.4515503103608798,
+        "sourceLandmarks": {
+          "muzzle": [
+            0.97957444190979,
+            -9.652080529547752e-05,
+            -0.0036395122098954436
+          ],
+          "rear": [
+            -0.5267140865325928,
+            -9.652080529547752e-05,
+            -0.0036395122098954436
+          ],
+          "rollDatum": [
+            -0.5267140865325928,
+            -9.652080529547752e-05,
+            0.9963604877901046
+          ]
+        },
+        "targetLandmarks": {
+          "muzzle": [
+            -1.415025438435358,
+            -0.23614511350358466,
+            -6.7456034445083795
+          ],
+          "rear": [
+            -0.42507079552128374,
+            -0.23614525613851947,
+            -5.684006483095239
+          ],
+          "rollDatum": [
+            -0.4250706614897416,
+            0.7638547438614716,
+            -5.684006473722767
+          ],
+          "rearSight": [
+            -0.6338402972043882,
+            -0.10665881925988166,
+            -5.866897933073034
+          ]
+        },
+        "sourceUpAxis": "+Z",
+        "targetRollDatum": "locked B-24 gun-node local +Z, orthogonalized to the side-specific local +/-Y bore axis",
+        "rearSightRole": "independent retained reference landmark; not an alignment controller",
+        "method": "uniform scale and right-handed rigid calibration from donor +X bore and +Z vertical to the locked B-24 gun-node +/-Y bore and local +Z basis"
+      }
+    }
+  },
+  "mechanismOverlay": {
+    "status": "mechanical-reference-only-not-aircraft-parts-catalog-approved",
+    "sourceUnitInference": "centimeter-like; isolated mirror preserved raw",
+    "aircraftOverlayMatrixRowMajor": [
+      [
+        0.0,
+        0.0,
+        -0.01,
+        0.23896
+      ],
+      [
+        0.01,
+        0.0,
+        0.0,
+        -0.0038
+      ],
+      [
+        0.0,
+        0.01,
+        0.0,
+        -0.0916
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "sourceSelections": {
+    "aircraftGunExterior": [
+      9,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27
+    ],
+    "aircraftFeedReferences": [
+      11
+    ],
+    "denseFeedReferences": [
+      13,
+      14,
+      15
+    ],
+    "originalFeedReferences": {
+      "roundArray": {
+        "sourceNodeIndex": 11,
+        "sourceNodeName": "Object_11"
+      },
+      "linkArray": {
+        "sourceNodeIndex": 12,
+        "sourceNodeName": "Object_12"
+      }
+    },
+    "cartridge": [
+      2,
+      4,
+      3
+    ],
+    "beltLink": {
+      "sourceNodeIndex": 12,
+      "connectedComponentRoots": [
+        174,
+        199,
+        224
+      ]
+    },
+    "mechanismReference": [
+      12,
+      14,
+      16,
+      18,
+      20
+    ],
+    "b24WaistStarboard": [
+      799,
+      802,
+      805,
+      808,
+      811
+    ],
+    "b24WaistPort": [
+      818,
+      821,
+      824
+    ]
+  },
+  "limitations": [
+    "The mechanism donor is not an approved aircraft AN/M2 internal parts catalog; spring, bolt and cocking handle remain reference-only.",
+    "The locked B-24 GLB supplies standing waist station geometry but no separable A-13 lower ball turret mesh.",
+    "A-13 seated installation remains controlled by AN 11-45G-1 evidence and must not be replaced by an invented generic pedestal.",
+    "The procedural field package affects runtime surface color and roughness only; it does not alter source geometry.",
+    "Starboard gun registration is an area-weighted, axis-locked surface solve; p95 and RMS are recorded in highDetailGunAlignment.surfaceRegistration.",
+    "AN/M2 source nodes 4, 6 and 7 are complete round geometry and are explicitly forbidden as feed-chute labels."
+  ]
+}
