@@ -902,7 +902,7 @@ def main() -> None:
             alignment["calibrationGate"] = calibration["acceptance"]
             alignment["calibrationTargetNode"] = calibration["targetNode"]
             alignment["calibrationMethod"] = calibration["method"]
-            for key in ("targetLocalTranslation", "targetLocalMatrixColumnMajor", "datumCorrection", "presentationLiftMeters", "presentationLiftFrame"):
+            for key in ("targetLocalTranslation", "targetLocalMatrixColumnMajor", "datumCorrection", "presentationLiftMeters", "presentationLiftFrame", "presentationElevationDegrees", "presentationElevationFrame"):
                 if key in calibration:
                     alignment[key] = calibration[key]
             alignment["method"] = calibration["method"]
@@ -970,7 +970,7 @@ def main() -> None:
             "The locked B-24 GLB supplies standing waist station geometry but no separable A-13 lower ball turret mesh.",
             "A-13 seated installation remains controlled by AN 11-45G-1 evidence and must not be replaced by an invented generic pedestal.",
             "The procedural field package affects runtime surface color and roughness only; it does not alter source geometry.",
-            "V011 starboard gun registration is an area-weighted, axis-locked surface solve; p95 and RMS are recorded in highDetailGunAlignment.surfaceRegistration.",
+            "Starboard gun registration is an area-weighted, axis-locked surface solve; p95 and RMS are recorded in highDetailGunAlignment.surfaceRegistration.",
             "AN/M2 source nodes 4, 6 and 7 are complete round geometry and are explicitly forbidden as feed-chute labels.",
         ],
     }

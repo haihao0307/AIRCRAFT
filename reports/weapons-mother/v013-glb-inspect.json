@@ -1,0 +1,20 @@
+{
+    "File":  "G:\\AIRCRAFT\\b24-v010-push\\data\\weapons-mother\\b24-m2-aircraft-v013\\distilled-reference.glb",
+    "MiB":  4.45,
+    "Scenes":  1,
+    "Nodes":  38,
+    "Meshes":  31,
+    "Primitives":  31,
+    "Vertices":  95807,
+    "Triangles":  121460,
+    "Materials":  9,
+    "Textures":  1,
+    "Images":  1,
+    "Animations":  1,
+    "Skins":  1,
+    "MorphTargets":  31,
+    "Attributes":  "NORMAL,POSITION,TANGENT,TEXCOORD_0,TEXCOORD_1",
+    "ExtensionsUsed":  "",
+    "ExtensionsRequired":  "",
+    "Issues":  ""
+}
