@@ -1,2 +1,5 @@
 __pycache__/
 *.py[cod]
+reports/weapons-mother/v010-browser-smoke*/
+reports/weapons-mother/*/locked-*.png
+reports/weapons-mother/*/post-*.png

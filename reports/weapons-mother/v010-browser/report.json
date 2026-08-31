@@ -1,0 +1,728 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-v010-browser-qa@1.0.0",
+  "status": "PASS",
+  "url": "http://127.0.0.1:8765/preview/weapons-mother/b24-m2-aircraft-v004/index.html",
+  "stressShots": 2000,
+  "checks": [
+    {
+      "name": "runtime alignment gate passes",
+      "pass": true,
+      "evidence": {
+        "version": "V010",
+        "alignments": {
+          "waist-starboard": {
+            "muzzleErrorMeters": 4.440892098500626e-16,
+            "rearErrorMeters": 2.7755575615628914e-16,
+            "rollDot": 1.0000000000000002,
+            "braceFloorErrorMeters": 3.128549153075255e-8,
+            "feedEndpointErrorMeters": 6.938893903907228e-17,
+            "sourceUpAxis": "+Z",
+            "targetUpDatum": "B-24 node 802 local +Z",
+            "rearSightRole": "independent retained landmark",
+            "rearSightWorld": [
+              -0.15848154570259632,
+              -0.17185374563330225,
+              1.250371816040507
+            ],
+            "highDetailBounds": {
+              "min": [
+                -0.37294838688808707,
+                -0.42470027077741945,
+                0.9326678399327031
+              ],
+              "max": [
+                0.6849815088097146,
+                0.6925281253454355,
+                1.3061937701099502
+              ]
+            },
+            "referenceBounds": {
+              "min": [
+                -0.41547850134236397,
+                -0.47634759121654346,
+                0.914211744273596
+              ],
+              "max": [
+                0.7341874198000505,
+                0.7433147789602798,
+                1.3133100782434757
+              ]
+            },
+            "finalWorldMatrixColumnMajor": [
+              0.6497937984101847,
+              0.7029435759216235,
+              -0.10906670083952653,
+              0,
+              -0.7074914236522083,
+              0.6539977691646957,
+              -8.266686269203998e-8,
+              0,
+              0.07403446238117481,
+              0.08009022170000546,
+              0.9572678054660609,
+              0,
+              0.01242269568171439,
+              -0.025329431198012564,
+              1.1419408915676934,
+              1
+            ],
+            "reviewTransformColumnMajor": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              -1,
+              0,
+              0,
+              -0.8050758987070856,
+              -6.047046339680771,
+              1.3282194362354325,
+              1
+            ],
+            "finalHierarchy": "review transform > locked station mount > calibrated gun"
+          }
+        },
+        "maxPositionError": 4.440892098500626e-16,
+        "minimumRollDot": 1.0000000000000002,
+        "braceFloorErrorMeters": 3.128549153075255e-8,
+        "feedEndpointErrorMeters": 6.938893903907228e-17,
+        "pass": true
+      }
+    },
+    {
+      "name": "muzzle and rear landmarks are coincident",
+      "pass": true,
+      "evidence": 4.440892098500626e-16
+    },
+    {
+      "name": "node 802 local +Z controls roll",
+      "pass": true,
+      "evidence": 1.0000000000000002
+    },
+    {
+      "name": "node 811 datum meets real floor",
+      "pass": true,
+      "evidence": 3.128549153075255e-8
+    },
+    {
+      "name": "node 799 route endpoint meets gun feed socket",
+      "pass": true,
+      "evidence": 6.938893903907228e-17
+    },
+    {
+      "name": "25-shot visual run keeps all cases",
+      "pass": true,
+      "evidence": {
+        "version": "V010",
+        "ready": true,
+        "shots": 25,
+        "totalCases": 25,
+        "totalLinks": 25,
+        "dynamicDebrisCount": 0,
+        "settledCases": 25,
+        "settledLinks": 25,
+        "recentSettledColliders": 50,
+        "minSettledZ": 0.0057500618954005244,
+        "maxSettledZ": 0.09548242904005909,
+        "belowFloorCount": 0,
+        "unsupportedSleeping": 0,
+        "maxRecordedImpactLimit": 4,
+        "activeStates": [],
+        "render": {
+          "calls": 54,
+          "triangles": 2750737,
+          "quality": "HIGH",
+          "dpr": 1
+        },
+        "alignment": {
+          "version": "V010",
+          "alignments": {
+            "waist-starboard": {
+              "muzzleErrorMeters": 4.440892098500626e-16,
+              "rearErrorMeters": 2.7755575615628914e-16,
+              "rollDot": 1.0000000000000002,
+              "braceFloorErrorMeters": 3.128549153075255e-8,
+              "feedEndpointErrorMeters": 6.938893903907228e-17,
+              "sourceUpAxis": "+Z",
+              "targetUpDatum": "B-24 node 802 local +Z",
+              "rearSightRole": "independent retained landmark",
+              "rearSightWorld": [
+                -0.15848154570259632,
+                -0.17185374563330225,
+                1.250371816040507
+              ],
+              "highDetailBounds": {
+                "min": [
+                  -0.37294838688808707,
+                  -0.42470027077741945,
+                  0.9326678399327031
+                ],
+                "max": [
+                  0.6849815088097146,
+                  0.6925281253454355,
+                  1.3061937701099502
+                ]
+              },
+              "referenceBounds": {
+                "min": [
+                  -0.41547850134236397,
+                  -0.47634759121654346,
+                  0.914211744273596
+                ],
+                "max": [
+                  0.7341874198000505,
+                  0.7433147789602798,
+                  1.3133100782434757
+                ]
+              },
+              "finalWorldMatrixColumnMajor": [
+                0.6497937984101847,
+                0.7029435759216235,
+                -0.10906670083952653,
+                0,
+                -0.7074914236522083,
+                0.6539977691646957,
+                -8.266686269203998e-8,
+                0,
+                0.07403446238117481,
+                0.08009022170000546,
+                0.9572678054660609,
+                0,
+                0.01242269568171439,
+                -0.025329431198012564,
+                1.1419408915676934,
+                1
+              ],
+              "reviewTransformColumnMajor": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                -0.8050758987070856,
+                -6.047046339680771,
+                1.3282194362354325,
+                1
+              ],
+              "finalHierarchy": "review transform > locked station mount > calibrated gun"
+            }
+          },
+          "maxPositionError": 4.440892098500626e-16,
+          "minimumRollDot": 1.0000000000000002,
+          "braceFloorErrorMeters": 3.128549153075255e-8,
+          "feedEndpointErrorMeters": 6.938893903907228e-17,
+          "pass": true
+        }
+      }
+    },
+    {
+      "name": "25-shot visual run keeps all links",
+      "pass": true,
+      "evidence": {
+        "version": "V010",
+        "ready": true,
+        "shots": 25,
+        "totalCases": 25,
+        "totalLinks": 25,
+        "dynamicDebrisCount": 0,
+        "settledCases": 25,
+        "settledLinks": 25,
+        "recentSettledColliders": 50,
+        "minSettledZ": 0.0057500618954005244,
+        "maxSettledZ": 0.09548242904005909,
+        "belowFloorCount": 0,
+        "unsupportedSleeping": 0,
+        "maxRecordedImpactLimit": 4,
+        "activeStates": [],
+        "render": {
+          "calls": 54,
+          "triangles": 2750737,
+          "quality": "HIGH",
+          "dpr": 1
+        },
+        "alignment": {
+          "version": "V010",
+          "alignments": {
+            "waist-starboard": {
+              "muzzleErrorMeters": 4.440892098500626e-16,
+              "rearErrorMeters": 2.7755575615628914e-16,
+              "rollDot": 1.0000000000000002,
+              "braceFloorErrorMeters": 3.128549153075255e-8,
+              "feedEndpointErrorMeters": 6.938893903907228e-17,
+              "sourceUpAxis": "+Z",
+              "targetUpDatum": "B-24 node 802 local +Z",
+              "rearSightRole": "independent retained landmark",
+              "rearSightWorld": [
+                -0.15848154570259632,
+                -0.17185374563330225,
+                1.250371816040507
+              ],
+              "highDetailBounds": {
+                "min": [
+                  -0.37294838688808707,
+                  -0.42470027077741945,
+                  0.9326678399327031
+                ],
+                "max": [
+                  0.6849815088097146,
+                  0.6925281253454355,
+                  1.3061937701099502
+                ]
+              },
+              "referenceBounds": {
+                "min": [
+                  -0.41547850134236397,
+                  -0.47634759121654346,
+                  0.914211744273596
+                ],
+                "max": [
+                  0.7341874198000505,
+                  0.7433147789602798,
+                  1.3133100782434757
+                ]
+              },
+              "finalWorldMatrixColumnMajor": [
+                0.6497937984101847,
+                0.7029435759216235,
+                -0.10906670083952653,
+                0,
+                -0.7074914236522083,
+                0.6539977691646957,
+                -8.266686269203998e-8,
+                0,
+                0.07403446238117481,
+                0.08009022170000546,
+                0.9572678054660609,
+                0,
+                0.01242269568171439,
+                -0.025329431198012564,
+                1.1419408915676934,
+                1
+              ],
+              "reviewTransformColumnMajor": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                -0.8050758987070856,
+                -6.047046339680771,
+                1.3282194362354325,
+                1
+              ],
+              "finalHierarchy": "review transform > locked station mount > calibrated gun"
+            }
+          },
+          "maxPositionError": 4.440892098500626e-16,
+          "minimumRollDot": 1.0000000000000002,
+          "braceFloorErrorMeters": 3.128549153075255e-8,
+          "feedEndpointErrorMeters": 6.938893903907228e-17,
+          "pass": true
+        }
+      }
+    },
+    {
+      "name": "no settled debris below floor",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "no unsupported sleeping rigid bodies",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "impact ceiling remains four",
+      "pass": true,
+      "evidence": 4
+    },
+    {
+      "name": "stress run retains every case",
+      "pass": true,
+      "evidence": {
+        "expected": 2000,
+        "actual": 2000
+      }
+    },
+    {
+      "name": "stress run retains every link",
+      "pass": true,
+      "evidence": {
+        "expected": 2000,
+        "actual": 2000
+      }
+    },
+    {
+      "name": "stress run drains dynamic solver",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "settled collision queue is bounded",
+      "pass": true,
+      "evidence": 72
+    },
+    {
+      "name": "stress run has no below-floor instances",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "stress run has no unsupported sleepers",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "draw calls stay bounded after full feed",
+      "pass": true,
+      "evidence": {
+        "calls": 54,
+        "triangles": 19293337,
+        "quality": "HIGH",
+        "dpr": 1
+      }
+    },
+    {
+      "name": "post-stress animation remains interactive",
+      "pass": true,
+      "evidence": {
+        "frames": 180,
+        "meanFps": 60.24902932071347,
+        "medianFrameMs": 16.69999999999709,
+        "p95FrameMs": 16.900000000001455,
+        "maxFrameMs": 17.299999999995634
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "alignment": {
+    "version": "V010",
+    "alignments": {
+      "waist-starboard": {
+        "muzzleErrorMeters": 4.440892098500626e-16,
+        "rearErrorMeters": 2.7755575615628914e-16,
+        "rollDot": 1.0000000000000002,
+        "braceFloorErrorMeters": 3.128549153075255e-8,
+        "feedEndpointErrorMeters": 6.938893903907228e-17,
+        "sourceUpAxis": "+Z",
+        "targetUpDatum": "B-24 node 802 local +Z",
+        "rearSightRole": "independent retained landmark",
+        "rearSightWorld": [
+          -0.15848154570259632,
+          -0.17185374563330225,
+          1.250371816040507
+        ],
+        "highDetailBounds": {
+          "min": [
+            -0.37294838688808707,
+            -0.42470027077741945,
+            0.9326678399327031
+          ],
+          "max": [
+            0.6849815088097146,
+            0.6925281253454355,
+            1.3061937701099502
+          ]
+        },
+        "referenceBounds": {
+          "min": [
+            -0.41547850134236397,
+            -0.47634759121654346,
+            0.914211744273596
+          ],
+          "max": [
+            0.7341874198000505,
+            0.7433147789602798,
+            1.3133100782434757
+          ]
+        },
+        "finalWorldMatrixColumnMajor": [
+          0.6497937984101847,
+          0.7029435759216235,
+          -0.10906670083952653,
+          0,
+          -0.7074914236522083,
+          0.6539977691646957,
+          -8.266686269203998e-8,
+          0,
+          0.07403446238117481,
+          0.08009022170000546,
+          0.9572678054660609,
+          0,
+          0.01242269568171439,
+          -0.025329431198012564,
+          1.1419408915676934,
+          1
+        ],
+        "reviewTransformColumnMajor": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -1,
+          0,
+          0,
+          -0.8050758987070856,
+          -6.047046339680771,
+          1.3282194362354325,
+          1
+        ],
+        "finalHierarchy": "review transform > locked station mount > calibrated gun"
+      }
+    },
+    "maxPositionError": 4.440892098500626e-16,
+    "minimumRollDot": 1.0000000000000002,
+    "braceFloorErrorMeters": 3.128549153075255e-8,
+    "feedEndpointErrorMeters": 6.938893903907228e-17,
+    "pass": true
+  },
+  "shortRun": {
+    "version": "V010",
+    "ready": true,
+    "shots": 25,
+    "totalCases": 25,
+    "totalLinks": 25,
+    "dynamicDebrisCount": 0,
+    "settledCases": 25,
+    "settledLinks": 25,
+    "recentSettledColliders": 50,
+    "minSettledZ": 0.0057500618954005244,
+    "maxSettledZ": 0.09548242904005909,
+    "belowFloorCount": 0,
+    "unsupportedSleeping": 0,
+    "maxRecordedImpactLimit": 4,
+    "activeStates": [],
+    "render": {
+      "calls": 54,
+      "triangles": 2750737,
+      "quality": "HIGH",
+      "dpr": 1
+    },
+    "alignment": {
+      "version": "V010",
+      "alignments": {
+        "waist-starboard": {
+          "muzzleErrorMeters": 4.440892098500626e-16,
+          "rearErrorMeters": 2.7755575615628914e-16,
+          "rollDot": 1.0000000000000002,
+          "braceFloorErrorMeters": 3.128549153075255e-8,
+          "feedEndpointErrorMeters": 6.938893903907228e-17,
+          "sourceUpAxis": "+Z",
+          "targetUpDatum": "B-24 node 802 local +Z",
+          "rearSightRole": "independent retained landmark",
+          "rearSightWorld": [
+            -0.15848154570259632,
+            -0.17185374563330225,
+            1.250371816040507
+          ],
+          "highDetailBounds": {
+            "min": [
+              -0.37294838688808707,
+              -0.42470027077741945,
+              0.9326678399327031
+            ],
+            "max": [
+              0.6849815088097146,
+              0.6925281253454355,
+              1.3061937701099502
+            ]
+          },
+          "referenceBounds": {
+            "min": [
+              -0.41547850134236397,
+              -0.47634759121654346,
+              0.914211744273596
+            ],
+            "max": [
+              0.7341874198000505,
+              0.7433147789602798,
+              1.3133100782434757
+            ]
+          },
+          "finalWorldMatrixColumnMajor": [
+            0.6497937984101847,
+            0.7029435759216235,
+            -0.10906670083952653,
+            0,
+            -0.7074914236522083,
+            0.6539977691646957,
+            -8.266686269203998e-8,
+            0,
+            0.07403446238117481,
+            0.08009022170000546,
+            0.9572678054660609,
+            0,
+            0.01242269568171439,
+            -0.025329431198012564,
+            1.1419408915676934,
+            1
+          ],
+          "reviewTransformColumnMajor": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -0.8050758987070856,
+            -6.047046339680771,
+            1.3282194362354325,
+            1
+          ],
+          "finalHierarchy": "review transform > locked station mount > calibrated gun"
+        }
+      },
+      "maxPositionError": 4.440892098500626e-16,
+      "minimumRollDot": 1.0000000000000002,
+      "braceFloorErrorMeters": 3.128549153075255e-8,
+      "feedEndpointErrorMeters": 6.938893903907228e-17,
+      "pass": true
+    }
+  },
+  "stress": {
+    "version": "V010",
+    "ready": true,
+    "shots": 2000,
+    "totalCases": 2000,
+    "totalLinks": 2000,
+    "dynamicDebrisCount": 0,
+    "settledCases": 2000,
+    "settledLinks": 2000,
+    "recentSettledColliders": 72,
+    "minSettledZ": 0.005750028011883754,
+    "maxSettledZ": 0.335456104591236,
+    "belowFloorCount": 0,
+    "unsupportedSleeping": 0,
+    "maxRecordedImpactLimit": 4,
+    "activeStates": [],
+    "render": {
+      "calls": 54,
+      "triangles": 19293337,
+      "quality": "HIGH",
+      "dpr": 1
+    },
+    "alignment": {
+      "version": "V010",
+      "alignments": {
+        "waist-starboard": {
+          "muzzleErrorMeters": 4.440892098500626e-16,
+          "rearErrorMeters": 2.7755575615628914e-16,
+          "rollDot": 1.0000000000000002,
+          "braceFloorErrorMeters": 3.128549153075255e-8,
+          "feedEndpointErrorMeters": 6.938893903907228e-17,
+          "sourceUpAxis": "+Z",
+          "targetUpDatum": "B-24 node 802 local +Z",
+          "rearSightRole": "independent retained landmark",
+          "rearSightWorld": [
+            -0.15848154570259632,
+            -0.17185374563330225,
+            1.250371816040507
+          ],
+          "highDetailBounds": {
+            "min": [
+              -0.37294838688808707,
+              -0.42470027077741945,
+              0.9326678399327031
+            ],
+            "max": [
+              0.6849815088097146,
+              0.6925281253454355,
+              1.3061937701099502
+            ]
+          },
+          "referenceBounds": {
+            "min": [
+              -0.41547850134236397,
+              -0.47634759121654346,
+              0.914211744273596
+            ],
+            "max": [
+              0.7341874198000505,
+              0.7433147789602798,
+              1.3133100782434757
+            ]
+          },
+          "finalWorldMatrixColumnMajor": [
+            0.6497937984101847,
+            0.7029435759216235,
+            -0.10906670083952653,
+            0,
+            -0.7074914236522083,
+            0.6539977691646957,
+            -8.266686269203998e-8,
+            0,
+            0.07403446238117481,
+            0.08009022170000546,
+            0.9572678054660609,
+            0,
+            0.01242269568171439,
+            -0.025329431198012564,
+            1.1419408915676934,
+            1
+          ],
+          "reviewTransformColumnMajor": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -0.8050758987070856,
+            -6.047046339680771,
+            1.3282194362354325,
+            1
+          ],
+          "finalHierarchy": "review transform > locked station mount > calibrated gun"
+        }
+      },
+      "maxPositionError": 4.440892098500626e-16,
+      "minimumRollDot": 1.0000000000000002,
+      "braceFloorErrorMeters": 3.128549153075255e-8,
+      "feedEndpointErrorMeters": 6.938893903907228e-17,
+      "pass": true
+    }
+  },
+  "postStressFps": {
+    "frames": 180,
+    "meanFps": 60.24902932071347,
+    "medianFrameMs": 16.69999999999709,
+    "p95FrameMs": 16.900000000001455,
+    "maxFrameMs": 17.299999999995634
+  }
+}

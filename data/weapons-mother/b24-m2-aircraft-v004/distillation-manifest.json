@@ -1,6 +1,6 @@
 {
   "schema": "haihao.aircraft/weapons-mother-distillation-manifest@1.0.0",
-  "assetId": "WM_B24_ANM2_V009",
+  "assetId": "WM_B24_ANM2_V010",
   "status": "user-review",
   "sources": [
     {
@@ -58,7 +58,7 @@
   "output": {
     "file": "G:\\AIRCRAFT\\b24-v010-push\\data\\weapons-mother\\b24-m2-aircraft-v004\\distilled-reference.glb",
     "bytes": 7730180,
-    "sha256": "84ce74a3ed21cfb2c932e3c39a94168d397b6b1f48493b244856bf558b699e59",
+    "sha256": "258ad74080dafd1b8f1cc951254078f8e6f24e72c8499377f0640dc74bf85326",
     "materials": 9,
     "meshNodes": 31
   },
@@ -69,23 +69,54 @@
         796,
         800
       ],
+      "reviewTransform": {
+        "matrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          -0.8050758987070856,
+          -6.047046339680771,
+          1.3282194362354325,
+          1.0
+        ],
+        "basisConversion": "B-24 source +Y up to renderer +Z up; +90 degrees about X",
+        "anchorNodeIndex": 808,
+        "anchorSourceWorldMeters": [
+          0.8050758987070856,
+          -0.3146002174827506,
+          -6.047046339680771
+        ],
+        "floorNodeIndex": 811,
+        "sourceFloorYMeters": -1.3282194362354325,
+        "reviewFloorZMeters": 0.0,
+        "method": "exact source world placement plus one documented basis conversion and datum translation; no bounding-box auto-centering"
+      },
       "highDetailGunAlignment": {
         "matrixColumnMajor": [
           0.6497937984101847,
           -0.10906670083952653,
           -0.7029435759216235,
           0,
-          -0.6984244452283599,
-          -0.27851711311834626,
-          -0.6024024473900433,
+          -0.7074914236522083,
+          -8.266686269203998e-08,
+          -0.6539977691646957,
           0,
-          -0.13501300111084033,
-          0.9158547205108666,
-          -0.26690600791821967,
+          0.07403446238117481,
+          0.9572678054660609,
+          -0.08009022170000546,
           0,
-          0.8167386387450322,
-          -0.18645615078415054,
-          -6.022391846795695,
+          0.8174985943888,
+          -0.186278544667739,
+          -6.021716908482759,
           1
         ],
         "uniformScale": 0.9634610509064878,
@@ -122,14 +153,20 @@
             -5.651112011276135
           ],
           "rollDatum": [
+            0.5518840811857137,
+            0.8612563129049973,
+            -5.734239628759635
+          ],
+          "rearSight": [
             0.6465943530044893,
             -0.07784762019492544,
             -5.875192594047469
           ]
         },
         "sourceUpAxis": "+Z",
-        "targetRollDatum": "exact B-24 rear-sight connected-component subset",
-        "method": "uniform scale and right-handed rigid calibration from source +X bore and source-authored +Z vertical to the exact B-24 rear-sight radial roll datum"
+        "targetRollDatum": "locked B-24 gun-node local +Z, orthogonalized to the side-specific local +/-Y bore axis",
+        "rearSightRole": "independent retained reference landmark; not an alignment controller",
+        "method": "uniform scale and right-handed rigid calibration from donor +X bore and +Z vertical to the locked B-24 gun-node +/-Y bore and local +Z basis"
       }
     },
     "b24.waist.port.flexible": {
@@ -138,23 +175,54 @@
         971,
         975
       ],
+      "reviewTransform": {
+        "matrixColumnMajor": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          0.0,
+          0.9275744761527019,
+          -6.182904941803054,
+          1.3282194362891766,
+          1.0
+        ],
+        "basisConversion": "B-24 source +Y up to renderer +Z up; +90 degrees about X",
+        "anchorNodeIndex": 821,
+        "anchorSourceWorldMeters": [
+          -0.9275744761527019,
+          -0.23614522281120456,
+          -6.182904941803054
+        ],
+        "floorNodeIndex": 824,
+        "sourceFloorYMeters": -1.3282194362891766,
+        "reviewFloorZMeters": 0.0,
+        "method": "exact source world placement plus one documented basis conversion and datum translation; no bounding-box auto-centering"
+      },
       "highDetailGunAlignment": {
         "matrixColumnMajor": [
           -0.6572144872787172,
           9.469297024292713e-08,
           -0.7047766356628324,
           0,
-          -0.69056176450729,
-          -0.19256788399897012,
-          0.6439588868227493,
+          -0.704776635662827,
+          8.830257524140914e-08,
+          0.6572144872787241,
           0,
-          -0.1408352071635783,
-          0.944223807429895,
-          0.13133101069831818,
+          1.2916086322763045e-07,
+          0.9636602038401504,
+          9.031877877049887e-09,
           0,
-          -0.7718141488779512,
-          -0.2327272789936207,
-          -6.054682128710593,
+          -0.7713029489826247,
+          -0.23263795317580854,
+          -6.055158830053466,
           1
         ],
         "uniformScale": 0.963660203840159,
@@ -191,14 +259,20 @@
             -5.684006483095239
           ],
           "rollDatum": [
+            -0.4250706614897416,
+            0.7638547438614716,
+            -5.684006473722767
+          ],
+          "rearSight": [
             -0.6338402972043882,
             -0.09908366324780735,
             -5.866897933073034
           ]
         },
         "sourceUpAxis": "+Z",
-        "targetRollDatum": "exact B-24 rear-sight connected-component subset",
-        "method": "uniform scale and right-handed rigid calibration from source +X bore and source-authored +Z vertical to the exact B-24 rear-sight radial roll datum"
+        "targetRollDatum": "locked B-24 gun-node local +Z, orthogonalized to the side-specific local +/-Y bore axis",
+        "rearSightRole": "independent retained reference landmark; not an alignment controller",
+        "method": "uniform scale and right-handed rigid calibration from donor +X bore and +Z vertical to the locked B-24 gun-node +/-Y bore and local +Z basis"
       }
     }
   },

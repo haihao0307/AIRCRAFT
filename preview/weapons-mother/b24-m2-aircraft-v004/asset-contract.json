@@ -1,8 +1,8 @@
 {
   "schema": "haihao.aircraft/production-asset-contract@1.0.0",
-  "assetId": "WM_B24_ANM2_V009",
-  "status": "corrective-source-parity-hierarchy-review",
-  "runtimeRole": "hero source-parity and aircraft-installation review",
+  "assetId": "WM_B24_ANM2_V010",
+  "status": "single-station-right-waist-evidence-gate",
+  "runtimeRole": "B-24 right-waist source-parity and aircraft-installation review",
   "construction": {
     "declaredUnit": "meter",
     "gunForwardAxis": "+X",
@@ -18,15 +18,16 @@
       "stationConversion": "rotation +90 degrees about X",
       "starboardReferenceMuzzleAxis": "+Y",
       "portReferenceMuzzleAxis": "-Y",
-      "alignmentBasis": "right-handed; determinant +1; source +X bore and authored +Z vertical mapped to the exact B-24 rear-sight radial roll datum; final hierarchy verified at runtime",
+      "alignmentBasis": "right-handed; determinant +1; donor +X bore and +Z vertical mapped to B-24 node 802 local +Y bore and local +Z; rear sight retained as an independent check",
       "barrelRecoilMeters": 0.028575,
       "mechanicalCycle": ["locked barrel and barrel-extension short recoil", "breech-lock drop and accelerator rotation", "bolt full recoil and driving-spring compression", "extractor downward transfer and bottom case ejection", "belt-feed lever, slide, feed pawl and holding pawl motion", "counter-recoil, chambering and relock"],
       "mechanicalEvidence": "1944 Aircrewman's Gunnery Manual cycle of operation; manual-cycle proxy parts are labeled and are not claimed as exact catalog geometry",
       "caseAndLinkLifetime": "persistent until user clears the test area",
-      "caseAndLinkCollision": "Cannon rigid bodies with SI gravity; only verified floor or settled-pile contacts count toward the 2-4 impact stop rule, stale contact is reset every physics step, normal solver sleep reuses the last verified support, and finalized pieces snap to the current support top before persistent instancing",
+      "caseAndLinkCollision": "Cannon rigid bodies with SI gravity and a real floor at review Z=0; only current floor or recent exact settled-debris contacts permit rest; every case/link has a 2-4 impact ceiling, finalizes at its solved transform, and leaves the dynamic solver",
       "physicsActiveBodyLimit": 96,
-      "settledInstanceCapacityPerType": 32768,
-      "muzzleEffects": "fixed-capacity pooled textured flash, white smoke and fine sparks; one reusable light per gun",
+      "settledInstanceCapacityPerType": 8192,
+      "recentSettledColliderLimit": 72,
+      "muzzleEffects": "fixed-capacity five-ribbon textured flash, dense pooled white smoke, fine pooled sparks and one reusable light per gun",
       "audioStages": ["muzzle report", "receiver impulse", "bolt recoil", "feed pawl and slide", "counter-recoil lock", "ammunition box and flexible chute rattle", "case and link support impact"],
       "audioSourcePolicy": "deterministic Web Audio synthesis; no unlicensed external recordings",
       "tracerCadence": "one tracer per five rounds when enabled"
@@ -34,9 +35,9 @@
     "sourceExactExterior": true,
     "sourceUvPreserved": true,
     "completionClaim": "corrective review; not AAA-final or engineering-approved",
-    "runtimeWaistFeed": "source-exact 12.7x99 mm rounds and extracted M2 disintegrating-link components follow centerlines derived from hidden B-24 route meshes 799 and 818; the donor ammunition box is fixed to station space and remains a non-approved shape reference",
+    "runtimeWaistFeed": "source-exact 12.7x99 mm rounds and extracted M2 disintegrating-link components follow the hidden B-24 right-waist route node 799; the top-outlet-to-chute-to-feedway relationship follows the 1944 manual; the donor ammunition container remains a non-approved shape reference with unresolved B-24 part number",
     "defaultReviewStage": "B-24 starboard waist source calibration",
-    "stationMounts": ["B-24 port waist flexible", "B-24 starboard waist flexible", "A-13 manual evidence envelope"],
+    "stationMounts": ["B-24 starboard waist flexible: active V010 evidence gate", "B-24 port waist flexible: retained in data but disabled this review", "A-13: blocked pending dimensioned evidence"],
     "sourceStationAssemblies": {
       "starboardWaist": {
         "feedNode": 799,
@@ -53,10 +54,11 @@
         "rearSightComponentRoots": [971, 975]
       }
     },
-    "seatedMountPolicy": "A-13 integrated ball turret; no generic seat pedestal"
+    "reviewPlacement": "one documented B-24 +Y-up to renderer +Z-up basis conversion; node 808 center anchors review X/Y and node 811 minimum source Y anchors floor Z=0; no bounding-box auto-centering",
+    "seatedMountPolicy": "A-13 integrated ball turret remains blocked; no generic seat pedestal"
   },
   "requirements": {
-    "interaction": ["isolated gun", "port waist", "starboard waist", "A-13 evidence", "service separation", "internal reference overlay", "ammo separation", "layered audio mute"],
+    "interaction": ["isolated gun", "starboard waist evidence gate", "feed/ammunition inspection", "service separation", "internal reference overlay", "ammo separation", "layered audio mute"],
     "surface": ["stable surface_id", "deterministic macro/meso/micro fields", "color/roughness only", "editable seeds and wear controls"],
     "delivery": "online HTML with remote source asset stored outside the hosted Site; no hosted GLB and no embedded image payloads"
   },
@@ -65,19 +67,20 @@
     "drawCalls": 120,
     "burstDynamicBodies": 96,
     "settledDebrisDrawCalls": 2,
-    "smokePool": 192,
+    "recentSettledColliderLimit": 72,
+    "smokePool": 256,
     "sparkPool": 160,
-    "adaptiveDpr": {"aaa": 1.5, "balanced": 1.0, "degradeBelowFps": 42, "recoverAboveFps": 55},
+    "adaptiveDpr": {"high": 1.5, "balanced": 1.0, "degradeBelowFps": 42, "recoverAboveFps": 55},
     "runtimeFieldTextureResolution": 256,
     "decodedGeneratedTextureMemoryMiB": 2.5,
     "htmlBytes": 250000,
     "externalGlbBytes": 8000000,
-    "remoteCompressedSourceBytes": 3500000
+    "remoteCompressedSourceBytes": 3800000
   },
   "approvalGates": {
     "sourceHash": "required",
     "sourceNodeAndUvParity": "required",
-    "waistMountVisualParity": "required",
+    "waistMountVisualParity": "required for starboard node 802/805/808/811 only in V010",
     "finalWorldHierarchyAlignment": "required browser QA before release",
     "waistFeedBoxEngineeringApproval": "blocked until exact aircraft block and installation drawing are locked",
     "A13FullGeometry": "blocked until dimensioned geometry evidence exists",

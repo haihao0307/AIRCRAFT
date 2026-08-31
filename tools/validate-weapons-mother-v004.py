@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the V009 source-parity, hierarchy, cycle, physics and delivery contract."""
+"""Validate the V010 right-waist parity, hierarchy, physics and delivery contract."""
 
 from __future__ import annotations
 
@@ -79,6 +79,7 @@ def main() -> None:
     parser.add_argument("--html", type=Path, required=True)
     parser.add_argument("--build-report", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--expected-glb-url", default=REMOTE_SOURCE_URL)
     parser.add_argument(
         "--source-dir",
         type=Path,
@@ -113,7 +114,7 @@ def main() -> None:
     assert build["embeddedGlbSha256"] == glb_hash, "source GLB build hash drift"
     assert build["sha256"] == sha256(args.html), "HTML build hash drift"
     assert build["assetMode"] == "external", "online external-asset mode drift"
-    assert build["externalGlbUrl"] == REMOTE_SOURCE_URL
+    assert build["externalGlbUrl"] == args.expected_glb_url
     assert not build["singleFile"] and not build["directFileOpen"], "online delivery contract drift"
     assert len(html.encode("utf-8")) <= contract["budgets"]["htmlBytes"], "HTML budget exceeded"
     assert args.glb.stat().st_size <= contract["budgets"]["externalGlbBytes"], "GLB budget exceeded"
@@ -137,8 +138,6 @@ def main() -> None:
     required_controls = (
         'data-stage="isolated"',
         'data-stage="waist-starboard"',
-        'data-stage="waist-port"',
-        'data-stage="a13"',
         'data-stage="feed"',
         'id="surface-scheme"',
         'id="wear"',
@@ -159,6 +158,7 @@ def main() -> None:
     )
     for item in required_controls:
         assert item in html, f"missing control: {item}"
+    assert 'data-stage="waist-port"' not in html and 'data-stage="a13"' not in html, "unaccepted stations are still interactive"
 
     assert 'class="control active" data-stage="waist-starboard"' in html, "default stage is not the starboard source-calibration view"
     assert 'setStage("waist-starboard")' in html, "runtime default stage drift"
@@ -167,7 +167,7 @@ def main() -> None:
     assert "makeAirframeInterface" not in html, "invented generic airframe interface returned"
     assert "B24_WAIST_FEED_AMMO_BOX_REFERENCE_ATTACHMENT" not in html, "unapproved generic ammunition box returned"
     assert "makeAircraftFeedAssembly" in html and "deriveSourceFeedCurve" in html and "LIVE_12_7X99_LINKED_BELT" in html, "source-routed live-round feed system missing"
-    assert "AMMUNITION_BOX_FULL_INTERIOR" in html and "OPEN_SOURCE_ROUTE_GUIDE_RAIL" in html, "filled box-to-feedway route missing"
+    assert "REFERENCE_CONTAINER_LINKED_AMMUNITION_VISIBLE_PACK" in html and "MANUAL_FLEXIBLE_CHUTE_SIDE_RAIL" in html, "filled box-to-feedway route missing"
     assert "connectedToGun:true" in html and "airframeFixed:true" in html and 'parentSpace:"station-mount"' in html, "feed hierarchy is not airframe-fixed and gun-connected"
     assert "sourceFeedNode.visible=false" in html and "sourceFeedNode.parent.remove(sourceFeedNode)" not in html, "source B-24 route evidence was deleted instead of retained hidden"
     assert "mount.add(assembly)" in html and "gun.add(assembly)" not in html, "ammunition box and chute incorrectly inherit gun motion"
@@ -178,31 +178,33 @@ def main() -> None:
     assert "findSupportBody(event)" in html and "isSupport:true" in html, "only support collisions may count toward settling"
     assert "refreshSupportContacts()" in html and "physicsWorld.contacts" in html, "settling does not verify current support contact"
     assert "state.supported=false;state.supportBody=null" in html, "stale support state can still freeze debris in midair"
-    assert 'body.addEventListener("sleep"' in html and "pendingSupport" in html, "sleeping debris is not finalized from its last verified support contact"
+    assert "pendingSupport" not in html, "stale remembered support can still freeze debris in midair"
     assert "state.impactCount>=state.impactLimit&&state.supported" in html, "2-4 impact debris stop rule is not enforced"
-    assert "MAX_ACTIVE_DEBRIS=96" in html and "MAX_SETTLED_PER_TYPE=32768" in html, "bounded debris pools missing"
+    assert "MAX_ACTIVE_DEBRIS=96" in html and "MAX_SETTLED_PER_TYPE=8192" in html and "MAX_RECENT_SETTLED_COLLIDERS=72" in html, "bounded debris pools missing"
     assert "new THREE.InstancedMesh(cachedRuntimeGeometry(type)" in html, "settled debris instancing missing"
     assert "physicsWorld.removeBody(body)" in html, "settled debris remains in the dynamic solver"
-    assert "data.up.clone().multiplyScalar(-1.5)" in html, "case ejection is not initially downward"
+    assert "data.up.clone().multiplyScalar(-1.34)" in html, "case ejection is not initially downward"
     assert "physicsWorld.removeBody" in html, "debris clear does not remove rigid bodies"
-    assert "landingQuaternion" not in html and "pileRadius" not in html and "supportHeight" not in html, "obsolete floating-pile solver returned"
-    assert "supportTop(state.supportBody)+halfHeight" in html, "settled debris is not snapped to its current support surface"
-    assert 'pileCell(type){return type==="case"?.025:.018}' in html and "pileHeightCap(type)" in html, "debris pile cells are too coarse or unbounded"
+    assert all(token not in html for token in ("landingQuaternion", "pileRadius", "supportHeight", "pileCell", "pileHeightCap", "updatePileSupport", "pileBodies")), "obsolete floating-pile solver returned"
+    assert "addSettledCollider" in html and "recentSettledColliders.shift()" in html, "bounded exact settled-debris support queue missing"
+    assert "object.position.set(body.position.x,body.position.y,Math.max(body.position.z,floorClamp))" in html, "settled debris is not clamped above the verified floor at its solved support transform"
     assert "DecompressionStream" in html and "force-cache" in html, "compressed remote source loading missing"
     assert "spring.scale.z" in html and "bolt.position.z" in html and "barrel.position.x" in html, "mechanical cycle animation incomplete"
     for semantic in ("cycle.breech_lock", "cycle.accelerator", "cycle.belt_feed_lever", "cycle.feed_slide", "cycle.feed_pawl", "cycle.holding_pawl", "cycle.extractor"):
         assert semantic in html, f"manual-cycle action missing: {semantic}"
-    assert "audioDirector" in html and "audioDirector.shot" in html and "audioDirector.feed" in html and "audioDirector.impact" in html, "layered Web Audio event map missing"
+    assert all(item in html for item in ("audioDirector.shot", "audioDirector.feed", "audioDirector.eject", "audioDirector.chute", "audioDirector.impact")), "layered Web Audio event map missing"
     assert "Audio(" not in html and ".mp3" not in html.lower() and ".wav" not in html.lower(), "unlicensed external audio returned"
     assert "smokeInstances" in html and "sparkInstances" in html and "muzzleRigs" in html, "pooled firing effects missing"
     assert "effects.push" not in html and "new THREE.PointLight(0xffa554,18" not in html, "per-shot effects or lights returned"
     assert "new THREE.ConeGeometry" not in html, "cartoon cone muzzle flash returned"
     assert "const pressure=new THREE.Mesh(new THREE.TorusGeometry" not in html, "cartoon ring muzzle flash returned"
     assert "data:image" not in html.lower(), "embedded image payload returned"
-    assert f'const PACK_URL="{REMOTE_SOURCE_URL}"' in html, "remote source URL missing"
+    assert f'const PACK_URL="{args.expected_glb_url}"' in html, "remote source URL missing"
     assert "外置 GLB" not in html and "exact GLB" not in html, "hosted-GLB wording returned to the interface"
     assert "publishAlignmentQA()" in html and "window.__WM_QA__" in html, "final-world hierarchy alignment QA missing"
-    assert 'version:"V009"' in html, "runtime QA version drift"
+    assert 'version:"V010"' in html, "runtime QA version drift"
+    assert "stage.matrix.fromArray(station.reviewTransform.matrixColumnMajor)" in html and "centerStage(stage,.16)" not in html, "station still uses an arbitrary post-alignment transform"
+    assert "window.__WM_RUNTIME__" in html and "runDebrisStress" in html, "browser stress and inspection API missing"
 
     for station_id, station_alignment in manifest["stationAlignments"].items():
         alignment = station_alignment["highDetailGunAlignment"]
@@ -220,7 +222,10 @@ def main() -> None:
         mapped_roll = vector_normalized(projected_radial(mapped_roll_datum, mapped_rear, mapped_forward))
         target_roll = vector_normalized(projected_radial(target["rollDatum"], target["rear"], target_forward))
         assert alignment["sourceUpAxis"] == "+Z", f"source vertical datum drift: {station_id}"
-        assert vector_dot(mapped_roll, target_roll) > 0.999999, f"rear-sight roll datum drift: {station_id}"
+        assert vector_dot(mapped_roll, target_roll) > 0.999999, f"gun-node local +Z roll datum drift: {station_id}"
+        review = station_alignment["reviewTransform"]
+        assert review["reviewFloorZMeters"] == 0.0
+        assert "no bounding-box auto-centering" in review["method"]
 
     names = {node.get("name", "") for node in document.get("nodes", [])}
     required_nodes = {
@@ -262,7 +267,8 @@ def main() -> None:
     assert semantics["portReferenceMuzzleAxis"] == "-Y"
     assert semantics["alignmentBasis"].startswith("right-handed; determinant +1")
     assert semantics["physicsActiveBodyLimit"] == 96
-    assert semantics["settledInstanceCapacityPerType"] == 32768
+    assert semantics["settledInstanceCapacityPerType"] == 8192
+    assert semantics["recentSettledColliderLimit"] == 72
     assert len(semantics["audioStages"]) >= 7
     assert contract["construction"]["defaultReviewStage"] == "B-24 starboard waist source calibration"
     assert contract["construction"]["completionClaim"] == "corrective review; not AAA-final or engineering-approved"
@@ -285,7 +291,7 @@ def main() -> None:
     assert surface["geometryPolicy"] == "immutable source geometry"
 
     station_text = json.dumps(station, ensure_ascii=False)
-    for phrase in ("port-starboard", "standing/flexible", "A-13", "E-10"):
+    for phrase in ("b24.waist.starboard.flexible", "standing/flexible", "A-13", "E-10", "11-10-34"):
         assert phrase.lower() in station_text.lower(), f"station evidence missing: {phrase}"
 
     source_records = manifest.get("sources", [])
@@ -314,10 +320,10 @@ def main() -> None:
             "UV preservation",
             "station evidence",
             "projectile and source coordinate axes",
-            "side-specific source +Z final-hierarchy alignment contract",
-            "source-routed airframe-fixed live-round feed assembly",
+            "node-802 local +Y/+Z final-hierarchy alignment contract",
+            "node-799 and manual-constrained airframe-fixed live-round feed assembly",
             "current-support-contact-only bounded Cannon case and link settling",
-            "support-surface-snapped persistent debris instancing",
+            "solved-transform persistent debris instancing and bounded exact colliders",
             "pooled non-conical flash, white smoke and fine sparks",
             "six-stage manual-evidence mechanism cycle",
             "layered procedural Web Audio events",

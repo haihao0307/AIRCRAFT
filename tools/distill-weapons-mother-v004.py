@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the traceable V009 AN/M2 geometry distillation pack.
+"""Build the traceable V010 AN/M2 geometry distillation pack.
 
 The source vertex data, normals and UVs are copied exactly.  Only hierarchy,
 semantic names, placeholder surface bindings and documented group transforms
@@ -502,8 +502,9 @@ def gun_alignment(
     # receiver vertical.  V008 incorrectly inferred the roll datum from node 19
     # (a grip/control component).  Its off-axis center introduced an artificial
     # roll of roughly fourteen degrees even though the bore landmarks passed.
-    # Use the source-authored +Z axis directly and reserve the exact B-24 rear
-    # sight subset for the station-side target roll datum.
+    # Use the source-authored +Z axis directly.  The exact B-24 rear sight is
+    # retained as an independent visual landmark; it must not become a second
+    # controller that can roll the whole gun away from the station node basis.
     source_up = [0.0, 0.0, 1.0]
     source_roll_datum = [source_rear[0], source_rear[1], source_rear[2] + 1.0]
 
@@ -517,16 +518,21 @@ def gun_alignment(
         node_world_positions(b24, b24_matrices, gun_node, sight_roots)
     )
 
-    # The normalized B-24 gun mesh has a trustworthy bore axis, but its local Z
-    # is not the visual roll datum on both mirrored waist stations.  The exact
-    # rear-sight subset is the second measured landmark shared by the source
-    # AN/M2 and the B-24 installation.  Project both sight offsets off the bore
-    # and use those radial directions to lock roll.  This preserves muzzle and
-    # rear bore points while preventing the receiver from appearing rotated
-    # relative to the retained B-24 sight ring.
+    # V009 incorrectly used the rear-sight radial as the station roll datum.
+    # On node 802 that radial differs from the node's own local +Z by about
+    # fifteen degrees, so the bore endpoints passed while the receiver was
+    # visibly rolled.  Node-local +Z is the rigid datum shared by the retained
+    # reference receiver, barrel and sight.  Orthogonalize it against the bore
+    # axis to remove any source scale/shear residue, then map donor +Z to it.
+    raw_target_up = vector_normalized([target_matrix[row][2] for row in range(3)])
     target_up = vector_normalized(
-        projected_radial(target_sight, target_rear, target_forward)
+        [
+            raw_target_up[axis]
+            - target_forward[axis] * vector_dot(raw_target_up, target_forward)
+            for axis in range(3)
+        ]
     )
+    target_roll_datum = [target_rear[axis] + target_up[axis] for axis in range(3)]
     source_width = vector_normalized(vector_cross(source_up, source_forward))
     target_width = vector_normalized(vector_cross(target_up, target_forward))
 
@@ -565,11 +571,48 @@ def gun_alignment(
         "targetLandmarks": {
             "muzzle": target_muzzle,
             "rear": target_rear,
-            "rollDatum": target_sight,
+            "rollDatum": target_roll_datum,
+            "rearSight": target_sight,
         },
         "sourceUpAxis": "+Z",
-        "targetRollDatum": "exact B-24 rear-sight connected-component subset",
-        "method": "uniform scale and right-handed rigid calibration from source +X bore and source-authored +Z vertical to the exact B-24 rear-sight radial roll datum",
+        "targetRollDatum": "locked B-24 gun-node local +Z, orthogonalized to the side-specific local +/-Y bore axis",
+        "rearSightRole": "independent retained reference landmark; not an alignment controller",
+        "method": "uniform scale and right-handed rigid calibration from donor +X bore and +Z vertical to the locked B-24 gun-node +/-Y bore and local +Z basis",
+    }
+
+
+def station_review_transform(
+    b24: Glb,
+    b24_matrices: dict[int, list[list[float]]],
+    anchor_node: int,
+    floor_node: int,
+) -> dict[str, Any]:
+    """Create the one documented source-Y-up to review-Z-up placement.
+
+    The station geometry remains in its exact B-24 world coordinates.  This
+    matrix performs only the renderer basis conversion and a reproducible
+    translation: the selected aircraft adapter is centered in review X/Y and
+    the lowest verified brace vertex is placed on review floor Z=0.
+    """
+
+    anchor = point_bounds_center(node_world_positions(b24, b24_matrices, anchor_node))
+    floor_points = node_world_positions(b24, b24_matrices, floor_node)
+    source_floor_y = min(point[1] for point in floor_points)
+    row_major = [
+        [1.0, 0.0, 0.0, -anchor[0]],
+        [0.0, 0.0, -1.0, anchor[2]],
+        [0.0, 1.0, 0.0, -source_floor_y],
+        [0.0, 0.0, 0.0, 1.0],
+    ]
+    return {
+        "matrixColumnMajor": column_major(row_major),
+        "basisConversion": "B-24 source +Y up to renderer +Z up; +90 degrees about X",
+        "anchorNodeIndex": anchor_node,
+        "anchorSourceWorldMeters": anchor,
+        "floorNodeIndex": floor_node,
+        "sourceFloorYMeters": source_floor_y,
+        "reviewFloorZMeters": 0.0,
+        "method": "exact source world placement plus one documented basis conversion and datum translation; no bounding-box auto-centering",
     }
 
 
@@ -746,12 +789,14 @@ def main() -> None:
 
     station_groups = []
     station_manifest = {}
-    for station_id, gun_node, muzzle_sign, sight_roots, node_specs in [
+    for station_id, gun_node, muzzle_sign, sight_roots, anchor_node, floor_node, node_specs in [
         (
             "b24.waist.starboard.flexible",
             802,
             1,
             {796, 800},
+            808,
+            811,
             [
                 (799, "feed_belt", 3),
                 (802, "reference_gun", 8),
@@ -765,6 +810,8 @@ def main() -> None:
             821,
             -1,
             {971, 975},
+            821,
+            824,
             [
                 (818, "feed_belt", 3),
                 (821, "reference_gun", 8),
@@ -811,6 +858,9 @@ def main() -> None:
         station_manifest[station_id] = {
             "sourceGunNodeIndex": gun_node,
             "sourceRearSightComponentRoots": sorted(sight_roots),
+            "reviewTransform": station_review_transform(
+                sources["b24"], matrices["b24"], anchor_node, floor_node
+            ),
             "highDetailGunAlignment": gun_alignment(
                 sources["anm2"],
                 matrices["anm2"],
@@ -825,7 +875,7 @@ def main() -> None:
     roots = [gun_group, feed_group, cartridge_group, link_group, mechanism_group] + station_groups
     pack_extras = {
         "schema": "haihao.aircraft/weapons-mother-distilled-geometry-pack@1.0.0",
-        "assetId": "WM_B24_ANM2_V009",
+        "assetId": "WM_B24_ANM2_V010",
         "status": "review-source-mirrors-and-semantic-distillation",
         "geometryPolicy": "source vertex data exact; only documented rigid/uniform transforms allowed",
         "materials": "placeholder stable surface_id bindings; geometry UV preserved",
@@ -838,7 +888,7 @@ def main() -> None:
 
     manifest = {
         "schema": "haihao.aircraft/weapons-mother-distillation-manifest@1.0.0",
-        "assetId": "WM_B24_ANM2_V009",
+        "assetId": "WM_B24_ANM2_V010",
         "status": "user-review",
         "sources": [
             {

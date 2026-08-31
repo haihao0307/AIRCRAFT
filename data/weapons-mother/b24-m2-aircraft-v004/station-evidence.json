@@ -1,10 +1,10 @@
 {
   "schema": "haihao.aircraft/weapons-mother-station-evidence@1.0.0",
-  "assetId": "WM_B24_ANM2_V004",
+  "assetId": "WM_B24_ANM2_V010",
   "policy": "A gunner posture is not a mount type. Each B-24 station is modeled as its own installation and remains block-specific until applicability is confirmed.",
   "stations": [
     {
-      "stationId": "b24.waist.flexible.port-starboard",
+      "stationId": "b24.waist.starboard.flexible",
       "gunnerPosture": "standing/flexible",
       "gunCount": 1,
       "mountSystem": [
@@ -17,7 +17,6 @@
         "sourceFile": "b-24_liberator.glb",
         "bytes": 23085972,
         "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
-        "portNodeIndexes": [818, 821, 824],
         "starboardNodeIndexes": [799, 802, 805, 808, 811],
         "status": "exact locked-reference mirror; final aircraft-block applicability pending"
       },
@@ -31,9 +30,14 @@
           "title": "1944 Aircrewman's Gunnery Manual - Ammunition",
           "url": "https://www.ibiblio.org/hyperwar/USN/ref/AirGunnery/GUNS4.html",
           "finding": "Hand-held bomber installations route the belt from a container through rollers and a flexible chute; link orientation and chute adapter side are controlled by feed direction."
+        },
+        {
+          "title": "T.O. 11-10-34 - Modification of K-7 Gun Mount and Waist Gun Installations",
+          "url": "https://aircorpslibrary.com/modification-of-k-7-gun-mount-and-waist-gun-installations/",
+          "finding": "The Air Corps catalog confirms a B-17/B-24 waist-gun installation technical order exists; its full applicability and dimensions remain unresolved in this asset."
         }
       ],
-      "approval": "visual-reference-ready; engineering and B-24 block approval false"
+      "approval": "V010 starboard visual evidence gate only; engineering and B-24 block approval false"
     },
     {
       "stationId": "b24.lower.a13.ball-turret",
