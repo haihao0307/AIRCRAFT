@@ -1,0 +1,66 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-axis-locked-registration@1.0.0",
+  "assetId": "WM_B24_ANM2_V014",
+  "stationId": "b24.waist.starboard.flexible",
+  "sourceGunNodes": [9, 15, 17, 19, 21, 23, 25, 27],
+  "targetNode": 802,
+  "method": "V014 locked surface registration plus documented target-local bore-midpoint datum correction; presentation correction removed so visible and physical matrices are identical",
+  "constraints": {
+    "sourceForward": "+X",
+    "targetForward": "node 802 local +Y",
+    "nonUniformScale": false,
+    "reflection": false,
+    "freeBoreTilt": false,
+    "priorRevision": "WM_B24_ANM2_V011"
+  },
+  "rollDegrees": 88.81012328671221,
+  "targetLocalUniformScale": 1.329135438522841,
+  "worldUniformScale": 0.9644541209427846,
+  "targetLocalTranslation": [-0.02984992589777169, -0.3009563734940755, -0.04882485439000694],
+  "targetLocalMatrixColumnMajor": [
+    0.0, 1.329135438522841, 0.0, 0.0,
+    -0.027600525630686622, 0.0, 1.3288488344887897, 0.0,
+    1.3288488344887897, 0.0, 0.027600525630686622, 0.0,
+    -0.02984992589777169, -0.3009563734940755, -0.04882485439000694, 1.0
+  ],
+  "matrixColumnMajor": [
+    0.6504635616044161, -0.10917911936693829, -0.703668122286833, 0.0,
+    0.05938817444061825, 0.9580477457283705, -0.09375039794567178, 0.0,
+    0.7096070247798951, 0.019898800248383544, 0.6528657721464216, 0.0,
+    0.7985180363288806, -0.2249378751391379, -6.032955858589085, 1.0
+  ],
+  "datumCorrection": {
+    "frame": "target node 802 local",
+    "translationMeters": [0.0, 0.0549763481855, 0.0],
+    "reason": "V012 mapped source bore midpoint was 0.0549763481855 m behind the node-802 plus/minus-Y registration midpoint; correction centers muzzle and rear endpoints without changing axis, roll, scale, or surface solve.",
+    "sourceRevision": "WM_B24_ANM2_V011"
+  },
+  "presentationLiftMeters": 0.0,
+  "presentationElevationDegrees": 0.0,
+  "presentationElevationFrame": "no display-only pitch; visible matrix equals physical alignment matrix",
+  "presentationLiftFrame": "no display-only lift; visible matrix equals physical alignment matrix",
+  "surfaceRegistration": {
+    "rmsMeters": 0.01978752697599527,
+    "meanMeters": 0.015605768405387535,
+    "medianMeters": 0.01227425267518404,
+    "p95Meters": 0.03872360303158024,
+    "maxMeters": 0.10305379390429183
+  },
+  "robustObjectiveTargetLocal": 0.028146484672363754,
+  "sourceLandmarks": {
+    "muzzle": [0.97957444190979, 0.0013871534227504509, 0.002354761636104845],
+    "rear": [-0.5267140594817235, 0.0013871534227504509, 0.002354761636104845],
+    "rollDatum": [-0.5267140594817235, 0.0013871534227504509, 1.0023547616361048]
+  },
+  "mappedLandmarks": {
+    "muzzleWorld": [1.4374488525782894, -0.330511133920134, -6.720843869679537],
+    "rearWorld": [0.45766306915938687, -0.16605588182566336, -5.660916668283123]
+  },
+  "axisDot": 1.0,
+  "acceptance": {
+    "axisDotMinimum": 0.999999,
+    "surfaceP95MetersMaximum": 0.045,
+    "surfaceRmsMetersMaximum": 0.03,
+    "pass": true
+  }
+}
