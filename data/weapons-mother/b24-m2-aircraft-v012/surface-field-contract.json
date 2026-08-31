@@ -1,0 +1,115 @@
+{
+  "id": "wm_b24_anm2_v012_surface_fields",
+  "version": "1.0.0",
+  "geometryPolicy": "immutable source geometry",
+  "editableInputs": [
+    {"id": "scheme", "type": "enum", "values": ["historic-black", "olive-drab", "navy-dark", "maintenance-grey"]},
+    {"id": "wear", "type": "number", "min": 0, "max": 1, "default": 0.38},
+    {"id": "oil", "type": "number", "min": 0, "max": 1, "default": 0.28},
+    {"id": "oxidation", "type": "number", "min": 0, "max": 1, "default": 0.12},
+    {"id": "roughness", "type": "number", "min": 0, "max": 1, "default": 0.52},
+    {"id": "fieldScale", "type": "number", "min": 0.25, "max": 4, "default": 1},
+    {"id": "seed", "type": "integer", "min": 1, "max": 999999, "default": 240013}
+  ],
+  "source": {
+    "immutable": true,
+    "hash": "ffeaa4d9a1dbe4873d65698a0bae64504ed7cee9c9e67a252562f8563f28ac31",
+    "units": "meter; cartridge source converted uniformly from millimeter",
+    "coordinateSpace": "source UV for texture fields; object position fallback for no-UV primitive",
+    "knowledgePackage": {
+      "file": "PROCEDURAL_FIELD_KNOWLEDGE_MINI_V1.0_2026-08-30.zip",
+      "bytes": 13456,
+      "sha256": "d69ecd2677507db9342a1d66092a8d6cf4255141346b14cc4629303bf1c4f396"
+    }
+  },
+  "seedBank": {
+    "master": 240013,
+    "shape": 240101,
+    "warp": 240211,
+    "structure": 240307,
+    "damage": 240401,
+    "color": 240503,
+    "weather": 240601,
+    "micro": 240701
+  },
+  "nodes": [
+    {
+      "id": "source_surface_region",
+      "family": "source",
+      "inputs": ["surface_id", "uv0"],
+      "outputs": ["materialRegion", "sourceUv"],
+      "scaleBand": "macro",
+      "diagnostic": true,
+      "parameters": {"geometryImpact": "none", "sourceReadOnly": true}
+    },
+    {
+      "id": "shared_uv_domain_warp",
+      "family": "warp",
+      "inputs": ["sourceUv"],
+      "outputs": ["warpedUv"],
+      "scaleBand": "meso",
+      "seedChannel": "warp",
+      "parentMask": "materialRegion",
+      "diagnostic": true,
+      "parameters": {"strength": 0.16, "frequency": 2.1, "geometryImpact": "none"}
+    },
+    {
+      "id": "coating_variation",
+      "family": "data",
+      "inputs": ["warpedUv"],
+      "outputs": ["macro", "structure", "micro"],
+      "scaleBand": "meso",
+      "seedChannel": "structure",
+      "parentMask": "materialRegion",
+      "diagnostic": true,
+      "parameters": {"macroOctaves": 4, "microOctaves": 3, "geometryImpact": "none"}
+    },
+    {
+      "id": "service_weather",
+      "family": "mask",
+      "inputs": ["macro", "structure", "micro"],
+      "outputs": ["wearMask", "oilMask", "oxidationMask", "separationMask"],
+      "scaleBand": "micro",
+      "seedChannel": "weather",
+      "parentMask": "materialRegion",
+      "diagnostic": true,
+      "parameters": {"geometryImpact": "none"}
+    },
+    {
+      "id": "surface_color",
+      "family": "color",
+      "inputs": ["materialRegion", "wearMask", "oilMask", "oxidationMask"],
+      "outputs": ["albedo"],
+      "scaleBand": "micro",
+      "seedChannel": "color",
+      "parentMask": "materialRegion",
+      "diagnostic": true,
+      "parameters": {"mapping": "five-stop per stable surface_id", "geometryImpact": "none"}
+    },
+    {
+      "id": "surface_response",
+      "family": "render",
+      "inputs": ["albedo", "wearMask", "oilMask", "micro"],
+      "outputs": ["roughness", "metalness", "detailNormalProxy"],
+      "scaleBand": "micro",
+      "seedChannel": "micro",
+      "parentMask": "materialRegion",
+      "diagnostic": true,
+      "parameters": {"geometryImpact": "none", "textureResolution": 256}
+    }
+  ],
+  "surfaceIds": [
+    "wm.receiver.steel",
+    "wm.barrel.steel",
+    "wm.small.steel",
+    "wm.feed.steel",
+    "wm.ammo.case.brass",
+    "wm.ammo.projectile.copper",
+    "wm.mount.aircraft.structure"
+  ],
+  "outputs": {
+    "final": "runtime material parameters and deterministic 256 px UV field texture",
+    "diagnostics": ["macro", "structure", "micro", "wearMask", "oilMask", "oxidationMask", "albedo", "roughness"],
+    "geometryImpact": "none"
+  }
+}

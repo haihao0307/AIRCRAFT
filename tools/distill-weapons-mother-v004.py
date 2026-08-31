@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the traceable V011 AN/M2 geometry distillation pack.
+"""Build the traceable Weapons Mother AN/M2 geometry distillation pack.
 
 The source vertex data, normals and UVs are copied exactly.  Only hierarchy,
 semantic names, placeholder surface bindings and documented group transforms
@@ -361,16 +361,16 @@ def add_source_component_subset(
     return output_index
 
 
-def serialize(builder: Any, roots: list[int], extras: dict[str, Any]) -> bytes:
+def serialize(builder: Any, roots: list[int], extras: dict[str, Any], asset_id: str) -> bytes:
     builder.align()
     document = {
         "asset": {
             "version": "2.0",
-            "generator": "AIRCRAFT_NATIVE_FORGE Weapons Mother V008 distiller",
+            "generator": f"AIRCRAFT_NATIVE_FORGE Weapons Mother {asset_id} distiller",
             "extras": extras,
         },
         "scene": 0,
-        "scenes": [{"name": "WM_B24_M2_V008", "nodes": roots}],
+        "scenes": [{"name": asset_id.replace("WM_B24_ANM2_", "WM_B24_M2_"), "nodes": roots}],
         "nodes": builder.nodes,
         "meshes": builder.meshes,
         "materials": MATERIALS,
@@ -638,7 +638,12 @@ def main() -> None:
     parser.add_argument(
         "--alignment-calibration",
         type=Path,
-        help="V011 axis-locked surface registration produced by calibrate-weapons-mother-alignment-v011.py",
+        help="axis-locked surface registration produced by the Weapons Mother calibration tool",
+    )
+    parser.add_argument(
+        "--asset-id",
+        default="WM_B24_ANM2_V011",
+        help="output asset identifier; defaults to the frozen V011 pack",
     )
     args = parser.parse_args()
 
@@ -669,8 +674,8 @@ def main() -> None:
     if args.alignment_calibration:
         calibration_path = args.alignment_calibration.resolve()
         alignment_calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
-        if alignment_calibration.get("assetId") != "WM_B24_ANM2_V011":
-            raise ValueError("alignment calibration is not a V011 result")
+        if alignment_calibration.get("assetId") != args.asset_id:
+            raise ValueError(f"alignment calibration is not a {args.asset_id} result")
         if not alignment_calibration.get("acceptance", {}).get("pass"):
             raise ValueError("alignment calibration failed its surface/axis acceptance gate")
 
@@ -725,7 +730,7 @@ def main() -> None:
         "FEED_SOURCE_MIRROR",
         feed_children,
         {
-            "status": "source-exact-reference-components; V011 semantic map corrected",
+            "status": f"source-exact-reference-components; {args.asset_id} semantic map corrected",
             "aircraftRoute": "B-24 node 799 -> loaded box outlet -> flexible guide -> AN/M2 feedway",
             "notAChuteNodes": [4, 6, 7],
             "denseReferenceNodes": [13, 14, 15],
@@ -817,7 +822,7 @@ def main() -> None:
             "b24.waist.starboard.flexible",
             802,
             1,
-            {796, 800},
+            {569, 591, 600, 616, 617, 796, 798, 800, 802},
             808,
             811,
             [
@@ -832,7 +837,7 @@ def main() -> None:
             "b24.waist.port.flexible",
             821,
             -1,
-            {971, 975},
+            {736, 757, 768, 770, 787, 792, 799, 971, 973, 975, 977},
             821,
             824,
             [
@@ -897,6 +902,9 @@ def main() -> None:
             alignment["calibrationGate"] = calibration["acceptance"]
             alignment["calibrationTargetNode"] = calibration["targetNode"]
             alignment["calibrationMethod"] = calibration["method"]
+            for key in ("targetLocalTranslation", "targetLocalMatrixColumnMajor", "datumCorrection", "presentationLiftMeters", "presentationLiftFrame"):
+                if key in calibration:
+                    alignment[key] = calibration[key]
             alignment["method"] = calibration["method"]
         station_manifest[station_id] = {
             "sourceGunNodeIndex": gun_node,
@@ -910,12 +918,12 @@ def main() -> None:
     roots = [gun_group, feed_group, cartridge_group, link_group, mechanism_group] + station_groups
     pack_extras = {
         "schema": "haihao.aircraft/weapons-mother-distilled-geometry-pack@1.0.0",
-        "assetId": "WM_B24_ANM2_V011",
+        "assetId": args.asset_id,
         "status": "review-source-mirrors-and-semantic-distillation",
         "geometryPolicy": "source vertex data exact; only documented rigid/uniform transforms allowed",
         "materials": "placeholder stable surface_id bindings; geometry UV preserved",
     }
-    output_bytes = serialize(builder, roots, pack_extras)
+    output_bytes = serialize(builder, roots, pack_extras, args.asset_id)
     output_path = args.output.resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(output_bytes)
@@ -923,7 +931,7 @@ def main() -> None:
 
     manifest = {
         "schema": "haihao.aircraft/weapons-mother-distillation-manifest@1.0.0",
-        "assetId": "WM_B24_ANM2_V011",
+        "assetId": args.asset_id,
         "status": "user-review",
         "sources": [
             {

@@ -1,0 +1,1220 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-v012-browser-qa@1.0.0",
+  "status": "PASS",
+  "url": "http://127.0.0.1:8765/preview/weapons-mother/b24-m2-aircraft-v012/index.html",
+  "stressShots": 2000,
+  "checks": [
+    {
+      "name": "runtime alignment gate passes",
+      "pass": true,
+      "evidence": {
+        "version": "V012",
+        "alignments": {
+          "waist-starboard": {
+            "surfaceRegistration": {
+              "rmsMeters": 0.01978752697599527,
+              "meanMeters": 0.015605768405387535,
+              "medianMeters": 0.01227425267518404,
+              "p95Meters": 0.03872360303158024,
+              "maxMeters": 0.10305379390429183
+            },
+            "calibrationGate": {
+              "axisDotMinimum": 0.999999,
+              "surfaceP95MetersMaximum": 0.045,
+              "surfaceRmsMetersMaximum": 0.03,
+              "pass": true
+            },
+            "axisDot": 1,
+            "muzzleErrorMeters": 0.039199025038782434,
+            "rearErrorMeters": 0.039199024938872284,
+            "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+            "displayLiftMeters": 0.025,
+            "feedEndpointErrorMeters": 1.944128986425528e-16,
+            "feedTerminalAxisDot": 1,
+            "feedSocketSourceLocal": [
+              -0.075,
+              0.018,
+              0.058
+            ],
+            "sourceBeltPass": true,
+            "sightComponentCount": 9,
+            "sightComponentRoots": [
+              569,
+              591,
+              600,
+              616,
+              617,
+              796,
+              798,
+              800,
+              802
+            ],
+            "braceFloorErrorMeters": 3.128549153075255e-8,
+            "rearSightWorld": [
+              -0.15848154570259632,
+              -0.17185374563330225,
+              1.2428469101145891
+            ],
+            "highDetailBounds": {
+              "min": [
+                -0.39822970960282145,
+                -0.42514811510659856,
+                0.9783219633683975
+              ],
+              "max": [
+                0.6851461084967987,
+                0.7488160815641465,
+                1.2873223680273367
+              ]
+            },
+            "referenceBounds": {
+              "min": [
+                -0.41547850134236397,
+                -0.47634759121654346,
+                0.914211744273596
+              ],
+              "max": [
+                0.7341874198000505,
+                0.7433147789602798,
+                1.3133100782434757
+              ]
+            },
+            "finalWorldMatrixColumnMajor": [
+              0.6504635616044161,
+              0.703668122286833,
+              -0.10917911936693829,
+              0,
+              0.05938817444061825,
+              0.09375039794567178,
+              0.9580477457283705,
+              0,
+              0.7096070247798951,
+              -0.6528657721464216,
+              0.019898800248383544,
+              0,
+              -0.006557862378204993,
+              -0.014090481091686868,
+              1.1282815610962946,
+              1
+            ],
+            "reviewTransformColumnMajor": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              -1,
+              0,
+              0,
+              -0.8050758987070856,
+              -6.047046339680771,
+              1.3282194362354325,
+              1
+            ],
+            "finalHierarchy": "review transform > locked station mount > source-datum-corrected axis-locked gun"
+          }
+        },
+        "surfaceRegistration": {
+          "rmsMeters": 0.01978752697599527,
+          "meanMeters": 0.015605768405387535,
+          "medianMeters": 0.01227425267518404,
+          "p95Meters": 0.03872360303158024,
+          "maxMeters": 0.10305379390429183
+        },
+        "axisDot": 1,
+        "feedEndpointErrorMeters": 1.944128986425528e-16,
+        "feedTerminalAxisDot": 1,
+        "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+        "displayLiftMeters": 0.025,
+        "sightComponentCount": 9,
+        "sourceBeltPass": true,
+        "braceFloorErrorMeters": 3.128549153075255e-8,
+        "pass": true
+      }
+    },
+    {
+      "name": "axis-locked surface RMS passes",
+      "pass": true,
+      "evidence": {
+        "rmsMeters": 0.01978752697599527,
+        "meanMeters": 0.015605768405387535,
+        "medianMeters": 0.01227425267518404,
+        "p95Meters": 0.03872360303158024,
+        "maxMeters": 0.10305379390429183
+      }
+    },
+    {
+      "name": "axis-locked surface P95 passes",
+      "pass": true,
+      "evidence": {
+        "rmsMeters": 0.01978752697599527,
+        "meanMeters": 0.015605768405387535,
+        "medianMeters": 0.01227425267518404,
+        "p95Meters": 0.03872360303158024,
+        "maxMeters": 0.10305379390429183
+      }
+    },
+    {
+      "name": "source bore stays on node 802 +Y",
+      "pass": true,
+      "evidence": 1
+    },
+    {
+      "name": "node 811 datum meets real floor",
+      "pass": true,
+      "evidence": 3.128549153075255e-8
+    },
+    {
+      "name": "front/rear datum correction is centered",
+      "pass": true,
+      "evidence": 2.6182125027057745e-9
+    },
+    {
+      "name": "node 799 route endpoint meets explicit AN/M2 feed socket",
+      "pass": true,
+      "evidence": 1.944128986425528e-16
+    },
+    {
+      "name": "feed terminal cartridge axis reaches gun axis",
+      "pass": true,
+      "evidence": 1
+    },
+    {
+      "name": "complete rear sight source neighborhood is present",
+      "pass": true,
+      "evidence": 9
+    },
+    {
+      "name": "belt uses source-exact links without procedural rails",
+      "pass": true,
+      "evidence": true
+    },
+    {
+      "name": "display lift is the documented 25 mm",
+      "pass": true,
+      "evidence": 0.025
+    },
+    {
+      "name": "25-shot visual run keeps all cases",
+      "pass": true,
+      "evidence": {
+        "version": "V012",
+        "ready": true,
+        "shots": 25,
+        "totalCases": 25,
+        "totalLinks": 25,
+        "dynamicDebrisCount": 0,
+        "settlingDebrisCount": 0,
+        "settledCases": 25,
+        "settledLinks": 25,
+        "recentSettledColliders": 0,
+        "minSettledZ": 0.005795581587139739,
+        "maxSettledZ": 0.01745182157289943,
+        "belowFloorCount": 0,
+        "unsupportedSleeping": 0,
+        "maxRecordedImpactLimit": 4,
+        "maxSettleTransitionMeters": 0.362319341932269,
+        "pile": {
+          "maxHeight": 0.01720182157289943,
+          "p95Height": 0.016748970672259212,
+          "byType": {
+            "case": {
+              "count": 25,
+              "origin": [
+                -0.5388856292909466,
+                0.3477708620165677
+              ],
+              "footprintRadius": 0.24811744087176826,
+              "requiredSpread": 0.1395,
+              "gridCells": 25
+            },
+            "link": {
+              "count": 25,
+              "origin": [
+                -0.1578647137881539,
+                0.16141731317578584
+              ],
+              "footprintRadius": 0.1829029035224854,
+              "requiredSpread": 0.1035,
+              "gridCells": 16
+            }
+          },
+          "heightViolationCount": 0,
+          "spreadPass": true
+        },
+        "lowPilePass": true,
+        "activeStates": [],
+        "render": {
+          "calls": 52,
+          "triangles": 4563185,
+          "quality": "HIGH",
+          "dpr": 1
+        },
+        "alignment": {
+          "version": "V012",
+          "alignments": {
+            "waist-starboard": {
+              "surfaceRegistration": {
+                "rmsMeters": 0.01978752697599527,
+                "meanMeters": 0.015605768405387535,
+                "medianMeters": 0.01227425267518404,
+                "p95Meters": 0.03872360303158024,
+                "maxMeters": 0.10305379390429183
+              },
+              "calibrationGate": {
+                "axisDotMinimum": 0.999999,
+                "surfaceP95MetersMaximum": 0.045,
+                "surfaceRmsMetersMaximum": 0.03,
+                "pass": true
+              },
+              "axisDot": 1,
+              "muzzleErrorMeters": 0.039199025038782434,
+              "rearErrorMeters": 0.039199024938872284,
+              "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+              "displayLiftMeters": 0.025,
+              "feedEndpointErrorMeters": 1.944128986425528e-16,
+              "feedTerminalAxisDot": 1,
+              "feedSocketSourceLocal": [
+                -0.075,
+                0.018,
+                0.058
+              ],
+              "sourceBeltPass": true,
+              "sightComponentCount": 9,
+              "sightComponentRoots": [
+                569,
+                591,
+                600,
+                616,
+                617,
+                796,
+                798,
+                800,
+                802
+              ],
+              "braceFloorErrorMeters": 3.128549153075255e-8,
+              "rearSightWorld": [
+                -0.15848154570259632,
+                -0.17185374563330225,
+                1.2428469101145891
+              ],
+              "highDetailBounds": {
+                "min": [
+                  -0.39822970960282145,
+                  -0.42514811510659856,
+                  0.9783219633683975
+                ],
+                "max": [
+                  0.6851461084967987,
+                  0.7488160815641465,
+                  1.2873223680273367
+                ]
+              },
+              "referenceBounds": {
+                "min": [
+                  -0.41547850134236397,
+                  -0.47634759121654346,
+                  0.914211744273596
+                ],
+                "max": [
+                  0.7341874198000505,
+                  0.7433147789602798,
+                  1.3133100782434757
+                ]
+              },
+              "finalWorldMatrixColumnMajor": [
+                0.6504635616044161,
+                0.703668122286833,
+                -0.10917911936693829,
+                0,
+                0.05938817444061825,
+                0.09375039794567178,
+                0.9580477457283705,
+                0,
+                0.7096070247798951,
+                -0.6528657721464216,
+                0.019898800248383544,
+                0,
+                -0.006557862378204993,
+                -0.014090481091686868,
+                1.1282815610962946,
+                1
+              ],
+              "reviewTransformColumnMajor": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                -0.8050758987070856,
+                -6.047046339680771,
+                1.3282194362354325,
+                1
+              ],
+              "finalHierarchy": "review transform > locked station mount > source-datum-corrected axis-locked gun"
+            }
+          },
+          "surfaceRegistration": {
+            "rmsMeters": 0.01978752697599527,
+            "meanMeters": 0.015605768405387535,
+            "medianMeters": 0.01227425267518404,
+            "p95Meters": 0.03872360303158024,
+            "maxMeters": 0.10305379390429183
+          },
+          "axisDot": 1,
+          "feedEndpointErrorMeters": 1.944128986425528e-16,
+          "feedTerminalAxisDot": 1,
+          "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+          "displayLiftMeters": 0.025,
+          "sightComponentCount": 9,
+          "sourceBeltPass": true,
+          "braceFloorErrorMeters": 3.128549153075255e-8,
+          "pass": true
+        }
+      }
+    },
+    {
+      "name": "25-shot visual run keeps all links",
+      "pass": true,
+      "evidence": {
+        "version": "V012",
+        "ready": true,
+        "shots": 25,
+        "totalCases": 25,
+        "totalLinks": 25,
+        "dynamicDebrisCount": 0,
+        "settlingDebrisCount": 0,
+        "settledCases": 25,
+        "settledLinks": 25,
+        "recentSettledColliders": 0,
+        "minSettledZ": 0.005795581587139739,
+        "maxSettledZ": 0.01745182157289943,
+        "belowFloorCount": 0,
+        "unsupportedSleeping": 0,
+        "maxRecordedImpactLimit": 4,
+        "maxSettleTransitionMeters": 0.362319341932269,
+        "pile": {
+          "maxHeight": 0.01720182157289943,
+          "p95Height": 0.016748970672259212,
+          "byType": {
+            "case": {
+              "count": 25,
+              "origin": [
+                -0.5388856292909466,
+                0.3477708620165677
+              ],
+              "footprintRadius": 0.24811744087176826,
+              "requiredSpread": 0.1395,
+              "gridCells": 25
+            },
+            "link": {
+              "count": 25,
+              "origin": [
+                -0.1578647137881539,
+                0.16141731317578584
+              ],
+              "footprintRadius": 0.1829029035224854,
+              "requiredSpread": 0.1035,
+              "gridCells": 16
+            }
+          },
+          "heightViolationCount": 0,
+          "spreadPass": true
+        },
+        "lowPilePass": true,
+        "activeStates": [],
+        "render": {
+          "calls": 52,
+          "triangles": 4563185,
+          "quality": "HIGH",
+          "dpr": 1
+        },
+        "alignment": {
+          "version": "V012",
+          "alignments": {
+            "waist-starboard": {
+              "surfaceRegistration": {
+                "rmsMeters": 0.01978752697599527,
+                "meanMeters": 0.015605768405387535,
+                "medianMeters": 0.01227425267518404,
+                "p95Meters": 0.03872360303158024,
+                "maxMeters": 0.10305379390429183
+              },
+              "calibrationGate": {
+                "axisDotMinimum": 0.999999,
+                "surfaceP95MetersMaximum": 0.045,
+                "surfaceRmsMetersMaximum": 0.03,
+                "pass": true
+              },
+              "axisDot": 1,
+              "muzzleErrorMeters": 0.039199025038782434,
+              "rearErrorMeters": 0.039199024938872284,
+              "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+              "displayLiftMeters": 0.025,
+              "feedEndpointErrorMeters": 1.944128986425528e-16,
+              "feedTerminalAxisDot": 1,
+              "feedSocketSourceLocal": [
+                -0.075,
+                0.018,
+                0.058
+              ],
+              "sourceBeltPass": true,
+              "sightComponentCount": 9,
+              "sightComponentRoots": [
+                569,
+                591,
+                600,
+                616,
+                617,
+                796,
+                798,
+                800,
+                802
+              ],
+              "braceFloorErrorMeters": 3.128549153075255e-8,
+              "rearSightWorld": [
+                -0.15848154570259632,
+                -0.17185374563330225,
+                1.2428469101145891
+              ],
+              "highDetailBounds": {
+                "min": [
+                  -0.39822970960282145,
+                  -0.42514811510659856,
+                  0.9783219633683975
+                ],
+                "max": [
+                  0.6851461084967987,
+                  0.7488160815641465,
+                  1.2873223680273367
+                ]
+              },
+              "referenceBounds": {
+                "min": [
+                  -0.41547850134236397,
+                  -0.47634759121654346,
+                  0.914211744273596
+                ],
+                "max": [
+                  0.7341874198000505,
+                  0.7433147789602798,
+                  1.3133100782434757
+                ]
+              },
+              "finalWorldMatrixColumnMajor": [
+                0.6504635616044161,
+                0.703668122286833,
+                -0.10917911936693829,
+                0,
+                0.05938817444061825,
+                0.09375039794567178,
+                0.9580477457283705,
+                0,
+                0.7096070247798951,
+                -0.6528657721464216,
+                0.019898800248383544,
+                0,
+                -0.006557862378204993,
+                -0.014090481091686868,
+                1.1282815610962946,
+                1
+              ],
+              "reviewTransformColumnMajor": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                -1,
+                0,
+                0,
+                -0.8050758987070856,
+                -6.047046339680771,
+                1.3282194362354325,
+                1
+              ],
+              "finalHierarchy": "review transform > locked station mount > source-datum-corrected axis-locked gun"
+            }
+          },
+          "surfaceRegistration": {
+            "rmsMeters": 0.01978752697599527,
+            "meanMeters": 0.015605768405387535,
+            "medianMeters": 0.01227425267518404,
+            "p95Meters": 0.03872360303158024,
+            "maxMeters": 0.10305379390429183
+          },
+          "axisDot": 1,
+          "feedEndpointErrorMeters": 1.944128986425528e-16,
+          "feedTerminalAxisDot": 1,
+          "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+          "displayLiftMeters": 0.025,
+          "sightComponentCount": 9,
+          "sourceBeltPass": true,
+          "braceFloorErrorMeters": 3.128549153075255e-8,
+          "pass": true
+        }
+      }
+    },
+    {
+      "name": "no settled debris below floor",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "no unsupported sleeping rigid bodies",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "25-shot settle transitions are drained",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "impact ceiling remains four",
+      "pass": true,
+      "evidence": 4
+    },
+    {
+      "name": "25-shot pile remains low",
+      "pass": true,
+      "evidence": {
+        "maxHeight": 0.01720182157289943,
+        "p95Height": 0.016748970672259212,
+        "byType": {
+          "case": {
+            "count": 25,
+            "origin": [
+              -0.5388856292909466,
+              0.3477708620165677
+            ],
+            "footprintRadius": 0.24811744087176826,
+            "requiredSpread": 0.1395,
+            "gridCells": 25
+          },
+          "link": {
+            "count": 25,
+            "origin": [
+              -0.1578647137881539,
+              0.16141731317578584
+            ],
+            "footprintRadius": 0.1829029035224854,
+            "requiredSpread": 0.1035,
+            "gridCells": 16
+          }
+        },
+        "heightViolationCount": 0,
+        "spreadPass": true
+      }
+    },
+    {
+      "name": "stress run retains every case",
+      "pass": true,
+      "evidence": {
+        "expected": 2000,
+        "actual": 2000
+      }
+    },
+    {
+      "name": "stress run retains every link",
+      "pass": true,
+      "evidence": {
+        "expected": 2000,
+        "actual": 2000
+      }
+    },
+    {
+      "name": "stress run drains dynamic solver",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "stress settle transitions are drained",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "settled collision queue is empty",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "stress run has no below-floor instances",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "stress run has no unsupported sleepers",
+      "pass": true,
+      "evidence": 0
+    },
+    {
+      "name": "stress pile height stays low and spreads",
+      "pass": true,
+      "evidence": {
+        "maxHeight": 0.017709717561011192,
+        "p95Height": 0.016793879162380763,
+        "byType": {
+          "case": {
+            "count": 2000,
+            "origin": [
+              -0.504992836551598,
+              0.3085712076872143
+            ],
+            "footprintRadius": 2.029095938852307,
+            "requiredSpread": 1.2477259314448828,
+            "gridCells": 2000
+          },
+          "link": {
+            "count": 2000,
+            "origin": [
+              -0.1726909867008494,
+              0.1583254851126006
+            ],
+            "footprintRadius": 1.5020948869684456,
+            "requiredSpread": 0.925732142684913,
+            "gridCells": 1267
+          }
+        },
+        "heightViolationCount": 0,
+        "spreadPass": true
+      }
+    },
+    {
+      "name": "draw calls stay bounded after full feed",
+      "pass": true,
+      "evidence": {
+        "calls": 52,
+        "triangles": 21105785,
+        "quality": "HIGH",
+        "dpr": 1
+      }
+    },
+    {
+      "name": "post-stress animation remains interactive",
+      "pass": true,
+      "evidence": {
+        "frames": 180,
+        "meanFps": 60.148365969870426,
+        "medianFrameMs": 16.69999999999709,
+        "p95FrameMs": 16.80000000000291,
+        "maxFrameMs": 17
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "alignment": {
+    "version": "V012",
+    "alignments": {
+      "waist-starboard": {
+        "surfaceRegistration": {
+          "rmsMeters": 0.01978752697599527,
+          "meanMeters": 0.015605768405387535,
+          "medianMeters": 0.01227425267518404,
+          "p95Meters": 0.03872360303158024,
+          "maxMeters": 0.10305379390429183
+        },
+        "calibrationGate": {
+          "axisDotMinimum": 0.999999,
+          "surfaceP95MetersMaximum": 0.045,
+          "surfaceRmsMetersMaximum": 0.03,
+          "pass": true
+        },
+        "axisDot": 1,
+        "muzzleErrorMeters": 0.039199025038782434,
+        "rearErrorMeters": 0.039199024938872284,
+        "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+        "displayLiftMeters": 0.025,
+        "feedEndpointErrorMeters": 1.944128986425528e-16,
+        "feedTerminalAxisDot": 1,
+        "feedSocketSourceLocal": [
+          -0.075,
+          0.018,
+          0.058
+        ],
+        "sourceBeltPass": true,
+        "sightComponentCount": 9,
+        "sightComponentRoots": [
+          569,
+          591,
+          600,
+          616,
+          617,
+          796,
+          798,
+          800,
+          802
+        ],
+        "braceFloorErrorMeters": 3.128549153075255e-8,
+        "rearSightWorld": [
+          -0.15848154570259632,
+          -0.17185374563330225,
+          1.2428469101145891
+        ],
+        "highDetailBounds": {
+          "min": [
+            -0.39822970960282145,
+            -0.42514811510659856,
+            0.9783219633683975
+          ],
+          "max": [
+            0.6851461084967987,
+            0.7488160815641465,
+            1.2873223680273367
+          ]
+        },
+        "referenceBounds": {
+          "min": [
+            -0.41547850134236397,
+            -0.47634759121654346,
+            0.914211744273596
+          ],
+          "max": [
+            0.7341874198000505,
+            0.7433147789602798,
+            1.3133100782434757
+          ]
+        },
+        "finalWorldMatrixColumnMajor": [
+          0.6504635616044161,
+          0.703668122286833,
+          -0.10917911936693829,
+          0,
+          0.05938817444061825,
+          0.09375039794567178,
+          0.9580477457283705,
+          0,
+          0.7096070247798951,
+          -0.6528657721464216,
+          0.019898800248383544,
+          0,
+          -0.006557862378204993,
+          -0.014090481091686868,
+          1.1282815610962946,
+          1
+        ],
+        "reviewTransformColumnMajor": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          -1,
+          0,
+          0,
+          -0.8050758987070856,
+          -6.047046339680771,
+          1.3282194362354325,
+          1
+        ],
+        "finalHierarchy": "review transform > locked station mount > source-datum-corrected axis-locked gun"
+      }
+    },
+    "surfaceRegistration": {
+      "rmsMeters": 0.01978752697599527,
+      "meanMeters": 0.015605768405387535,
+      "medianMeters": 0.01227425267518404,
+      "p95Meters": 0.03872360303158024,
+      "maxMeters": 0.10305379390429183
+    },
+    "axisDot": 1,
+    "feedEndpointErrorMeters": 1.944128986425528e-16,
+    "feedTerminalAxisDot": 1,
+    "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+    "displayLiftMeters": 0.025,
+    "sightComponentCount": 9,
+    "sourceBeltPass": true,
+    "braceFloorErrorMeters": 3.128549153075255e-8,
+    "pass": true
+  },
+  "shortRun": {
+    "version": "V012",
+    "ready": true,
+    "shots": 25,
+    "totalCases": 25,
+    "totalLinks": 25,
+    "dynamicDebrisCount": 0,
+    "settlingDebrisCount": 0,
+    "settledCases": 25,
+    "settledLinks": 25,
+    "recentSettledColliders": 0,
+    "minSettledZ": 0.005795581587139739,
+    "maxSettledZ": 0.01745182157289943,
+    "belowFloorCount": 0,
+    "unsupportedSleeping": 0,
+    "maxRecordedImpactLimit": 4,
+    "maxSettleTransitionMeters": 0.362319341932269,
+    "pile": {
+      "maxHeight": 0.01720182157289943,
+      "p95Height": 0.016748970672259212,
+      "byType": {
+        "case": {
+          "count": 25,
+          "origin": [
+            -0.5388856292909466,
+            0.3477708620165677
+          ],
+          "footprintRadius": 0.24811744087176826,
+          "requiredSpread": 0.1395,
+          "gridCells": 25
+        },
+        "link": {
+          "count": 25,
+          "origin": [
+            -0.1578647137881539,
+            0.16141731317578584
+          ],
+          "footprintRadius": 0.1829029035224854,
+          "requiredSpread": 0.1035,
+          "gridCells": 16
+        }
+      },
+      "heightViolationCount": 0,
+      "spreadPass": true
+    },
+    "lowPilePass": true,
+    "activeStates": [],
+    "render": {
+      "calls": 52,
+      "triangles": 4563185,
+      "quality": "HIGH",
+      "dpr": 1
+    },
+    "alignment": {
+      "version": "V012",
+      "alignments": {
+        "waist-starboard": {
+          "surfaceRegistration": {
+            "rmsMeters": 0.01978752697599527,
+            "meanMeters": 0.015605768405387535,
+            "medianMeters": 0.01227425267518404,
+            "p95Meters": 0.03872360303158024,
+            "maxMeters": 0.10305379390429183
+          },
+          "calibrationGate": {
+            "axisDotMinimum": 0.999999,
+            "surfaceP95MetersMaximum": 0.045,
+            "surfaceRmsMetersMaximum": 0.03,
+            "pass": true
+          },
+          "axisDot": 1,
+          "muzzleErrorMeters": 0.039199025038782434,
+          "rearErrorMeters": 0.039199024938872284,
+          "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+          "displayLiftMeters": 0.025,
+          "feedEndpointErrorMeters": 1.944128986425528e-16,
+          "feedTerminalAxisDot": 1,
+          "feedSocketSourceLocal": [
+            -0.075,
+            0.018,
+            0.058
+          ],
+          "sourceBeltPass": true,
+          "sightComponentCount": 9,
+          "sightComponentRoots": [
+            569,
+            591,
+            600,
+            616,
+            617,
+            796,
+            798,
+            800,
+            802
+          ],
+          "braceFloorErrorMeters": 3.128549153075255e-8,
+          "rearSightWorld": [
+            -0.15848154570259632,
+            -0.17185374563330225,
+            1.2428469101145891
+          ],
+          "highDetailBounds": {
+            "min": [
+              -0.39822970960282145,
+              -0.42514811510659856,
+              0.9783219633683975
+            ],
+            "max": [
+              0.6851461084967987,
+              0.7488160815641465,
+              1.2873223680273367
+            ]
+          },
+          "referenceBounds": {
+            "min": [
+              -0.41547850134236397,
+              -0.47634759121654346,
+              0.914211744273596
+            ],
+            "max": [
+              0.7341874198000505,
+              0.7433147789602798,
+              1.3133100782434757
+            ]
+          },
+          "finalWorldMatrixColumnMajor": [
+            0.6504635616044161,
+            0.703668122286833,
+            -0.10917911936693829,
+            0,
+            0.05938817444061825,
+            0.09375039794567178,
+            0.9580477457283705,
+            0,
+            0.7096070247798951,
+            -0.6528657721464216,
+            0.019898800248383544,
+            0,
+            -0.006557862378204993,
+            -0.014090481091686868,
+            1.1282815610962946,
+            1
+          ],
+          "reviewTransformColumnMajor": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -0.8050758987070856,
+            -6.047046339680771,
+            1.3282194362354325,
+            1
+          ],
+          "finalHierarchy": "review transform > locked station mount > source-datum-corrected axis-locked gun"
+        }
+      },
+      "surfaceRegistration": {
+        "rmsMeters": 0.01978752697599527,
+        "meanMeters": 0.015605768405387535,
+        "medianMeters": 0.01227425267518404,
+        "p95Meters": 0.03872360303158024,
+        "maxMeters": 0.10305379390429183
+      },
+      "axisDot": 1,
+      "feedEndpointErrorMeters": 1.944128986425528e-16,
+      "feedTerminalAxisDot": 1,
+      "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+      "displayLiftMeters": 0.025,
+      "sightComponentCount": 9,
+      "sourceBeltPass": true,
+      "braceFloorErrorMeters": 3.128549153075255e-8,
+      "pass": true
+    }
+  },
+  "stress": {
+    "version": "V012",
+    "ready": true,
+    "shots": 2000,
+    "totalCases": 2000,
+    "totalLinks": 2000,
+    "dynamicDebrisCount": 0,
+    "settlingDebrisCount": 0,
+    "settledCases": 2000,
+    "settledLinks": 2000,
+    "recentSettledColliders": 0,
+    "minSettledZ": 0.005750223968581857,
+    "maxSettledZ": 0.017959717561011192,
+    "belowFloorCount": 0,
+    "unsupportedSleeping": 0,
+    "maxRecordedImpactLimit": 4,
+    "maxSettleTransitionMeters": 2.194468873107051,
+    "pile": {
+      "maxHeight": 0.017709717561011192,
+      "p95Height": 0.016793879162380763,
+      "byType": {
+        "case": {
+          "count": 2000,
+          "origin": [
+            -0.504992836551598,
+            0.3085712076872143
+          ],
+          "footprintRadius": 2.029095938852307,
+          "requiredSpread": 1.2477259314448828,
+          "gridCells": 2000
+        },
+        "link": {
+          "count": 2000,
+          "origin": [
+            -0.1726909867008494,
+            0.1583254851126006
+          ],
+          "footprintRadius": 1.5020948869684456,
+          "requiredSpread": 0.925732142684913,
+          "gridCells": 1267
+        }
+      },
+      "heightViolationCount": 0,
+      "spreadPass": true
+    },
+    "lowPilePass": true,
+    "activeStates": [],
+    "render": {
+      "calls": 52,
+      "triangles": 21105785,
+      "quality": "HIGH",
+      "dpr": 1
+    },
+    "alignment": {
+      "version": "V012",
+      "alignments": {
+        "waist-starboard": {
+          "surfaceRegistration": {
+            "rmsMeters": 0.01978752697599527,
+            "meanMeters": 0.015605768405387535,
+            "medianMeters": 0.01227425267518404,
+            "p95Meters": 0.03872360303158024,
+            "maxMeters": 0.10305379390429183
+          },
+          "calibrationGate": {
+            "axisDotMinimum": 0.999999,
+            "surfaceP95MetersMaximum": 0.045,
+            "surfaceRmsMetersMaximum": 0.03,
+            "pass": true
+          },
+          "axisDot": 1,
+          "muzzleErrorMeters": 0.039199025038782434,
+          "rearErrorMeters": 0.039199024938872284,
+          "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+          "displayLiftMeters": 0.025,
+          "feedEndpointErrorMeters": 1.944128986425528e-16,
+          "feedTerminalAxisDot": 1,
+          "feedSocketSourceLocal": [
+            -0.075,
+            0.018,
+            0.058
+          ],
+          "sourceBeltPass": true,
+          "sightComponentCount": 9,
+          "sightComponentRoots": [
+            569,
+            591,
+            600,
+            616,
+            617,
+            796,
+            798,
+            800,
+            802
+          ],
+          "braceFloorErrorMeters": 3.128549153075255e-8,
+          "rearSightWorld": [
+            -0.15848154570259632,
+            -0.17185374563330225,
+            1.2428469101145891
+          ],
+          "highDetailBounds": {
+            "min": [
+              -0.39822970960282145,
+              -0.42514811510659856,
+              0.9783219633683975
+            ],
+            "max": [
+              0.6851461084967987,
+              0.7488160815641465,
+              1.2873223680273367
+            ]
+          },
+          "referenceBounds": {
+            "min": [
+              -0.41547850134236397,
+              -0.47634759121654346,
+              0.914211744273596
+            ],
+            "max": [
+              0.7341874198000505,
+              0.7433147789602798,
+              1.3133100782434757
+            ]
+          },
+          "finalWorldMatrixColumnMajor": [
+            0.6504635616044161,
+            0.703668122286833,
+            -0.10917911936693829,
+            0,
+            0.05938817444061825,
+            0.09375039794567178,
+            0.9580477457283705,
+            0,
+            0.7096070247798951,
+            -0.6528657721464216,
+            0.019898800248383544,
+            0,
+            -0.006557862378204993,
+            -0.014090481091686868,
+            1.1282815610962946,
+            1
+          ],
+          "reviewTransformColumnMajor": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -0.8050758987070856,
+            -6.047046339680771,
+            1.3282194362354325,
+            1
+          ],
+          "finalHierarchy": "review transform > locked station mount > source-datum-corrected axis-locked gun"
+        }
+      },
+      "surfaceRegistration": {
+        "rmsMeters": 0.01978752697599527,
+        "meanMeters": 0.015605768405387535,
+        "medianMeters": 0.01227425267518404,
+        "p95Meters": 0.03872360303158024,
+        "maxMeters": 0.10305379390429183
+      },
+      "axisDot": 1,
+      "feedEndpointErrorMeters": 1.944128986425528e-16,
+      "feedTerminalAxisDot": 1,
+      "frontBackDatumErrorMeters": 2.6182125027057745e-9,
+      "displayLiftMeters": 0.025,
+      "sightComponentCount": 9,
+      "sourceBeltPass": true,
+      "braceFloorErrorMeters": 3.128549153075255e-8,
+      "pass": true
+    }
+  },
+  "postStressFps": {
+    "frames": 180,
+    "meanFps": 60.148365969870426,
+    "medianFrameMs": 16.69999999999709,
+    "p95FrameMs": 16.80000000000291,
+    "maxFrameMs": 17
+  }
+}

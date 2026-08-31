@@ -1,0 +1,73 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-source-node-map@1.0.0",
+  "assetId": "WM_B24_ANM2_V012",
+  "policy": "Every visible component has one declared source role. A source node may not be relabeled to fill a missing part.",
+  "sources": {
+    "aircraftAnm2": {
+      "file": "anm2_browning_.50_cal_aircraft_machine_gun.glb",
+      "nodes": {
+        "9": "barrel jacket and bore assembly",
+        "15": "front mount ring",
+        "17": "handgrip",
+        "19": "grip",
+        "21": "trigger",
+        "23": "receiver body",
+        "25": "removable sideplate",
+        "27": "small receiver control",
+        "4": "complete .50-caliber round geometry; not a chute",
+        "6": "complete .50-caliber round geometry; not a chute",
+        "7": "complete .50-caliber round geometry; not a chute",
+        "11": "ammunition container reference"
+      }
+    },
+    "denseM2Reference": {
+      "file": "m2_browning_.50_cal_machine_gun.glb",
+      "nodes": {
+        "8": "dense M2 exterior/detail reference; not an aircraft-form replacement",
+        "11": "repeated complete linked-round array",
+        "12": "matching M2 disintegrating-link array",
+        "13": "complete ammunition-container exterior reference",
+        "14": "container handle and small loop accessory",
+        "15": "container insert/separator plate",
+        "16": "forbidden ground/display base"
+      }
+    },
+    "cartridge": {
+      "file": "12.7x99mm_m2_ball_still_practice_no_texture.glb",
+      "nodes": {
+        "2": "exact case and primer geometry with source UV",
+        "3": "separated projectile geometry with source UV",
+        "4": "assembled projectile geometry with source UV"
+      }
+    },
+    "mechanismReference": {
+      "file": "m2_browning_machine_gun.glb",
+      "nodes": {
+        "12": "driving spring reference",
+        "14": "bolt reference",
+        "16": "cocking handle reference",
+        "18": "donor receiver alignment body; hidden",
+        "20": "donor barrel alignment body; hidden"
+      }
+    },
+    "b24Station": {
+      "file": "b-24_liberator.glb",
+      "nodes": {
+        "799": "starboard-waist feed-route reference",
+        "802": "starboard-waist low-detail gun registration target; complete rear-sight component neighborhood retained",
+        "805": "starboard-waist pivot/buffer",
+        "808": "starboard-waist aircraft adapter cradle",
+        "811": "starboard-waist airframe triangular brace",
+        "starboardRearSightRoots": [569, 591, 600, 616, 617, 796, 798, 800, 802],
+        "portRearSightRoots": [736, 757, 768, 770, 787, 792, 799, 971, 973, 975, 977]
+      }
+    }
+  },
+  "forbidden": [
+    "generic tripod, pedestal, naval, vehicle, museum or display base",
+    "dense source node 16 ground/display base",
+    "AN/M2 nodes 4, 6 or 7 relabeled as feed chutes",
+    "manual angle offsets used instead of node-802 surface registration",
+    "non-uniform scaling or source-vertex reshaping"
+  ]
+}
