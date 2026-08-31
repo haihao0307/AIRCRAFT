@@ -1,0 +1,131 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-axis-locked-registration@1.0.0",
+  "assetId": "WM_B24_ANM2_V011",
+  "stationId": "b24.waist.starboard.flexible",
+  "sourceGunNodes": [
+    9,
+    15,
+    17,
+    19,
+    21,
+    23,
+    25,
+    27
+  ],
+  "targetNode": 802,
+  "method": "deterministic area-weighted symmetric surface ICP constrained to +X source bore -> +Y target-local bore, uniform scale, bore-axis roll, and translation",
+  "constraints": {
+    "sourceForward": "+X",
+    "targetForward": "node 802 local +Y",
+    "nonUniformScale": false,
+    "reflection": false,
+    "freeBoreTilt": false
+  },
+  "sampleCountEach": 1800,
+  "coarseSeedDegrees": [
+    90.0,
+    -90.0,
+    80.0,
+    100.0,
+    -100.0,
+    -80.0
+  ],
+  "rollDegrees": 88.81012328671221,
+  "targetLocalUniformScale": 1.329135438522841,
+  "worldUniformScale": 0.9644541209427846,
+  "targetLocalTranslation": [
+    -0.02984992589777169,
+    -0.3559327216795755,
+    -0.04882485439000694
+  ],
+  "targetLocalMatrixColumnMajor": [
+    0.0,
+    1.329135438522841,
+    0.0,
+    0.0,
+    -0.027600525630686622,
+    0.0,
+    1.3288488344887897,
+    0.0,
+    1.3288488344887897,
+    0.0,
+    0.027600525630686622,
+    0.0,
+    -0.02984992589777169,
+    -0.3559327216795755,
+    -0.04882485439000694,
+    1.0
+  ],
+  "matrixColumnMajor": [
+    0.6504635616044161,
+    -0.10917911936693829,
+    -0.703668122286833,
+    0.0,
+    0.05938817444061825,
+    0.9580477457283705,
+    -0.09375039794567176,
+    0.0,
+    0.7096070247798951,
+    0.019898800248383544,
+    0.6528657721464216,
+    0.0,
+    0.7716132452832912,
+    -0.220421955160679,
+    -6.003850394558367,
+    1.0
+  ],
+  "surfaceRegistration": {
+    "rmsMeters": 0.01978752697599527,
+    "meanMeters": 0.015605768405387535,
+    "medianMeters": 0.01227425267518404,
+    "p95Meters": 0.03872360303158024,
+    "maxMeters": 0.10305379390429183
+  },
+  "robustObjectiveTargetLocal": 0.028146484672363754,
+  "sourceLandmarks": {
+    "muzzle": [
+      0.97957444190979,
+      0.0013871534227504509,
+      0.002354761636104845
+    ],
+    "rear": [
+      -0.5267140594817235,
+      0.0013871534227504509,
+      0.002354761636104845
+    ],
+    "rollDatum": [
+      -0.5267140594817235,
+      0.0013871534227504509,
+      1.0023547616361048
+    ]
+  },
+  "mappedLandmarks": {
+    "muzzleTargetLocal": [
+      -0.026759089805733167,
+      0.9460543837339606,
+      -0.0469165445220364
+    ],
+    "rearTargetLocal": [
+      -0.026759089805733167,
+      -1.0560070441049618,
+      -0.0469165445220364
+    ],
+    "muzzleWorld": [
+      1.4105440615327,
+      -0.3259952139416751,
+      -6.691738405648819
+    ],
+    "rearWorld": [
+      0.4307582781137975,
+      -0.16153996184720443,
+      -5.631811204252406
+    ]
+  },
+  "axisDot": 1.0,
+  "acceptance": {
+    "axisDotMinimum": 0.999999,
+    "surfaceP95MetersMaximum": 0.045,
+    "surfaceRmsMetersMaximum": 0.03,
+    "pass": true
+  }
+}

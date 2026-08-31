@@ -1,0 +1,95 @@
+{
+  "schema": "haihao.aircraft/production-asset-contract@1.0.0",
+  "assetId": "WM_B24_ANM2_V011",
+  "status": "single-station-right-waist-evidence-gate",
+  "runtimeRole": "B-24 right-waist source-parity and aircraft-installation review",
+  "construction": {
+    "declaredUnit": "meter",
+    "gunForwardAxis": "+X",
+    "animationSemantics": {
+      "muzzleSocketMeters": [0.9795744419, -0.0000965208, -0.0036395122],
+      "muzzleSocketMethod": "AN/M2 source muzzle-slice radial center on the declared +X bore axis; no visual offset",
+      "sourceProjectileAxis": "+Z",
+      "runtimeProjectileAxis": "source +Z tip aligned directly to measured world trajectory",
+      "sourceCaseAxis": "+Z",
+      "b24SourceUp": "+Y",
+      "rendererUp": "+Z",
+      "sourceGunUpAxis": "+Z",
+      "stationConversion": "rotation +90 degrees about X",
+      "starboardReferenceMuzzleAxis": "+Y",
+      "portReferenceMuzzleAxis": "-Y",
+      "alignmentBasis": "right-handed; donor +X bore is locked to B-24 node 802 local +Y; area-weighted symmetric surface registration solves uniform scale, bore-axis roll and translation; no free bore tilt or non-uniform scale",
+      "barrelRecoilMeters": 0.028575,
+      "mechanicalCycle": ["locked barrel and barrel-extension short recoil", "breech-lock drop and accelerator rotation", "bolt full recoil and driving-spring compression", "extractor downward transfer and bottom case ejection", "belt-feed lever, slide, feed pawl and holding pawl motion", "counter-recoil, chambering and relock"],
+      "mechanicalEvidence": "1944 Aircrewman's Gunnery Manual cycle of operation; manual-cycle proxy parts are labeled and are not claimed as exact catalog geometry",
+      "caseAndLinkLifetime": "persistent until user clears the test area",
+      "caseAndLinkCollision": "Cannon rigid bodies with SI gravity and a real floor at review Z=0; every case/link has a 2-4 impact ceiling, then leaves the dynamic solver into a deterministic low-pile placement; settled visuals do not become a tall collider tower",
+      "physicsActiveBodyLimit": 96,
+      "settledInstanceCapacityPerType": 8192,
+      "recentSettledColliderLimit": 0,
+      "lowPileHeightLimitMeters": 0.14,
+      "lowPilePlacement": "floor-height rest pose, horizontal case orientation, one/two items per footprint cell, seeded pseudo-random disk spread from the ejection origin without a visible radial pattern",
+      "muzzleEffects": "fixed-capacity five-ribbon textured flash, dense pooled white smoke, fine pooled sparks and one reusable light per gun",
+      "audioStages": ["muzzle report", "receiver impulse", "bolt recoil", "feed pawl and slide", "counter-recoil lock", "ammunition box and flexible chute rattle", "case and link support impact"],
+      "audioSourcePolicy": "deterministic Web Audio synthesis; no unlicensed external recordings",
+      "tracerCadence": "one tracer per five rounds when enabled"
+    },
+    "sourceExactExterior": true,
+    "sourceUvPreserved": true,
+    "completionClaim": "corrective review; not AAA-final or engineering-approved",
+    "runtimeWaistFeed": "source-exact 12.7x99 mm rounds and extracted M2 disintegrating-link components follow the hidden B-24 right-waist route node 799; the dense source Object_13 container is mounted at the measured outlet, with a filled 8x16 round/link pack and continuous flexible guide into the feedway; part number remains unresolved",
+    "defaultReviewStage": "B-24 starboard waist source calibration",
+    "stationMounts": ["B-24 starboard waist flexible: active V011 surface-registration gate", "B-24 port waist flexible: retained in data but disabled this review", "A-13: blocked pending dimensioned evidence"],
+    "sourceStationAssemblies": {
+      "starboardWaist": {
+        "feedNode": 799,
+        "gunNode": 802,
+        "pivotNode": 805,
+        "adapterCradleNode": 808,
+        "airframeBraceNode": 811,
+        "rearSightComponentRoots": [796, 800]
+      },
+      "portWaist": {
+        "feedNode": 818,
+        "gunNode": 821,
+        "airframeBraceNode": 824,
+        "rearSightComponentRoots": [971, 975]
+      }
+    },
+    "reviewPlacement": "one documented B-24 +Y-up to renderer +Z-up basis conversion; node 808 center anchors review X/Y and node 811 minimum source Y anchors floor Z=0; no bounding-box auto-centering",
+    "seatedMountPolicy": "A-13 integrated ball turret remains blocked; no generic seat pedestal"
+  },
+  "requirements": {
+    "interaction": ["isolated gun", "starboard waist evidence gate", "feed/ammunition inspection", "service separation", "internal reference overlay", "ammo separation", "layered audio mute"],
+    "surface": ["stable surface_id", "deterministic macro/meso/micro fields", "color/roughness only", "editable seeds and wear controls"],
+    "delivery": "online HTML with remote source asset stored outside the hosted Site; no hosted GLB and no embedded image payloads"
+  },
+  "budgets": {
+    "baseTriangles": 121125,
+    "drawCalls": 120,
+    "burstDynamicBodies": 96,
+    "settledDebrisDrawCalls": 2,
+    "recentSettledColliderLimit": 0,
+    "smokePool": 256,
+    "sparkPool": 160,
+    "adaptiveDpr": {"high": 1.5, "balanced": 1.0, "degradeBelowFps": 42, "recoverAboveFps": 55},
+    "runtimeFieldTextureResolution": 256,
+    "decodedGeneratedTextureMemoryMiB": 2.5,
+    "htmlBytes": 250000,
+    "externalGlbBytes": 4655692,
+    "remoteCompressedSourceBytes": 2400000
+  },
+  "approvalGates": {
+    "sourceHash": "required",
+    "sourceNodeAndUvParity": "required",
+    "waistMountVisualParity": "required for starboard node 802/805/808/811 only in V011",
+    "surfaceRegistration": {"axisDotMinimum": 0.999999, "surfaceRmsMetersMaximum": 0.03, "surfaceP95MetersMaximum": 0.045},
+    "feedSystem": "required: dense container, full visible load, continuous linked belt, guide rails and feedway endpoint",
+    "lowPilePhysics": "required: 2-4 impacts, zero dynamic bodies after settle, no below-floor items, max settled height <= 0.14 m, expanding lateral footprint",
+    "finalWorldHierarchyAlignment": "required browser QA before release",
+    "waistFeedBoxEngineeringApproval": "blocked until exact aircraft block and installation drawing are locked",
+    "A13FullGeometry": "blocked until dimensioned geometry evidence exists",
+    "aircraftBlockApplicability": "required before airframe integration",
+    "engineeringApproval": false
+  }
+}

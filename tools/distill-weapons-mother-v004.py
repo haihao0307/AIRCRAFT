@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the traceable V010 AN/M2 geometry distillation pack.
+"""Build the traceable V011 AN/M2 geometry distillation pack.
 
 The source vertex data, normals and UVs are copied exactly.  Only hierarchy,
 semantic names, placeholder surface bindings and documented group transforms
@@ -635,6 +635,11 @@ def main() -> None:
     parser.add_argument("--field-package", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
+    parser.add_argument(
+        "--alignment-calibration",
+        type=Path,
+        help="V011 axis-locked surface registration produced by calibrate-weapons-mother-alignment-v011.py",
+    )
     args = parser.parse_args()
 
     sources = {
@@ -660,6 +665,14 @@ def main() -> None:
     }
     matrices = {key: world_matrices(value) for key, value in sources.items()}
     field_source = verify_field_package(args.field_package.resolve())
+    alignment_calibration = {}
+    if args.alignment_calibration:
+        calibration_path = args.alignment_calibration.resolve()
+        alignment_calibration = json.loads(calibration_path.read_text(encoding="utf-8"))
+        if alignment_calibration.get("assetId") != "WM_B24_ANM2_V011":
+            raise ValueError("alignment calibration is not a V011 result")
+        if not alignment_calibration.get("acceptance", {}).get("pass"):
+            raise ValueError("alignment calibration failed its surface/axis acceptance gate")
 
     builder = GlbBuilder()
     builder.nodes = []
@@ -694,19 +707,29 @@ def main() -> None:
 
     feed_children = []
     for node_index, name, material, role in [
-        (4, "feed.chute_short.source_n004", 3, "source feed chute reference"),
-        (6, "feed.chute_long.source_n006", 3, "source feed chute reference"),
-        (7, "feed.chute_insert.source_n007", 3, "source feed insert reference"),
-        (11, "feed.ammunition_box.source_n011", 6, "source ammunition box reference"),
+        (11, "feed.ammunition_box.aircraft_source_n011", 3, "AN/M2 ammunition-container reference; not a chute"),
     ]:
         feed_children.append(
             add_source_node(builder, sources["anm2"], node_index, name, material, matrices["anm2"], role)
+        )
+    for node_index, name, role in [
+        (13, "feed.ammunition_container.dense_object13", "dense reference ammunition-container exterior"),
+        (14, "feed.ammunition_container_handle.dense_object14", "dense reference container handle/loop accessory"),
+        (15, "feed.ammunition_container_insert.dense_object15", "dense reference container insert/separator plate"),
+    ]:
+        feed_children.append(
+            add_source_node(builder, sources["belt"], node_index, name, 3, matrices["belt"], role)
         )
     feed_group = add_group(
         builder,
         "FEED_SOURCE_MIRROR",
         feed_children,
-        {"status": "source-exact-reference-components; station routing unresolved"},
+        {
+            "status": "source-exact-reference-components; V011 semantic map corrected",
+            "aircraftRoute": "B-24 node 799 -> loaded box outlet -> flexible guide -> AN/M2 feedway",
+            "notAChuteNodes": [4, 6, 7],
+            "denseReferenceNodes": [13, 14, 15],
+        },
     )
 
     cartridge_children = []
@@ -855,27 +878,39 @@ def main() -> None:
             },
         )
         station_groups.append(group)
+        alignment = gun_alignment(
+            sources["anm2"],
+            matrices["anm2"],
+            sources["b24"],
+            matrices["b24"],
+            gun_node,
+            muzzle_sign,
+            sight_roots,
+        )
+        calibration = alignment_calibration if station_id == "b24.waist.starboard.flexible" else None
+        if calibration:
+            alignment["matrixColumnMajor"] = calibration["matrixColumnMajor"]
+            alignment["uniformScale"] = calibration["worldUniformScale"]
+            alignment["sourceLandmarks"] = calibration["sourceLandmarks"]
+            alignment["surfaceRegistration"] = calibration["surfaceRegistration"]
+            alignment["axisDot"] = calibration["axisDot"]
+            alignment["calibrationGate"] = calibration["acceptance"]
+            alignment["calibrationTargetNode"] = calibration["targetNode"]
+            alignment["calibrationMethod"] = calibration["method"]
+            alignment["method"] = calibration["method"]
         station_manifest[station_id] = {
             "sourceGunNodeIndex": gun_node,
             "sourceRearSightComponentRoots": sorted(sight_roots),
             "reviewTransform": station_review_transform(
                 sources["b24"], matrices["b24"], anchor_node, floor_node
             ),
-            "highDetailGunAlignment": gun_alignment(
-                sources["anm2"],
-                matrices["anm2"],
-                sources["b24"],
-                matrices["b24"],
-                gun_node,
-                muzzle_sign,
-                sight_roots,
-            ),
+            "highDetailGunAlignment": alignment,
         }
 
     roots = [gun_group, feed_group, cartridge_group, link_group, mechanism_group] + station_groups
     pack_extras = {
         "schema": "haihao.aircraft/weapons-mother-distilled-geometry-pack@1.0.0",
-        "assetId": "WM_B24_ANM2_V010",
+        "assetId": "WM_B24_ANM2_V011",
         "status": "review-source-mirrors-and-semantic-distillation",
         "geometryPolicy": "source vertex data exact; only documented rigid/uniform transforms allowed",
         "materials": "placeholder stable surface_id bindings; geometry UV preserved",
@@ -888,7 +923,7 @@ def main() -> None:
 
     manifest = {
         "schema": "haihao.aircraft/weapons-mother-distillation-manifest@1.0.0",
-        "assetId": "WM_B24_ANM2_V010",
+        "assetId": "WM_B24_ANM2_V011",
         "status": "user-review",
         "sources": [
             {
@@ -914,7 +949,8 @@ def main() -> None:
         "mechanismOverlay": builder.nodes[mechanism_group]["extras"],
         "sourceSelections": {
             "aircraftGunExterior": [9, 15, 17, 19, 21, 23, 25, 27],
-            "aircraftFeedReferences": [4, 6, 7, 11],
+            "aircraftFeedReferences": [11],
+            "denseFeedReferences": [13, 14, 15],
             "cartridge": [2, 4, 3],
             "beltLink": {"sourceNodeIndex": 12, "connectedComponentRoots": [174, 199, 224]},
             "mechanismReference": [12, 14, 16, 18, 20],
@@ -926,6 +962,8 @@ def main() -> None:
             "The locked B-24 GLB supplies standing waist station geometry but no separable A-13 lower ball turret mesh.",
             "A-13 seated installation remains controlled by AN 11-45G-1 evidence and must not be replaced by an invented generic pedestal.",
             "The procedural field package affects runtime surface color and roughness only; it does not alter source geometry.",
+            "V011 starboard gun registration is an area-weighted, axis-locked surface solve; p95 and RMS are recorded in highDetailGunAlignment.surfaceRegistration.",
+            "AN/M2 source nodes 4, 6 and 7 are complete round geometry and are explicitly forbidden as feed-chute labels.",
         ],
     }
     manifest_path = args.manifest.resolve()
