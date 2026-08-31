@@ -11,7 +11,7 @@ import struct
 from pathlib import Path
 
 
-REMOTE_SOURCE_URL = "https://raw.githubusercontent.com/haihao0307/AIRCRAFT/refs/heads/feature/b24-weapons-mother-v1/data/weapons-mother/b24-m2-aircraft-v004/distilled-reference.glb.gz"
+REMOTE_SOURCE_URL = "https://raw.githubusercontent.com/haihao0307/AIRCRAFT/cdcd5bfbf3c01d10c09eec3c2d386dab5251ad52/data/weapons-mother/b24-m2-aircraft-v004/distilled-reference.glb.gz"
 
 
 def sha256(path: Path) -> str:

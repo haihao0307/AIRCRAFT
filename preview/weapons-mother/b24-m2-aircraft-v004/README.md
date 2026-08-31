@@ -15,4 +15,4 @@ V009 is a corrective source-parity review. It keeps the V008 firing cadence, dua
 - The seated A-13 installation is represented as a manual-dimensioned evidence envelope, because no separable full A-13 source mesh is available.
 - The procedural-field package drives deterministic color and roughness only. It never modifies source geometry.
 
-Delivery is online-first. The hosted Site contains only the application and loads the losslessly compressed source stream from the AIRCRAFT GitHub branch; the working GLB remains in the source-data directory and is not copied into the hosted page. Local QA therefore runs through HTTP rather than `file://`. The production entry is `https://weapons-mother-b24.sunhaihao.chatgpt.site/twin-m2`.
+Delivery is online-first. The hosted Site contains only the application and loads the losslessly compressed source stream from the immutable V009 AIRCRAFT GitHub commit; the working GLB remains in the source-data directory and is not copied into the hosted page. Local QA therefore runs through HTTP rather than `file://`. The production entry is `https://weapons-mother-b24.sunhaihao.chatgpt.site/twin-m2`.
