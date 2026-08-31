@@ -172,8 +172,8 @@
             "case": {
               "count": 25,
               "origin": [
-                -0.5468835393935078,
-                0.16589763658955803
+                -0.6660521357318411,
+                0.18987248684421826
               ],
               "footprintRadius": 0.25028566896733023,
               "requiredSpread": 0.1395,
@@ -182,12 +182,12 @@
             "link": {
               "count": 25,
               "origin": [
-                -0.2539369926997817,
-                0.1012274213424289
+                -0.245584867171184,
+                0.09031830898602738
               ],
-              "footprintRadius": 0.18290290352248542,
+              "footprintRadius": 0.18290290352248537,
               "requiredSpread": 0.1035,
-              "gridCells": 20
+              "gridCells": 19
             }
           },
           "heightViolationCount": 0,
@@ -196,7 +196,7 @@
         "lowPilePass": true,
         "activeStates": [],
         "render": {
-          "calls": 56,
+          "calls": 54,
           "triangles": 4565153,
           "quality": "HIGH",
           "dpr": 1
@@ -330,8 +330,8 @@
             "case": {
               "count": 25,
               "origin": [
-                -0.5468835393935078,
-                0.16589763658955803
+                -0.6660521357318411,
+                0.18987248684421826
               ],
               "footprintRadius": 0.25028566896733023,
               "requiredSpread": 0.1395,
@@ -340,12 +340,12 @@
             "link": {
               "count": 25,
               "origin": [
-                -0.2539369926997817,
-                0.1012274213424289
+                -0.245584867171184,
+                0.09031830898602738
               ],
-              "footprintRadius": 0.18290290352248542,
+              "footprintRadius": 0.18290290352248537,
               "requiredSpread": 0.1035,
-              "gridCells": 20
+              "gridCells": 19
             }
           },
           "heightViolationCount": 0,
@@ -354,7 +354,7 @@
         "lowPilePass": true,
         "activeStates": [],
         "render": {
-          "calls": 56,
+          "calls": 54,
           "triangles": 4565153,
           "quality": "HIGH",
           "dpr": 1
@@ -488,8 +488,8 @@
           "case": {
             "count": 25,
             "origin": [
-              -0.5468835393935078,
-              0.16589763658955803
+              -0.6660521357318411,
+              0.18987248684421826
             ],
             "footprintRadius": 0.25028566896733023,
             "requiredSpread": 0.1395,
@@ -498,12 +498,12 @@
           "link": {
             "count": 25,
             "origin": [
-              -0.2539369926997817,
-              0.1012274213424289
+              -0.245584867171184,
+              0.09031830898602738
             ],
-            "footprintRadius": 0.18290290352248542,
+            "footprintRadius": 0.18290290352248537,
             "requiredSpread": 0.1035,
-            "gridCells": 20
+            "gridCells": 19
           }
         },
         "heightViolationCount": 0,
@@ -556,22 +556,22 @@
           "case": {
             "count": 2000,
             "origin": [
-              -0.7482251046453039,
-              0.11656558869776483
+              -0.5755536896099205,
+              0.1326179716459271
             ],
-            "footprintRadius": 2.027823817124176,
+            "footprintRadius": 2.0278238171241756,
             "requiredSpread": 1.2477259314448828,
             "gridCells": 2000
           },
           "link": {
             "count": 2000,
             "origin": [
-              -0.24429635573158154,
-              0.1311405310213925
+              -0.1512944937266944,
+              0.11054071946863146
             ],
             "footprintRadius": 1.505589148456045,
             "requiredSpread": 0.925732142684913,
-            "gridCells": 1558
+            "gridCells": 1573
           }
         },
         "heightViolationCount": 0,
@@ -593,10 +593,10 @@
       "pass": true,
       "evidence": {
         "frames": 180,
-        "meanFps": 60.126265157308126,
+        "meanFps": 60.23894782589732,
         "medianFrameMs": 16.69999999999709,
-        "p95FrameMs": 16.900000000001455,
-        "maxFrameMs": 17.30000000000291
+        "p95FrameMs": 16.80000000000291,
+        "maxFrameMs": 17
       }
     }
   ],
@@ -725,8 +725,8 @@
         "case": {
           "count": 25,
           "origin": [
-            -0.5468835393935078,
-            0.16589763658955803
+            -0.6660521357318411,
+            0.18987248684421826
           ],
           "footprintRadius": 0.25028566896733023,
           "requiredSpread": 0.1395,
@@ -735,12 +735,12 @@
         "link": {
           "count": 25,
           "origin": [
-            -0.2539369926997817,
-            0.1012274213424289
+            -0.245584867171184,
+            0.09031830898602738
           ],
-          "footprintRadius": 0.18290290352248542,
+          "footprintRadius": 0.18290290352248537,
           "requiredSpread": 0.1035,
-          "gridCells": 20
+          "gridCells": 19
         }
       },
       "heightViolationCount": 0,
@@ -749,7 +749,7 @@
     "lowPilePass": true,
     "activeStates": [],
     "render": {
-      "calls": 56,
+      "calls": 54,
       "triangles": 4565153,
       "quality": "HIGH",
       "dpr": 1
@@ -879,22 +879,22 @@
         "case": {
           "count": 2000,
           "origin": [
-            -0.7482251046453039,
-            0.11656558869776483
+            -0.5755536896099205,
+            0.1326179716459271
           ],
-          "footprintRadius": 2.027823817124176,
+          "footprintRadius": 2.0278238171241756,
           "requiredSpread": 1.2477259314448828,
           "gridCells": 2000
         },
         "link": {
           "count": 2000,
           "origin": [
-            -0.24429635573158154,
-            0.1311405310213925
+            -0.1512944937266944,
+            0.11054071946863146
           ],
           "footprintRadius": 1.505589148456045,
           "requiredSpread": 0.925732142684913,
-          "gridCells": 1558
+          "gridCells": 1573
         }
       },
       "heightViolationCount": 0,
@@ -1013,9 +1013,9 @@
   },
   "postStressFps": {
     "frames": 180,
-    "meanFps": 60.126265157308126,
+    "meanFps": 60.23894782589732,
     "medianFrameMs": 16.69999999999709,
-    "p95FrameMs": 16.900000000001455,
-    "maxFrameMs": 17.30000000000291
+    "p95FrameMs": 16.80000000000291,
+    "maxFrameMs": 17
   }
 }
