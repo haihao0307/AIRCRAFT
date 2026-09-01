@@ -1,0 +1,78 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-axis-locked-registration@1.0.0",
+  "assetId": "WM_B24_ANM2_V016",
+  "stationId": "b24.waist.starboard.flexible",
+  "sourceGunNodes": [9, 15, 17, 19, 21, 23, 25, 27],
+  "targetNode": 802,
+  "method": "V016 incremental lateral datum recalibration: the V015 rotation, uniform scale, bore axis, feed socket and display pitch are preserved; a measured mount-local translation removes the 0.039191889 m perpendicular muzzle/rear residual.",
+  "constraints": {
+    "sourceForward": "+X",
+    "targetForward": "node 802 local +Y",
+    "nonUniformScale": false,
+    "reflection": false,
+    "freeBoreTilt": false,
+    "priorRevision": "WM_B24_ANM2_V015"
+  },
+  "rollDegrees": 88.81012328671221,
+  "targetLocalUniformScale": 1.329135438522841,
+  "worldUniformScale": 0.9644541209427846,
+  "targetLocalTranslation": [-0.02984992589777169, -0.3009563734940755, -0.04882485439000694],
+  "targetLocalMatrixColumnMajor": [
+    0.0, 1.329135438522841, 0.0, 0.0,
+    -0.027600525630686622, 0.0, 1.3288488344887897, 0.0,
+    1.3288488344887897, 0.0, 0.027600525630686622, 0.0,
+    -0.02984992589777169, -0.3009563734940755, -0.04882485439000694, 1.0
+  ],
+  "matrixColumnMajor": [
+    0.6504635616044161, -0.10917911936693829, -0.703668122286833, 0.0,
+    0.05938817444061825, 0.9580477457283705, -0.09375039794567178, 0.0,
+    0.7096070247798951, 0.019898800248383544, 0.6528657721464216, 0.0,
+    0.8153924333959713, -0.19111289224313593, -6.0226055231603945, 1.0
+  ],
+  "datumCorrection": {
+    "frame": "mount-local B-24 review datum",
+    "translationMeters": [0.016874397067090707, 0.03382498289600197, 0.010350335428690016],
+    "reason": "The V015 matrix left a parallel but laterally displaced bore: midpoint error was 0.039191889 m perpendicular to node-802 +Y. V016 applies the midpoint delta in the gun parent frame, preserving axis, roll, scale, source feed route, and presentation pitch.",
+    "sourceRevision": "WM_B24_ANM2_V015"
+  },
+  "presentationLiftMeters": 0.0,
+  "presentationElevationDegrees": 2.0,
+  "presentationElevationFrame": "display-only +2 degree muzzle elevation about the source rear datum; physical matrix and feed socket remain locked",
+  "presentationLiftFrame": "no display-only lift; visible matrix equals physical alignment matrix",
+  "surfaceRegistration": {
+    "rmsMeters": 0.01978752697599527,
+    "meanMeters": 0.015605768405387535,
+    "medianMeters": 0.01227425267518404,
+    "p95Meters": 0.03872360303158024,
+    "maxMeters": 0.10305379390429183
+  },
+  "sourceLandmarks": {
+    "muzzle": [0.97957444190979, 0.0013871534227504509, 0.002354761636104845],
+    "rear": [-0.5267140594817235, 0.0013871534227504509, 0.002354761636104845],
+    "rollDatum": [-0.5267140594817235, 0.0013871534227504509, 1.0023547616361048]
+  },
+  "mappedLandmarks": {
+    "muzzleWorld": [1.45432324964538, -0.296686151024132, -6.710493534250847],
+    "rearWorld": [0.47453746622647763, -0.13223089892966133, -5.650566332854433]
+  },
+  "targetLandmarks": {
+    "muzzle": [1.4538188301350605, -0.2966014851317147, -6.709947855829144],
+    "rear": [0.47504188573679723, -0.13231556482207868, -5.651112011276135]
+  },
+  "expectedResiduals": {
+    "muzzleErrorMeters": 0.0007479119571457353,
+    "rearErrorMeters": 0.0007479119571452058,
+    "perpendicularMuzzleOffsetMeters": 4.55885922828386e-17,
+    "perpendicularRearOffsetMeters": 6.914223581365555e-16,
+    "frontBackDatumErrorMeters": -2.618212153158994e-09
+  },
+  "axisDot": 1.0,
+  "acceptance": {
+    "axisDotMinimum": 0.999999,
+    "surfaceP95MetersMaximum": 0.045,
+    "surfaceRmsMetersMaximum": 0.03,
+    "perpendicularMuzzleOffsetMetersMaximum": 0.012,
+    "perpendicularRearOffsetMetersMaximum": 0.012,
+    "pass": true
+  }
+}
