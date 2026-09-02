@@ -1,0 +1,81 @@
+{
+  "schema": "haihao.aircraft/b24-weather-mother-integration-receipt@1.0.0",
+  "id": "B24_WEATHER_MOTHER_INTEGRATION_RECEIPT_V001",
+  "branch": "feature/b24-v014-procedural-field-metal-pilot",
+  "baseCommit": "9e89ee328ce3c0ff4f23a34e126389d36294732a",
+  "status": "PASS_STATIC_INTEGRATION_CANDIDATE",
+  "implementationCommits": [
+    "79b076ec703113811b2c8644542ba5091fa23463",
+    "134fa26e30259e7e114adb5953b091e0ebba7d2c",
+    "119a0aff01173269bea60b336ee6c8e8d2f821d8",
+    "8200e27880b88bad394a20aca03203ebb09f9565",
+    "3004cdff350aefe2ee24ccf2c4d80d47fa8a8c04",
+    "edf9f81933aec832af627bd029389334407f50b8",
+    "3f5d3fc9545f42e6ca1313eedd7b337bd47ed6b6",
+    "44e96744e0208f68606d4d8ec1dd1b621f3c4bb2",
+    "276427dc2f7cfb075bf3dd2d8092ce1a2ad2aefe"
+  ],
+  "workbench": {
+    "entry": "preview/b24-data-native-v009/index.html",
+    "productionEntry": "preview/b24-data-native-v009/index-production.html",
+    "singleWorkbench": true,
+    "sharedViewport": true,
+    "sharedControlPanel": true,
+    "newWindow": false,
+    "newTopLevelPage": false
+  },
+  "weatherMother": {
+    "repository": "haihao0307/guilin-dem-pipeline",
+    "version": "1.0.0-clean",
+    "sourceCommit": "bf2aaa5d853af4f114c68d5bbafb99ea47134ef5",
+    "repositoryReadRef": "329670eea20d008189d0dce68d16899e667d8baf",
+    "presetsIntegrated": 8,
+    "nativeApiMode": true,
+    "crossOriginFallbackMode": true
+  },
+  "runtimeCoupling": {
+    "transparentViewportComposition": true,
+    "atmosphericFog": true,
+    "solarAndLightingResponse": true,
+    "rendererExposureResponse": true,
+    "windVector": true,
+    "phaseLimitedAircraftTurbulence": true,
+    "parkedAircraftTurbulence": false,
+    "environmentEvent": "b24-weather-environment",
+    "publicRuntime": "window.__B24_WEATHER_BRIDGE__"
+  },
+  "validation": {
+    "syntax": {
+      "weatherAlphaBootstrap": "PASS",
+      "weatherBridge": "PASS",
+      "validator": "PASS"
+    },
+    "static": {
+      "command": "node tools/validate-b24-weather-mother-bridge.mjs",
+      "status": "PASS",
+      "checks": 28,
+      "passed": 28,
+      "failed": 0
+    },
+    "fullRepositoryTest": "PENDING_REMOTE_RUN",
+    "browserInteraction": "PENDING_DEPLOYED_PREVIEW",
+    "realWeatherApiSameOrigin": "PENDING_DEPLOYED_PREVIEW",
+    "visualAcceptance": "PENDING_USER_REVIEW"
+  },
+  "protectedSystems": {
+    "lockedSourceGlbChanged": false,
+    "sourceTextureChanged": false,
+    "geometryChanged": false,
+    "animationChannelsChanged": false,
+    "runwayFlightSequenceChanged": false,
+    "v014FieldParametersChanged": false,
+    "historicalLiveryApprovalChanged": false
+  },
+  "approvalLedger": {
+    "weatherMotherVisualApproved": false,
+    "b24WeatherIntegrationVisualApproved": false,
+    "engineeringApproved": false,
+    "historicalApproved": false,
+    "productionReady": false
+  }
+}
