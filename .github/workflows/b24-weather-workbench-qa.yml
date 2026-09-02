@@ -59,10 +59,24 @@ jobs:
           test -s "$WEATHER_REPO/weather-mother/clean-v1/field-worker.js"
           grep -q "1.0.0-clean" "$WEATHER_REPO/weather-mother/clean-v1/engine.js"
 
-          mkdir -p "$SITE/AIRCRAFT" "$SITE/guilin-dem-pipeline/weather-mother/clean-v1" "$SITE/AIRCRAFT/public"
+          mkdir -p "$SITE/AIRCRAFT" "$SITE/weather-mother/clean-v1" "$SITE/AIRCRAFT/public"
           rsync -a --exclude='.git' --exclude='artifacts' ./ "$SITE/AIRCRAFT/"
           cp "$MODEL" "$SITE/AIRCRAFT/public/b-24_liberator.glb"
-          cp -a "$WEATHER_REPO/weather-mother/clean-v1/." "$SITE/guilin-dem-pipeline/weather-mother/clean-v1/"
+          cp -a "$WEATHER_REPO/weather-mother/clean-v1/." "$SITE/weather-mother/clean-v1/"
+
+          python3 - "$SITE/AIRCRAFT/preview/b24-data-native-v009/weather-bridge.js" <<'PY'
+          from pathlib import Path
+          import sys
+
+          bridge = Path(sys.argv[1])
+          text = bridge.read_text(encoding='utf-8')
+          official = "entry: 'https://haihao0307.github.io/guilin-dem-pipeline/weather-mother/clean-v1/'"
+          staged = "entry: 'http://127.0.0.1:4173/weather-mother/clean-v1/'"
+          if text.count(official) != 1:
+              raise SystemExit('Weather Mother source lock was missing or ambiguous')
+          bridge.write_text(text.replace(official, staged), encoding='utf-8')
+          print('Staged one origin-only substitution for same-origin browser QA')
+          PY
 
           echo "B24_WEATHER_SITE=$SITE" >> "$GITHUB_ENV"
           echo "B24_WEATHER_MODEL=$MODEL" >> "$GITHUB_ENV"
@@ -72,45 +86,16 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$GITHUB_WORKSPACE/artifacts/b24-weather-workbench"
-          CERT="$RUNNER_TEMP/b24-weather-cert.pem"
-          KEY="$RUNNER_TEMP/b24-weather-key.pem"
-          openssl req -x509 -newkey rsa:2048 -sha256 -nodes -days 1 \
-            -keyout "$KEY" -out "$CERT" \
-            -subj '/CN=haihao0307.github.io' \
-            -addext 'subjectAltName=DNS:haihao0307.github.io' \
-            >/dev/null 2>&1
-
-          cat > "$RUNNER_TEMP/serve-b24-weather.py" <<'PY'
-          import http.server
-          import os
-          import ssl
-          import sys
-
-          root, cert, key = sys.argv[1:4]
-          os.chdir(root)
-
-          class Handler(http.server.SimpleHTTPRequestHandler):
-              def log_message(self, format, *args):
-                  print(format % args, flush=True)
-
-          server = http.server.ThreadingHTTPServer(('0.0.0.0', 443), Handler)
-          context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-          context.load_cert_chain(certfile=cert, keyfile=key)
-          server.socket = context.wrap_socket(server.socket, server_side=True)
-          server.serve_forever()
-          PY
-
-          sudo python3 "$RUNNER_TEMP/serve-b24-weather.py" "$B24_WEATHER_SITE" "$CERT" "$KEY" \
+          PORT=4173
+          python3 -m http.server "$PORT" --bind 127.0.0.1 --directory "$B24_WEATHER_SITE" \
             > "$GITHUB_WORKSPACE/artifacts/b24-weather-workbench/server.log" 2>&1 &
           SERVER_PID=$!
-          trap 'sudo kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
 
+          QA_URL='http://127.0.0.1:4173/AIRCRAFT/preview/b24-data-native-v009/index-production.html'
           READY=0
           for attempt in $(seq 1 60); do
-            if curl --noproxy '*' --fail --silent --show-error --insecure \
-              --resolve haihao0307.github.io:443:127.0.0.1 \
-              https://haihao0307.github.io/AIRCRAFT/preview/b24-data-native-v009/index-production.html \
-              -o /tmp/b24-weather-page.html; then
+            if curl --fail --silent --show-error "$QA_URL" -o /tmp/b24-weather-page.html; then
               if grep -q '第二次数据原生生产线' /tmp/b24-weather-page.html; then
                 READY=1
                 break
@@ -123,10 +108,9 @@ jobs:
           CHROME="$(command -v google-chrome-stable || command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME"
 
-          B24_WEATHER_QA_URL='https://haihao0307.github.io/AIRCRAFT/preview/b24-data-native-v009/index-production.html' \
+          B24_WEATHER_QA_URL="$QA_URL" \
           B24_WEATHER_QA_OUTPUT="$GITHUB_WORKSPACE/artifacts/b24-weather-workbench" \
           B24_WEATHER_QA_TIMEOUT_MS='240000' \
-          B24_WEATHER_HOST_RESOLVER_RULES='MAP haihao0307.github.io 127.0.0.1' \
           CHROME="$CHROME" \
           node scripts/qa-b24-weather-workbench.mjs
 
