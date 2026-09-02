@@ -53,6 +53,11 @@ check('bridge-get-configuration', text.bridge.includes('getConfiguration()'), 'g
 check('bridge-apply-configuration', text.bridge.includes('applyConfiguration(configuration'), 'applyConfiguration interface');
 check('bridge-get-environment', text.bridge.includes('getEnvironment()'), 'getEnvironment interface');
 check('bridge-environment-event', text.bridge.includes('b24-weather-environment'), 'environment update event');
+check('preset-count-sync', text.bridge.includes('count: preset.count'), 'weather preset cloud counts must synchronize to Weather Mother');
+check('weather-demo-aircraft-disabled', text.bridge.includes('aircraft: false'), 'Weather Mother demo aircraft must stay disabled so only the locked B24 is visible');
+check('native-api-ready-gate', text.bridge.includes('candidate.qa?.ready') && text.bridge.includes('this.nativeReady = true'), 'native bridge must wait for Weather Mother readiness');
+check('native-diagnostic-ready-gate', text.bridge.includes('!this.sameOriginAccess || this.nativeReady'), 'same-origin diagnostics must require native API readiness');
+check('aircraft-radius-cache', text.bridge.includes('this.aircraftRadius = Math.max(1, sphere.radius)') && text.bridge.includes('10 / this.aircraftRadius'), 'aircraft fog scaling must use the cached locked-aircraft radius');
 check('documented-wind-axis', text.docs.includes('270 度西风吹向正 X') && text.docs.includes('0 度北风吹向正 Z'), 'wind axis convention must be documented');
 check('transparent-webgl-bootstrap', text.bootstrap.includes('alpha: true') && text.bootstrap.includes('premultipliedAlpha: true'), 'B24 WebGL layer must support transparent composition');
 check('layer-order-style', text.styles.includes('#weather-layer') && text.styles.includes('#canvas-host > canvas'), 'weather and aircraft layer ordering must be explicit');
