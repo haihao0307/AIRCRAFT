@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>B-24 数据原生数字资产生产线 V009</title>
+  <title>B-24 第二次数据原生生产线 · Weather Mother Bridge V001</title>
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./weather-integration.css">
+  <script src="./weather-alpha-bootstrap.js"></script>
   <script type="importmap">
     {
       "imports": {
@@ -16,12 +18,12 @@
   </script>
 </head>
 <body>
-  <main id="app">
-    <section id="viewport" aria-label="B-24 三维数字资产检查视口">
+  <main id="app" data-production-line="B24_SECOND_DATA_NATIVE_LINE" data-weather-integration="B24_WEATHER_MOTHER_BRIDGE_V001">
+    <section id="viewport" aria-label="B-24 第二次数据原生生产线三维工作台">
       <div class="topbar">
         <div>
-          <p class="eyebrow">AIRCRAFT NATIVE FORGE</p>
-          <h1>B-24 数据原生数字资产生产线 <span>V009</span></h1>
+          <p class="eyebrow">AIRCRAFT NATIVE FORGE · SECOND PRODUCTION LINE</p>
+          <h1>B-24 第二次数据原生生产线 <span>WEATHER V001</span></h1>
         </div>
         <div class="source-lock" id="source-lock" data-state="loading">
           <span class="dot"></span>
@@ -32,27 +34,42 @@
         </div>
       </div>
 
-      <div id="canvas-host"></div>
+      <div id="canvas-host">
+        <div id="weather-layer" data-enabled="true" aria-hidden="true">
+          <iframe
+            id="weather-frame"
+            title="Weather Mother 程序化天气环境层"
+            tabindex="-1"
+            loading="eager"
+            sandbox="allow-scripts allow-same-origin"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+          <div class="weather-vignette"></div>
+        </div>
+      </div>
 
       <div class="viewport-footer">
         <div class="metric"><span>飞行阶段</span><strong id="phase-readout">OFF</strong></div>
         <div class="metric"><span>发动机</span><strong id="engine-readout">0 / 4</strong></div>
         <div class="metric"><span>螺旋桨运行</span><strong id="prop-readout">等待资产</strong></div>
+        <div class="metric"><span>天气</span><strong id="weather-readout">晴日积云</strong></div>
+        <div class="metric"><span>来风</span><strong id="wind-readout">12 m/s · 270°</strong></div>
+        <div class="metric"><span>估算能见度</span><strong id="visibility-readout">等待</strong></div>
         <div class="metric"><span>帧率</span><strong id="fps-readout">0</strong></div>
       </div>
 
       <div class="loading-panel" id="loading-panel">
         <div class="spinner"></div>
         <strong id="loading-title">正在读取锁定 B-24 参考资产</strong>
-        <p id="loading-detail">将先核对文件字节数与 SHA256，再建立 V009 运行时。</p>
+        <p id="loading-detail">将先核对文件字节数与 SHA256，再建立飞机运行时和同工作台天气层。</p>
       </div>
     </section>
 
     <aside id="control-panel">
       <header>
-        <p class="eyebrow">PRODUCTION CONTROL</p>
-        <h2>数字资产运行控制</h2>
-        <p>本页验证持续螺旋桨、四发动机状态、声音生命周期、机械材质、玻璃与确定性复位。</p>
+        <p class="eyebrow">UNIFIED PRODUCTION CONTROL</p>
+        <h2>飞机与天气联合控制</h2>
+        <p>同一桌面统一控制锁定 B-24 运行时、发动机、Weather Mother 天气、环境光照、雾和飞行阶段响应。</p>
       </header>
 
       <section class="control-section">
@@ -79,6 +96,77 @@
           <button id="all-engines" class="text-button" type="button">全部启用</button>
         </div>
         <div id="engine-controls" class="engine-controls"></div>
+      </section>
+
+      <section class="control-section weather-control-section" id="weather-controls">
+        <div class="section-heading">
+          <h3>Weather Mother 环境</h3>
+          <span id="weather-state" class="badge neutral">连接中</span>
+        </div>
+
+        <label class="weather-select-row" for="weather-preset">
+          <span>天气案例</span>
+          <select id="weather-preset">
+            <option value="fair">晴日积云</option>
+            <option value="coast">海岸层积云</option>
+            <option value="mountain">山间湿雾</option>
+            <option value="rain">阴天降雨</option>
+            <option value="storm">深对流雷暴</option>
+            <option value="rainbow">雨过天晴和彩虹</option>
+            <option value="snow">雪与低云</option>
+            <option value="high">高空冰云</option>
+          </select>
+        </label>
+
+        <div class="weather-time-grid" aria-label="天气时刻快捷选择">
+          <button type="button" data-weather-hour="6.6">清晨</button>
+          <button type="button" data-weather-hour="12">正午</button>
+          <button type="button" data-weather-hour="17.5">黄昏</button>
+          <button type="button" data-weather-hour="22">月夜</button>
+        </div>
+
+        <label class="weather-range-row" for="weather-hour">
+          <span><strong>时刻</strong><small>太阳方向和环境曝光</small></span>
+          <input id="weather-hour" type="range" min="0" max="24" step="0.05" value="16">
+          <output id="weather-hour-output">16:00</output>
+        </label>
+
+        <label class="weather-range-row" for="weather-wind">
+          <span><strong>风速</strong><small>Weather Mother 与飞机响应共用</small></span>
+          <input id="weather-wind" type="range" min="0" max="80" step="1" value="12">
+          <output id="weather-wind-output">12 m/s</output>
+        </label>
+
+        <label class="weather-range-row" for="weather-direction">
+          <span><strong>来风方向</strong><small>0° 北风，270° 西风</small></span>
+          <input id="weather-direction" type="range" min="0" max="360" step="1" value="270">
+          <output id="weather-direction-output">270° 西风</output>
+        </label>
+
+        <label class="weather-range-row" for="weather-turbulence">
+          <span><strong>湍流强度</strong><small>仅驱动运行时轻度机体扰动</small></span>
+          <input id="weather-turbulence" type="range" min="0" max="1" step="0.01" value="0.25">
+          <output id="weather-turbulence-output">0.25</output>
+        </label>
+
+        <label class="toggle-row weather-toggle-row">
+          <span><strong>启用天气层</strong><small>与飞机共用当前三维视口</small></span>
+          <input id="weather-enabled" type="checkbox" checked>
+        </label>
+        <label class="toggle-row weather-toggle-row">
+          <span><strong>大气响应</strong><small>同步光照、曝光、雾和能见度</small></span>
+          <input id="weather-atmosphere-response" type="checkbox" checked>
+        </label>
+        <label class="toggle-row weather-toggle-row">
+          <span><strong>飞机风场响应</strong><small>按阶段限制俯仰、滚转和垂直扰动</small></span>
+          <input id="weather-aircraft-response" type="checkbox" checked>
+        </label>
+
+        <div class="weather-source-note">
+          <strong>Weather Mother 1.0.0 clean</strong>
+          <small>源提交 bf2aaa5d853af4f114c68d5bbafb99ea47134ef5</small>
+          <p id="weather-detail">正在建立同工作台环境桥。</p>
+        </div>
       </section>
 
       <section class="control-section compact">
@@ -111,6 +199,7 @@
           <div data-check="engines"><span></span><p>四发动机与螺旋桨分组</p><strong>等待</strong></div>
           <div data-check="rotation"><span></span><p>持续角速度积分</p><strong>等待</strong></div>
           <div data-check="materials"><span></span><p>机械、外皮与玻璃材质</p><strong>等待</strong></div>
+          <div data-check="weather"><span></span><p>Weather Mother 与当前视口桥接</p><strong>等待</strong></div>
           <div data-check="reset"><span></span><p>复位前后状态指纹一致</p><strong>等待</strong></div>
         </div>
       </section>
@@ -122,11 +211,12 @@
 
       <footer>
         <p><strong>审批保持冻结</strong></p>
-        <p>浏览器视觉、历史声音、工程转速、表面系统与 80 DAYS 涂装均需独立验收。</p>
+        <p>天气已经进入同一工作台候选。飞机几何、原始动画、历史涂装、V014 表面参数和人工视觉批准均未改动。</p>
       </footer>
     </aside>
   </main>
 
   <script type="module" src="./app.js"></script>
+  <script type="module" src="./weather-bridge.js"></script>
 </body>
 </html>
