@@ -3,19 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>B-24 V009 Production Runtime</title>
+  <title>B-24 第二次数据原生生产线 · Production</title>
 </head>
 <body>
-  <p style="font-family:system-ui;padding:24px">正在建立 B-24 V009 生产运行时……</p>
+  <p style="font-family:system-ui;padding:24px">正在建立 B-24 第二次数据原生生产线与 Weather Mother 联合工作台……</p>
   <script>
     fetch('./index.html', { cache: 'no-store' })
       .then((response) => {
-        if (!response.ok) throw new Error(`Unable to load V009 shell: HTTP ${response.status}`);
+        if (!response.ok) throw new Error(`Unable to load the B24 second-line shell: HTTP ${response.status}`);
         return response.text();
       })
       .then((html) => {
         const productionHtml = html
-          .replace('<title>B-24 数据原生数字资产生产线 V009</title>', '<title>B-24 数据原生数字资产生产线 V009 Production</title>')
+          .replace(
+            '<title>B-24 第二次数据原生生产线 · Weather Mother Bridge V001</title>',
+            '<title>B-24 第二次数据原生生产线 · Weather Mother Bridge V001 Production</title>'
+          )
           .replace('</body>', '<script type="module" src="./production-patch.js"><\/script></body>');
         document.open();
         document.write(productionHtml);
