@@ -1,0 +1,203 @@
+name: Build B24 Weather Mother standalone HTML
+
+on:
+  push:
+    branches:
+      - feature/b24-v014-procedural-field-metal-pilot
+    paths:
+      - '.github/workflows/b24-weather-standalone-html.yml'
+      - 'tools/build-b24-weather-standalone.mjs'
+      - 'tools/qa-b24-weather-standalone.mjs'
+      - 'preview/b24-data-native-v009/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: b24-weather-standalone-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-browser-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      WEATHER_COMMIT: b5dd480efef00a05b1030ad723b402fe634025c3
+      OUTPUT_DIR: dist/b24-weather-standalone
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install deterministic standalone build dependencies
+        run: npm install --no-save --no-package-lock esbuild@0.25.9 three@0.180.0 playwright-core@1.55.0
+
+      - name: Download and verify locked B24 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 6 --retry-all-errors --retry-delay 3 \
+            --output "$RUNNER_TEMP/b-24_liberator.glb" \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb
+          test "$(stat --format=%s "$RUNNER_TEMP/b-24_liberator.glb")" = "23085972"
+          echo "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d  $RUNNER_TEMP/b-24_liberator.glb" | sha256sum --check
+
+      - name: Download and verify pinned Weather Mother clean runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          WEATHER_DIR="$RUNNER_TEMP/weather-mother-clean-v1"
+          mkdir -p "$WEATHER_DIR"
+          for name in index.html engine.js field-worker.js cloud.glsl motion.js MANIFEST.json; do
+            curl --fail --location --retry 6 --retry-all-errors --retry-delay 2 \
+              --output "$WEATHER_DIR/$name" \
+              "https://raw.githubusercontent.com/haihao0307/guilin-dem-pipeline/${WEATHER_COMMIT}/weather-mother/clean-v1/$name"
+          done
+          WEATHER_DIR="$WEATHER_DIR" python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path(os.environ['WEATHER_DIR'])
+          manifest = json.loads((root / 'MANIFEST.json').read_text(encoding='utf-8'))
+          checked = {}
+          for name in ('index.html', 'engine.js', 'field-worker.js', 'cloud.glsl', 'motion.js'):
+              data = (root / name).read_bytes()
+              digest = hashlib.sha256(data).hexdigest()
+              expected = manifest['files'][name]
+              assert len(data) == expected['bytes'], (name, len(data), expected['bytes'])
+              assert digest == expected['sha256'], (name, digest, expected['sha256'])
+              checked[name] = {'bytes': len(data), 'sha256': digest}
+          print(json.dumps(checked, indent=2))
+          PY
+
+      - name: Syntax check builders
+        run: |
+          node --check tools/build-b24-weather-standalone.mjs
+          node --check tools/qa-b24-weather-standalone.mjs
+
+      - name: Build one directly openable HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tools/build-b24-weather-standalone.mjs \
+            --glb "$RUNNER_TEMP/b-24_liberator.glb" \
+            --weather-dir "$RUNNER_TEMP/weather-mother-clean-v1" \
+            --weather-commit "$WEATHER_COMMIT" \
+            --output-dir "$OUTPUT_DIR"
+          test -s "$OUTPUT_DIR/B24_WEATHER_MOTHER_STANDALONE.html"
+          test "$(stat --format=%s "$OUTPUT_DIR/B24_WEATHER_MOTHER_STANDALONE.html")" -gt 30000000
+          if grep -Eiq '<script[^>]+src=|<link[^>]+href=["'"']https?://|src=["'"']https?://' "$OUTPUT_DIR/B24_WEATHER_MOTHER_STANDALONE.html"; then
+            echo 'External runtime reference remained in standalone HTML'
+            exit 1
+          fi
+
+      - name: Install CJK fonts for readable evidence captures
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+
+      - name: Verify direct file opening in a real browser
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME"
+          CHROME="$CHROME" node tools/qa-b24-weather-standalone.mjs \
+            "$OUTPUT_DIR/B24_WEATHER_MOTHER_STANDALONE.html" \
+            "$OUTPUT_DIR"
+
+      - name: Package delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import zipfile
+          from pathlib import Path
+
+          root = Path('dist/b24-weather-standalone')
+          files = [
+              root / 'B24_WEATHER_MOTHER_STANDALONE.html',
+              root / 'B24_WEATHER_MOTHER_STANDALONE_MANIFEST.json',
+              root / 'B24_WEATHER_STANDALONE_BROWSER_QA.json',
+              root / 'B24_WEATHER_STANDALONE_FAIR_DESKTOP.png',
+              root / 'B24_WEATHER_STANDALONE_STORM_DESKTOP.png',
+              root / 'B24_WEATHER_STANDALONE_MOBILE.png',
+          ]
+          for path in files:
+              assert path.is_file() and path.stat().st_size > 0, path
+          package = root / 'AIRCRAFT_B24_WEATHER_MOTHER_STANDALONE_V001.zip'
+          with zipfile.ZipFile(package, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+              for path in files:
+                  archive.write(path, path.name)
+          receipt = {
+              'schema': 'haihao.aircraft/b24-weather-standalone-delivery@1.0.0',
+              'status': 'PASS_BROWSER_VERIFIED_DIRECT_OPEN',
+              'html': {
+                  'file': files[0].name,
+                  'bytes': files[0].stat().st_size,
+                  'sha256': hashlib.sha256(files[0].read_bytes()).hexdigest(),
+                  'singleHtml': True,
+                  'directOpen': True,
+                  'externalNetworkRequestsExpected': 0,
+              },
+              'package': {
+                  'file': package.name,
+                  'bytes': package.stat().st_size,
+                  'sha256': hashlib.sha256(package.read_bytes()).hexdigest(),
+              },
+              'lockedB24': {
+                  'bytes': 23085972,
+                  'sha256': '541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d',
+              },
+              'weatherMotherCommit': 'b5dd480efef00a05b1030ad723b402fe634025c3',
+              'visualAcceptance': False,
+              'productionReady': False,
+          }
+          (root / 'B24_WEATHER_MOTHER_STANDALONE_DELIVERY.json').write_text(
+              json.dumps(receipt, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          print(json.dumps(receipt, ensure_ascii=False, indent=2))
+          PY
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-weather-standalone-${{ github.sha }}
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            dist/b24-weather-standalone/B24_WEATHER_MOTHER_STANDALONE.html
+            dist/b24-weather-standalone/B24_WEATHER_MOTHER_STANDALONE_MANIFEST.json
+            dist/b24-weather-standalone/B24_WEATHER_STANDALONE_BROWSER_QA.json
+            dist/b24-weather-standalone/B24_WEATHER_MOTHER_STANDALONE_DELIVERY.json
+            dist/b24-weather-standalone/B24_WEATHER_STANDALONE_FAIR_DESKTOP.png
+            dist/b24-weather-standalone/B24_WEATHER_STANDALONE_STORM_DESKTOP.png
+            dist/b24-weather-standalone/B24_WEATHER_STANDALONE_MOBILE.png
+            dist/b24-weather-standalone/AIRCRAFT_B24_WEATHER_MOTHER_STANDALONE_V001.zip
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## B24 Weather Mother standalone workbench'
+            echo
+            if [ -f "$OUTPUT_DIR/B24_WEATHER_MOTHER_STANDALONE_DELIVERY.json" ]; then
+              echo 'Single directly openable HTML: built'
+              echo 'Exact locked B24: verified'
+              echo 'Weather Mother clean V1: embedded'
+              echo 'Real browser file URL QA: passed'
+              echo 'External runtime requests: zero'
+            else
+              echo 'Delivery did not complete. Inspect the failed step and uploaded partial evidence.'
+            fi
+            echo 'visualAcceptance=false'
+            echo 'productionReady=false'
+          } >> "$GITHUB_STEP_SUMMARY"
