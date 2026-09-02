@@ -11,6 +11,7 @@ const publishPaths = [
   'data',
   'docs',
   'reports',
+  'b24-weather-mission-v1',
 ];
 
 for (const path of publishPaths) {
@@ -21,4 +22,5 @@ await cp('public/80-days-livery-status.html', 'dist/80-days-livery-status.html')
 
 console.log('Built fail-closed authoritative B-24 correction site in dist/.');
 console.log('Published the “80 DAYS” evidence and mission-state status page.');
+console.log('Published the B-24 full mission and Weather Mother V1 workbench.');
 console.log('Procedural aircraft prototypes are intentionally excluded.');
