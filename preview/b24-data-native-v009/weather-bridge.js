@@ -10,14 +10,14 @@ const SOURCE = Object.freeze({
 });
 
 const PRESETS = Object.freeze({
-  fair: Object.freeze({ label: '晴日积云', kind: 'Cu', density: 0.86, rain: 0, fog: 0.03, humidity: 68, instability: 0.45, snow: 0 }),
-  coast: Object.freeze({ label: '海岸层积云', kind: 'Sc', density: 0.70, rain: 0.04, fog: 0.12, humidity: 83, instability: 0.22, snow: 0 }),
-  mountain: Object.freeze({ label: '山间湿雾', kind: 'Cu', density: 0.80, rain: 0.07, fog: 0.44, humidity: 94, instability: 0.30, snow: 0 }),
-  rain: Object.freeze({ label: '阴天降雨', kind: 'Ns', density: 1.12, rain: 0.70, fog: 0.20, humidity: 97, instability: 0.18, snow: 0 }),
-  storm: Object.freeze({ label: '深对流雷暴', kind: 'Cb', density: 1.05, rain: 0.80, fog: 0.12, humidity: 94, instability: 0.98, snow: 0 }),
-  rainbow: Object.freeze({ label: '雨过天晴和彩虹', kind: 'Cu', density: 0.65, rain: 0.42, fog: 0.05, humidity: 82, instability: 0.25, snow: 0, hour: 17.5, rainbow: true }),
-  snow: Object.freeze({ label: '雪与低云', kind: 'St', density: 0.72, rain: 0, fog: 0.32, humidity: 91, instability: 0.10, snow: 1 }),
-  high: Object.freeze({ label: '高空冰云', kind: 'Ci', density: 0.50, rain: 0, fog: 0.02, humidity: 50, instability: 0.12, snow: 0 })
+  fair: Object.freeze({ label: '晴日积云', kind: 'Cu', count: 3, density: 0.86, rain: 0, fog: 0.03, humidity: 68, instability: 0.45, snow: 0 }),
+  coast: Object.freeze({ label: '海岸层积云', kind: 'Sc', count: 6, density: 0.70, rain: 0.04, fog: 0.12, humidity: 83, instability: 0.22, snow: 0 }),
+  mountain: Object.freeze({ label: '山间湿雾', kind: 'Cu', count: 5, density: 0.80, rain: 0.07, fog: 0.44, humidity: 94, instability: 0.30, snow: 0 }),
+  rain: Object.freeze({ label: '阴天降雨', kind: 'Ns', count: 7, density: 1.12, rain: 0.70, fog: 0.20, humidity: 97, instability: 0.18, snow: 0 }),
+  storm: Object.freeze({ label: '深对流雷暴', kind: 'Cb', count: 4, density: 1.05, rain: 0.80, fog: 0.12, humidity: 94, instability: 0.98, snow: 0 }),
+  rainbow: Object.freeze({ label: '雨过天晴和彩虹', kind: 'Cu', count: 3, density: 0.65, rain: 0.42, fog: 0.05, humidity: 82, instability: 0.25, snow: 0, hour: 17.5, rainbow: true }),
+  snow: Object.freeze({ label: '雪与低云', kind: 'St', count: 6, density: 0.72, rain: 0, fog: 0.32, humidity: 91, instability: 0.10, snow: 1 }),
+  high: Object.freeze({ label: '高空冰云', kind: 'Ci', count: 6, density: 0.50, rain: 0, fog: 0.02, humidity: 50, instability: 0.12, snow: 0 })
 });
 
 const DEFAULTS = Object.freeze({
@@ -100,10 +100,13 @@ class B24WeatherBridge {
     this.runtime = null;
     this.weatherApi = null;
     this.frameLoaded = false;
+    this.sameOriginAccess = false;
+    this.nativeReady = false;
     this.runtimeAttached = false;
     this.baseRendererExposure = null;
     this.baseLights = [];
     this.baseAircraft = null;
+    this.aircraftRadius = 10;
     this.aircraftResponseApplied = false;
     this.reloadTimer = 0;
     this.lastFrameUrl = '';
@@ -233,26 +236,34 @@ class B24WeatherBridge {
       const frameDocument = this.ui.frame.contentDocument;
       if (!frameWindow || !frameDocument) return;
 
-      frameDocument.querySelector('.panel')?.remove();
-      frameDocument.querySelector('.footer')?.remove();
-      const loading = frameDocument.querySelector('#loading');
-      if (loading) loading.style.display = 'none';
-      frameDocument.documentElement.dataset.embeddedInB24 = 'true';
-      this.ui.frame.classList.add('integrated-frame');
-
+      this.sameOriginAccess = true;
       const candidate = frameWindow.WeatherMother || null;
       if (candidate?.getConfiguration && candidate?.applyConfiguration && candidate.qa?.ready) {
         this.weatherApi = candidate;
+        this.nativeReady = true;
+        const panel = frameDocument.querySelector('.panel');
+        const footer = frameDocument.querySelector('.footer');
+        const loading = frameDocument.querySelector('#loading');
+        if (panel) panel.style.display = 'none';
+        if (footer) footer.style.display = 'none';
+        if (loading) loading.style.display = 'none';
+        frameDocument.documentElement.dataset.embeddedInB24 = 'true';
+        this.ui.frame.classList.add('integrated-frame');
         this.syncWeatherApi();
         this.ui.detail.textContent = 'Weather Mother 原生接口已连接，飞机与天气共用当前视口和右侧控制区。';
+        this.updateStatus();
+        this.updateDiagnostic();
         return;
       }
 
       this.weatherApi = null;
+      this.nativeReady = false;
       if (attempt < 60) {
         setTimeout(() => this.connectSameOriginWeatherApi(attempt + 1), 100);
       }
     } catch {
+      this.sameOriginAccess = false;
+      this.nativeReady = false;
       this.weatherApi = null;
       this.ui.detail.textContent = '天气画面已在当前视口合成。跨源预览时使用锁定参数镜像驱动飞机响应。';
     }
@@ -311,6 +322,7 @@ class B24WeatherBridge {
           ...current.controls,
           hour: this.state.hour,
           density: preset.density,
+          count: preset.count,
           rain: preset.rain,
           fog: preset.fog,
           humidity: preset.humidity,
@@ -323,7 +335,10 @@ class B24WeatherBridge {
         snow: preset.snow,
         switches: {
           ...current.switches,
+          mountains: this.state.weather === 'mountain',
+          aircraft: false,
           rainbow: Boolean(preset.rainbow),
+          cycle: false,
           lightningEnabled: this.state.weather === 'storm',
           loopEnabled: this.state.loop
         }
@@ -378,6 +393,8 @@ class B24WeatherBridge {
       position: aircraft.position.clone(),
       quaternion: aircraft.quaternion.clone()
     };
+    const sphere = new THREE.Box3().setFromObject(aircraft).getBoundingSphere(new THREE.Sphere());
+    this.aircraftRadius = Math.max(1, sphere.radius);
   }
 
   prepareTransparentRenderer() {
@@ -440,12 +457,8 @@ class B24WeatherBridge {
     const nightSky = new THREE.Color(0x3c4861);
     const fogColor = mixColor(daySky, nightSky, daylight).multiplyScalar(1 - precipitation * 0.22);
 
-    const aircraftRadius = (() => {
-      if (!this.runtime.aircraft) return 10;
-      const sphere = new THREE.Box3().setFromObject(this.runtime.aircraft).getBoundingSphere(new THREE.Sphere());
-      return Math.max(1, sphere.radius);
-    })();
-    const scaleCompensation = clamp(10 / aircraftRadius, 0.35, 2.5);
+    this.captureAircraft();
+    const scaleCompensation = clamp(10 / this.aircraftRadius, 0.35, 2.5);
     const fogDensity = clamp(
       (0.0008 + preset.fog * 0.028 + precipitation * 0.012) * scaleCompensation,
       0.0004,
@@ -581,7 +594,8 @@ class B24WeatherBridge {
       return;
     }
 
-    if (this.frameLoaded && this.runtimeAttached) {
+    const weatherReady = this.frameLoaded && (!this.sameOriginAccess || this.nativeReady);
+    if (weatherReady && this.runtimeAttached) {
       this.ui.state.className = 'badge pass';
       this.ui.state.textContent = this.weatherApi ? '原生接口已接入' : '合成桥已接入';
       return;
@@ -594,7 +608,8 @@ class B24WeatherBridge {
   updateDiagnostic() {
     const row = this.ui.diagnosticList?.querySelector('[data-check="weather"]');
     if (!row) return;
-    const pass = this.frameLoaded && this.runtimeAttached;
+    const weatherReady = this.frameLoaded && (!this.sameOriginAccess || this.nativeReady);
+    const pass = weatherReady && this.runtimeAttached;
     row.classList.remove('pass', 'fail');
     if (pass) row.classList.add('pass');
     row.querySelector('strong').textContent = pass ? 'PASS' : '等待';
@@ -669,6 +684,7 @@ class B24WeatherBridge {
       label: preset.label,
       cloud: {
         kind: preset.kind,
+        count: preset.count,
         density: preset.density,
         instability: preset.instability
       },
