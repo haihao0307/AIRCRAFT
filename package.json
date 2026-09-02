@@ -4,9 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "test": "node scripts/validate-static.mjs && node scripts/validate-80-days-static.mjs",
+    "test": "node scripts/validate-static.mjs && node scripts/validate-80-days-static.mjs && node tools/validate-b24-mission-weather-v1.mjs",
     "build": "node scripts/build-static.mjs",
     "validate:80days:references": "node scripts/validate-80-days-references.mjs",
-    "build:80days:count-sheet": "node scripts/build-80-days-count-sheet.mjs"
+    "build:80days:count-sheet": "node scripts/build-80-days-count-sheet.mjs",
+    "validate:b24:mission-weather": "node tools/validate-b24-mission-weather-v1.mjs"
   }
 }
