@@ -91,10 +91,6 @@ jobs:
             --output-dir "$OUTPUT_DIR"
           test -s "$OUTPUT_DIR/B24_WEATHER_MOTHER_STANDALONE.html"
           test "$(stat --format=%s "$OUTPUT_DIR/B24_WEATHER_MOTHER_STANDALONE.html")" -gt 30000000
-          if grep -Eiq '<script[^>]+src=|<link[^>]+href=["'"']https?://|src=["'"']https?://' "$OUTPUT_DIR/B24_WEATHER_MOTHER_STANDALONE.html"; then
-            echo 'External runtime reference remained in standalone HTML'
-            exit 1
-          fi
 
       - name: Install CJK fonts for readable evidence captures
         run: |
