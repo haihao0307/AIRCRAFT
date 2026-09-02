@@ -64,18 +64,32 @@ jobs:
           cp "$MODEL" "$SITE/AIRCRAFT/public/b-24_liberator.glb"
           cp -a "$WEATHER_REPO/weather-mother/clean-v1/." "$SITE/weather-mother/clean-v1/"
 
-          python3 - "$SITE/AIRCRAFT/preview/b24-data-native-v009/weather-bridge.js" <<'PY'
+          python3 - \
+            "$SITE/AIRCRAFT/preview/b24-data-native-v009/weather-bridge.js" \
+            "$SITE/weather-mother/clean-v1/index.html" <<'PY'
           from pathlib import Path
           import sys
 
           bridge = Path(sys.argv[1])
-          text = bridge.read_text(encoding='utf-8')
+          weather_index = Path(sys.argv[2])
+
+          bridge_text = bridge.read_text(encoding='utf-8')
           official = "entry: 'https://haihao0307.github.io/guilin-dem-pipeline/weather-mother/clean-v1/'"
-          staged = "entry: 'http://127.0.0.1:4173/weather-mother/clean-v1/'"
-          if text.count(official) != 1:
+          staged = "entry: 'http://127.0.0.1:4173/weather-mother/clean-v1/?still=1'"
+          if bridge_text.count(official) != 1:
               raise SystemExit('Weather Mother source lock was missing or ambiguous')
-          bridge.write_text(text.replace(official, staged), encoding='utf-8')
-          print('Staged one origin-only substitution for same-origin browser QA')
+          bridge.write_text(bridge_text.replace(official, staged), encoding='utf-8')
+
+          weather_text = weather_index.read_text(encoding='utf-8')
+          script_anchor = '<script src="motion.js?v=clean-1.0.0"></script>'
+          qa_boot = '<script>window.WeatherMotherBoot={quality:"balanced",still:true};</script>'
+          qa_style = '<style id="b24-qa-embed">.panel,.footer{display:none!important}</style>'
+          if weather_text.count(script_anchor) != 1 or weather_text.count('</head>') != 1:
+              raise SystemExit('Weather Mother QA boot anchors were missing or ambiguous')
+          weather_text = weather_text.replace('</head>', qa_style + '</head>')
+          weather_text = weather_text.replace(script_anchor, qa_boot + script_anchor)
+          weather_index.write_text(weather_text, encoding='utf-8')
+          print('Staged origin-only, balanced-quality, paused Weather Mother browser QA')
           PY
 
           echo "B24_WEATHER_SITE=$SITE" >> "$GITHUB_ENV"
@@ -108,11 +122,28 @@ jobs:
           CHROME="$(command -v google-chrome-stable || command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME"
 
+          set +e
           B24_WEATHER_QA_URL="$QA_URL" \
           B24_WEATHER_QA_OUTPUT="$GITHUB_WORKSPACE/artifacts/b24-weather-workbench" \
-          B24_WEATHER_QA_TIMEOUT_MS='240000' \
+          B24_WEATHER_QA_TIMEOUT_MS='120000' \
           CHROME="$CHROME" \
-          node scripts/qa-b24-weather-workbench.mjs
+          timeout --foreground --signal=TERM --kill-after=10s 180s \
+            node scripts/qa-b24-weather-workbench.mjs
+          QA_STATUS=$?
+          set -e
+
+          if test "$QA_STATUS" -eq 124 || test "$QA_STATUS" -eq 137; then
+            REPORT="$GITHUB_WORKSPACE/artifacts/b24-weather-workbench/browser-qa.json"
+            node - "$REPORT" <<'NODE'
+          const fs = require('fs');
+          const reportPath = process.argv[2];
+          if (!fs.existsSync(reportPath)) process.exit(1);
+          const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+          if (report.status !== 'PASS') process.exit(1);
+          NODE
+          elif test "$QA_STATUS" -ne 0; then
+            exit "$QA_STATUS"
+          fi
 
       - name: Publish QA summary
         if: always()
