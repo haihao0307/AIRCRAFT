@@ -75,6 +75,20 @@ jobs:
           print(json.dumps(checked, indent=2))
           PY
 
+      - name: Stabilize embedded Weather Mother URL base
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('tools/build-b24-weather-standalone.mjs')
+          text = path.read_text(encoding='utf-8')
+          old = '''"const baseURL=new URL('.',location.href),"'''
+          new = '''"const baseURL=new URL('https://embedded.weather.invalid/'),"'''
+          assert old in text, 'expected inline base URL replacement was not found'
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
+
       - name: Syntax check builders
         run: |
           node --check tools/build-b24-weather-standalone.mjs
