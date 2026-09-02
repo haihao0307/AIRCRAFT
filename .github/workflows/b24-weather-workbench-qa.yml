@@ -1,0 +1,173 @@
+name: Verify B24 Weather Mother unified workbench
+
+on:
+  push:
+    branches:
+      - feature/b24-v014-procedural-field-metal-pilot
+    paths:
+      - '.github/workflows/b24-weather-workbench-qa.yml'
+      - 'scripts/qa-b24-weather-workbench.mjs'
+      - 'preview/b24-data-native-v009/**'
+      - 'data/b24-native/environment/B24_WEATHER_MOTHER_BRIDGE_V001.json'
+      - 'docs/aircraft-pipeline/B24_WEATHER_MOTHER_INTEGRATION_V001.md'
+      - 'records/B24_WEATHER_MOTHER_INTEGRATION_RECEIPT_V001.json'
+      - 'tools/validate-b24-weather-mother-bridge.mjs'
+      - 'package.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: b24-weather-workbench-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate repository and Weather Mother bridge contract
+        run: npm test
+
+      - name: Materialize locked B24 and Weather Mother sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          SITE="$RUNNER_TEMP/b24-weather-site"
+          WEATHER_REPO="$RUNNER_TEMP/guilin-dem-pipeline"
+          MODEL="$RUNNER_TEMP/b-24_liberator.glb"
+
+          curl --fail --location --retry 5 --retry-all-errors --retry-delay 2 \
+            --output "$MODEL" \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb
+          test "$(stat --format=%s "$MODEL")" = "23085972"
+          echo "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d  $MODEL" | sha256sum --check
+
+          git clone --depth 1 --filter=blob:none --sparse --branch gh-pages \
+            https://github.com/haihao0307/guilin-dem-pipeline.git "$WEATHER_REPO"
+          git -C "$WEATHER_REPO" sparse-checkout set weather-mother/clean-v1
+          test -s "$WEATHER_REPO/weather-mother/clean-v1/index.html"
+          test -s "$WEATHER_REPO/weather-mother/clean-v1/engine.js"
+          test -s "$WEATHER_REPO/weather-mother/clean-v1/cloud.glsl"
+          test -s "$WEATHER_REPO/weather-mother/clean-v1/field-worker.js"
+          grep -q "1.0.0-clean" "$WEATHER_REPO/weather-mother/clean-v1/engine.js"
+
+          mkdir -p "$SITE/AIRCRAFT" "$SITE/guilin-dem-pipeline/weather-mother/clean-v1" "$SITE/AIRCRAFT/public"
+          rsync -a --exclude='.git' --exclude='artifacts' ./ "$SITE/AIRCRAFT/"
+          cp "$MODEL" "$SITE/AIRCRAFT/public/b-24_liberator.glb"
+          cp -a "$WEATHER_REPO/weather-mother/clean-v1/." "$SITE/guilin-dem-pipeline/weather-mother/clean-v1/"
+
+          echo "B24_WEATHER_SITE=$SITE" >> "$GITHUB_ENV"
+          echo "B24_WEATHER_MODEL=$MODEL" >> "$GITHUB_ENV"
+
+      - name: Run real-browser same-origin workbench QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/artifacts/b24-weather-workbench"
+          CERT="$RUNNER_TEMP/b24-weather-cert.pem"
+          KEY="$RUNNER_TEMP/b24-weather-key.pem"
+          openssl req -x509 -newkey rsa:2048 -sha256 -nodes -days 1 \
+            -keyout "$KEY" -out "$CERT" \
+            -subj '/CN=haihao0307.github.io' \
+            -addext 'subjectAltName=DNS:haihao0307.github.io' \
+            >/dev/null 2>&1
+
+          cat > "$RUNNER_TEMP/serve-b24-weather.py" <<'PY'
+          import http.server
+          import os
+          import ssl
+          import sys
+
+          root, cert, key = sys.argv[1:4]
+          os.chdir(root)
+
+          class Handler(http.server.SimpleHTTPRequestHandler):
+              def log_message(self, format, *args):
+                  print(format % args, flush=True)
+
+          server = http.server.ThreadingHTTPServer(('0.0.0.0', 443), Handler)
+          context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+          context.load_cert_chain(certfile=cert, keyfile=key)
+          server.socket = context.wrap_socket(server.socket, server_side=True)
+          server.serve_forever()
+          PY
+
+          sudo python3 "$RUNNER_TEMP/serve-b24-weather.py" "$B24_WEATHER_SITE" "$CERT" "$KEY" \
+            > "$GITHUB_WORKSPACE/artifacts/b24-weather-workbench/server.log" 2>&1 &
+          SERVER_PID=$!
+          trap 'sudo kill "$SERVER_PID" 2>/dev/null || true' EXIT
+
+          READY=0
+          for attempt in $(seq 1 60); do
+            if curl --noproxy '*' --fail --silent --show-error --insecure \
+              --resolve haihao0307.github.io:443:127.0.0.1 \
+              https://haihao0307.github.io/AIRCRAFT/preview/b24-data-native-v009/index-production.html \
+              -o /tmp/b24-weather-page.html; then
+              if grep -q '第二次数据原生生产线' /tmp/b24-weather-page.html; then
+                READY=1
+                break
+              fi
+            fi
+            sleep 1
+          done
+          test "$READY" = "1"
+
+          CHROME="$(command -v google-chrome-stable || command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME"
+
+          B24_WEATHER_QA_URL='https://haihao0307.github.io/AIRCRAFT/preview/b24-data-native-v009/index-production.html' \
+          B24_WEATHER_QA_OUTPUT="$GITHUB_WORKSPACE/artifacts/b24-weather-workbench" \
+          B24_WEATHER_QA_TIMEOUT_MS='240000' \
+          B24_WEATHER_HOST_RESOLVER_RULES='MAP haihao0307.github.io 127.0.0.1' \
+          CHROME="$CHROME" \
+          node scripts/qa-b24-weather-workbench.mjs
+
+      - name: Publish QA summary
+        if: always()
+        shell: bash
+        run: |
+          REPORT="$GITHUB_WORKSPACE/artifacts/b24-weather-workbench/browser-qa.json"
+          if test -s "$REPORT"; then
+            node - "$REPORT" <<'NODE' >> "$GITHUB_STEP_SUMMARY"
+          const fs = require('fs');
+          const report = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+          console.log('# B24 Weather Mother unified workbench QA');
+          console.log('');
+          console.log(`Status: ${report.status}`);
+          console.log('');
+          console.log(`Browser: ${report.browser?.product || 'unknown'}`);
+          console.log('');
+          console.log(`Top-level page targets: ${report.topLevelPageTargets ?? 'unknown'}`);
+          console.log('');
+          console.log(`Console errors: ${report.consoleErrors?.length ?? 'unknown'}`);
+          console.log('');
+          console.log(`Page exceptions: ${report.pageExceptions?.length ?? 'unknown'}`);
+          console.log('');
+          console.log(`Network failures: ${report.networkFailures?.length ?? 'unknown'}`);
+          console.log('');
+          console.log(`HTTP errors: ${report.httpErrors?.length ?? 'unknown'}`);
+          console.log('');
+          console.log('Screenshots:');
+          for (const item of report.screenshots || []) console.log(`* ${item.file}, ${item.bytes} bytes`);
+          NODE
+          else
+            echo '# B24 Weather Mother unified workbench QA' >> "$GITHUB_STEP_SUMMARY"
+            echo >> "$GITHUB_STEP_SUMMARY"
+            echo 'Browser report was not produced.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-weather-workbench-${{ github.sha }}
+          path: artifacts/b24-weather-workbench
+          if-no-files-found: warn
+          retention-days: 30
