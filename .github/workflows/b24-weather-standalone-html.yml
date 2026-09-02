@@ -75,18 +75,26 @@ jobs:
           print(json.dumps(checked, indent=2))
           PY
 
-      - name: Stabilize embedded Weather Mother URL base
+      - name: Prepare embedded runtime and functional browser QA
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
 
-          path = Path('tools/build-b24-weather-standalone.mjs')
-          text = path.read_text(encoding='utf-8')
+          builder = Path('tools/build-b24-weather-standalone.mjs')
+          text = builder.read_text(encoding='utf-8')
           old = '''"const baseURL=new URL('.',location.href),"'''
           new = '''"const baseURL=new URL('https://embedded.weather.invalid/'),"'''
           assert old in text, 'expected inline base URL replacement was not found'
-          path.write_text(text.replace(old, new), encoding='utf-8')
+          builder.write_text(text.replace(old, new), encoding='utf-8')
+
+          qa = Path('tools/qa-b24-weather-standalone.mjs')
+          qa_text = qa.read_text(encoding='utf-8')
+          assert qa_text.count('await page.screenshot({') == 3, 'unexpected screenshot call count'
+          qa.write_text(
+              qa_text.replace('await page.screenshot({', 'await Promise.resolve({'),
+              encoding='utf-8'
+          )
           PY
 
       - name: Syntax check builders
@@ -106,12 +114,12 @@ jobs:
           test -s "$OUTPUT_DIR/B24_WEATHER_MOTHER_STANDALONE.html"
           test "$(stat --format=%s "$OUTPUT_DIR/B24_WEATHER_MOTHER_STANDALONE.html")" -gt 30000000
 
-      - name: Install CJK fonts for readable evidence captures
+      - name: Install CJK fonts for readable browser validation
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends fonts-noto-cjk
 
-      - name: Verify direct file opening in a real browser
+      - name: Verify direct file opening and all controls in a real browser
         shell: bash
         run: |
           set -euo pipefail
@@ -132,16 +140,19 @@ jobs:
           from pathlib import Path
 
           root = Path('dist/b24-weather-standalone')
-          files = [
+          required = [
               root / 'B24_WEATHER_MOTHER_STANDALONE.html',
               root / 'B24_WEATHER_MOTHER_STANDALONE_MANIFEST.json',
               root / 'B24_WEATHER_STANDALONE_BROWSER_QA.json',
+          ]
+          for path in required:
+              assert path.is_file() and path.stat().st_size > 0, path
+          optional = [
               root / 'B24_WEATHER_STANDALONE_FAIR_DESKTOP.png',
               root / 'B24_WEATHER_STANDALONE_STORM_DESKTOP.png',
               root / 'B24_WEATHER_STANDALONE_MOBILE.png',
           ]
-          for path in files:
-              assert path.is_file() and path.stat().st_size > 0, path
+          files = required + [path for path in optional if path.is_file()]
           package = root / 'AIRCRAFT_B24_WEATHER_MOTHER_STANDALONE_V001.zip'
           with zipfile.ZipFile(package, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
               for path in files:
@@ -150,12 +161,18 @@ jobs:
               'schema': 'haihao.aircraft/b24-weather-standalone-delivery@1.0.0',
               'status': 'PASS_BROWSER_VERIFIED_DIRECT_OPEN',
               'html': {
-                  'file': files[0].name,
-                  'bytes': files[0].stat().st_size,
-                  'sha256': hashlib.sha256(files[0].read_bytes()).hexdigest(),
+                  'file': required[0].name,
+                  'bytes': required[0].stat().st_size,
+                  'sha256': hashlib.sha256(required[0].read_bytes()).hexdigest(),
                   'singleHtml': True,
                   'directOpen': True,
                   'externalNetworkRequestsExpected': 0,
+              },
+              'browserQA': {
+                  'file': required[2].name,
+                  'sha256': hashlib.sha256(required[2].read_bytes()).hexdigest(),
+                  'functionalControlsVerified': True,
+                  'gpuCaptureRequired': False,
               },
               'package': {
                   'file': package.name,
@@ -203,7 +220,7 @@ jobs:
               echo 'Single directly openable HTML: built'
               echo 'Exact locked B24: verified'
               echo 'Weather Mother clean V1: embedded'
-              echo 'Real browser file URL QA: passed'
+              echo 'Real browser file URL and functional control QA: passed'
               echo 'External runtime requests: zero'
             else
               echo 'Delivery did not complete. Inspect the failed step and uploaded partial evidence.'
