@@ -8,7 +8,6 @@ const chromePath = process.env.CHROME || process.env.CHROMIUM || 'chromium';
 const outputDir = path.resolve(process.env.B24_WEATHER_QA_OUTPUT || 'artifacts/b24-weather-workbench');
 const timeoutMs = Number(process.env.B24_WEATHER_QA_TIMEOUT_MS || 240000);
 const debugPort = Number(process.env.B24_WEATHER_CDP_PORT || 9337);
-const hostResolverRules = process.env.B24_WEATHER_HOST_RESOLVER_RULES || '';
 
 if (!pageUrl) throw new Error('B24_WEATHER_QA_URL is required');
 fs.mkdirSync(outputDir, { recursive: true });
@@ -104,12 +103,6 @@ const chrome = spawn(chromePath, [
   '--enable-unsafe-swiftshader',
   '--autoplay-policy=no-user-gesture-required',
   '--hide-scrollbars',
-  ...(hostResolverRules ? [
-    `--host-resolver-rules=${hostResolverRules}`,
-    '--ignore-certificate-errors',
-    '--allow-insecure-localhost',
-    '--no-proxy-server'
-  ] : []),
   '--window-size=1600,1000',
   `--remote-debugging-port=${debugPort}`,
   `--user-data-dir=${profileDir}`,
@@ -316,7 +309,8 @@ try {
   await waitFor(`(() => {
     const bridge = window.__B24_WEATHER_BRIDGE__;
     const configuration = bridge.weatherApi?.getConfiguration?.();
-    return configuration?.weather === 'storm' &&
+    return bridge.weatherApi?.qa?.ready === true &&
+      configuration?.weather === 'storm' &&
       configuration.controls?.count === 4 &&
       configuration.controls?.wind === 28 &&
       configuration.controls?.direction === 270 &&
