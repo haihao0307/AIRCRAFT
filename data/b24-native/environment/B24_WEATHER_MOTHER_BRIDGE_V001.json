@@ -1,0 +1,122 @@
+{
+  "schema": "haihao.aircraft/b24-weather-mother-bridge@1.0.0",
+  "id": "B24_WEATHER_MOTHER_BRIDGE_V001",
+  "status": "integration-candidate",
+  "branch": "feature/b24-v014-procedural-field-metal-pilot",
+  "remoteBaseCommit": "9e89ee328ce3c0ff4f23a34e126389d36294732a",
+  "integrationTarget": {
+    "pipeline": "B24 second data-native production line",
+    "workbench": "preview/b24-data-native-v009/index.html",
+    "productionWorkbench": "preview/b24-data-native-v009/index-production.html",
+    "singleWorkbench": true,
+    "newWindow": false,
+    "newTopLevelPage": false,
+    "sharedViewport": "#canvas-host",
+    "sharedControlPanel": "#control-panel",
+    "composition": [
+      "Weather Mother procedural environment layer",
+      "locked B24 Three.js aircraft layer",
+      "one unified control surface"
+    ]
+  },
+  "weatherMotherSource": {
+    "repository": "haihao0307/guilin-dem-pipeline",
+    "package": "weather-mother/clean-v1",
+    "version": "1.0.0-clean",
+    "baseline": "0.6.2-loop",
+    "sourceCommit": "bf2aaa5d853af4f114c68d5bbafb99ea47134ef5",
+    "repositoryReadRef": "329670eea20d008189d0dce68d16899e667d8baf",
+    "onlineEntry": "https://haihao0307.github.io/guilin-dem-pipeline/weather-mother/clean-v1/",
+    "supportedPresets": [
+      "fair",
+      "coast",
+      "mountain",
+      "rain",
+      "storm",
+      "rainbow",
+      "snow",
+      "high"
+    ],
+    "supportedCloudGenera": [
+      "Cu",
+      "Cb",
+      "Sc",
+      "St",
+      "Ns",
+      "Ac",
+      "As",
+      "Ci",
+      "Cc",
+      "Cs"
+    ]
+  },
+  "runtimeInterface": {
+    "global": "window.__B24_WEATHER_BRIDGE__",
+    "methods": [
+      "getConfiguration",
+      "applyConfiguration",
+      "getEnvironment",
+      "reset"
+    ],
+    "event": "b24-weather-environment",
+    "weatherMotherNativeApi": [
+      "getConfiguration",
+      "applyConfiguration",
+      "getEnvironment",
+      "set",
+      "setSeed",
+      "setLoopPhase",
+      "pause",
+      "play"
+    ],
+    "sameOriginMode": "native API synchronization and hidden Weather Mother internal controls",
+    "crossOriginMode": "query-locked visual composition plus local environment mirror"
+  },
+  "environmentCoordinates": {
+    "units": {
+      "distance": "m",
+      "speed": "m/s",
+      "direction": "degrees"
+    },
+    "axes": {
+      "positiveX": "east",
+      "positiveY": "up",
+      "negativeZ": "north"
+    },
+    "windExamples": {
+      "270Degrees": "west wind blowing toward positive X",
+      "0Degrees": "north wind blowing toward positive Z"
+    }
+  },
+  "aircraftCoupling": {
+    "runtimeOnly": true,
+    "sourceDataMutation": false,
+    "geometryImpact": "none",
+    "animationChannelImpact": "none",
+    "surfaceProgramWrite": "none",
+    "v014FieldParameterWrite": "none",
+    "channels": [
+      "scene fog",
+      "directional and hemispheric lighting",
+      "renderer exposure",
+      "estimated visibility readout",
+      "phase-limited aircraft turbulence"
+    ],
+    "parkedAircraftTurbulence": false,
+    "protectedSystems": [
+      "locked B24 GLB",
+      "source textures",
+      "original animation channels",
+      "runway flight sequence",
+      "V014 procedural metal pilot parameters",
+      "80 DAYS historical approval state"
+    ]
+  },
+  "approvalLedger": {
+    "weatherMotherVisualApproved": false,
+    "b24WeatherIntegrationVisualApproved": false,
+    "engineeringApproved": false,
+    "historicalApproved": false,
+    "productionReady": false
+  }
+}
