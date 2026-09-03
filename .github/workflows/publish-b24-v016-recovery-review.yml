@@ -1,0 +1,434 @@
+name: Build B24 V016 recovery review candidate
+
+on:
+  push:
+    branches:
+      - audit/b24-v016-original-source-20260903
+    paths:
+      - '.github/workflows/publish-b24-v016-recovery-review.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: b24-v016-recovery-review
+  cancel-in-progress: false
+
+jobs:
+  select-verify-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_ARTIFACT_ID: 9878261422
+      RELEASE_TAG: b24-v016-recovery-review-v1
+      EXPECTED_NAME: B24_V016_COMPLETE_WORKBENCH.html
+      EXPECTED_BYTES: 12141929
+      EXPECTED_SHA256: c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Download the seven recovered full-aircraft candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/recovery work/site evidence
+          gh api --method GET \
+            -H 'Accept: application/vnd.github+json' \
+            "repos/${GITHUB_REPOSITORY}/actions/artifacts/${SOURCE_ARTIFACT_ID}/zip" \
+            > work/recovery.zip
+          unzip -q work/recovery.zip -d work/recovery
+          test -s work/recovery/candidate-recovery-report.json
+
+      - name: Select the strongest full-aircraft V016 candidate without modifying it
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > work/select_candidate.py <<'PY'
+          import hashlib
+          import json
+          import math
+          import re
+          import shutil
+          from pathlib import Path
+
+          root = Path('work/recovery')
+          report_path = root / 'candidate-recovery-report.json'
+          report = json.loads(report_path.read_text(encoding='utf-8'))
+          expected_size = 12141929
+          candidates = []
+
+          strong_markers = {
+              'B24_V016_COMPLETE_WORKBENCH': 1200,
+              'B24_CURRENT_REVIEW_V016': 900,
+              'B24_V016_WORKBENCH': 760,
+              'B24_V016_1_HISTORY_WORKBENCH': 700,
+              'B24_ONE_CLICK_CURRENT': 560,
+              'propellerHoldFramesRemoved': 260,
+              'spinSourceNodes': 220,
+              'bayTrackCount': 220,
+          }
+          required_groups = {
+              'aircraft': ('b-24', 'b24'),
+              'runway': ('runway', '跑道'),
+              'propeller': ('propeller', '螺旋桨'),
+              'gear': ('landinggear', 'landing gear', '起落架'),
+              'bombing': ('bomb', '投弹', '弹舱'),
+              'timeline': ('timeline', 'mission', '任务', '巡航', '着陆'),
+          }
+          forbidden = (
+              'img2threejs', 'image2three', 'image-to-three',
+              'weapons mother', 'weapon mother', 'b24-m2-aircraft-v016',
+              'weather mother', 'b24-weather-mission-v1',
+          )
+
+          for item in report.get('candidates', []):
+              saved = item.get('savedAs')
+              if not saved:
+                  continue
+              path = report_path.parent / saved
+              if not path.is_file():
+                  continue
+              data = path.read_bytes()
+              text = data.decode('utf-8', errors='replace')
+              lower = text.lower()
+              title_match = re.search(r'<title[^>]*>(.*?)</title>', text, re.I | re.S)
+              title = re.sub(r'\s+', ' ', title_match.group(1)).strip() if title_match else ''
+              forbidden_hits = [token for token in forbidden if token in lower]
+              group_hits = {
+                  name: any(token in lower for token in tokens)
+                  for name, tokens in required_groups.items()
+              }
+              score = 0.0
+              marker_hits = []
+              for marker, weight in strong_markers.items():
+                  if marker.lower() in lower:
+                      marker_hits.append(marker)
+                      score += weight
+              score += sum(120 for value in group_hits.values() if value)
+              score += 150 if re.search(r'\bV0?16\b', text, re.I) else 0
+              score += 80 if '<canvas' in lower else 0
+              score += 60 if '<script' in lower else 0
+              score += max(0, 220 - abs(len(data) - expected_size) / 50000)
+              if forbidden_hits:
+                  score -= 10000
+              if not all(group_hits.values()):
+                  score -= 3000
+              sha = hashlib.sha256(data).hexdigest()
+              candidates.append({
+                  'path': str(path),
+                  'filename': item.get('filename') or path.name,
+                  'origin': item.get('origin'),
+                  'artifactId': item.get('artifactId'),
+                  'artifactName': item.get('artifactName'),
+                  'artifactCreatedAt': item.get('artifactCreatedAt'),
+                  'bytes': len(data),
+                  'sha256': sha,
+                  'title': title,
+                  'score': round(score, 3),
+                  'markerHits': marker_hits,
+                  'requiredGroups': group_hits,
+                  'forbiddenHits': forbidden_hits,
+              })
+
+          candidates.sort(key=lambda row: (row['score'], -abs(row['bytes'] - expected_size)), reverse=True)
+          if not candidates:
+              raise SystemExit('No recovered HTML candidates were available')
+          selected = candidates[0]
+          if selected['score'] < 0 or selected['forbiddenHits'] or not all(selected['requiredGroups'].values()):
+              raise SystemExit('No candidate satisfied the full-aircraft V016 review gate')
+
+          source = Path(selected['path'])
+          destination = Path('work/site/index.html')
+          shutil.copyfile(source, destination)
+          selected['publishedFileSha256'] = hashlib.sha256(destination.read_bytes()).hexdigest()
+          selected['publishedUnchanged'] = selected['publishedFileSha256'] == selected['sha256']
+          selected['exactExpectedOriginal'] = (
+              selected['bytes'] == 12141929
+              and selected['sha256'] == 'c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4'
+          )
+          selection = {
+              'schema': 'haihao.aircraft/b24-v016-recovery-candidate-selection@1.0.0',
+              'status': 'RECOVERY_REVIEW_CANDIDATE_SELECTED',
+              'selected': selected,
+              'rankedCandidates': candidates,
+              'policy': {
+                  'weaponsMotherExcluded': True,
+                  'img2threejsExcluded': True,
+                  'weatherIntegrationExcluded': True,
+                  'inventedSceneryExcluded': True,
+                  'candidateBytesModified': False,
+                  'exactOriginalClaimAllowed': selected['exactExpectedOriginal'],
+                  'visualAcceptance': False,
+                  'productionReady': False,
+              },
+          }
+          Path('work/site/RECOVERY_MANIFEST.json').write_text(
+              json.dumps(selection, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          Path('evidence/selection.json').write_text(
+              json.dumps(selection, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          print(json.dumps({'selected': selected, 'candidateCount': len(candidates)}, ensure_ascii=False, indent=2))
+          PY
+          python3 work/select_candidate.py
+          test -s work/site/index.html
+          test -s work/site/RECOVERY_MANIFEST.json
+
+      - name: Install Chromium browser QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Open the selected page and verify that it is live and animated
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > work/browser_qa.cjs <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const crypto = require('node:crypto');
+          const { chromium } = require('playwright');
+
+          const siteDir = path.resolve('work/site');
+          const evidenceDir = path.resolve('evidence');
+          const reportPath = path.join(evidenceDir, 'browser-qa.json');
+          const consoleErrors = [];
+          const pageErrors = [];
+          const failedRequests = [];
+          const checks = [];
+          const check = (name, pass, detail = null) => checks.push({ name, pass: Boolean(pass), detail });
+          const digest = (file) => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+
+          (async () => {
+            const server = require('node:child_process').spawn(
+              'python3', ['-m', 'http.server', '8126', '--directory', siteDir],
+              { stdio: ['ignore', 'pipe', 'pipe'] }
+            );
+            await new Promise(resolve => setTimeout(resolve, 1200));
+            const browser = await chromium.launch({
+              headless: true,
+              args: [
+                '--disable-dev-shm-usage', '--enable-webgl', '--ignore-gpu-blocklist',
+                '--use-gl=angle', '--use-angle=swiftshader-webgl', '--enable-unsafe-swiftshader'
+              ]
+            });
+            const page = await browser.newPage({ viewport: { width: 1600, height: 1000 }, deviceScaleFactor: 1 });
+            page.setDefaultTimeout(120000);
+            page.on('console', message => {
+              if (message.type() === 'error') consoleErrors.push(message.text());
+            });
+            page.on('pageerror', error => pageErrors.push(error.message || String(error)));
+            page.on('requestfailed', request => failedRequests.push({
+              url: request.url(),
+              error: request.failure()?.errorText || 'unknown'
+            }));
+
+            try {
+              await page.goto('http://127.0.0.1:8126/', { waitUntil: 'domcontentloaded', timeout: 120000 });
+              await page.waitForTimeout(8000);
+
+              const baseline = await page.evaluate(() => {
+                const bodyText = document.body?.innerText || '';
+                const buttons = [...document.querySelectorAll('button')].map(button => ({
+                  text: (button.textContent || '').trim(),
+                  disabled: button.disabled,
+                  visible: Boolean(button.offsetWidth || button.offsetHeight || button.getClientRects().length),
+                }));
+                const canvases = [...document.querySelectorAll('canvas')].map(canvas => ({
+                  width: canvas.width,
+                  height: canvas.height,
+                  visible: Boolean(canvas.offsetWidth || canvas.offsetHeight || canvas.getClientRects().length),
+                }));
+                return {
+                  title: document.title,
+                  bodyText: bodyText.slice(0, 12000),
+                  buttons,
+                  canvases,
+                  canvasCount: canvases.length,
+                  visibleButtonCount: buttons.filter(button => button.visible && !button.disabled).length,
+                  htmlBytesHint: document.documentElement.outerHTML.length,
+                };
+              });
+
+              check('page title identifies B24', /B-?24/i.test(baseline.title + ' ' + baseline.bodyText), baseline.title);
+              check('V016 identity is visible or embedded', /V0?16/i.test(baseline.title + ' ' + baseline.bodyText + fs.readFileSync(path.join(siteDir, 'index.html'), 'utf8')), baseline.title);
+              check('at least one 3D canvas exists', baseline.canvasCount >= 1, baseline.canvases);
+              check('visible controls exist', baseline.visibleButtonCount >= 1, baseline.buttons.slice(0, 30));
+              check('Weapons Mother absent', !/Weapons? Mother|B24-M2-Aircraft/i.test(baseline.bodyText), null);
+              check('img2threejs absent', !/img2threejs|image2three/i.test(baseline.bodyText), null);
+
+              const shotA = path.join(evidenceDir, '01-v016-recovery-initial.png');
+              await page.screenshot({ path: shotA, fullPage: false, timeout: 120000 });
+
+              const clicked = await page.evaluate(() => {
+                const patterns = [/播放/, /开始/, /启动/, /运行/, /Play/i, /Start/i, /任务/];
+                const buttons = [...document.querySelectorAll('button')].filter(button =>
+                  !button.disabled && (button.offsetWidth || button.offsetHeight || button.getClientRects().length)
+                );
+                const candidate = buttons.find(button => patterns.some(pattern => pattern.test((button.textContent || '').trim()))) || buttons[0];
+                if (!candidate) return null;
+                const text = (candidate.textContent || '').trim();
+                candidate.click();
+                return text;
+              });
+              check('a live control could be activated', Boolean(clicked), clicked);
+              await page.waitForTimeout(4500);
+
+              const shotB = path.join(evidenceDir, '02-v016-recovery-running.png');
+              await page.screenshot({ path: shotB, fullPage: false, timeout: 120000 });
+              check('rendered frame changes after activation', digest(shotA) !== digest(shotB), {
+                before: digest(shotA), after: digest(shotB), clicked,
+              });
+
+              const after = await page.evaluate(() => ({
+                canvasCount: document.querySelectorAll('canvas').length,
+                visibleControls: [...document.querySelectorAll('button')].filter(button =>
+                  !button.disabled && (button.offsetWidth || button.offsetHeight || button.getClientRects().length)
+                ).length,
+                bodyText: (document.body?.innerText || '').slice(0, 12000),
+              }));
+              check('3D canvas survives interaction', after.canvasCount >= 1, after.canvasCount);
+              check('controls remain available after interaction', after.visibleControls >= 1, after.visibleControls);
+              check('no uncaught page errors', pageErrors.length === 0, pageErrors);
+              check('no failed local requests', failedRequests.filter(item => item.url.startsWith('http://127.0.0.1:8126')).length === 0, failedRequests);
+
+              const manifest = JSON.parse(fs.readFileSync(path.join(siteDir, 'RECOVERY_MANIFEST.json'), 'utf8'));
+              const failed = checks.filter(item => !item.pass);
+              const qa = {
+                schema: 'haihao.aircraft/b24-v016-recovery-browser-qa@1.0.0',
+                status: failed.length ? 'FAIL' : 'PASS',
+                selected: manifest.selected,
+                checks: checks.length,
+                passed: checks.length - failed.length,
+                failed: failed.length,
+                failures: failed,
+                consoleErrors,
+                pageErrors,
+                failedRequests,
+                baseline,
+                after,
+                visualAcceptance: false,
+                productionReady: false,
+                results: checks,
+              };
+              fs.writeFileSync(reportPath, JSON.stringify(qa, null, 2) + '\n');
+              console.log(JSON.stringify(qa, null, 2));
+              if (failed.length) process.exitCode = 1;
+            } finally {
+              await browser.close();
+              server.kill('SIGTERM');
+            }
+          })().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
+          node work/browser_qa.cjs
+
+      - name: Attach QA receipt without changing the selected HTML
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp evidence/browser-qa.json work/site/BROWSER_QA.json
+          python3 - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          site = Path('work/site')
+          manifest = json.loads((site / 'RECOVERY_MANIFEST.json').read_text(encoding='utf-8'))
+          qa = json.loads((site / 'BROWSER_QA.json').read_text(encoding='utf-8'))
+          selected = manifest['selected']
+          current = hashlib.sha256((site / 'index.html').read_bytes()).hexdigest()
+          assert current == selected['sha256']
+          assert selected['publishedUnchanged'] is True
+          assert qa['status'] == 'PASS'
+          receipt = {
+              'schema': 'haihao.aircraft/b24-v016-recovery-review-release@1.0.0',
+              'status': 'PASS_BROWSER_VERIFIED_RECOVERY_CANDIDATE',
+              'candidate': selected,
+              'exactExpectedOriginal': selected['exactExpectedOriginal'],
+              'publishedUnchanged': True,
+              'weatherIntegrated': False,
+              'newSceneryAdded': False,
+              'weaponsMotherIncluded': False,
+              'img2threejsIncluded': False,
+              'visualAcceptance': False,
+              'productionReady': False,
+          }
+          (site / 'RELEASE_RECEIPT.json').write_text(
+              json.dumps(receipt, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          PY
+
+      - name: Publish immutable recovery candidate as a release asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp work/site/index.html "${EXPECTED_NAME}"
+          cp work/site/RECOVERY_MANIFEST.json B24_V016_RECOVERY_MANIFEST.json
+          cp work/site/BROWSER_QA.json B24_V016_RECOVERY_BROWSER_QA.json
+          cp work/site/RELEASE_RECEIPT.json B24_V016_RECOVERY_RELEASE_RECEIPT.json
+          cp evidence/01-v016-recovery-initial.png .
+          cp evidence/02-v016-recovery-running.png .
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release delete "$RELEASE_TAG" --yes --cleanup-tag
+          fi
+          gh release create "$RELEASE_TAG" \
+            --target "$GITHUB_SHA" \
+            --title 'B24 V016 Recovery Review Candidate V1' \
+            --notes 'Recovered from retained AIRCRAFT Actions artifacts. Published unchanged for visual review. Exact historical V016 SHA match remains false unless stated in the attached receipt. Weather, Weapons Mother, img2threejs, and new scenery are excluded.' \
+            "$EXPECTED_NAME" \
+            B24_V016_RECOVERY_MANIFEST.json \
+            B24_V016_RECOVERY_BROWSER_QA.json \
+            B24_V016_RECOVERY_RELEASE_RECEIPT.json \
+            01-v016-recovery-initial.png \
+            02-v016-recovery-running.png
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-v016-recovery-review-v1
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            work/site/index.html
+            work/site/RECOVERY_MANIFEST.json
+            work/site/BROWSER_QA.json
+            work/site/RELEASE_RECEIPT.json
+            evidence/01-v016-recovery-initial.png
+            evidence/02-v016-recovery-running.png
+
+      - name: Summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## B24 V016 recovery review candidate'
+            echo
+            if [ -f work/site/RELEASE_RECEIPT.json ]; then
+              python3 - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('work/site/RELEASE_RECEIPT.json').read_text())
+          print('Candidate: '+r['candidate']['filename'])
+          print('Bytes: '+str(r['candidate']['bytes']))
+          print('SHA-256: '+r['candidate']['sha256'])
+          print('Published unchanged: '+str(r['publishedUnchanged']).lower())
+          print('Exact historical V016 match: '+str(r['exactExpectedOriginal']).lower())
+          PY
+            else
+              echo 'Review candidate did not pass the release gate.'
+            fi
+            echo 'visualAcceptance=false'
+            echo 'productionReady=false'
+          } >> "$GITHUB_STEP_SUMMARY"
