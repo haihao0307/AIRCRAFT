@@ -1,0 +1,312 @@
+name: Scan all owned repositories for exact B24 V016
+
+on:
+  push:
+    branches:
+      - audit/b24-v016-original-source-20260903
+    paths:
+      - '.github/workflows/audit-b24-v016-all-repositories.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  all-repository-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Scan branch histories, run-head commits, releases, and exact blob sizes across all owned repositories
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          cat > /tmp/scan_all_repositories.py <<'PY'
+          import concurrent.futures
+          import hashlib
+          import json
+          import os
+          import re
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          OWNER = 'haihao0307'
+          TARGET_NAME = 'B24_V016_COMPLETE_WORKBENCH.html'
+          TARGET_BYTES = 12141929
+          TARGET_SHA256 = 'c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4'
+          PACKAGE_NAME = 'AIRCRAFT_B24_V016_WORKBENCH_REPAIR_R1.zip'
+          PACKAGE_BYTES = 27611090
+          PACKAGE_SHA256 = 'f991c9c9d06adaf3004f796c8be7b13c76c3b4c93971c018e0afbff7f9def8af'
+          OUT = Path('evidence')
+          token = os.environ['GH_TOKEN']
+
+          report = {
+              'schema': 'haihao.aircraft/b24-v016-all-repositories-audit@1.0.0',
+              'generatedAt': datetime.now(timezone.utc).isoformat(),
+              'target': {
+                  'file': TARGET_NAME,
+                  'bytes': TARGET_BYTES,
+                  'sha256': TARGET_SHA256,
+                  'package': PACKAGE_NAME,
+                  'packageBytes': PACKAGE_BYTES,
+                  'packageSha256': PACKAGE_SHA256,
+              },
+              'repositories': [],
+              'commitTreesInspected': 0,
+              'runHeadTreesInspected': 0,
+              'candidates': [],
+              'exactMatches': [],
+              'errors': [],
+              'limits': [],
+              'runtimeChanged': False,
+              'publicDeploymentChanged': False,
+          }
+
+          def get_json(url):
+              headers = {
+                  'User-Agent': 'B24-V016-all-repo-audit',
+                  'Authorization': f'Bearer {token}',
+                  'Accept': 'application/vnd.github+json',
+                  'X-GitHub-Api-Version': '2022-11-28',
+              }
+              for attempt in range(4):
+                  try:
+                      with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=45) as response:
+                          return json.loads(response.read())
+                  except urllib.error.HTTPError as error:
+                      if error.code not in (403, 429, 500, 502, 503, 504) or attempt == 3:
+                          raise
+                      time.sleep(2 + attempt * 2)
+
+          def api(repo, path):
+              return get_json(f'https://api.github.com/repos/{repo}/{path}')
+
+          def pages(url, key=None, maximum_pages=20):
+              rows = []
+              for page in range(1, maximum_pages + 1):
+                  separator = '&' if '?' in url else '?'
+                  payload = get_json(f'{url}{separator}per_page=100&page={page}')
+                  batch = payload.get(key, []) if key else payload
+                  rows.extend(batch)
+                  if len(batch) < 100:
+                      return rows
+              report['limits'].append({'url': url, 'maximumPages': maximum_pages})
+              return rows
+
+          def relevant_path(path):
+              lowered = path.lower()
+              if 'weapon' in lowered:
+                  return False
+              return (
+                  'b24_v016' in lowered
+                  or 'b24-v016' in lowered
+                  or 'b24/v016' in lowered
+                  or 'v016_complete_workbench' in lowered
+                  or 'v016_workbench' in lowered
+                  or ('b24' in lowered and any(word in lowered for word in ('workbench', 'handoff', 'repair', 'complete')))
+              )
+
+          def download_raw(repo, commit, path):
+              url = f'https://raw.githubusercontent.com/{repo}/{commit}/{urllib.parse.quote(path)}'
+              request = urllib.request.Request(url, headers={'User-Agent': 'B24-V016-all-repo-audit'})
+              with urllib.request.urlopen(request, timeout=90) as response:
+                  data = response.read(150_000_001)
+              if len(data) > 150_000_000:
+                  raise RuntimeError('candidate exceeds 150 MB')
+              return data, url
+
+          def check_candidate(repo, commit, entry, source):
+              candidate = {
+                  'repository': repo,
+                  'commit': commit,
+                  'path': entry['path'],
+                  'blobSha': entry['sha'],
+                  'bytes': entry.get('size'),
+                  'source': source,
+              }
+              report['candidates'].append(candidate)
+              if entry.get('size') not in (TARGET_BYTES, PACKAGE_BYTES):
+                  return
+              try:
+                  data, url = download_raw(repo, commit, entry['path'])
+                  digest = hashlib.sha256(data).hexdigest()
+                  candidate['downloadedBytes'] = len(data)
+                  candidate['downloadedSha256'] = digest
+                  candidate['url'] = url
+                  if len(data) == TARGET_BYTES and digest == TARGET_SHA256:
+                      (OUT / TARGET_NAME).write_bytes(data)
+                      report['exactMatches'].append({**candidate, 'kind': 'html'})
+                  if len(data) == PACKAGE_BYTES and digest == PACKAGE_SHA256:
+                      (OUT / PACKAGE_NAME).write_bytes(data)
+                      report['exactMatches'].append({**candidate, 'kind': 'package'})
+              except Exception as error:
+                  candidate['error'] = str(error)
+                  report['errors'].append({'stage': 'candidate-download', **candidate})
+
+          repositories = pages(
+              f'https://api.github.com/users/{OWNER}/repos?type=owner&sort=updated',
+              maximum_pages=10,
+          )
+          repository_names = [item['full_name'] for item in repositories if not item.get('fork')]
+          report['repositoryCount'] = len(repository_names)
+
+          for repo in repository_names:
+              repository_record = {
+                  'repository': repo,
+                  'branches': 0,
+                  'commits': 0,
+                  'workflowRuns': 0,
+                  'uniqueTrees': 0,
+                  'releaseAssets': [],
+                  'errors': [],
+              }
+              report['repositories'].append(repository_record)
+              trees = {}
+
+              try:
+                  branches = pages(f'https://api.github.com/repos/{repo}/branches', maximum_pages=5)
+                  repository_record['branches'] = len(branches)
+                  for branch in branches:
+                      branch_name = branch['name']
+                      commits = pages(
+                          f'https://api.github.com/repos/{repo}/commits?sha={urllib.parse.quote(branch_name, safe="")}&since=2026-08-28T00:00:00Z&until=2026-09-03T00:00:00Z',
+                          maximum_pages=5,
+                      )
+                      repository_record['commits'] += len(commits)
+                      for commit in commits:
+                          trees[commit['commit']['tree']['sha']] = {
+                              'commit': commit['sha'],
+                              'source': f'branch:{branch_name}',
+                          }
+              except Exception as error:
+                  repository_record['errors'].append({'stage': 'branches-and-commits', 'error': str(error)})
+
+              try:
+                  runs = pages(
+                      f'https://api.github.com/repos/{repo}/actions/runs?created=2026-08-28..2026-09-03',
+                      key='workflow_runs',
+                      maximum_pages=5,
+                  )
+                  repository_record['workflowRuns'] = len(runs)
+                  for run in runs:
+                      head_sha = run.get('head_sha')
+                      if not head_sha:
+                          continue
+                      try:
+                          commit = api(repo, f'commits/{head_sha}')
+                          trees[commit['commit']['tree']['sha']] = {
+                              'commit': head_sha,
+                              'source': f'workflow-run:{run["id"]}:{run.get("head_branch")}',
+                          }
+                      except Exception as error:
+                          repository_record['errors'].append({'stage': 'run-head', 'runId': run['id'], 'headSha': head_sha, 'error': str(error)})
+              except Exception as error:
+                  repository_record['errors'].append({'stage': 'workflow-runs', 'error': str(error)})
+
+              repository_record['uniqueTrees'] = len(trees)
+
+              def inspect_tree(item):
+                  tree_sha, metadata = item
+                  found = []
+                  error = None
+                  truncated = False
+                  try:
+                      tree = api(repo, f'git/trees/{tree_sha}?recursive=1')
+                      truncated = bool(tree.get('truncated'))
+                      for entry in tree.get('tree', []):
+                          if entry.get('type') != 'blob':
+                              continue
+                          if entry.get('size') in (TARGET_BYTES, PACKAGE_BYTES) or relevant_path(entry['path']):
+                              found.append(entry)
+                  except Exception as exc:
+                      error = str(exc)
+                  return tree_sha, metadata, found, truncated, error
+
+              with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
+                  for tree_sha, metadata, found, truncated, error in executor.map(inspect_tree, trees.items()):
+                      report['commitTreesInspected'] += 1
+                      if metadata['source'].startswith('workflow-run:'):
+                          report['runHeadTreesInspected'] += 1
+                      if truncated:
+                          report['limits'].append({'repository': repo, 'treeSha': tree_sha, 'truncated': True})
+                      if error:
+                          repository_record['errors'].append({'stage': 'tree', 'treeSha': tree_sha, 'error': error})
+                      for entry in found:
+                          check_candidate(repo, metadata['commit'], entry, metadata['source'])
+
+              try:
+                  releases = pages(f'https://api.github.com/repos/{repo}/releases', maximum_pages=5)
+                  for release in releases:
+                      for asset in release.get('assets', []):
+                          repository_record['releaseAssets'].append({
+                              'name': asset['name'],
+                              'bytes': asset['size'],
+                              'url': asset['browser_download_url'],
+                          })
+                          if asset['size'] not in (TARGET_BYTES, PACKAGE_BYTES) and not relevant_path(asset['name']):
+                              continue
+                          try:
+                              request = urllib.request.Request(asset['browser_download_url'], headers={'User-Agent': 'B24-V016-all-repo-audit'})
+                              with urllib.request.urlopen(request, timeout=90) as response:
+                                  data = response.read(150_000_001)
+                              digest = hashlib.sha256(data).hexdigest()
+                              candidate = {
+                                  'repository': repo,
+                                  'releaseAsset': asset['name'],
+                                  'bytes': len(data),
+                                  'sha256': digest,
+                                  'source': asset['browser_download_url'],
+                              }
+                              report['candidates'].append(candidate)
+                              if len(data) == TARGET_BYTES and digest == TARGET_SHA256:
+                                  (OUT / TARGET_NAME).write_bytes(data)
+                                  report['exactMatches'].append({**candidate, 'kind': 'html'})
+                              if len(data) == PACKAGE_BYTES and digest == PACKAGE_SHA256:
+                                  (OUT / PACKAGE_NAME).write_bytes(data)
+                                  report['exactMatches'].append({**candidate, 'kind': 'package'})
+                          except Exception as error:
+                              repository_record['errors'].append({'stage': 'release-download', 'asset': asset['name'], 'error': str(error)})
+              except Exception as error:
+                  repository_record['errors'].append({'stage': 'releases', 'error': str(error)})
+
+              report['errors'].extend({'repository': repo, **error} for error in repository_record['errors'])
+
+          report['status'] = (
+              'EXACT_ORIGINAL_BYTES_VERIFIED'
+              if any(item['kind'] == 'html' for item in report['exactMatches'])
+              else 'NO_EXACT_ORIGINAL_IN_OWNED_REPOSITORY_BRANCH_HISTORY_RUN_HEADS_OR_RELEASES'
+          )
+          report['mainBranchChanged'] = False
+          report['auditBranchOnly'] = True
+          (OUT / 'all-repositories-audit.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          summary = {
+              'status': report['status'],
+              'repositoryCount': report['repositoryCount'],
+              'commitTreesInspected': report['commitTreesInspected'],
+              'runHeadTreesInspected': report['runHeadTreesInspected'],
+              'candidateCount': len(report['candidates']),
+              'exactMatches': report['exactMatches'],
+              'errorCount': len(report['errors']),
+              'limitCount': len(report['limits']),
+          }
+          print(json.dumps(summary, ensure_ascii=False, indent=2))
+          PY
+          python3 /tmp/scan_all_repositories.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-v016-all-owned-repositories-audit
+          path: evidence/
+          retention-days: 30
+          if-no-files-found: error
