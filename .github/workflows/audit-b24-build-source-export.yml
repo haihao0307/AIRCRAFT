@@ -1,0 +1,90 @@
+name: Export B24 build sources for V016 review recovery
+
+on:
+  push:
+    branches:
+      - audit/b24-v016-original-source-20260903
+    paths:
+      - '.github/workflows/audit-b24-build-source-export.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Inventory repository and export buildable source files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out/export/current
+
+          git lfs ls-files > out/lfs-files.txt || true
+          git branch -a -vv > out/branches.txt
+          git log --all --date=iso-strict --pretty='format:%H%x09%ad%x09%D%x09%s' > out/all-log.tsv
+
+          find . -path './.git' -prune -o -type f -printf '%s\t%p\n' | sort -nr > out/current-files-by-size.tsv
+          find . -path './.git' -prune -o -type f \( \
+            -iname '*.html' -o -iname '*.htm' -o -iname '*.js' -o -iname '*.mjs' -o \
+            -iname '*.cjs' -o -iname '*.py' -o -iname '*.json' -o -iname '*.md' -o \
+            -iname '*.css' -o -iname '*.yml' -o -iname '*.yaml' -o -iname '*.glb' -o \
+            -iname '*.gltf' -o -iname '*.bin' -o -iname '*.zip' -o -iname '*.tar.gz' \
+          \) -printf '%s\t%p\n' | sort -nr > out/current-b24-candidate-files.tsv
+
+          grep -RIl --exclude-dir=.git -E 'B24_V016|B24_ONE_CLICK_CURRENT|spinSourceNodes|propellerHoldFramesRemoved|bayTrackCount|7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2|c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4' . \
+            | sort > out/current-marker-files.txt || true
+
+          while IFS= read -r path; do
+            [ -f "$path" ] || continue
+            size=$(stat -c '%s' "$path")
+            if [ "$size" -le 8000000 ]; then
+              mkdir -p "out/export/current/$(dirname "$path")"
+              cp -a "$path" "out/export/current/$path"
+            fi
+          done < <(find . -path './.git' -prune -o -type f \( \
+            -path './source/*' -o -path './tools/*' -o -path './scripts/*' -o \
+            -path './data/*' -o -path './docs/*' -o -path './b24-weather-mission-v1/*' -o \
+            -path './web/*' -o -path './public/*' -o -path './package.json' -o \
+            -path './package-lock.json' -o -path './README.md' -o -path './HANDOFF.md' -o \
+            -iname '*.html' -o -iname '*.js' -o -iname '*.py' -o -iname '*.json' \
+          \) -print)
+
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root = Path('.')
+          rows = []
+          for path in root.rglob('*'):
+              if not path.is_file() or '.git' in path.parts or path.parts[0] == 'out':
+                  continue
+              size = path.stat().st_size
+              if size > 80_000_000:
+                  sha = None
+              else:
+                  h = hashlib.sha256()
+                  with path.open('rb') as f:
+                      for chunk in iter(lambda: f.read(1024 * 1024), b''):
+                          h.update(chunk)
+                  sha = h.hexdigest()
+              rows.append({'path': str(path), 'bytes': size, 'sha256': sha})
+          rows.sort(key=lambda item: (-item['bytes'], item['path']))
+          Path('out/current-inventory.json').write_text(json.dumps(rows, indent=2) + '\n')
+          PY
+
+          tar -C out/export -czf out/b24-build-source-export.tar.gz current
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24-build-source-export
+          path: out/
+          retention-days: 30
+          if-no-files-found: error
