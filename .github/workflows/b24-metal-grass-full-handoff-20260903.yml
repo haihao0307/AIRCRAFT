@@ -1,0 +1,314 @@
+name: Build and publish B24 metal grass R1 full handoff
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/b24-metal-grass-full-handoff-20260903.yml'
+      - 'handoff/2026-09-03-b24-metal-grass-mission-r1/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: b24-metal-grass-r1-full-handoff
+  cancel-in-progress: false
+
+jobs:
+  package-and-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SOURCE_COMMIT: 8ea0a34d016c46570e3916e37f587b2c7fb14ccf
+      SOURCE_RUN: 33733439863
+      SOURCE_ARTIFACT: b24-metal-grass-review-8ea0a34d016c46570e3916e37f587b2c7fb14ccf
+      BUILD: B24_METAL_GRASS_MISSION_R1
+      PUBLIC_URL: https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-metal-grass-mission-r1/
+      ONLINE_MANIFEST_URL: https://raw.githubusercontent.com/haihao0307/guilin-dem-pipeline/gh-pages/aircraft/b24-metal-grass-mission-r1/ONLINE_REVIEW_MANIFEST.json
+      PACKAGE_ROOT: AIRCRAFT_B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03
+      PACKAGE_ZIP: AIRCRAFT_B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03.zip
+      RELEASE_TAG: b24-metal-grass-mission-r1-full-handoff-20260903
+      NATIVE_PAYLOAD_SHA256: 7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2
+
+    steps:
+      - name: Check out handoff records
+        uses: actions/checkout@v4
+
+      - name: Download the exact browser-verified R1 artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work/review
+          gh run download "$SOURCE_RUN" \
+            --repo "$GITHUB_REPOSITORY" \
+            --name "$SOURCE_ARTIFACT" \
+            --dir work/review
+          test -s work/review/evidence/browser-report.json
+          test -s work/review/preview/b24-metal-grass-mission-r1/index.html
+          test -s work/review/preview/b24-metal-grass-mission-r1/assets/native.bin.gz
+
+      - name: Verify the frozen source, all file hashes and live-page identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 8 --retry-all-errors --retry-delay 2 \
+            --output work/ONLINE_REVIEW_MANIFEST.json "$ONLINE_MANIFEST_URL"
+          curl --fail --location --retry 8 --retry-all-errors --retry-delay 2 \
+            --output work/live-index.html "${PUBLIC_URL}?handoff=${GITHUB_SHA}"
+          python3 - <<'PY'
+          import gzip
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          root = Path('work/review/preview/b24-metal-grass-mission-r1')
+          evidence = json.loads(Path('work/review/evidence/browser-report.json').read_text(encoding='utf-8'))
+          build = json.loads((root / 'BUILD_MANIFEST.json').read_text(encoding='utf-8'))
+          online = json.loads(Path('work/ONLINE_REVIEW_MANIFEST.json').read_text(encoding='utf-8'))
+
+          assert evidence['status'] == 'PASS'
+          assert evidence['passed'] == 30
+          assert evidence['total'] == 30
+          assert build['build'] == os.environ['BUILD']
+          assert build['commit'] == os.environ['SOURCE_COMMIT']
+          assert build['browserStatus'] == 'PASS'
+          assert build['sourcePayloadSHA256'] == os.environ['NATIVE_PAYLOAD_SHA256']
+          assert build['exactV016Recovered'] is False
+          assert build['weatherIntegrated'] is False
+          assert build['newMountains'] is False
+          assert build['visualAcceptance'] is False
+          assert build['productionReady'] is False
+
+          for name, identity in build['files'].items():
+              path = root / name
+              assert path.is_file(), name
+              data = path.read_bytes()
+              assert len(data) == identity['bytes'], name
+              assert hashlib.sha256(data).hexdigest() == identity['sha256'], name
+
+          assert online['build'] == os.environ['BUILD']
+          assert online['aircraftSourceCommit'] == os.environ['SOURCE_COMMIT']
+          assert online['nativePayloadSHA256'] == os.environ['NATIVE_PAYLOAD_SHA256']
+          assert online['aircraftBrowserEvidence'] == 'PASS 30/30'
+          assert online['weatherIntegrated'] is False
+          assert online['newMountains'] is False
+          assert online['weaponsMotherIncluded'] is False
+          assert online['img2threejsIncluded'] is False
+          assert online['exactV016Recovered'] is False
+
+          for name, identity in online['files'].items():
+              path = root / name
+              assert path.is_file(), name
+              data = path.read_bytes()
+              assert len(data) == identity['bytes'], name
+              assert hashlib.sha256(data).hexdigest() == identity['sha256'], name
+
+          live = Path('work/live-index.html').read_bytes()
+          expected = online['files']['index.html']
+          assert len(live) == expected['bytes']
+          assert hashlib.sha256(live).hexdigest() == expected['sha256']
+
+          payload = gzip.decompress((root / 'assets/native.bin.gz').read_bytes())
+          assert len(payload) == 16647376
+          assert hashlib.sha256(payload).hexdigest() == os.environ['NATIVE_PAYLOAD_SHA256']
+          PY
+
+      - name: Assemble the clean full handoff directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="work/$PACKAGE_ROOT"
+          mkdir -p "$root/web" "$root/evidence/browser-qa" "$root/source/tools" "$root/docs"
+          cp -a work/review/preview/b24-metal-grass-mission-r1/. "$root/web/"
+          cp -a work/review/evidence/. "$root/evidence/browser-qa/"
+          cp work/review/tools/qa-b24-metal-grass-r1.cjs "$root/source/tools/"
+          cp handoff/2026-09-03-b24-metal-grass-mission-r1/START_HERE.md "$root/docs/"
+          cp handoff/2026-09-03-b24-metal-grass-mission-r1/HANDOFF.json "$root/docs/"
+          cp work/ONLINE_REVIEW_MANIFEST.json "$root/evidence/ONLINE_REVIEW_MANIFEST.json"
+
+          cat > "$root/README_FIRST.md" <<'EOF'
+          # B24 Metal Grass Mission R1 full handoff
+
+          This package freezes the current browser-verified R1 before the production line restarts cleanly.
+
+          The directly clickable online review remains:
+
+          https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-metal-grass-mission-r1/
+
+          The runnable site is in `web/`. Start a local HTTP server with one of the included helpers, then open the printed local address. Direct `file://` opening is intentionally not used because the workbench loads verified same-origin modules and compressed aircraft data.
+
+          Read `docs/START_HERE.md` and `docs/HANDOFF.json` before reuse.
+
+          This archive preserves the current R1 candidate. It does not claim recovery of the missing exact historical V016. Current visualAcceptance and productionReady remain false.
+          EOF
+
+          cat > "$root/serve.py" <<'PY'
+          from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+          from pathlib import Path
+          import os
+          import webbrowser
+
+          root = Path(__file__).resolve().parent / 'web'
+          os.chdir(root)
+          address = 'http://127.0.0.1:8765/'
+          print('B24 workbench:', address, flush=True)
+          try:
+              webbrowser.open(address)
+          except Exception:
+              pass
+          ThreadingHTTPServer(('127.0.0.1', 8765), SimpleHTTPRequestHandler).serve_forever()
+          PY
+
+          cat > "$root/START_LOCAL_WINDOWS.bat" <<'BAT'
+          @echo off
+          cd /d "%~dp0"
+          py -3 serve.py || python serve.py
+          pause
+          BAT
+
+          cat > "$root/START_LOCAL_MAC.command" <<'SH'
+          #!/bin/sh
+          cd "$(dirname "$0")"
+          python3 serve.py
+          SH
+          chmod +x "$root/START_LOCAL_MAC.command"
+
+          cat > "$root/OPEN_ONLINE.url" <<EOF
+          [InternetShortcut]
+          URL=$PUBLIC_URL
+          EOF
+
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          root = Path('work') / os.environ['PACKAGE_ROOT']
+          files = {}
+          for path in sorted(root.rglob('*')):
+              if not path.is_file() or path.name in ('PACKAGE_MANIFEST.json', 'SHA256SUMS.txt'):
+                  continue
+              data = path.read_bytes()
+              files[str(path.relative_to(root))] = {
+                  'bytes': len(data),
+                  'sha256': hashlib.sha256(data).hexdigest(),
+              }
+
+          manifest = {
+              'schema': 'haihao.aircraft/b24-metal-grass-full-handoff@1.0.0',
+              'packageRoot': os.environ['PACKAGE_ROOT'],
+              'build': os.environ['BUILD'],
+              'sourceRepository': os.environ['GITHUB_REPOSITORY'],
+              'sourceCommit': os.environ['SOURCE_COMMIT'],
+              'sourceBrowserRun': int(os.environ['SOURCE_RUN']),
+              'sourceBrowserResult': 'PASS 30/30',
+              'publicUrl': os.environ['PUBLIC_URL'],
+              'nativePayloadSha256': os.environ['NATIVE_PAYLOAD_SHA256'],
+              'exactV016Recovered': False,
+              'weatherIntegrated': False,
+              'newMountains': False,
+              'weaponsMotherIncluded': False,
+              'img2threejsIncluded': False,
+              'visualAcceptance': False,
+              'productionReady': False,
+              'archiveOnlyAfterRestart': True,
+              'generatedAt': datetime.now(timezone.utc).isoformat(),
+              'files': files,
+          }
+          (root / 'PACKAGE_MANIFEST.json').write_text(
+              json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+
+          lines = []
+          for path in sorted(root.rglob('*')):
+              if path.is_file() and path.name != 'SHA256SUMS.txt':
+                  digest = hashlib.sha256(path.read_bytes()).hexdigest()
+                  lines.append(f'{digest}  {path.relative_to(root)}')
+          (root / 'SHA256SUMS.txt').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+          PY
+
+      - name: Compress and verify the full package
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd work
+          zip -X -9 -r "$PACKAGE_ZIP" "$PACKAGE_ROOT" >/tmp/b24-package-zip.log
+          sha256sum "$PACKAGE_ZIP" > "$PACKAGE_ZIP.sha256"
+          test "$(stat --format=%s "$PACKAGE_ZIP")" -gt 10000000
+          test "$(stat --format=%s "$PACKAGE_ZIP")" -lt 100000000
+          unzip -t "$PACKAGE_ZIP" >/tmp/b24-package-test.log
+          unzip -p "$PACKAGE_ZIP" "$PACKAGE_ROOT/PACKAGE_MANIFEST.json" | \
+            python3 -c "import json,sys; d=json.load(sys.stdin); assert d['build']=='B24_METAL_GRASS_MISSION_R1'; assert d['sourceBrowserResult']=='PASS 30/30'; assert d['visualAcceptance'] is False"
+
+      - name: Publish the full package to the AIRCRAFT GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > work/RELEASE_NOTES.md <<EOF
+          # B24 Metal Grass Mission R1 full handoff
+
+          Frozen before the clean B24 production-line restart.
+
+          Included: runnable web directory, native aircraft payload, pinned renderer dependencies, readable source, full browser QA report, nine evidence screenshots, online identity record, checksums, and local start helpers.
+
+          Direct online HTML: $PUBLIC_URL
+
+          Source commit: $SOURCE_COMMIT
+          Browser evidence run: $SOURCE_RUN, PASS 30/30
+
+          Status: exactV016Recovered=false, weatherIntegrated=false, visualAcceptance=false, productionReady=false.
+
+          The ZIP is the full archival handoff. New development must use a separate clean branch and must not silently mix this archived candidate into the new line.
+          EOF
+
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" \
+              "work/$PACKAGE_ZIP" "work/$PACKAGE_ZIP.sha256" \
+              --repo "$GITHUB_REPOSITORY" --clobber
+            gh release edit "$RELEASE_TAG" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title 'B24 Metal Grass Mission R1 Full Handoff 2026-09-03' \
+              --notes-file work/RELEASE_NOTES.md
+          else
+            gh release create "$RELEASE_TAG" \
+              "work/$PACKAGE_ZIP" "work/$PACKAGE_ZIP.sha256" \
+              --repo "$GITHUB_REPOSITORY" \
+              --target "$GITHUB_SHA" \
+              --title 'B24 Metal Grass Mission R1 Full Handoff 2026-09-03' \
+              --notes-file work/RELEASE_NOTES.md
+          fi
+
+      - name: Upload workflow evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: b24-metal-grass-r1-full-handoff-${{ github.sha }}
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            work/${{ env.PACKAGE_ZIP }}
+            work/${{ env.PACKAGE_ZIP }}.sha256
+            work/${{ env.PACKAGE_ROOT }}/PACKAGE_MANIFEST.json
+            work/${{ env.PACKAGE_ROOT }}/SHA256SUMS.txt
+
+      - name: Summary
+        shell: bash
+        run: |
+          {
+            echo '## B24 full handoff published'
+            echo
+            echo "Release tag: $RELEASE_TAG"
+            echo "Package: $PACKAGE_ZIP"
+            echo "Direct HTML retained: $PUBLIC_URL"
+            echo 'Browser evidence: PASS 30/30'
+            echo 'Archive status: visualAcceptance=false, productionReady=false'
+            echo 'Next line: separate clean restart branch'
+          } >> "$GITHUB_STEP_SUMMARY"
