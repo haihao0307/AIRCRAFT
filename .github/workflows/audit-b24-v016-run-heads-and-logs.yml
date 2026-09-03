@@ -1,0 +1,325 @@
+name: Inspect B24 V016 workflow heads logs and artifacts
+
+on:
+  push:
+    branches:
+      - audit/b24-v016-original-source-20260903
+    paths:
+      - '.github/workflows/audit-b24-v016-run-heads-and-logs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  deep-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Inspect every AIRCRAFT workflow-run head, log archive, and plausible artifact from the V016 period
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          cat > /tmp/audit_v016_runs.py <<'PY'
+          import concurrent.futures
+          import hashlib
+          import io
+          import json
+          import os
+          import re
+          import subprocess
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          import zipfile
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          REPO = 'haihao0307/AIRCRAFT'
+          OUT = Path('evidence')
+          TARGET_NAME = 'B24_V016_COMPLETE_WORKBENCH.html'
+          TARGET_BYTES = 12141929
+          TARGET_SHA256 = 'c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4'
+          PACKAGE_NAME = 'AIRCRAFT_B24_V016_WORKBENCH_REPAIR_R1.zip'
+          PACKAGE_BYTES = 27611090
+          PACKAGE_SHA256 = 'f991c9c9d06adaf3004f796c8be7b13c76c3b4c93971c018e0afbff7f9def8af'
+          TOKENS = [
+              TARGET_NAME,
+              TARGET_SHA256,
+              PACKAGE_NAME,
+              PACKAGE_SHA256,
+              'B24_V016_COMPLETE_WORKBENCH',
+              'B24_V016_WORKBENCH',
+              'V016_WORKBENCH_REPAIR_R1',
+              str(TARGET_BYTES),
+              str(PACKAGE_BYTES),
+          ]
+          token = os.environ['GH_TOKEN']
+          report = {
+              'schema': 'haihao.aircraft/b24-v016-workflow-history-audit@1.0.0',
+              'generatedAt': datetime.now(timezone.utc).isoformat(),
+              'target': {
+                  'file': TARGET_NAME,
+                  'bytes': TARGET_BYTES,
+                  'sha256': TARGET_SHA256,
+                  'package': PACKAGE_NAME,
+                  'packageBytes': PACKAGE_BYTES,
+                  'packageSha256': PACKAGE_SHA256,
+              },
+              'window': '2026-08-29..2026-09-02',
+              'workflowRuns': 0,
+              'uniqueHeadShas': 0,
+              'headTreesInspected': 0,
+              'headTreeCandidates': [],
+              'logArchivesInspected': 0,
+              'logMatches': [],
+              'artifactMetadataCount': 0,
+              'artifactArchivesInspected': 0,
+              'artifactCandidates': [],
+              'exactMatches': [],
+              'errors': [],
+              'runtimeChanged': False,
+              'publicDeploymentChanged': False,
+          }
+
+          def request_json(url):
+              headers = {
+                  'User-Agent': 'B24-V016-deep-audit',
+                  'Authorization': f'Bearer {token}',
+                  'Accept': 'application/vnd.github+json',
+                  'X-GitHub-Api-Version': '2022-11-28',
+              }
+              for attempt in range(4):
+                  try:
+                      with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=45) as response:
+                          return json.loads(response.read())
+                  except urllib.error.HTTPError as error:
+                      if error.code not in (429, 500, 502, 503, 504) or attempt == 3:
+                          raise
+                      time.sleep(1 + attempt)
+
+          def api(path):
+              return request_json(f'https://api.github.com/repos/{REPO}/{path}')
+
+          def gh_bytes(endpoint, maximum=150_000_000):
+              command = ['gh', 'api', '--method', 'GET', endpoint]
+              process = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=180)
+              if process.returncode:
+                  raise RuntimeError(process.stderr.decode('utf-8', 'replace')[-2000:])
+              if len(process.stdout) > maximum:
+                  raise RuntimeError(f'payload exceeds {maximum} bytes')
+              return process.stdout
+
+          def sha256(data):
+              return hashlib.sha256(data).hexdigest()
+
+          def filename_relevant(name):
+              lowered = name.lower()
+              return (
+                  'weapon' not in lowered
+                  and (
+                      ('b24' in lowered or 'b-24' in lowered or 'aircraft' in lowered)
+                      and any(word in lowered for word in ('v016', 'v16', 'workbench', 'handoff', 'repair', 'package', 'full'))
+                  )
+              )
+
+          def inspect_payload(data, origin, depth=0):
+              digest = sha256(data)
+              info = {'origin': origin, 'bytes': len(data), 'sha256': digest}
+              if len(data) == TARGET_BYTES and digest == TARGET_SHA256:
+                  (OUT / TARGET_NAME).write_bytes(data)
+                  report['exactMatches'].append({**info, 'kind': 'html'})
+                  return
+              if len(data) == PACKAGE_BYTES and digest == PACKAGE_SHA256:
+                  (OUT / PACKAGE_NAME).write_bytes(data)
+                  report['exactMatches'].append({**info, 'kind': 'package'})
+              if depth >= 3 or not zipfile.is_zipfile(io.BytesIO(data)):
+                  return
+              with zipfile.ZipFile(io.BytesIO(data)) as archive:
+                  for member in archive.infolist():
+                      if member.is_dir() or member.file_size > 150_000_000:
+                          continue
+                      relevant = (
+                          member.file_size in (TARGET_BYTES, PACKAGE_BYTES)
+                          or filename_relevant(member.filename)
+                          or any(token.lower() in member.filename.lower() for token in TOKENS[:7])
+                      )
+                      if not relevant:
+                          continue
+                      child = archive.read(member)
+                      inspect_payload(child, f'{origin}!{member.filename}', depth + 1)
+
+          runs = []
+          for page in range(1, 5):
+              url = (
+                  f'https://api.github.com/repos/{REPO}/actions/runs'
+                  f'?created=2026-08-29..2026-09-02&per_page=100&page={page}'
+              )
+              rows = request_json(url).get('workflow_runs', [])
+              runs.extend(rows)
+              if len(rows) < 100:
+                  break
+          report['workflowRuns'] = len(runs)
+
+          heads = {}
+          for run in runs:
+              heads.setdefault(run['head_sha'], {
+                  'runIds': [],
+                  'headBranch': run.get('head_branch'),
+                  'createdAt': run.get('created_at'),
+                  'displayTitles': [],
+              })
+              heads[run['head_sha']]['runIds'].append(run['id'])
+              heads[run['head_sha']]['displayTitles'].append(run.get('display_title'))
+          report['uniqueHeadShas'] = len(heads)
+
+          def inspect_head(item):
+              head_sha, metadata = item
+              result = {'headSha': head_sha, **metadata, 'candidates': [], 'error': None}
+              try:
+                  commit = api(f'commits/{head_sha}')
+                  tree_sha = commit['commit']['tree']['sha']
+                  tree = api(f'git/trees/{tree_sha}?recursive=1')
+                  for entry in tree.get('tree', []):
+                      if entry.get('type') != 'blob' or 'weapon' in entry['path'].lower():
+                          continue
+                      if entry.get('size') in (TARGET_BYTES, PACKAGE_BYTES) or filename_relevant(entry['path']):
+                          result['candidates'].append(entry)
+                          if entry.get('size') in (TARGET_BYTES, PACKAGE_BYTES):
+                              raw_url = (
+                                  f'https://raw.githubusercontent.com/{REPO}/{head_sha}/'
+                                  f'{urllib.parse.quote(entry["path"])}'
+                              )
+                              headers = {'User-Agent': 'B24-V016-deep-audit'}
+                              with urllib.request.urlopen(urllib.request.Request(raw_url, headers=headers), timeout=60) as response:
+                                  inspect_payload(response.read(150_000_001), raw_url)
+                  result['treeSha'] = tree_sha
+                  result['truncated'] = bool(tree.get('truncated'))
+              except Exception as error:
+                  result['error'] = str(error)
+              return result
+
+          with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+              for result in executor.map(inspect_head, heads.items()):
+                  report['headTreesInspected'] += 1
+                  if result['candidates'] or result['error'] or result.get('truncated'):
+                      report['headTreeCandidates'].append(result)
+
+          lowered_tokens = [token.lower() for token in TOKENS]
+
+          def inspect_log(run):
+              result = {'runId': run['id'], 'name': run.get('name'), 'title': run.get('display_title'), 'headSha': run.get('head_sha'), 'matches': [], 'error': None}
+              try:
+                  payload = gh_bytes(f'repos/{REPO}/actions/runs/{run["id"]}/logs', maximum=150_000_000)
+                  if not zipfile.is_zipfile(io.BytesIO(payload)):
+                      return result
+                  with zipfile.ZipFile(io.BytesIO(payload)) as archive:
+                      for member in archive.infolist():
+                          if member.is_dir() or member.file_size > 20_000_000:
+                              continue
+                          text = archive.read(member).decode('utf-8', 'replace')
+                          lowered = text.lower()
+                          found = [token for token, low in zip(TOKENS, lowered_tokens) if low in lowered]
+                          if found:
+                              snippets = []
+                              for line in text.splitlines():
+                                  if any(low in line.lower() for low in lowered_tokens):
+                                      snippets.append(line[-1000:])
+                                      if len(snippets) >= 20:
+                                          break
+                              result['matches'].append({'member': member.filename, 'tokens': found, 'snippets': snippets})
+                  report['logArchivesInspected'] += 1
+              except Exception as error:
+                  result['error'] = str(error)
+              return result
+
+          with concurrent.futures.ThreadPoolExecutor(max_workers=6) as executor:
+              for result in executor.map(inspect_log, runs):
+                  if result['matches']:
+                      report['logMatches'].append(result)
+                  elif result['error'] and '404' not in result['error']:
+                      report['errors'].append({'stage': 'logs', **result})
+
+          artifacts = {}
+          for run in runs:
+              try:
+                  rows = api(f'actions/runs/{run["id"]}/artifacts?per_page=100').get('artifacts', [])
+                  for artifact in rows:
+                      artifacts[artifact['id']] = artifact
+              except Exception as error:
+                  report['errors'].append({'stage': 'artifact-metadata', 'runId': run['id'], 'error': str(error)})
+          report['artifactMetadataCount'] = len(artifacts)
+
+          for artifact in artifacts.values():
+              name = artifact['name']
+              size = artifact['size_in_bytes']
+              relevant = filename_relevant(name) or size >= 5_000_000 or size in (TARGET_BYTES, PACKAGE_BYTES)
+              if artifact.get('expired') or not relevant or size > 150_000_000:
+                  continue
+              candidate = {
+                  'id': artifact['id'],
+                  'name': name,
+                  'sizeInBytes': size,
+                  'createdAt': artifact.get('created_at'),
+                  'headSha': artifact.get('workflow_run', {}).get('head_sha'),
+                  'inspected': False,
+              }
+              try:
+                  payload = gh_bytes(f'repos/{REPO}/actions/artifacts/{artifact["id"]}/zip', maximum=150_000_000)
+                  candidate['downloadedBytes'] = len(payload)
+                  candidate['archiveSha256'] = sha256(payload)
+                  candidate['inspected'] = True
+                  report['artifactArchivesInspected'] += 1
+                  inspect_payload(payload, f'actions-artifact:{artifact["id"]}:{name}')
+                  if zipfile.is_zipfile(io.BytesIO(payload)):
+                      with zipfile.ZipFile(io.BytesIO(payload)) as archive:
+                          candidate['memberCount'] = len(archive.infolist())
+                          candidate['interestingMembers'] = [
+                              {'name': member.filename, 'bytes': member.file_size}
+                              for member in archive.infolist()
+                              if not member.is_dir()
+                              and (
+                                  member.file_size in (TARGET_BYTES, PACKAGE_BYTES)
+                                  or filename_relevant(member.filename)
+                              )
+                          ][:100]
+              except Exception as error:
+                  candidate['error'] = str(error)
+                  report['errors'].append({'stage': 'artifact-download', **candidate})
+              report['artifactCandidates'].append(candidate)
+
+          report['status'] = (
+              'EXACT_ORIGINAL_BYTES_VERIFIED'
+              if any(match['kind'] == 'html' for match in report['exactMatches'])
+              else 'EXACT_ORIGINAL_BYTES_NOT_FOUND_IN_RUN_HEADS_LOGS_OR_PLAUSIBLE_ARTIFACTS'
+          )
+          report['mainBranchChanged'] = False
+          report['auditBranchOnly'] = True
+          (OUT / 'workflow-history-audit.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          compact = {
+              key: value
+              for key, value in report.items()
+              if key not in ('artifactCandidates', 'headTreeCandidates', 'errors')
+          }
+          compact['artifactCandidatesInspected'] = len(report['artifactCandidates'])
+          compact['headTreeCandidateRecords'] = len(report['headTreeCandidates'])
+          compact['errorCount'] = len(report['errors'])
+          print(json.dumps(compact, ensure_ascii=False, indent=2))
+          PY
+          python3 /tmp/audit_v016_runs.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-v016-run-heads-logs-artifacts-audit
+          path: evidence/
+          retention-days: 30
+          if-no-files-found: error
