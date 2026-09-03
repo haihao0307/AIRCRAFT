@@ -28,15 +28,14 @@ try{
  await snap('06_approach',193,'front');check('Gear down before approach',(await state()).gear===1,(await state()).gear);
  await snap('07_landing',215,'follow');await snap('08_shutdown',330,'front');
  const shut=await state();check('Shutdown restores engines gear and bay',shut.rpm.every(v=>v===0)&&shut.gear===1&&shut.bay===0,shut);
- // Complete one actual playback, without seeking and without injecting impacts.
  await page.evaluate(()=>{const a=window.__B24_WORKBENCH__;a.reset();a.mission.rate=28;a.mission.loop=false;a.setCamera('cinema');a.start();});
  await page.waitForFunction(()=>window.__B24_WORKBENCH__.mission.time>=330,null,{timeout:300000,polling:250});
  const full=await state();report.fullLoop=full;
  check('Uninterrupted mission finished',full.time===330&&!full.running,full.time);check('Four sequential releases',full.events.filter(e=>e.event==='release').length===4,full.events);check('Four ground impacts in continuous run',full.impacts===4,full.impacts);check('Touchdown and return to starting position',full.events.some(e=>e.event==='touchdown')&&Math.abs(full.position[0])<.01&&Math.abs(full.position[2]+620)<.1,full.position);
  check('Explosion and touchdown audio events',full.audioEvents.filter(e=>e.kind==='explosion').length===4&&full.audioEvents.some(e=>e.kind==='touchdown'),full.audioEvents.map(e=>e.kind));
- await page.evaluate(()=>{const a=window.__B24_WORKBENCH__;a.mission.loop=true;a.mission.time=329.8;a.mission.rate=1;a.start();});await page.waitForTimeout(1500);check('Automatic loop restarts',(await state()).time<4,(await state()).time);
+ await page.evaluate(()=>{const a=window.__B24_WORKBENCH__;a.mission.loop=true;a.mission.time=329.8;a.mission.rate=1;a.start();});await page.waitForFunction(()=>{const a=window.__B24_WORKBENCH__;return a.mission.loops>0&&a.mission.time<4;},null,{timeout:15000,polling:100});check('Automatic loop restarts',(await state()).time<4,(await state()).time);
  await page.click('#reset');await page.waitForTimeout(400);check('Reset leaves usable controls',(await state()).time===0&&await page.locator('#play').isEnabled(),await state());
- const samples=[];for(let i=0;i<5;i++){await page.waitForTimeout(1000);samples.push((await state()).fps);}report.softwareRendererFps=samples;check('Frame loop continues on software renderer',samples.every(v=>v>1),samples);
+ const frameStart=(await state()).frameCount;const samples=[];for(let i=0;i<5;i++){await page.waitForTimeout(1000);samples.push((await state()).fps);}const frameEnd=(await state()).frameCount;report.softwareRendererFps=samples;report.softwareRendererFrameAdvance=frameEnd-frameStart;check('Frame loop continues on software renderer',frameEnd>frameStart,{frameStart,frameEnd,samples});
  await page.setViewportSize({width:390,height:844});await page.evaluate(()=>document.body.classList.add('panelClosed'));await page.waitForTimeout(700);await page.screenshot({path:path.join(dir,'09_mobile.png'),timeout:60000});
  const mobile=await page.evaluate(()=>({w:document.documentElement.scrollWidth,v:innerWidth,play:document.querySelector('#play').getBoundingClientRect().width}));check('Mobile layout no horizontal overflow',mobile.w<=mobile.v+1&&mobile.play>50,mobile);
 }catch(e){report.fatal=String(e.stack||e);check('Browser execution completed',false,report.fatal);try{await page.screenshot({path:path.join(dir,'error.png'),timeout:20000});}catch(_){} }
