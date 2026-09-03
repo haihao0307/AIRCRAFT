@@ -1,0 +1,48 @@
+{
+  "schema": "b24-v016-original-retrieval-status/1",
+  "task": "Retrieve the original full-aircraft V016 and publish it unchanged after inspection. No weather integration or new scenery.",
+  "status": "BLOCKED_EXACT_ORIGINAL_BYTES_UNAVAILABLE",
+  "expectedOriginal": {
+    "file": "B24_V016_COMPLETE_WORKBENCH.html",
+    "bytes": 12141929,
+    "sha256": "c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4",
+    "identitySource": "Historical B24_MOTHER_UNIFIED_ADOPTION_RECEIPT_V1.0.0.json",
+    "fileLibraryReference": "file_00000000ae7081fd8dcfe203912f214f",
+    "rawBytesObtainedThisSession": false,
+    "checksumRecomputedThisSession": false
+  },
+  "githubAudit": {
+    "branch": "audit/b24-v016-original-source-20260903",
+    "implementationCommit": "cfaa48135da53f335d0b2b80d681feab48334166",
+    "workflowRuns": [33706145790, 33706473403],
+    "aircraftBranchesInspected": 23,
+    "aircraftHistoricalTreesInspected": 114,
+    "historyStart": "2026-08-29T00:00:00Z",
+    "aircraftArtifactsEnumerated": 335,
+    "deploymentArtifactsEnumerated": 1029,
+    "matchedOriginalFiles": [],
+    "qualification": "No exact target was found in the audited branches, historical trees, release assets or selected delivery archives. This does not assert absence from every possible GitHub object, deleted ref or other repository."
+  },
+  "selectedArchivesDownloadedAndInspectedViaConnector": [
+    {"artifactId": 9733978409, "archiveBytes": 201197, "members": 13, "totalUncompressedBytes": 3363911, "targetPresent": false},
+    {"artifactId": 9734012394, "archiveBytes": 201197, "members": 13, "totalUncompressedBytes": 3363911, "targetPresent": false},
+    {"artifactId": 9734103365, "archiveBytes": 201197, "members": 13, "totalUncompressedBytes": 3363911, "targetPresent": false},
+    {"artifactId": 9734206455, "archiveBytes": 201197, "members": 13, "totalUncompressedBytes": 3363911, "targetPresent": false}
+  ],
+  "changes": {
+    "mainBranchChanged": false,
+    "runtimeChanged": false,
+    "publicPageChanged": false,
+    "auditBranchContainsRestoredV016": false,
+    "newWeatherOrSceneryAdded": false
+  },
+  "verification": {
+    "sourceFileLibraryTextLocated": true,
+    "sourceBytesAvailable": false,
+    "browserTestPerformedThisSession": false,
+    "restoredOnlineEntry": null,
+    "visualAcceptance": false,
+    "productionReady": false
+  },
+  "nextRequiredInput": "Add the existing B24_V016_COMPLETE_WORKBENCH.html from ChatGPT Library to the current chat. Do not substitute an earlier workbench or reconstruct a page from search excerpts."
+}
