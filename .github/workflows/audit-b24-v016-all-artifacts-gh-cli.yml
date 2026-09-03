@@ -28,9 +28,7 @@ jobs:
           import hashlib
           import io
           import json
-          import os
           import subprocess
-          import tempfile
           import zipfile
           from datetime import datetime, timezone
           from pathlib import Path
@@ -68,9 +66,9 @@ jobs:
               'auditBranchOnly': True,
           }
 
-          def run_json(arguments):
+          def run_json(endpoint):
               process = subprocess.run(
-                  ['gh', 'api', *arguments],
+                  ['gh', 'api', '--method', 'GET', endpoint],
                   stdout=subprocess.PIPE,
                   stderr=subprocess.PIPE,
                   timeout=180,
@@ -111,8 +109,7 @@ jobs:
                               'v016', 'v16', 'workbench', 'handoff', 'repair', 'complete', 'current', 'one_click', 'package'
                           ))
                       )
-                      must_read = member.file_size in (TARGET['bytes'], PACKAGE['bytes']) or relevant_name
-                      if not must_read:
+                      if member.file_size not in (TARGET['bytes'], PACKAGE['bytes']) and not relevant_name:
                           continue
                       child = archive.read(member)
                       exact_check(child, f'{origin}!{member.filename}')
@@ -121,11 +118,8 @@ jobs:
 
           artifacts = []
           for page in range(1, 20):
-              payload = run_json([
-                  f'repos/{REPO}/actions/artifacts',
-                  '-f', 'per_page=100',
-                  '-f', f'page={page}',
-              ])
+              endpoint = f'repos/{REPO}/actions/artifacts?per_page=100&page={page}'
+              payload = run_json(endpoint)
               batch = payload.get('artifacts', [])
               artifacts.extend(batch)
               if len(batch) < 100:
@@ -160,7 +154,7 @@ jobs:
                   with archive_path.open('wb') as output:
                       process = subprocess.run(
                           [
-                              'gh', 'api',
+                              'gh', 'api', '--method', 'GET',
                               '-H', 'Accept: application/vnd.github+json',
                               f'repos/{REPO}/actions/artifacts/{artifact["id"]}/zip',
                           ],
