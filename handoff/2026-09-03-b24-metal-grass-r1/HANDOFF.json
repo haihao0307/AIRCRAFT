@@ -1,0 +1,72 @@
+{
+  "schema": "haihao.aircraft/b24-full-handoff-source@1.0.0",
+  "handoffId": "AIRCRAFT_B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03",
+  "project": "AIRCRAFT",
+  "aircraft": "B-24",
+  "build": "B24_METAL_GRASS_MISSION_R1",
+  "source": {
+    "repository": "haihao0307/AIRCRAFT",
+    "branch": "feature/b24-metal-grass-mission-r1-20260903",
+    "commit": "8ea0a34d016c46570e3916e37f587b2c7fb14ccf",
+    "root": "preview/b24-metal-grass-mission-r1",
+    "browserEvidenceRun": 33733439863,
+    "browserEvidenceArtifact": "b24-metal-grass-review-8ea0a34d016c46570e3916e37f587b2c7fb14ccf"
+  },
+  "onlineReview": {
+    "url": "https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-metal-grass-mission-r1/",
+    "deploymentRepository": "haihao0307/guilin-dem-pipeline",
+    "deploymentBranch": "gh-pages"
+  },
+  "aircraftPayload": {
+    "bytes": 16647376,
+    "sha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2",
+    "components": 1784,
+    "meshes": 348,
+    "triangles": 325358,
+    "propellerSourceNodes": [1454, 1385, 1431, 1408]
+  },
+  "sourceReview": {
+    "file": "B24_V012_PROPELLER_INTERFACE_REVIEW.html",
+    "bytes": 12557938,
+    "sha256": "7cf4c78cea99f9bf3aed5507cbcb2bdb49a71465b3c4aabc29563214f3da2fde",
+    "exactV016Recovered": false
+  },
+  "includedSystems": [
+    "native aircraft hierarchy",
+    "source mechanical tracks",
+    "metal appearance candidate",
+    "grass airfield candidate",
+    "330-second complete mission timeline",
+    "engine and flight audio synthesis",
+    "four sequential bomb releases",
+    "ground-triggered explosions",
+    "camera modes",
+    "pause reset scrub and loop controls",
+    "desktop and mobile browser evidence"
+  ],
+  "excludedSystems": {
+    "weatherMother": true,
+    "mountains": true,
+    "weaponsMother": true,
+    "img2threejs": true,
+    "proceduralSubstituteAircraft": true
+  },
+  "validation": {
+    "browserStatus": "PASS",
+    "passed": 30,
+    "total": 30,
+    "userVisualAcceptance": false,
+    "productionReady": false
+  },
+  "release": {
+    "tag": "b24-metal-grass-mission-r1-handoff-20260903",
+    "asset": "AIRCRAFT_B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03.zip"
+  },
+  "restartPolicy": {
+    "archiveReadOnly": true,
+    "startFromCleanMain": true,
+    "autoInheritVisualDecisions": false,
+    "keepAcceptedComponents": true,
+    "primaryVisualDelivery": "directly clickable online HTML"
+  }
+}
