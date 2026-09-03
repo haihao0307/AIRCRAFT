@@ -1,0 +1,271 @@
+name: Recover B24 V016 candidates from AIRCRAFT artifacts
+
+on:
+  push:
+    branches:
+      - audit/b24-v016-original-source-20260903
+    paths:
+      - '.github/workflows/audit-b24-v016-aircraft-tar-aware-recovery.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Inspect all retained AIRCRAFT ZIP TAR GZIP and Pages payloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/candidates work
+          cat > /tmp/recover_aircraft_v016.py <<'PY'
+          import gzip
+          import hashlib
+          import io
+          import json
+          import re
+          import subprocess
+          import tarfile
+          import tempfile
+          import zipfile
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          REPO = 'haihao0307/AIRCRAFT'
+          OUT = Path('evidence')
+          CANDIDATES = OUT / 'candidates'
+          WORK = Path('work')
+          TARGET_NAME = 'B24_V016_COMPLETE_WORKBENCH.html'
+          TARGET_SIZE = 12141929
+          TARGET_SHA = 'c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4'
+          START = '2026-08-28T00:00:00Z'
+          END = '2026-09-03T12:00:00Z'
+          MARKERS = [
+              b'B24_V016_COMPLETE_WORKBENCH', b'B24_CURRENT_REVIEW_V016',
+              b'B24_V016_WORKBENCH', b'B24_V016_1_HISTORY_WORKBENCH',
+              b'B24_ONE_CLICK_CURRENT', b'propellerHoldFramesRemoved',
+              b'spinSourceNodes', b'bayTrackCount',
+              b'7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2',
+              b'1a8a64cd20d19ed0be6d8f10043944c6b3b717bedd183dd713be7cb72f4b73c7',
+              b'604653e7a40231875e0c8aff502faf24ef0d7cb048383c24bc0fe1c5f33e540a',
+          ]
+          report = {
+              'schema': 'b24-v016-aircraft-artifact-candidate-recovery/1',
+              'generatedAt': datetime.now(timezone.utc).isoformat(),
+              'repository': REPO,
+              'window': {'start': START, 'end': END},
+              'target': {'file': TARGET_NAME, 'bytes': TARGET_SIZE, 'sha256': TARGET_SHA},
+              'artifactMetadataEnumerated': 0,
+              'artifactsSelected': 0,
+              'artifactsDownloaded': 0,
+              'downloadedBytes': 0,
+              'containersInspected': 0,
+              'membersInspected': 0,
+              'htmlInspected': 0,
+              'candidateCount': 0,
+              'exactMatches': [],
+              'candidates': [],
+              'artifacts': [],
+              'errors': [],
+              'limits': [],
+          }
+          seen_containers = set()
+          seen_candidate_hashes = set()
+
+          def gh_json(endpoint):
+              p = subprocess.run(['gh','api','--method','GET',endpoint], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=180)
+              if p.returncode:
+                  raise RuntimeError(p.stderr.decode('utf-8','replace')[-4000:])
+              return json.loads(p.stdout)
+
+          def sha256(data):
+              return hashlib.sha256(data).hexdigest()
+
+          def safe(value):
+              value = re.sub(r'[^A-Za-z0-9._-]+','_',value).strip('._')
+              return value[-170:] or 'candidate.html'
+
+          def has_html_start(data):
+              start = data[:4096].lstrip().lower()
+              return start.startswith((b'<!doctype html', b'<html')) or b'<html' in start
+
+          def inspect_html(data, origin, artifact, filename):
+              report['htmlInspected'] += 1
+              digest = sha256(data)
+              exact = len(data) == TARGET_SIZE and digest == TARGET_SHA
+              if exact:
+                  (OUT / TARGET_NAME).write_bytes(data)
+                  report['exactMatches'].append({
+                      'origin': origin, 'artifactId': artifact['id'], 'artifactName': artifact['name'],
+                      'bytes': len(data), 'sha256': digest,
+                  })
+              lower_name = filename.lower()
+              marker_hits = [m.decode('ascii') for m in MARKERS if m in data]
+              name_hit = any(token in lower_name for token in (
+                  'v016','v16','current_review','current-review','history_workbench','history-workbench',
+                  'complete_workbench','complete-workbench','one_click_current','one-click-current'
+              ))
+              size_hit = 8_000_000 <= len(data) <= 40_000_000 and ('b24' in lower_name or 'aircraft' in lower_name)
+              if not (exact or marker_hits or name_hit or size_hit):
+                  return
+              record = {
+                  'origin': origin, 'filename': filename,
+                  'artifactId': artifact['id'], 'artifactName': artifact['name'],
+                  'artifactCreatedAt': artifact['created_at'],
+                  'headBranch': artifact.get('workflow_run',{}).get('head_branch'),
+                  'headSha': artifact.get('workflow_run',{}).get('head_sha'),
+                  'bytes': len(data), 'sha256': digest,
+                  'exactOriginal': exact, 'markerHits': marker_hits,
+                  'nameHit': name_hit, 'sizeHit': size_hit,
+              }
+              if digest not in seen_candidate_hashes and len(seen_candidate_hashes) < 80 and len(data) <= 80_000_000:
+                  seen_candidate_hashes.add(digest)
+                  prefix = f'{len(seen_candidate_hashes):03d}_{artifact["id"]}_'
+                  out_name = prefix + safe(Path(filename).name)
+                  if not out_name.lower().endswith(('.html','.htm')):
+                      out_name += '.html'
+                  (CANDIDATES / out_name).write_bytes(data)
+                  record['savedAs'] = f'candidates/{out_name}'
+              report['candidates'].append(record)
+
+          def inspect_bytes(data, origin, artifact, filename, depth=0):
+              if depth > 9 or len(data) > 900_000_000:
+                  return
+              digest = sha256(data) if len(data) <= 250_000_000 else None
+              if digest and digest in seen_containers:
+                  return
+              if digest:
+                  seen_containers.add(digest)
+              if len(data) == TARGET_SIZE and sha256(data) == TARGET_SHA:
+                  inspect_html(data, origin, artifact, filename)
+                  return
+              if filename.lower().endswith(('.html','.htm')) or has_html_start(data):
+                  inspect_html(data, origin, artifact, filename)
+              bio = io.BytesIO(data)
+              if zipfile.is_zipfile(bio):
+                  report['containersInspected'] += 1
+                  with zipfile.ZipFile(bio) as archive:
+                      for member in archive.infolist():
+                          if member.is_dir() or member.file_size > 900_000_000:
+                              continue
+                          report['membersInspected'] += 1
+                          lower = member.filename.lower()
+                          worth = (
+                              lower.endswith(('.html','.htm','.zip','.tar','.tar.gz','.tgz','.gz','.tar.xz','.txz'))
+                              or member.file_size == TARGET_SIZE
+                              or any(token in lower for token in ('b24','aircraft','pages','artifact','site','public'))
+                          )
+                          if not worth:
+                              continue
+                          child = archive.read(member)
+                          inspect_bytes(child, f'{origin}!{member.filename}', artifact, member.filename, depth+1)
+                  return
+              try:
+                  bio.seek(0)
+                  if tarfile.is_tarfile(fileobj := tempfile.NamedTemporaryFile(delete=False)):
+                      pass
+              except Exception:
+                  pass
+              with tempfile.NamedTemporaryFile(dir=WORK, delete=False) as tmp:
+                  tmp.write(data)
+                  temp_path = Path(tmp.name)
+              try:
+                  if tarfile.is_tarfile(temp_path):
+                      report['containersInspected'] += 1
+                      with tarfile.open(temp_path,'r:*') as archive:
+                          for member in archive:
+                              if not member.isfile() or member.size > 900_000_000:
+                                  continue
+                              report['membersInspected'] += 1
+                              lower = member.name.lower()
+                              worth = (
+                                  lower.endswith(('.html','.htm','.zip','.tar','.tar.gz','.tgz','.gz','.tar.xz','.txz'))
+                                  or member.size == TARGET_SIZE
+                                  or any(token in lower for token in ('b24','aircraft','pages','artifact','site','public'))
+                              )
+                              if not worth:
+                                  continue
+                              stream = archive.extractfile(member)
+                              if stream is None:
+                                  continue
+                              child = stream.read(900_000_001)
+                              inspect_bytes(child, f'{origin}!{member.name}', artifact, member.name, depth+1)
+                      return
+              except (tarfile.TarError, EOFError, OSError):
+                  pass
+              finally:
+                  temp_path.unlink(missing_ok=True)
+              if data.startswith(b'\x1f\x8b'):
+                  try:
+                      report['containersInspected'] += 1
+                      child = gzip.decompress(data)
+                      inspect_bytes(child, origin+'!gunzip', artifact, filename.removesuffix('.gz'), depth+1)
+                  except Exception:
+                      pass
+
+          artifacts=[]
+          for page in range(1,30):
+              payload=gh_json(f'repos/{REPO}/actions/artifacts?per_page=100&page={page}')
+              batch=payload.get('artifacts',[])
+              artifacts.extend(batch)
+              if len(batch)<100:
+                  break
+          report['artifactMetadataEnumerated']=len(artifacts)
+          selected=[a for a in artifacts if not a.get('expired') and START <= a['created_at'] < END]
+          selected.sort(key=lambda a:(
+              0 if any(k in a['name'].lower() for k in ('v016','v16','b24','aircraft','pages','deploy','package','workbench')) else 1,
+              abs((datetime.fromisoformat(a['created_at'].replace('Z','+00:00'))-datetime.fromisoformat('2026-08-31T11:26:18+00:00')).total_seconds()),
+              a['size_in_bytes']))
+          report['artifactsSelected']=len(selected)
+
+          for idx,artifact in enumerate(selected,1):
+              rec={'sequence':idx,'id':artifact['id'],'name':artifact['name'],'createdAt':artifact['created_at'],'metadataBytes':artifact['size_in_bytes'],'downloaded':False}
+              path=WORK/f'{artifact["id"]}.zip'
+              try:
+                  with path.open('wb') as out:
+                      p=subprocess.run(['gh','api','--method','GET','-H','Accept: application/vnd.github+json',f'repos/{REPO}/actions/artifacts/{artifact["id"]}/zip'],stdout=out,stderr=subprocess.PIPE,timeout=600)
+                  if p.returncode:
+                      raise RuntimeError(p.stderr.decode('utf-8','replace')[-4000:])
+                  rec['downloaded']=True
+                  rec['downloadedBytes']=path.stat().st_size
+                  report['artifactsDownloaded']+=1
+                  report['downloadedBytes']+=path.stat().st_size
+                  before=len(report['candidates'])
+                  inspect_bytes(path.read_bytes(),f'artifact:{artifact["id"]}:{artifact["name"]}',artifact,artifact['name']+'.zip')
+                  rec['candidateCount']=len(report['candidates'])-before
+              except Exception as error:
+                  rec['error']=f'{type(error).__name__}: {error}'
+                  report['errors'].append(rec.copy())
+              finally:
+                  path.unlink(missing_ok=True)
+              report['artifacts'].append(rec)
+              if idx%20==0:
+                  print(f'Inspected {idx}/{len(selected)} artifacts; candidates={len(report["candidates"])}; exact={len(report["exactMatches"])}',flush=True)
+
+          report['candidateCount']=len(report['candidates'])
+          report['status']='EXACT_ORIGINAL_RECOVERED' if report['exactMatches'] else ('REVIEW_CANDIDATES_RECOVERED' if report['candidates'] else 'NO_V016_CANDIDATES_FOUND')
+          (OUT/'candidate-recovery-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps({
+              'status':report['status'],'artifactMetadataEnumerated':report['artifactMetadataEnumerated'],
+              'artifactsSelected':report['artifactsSelected'],'artifactsDownloaded':report['artifactsDownloaded'],
+              'downloadedBytes':report['downloadedBytes'],'containersInspected':report['containersInspected'],
+              'membersInspected':report['membersInspected'],'htmlInspected':report['htmlInspected'],
+              'candidateCount':report['candidateCount'],'uniqueCandidateFiles':len(seen_candidate_hashes),
+              'exactMatches':report['exactMatches'],'errorCount':len(report['errors'])
+          },ensure_ascii=False,indent=2))
+          PY
+          python3 /tmp/recover_aircraft_v016.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-v016-aircraft-candidate-recovery
+          path: evidence/
+          retention-days: 30
+          if-no-files-found: error
