@@ -1,0 +1,350 @@
+name: Exhaust GitHub storage for exact B24 V016
+
+on:
+  push:
+    branches:
+      - audit/b24-v016-original-source-20260903
+    paths:
+      - '.github/workflows/audit-b24-v016-final-github-storage.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  final-storage-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Inspect every AIRCRAFT artifact, owned gist, cache record, issue, PR, and attachment candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          cat > /tmp/final_github_storage_audit.py <<'PY'
+          import hashlib
+          import io
+          import json
+          import os
+          import re
+          import subprocess
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          import zipfile
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          OWNER = 'haihao0307'
+          REPO = f'{OWNER}/AIRCRAFT'
+          OUT = Path('evidence')
+          TARGET = {
+              'file': 'B24_V016_COMPLETE_WORKBENCH.html',
+              'bytes': 12141929,
+              'sha256': 'c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4',
+          }
+          PACKAGE = {
+              'file': 'AIRCRAFT_B24_V016_WORKBENCH_REPAIR_R1.zip',
+              'bytes': 27611090,
+              'sha256': 'f991c9c9d06adaf3004f796c8be7b13c76c3b4c93971c018e0afbff7f9def8af',
+          }
+          SEARCH_TOKENS = [
+              TARGET['file'], TARGET['sha256'], PACKAGE['file'], PACKAGE['sha256'],
+              'B24_V016_COMPLETE_WORKBENCH', 'B24_CURRENT_REVIEW_V016',
+              'B24_V016_WORKBENCH', 'V016_WORKBENCH_REPAIR_R1',
+              str(TARGET['bytes']), str(PACKAGE['bytes']),
+          ]
+          token = os.environ['GH_TOKEN']
+          report = {
+              'schema': 'haihao.aircraft/b24-v016-final-github-storage-audit@1.0.0',
+              'generatedAt': datetime.now(timezone.utc).isoformat(),
+              'target': TARGET,
+              'package': PACKAGE,
+              'artifactMetadataEnumerated': 0,
+              'artifactsInPeriod': 0,
+              'nonExpiredArtifactsInPeriod': 0,
+              'artifactArchivesInspected': 0,
+              'artifactBytesDownloaded': 0,
+              'artifactRecords': [],
+              'gistsEnumerated': 0,
+              'gistFilesInspected': 0,
+              'gistRecords': [],
+              'cacheRecords': [],
+              'issuesAndPullsEnumerated': 0,
+              'commentsEnumerated': 0,
+              'textMatches': [],
+              'attachmentUrls': [],
+              'attachmentFilesInspected': 0,
+              'exactMatches': [],
+              'errors': [],
+              'limits': [],
+              'runtimeChanged': False,
+              'publicDeploymentChanged': False,
+              'auditBranchOnly': True,
+          }
+
+          def request(url, binary=False, accept='application/vnd.github+json', maximum=220_000_000):
+              headers = {
+                  'User-Agent': 'B24-V016-final-storage-audit',
+                  'Authorization': f'Bearer {token}',
+                  'Accept': accept,
+                  'X-GitHub-Api-Version': '2022-11-28',
+              }
+              for attempt in range(5):
+                  try:
+                      with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=120) as response:
+                          data = response.read(maximum + 1)
+                      if len(data) > maximum:
+                          raise RuntimeError(f'payload exceeds {maximum} bytes')
+                      return data if binary else json.loads(data)
+                  except urllib.error.HTTPError as error:
+                      if error.code not in (403, 429, 500, 502, 503, 504) or attempt == 4:
+                          raise
+                      time.sleep(2 + attempt * 3)
+
+          def api(path, binary=False, accept='application/vnd.github+json', maximum=220_000_000):
+              return request(f'https://api.github.com/{path}', binary, accept, maximum)
+
+          def pages(path, key=None, maximum_pages=100):
+              output = []
+              for page in range(1, maximum_pages + 1):
+                  separator = '&' if '?' in path else '?'
+                  payload = api(f'{path}{separator}per_page=100&page={page}')
+                  batch = payload.get(key, []) if key else payload
+                  output.extend(batch)
+                  if len(batch) < 100:
+                      return output
+              report['limits'].append({'collection': path, 'maximumPages': maximum_pages})
+              return output
+
+          def digest(data):
+              return hashlib.sha256(data).hexdigest()
+
+          def exact_check(data, origin):
+              info = {'origin': origin, 'bytes': len(data), 'sha256': digest(data)}
+              if len(data) == TARGET['bytes'] and info['sha256'] == TARGET['sha256']:
+                  (OUT / TARGET['file']).write_bytes(data)
+                  report['exactMatches'].append({**info, 'kind': 'html'})
+              if len(data) == PACKAGE['bytes'] and info['sha256'] == PACKAGE['sha256']:
+                  (OUT / PACKAGE['file']).write_bytes(data)
+                  report['exactMatches'].append({**info, 'kind': 'package'})
+              return info
+
+          def filename_relevant(name):
+              lowered = name.lower()
+              return (
+                  'weapon' not in lowered
+                  and (
+                      'b24' in lowered or 'b-24' in lowered or 'aircraft' in lowered
+                  )
+                  and any(word in lowered for word in (
+                      'v016', 'v16', 'workbench', 'handoff', 'repair', 'complete', 'current', 'full', 'package'
+                  ))
+              )
+
+          def inspect_archive(data, origin, maximum_depth=4, depth=0):
+              exact_check(data, origin)
+              members = []
+              if depth >= maximum_depth or not zipfile.is_zipfile(io.BytesIO(data)):
+                  return members
+              with zipfile.ZipFile(io.BytesIO(data)) as archive:
+                  for member in archive.infolist():
+                      if member.is_dir() or member.file_size > 220_000_000:
+                          continue
+                      relevant = (
+                          member.file_size in (TARGET['bytes'], PACKAGE['bytes'])
+                          or filename_relevant(member.filename)
+                          or any(token.lower() in member.filename.lower() for token in SEARCH_TOKENS[:8])
+                      )
+                      members.append({
+                          'name': member.filename,
+                          'bytes': member.file_size,
+                          'relevant': relevant,
+                      })
+                      if relevant:
+                          child = archive.read(member)
+                          exact_check(child, f'{origin}!{member.filename}')
+                          if zipfile.is_zipfile(io.BytesIO(child)):
+                              inspect_archive(child, f'{origin}!{member.filename}', maximum_depth, depth + 1)
+              return members
+
+          artifacts = pages(f'repos/{REPO}/actions/artifacts', key='artifacts', maximum_pages=30)
+          report['artifactMetadataEnumerated'] = len(artifacts)
+          period_artifacts = [
+              artifact for artifact in artifacts
+              if '2026-08-28T00:00:00Z' <= artifact['created_at'] < '2026-09-03T00:00:00Z'
+          ]
+          report['artifactsInPeriod'] = len(period_artifacts)
+          report['nonExpiredArtifactsInPeriod'] = sum(not artifact.get('expired') for artifact in period_artifacts)
+
+          for artifact in period_artifacts:
+              record = {
+                  'id': artifact['id'],
+                  'name': artifact['name'],
+                  'compressedBytes': artifact['size_in_bytes'],
+                  'createdAt': artifact['created_at'],
+                  'expired': artifact.get('expired'),
+                  'headBranch': artifact.get('workflow_run', {}).get('head_branch'),
+                  'headSha': artifact.get('workflow_run', {}).get('head_sha'),
+                  'downloaded': False,
+              }
+              report['artifactRecords'].append(record)
+              if artifact.get('expired'):
+                  continue
+              try:
+                  payload = api(
+                      f'repos/{REPO}/actions/artifacts/{artifact["id"]}/zip',
+                      binary=True,
+                      accept='application/vnd.github+json',
+                      maximum=220_000_000,
+                  )
+                  record['downloaded'] = True
+                  record['downloadedBytes'] = len(payload)
+                  record['archiveSha256'] = digest(payload)
+                  report['artifactArchivesInspected'] += 1
+                  report['artifactBytesDownloaded'] += len(payload)
+                  members = inspect_archive(payload, f'artifact:{artifact["id"]}:{artifact["name"]}')
+                  record['memberCount'] = len(members)
+                  record['relevantMembers'] = [member for member in members if member['relevant']]
+              except Exception as error:
+                  record['error'] = str(error)
+                  report['errors'].append({'stage': 'artifact', **record})
+
+          try:
+              gists = pages(f'users/{OWNER}/gists', maximum_pages=20)
+              report['gistsEnumerated'] = len(gists)
+              for gist in gists:
+                  gist_record = {'id': gist['id'], 'description': gist.get('description'), 'files': []}
+                  for file_name, metadata in gist.get('files', {}).items():
+                      file_record = {
+                          'name': file_name,
+                          'size': metadata.get('size'),
+                          'rawUrl': metadata.get('raw_url'),
+                      }
+                      gist_record['files'].append(file_record)
+                      relevant = (
+                          metadata.get('size') in (TARGET['bytes'], PACKAGE['bytes'])
+                          or filename_relevant(file_name)
+                          or any(token.lower() in file_name.lower() for token in SEARCH_TOKENS[:8])
+                      )
+                      if not relevant or not metadata.get('raw_url'):
+                          continue
+                      try:
+                          data = request(metadata['raw_url'], binary=True, accept='*/*', maximum=220_000_000)
+                          report['gistFilesInspected'] += 1
+                          info = exact_check(data, f'gist:{gist["id"]}:{file_name}')
+                          file_record.update(info)
+                      except Exception as error:
+                          file_record['error'] = str(error)
+                          report['errors'].append({'stage': 'gist', 'gistId': gist['id'], **file_record})
+                  report['gistRecords'].append(gist_record)
+          except Exception as error:
+              report['errors'].append({'stage': 'gists', 'error': str(error)})
+
+          try:
+              cache_payload = api(f'repos/{REPO}/actions/caches?per_page=100')
+              for cache in cache_payload.get('actions_caches', []):
+                  report['cacheRecords'].append({
+                      'id': cache['id'],
+                      'ref': cache.get('ref'),
+                      'key': cache.get('key'),
+                      'bytes': cache.get('size_in_bytes'),
+                      'createdAt': cache.get('created_at'),
+                      'lastAccessedAt': cache.get('last_accessed_at'),
+                      'plausible': (
+                          cache.get('size_in_bytes') in (TARGET['bytes'], PACKAGE['bytes'])
+                          or filename_relevant(cache.get('key', ''))
+                          or any(token.lower() in cache.get('key', '').lower() for token in SEARCH_TOKENS[:8])
+                      ),
+                  })
+          except Exception as error:
+              report['errors'].append({'stage': 'cache-metadata', 'error': str(error)})
+
+          attachment_pattern = re.compile(r'https://github\.com/user-attachments/assets/[0-9a-fA-F-]+(?:\?[^\s)\]>"\']*)?')
+          api_attachment_pattern = re.compile(r'https://api\.github\.com/repos/[^\s)\]>"\']+/releases/assets/\d+')
+          seen_attachments = set()
+
+          def inspect_text(text, origin):
+              lowered = text.lower()
+              matched = [token for token in SEARCH_TOKENS if token.lower() in lowered]
+              if matched:
+                  snippets = [
+                      line[-1600:] for line in text.splitlines()
+                      if any(token.lower() in line.lower() for token in SEARCH_TOKENS)
+                  ][:30]
+                  report['textMatches'].append({'origin': origin, 'tokens': matched, 'snippets': snippets})
+              for pattern in (attachment_pattern, api_attachment_pattern):
+                  for url in pattern.findall(text):
+                      seen_attachments.add(url.rstrip('.,;'))
+
+          try:
+              issues = pages(f'repos/{REPO}/issues?state=all&since=2026-08-28T00:00:00Z', maximum_pages=20)
+              report['issuesAndPullsEnumerated'] = len(issues)
+              for issue in issues:
+                  inspect_text((issue.get('title') or '') + '\n' + (issue.get('body') or ''), f'issue-or-pr:{issue["number"]}')
+                  comments = pages(f'repos/{REPO}/issues/{issue["number"]}/comments', maximum_pages=20)
+                  report['commentsEnumerated'] += len(comments)
+                  for comment in comments:
+                      inspect_text(comment.get('body') or '', f'issue-comment:{issue["number"]}:{comment["id"]}')
+                  if 'pull_request' in issue:
+                      try:
+                          review_comments = pages(f'repos/{REPO}/pulls/{issue["number"]}/comments', maximum_pages=20)
+                          report['commentsEnumerated'] += len(review_comments)
+                          for comment in review_comments:
+                              inspect_text(comment.get('body') or '', f'pr-review-comment:{issue["number"]}:{comment["id"]}')
+                      except Exception as error:
+                          report['errors'].append({'stage': 'pr-review-comments', 'number': issue['number'], 'error': str(error)})
+              report['attachmentUrls'] = sorted(seen_attachments)
+              for index, url in enumerate(sorted(seen_attachments)):
+                  try:
+                      data = request(url, binary=True, accept='*/*', maximum=220_000_000)
+                      report['attachmentFilesInspected'] += 1
+                      inspect_archive(data, f'issue-attachment:{index}:{url}')
+                  except Exception as error:
+                      report['errors'].append({'stage': 'issue-attachment', 'url': url, 'error': str(error)})
+          except Exception as error:
+              report['errors'].append({'stage': 'issues-and-prs', 'error': str(error)})
+
+          report['status'] = (
+              'EXACT_ORIGINAL_BYTES_VERIFIED'
+              if any(match['kind'] == 'html' for match in report['exactMatches'])
+              else 'EXACT_ORIGINAL_BYTES_NOT_FOUND_IN_GITHUB_ARTIFACT_GIST_CACHE_ISSUE_OR_PR_STORAGE'
+          )
+          (OUT / 'final-github-storage-audit.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          summary = {
+              'status': report['status'],
+              'artifactMetadataEnumerated': report['artifactMetadataEnumerated'],
+              'artifactsInPeriod': report['artifactsInPeriod'],
+              'nonExpiredArtifactsInPeriod': report['nonExpiredArtifactsInPeriod'],
+              'artifactArchivesInspected': report['artifactArchivesInspected'],
+              'artifactBytesDownloaded': report['artifactBytesDownloaded'],
+              'gistsEnumerated': report['gistsEnumerated'],
+              'gistFilesInspected': report['gistFilesInspected'],
+              'cacheRecordCount': len(report['cacheRecords']),
+              'plausibleCacheRecords': [cache for cache in report['cacheRecords'] if cache['plausible']],
+              'issuesAndPullsEnumerated': report['issuesAndPullsEnumerated'],
+              'commentsEnumerated': report['commentsEnumerated'],
+              'textMatchCount': len(report['textMatches']),
+              'attachmentFilesInspected': report['attachmentFilesInspected'],
+              'exactMatches': report['exactMatches'],
+              'errorCount': len(report['errors']),
+          }
+          print(json.dumps(summary, ensure_ascii=False, indent=2))
+          PY
+          python3 /tmp/final_github_storage_audit.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-v016-final-github-storage-audit
+          path: evidence/
+          retention-days: 30
+          if-no-files-found: error
