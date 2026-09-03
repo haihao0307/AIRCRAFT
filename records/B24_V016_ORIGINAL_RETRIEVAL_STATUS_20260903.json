@@ -1,48 +1,92 @@
 {
-  "schema": "b24-v016-original-retrieval-status/1",
-  "task": "Retrieve the original full-aircraft V016 and publish it unchanged after inspection. No weather integration or new scenery.",
-  "status": "BLOCKED_EXACT_ORIGINAL_BYTES_UNAVAILABLE",
+  "schema": "b24-v016-original-retrieval-status/2",
+  "task": "Retrieve the exact original full-aircraft B24 V016 independently, inspect it unchanged, and only then prepare an online review page. Weather integration and all new scenery remain paused.",
+  "status": "EXACT_FILE_LOCATED_IN_CHATGPT_LIBRARY_GITHUB_BYTES_NOT_LOCATED",
   "expectedOriginal": {
     "file": "B24_V016_COMPLETE_WORKBENCH.html",
     "bytes": 12141929,
     "sha256": "c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4",
-    "identitySource": "Historical B24_MOTHER_UNIFIED_ADOPTION_RECEIPT_V1.0.0.json",
+    "identitySource": "B24_MOTHER_UNIFIED_ADOPTION_RECEIPT_V1.0.0.json",
     "fileLibraryReference": "file_00000000ae7081fd8dcfe203912f214f",
+    "fileLibraryCreatedAt": "2026-08-31T11:26:18Z",
     "rawBytesObtainedThisSession": false,
     "checksumRecomputedThisSession": false
   },
-  "githubAudit": {
-    "branch": "audit/b24-v016-original-source-20260903",
-    "implementationCommit": "cfaa48135da53f335d0b2b80d681feab48334166",
-    "workflowRuns": [33706145790, 33706473403],
-    "aircraftBranchesInspected": 23,
-    "aircraftHistoricalTreesInspected": 114,
-    "historyStart": "2026-08-29T00:00:00Z",
-    "aircraftArtifactsEnumerated": 335,
-    "deploymentArtifactsEnumerated": 1029,
-    "matchedOriginalFiles": [],
-    "qualification": "No exact target was found in the audited branches, historical trees, release assets or selected delivery archives. This does not assert absence from every possible GitHub object, deleted ref or other repository."
+  "identityFinding": {
+    "runtimeVersion": "V016",
+    "runtimeCommit": null,
+    "runtimeEntryPoints": [],
+    "meaning": "The historical receipt proves that the exact V016 was locally received and audited. It does not identify a GitHub commit containing the 12,141,929-byte HTML."
   },
-  "selectedArchivesDownloadedAndInspectedViaConnector": [
-    {"artifactId": 9733978409, "archiveBytes": 201197, "members": 13, "totalUncompressedBytes": 3363911, "targetPresent": false},
-    {"artifactId": 9734012394, "archiveBytes": 201197, "members": 13, "totalUncompressedBytes": 3363911, "targetPresent": false},
-    {"artifactId": 9734103365, "archiveBytes": 201197, "members": 13, "totalUncompressedBytes": 3363911, "targetPresent": false},
-    {"artifactId": 9734206455, "archiveBytes": 201197, "members": 13, "totalUncompressedBytes": 3363911, "targetPresent": false}
-  ],
+  "githubAudit": {
+    "auditBranch": "audit/b24-v016-original-source-20260903",
+    "auditOnly": true,
+    "workflowRuns": {
+      "branchTreeReleaseAndArtifactAudit": 33706145790,
+      "archiveAndOlderPagesAudit": 33706473403,
+      "workflowHeadLogAndArtifactAudit": 33707405485,
+      "allOwnedRepositoriesAudit": 33707715090,
+      "allRetainedAircraftArtifactsByteAudit": 33709291216,
+      "deploymentArtifactByteAudit": 33709730430
+    },
+    "scope": {
+      "ownedRepositoriesInspected": 9,
+      "ownedRepositoryCommitAndRunHeadTreesInspected": 1732,
+      "aircraftBranchesInspected": 23,
+      "aircraftHistoricalTreesInspected": 114,
+      "aircraftWorkflowRunsInspected": 192,
+      "aircraftWorkflowLogArchivesInspected": 192,
+      "aircraftWorkflowRunHeadTreesInspected": 135,
+      "retainedAircraftArtifactsDownloaded": 201,
+      "retainedAircraftArtifactCompressedBytesDownloaded": 745146780,
+      "retainedAircraftArtifactMembersInspected": 2355,
+      "retainedAircraftNestedArchivesInspected": 203,
+      "deploymentArtifactsEnumerated": 1055,
+      "deploymentArtifactsDownloaded": 71,
+      "deploymentArtifactCompressedBytesDownloaded": 525207384,
+      "deploymentArtifactMembersInspected": 1526,
+      "deploymentNestedArchivesInspected": 71,
+      "releaseAssetsInspected": true,
+      "issueAndPullRequestTextInspected": true,
+      "gistMetadataInspected": true,
+      "actionCacheMetadataInspected": true
+    },
+    "exactOriginalMatches": [],
+    "conclusion": "No GitHub commit tree, retained Actions artifact, release asset, issue attachment, gist, inspected workflow log, or inspected deployment artifact contained bytes matching both the exact size and SHA-256 of the full-aircraft V016."
+  },
+  "excludedRoutes": {
+    "weaponsMotherV016": true,
+    "img2threejs": true,
+    "v010Reconstruction": true,
+    "v014Reconstruction": true,
+    "proceduralAircraftFallback": true,
+    "syntheticWorkbenchFromSearchSnippets": true
+  },
   "changes": {
     "mainBranchChanged": false,
     "runtimeChanged": false,
     "publicPageChanged": false,
     "auditBranchContainsRestoredV016": false,
-    "newWeatherOrSceneryAdded": false
+    "weatherAdded": false,
+    "runwayChanged": false,
+    "materialsChanged": false,
+    "animationChanged": false
   },
   "verification": {
-    "sourceFileLibraryTextLocated": true,
-    "sourceBytesAvailable": false,
+    "sourceFileLibraryEntryLocated": true,
+    "sourceFileLibraryContentIndexed": true,
+    "sourceRawBytesAvailableToCurrentRuntime": false,
     "browserTestPerformedThisSession": false,
     "restoredOnlineEntry": null,
     "visualAcceptance": false,
     "productionReady": false
   },
-  "nextRequiredInput": "Add the existing B24_V016_COMPLETE_WORKBENCH.html from ChatGPT Library to the current chat. Do not substitute an earlier workbench or reconstruct a page from search excerpts."
+  "executionPolicy": {
+    "userActionRequested": false,
+    "nextActionOwner": "assistant",
+    "publishBeforeExactByteRecovery": false,
+    "substituteEarlierVersion": false,
+    "reconstructFromPartialSearchContent": false,
+    "reason": "Publishing any inferred or rebuilt page would repeat the version-mixing failure."
+  }
 }
