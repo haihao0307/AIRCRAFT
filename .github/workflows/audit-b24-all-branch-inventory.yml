@@ -1,0 +1,66 @@
+name: Inventory all B24 branches for rebuild ingredients
+
+on:
+  push:
+    branches:
+      - audit/b24-v016-original-source-20260903
+    paths:
+      - '.github/workflows/audit-b24-all-branch-inventory.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Inspect all remote branches
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p out/branches
+          git fetch --all --prune --tags
+          git branch -r --format='%(refname:short)' \
+            | grep '^origin/' \
+            | grep -v 'origin/HEAD' \
+            | grep -vi 'weapon' \
+            | sort > out/branch-list.txt
+
+          while IFS= read -r ref; do
+            name=${ref#origin/}
+            safe=$(printf '%s' "$name" | tr '/:' '__')
+            mkdir -p "out/branches/$safe"
+            git ls-tree -r -l "$ref" > "out/branches/$safe/tree.tsv"
+            awk '$4 >= 100000 {print $4 "\t" $5}' "out/branches/$safe/tree.tsv" | sort -nr > "out/branches/$safe/files-over-100k.tsv"
+            awk '{print $4 "\t" $5}' "out/branches/$safe/tree.tsv" \
+              | grep -Ei 'b24|workbench|one.click|current|runtime|payload|manifest|model|glb|source|build|app-part|html|mission|runway|propeller|gear|bay' \
+              > "out/branches/$safe/relevant-paths.tsv" || true
+            git grep -Il -E 'B24_V016|B24_ONE_CLICK_CURRENT|B24_CURRENT_REVIEW|spinSourceNodes|propellerHoldFramesRemoved|bayTrackCount|sourcePayloadSha256|7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2' "$ref" -- \
+              > "out/branches/$safe/marker-files.txt" 2>/dev/null || true
+            printf '%s\t%s\t%s\t%s\t%s\n' \
+              "$name" \
+              "$(wc -l < "out/branches/$safe/tree.tsv")" \
+              "$(awk '{s+=$4} END {print s+0}' "out/branches/$safe/tree.tsv")" \
+              "$(wc -l < "out/branches/$safe/relevant-paths.tsv")" \
+              "$(wc -l < "out/branches/$safe/marker-files.txt")" \
+              >> out/branch-summary.tsv
+          done < out/branch-list.txt
+
+          {
+            echo -e 'branch\tfileCount\ttreeBytes\trelevantPathCount\tmarkerFileCount'
+            cat out/branch-summary.tsv
+          } > out/branch-summary.with-header.tsv
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24-all-branch-inventory
+          path: out/
+          retention-days: 30
+          if-no-files-found: error
