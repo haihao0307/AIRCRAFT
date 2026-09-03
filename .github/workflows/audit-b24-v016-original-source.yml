@@ -1,0 +1,150 @@
+name: Locate exact original B24 V016 bytes
+on:
+  push:
+    branches: [audit/b24-v016-original-source-20260903]
+    paths: [.github/workflows/audit-b24-v016-original-source.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  locate-original:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Audit current and historical trees, releases and build artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          mkdir -p evidence
+          cat > /tmp/locate_v016.py <<'PY'
+          import concurrent.futures, hashlib, io, json, os, re, time, urllib.request, urllib.error, zipfile
+          from datetime import datetime, timezone
+          from pathlib import Path
+          ROOT=Path('evidence')
+          HTML_SIZE=12141929
+          HTML_HASH='c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4'
+          ZIP_SIZE=27611090
+          ZIP_HASH='f991c9c9d06adaf3004f796c8be7b13c76c3b4c93971c018e0afbff7f9def8af'
+          report={'schema':'b24-v016-exact-source-audit/1','generatedAt':datetime.now(timezone.utc).isoformat(),'target':{'file':'B24_V016_COMPLETE_WORKBENCH.html','bytes':HTML_SIZE,'sha256':HTML_HASH},'runtimeFilesChanged':False,'publicDeploymentChanged':False,'repositories':{},'candidates':[],'matches':[],'errors':[],'limits':[]}
+          token=os.environ['GH_TOKEN']
+          def get(url, binary=False):
+              headers={'User-Agent':'B24-original-source-audit','Accept':'application/vnd.github+json'}
+              if url.startswith('https://api.github.com/'):
+                  headers['Authorization']='Bearer '+token
+              for attempt in range(3):
+                  try:
+                      with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=25) as f:
+                          b=f.read(100000001)
+                      if len(b)>100000000: raise ValueError('download exceeds 100 MB audit limit')
+                      return b if binary else json.loads(b)
+                  except urllib.error.HTTPError as e:
+                      if e.code not in (429,500,502,503,504) or attempt==2: raise
+                      time.sleep(attempt+1)
+          def api(repo,path): return get('https://api.github.com/repos/'+repo+'/'+path)
+          def pages(repo,path,key=None,maxpages=10):
+              allrows=[]
+              for page in range(1,maxpages+1):
+                  sep='&' if '?' in path else '?'
+                  result=api(repo,path+sep+'per_page=100&page='+str(page))
+                  rows=result.get(key,[]) if key else result
+                  allrows.extend(rows)
+                  if len(rows)<100: return allrows
+              report['limits'].append({'repo':repo,'collection':path,'pages':maxpages})
+              return allrows
+          def target_name(name):
+              n=name.lower()
+              return 'weapon' not in n and ('b24' in n or 'b-24' in n or 'aircraft' in n) and bool(re.search(r'v0?16(?:\D|$)',n))
+          def inspect_bytes(b,origin,depth=0):
+              digest=hashlib.sha256(b).hexdigest()
+              info={'origin':origin,'bytes':len(b),'sha256':digest}
+              report['candidates'].append(info)
+              if len(b)==HTML_SIZE and digest==HTML_HASH:
+                  (ROOT/'B24_V016_COMPLETE_WORKBENCH.html').write_bytes(b)
+                  report['matches'].append(info)
+                  return
+              if len(b)==ZIP_SIZE and digest==ZIP_HASH:
+                  (ROOT/'AIRCRAFT_B24_V016_WORKBENCH_REPAIR_R1.zip').write_bytes(b)
+              if depth>1 or not zipfile.is_zipfile(io.BytesIO(b)): return
+              with zipfile.ZipFile(io.BytesIO(b)) as archive:
+                  for member in archive.infolist():
+                      if member.is_dir() or member.file_size>100000000: continue
+                      if member.file_size==HTML_SIZE or member.file_size==ZIP_SIZE or target_name(member.filename):
+                          inspect_bytes(archive.read(member),origin+'!'+member.filename,depth+1)
+          for repo in ['haihao0307/AIRCRAFT','haihao0307/guilin-dem-pipeline']:
+              stats={'branches':[],'commitCount':0,'treeCount':0,'candidateBlobs':[],'releaseAssets':[],'artifactCount':0,'artifactCandidates':[]}
+              report['repositories'][repo]=stats
+              try:
+                  branches=pages(repo,'branches')
+                  selected=[b for b in branches if 'weapon' not in b['name'].lower() and (repo.endswith('/AIRCRAFT') or b['name'] in ('main','gh-pages') or re.search(r'b24|aircraft',b['name'],re.I))]
+                  trees={}; seen_commits=set()
+                  for branch in selected:
+                      stats['branches'].append({'name':branch['name'],'sha':branch['commit']['sha']})
+                      path='commits?sha='+urllib.parse.quote(branch['name'],safe='')+'&since=2026-08-29T00:00:00Z'
+                      commits=pages(repo,path,maxpages=3)
+                      if not commits: commits=[api(repo,'commits/'+branch['commit']['sha'])]
+                      for commit in commits:
+                          seen_commits.add(commit['sha'])
+                          trees[commit['commit']['tree']['sha']]=commit['sha']
+                  stats['commitCount']=len(seen_commits)
+                  def scan(item):
+                      tree_sha,commit=item
+                      try:
+                          tree=api(repo,'git/trees/'+tree_sha+'?recursive=1')
+                          candidates=[]
+                          for e in tree.get('tree',[]):
+                              if e.get('type')!='blob' or 'weapon' in e['path'].lower(): continue
+                              if e.get('size') in (HTML_SIZE,ZIP_SIZE) or target_name(e['path']):
+                                  candidates.append({**e,'commit':commit})
+                          return candidates,tree.get('truncated',False),None
+                      except Exception as e: return [],False,str(e)
+                  unique={}
+                  with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+                      for (tree_sha,commit),(entries,truncated,error) in zip(trees.items(),pool.map(scan,trees.items())):
+                          stats['treeCount']+=1
+                          if truncated: report['limits'].append({'repo':repo,'tree':tree_sha,'truncated':True})
+                          if error: report['errors'].append({'repo':repo,'tree':tree_sha,'error':error})
+                          for entry in entries: unique.setdefault(entry['sha'],entry)
+                  stats['candidateBlobs']=list(unique.values())
+                  for entry in unique.values():
+                      if entry.get('size',0)>100000000: continue
+                      if entry.get('size') not in (HTML_SIZE,ZIP_SIZE) and not entry['path'].lower().endswith(('.html','.zip','.gz')): continue
+                      url='https://raw.githubusercontent.com/'+repo+'/'+entry['commit']+'/'+urllib.parse.quote(entry['path'])
+                      try: inspect_bytes(get(url,True),url)
+                      except Exception as e: report['errors'].append({'url':url,'error':str(e)})
+              except Exception as e: report['errors'].append({'repo':repo,'stage':'trees','error':str(e)})
+              for collection,key in [('releases',None),('actions/artifacts','artifacts')]:
+                  try:
+                      rows=pages(repo,collection,key,maxpages=10)
+                      if collection=='releases':
+                          assets=[a for r in rows for a in r.get('assets',[])]
+                          stats['releaseAssets']=[{'name':a['name'],'bytes':a['size']} for a in assets]
+                          for a in assets:
+                              if target_name(a['name']) or a['size'] in (HTML_SIZE,ZIP_SIZE):
+                                  try: inspect_bytes(get(a['browser_download_url'],True),a['browser_download_url'])
+                                  except Exception as e: report['errors'].append({'asset':a['name'],'error':str(e)})
+                      else:
+                          stats['artifactCount']=len(rows)
+                          for a in rows:
+                              if target_name(a['name']):
+                                  stats['artifactCandidates'].append({'id':a['id'],'name':a['name'],'expired':a['expired']})
+                                  if not a['expired'] and a['size_in_bytes']<=100000000:
+                                      try: inspect_bytes(get(a['archive_download_url'],True),a['archive_download_url'])
+                                      except Exception as e: report['errors'].append({'artifact':a['id'],'error':str(e)})
+                  except Exception as e: report['errors'].append({'repo':repo,'stage':collection,'error':str(e)})
+          report['status']='EXACT_ORIGINAL_BYTES_VERIFIED' if report['matches'] else 'ORIGINAL_BYTES_NOT_FOUND_IN_AUDITED_GITHUB_SCOPE'
+          report['allCollectionsComplete']=not report['errors'] and not report['limits']
+          (ROOT/'audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          summary={k:v for k,v in report.items() if k not in ('candidates','repositories')}
+          summary['coverage']={k:{x:v[x] for x in ('commitCount','treeCount','artifactCount','artifactCandidates','releaseAssets')} for k,v in report['repositories'].items()}
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+          python3 /tmp/locate_v016.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-v016-original-source-audit
+          path: evidence/
+          retention-days: 30
+          if-no-files-found: error
