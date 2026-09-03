@@ -1,0 +1,58 @@
+{
+  "schema": "haihao.aircraft/b24-full-handoff-freeze@1.0.0",
+  "build": "B24_METAL_GRASS_MISSION_R1",
+  "date": "2026-09-03",
+  "source": {
+    "repository": "haihao0307/AIRCRAFT",
+    "commit": "8ea0a34d016c46570e3916e37f587b2c7fb14ccf",
+    "path": "preview/b24-metal-grass-mission-r1",
+    "nativePayloadSha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2"
+  },
+  "onlineReview": {
+    "url": "https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-metal-grass-mission-r1/",
+    "publicationRepository": "haihao0307/guilin-dem-pipeline",
+    "browserEvidenceRun": 33733439863,
+    "browserEvidence": "PASS 30/30",
+    "liveVerificationRun": 33737127679,
+    "liveVerification": "success"
+  },
+  "release": {
+    "tag": "b24-metal-grass-mission-r1-full-handoff-20260903",
+    "package": "AIRCRAFT_B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03.zip",
+    "checksumFile": "AIRCRAFT_B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03.zip.sha256"
+  },
+  "contents": [
+    "runnable online-equivalent web directory",
+    "native aircraft payload",
+    "pinned same-origin Three.js dependencies and license",
+    "readable application source",
+    "full browser QA report and nine evidence screenshots",
+    "live-page identity record",
+    "package manifest and SHA-256 checksums",
+    "Windows, macOS and Python local-start helpers"
+  ],
+  "scope": {
+    "metalAppearance": true,
+    "grassAirfield": true,
+    "completeMissionTimeline": true,
+    "synthesizedAudio": true,
+    "cameraModes": true,
+    "weatherIntegrated": false,
+    "newMountains": false,
+    "weaponsMotherIncluded": false,
+    "img2threejsIncluded": false
+  },
+  "status": {
+    "exactV016Recovered": false,
+    "visualAcceptance": false,
+    "productionReady": false,
+    "archiveOnlyAfterRestart": true
+  },
+  "restartPolicy": {
+    "newBranchRequired": true,
+    "silentReuseForbidden": true,
+    "aircraftSourceMustBeExplicit": true,
+    "acceptedComponentsMustBeFrozen": true,
+    "primaryReviewDeliverable": "directly-clickable-online-html"
+  }
+}
