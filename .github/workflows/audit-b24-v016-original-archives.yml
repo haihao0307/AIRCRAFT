@@ -1,0 +1,115 @@
+name: Inspect B24 V016 original delivery archives
+on:
+  push:
+    branches: [audit/b24-v016-original-source-20260903]
+    paths: [.github/workflows/audit-b24-v016-original-archives.yml]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  archive-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Inspect archived deliveries without executing their code
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p evidence
+          cat > /tmp/archive_audit.py <<'PY'
+          import concurrent.futures, hashlib, io, json, os, re, urllib.request, urllib.parse, zipfile
+          from pathlib import Path
+          ROOT=Path('evidence')
+          SIZE=12141929
+          HASH='c8806aafcf9f32936aff1206d9b7a83545c547e842071b8b02a910ec6c9f69e4'
+          ZSIZE=27611090
+          ZHASH='f991c9c9d06adaf3004f796c8be7b13c76c3b4c93971c018e0afbff7f9def8af'
+          report={'schema':'b24-original-delivery-archive-audit/1','matches':[],'archives':[],'collections':{},'historicalCandidates':[],'errors':[],'limits':[],'runtimeChanged':False,'deployed':False}
+          def get(url,binary=False):
+              headers={'User-Agent':'B24-original-delivery-audit'}
+              if url.startswith('https://api.github.com/'):
+                  headers['Authorization']='Bearer '+os.environ['GH_TOKEN']
+              with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=45) as response:
+                  data=response.read(120000001)
+              if len(data)>120000000: raise ValueError('120 MB per-download audit budget exceeded')
+              return data if binary else json.loads(data)
+          def api(repo,path): return get('https://api.github.com/repos/'+repo+'/'+path)
+          def inspect(data,origin,depth=0):
+              digest=hashlib.sha256(data).hexdigest()
+              if len(data)==SIZE and digest==HASH:
+                  (ROOT/'B24_V016_COMPLETE_WORKBENCH.html').write_bytes(data)
+                  report['matches'].append({'origin':origin,'bytes':len(data),'sha256':digest})
+              if len(data)==ZSIZE and digest==ZHASH:
+                  (ROOT/'AIRCRAFT_B24_V016_WORKBENCH_REPAIR_R1.zip').write_bytes(data)
+              if depth>1 or not zipfile.is_zipfile(io.BytesIO(data)): return []
+              entries=[]
+              with zipfile.ZipFile(io.BytesIO(data)) as archive:
+                  for member in archive.infolist():
+                      if member.is_dir(): continue
+                      n=member.filename.lower()
+                      relevant=('b24' in n or 'b-24' in n or 'aircraft' in n) and 'weapon' not in n
+                      if relevant or member.file_size in (SIZE,ZSIZE):
+                          entries.append({'name':member.filename,'bytes':member.file_size})
+                      if member.file_size in (SIZE,ZSIZE) or (relevant and 'v016' in n and n.endswith(('.html','.zip'))):
+                          if member.file_size<=120000000: inspect(archive.read(member),origin+'!'+member.filename,depth+1)
+              return entries
+          for repo in ('haihao0307/AIRCRAFT','haihao0307/guilin-dem-pipeline'):
+              candidates=[]; total=0
+              for page in range(1,51):
+                  rows=api(repo,'actions/artifacts?per_page=100&page='+str(page)).get('artifacts',[])
+                  total+=len(rows)
+                  for a in rows:
+                      n=a['name'].lower(); branch=a.get('workflow_run',{}).get('head_branch','').lower()
+                      in_date='2026-08-30'<=a['created_at']<'2026-09-02'
+                      relevant=('b24' in n or 'aircraft' in n or 'b24' in branch or 'aircraft' in branch)
+                      if in_date and relevant and 'weapon' not in n+branch and not a['expired']:
+                          candidates.append(a)
+                  if len(rows)<100: break
+              else: report['limits'].append({'repo':repo,'collection':'artifacts','maxpages':50})
+              report['collections'][repo]={'artifactsEnumerated':total,'candidateCount':len(candidates)}
+              for a in candidates:
+                  meta={'repo':repo,'id':a['id'],'name':a['name'],'bytes':a['size_in_bytes'],'createdAt':a['created_at'],'branch':a.get('workflow_run',{}).get('head_branch')}
+                  if a['size_in_bytes']>120000000:
+                      meta['skipped']='over byte budget';report['limits'].append(meta)
+                  else:
+                      try: meta['members']=inspect(get(a['archive_download_url'],True),a['archive_download_url'])
+                      except Exception as e: meta['error']=str(e);report['errors'].append(meta)
+                  report['archives'].append(meta)
+          repo='haihao0307/guilin-dem-pipeline'
+          commits=[]
+          for page in range(4,31):
+              rows=api(repo,'commits?sha=gh-pages&since=2026-08-29T00:00:00Z&per_page=100&page='+str(page))
+              commits.extend(rows)
+              if len(rows)<100: break
+          else: report['limits'].append({'repo':repo,'collection':'older-gh-pages-commits','maxpages':30})
+          report['remainingPagesHistoryCommits']=len(commits)
+          def tree(commit):
+              try:
+                  d=api(repo,'git/trees/'+commit['commit']['tree']['sha']+'?recursive=1')
+                  if d.get('truncated'): report['limits'].append({'tree':commit['commit']['tree']['sha'],'truncated':True})
+                  found=[{**e,'commit':commit['sha']} for e in d.get('tree',[]) if e.get('type')=='blob' and 'weapon' not in e['path'].lower() and (e.get('size') in (SIZE,ZSIZE) or re.search(r'b24.*v0?16|v0?16.*b24',e['path'],re.I))]
+                  return found
+              except Exception as e:
+                  report['errors'].append({'commit':commit['sha'],'error':str(e)});return []
+          unique={}
+          with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+              for found in pool.map(tree,commits):
+                  for e in found: unique[e['sha']]=e
+          report['historicalCandidates']=list(unique.values())
+          for e in unique.values():
+              if e.get('size') not in (SIZE,ZSIZE) and not e['path'].lower().endswith(('.html','.zip')):continue
+              url='https://raw.githubusercontent.com/'+repo+'/'+e['commit']+'/'+urllib.parse.quote(e['path'])
+              try:inspect(get(url,True),url)
+              except Exception as error:report['errors'].append({'url':url,'error':str(error)})
+          report['status']='EXACT_ORIGINAL_BYTES_VERIFIED' if report['matches'] else 'NO_EXACT_ORIGINAL_IN_INSPECTED_ARCHIVES_OR_OLDER_PAGES_HISTORY'
+          (ROOT/'archive-audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+          python3 /tmp/archive_audit.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-v016-original-archive-audit
+          path: evidence/
+          retention-days: 30
+          if-no-files-found: error
