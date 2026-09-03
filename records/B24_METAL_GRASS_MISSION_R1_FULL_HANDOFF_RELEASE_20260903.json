@@ -1,0 +1,31 @@
+{
+  "schema": "haihao.aircraft/b24-full-handoff-published-release@1.0.0",
+  "release": {
+    "id": 382018587,
+    "url": "https://github.com/haihao0307/AIRCRAFT/releases/tag/b24-metal-grass-mission-r1-handoff-20260903",
+    "tag": "b24-metal-grass-mission-r1-handoff-20260903",
+    "targetCommit": "6c087b8a6dd55cb3652cda21355fd76e4e620c68",
+    "publishedAt": "2026-09-03T12:52:20Z",
+    "draft": false,
+    "prerelease": false
+  },
+  "package": {
+    "name": "AIRCRAFT_B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03.zip",
+    "bytes": 25413697,
+    "sha256": "15cce036f9cbd061b59430bab8dd133989348bb9b95de1d80ba68892e4c7d333",
+    "download": "https://github.com/haihao0307/AIRCRAFT/releases/download/b24-metal-grass-mission-r1-handoff-20260903/AIRCRAFT_B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03.zip"
+  },
+  "validation": {
+    "workflowRun": 33757684507,
+    "conclusion": "success",
+    "browserEvidenceRun": 33733439863,
+    "browserEvidence": "PASS 30/30",
+    "visualAcceptance": false,
+    "productionReady": false
+  },
+  "restart": {
+    "branch": "restart/b24-production-line-clean-20260903",
+    "startCommit": "07832be535df7fb9d10f02103a49fd219dbad35d",
+    "archiveReadOnly": true
+  }
+}
