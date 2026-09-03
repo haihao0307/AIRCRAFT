@@ -1,0 +1,391 @@
+{
+  "schema": "haihao.aircraft/weapons-mother-full-package-manifest@1.0.0",
+  "packageName": "AIRCRAFT_WEAPONS_MOTHER_B24_ANM2_V016_FULL_2026-09-03",
+  "sourceCommit": "4116bfc6213daff09e95788d72fad8ef90271621",
+  "sourceCommitShort": "4116bfc",
+  "manifestPolicy": "covers every archive member except MANIFEST.json",
+  "fileCount": 77,
+  "payloadBytes": 18493141,
+  "files": [
+    {
+      "path": "README_FIRST.md",
+      "bytes": 1043,
+      "sha256": "4ed7f608ca4353fbb23b26972a48a2c2b1a16cb5603cd565452a9e54e826ab1c"
+    },
+    {
+      "path": "STATUS.json",
+      "bytes": 881,
+      "sha256": "30a485aacf248c2d35332148c6f1872b1f13bacd10037c4dd118109c927761d7"
+    },
+    {
+      "path": "repository/AGENTS.md",
+      "bytes": 3360,
+      "sha256": "1e692f1686c770a8aba44a50668785158aa8d4bcb7c028f99f2d64393c986b45"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/belt-source-node-inventory.json",
+      "bytes": 36218,
+      "sha256": "fb54d21955e4e7e03b375366000815e4f461925fe58322c9335278462623703c"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/anm2-source-full.png",
+      "bytes": 28315,
+      "sha256": "37c36419596644986b4acc11e809390d90078970f409f4e1ddc853ad39851ff7"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/b24-node-799.png",
+      "bytes": 29061,
+      "sha256": "d8cbf41d7a824e357ba59a8afaa7caeef29f4df460bcc99618130ce93e2f45c2"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/b24-node-802.png",
+      "bytes": 25838,
+      "sha256": "551d164d8ad69619df066718558c666ae9b2216fda720d6d89b66c51773d5080"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/b24-node-805.png",
+      "bytes": 19276,
+      "sha256": "36aff5046181eeced6151fdb832365e79dedd298cb20db4b3b943fc330d18546"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/b24-node-808.png",
+      "bytes": 27151,
+      "sha256": "aea5b75d584f1b785aa69dc9fd0b0b2466db69725df4820478d85684e40793a8"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/b24-node-811.png",
+      "bytes": 21948,
+      "sha256": "1db77895290a46544a040a83506ba905996c95c074eaf32fd24087a99d99156b"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/b24-node-818.png",
+      "bytes": 31321,
+      "sha256": "4fc21388136208eef355138db7e33cf52c5f41cf9797a061d08674cda4f3bf2a"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/b24-node-821.png",
+      "bytes": 27407,
+      "sha256": "28c4b88a75c0ec01d92862e1a9daa7bca5524cbc44d938e7f8c38388fb44d025"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/b24-node-824.png",
+      "bytes": 22039,
+      "sha256": "5213ef9d098ebc641ac1bfcab362f42460c5a5b1366eb0091f923f420a3ed982"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/b24-reference-full.png",
+      "bytes": 88971,
+      "sha256": "c3a95740a46a414a0fdd7f825f2de4231c21f87d6d1b01beca514490ca299914"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/cartridge-source.png",
+      "bytes": 72423,
+      "sha256": "0882af5eb8c45039e11f1df8286df420edcdab68cd1717c87dc164fd855d722e"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/mechanism-donor.png",
+      "bytes": 37524,
+      "sha256": "b2750c1693668b233d99a4713bc48fa6b6c2ffa418e8f187367b33e7795a99fb"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/waist-group-a.png",
+      "bytes": 61544,
+      "sha256": "238e7da53dcc87de484dbdb64f5f5d0b411092ee87a21e0c841d3c4bc56092a8"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/waist-group-b.png",
+      "bytes": 61083,
+      "sha256": "6d7f45577132e1418c161bb59760a565d58976a83575ff79b1ea890d7236400d"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/waist-group-c.png",
+      "bytes": 157107,
+      "sha256": "f7c3ad8eb64b2d90b044150452cc56eb52f64dbd38f7eb4d4a9f68082f4d0452"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/qa/waist-group-d.png",
+      "bytes": 174054,
+      "sha256": "038660cbfc131fa116c2158ff084f5826732c75d44a498570dbdefcc5fefcf8d"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v004/source-node-inventory.json",
+      "bytes": 2635159,
+      "sha256": "74aed76c37c71dabd7c6408ad5cc1cfab1533b0ea76dbded9e17c62c0ed9a769"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v016/alignment-calibration-v016.json",
+      "bytes": 3734,
+      "sha256": "adb6b77a8b76b85a8e3f68f7575232e1d7d0755643fe4e9956a9597c0f511af5"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v016/distillation-manifest.json",
+      "bytes": 14216,
+      "sha256": "b00283f32f0212718fbbad2d60dad5db7104b4e447c8c02381fd7a9cc45f9c98"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v016/distilled-reference.glb",
+      "bytes": 8585888,
+      "sha256": "81ec8016743c6e9cb86b6221c1d665be1d061b42ae73e241c7ddc572ea3af6c4"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v016/distilled-reference.glb.gz",
+      "bytes": 4589498,
+      "sha256": "9683962cf345a9b75137379f4c42db6a73d9626eb868832c0d923ca498781569"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v016/source-node-map-v016.json",
+      "bytes": 2948,
+      "sha256": "6758e4d5e798cf84d8a6787ee0dc1bfbec034bd8f03378d059445b155d972b51"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v016/station-evidence.json",
+      "bytes": 5711,
+      "sha256": "aa72d260c1ae6862d1447385bf1d2da0abfa34d7105595959a88024a2d871afc"
+    },
+    {
+      "path": "repository/data/weapons-mother/b24-m2-aircraft-v016/surface-field-contract.json",
+      "bytes": 4036,
+      "sha256": "083523c6e8a839e0dd20f42cff5c906539cda6f557c60f576b4dfcf32bb7ad8d"
+    },
+    {
+      "path": "repository/package.json",
+      "bytes": 1221,
+      "sha256": "b42fb698cf3f206b32517a79656e1fe832b5236b55ea345078773d33eeecddc3"
+    },
+    {
+      "path": "repository/preview/weapons-mother/b24-m2-aircraft-v016/index.html",
+      "bytes": 125912,
+      "sha256": "2a72f524584341b50ecf07398c724ee444ffe3f716317a7d4ff89362e0543e81"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_AIRCRAFT_TWIN_BROWSER_QA_V001.json",
+      "bytes": 1300,
+      "sha256": "82448b219bdc09abb5327c13663db11ba39559c77eaeaab71f0f013de4cd254f"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_AIRCRAFT_TWIN_BROWSER_QA_V002.json",
+      "bytes": 2702,
+      "sha256": "889dadedff483f9dc66c3506397364ae5a401732986466522aeac70e4e139fbe"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_AIRCRAFT_TWIN_BUILD_V001.json",
+      "bytes": 1830,
+      "sha256": "07a54d4f73361969c1f6d56242ea22a54173f3c476979cc3cab5fa49a81b97cb"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_AIRCRAFT_TWIN_BUILD_V002.json",
+      "bytes": 2793,
+      "sha256": "991e3dab4a9509d79c272bf5b6979cb91180c5841370943cc1beefc31cf8ebfb"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_AIRCRAFT_TWIN_VALIDATION_V001.json",
+      "bytes": 618,
+      "sha256": "f612566d2ca597f9e765f90c2cf8a4fde6db2daded08feb23da085b6c32b7ddd"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_AIRCRAFT_TWIN_VALIDATION_V002.json",
+      "bytes": 862,
+      "sha256": "459783e52427631c37fc909f677ecb08cdea5241578586403bb9f2c7993b96fe"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_BROWSER_QA_V001.json",
+      "bytes": 2856,
+      "sha256": "4442be36cc23e75169ce25e02abdb441df4e3e64477aef883a14202b6d4124bc"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_COMPONENT_EXTRACTION_V002.json",
+      "bytes": 1480,
+      "sha256": "f53585b92a60cae0b2da0719f286f30efcf076e4a7e1562b10d9efafcb09b0a4"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_KHRONOS_VALIDATION_V001.json",
+      "bytes": 31932,
+      "sha256": "6eceef5616498eadbca119f1bf6390d3c7268e52258cca1d844273bb9fd5884e"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_SOURCE_AUDIT_V001.json",
+      "bytes": 22852,
+      "sha256": "2f6f44e4e470b8de464f23fbc18cb9da99b5602eab735b0ef72c88b3bae1c8c7"
+    },
+    {
+      "path": "repository/records/B24_WEAPONS_MOTHER_M2_VIEWER_VALIDATION_V001.json",
+      "bytes": 444,
+      "sha256": "8312fd971f850c0929d9563176be6cdb2cde5804c226c582d1da23e3e75efbbb"
+    },
+    {
+      "path": "repository/reports/weapons-mother/source-review-v011/anm2-node09-barrel.png",
+      "bytes": 69334,
+      "sha256": "35ea36b8e94e18bfd0dd17d29b3c4652cfdab1ee5e6af283cc59e70938815c18"
+    },
+    {
+      "path": "repository/reports/weapons-mother/source-review-v011/dense-object08-gun.png",
+      "bytes": 57347,
+      "sha256": "fd4d561eb07ad24c66f70f3a0fa121068a8a9515aac5ab2a6a2623b2fedd3b3f"
+    },
+    {
+      "path": "repository/reports/weapons-mother/source-review-v011/dense-object11-rounds.png",
+      "bytes": 95427,
+      "sha256": "94631063b54f9463f507cc9985c547a7c2da28098d0052571df9fe314ca9d3f0"
+    },
+    {
+      "path": "repository/reports/weapons-mother/source-review-v011/dense-object12-links.png",
+      "bytes": 75211,
+      "sha256": "0585bf96fce9df08867a9d2058ca992e0eff0424a626f172b5a34019357c459c"
+    },
+    {
+      "path": "repository/reports/weapons-mother/source-review-v011/object13.png",
+      "bytes": 78907,
+      "sha256": "e6d48b7c5ad452e47641241329a4f48238dfc127bdaa08f37a00ab2cf09a4994"
+    },
+    {
+      "path": "repository/reports/weapons-mother/source-review-v011/object14.png",
+      "bytes": 37541,
+      "sha256": "0deedc7d3337b313973b33a9730626ee97291db0f6823de6e55ff249bdacd4aa"
+    },
+    {
+      "path": "repository/reports/weapons-mother/source-review-v011/object15.png",
+      "bytes": 52717,
+      "sha256": "c1730130963bbdf79b0899d3c2ad4e720fca04d4c7102fccd1b53b4bab07b431"
+    },
+    {
+      "path": "repository/reports/weapons-mother/v016-browser/report.json",
+      "bytes": 76266,
+      "sha256": "af750a7e900314179bea33ae078d880aaaf1b89c36cb2d56f3c68d991996ddd4"
+    },
+    {
+      "path": "repository/reports/weapons-mother/v016-build.json",
+      "bytes": 624,
+      "sha256": "7965c4c6c357c37550619098103e006d23403dfb79494bfaf8a605368d80b5e5"
+    },
+    {
+      "path": "repository/scripts/qa-weapons-mother-v016-browser.mjs",
+      "bytes": 8884,
+      "sha256": "2c355f355e63c856689c73a2ad4895a8b1815e302b2b77e5f11820719580b71b"
+    },
+    {
+      "path": "repository/tools/analyze-weapons-mother-alignment-v010.py",
+      "bytes": 6207,
+      "sha256": "477a30e2cfebaca63caf113655a51726c6debec5d83c43021d0fa3598c5fde9a"
+    },
+    {
+      "path": "repository/tools/audit-weapons-mother-glb.py",
+      "bytes": 14509,
+      "sha256": "a69c4c16e0faf45afad7e58ef6475f1f96ea04462c91b6e4eaeb400ab6fad7fd"
+    },
+    {
+      "path": "repository/tools/build-weapons-mother-aircraft-twin.py",
+      "bytes": 7276,
+      "sha256": "538690eb32f58f99f707841029a45521c4f31cec74d8ddbb6abd4ae65d7f28a5"
+    },
+    {
+      "path": "repository/tools/build-weapons-mother-v004.py",
+      "bytes": 3473,
+      "sha256": "7ef2ad3fe19f04732298e07eebccd7d199924043960c6fc2d69e278f90322b4e"
+    },
+    {
+      "path": "repository/tools/build-weapons-mother-viewers.py",
+      "bytes": 23926,
+      "sha256": "df7331905a6c9da07e7c619c85d12a17faed54ac9b43c7024dd0f8d9dbb09839"
+    },
+    {
+      "path": "repository/tools/calibrate-weapons-mother-alignment-v011.py",
+      "bytes": 15004,
+      "sha256": "4b4231b4e2408daff586a9922a42f5ffc245c92679e5611a4f1b93b56b51e92b"
+    },
+    {
+      "path": "repository/tools/distill-weapons-mother-v004.py",
+      "bytes": 40185,
+      "sha256": "26d52b2aa47b81414b4fe089038261ed2f3a8464d490d88fbfc39b166139ac65"
+    },
+    {
+      "path": "repository/tools/distill-weapons-mother-v005.py",
+      "bytes": 41560,
+      "sha256": "235dcd39eeef053b55d81c28a2c883e1dec959887f968b8d70df4adba694b15f"
+    },
+    {
+      "path": "repository/tools/extract-weapons-mother-components.py",
+      "bytes": 18687,
+      "sha256": "0b11fea3e68028b2009e884c28681f77231ded504d71794ecb7df9d4f2b59e9d"
+    },
+    {
+      "path": "repository/tools/extract-weapons-mother-manual-evidence.py",
+      "bytes": 1784,
+      "sha256": "a9947309344c77030676c98ab9f06e40457e24668ffc1cfac14778106b509746"
+    },
+    {
+      "path": "repository/tools/inventory-weapons-mother-glb.py",
+      "bytes": 9978,
+      "sha256": "652cd9d9836d7aa303247de7d3ff17b9db073cd8eee2ba46859940722572854b"
+    },
+    {
+      "path": "repository/tools/list-weapons-mother-connected-components.py",
+      "bytes": 2390,
+      "sha256": "a7f14550ecc06b8a3a371feb59d112ba0cbcec23ee266f91268cf07ce2cc31ae"
+    },
+    {
+      "path": "repository/tools/render-weapons-mother-source.py",
+      "bytes": 10554,
+      "sha256": "18faeb12e55c4e91d26791135d8ffd28e8773493969c0dbd00138facccadae9d"
+    },
+    {
+      "path": "repository/tools/templates/weapons-mother-aircraft-twin.html",
+      "bytes": 61322,
+      "sha256": "089cfce1f3f11b1026d86c43f56e73c93661f5a0b4912a1c38f5006b5f824ab7"
+    },
+    {
+      "path": "repository/tools/templates/weapons-mother-v004.html",
+      "bytes": 86621,
+      "sha256": "169932fc1215a7227bd93609dcbf73c374a8ec6b4e875ad32c114afac49e1394"
+    },
+    {
+      "path": "repository/tools/templates/weapons-mother-v005.html",
+      "bytes": 91189,
+      "sha256": "9abd96693a48143fc788894b1452b0a707d8a304fc89c832d50f464739cbe3bc"
+    },
+    {
+      "path": "repository/tools/templates/weapons-mother-v006.html",
+      "bytes": 95462,
+      "sha256": "49f6d67fdfb6d0e6f004c7add020e36aa4ddf4242a64ca09a9e9d304d23afbb7"
+    },
+    {
+      "path": "repository/tools/templates/weapons-mother-v007.html",
+      "bytes": 97337,
+      "sha256": "d519911da2ddc1ea63e9735aff0ef4d2234e01655859126645e2df4eb211c64b"
+    },
+    {
+      "path": "repository/tools/templates/weapons-mother-v008.html",
+      "bytes": 100339,
+      "sha256": "e0ab92b4517d38a2f8ac62d887f8e6342b02864d7a47d6a0e57c6b0c29bfe022"
+    },
+    {
+      "path": "repository/tools/templates/weapons-mother-v009.html",
+      "bytes": 105684,
+      "sha256": "7239b63f77b10603845ad1a65535871237a04a77320c94c906bcdc0d24bb58e6"
+    },
+    {
+      "path": "repository/tools/templates/weapons-mother-v010.html",
+      "bytes": 107976,
+      "sha256": "16a78f490f945e82d72ed61287c912bd89e7f68be80223c7766ae79f2faee853"
+    },
+    {
+      "path": "repository/tools/validate-weapons-mother-aircraft-m2-v003.py",
+      "bytes": 3248,
+      "sha256": "3dffe4330cae2db4da5d5a6bd899f1612a2254a5897945a0efa8801062c31ea8"
+    },
+    {
+      "path": "repository/tools/validate-weapons-mother-aircraft-twin.py",
+      "bytes": 7403,
+      "sha256": "52a48becb9e293c55281ae87af6ffb89526c694ea7723f0652e79b4992c5ff01"
+    },
+    {
+      "path": "repository/tools/validate-weapons-mother-v004.py",
+      "bytes": 19694,
+      "sha256": "07f611994b1fee0b44e6033bd17ecb6a81756f5eab284807629b78e466920552"
+    },
+    {
+      "path": "repository/tools/validate-weapons-mother-viewers.py",
+      "bytes": 4519,
+      "sha256": "640874a725c5dc99b873b077e220b1135188e5a874098bb9be76f2920595bb5b"
+    }
+  ]
+}

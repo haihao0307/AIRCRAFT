@@ -1,0 +1,114 @@
+name: Publish Weapons Mother V016 full package
+
+on:
+  push:
+    branches:
+      - feature/b24-weapons-mother-v1
+    paths:
+      - '.github/workflows/weapons-mother-v016-full-package.yml'
+      - 'tools/build-weapons-mother-full-package.py'
+      - 'handoff/2026-09-03-b24-weapons-mother-v016-full/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weapons-mother-v016-full-package
+  cancel-in-progress: false
+
+jobs:
+  package-and-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SOURCE_COMMIT: 4116bfc6213daff09e95788d72fad8ef90271621
+      PACKAGE_DIR: dist/weapons-mother-v016-full
+      PACKAGE_NAME: AIRCRAFT_WEAPONS_MOTHER_B24_ANM2_V016_FULL_2026-09-03
+      RELEASE_TAG: weapons-mother-b24-anm2-v016-full-20260903
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify source baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git merge-base --is-ancestor "$SOURCE_COMMIT" HEAD
+          test "$(git rev-parse "$SOURCE_COMMIT")" = "$SOURCE_COMMIT"
+
+      - name: Build deterministic full package
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/build-weapons-mother-full-package.py \
+            --revision V016 \
+            --package-date 2026-09-03 \
+            --source-commit "$SOURCE_COMMIT" \
+            --output-dir "$PACKAGE_DIR"
+
+      - name: Verify archive and receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$PACKAGE_DIR"
+          unzip -t "$PACKAGE_NAME.zip"
+          sha256sum -c "$PACKAGE_NAME.zip.sha256"
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import zipfile
+          from pathlib import Path
+
+          expected_name = "AIRCRAFT_WEAPONS_MOTHER_B24_ANM2_V016_FULL_2026-09-03.zip"
+          archive = Path(expected_name)
+          with zipfile.ZipFile(archive) as package:
+              names = package.namelist()
+              root = names[0].split("/", 1)[0] + "/"
+              manifest = json.loads(package.read(root + "MANIFEST.json"))
+              expected = {root + item["path"]: item for item in manifest["files"]}
+              actual = set(names) - {root + "MANIFEST.json"}
+              if actual != set(expected):
+                  raise SystemExit("archive member list does not match manifest")
+              for name, receipt in expected.items():
+                  payload = package.read(name)
+                  if len(payload) != receipt["bytes"]:
+                      raise SystemExit(f"byte count mismatch: {name}")
+                  if hashlib.sha256(payload).hexdigest() != receipt["sha256"]:
+                      raise SystemExit(f"SHA-256 mismatch: {name}")
+          PY
+
+      - name: Publish GitHub Release assets
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          archive="$PACKAGE_DIR/$PACKAGE_NAME.zip"
+          checksum="$PACKAGE_DIR/$PACKAGE_NAME.zip.sha256"
+          manifest="$PACKAGE_DIR/PACKAGE_MANIFEST.json"
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "$archive" "$checksum" "$manifest" --clobber
+          else
+            gh release create "$RELEASE_TAG" \
+              "$archive" "$checksum" "$manifest" \
+              --target "$GITHUB_SHA" \
+              --title 'Weapons Mother B-24 AN/M2 V016 Full Package' \
+              --notes-file handoff/2026-09-03-b24-weapons-mother-v016-full/README.md
+          fi
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PACKAGE_NAME }}-${{ github.sha }}
+          path: |
+            ${{ env.PACKAGE_DIR }}/${{ env.PACKAGE_NAME }}.zip
+            ${{ env.PACKAGE_DIR }}/${{ env.PACKAGE_NAME }}.zip.sha256
+            ${{ env.PACKAGE_DIR }}/PACKAGE_MANIFEST.json
+          if-no-files-found: error
+          retention-days: 90
