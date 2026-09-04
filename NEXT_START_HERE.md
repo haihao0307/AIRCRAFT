@@ -1,30 +1,32 @@
-# B24 clean production restart R2
+# B24 V017 clean restart
 
-This branch is the clean continuation point after the R1 full handoff release.
+This branch is the work-version 17 continuation point.
 
-## Frozen parent
+## Source boundary
 
-- Release tag: `b24-metal-grass-mission-r1-full-handoff-20260903`
-- Frozen handoff commit: `e752d281760d9d95efed565f54b66bd6b7903387`
-- Runtime source commit: `8ea0a34d016c46570e3916e37f587b2c7fb14ccf`
-- Full package: `AIRCRAFT_B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03.zip`
-- Current online review: `https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-metal-grass-mission-r1/`
+The verified GitHub full handoff release `b24-metal-grass-mission-r1-handoff-20260903` is the adopted restart example. The missing exact `B24_V016_COMPLETE_WORKBENCH.html` has not been recovered. V017 preserves this distinction.
 
-## Restart method
+## Frozen inheritance
 
-1. Open the current online HTML and identify which components pass visually.
-2. A passed component is frozen with its actual source, parameters and evidence.
-3. Change one requested component and its genuine dependencies at a time.
-4. Keep every accepted component available during later work.
-5. Publish a separate directly clickable online HTML page for each new review.
-6. Do not substitute the missing exact V016, Weapons Mother, img2threejs, iframe composition, mountains or an alternate aircraft mesh.
-7. Technical checks, user visual acceptance and production readiness remain separate states.
+* Native B24 payload SHA-256: `7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2`
+* 1,784 components, 348 meshes, 325,358 triangles
+* Four propeller channels, landing gear and bomb-bay animation
+* Grass airfield, runway coordinates, taxi strip and clear sky
+* Eighteen-stage, 330-second mission
+* Four releases, four impacts, effects, synthesized audio and six cameras
 
-## Initial state
+## Review
 
-- Exact V016 recovered: false
-- Technical browser verification of inherited R1: PASS 30/30
-- User visual acceptance: pending
-- Weather integration: paused
-- `visualAcceptance=false`
-- `productionReady=false`
+Online workbench: `https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-v017-clean-restart/`
+
+GitHub Pages commit: `7f50c265a92c80d965951b3ee62dee434526064e`
+
+Browser QA: PASS 53/53
+
+Static QA: PASS 34/34
+
+`visualAcceptance=false`
+
+`productionReady=false`
+
+The next implementation must preserve all frozen files and change only the component explicitly opened for work. Weather Mother, mountains, Weapons Mother and img2threejs remain outside this first V017 review.
