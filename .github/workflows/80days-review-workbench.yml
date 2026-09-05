@@ -1,0 +1,62 @@
+name: 80 DAYS review workbench
+on:
+  push:
+    branches: [feature/b24-80days-texture-master-v2]
+    paths:
+      - workbenches/80-days-v3/app.mjs
+      - workbenches/80-days-v3/index.template.html
+      - workbenches/80-days-v3/build.py
+      - workbenches/80-days-v3/qa.py
+      - .github/workflows/80days-review-workbench.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: 80days-review-workbench
+  cancel-in-progress: false
+jobs:
+  build-test-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build and browser test tools
+        run: |
+          python -m pip install Pillow==11.3.0 playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Run isolated material tests
+        run: node --test experiments/80-days-material-r1/material-channels.test.mjs
+      - name: Build self-contained review page
+        run: python workbenches/80-days-v3/build.py
+      - name: Exercise desktop and mobile workbench
+        run: python workbenches/80-days-v3/qa.py
+      - name: Publish only review page and receipts on existing draft branch
+        run: |
+          git add 80-days-workbench-v3.html workbenches/80-days-v3/BUILD_RECEIPT.json workbenches/80-days-v3/BROWSER_QA.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if ! git diff --cached --quiet; then
+            git commit -m 'build(livery): publish tested V3 review workbench, no aircraft binding'
+            git push origin HEAD:feature/b24-80days-texture-master-v2
+          fi
+          git rev-parse HEAD > workbenches/80-days-v3/PUBLISHED_HEAD.txt
+      - name: Collect reproducible preview artifact
+        if: always()
+        run: |
+          mkdir -p /tmp/80days-preview/workbenches /tmp/80days-preview/experiments
+          test ! -f 80-days-workbench-v3.html || cp 80-days-workbench-v3.html /tmp/80days-preview/
+          cp -r workbenches/80-days-v3 /tmp/80days-preview/workbenches/
+          cp -r experiments/80-days-material-r1 /tmp/80days-preview/experiments/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: 80-days-v3-review-workbench
+          path: /tmp/80days-preview
+          retention-days: 30
+          if-no-files-found: error
