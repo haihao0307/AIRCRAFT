@@ -216,10 +216,10 @@
         "warnings": [],
         "lastRoll": 0,
         "impactFramed": false,
-        "frameCount": 69,
+        "frameCount": 68,
         "sourceGeometryPreserved": true
       },
-      "frames_in_2s": 5,
+      "frames_in_2s": 4,
       "renderer": "WebKit WebGL"
     },
     {
@@ -244,7 +244,7 @@
         "warnings": [],
         "lastRoll": 0,
         "impactFramed": false,
-        "frameCount": 77,
+        "frameCount": 75,
         "sourceGeometryPreserved": true
       },
       "frames_in_2s": 6,
