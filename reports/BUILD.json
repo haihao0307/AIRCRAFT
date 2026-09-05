@@ -1,0 +1,27 @@
+{
+  "payload_sha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2",
+  "components": 1784,
+  "meshes": 348,
+  "runtime_file_count": 16,
+  "files": {
+    "app.js": "e2c9dc4c2eb83f7046165840754c0b8609f3514c",
+    "assets/native.bin.gz": "8c225df913584f78eb2c93517384f7978e68a2a8",
+    "assets/native.json.gz": "708f02d025f549e3b56163a0967f7c3f0adb95de",
+    "audio.js": "2a11c2f61491c6c5d1acaed0cc4eb1b703a2f41f",
+    "effect-state.js": "72c2a16643db2c6bc18d67d65f366721e525d0ca",
+    "effects.js": "15cccaa67fefc16d564ee7004879e71cf9b421de",
+    "index.html": "d1fa342c3bb1a6b363bc83e9067004e36c0c3eb0",
+    "mission.js": "d2871be628cd4372aa481f984394dee38246716d",
+    "native-aircraft.js": "efd51e15cb314dd775a3b8f72a5a212e2badfa32",
+    "production-effects.js": "0b2f7a4676249dda17089b2497ffea95b06d697c",
+    "style.css": "d3759af511ce9dabf9dfbf4037809f5f04c7336a",
+    "vendor/OrbitControls.js": "eea26706dae735dade19367026185f6e68f5cf55",
+    "vendor/THREE-LICENSE.txt": "cf781430404b0ae0ba7d8dea3457a3515dd7c9b9",
+    "vendor/three.core.js": "7dcd0fbcbc04b8d9a20ecb96c1ce344cb55150d5",
+    "vendor/three.module.js": "477ca4dafa7af919a2b9818e01b5ae25198d4aa4",
+    "world.js": "1dc3763b2864e8519aa5428d9625f77d06d1f5de"
+  },
+  "weather": false,
+  "fog": false,
+  "extra_runtime_files": []
+}
