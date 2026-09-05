@@ -1,0 +1,69 @@
+{
+  "schema": "wm.native.inspection-receipt/1",
+  "date": "2026-09-05",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "feature/b24-weapons-mother-v1",
+  "readHead": "4899b4c295fdb98ccb821c470a35a4ca2c04991a",
+  "testedCommit": "4a4304065e53518c5572dd4e8aee03097b6c5779",
+  "implementation": {
+    "entry": "native/weapons-visual/EXECUTION_02.md",
+    "core": "native/weapons-visual/core/inspection.py",
+    "features": ["immutable semantic part graph", "absolute visual spreading and exact rest restoration", "one declared native-to-Blender coordinate adapter", "hierarchical visibility and solo inspection", "independent material state", "validated source-bound snapshot restoration", "pause seek speed and replay controls", "bounded decorative event track with every-fifth accent"],
+    "scope": "Renderer-independent inspection and demonstration state. No actual Aircraft model, functional mechanism, ammunition physics or production browser has been created by this module."
+  },
+  "verifiedTests": {
+    "localUnitTestsPassed": 82,
+    "remoteUnitTestsPassed": 82,
+    "newUnitTests": 63,
+    "priorUnitTestsRerun": 19,
+    "newBlenderInspectionChecksPassed": 16,
+    "priorBlenderGeometryAndMaterialChecksRerun": 21,
+    "blenderVersion": "4.5.0",
+    "fixture": "neutral generated coupons only",
+    "inspectionWorldMatrixMaximumDelta": 0.0,
+    "newPoseCycles": 100,
+    "generatedResourcesReleased": true,
+    "noImageAssets": true,
+    "referenceMeshImported": false,
+    "rendered": false,
+    "productBrowserTested": false
+  },
+  "workflow": {
+    "runId": 33970920067,
+    "jobId": 101319159568,
+    "conclusion": "success",
+    "artifactId": 9970891228,
+    "artifactBytes": 3905,
+    "artifactSha256": "76547ff511f6021df24df63479e4be8806e6c57887cec38d7e46e45030bbf17c",
+    "artifactDownloadedAndHashVerified": true,
+    "reportsReadBack": true,
+    "jobHasFinished": true,
+    "overnightAutonomousDevelopment": false,
+    "scheduledReminder": false
+  },
+  "sourceParity": [
+    {"path": "native/weapons-visual/core/inspection.py", "gitBlob": "124c10ae20f5acc8e4c2e235e359fa4b08320129", "bytes": 13293, "localEqualsRemote": true},
+    {"path": "native/weapons-visual/tests/test_inspection.py", "gitBlob": "6d3f50ab2ce66109dfbdc2c6103ff2a7fc5b31cf", "bytes": 12828, "localEqualsRemote": true},
+    {"path": "native/weapons-visual/tools/inspection_probe.py", "gitBlob": "bf8b2135792184497712c1e9e6947964d646b612", "bytes": 5744, "localEqualsRemote": true}
+  ],
+  "assetGuard": {
+    "scope": "native/weapons-visual",
+    "before": "passed",
+    "after": "passed",
+    "findings": [],
+    "isHeuristic": true,
+    "wholeRepositoryCertified": false
+  },
+  "limitations": [
+    "Coordinate consistency on a declared new generator convention does not establish the correct visual orientation of an as-yet-unbuilt Aircraft model.",
+    "Material edits currently change validated state only; this turn did not render a new PBR surface.",
+    "Every-fifth accent is a user-requested visual preset, not a historical ammunition claim. Tracer, cases and feed visuals are not yet rendered.",
+    "Full exterior evidence, aircraft mount selection, complete object geometry and a new interactive workbench remain outstanding.",
+    "Solo visibility is a visual-content mask. A renderer must keep ancestor transform groups traversable when showing a child.",
+    "Persistence checks cover schemas and identities, not arbitrary hostile in-process mutation. State integration assumes one writer."
+  ],
+  "nextActualDeliverable": "Evidence-backed complete Aircraft exterior and native interactive workbench; no coupon or empty panel to be passed off as the finished asset.",
+  "retiredS01Restored": false,
+  "productionReady": false,
+  "visualAcceptance": false
+}
