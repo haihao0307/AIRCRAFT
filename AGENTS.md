@@ -1,5 +1,9 @@
 # AIRCRAFT repository guidance
 
+## Weapons Mother latest user decision (2026-09-05)
+
+For Weapons Mother work, read `docs/weapons-mother/RESTART_START_HERE.md` before any historical handoff or learning note. The user has rejected S01 and requested its deletion, selecting a single clean Aircraft aviation-gun digital-asset line. Do not restore S01, continue its transform patches, or require the old two-project UI. Recover only individually validated visual-animation or component assets from older work as donors. The complete Aircraft original is not yet acquired in this restart; source identification is not source recovery or orientation approval. Other aircraft, B24 whole-aircraft and livery work remain unchanged.
+
 ## Authority
 
 ChatGPT is the upstream controller for research, aircraft-system analysis, geometry decisions, behavior design, surface design, variant judgment, conflict resolution and approval.
