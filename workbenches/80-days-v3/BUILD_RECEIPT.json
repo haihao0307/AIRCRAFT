@@ -1,0 +1,30 @@
+{
+  "schema": "b24-livery-workbench-build@1",
+  "version": "3.0.0",
+  "bytes": 2661118,
+  "sha256": "4ce18e98b3b3a75177932b3ec05a956e931233689f9ee0e4ae8eafc7b3d30731",
+  "sourceCommit": "4fbd2a3ee89392b13d6ca7209d743cc6c2d095d5",
+  "threeVersion": "0.169.0",
+  "threeModuleSHA256": "f7cee3c7533449a1505cc12cb5128b89e3d4fd3d7ea62b05f9f5464a217472ee",
+  "photos": {
+    "port": {
+      "url": "https://asisbiz.com/il2/B-24/308BG/images/42-73257-B-24J-Liberator-14AF-308BG374BS-no-487-named-80-Days-nose-art-left-side-China-01.jpg",
+      "sha256": "07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa",
+      "width": 2000,
+      "height": 1243,
+      "bytes": 1006009
+    },
+    "starboard": {
+      "url": "https://dainthecbi.com/images/pitterle/80-days.jpg",
+      "sha256": "4ffd9160fba0d00ffd47e4925bcddc55c4efde800e17e3b73afc26007b248c06",
+      "width": 640,
+      "height": 490,
+      "bytes": 89210
+    }
+  },
+  "modelSHA256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+  "modelBytes": 23085972,
+  "modelBinding": 0,
+  "visualAcceptance": false,
+  "productionReady": false
+}

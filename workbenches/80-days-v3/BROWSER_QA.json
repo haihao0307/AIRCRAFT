@@ -1,0 +1,247 @@
+{
+  "schema": "b24-workbench-browser-qa@1",
+  "visualAcceptance": false,
+  "productionReady": false,
+  "tests": [
+    {
+      "name": "desktop initializes",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "desktop no horizontal overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "interactive frames render",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "initial load did not fetch plane",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel base",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel roughness",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel normal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel metalness",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel height",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel decal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel views differ",
+      "passed": true,
+      "detail": {
+        "base": "eb498f6bf41a26d1d03b83d8d647357af1ab362a21869258f75693a63d5f3db0",
+        "roughness": "4de826e9a08ae744d6e440487a13690c62ec8ee0207e0369d67afcb199622153",
+        "normal": "c19c51bfd47aa1c62d210eb2d26cafbdac5b304a41f68f39923477413d6a325e",
+        "metalness": "78bd4302c3e05d52048795e4d4312319bd772f43eb9e37cd75f6bd23944d82d4",
+        "height": "82acd3938fd76da592e3bfb8aaecc2a9be01b0a8f0e8933fe73909cd74162433",
+        "decal": "3763a3841cce1351dd538a357b3840822614a2186a100388434c76de52196c33"
+      }
+    },
+    {
+      "name": "light raking",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "light studio",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "light neutral",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "roughness control rebuilds",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "independent side switches",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "200 percent source view",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "five learning cards",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "settings export retains zero binding and pending review",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reset restores state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exact source model passes hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "model remains unbound",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sample remains after plane view",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no desktop page errors",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "no desktop failed requests",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "mobile initializes",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "mobile no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "mobile controls respond",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no browser page errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "modelTransport": "local route fulfills exact authoritative bytes; public network not tested",
+  "desktopInitial": {
+    "ready": true,
+    "errors": [],
+    "frames": 63,
+    "modelVerified": false,
+    "modelBinding": 0,
+    "visualAcceptance": false,
+    "sourceSHA256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "couponRivets": 97,
+    "mapRevision": 1,
+    "initMs": 2620,
+    "state": {
+      "side": "port",
+      "mode": "sample",
+      "channel": "beauty",
+      "light": "neutral",
+      "paint": "#666548",
+      "rough": 0.67,
+      "fade": 0.35,
+      "wear": 0.3,
+      "relief": 0.65,
+      "exposure": 1.1,
+      "art": true,
+      "grime": true,
+      "structure": true,
+      "overlay": true,
+      "opacity": 0.5
+    },
+    "fps": 3
+  },
+  "aircraft": {
+    "ready": true,
+    "errors": [],
+    "frames": 476,
+    "modelVerified": true,
+    "modelBinding": 0,
+    "visualAcceptance": false,
+    "sourceSHA256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "couponRivets": 97,
+    "mapRevision": 4,
+    "initMs": 2620,
+    "fps": 22,
+    "modelBytes": 23085972,
+    "sourceExtent": [
+      33.07705116271973,
+      5.0038755088246205,
+      20.85940933227539
+    ],
+    "animationClips": 1
+  },
+  "mobileFinal": {
+    "ready": true,
+    "errors": [],
+    "frames": 50,
+    "modelVerified": false,
+    "modelBinding": 0,
+    "visualAcceptance": false,
+    "sourceSHA256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "couponRivets": 33,
+    "mapRevision": 2,
+    "initMs": 20653,
+    "state": {
+      "side": "starboard",
+      "mode": "sample",
+      "channel": "beauty",
+      "light": "neutral",
+      "paint": "#666548",
+      "rough": 0.67,
+      "fade": 0.35,
+      "wear": 0.3,
+      "relief": 0.65,
+      "exposure": 1.1,
+      "art": true,
+      "grime": true,
+      "structure": true,
+      "overlay": true,
+      "opacity": 0.5
+    },
+    "fps": 0
+  },
+  "result": "passed",
+  "htmlSHA256": "4ce18e98b3b3a75177932b3ec05a956e931233689f9ee0e4ae8eafc7b3d30731",
+  "browser": "Chromium, headless software-rendering CI; not physical mobile hardware"
+}
