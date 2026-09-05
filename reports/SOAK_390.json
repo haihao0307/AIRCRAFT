@@ -1,0 +1,3388 @@
+{
+  "viewport": [
+    390,
+    844
+  ],
+  "rate": 1,
+  "seeks": 0,
+  "requestedLoops": 2,
+  "samples": [
+    {
+      "t": 1.7998999999999996,
+      "loops": 0,
+      "phase": "ready",
+      "running": true,
+      "frames": 8,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 3.6165000000000003,
+      "loops": 0,
+      "phase": "ready",
+      "running": true,
+      "frames": 9,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 5.1831000000000005,
+      "loops": 0,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 10,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 9.5996,
+      "loops": 0,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 13,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 11.282900000000001,
+      "loops": 0,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 15,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 11.282900000000001,
+      "loops": 0,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 15,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 15.449600000000002,
+      "loops": 0,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 17,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 17.066200000000002,
+      "loops": 0,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 18,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 18.6827,
+      "loops": 0,
+      "phase": "warmup",
+      "running": true,
+      "frames": 19,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 20.316100000000002,
+      "loops": 0,
+      "phase": "warmup",
+      "running": true,
+      "frames": 20,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 23.4659,
+      "loops": 0,
+      "phase": "warmup",
+      "running": true,
+      "frames": 22,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 25.065800000000003,
+      "loops": 0,
+      "phase": "warmup",
+      "running": true,
+      "frames": 24,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 25.065800000000003,
+      "loops": 0,
+      "phase": "warmup",
+      "running": true,
+      "frames": 24,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 29.5157,
+      "loops": 0,
+      "phase": "taxi",
+      "running": true,
+      "frames": 26,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 31.249000000000002,
+      "loops": 0,
+      "phase": "taxi",
+      "running": true,
+      "frames": 28,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 32.782199999999996,
+      "loops": 0,
+      "phase": "taxi",
+      "running": true,
+      "frames": 29,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 34.3822,
+      "loops": 0,
+      "phase": "taxi",
+      "running": true,
+      "frames": 30,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 37.3821,
+      "loops": 0,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 31,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 38.932,
+      "loops": 0,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 32,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 40.4819,
+      "loops": 0,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 33,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 43.581799999999994,
+      "loops": 0,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 35,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 45.198299999999996,
+      "loops": 0,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 37,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 46.7317,
+      "loops": 0,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 38,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 48.3482,
+      "loops": 0,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 39,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 49.9315,
+      "loops": 0,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 40,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 52.8981,
+      "loops": 0,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 41,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 54.398,
+      "loops": 0,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 42,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 57.447900000000004,
+      "loops": 0,
+      "phase": "rotate",
+      "running": true,
+      "frames": 45,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 58.8811,
+      "loops": 0,
+      "phase": "rotate",
+      "running": true,
+      "frames": 46,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 61.7811,
+      "loops": 0,
+      "phase": "rotate",
+      "running": true,
+      "frames": 48,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 63.230999999999995,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 49,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 64.6976,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 50,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 67.6142,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 52,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 69.0974,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 53,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 70.61399999999999,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 54,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 72.01389999999999,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 55,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 74.9472,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 56,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 76.41379999999998,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 57,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 79.33039999999998,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 59,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 80.76369999999999,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 60,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 83.51349999999996,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 62,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 85.44669999999998,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 64,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 87.82999999999996,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 67,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 88.96329999999996,
+      "loops": 0,
+      "phase": "climb",
+      "running": true,
+      "frames": 68,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 91.22989999999997,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 70,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 91.22989999999997,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 70,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 95.31309999999996,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 72,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 96.62969999999997,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 73,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 99.52949999999997,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 76,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 101.26279999999997,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 81,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 103.64599999999997,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 84,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 105.29599999999998,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 86,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 107.79579999999999,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 89,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 109.3291,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 91,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 111.5624,
+      "loops": 0,
+      "phase": "cruise",
+      "running": true,
+      "frames": 94,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 113.8289,
+      "loops": 0,
+      "phase": "bay-open",
+      "running": true,
+      "frames": 97,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 115.41220000000001,
+      "loops": 0,
+      "phase": "bay-open",
+      "running": true,
+      "frames": 100,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 117.92880000000002,
+      "loops": 0,
+      "phase": "bay-open",
+      "running": true,
+      "frames": 108,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 119.62870000000002,
+      "loops": 0,
+      "phase": "release",
+      "running": true,
+      "frames": 111,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 1
+    },
+    {
+      "t": 121.17870000000002,
+      "loops": 0,
+      "phase": "release",
+      "running": true,
+      "frames": 113,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 2
+    },
+    {
+      "t": 123.96190000000001,
+      "loops": 0,
+      "phase": "release",
+      "running": true,
+      "frames": 117,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 4
+    },
+    {
+      "t": 125.74510000000001,
+      "loops": 0,
+      "phase": "release",
+      "running": true,
+      "frames": 125,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 4
+    },
+    {
+      "t": 127.9451,
+      "loops": 0,
+      "phase": "bay-close",
+      "running": true,
+      "frames": 128,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 4
+    },
+    {
+      "t": 129.81170000000003,
+      "loops": 0,
+      "phase": "bay-close",
+      "running": true,
+      "frames": 131,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 6
+    },
+    {
+      "t": 132.64490000000004,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 140,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 10
+    },
+    {
+      "t": 135.32810000000006,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 149,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 137.46140000000003,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 158,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 139.44460000000004,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 166,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 141.4779,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 173,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 143.71110000000002,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 181,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 145.1944,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 183,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 147.19430000000003,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 185,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 149.91080000000002,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 188,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 152.11080000000007,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 197,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 154.06070000000005,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 199,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 156.07730000000006,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 201,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 160.91040000000004,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 209,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 162.94370000000006,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 214,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 164.67690000000005,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 217,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 166.46020000000007,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 219,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 168.69350000000009,
+      "loops": 0,
+      "phase": "return",
+      "running": true,
+      "frames": 222,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 170.8434000000001,
+      "loops": 0,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 228,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 172.5932000000001,
+      "loops": 0,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 230,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 174.2932000000001,
+      "loops": 0,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 232,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 176.77650000000008,
+      "loops": 0,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 235,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 178.17640000000006,
+      "loops": 0,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 238,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 180.95960000000008,
+      "loops": 0,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 241,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 181.94290000000007,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 242,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 184.65940000000006,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 244,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 186.77600000000007,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 246,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 188.72600000000006,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 248,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 190.54250000000005,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 250,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 192.30910000000006,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 252,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 194.99240000000003,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 255,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 194.99240000000003,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 255,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 198.84230000000008,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 257,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 200.24220000000008,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 258,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 201.7588000000001,
+      "loops": 0,
+      "phase": "approach",
+      "running": true,
+      "frames": 259,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 204.8419000000001,
+      "loops": 0,
+      "phase": "flare",
+      "running": true,
+      "frames": 261,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 206.27530000000013,
+      "loops": 0,
+      "phase": "flare",
+      "running": true,
+      "frames": 262,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 208.0752000000001,
+      "loops": 0,
+      "phase": "flare",
+      "running": true,
+      "frames": 264,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 210.4585000000001,
+      "loops": 0,
+      "phase": "rollout",
+      "running": true,
+      "frames": 267,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 212.9750000000001,
+      "loops": 0,
+      "phase": "rollout",
+      "running": true,
+      "frames": 268,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 214.39160000000012,
+      "loops": 0,
+      "phase": "rollout",
+      "running": true,
+      "frames": 269,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 216.05820000000014,
+      "loops": 0,
+      "phase": "rollout",
+      "running": true,
+      "frames": 270,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 217.77480000000017,
+      "loops": 0,
+      "phase": "rollout",
+      "running": true,
+      "frames": 272,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 221.02470000000017,
+      "loops": 0,
+      "phase": "rollout",
+      "running": true,
+      "frames": 274,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 222.70790000000014,
+      "loops": 0,
+      "phase": "rollout",
+      "running": true,
+      "frames": 275,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 223.80790000000013,
+      "loops": 0,
+      "phase": "rollout",
+      "running": true,
+      "frames": 276,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 226.97450000000015,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 278,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 228.55770000000015,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 279,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 230.12440000000012,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 280,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 231.70760000000013,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 281,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 234.87410000000014,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 283,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 236.40740000000014,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 284,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 237.94060000000016,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 285,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 240.94060000000016,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 287,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 242.44040000000015,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 288,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 244.02370000000016,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 289,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 247.04030000000017,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 291,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 248.62360000000015,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 292,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 250.17350000000016,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 293,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 250.17350000000016,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 293,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 254.79000000000016,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 295,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 256.37320000000017,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 296,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 258.0065000000002,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 297,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 259.8065000000002,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 299,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 263.0730000000002,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 301,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 264.6062000000002,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 302,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 266.30620000000016,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 303,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 266.30620000000016,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 303,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 271.0060000000002,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 305,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 272.57270000000017,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 306,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 274.1226000000002,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 307,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 277.27240000000023,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 309,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 278.8723000000003,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 311,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 280.40570000000025,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 312,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 281.9555000000003,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 313,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 283.55550000000034,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 314,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 286.5054000000003,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 315,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 288.2554000000003,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 317,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 289.8052000000003,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 318,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 292.9385000000004,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 320,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 292.9385000000004,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 320,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 296.07160000000033,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 321,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 299.3049000000003,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 323,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 300.88810000000035,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 324,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 302.47140000000036,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 325,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 305.00470000000035,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 327,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 307.32130000000035,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 329,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 307.32130000000035,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 329,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 310.53780000000035,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 330,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 312.17100000000033,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 331,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 313.8043000000003,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 332,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 317.12080000000026,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 335,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 318.70410000000027,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 336,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 320.3207000000002,
+      "loops": 0,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 337,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 321.90390000000025,
+      "loops": 0,
+      "phase": "shutdown",
+      "running": true,
+      "frames": 338,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 325.1038000000003,
+      "loops": 0,
+      "phase": "shutdown",
+      "running": true,
+      "frames": 340,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 326.6871000000003,
+      "loops": 0,
+      "phase": "shutdown",
+      "running": true,
+      "frames": 341,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 328.33700000000033,
+      "loops": 0,
+      "phase": "shutdown",
+      "running": true,
+      "frames": 342,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 328.33700000000033,
+      "loops": 0,
+      "phase": "shutdown",
+      "running": true,
+      "frames": 342,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 1.6165999999999767,
+      "loops": 1,
+      "phase": "ready",
+      "running": true,
+      "frames": 345,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 3.183200000000012,
+      "loops": 1,
+      "phase": "ready",
+      "running": true,
+      "frames": 346,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 4.699799999999988,
+      "loops": 1,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 347,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 7.683,
+      "loops": 1,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 349,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 9.166299999999989,
+      "loops": 1,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 350,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 11.999500000000001,
+      "loops": 1,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 351,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 13.43279999999999,
+      "loops": 1,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 352,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 14.866000000000001,
+      "loops": 1,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 353,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 17.78259999999998,
+      "loops": 1,
+      "phase": "engine-start",
+      "running": true,
+      "frames": 355,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 19.23259999999998,
+      "loops": 1,
+      "phase": "warmup",
+      "running": true,
+      "frames": 356,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 20.7325,
+      "loops": 1,
+      "phase": "warmup",
+      "running": true,
+      "frames": 357,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 23.632400000000025,
+      "loops": 1,
+      "phase": "warmup",
+      "running": true,
+      "frames": 359,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 25.299000000000003,
+      "loops": 1,
+      "phase": "warmup",
+      "running": true,
+      "frames": 360,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 26.832299999999993,
+      "loops": 1,
+      "phase": "taxi",
+      "running": true,
+      "frames": 361,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 29.915500000000005,
+      "loops": 1,
+      "phase": "taxi",
+      "running": true,
+      "frames": 363,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 31.465400000000027,
+      "loops": 1,
+      "phase": "taxi",
+      "running": true,
+      "frames": 364,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 33.01529999999999,
+      "loops": 1,
+      "phase": "taxi",
+      "running": true,
+      "frames": 365,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 34.582,
+      "loops": 1,
+      "phase": "taxi",
+      "running": true,
+      "frames": 366,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 37.66520000000001,
+      "loops": 1,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 368,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 39.21509999999998,
+      "loops": 1,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 369,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 40.848299999999995,
+      "loops": 1,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 371,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 43.89820000000002,
+      "loops": 1,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 372,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 45.481500000000004,
+      "loops": 1,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 373,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 47.014799999999994,
+      "loops": 1,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 374,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 48.68140000000003,
+      "loops": 1,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 375,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 51.76459999999999,
+      "loops": 1,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 377,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 53.28120000000002,
+      "loops": 1,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 378,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 54.76440000000003,
+      "loops": 1,
+      "phase": "takeoff",
+      "running": true,
+      "frames": 379,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 57.71440000000003,
+      "loops": 1,
+      "phase": "rotate",
+      "running": true,
+      "frames": 381,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 59.2143,
+      "loops": 1,
+      "phase": "rotate",
+      "running": true,
+      "frames": 382,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 60.69750000000001,
+      "loops": 1,
+      "phase": "rotate",
+      "running": true,
+      "frames": 383,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 63.6308,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 385,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 65.09740000000004,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 386,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 68.03070000000002,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 388,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 69.4973,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 389,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 70.94720000000002,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 391,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 73.88040000000004,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 392,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 75.36370000000002,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 393,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 76.8135,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 394,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 79.68020000000001,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 396,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 81.06340000000003,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 397,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 83.38000000000001,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 399,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 85.62990000000003,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 401,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 87.9798,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 403,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 89.16309999999999,
+      "loops": 1,
+      "phase": "climb",
+      "running": true,
+      "frames": 404,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 91.72970000000001,
+      "loops": 1,
+      "phase": "cruise",
+      "running": true,
+      "frames": 406,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 93.11290000000002,
+      "loops": 1,
+      "phase": "cruise",
+      "running": true,
+      "frames": 407,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 95.74609999999998,
+      "loops": 1,
+      "phase": "cruise",
+      "running": true,
+      "frames": 409,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 98.07940000000004,
+      "loops": 1,
+      "phase": "cruise",
+      "running": true,
+      "frames": 413,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 100.19600000000001,
+      "loops": 1,
+      "phase": "cruise",
+      "running": true,
+      "frames": 417,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 101.82920000000003,
+      "loops": 1,
+      "phase": "cruise",
+      "running": true,
+      "frames": 419,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 103.51250000000002,
+      "loops": 1,
+      "phase": "cruise",
+      "running": true,
+      "frames": 421,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 105.96240000000004,
+      "loops": 1,
+      "phase": "cruise",
+      "running": true,
+      "frames": 424,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 108.24570000000004,
+      "loops": 1,
+      "phase": "cruise",
+      "running": true,
+      "frames": 427,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 109.72890000000005,
+      "loops": 1,
+      "phase": "cruise",
+      "running": true,
+      "frames": 429,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 112.01220000000005,
+      "loops": 1,
+      "phase": "bay-open",
+      "running": true,
+      "frames": 433,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 113.62880000000003,
+      "loops": 1,
+      "phase": "bay-open",
+      "running": true,
+      "frames": 435,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 115.91200000000003,
+      "loops": 1,
+      "phase": "bay-open",
+      "running": true,
+      "frames": 437,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 118.16190000000005,
+      "loops": 1,
+      "phase": "release",
+      "running": true,
+      "frames": 444,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    },
+    {
+      "t": 119.84520000000003,
+      "loops": 1,
+      "phase": "release",
+      "running": true,
+      "frames": 450,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 1
+    },
+    {
+      "t": 122.0451,
+      "loops": 1,
+      "phase": "release",
+      "running": true,
+      "frames": 452,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 3
+    },
+    {
+      "t": 123.72840000000005,
+      "loops": 1,
+      "phase": "release",
+      "running": true,
+      "frames": 454,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 4
+    },
+    {
+      "t": 126.19490000000005,
+      "loops": 1,
+      "phase": "bay-close",
+      "running": true,
+      "frames": 462,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 4
+    },
+    {
+      "t": 128.0115,
+      "loops": 1,
+      "phase": "bay-close",
+      "running": true,
+      "frames": 467,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 4
+    },
+    {
+      "t": 129.57820000000004,
+      "loops": 1,
+      "phase": "bay-close",
+      "running": true,
+      "frames": 469,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 4
+    },
+    {
+      "t": 130.44480000000001,
+      "loops": 1,
+      "phase": "bay-close",
+      "running": true,
+      "frames": 470,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 6
+    },
+    {
+      "t": 135.0946,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 478,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 137.0778,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 486,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 139.14449999999997,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 495,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 141.07769999999996,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 503,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 142.47769999999997,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 510,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 144.47749999999996,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 512,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 146.46079999999995,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 514,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 147.49409999999995,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 515,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 151.144,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 521,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 152.61050000000003,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 525,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 154.62720000000004,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 527,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 156.59370000000004,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 529,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 160.17690000000007,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 538,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 162.47680000000005,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 542,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 164.2434000000001,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 544,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 166.37670000000008,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 548,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 168.1100000000001,
+      "loops": 1,
+      "phase": "return",
+      "running": true,
+      "frames": 552,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 171.19310000000007,
+      "loops": 1,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 558,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 173.62640000000013,
+      "loops": 1,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 562,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 175.35960000000009,
+      "loops": 1,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 564,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 177.29290000000015,
+      "loops": 1,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 566,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 179.6762000000001,
+      "loops": 1,
+      "phase": "gear-down",
+      "running": true,
+      "frames": 568,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 181.62610000000006,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 570,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 182.6593000000001,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 572,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 185.42590000000013,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 575,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 186.2425000000001,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 576,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 189.00910000000007,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 578,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 191.32570000000007,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 580,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 193.24220000000008,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 582,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 195.3756000000001,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 584,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 197.3087000000001,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 586,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 198.69200000000015,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 587,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 201.4753000000002,
+      "loops": 1,
+      "phase": "approach",
+      "running": true,
+      "frames": 589,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 202.6419000000002,
+      "loops": 1,
+      "phase": "flare",
+      "running": true,
+      "frames": 591,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 205.5584000000002,
+      "loops": 1,
+      "phase": "flare",
+      "running": true,
+      "frames": 593,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 207.12500000000017,
+      "loops": 1,
+      "phase": "flare",
+      "running": true,
+      "frames": 594,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 209.54160000000016,
+      "loops": 1,
+      "phase": "flare",
+      "running": true,
+      "frames": 595,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 210.8249000000002,
+      "loops": 1,
+      "phase": "rollout",
+      "running": true,
+      "frames": 596,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 213.87480000000022,
+      "loops": 1,
+      "phase": "rollout",
+      "running": true,
+      "frames": 598,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 215.20810000000014,
+      "loops": 1,
+      "phase": "rollout",
+      "running": true,
+      "frames": 599,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 216.7247000000001,
+      "loops": 1,
+      "phase": "rollout",
+      "running": true,
+      "frames": 601,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 219.0913000000002,
+      "loops": 1,
+      "phase": "rollout",
+      "running": true,
+      "frames": 603,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 220.49110000000013,
+      "loops": 1,
+      "phase": "rollout",
+      "running": true,
+      "frames": 604,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 223.7244000000002,
+      "loops": 1,
+      "phase": "rollout",
+      "running": true,
+      "frames": 606,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 225.34100000000018,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 607,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 225.34100000000018,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 607,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 228.4908000000002,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 609,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 231.5574000000002,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 611,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 233.12400000000017,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 612,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 233.12400000000017,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 612,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 237.69050000000018,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 614,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 239.22380000000024,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 615,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 240.75710000000018,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 616,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 243.8236000000002,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 619,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 245.35680000000028,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 620,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 246.9068000000003,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 621,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 248.4901000000002,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 622,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 251.5233000000003,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 624,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 253.05660000000023,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 625,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 254.5898000000003,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 626,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 257.78970000000027,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 628,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 259.4730000000003,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 629,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 261.20620000000025,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 630,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 261.20620000000025,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 630,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 265.9561000000003,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 632,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 267.60590000000036,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 634,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 269.12250000000034,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 635,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 270.6892000000003,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 636,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 272.2724000000004,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 637,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 275.4390000000004,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 639,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 276.9723000000005,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 640,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 278.58880000000045,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 641,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 281.78870000000035,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 643,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 281.78870000000035,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 643,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 284.8386000000004,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 644,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 288.03850000000045,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 647,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 289.62170000000043,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 648,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 291.1550000000005,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 649,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 292.72170000000045,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 650,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 295.97140000000053,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 652,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 295.97140000000053,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 652,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 299.07140000000055,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 653,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 300.6546000000005,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 654,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 303.8379000000006,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 657,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 305.5044000000006,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 658,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 307.0044000000006,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 659,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 308.60430000000065,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 660,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 310.30420000000055,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 661,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 313.4875000000006,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 662,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 315.13740000000064,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 664,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 315.13740000000064,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 664,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 319.97050000000064,
+      "loops": 1,
+      "phase": "taxi-back",
+      "running": true,
+      "frames": 667,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 321.6205000000006,
+      "loops": 1,
+      "phase": "shutdown",
+      "running": true,
+      "frames": 668,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 323.1538000000007,
+      "loops": 1,
+      "phase": "shutdown",
+      "running": true,
+      "frames": 669,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 324.7870000000006,
+      "loops": 1,
+      "phase": "shutdown",
+      "running": true,
+      "frames": 670,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 327.8535000000006,
+      "loops": 1,
+      "phase": "shutdown",
+      "running": true,
+      "frames": 671,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 329.4201000000006,
+      "loops": 1,
+      "phase": "shutdown",
+      "running": true,
+      "frames": 672,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 12
+    },
+    {
+      "t": 0.06670000000006984,
+      "loops": 2,
+      "phase": "ready",
+      "running": true,
+      "frames": 674,
+      "finite": true,
+      "sourceMeshes": 348,
+      "effectChildren": 0
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "visualAcceptance": false,
+  "physicalDevicePerformanceTest": false,
+  "elapsedWallSeconds": 663.894170358,
+  "phasesObserved": [
+    "approach",
+    "bay-close",
+    "bay-open",
+    "climb",
+    "cruise",
+    "engine-start",
+    "flare",
+    "gear-down",
+    "ready",
+    "release",
+    "return",
+    "rollout",
+    "rotate",
+    "shutdown",
+    "takeoff",
+    "taxi",
+    "taxi-back",
+    "warmup"
+  ],
+  "events": [
+    {
+      "method": "release",
+      "loop": 0,
+      "time": 119.62870000000002
+    },
+    {
+      "method": "release",
+      "loop": 0,
+      "time": 121.17870000000002
+    },
+    {
+      "method": "release",
+      "loop": 0,
+      "time": 122.04530000000001
+    },
+    {
+      "method": "release",
+      "loop": 0,
+      "time": 123.96190000000001
+    },
+    {
+      "method": "explode",
+      "loop": 0,
+      "time": 129.81170000000003
+    },
+    {
+      "method": "explode",
+      "loop": 0,
+      "time": 131.41160000000005
+    },
+    {
+      "method": "explode",
+      "loop": 0,
+      "time": 132.64490000000004
+    },
+    {
+      "method": "explode",
+      "loop": 0,
+      "time": 134.29480000000007
+    },
+    {
+      "method": "release",
+      "loop": 1,
+      "time": 119.16190000000005
+    },
+    {
+      "method": "release",
+      "loop": 1,
+      "time": 121.22850000000003
+    },
+    {
+      "method": "release",
+      "loop": 1,
+      "time": 122.0451
+    },
+    {
+      "method": "release",
+      "loop": 1,
+      "time": 123.72840000000005
+    },
+    {
+      "method": "explode",
+      "loop": 1,
+      "time": 130.44480000000001
+    },
+    {
+      "method": "explode",
+      "loop": 1,
+      "time": 133.1946
+    },
+    {
+      "method": "explode",
+      "loop": 1,
+      "time": 133.1946
+    },
+    {
+      "method": "explode",
+      "loop": 1,
+      "time": 134.26130000000003
+    }
+  ],
+  "lastState": {
+    "t": 0.06670000000006984,
+    "loops": 2,
+    "phase": "ready",
+    "running": true,
+    "frames": 674,
+    "finite": true,
+    "sourceMeshes": 348,
+    "effectChildren": 0
+  }
+}
