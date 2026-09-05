@@ -1,0 +1,51 @@
+{
+  "sourceCommit": "f3a8e9edc3c2dc542d680aee469467e95211a31f",
+  "results": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "run": 33971144973,
+      "artifact": 9971178991,
+      "report": "reports/SOAK_1440.json",
+      "sha256": "7db40a6750abbd72dca054903a4de091b9d39e36e2151ca72f402c162f3dfb44",
+      "wallSeconds": 672.59511303,
+      "samples": 326,
+      "frames": 431,
+      "loops": 2,
+      "rate": 1,
+      "seeks": 0,
+      "releases": 8,
+      "impacts": 8,
+      "phases": 18,
+      "runtimeErrors": [],
+      "passed": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "run": 33971144973,
+      "artifact": 9971176016,
+      "report": "reports/SOAK_390.json",
+      "sha256": "0c9239fbc2a2e8141663dcbf3e59273c6b0c80ff307bbbdb52cc2d28517b7252",
+      "wallSeconds": 663.894170358,
+      "samples": 326,
+      "frames": 674,
+      "loops": 2,
+      "rate": 1,
+      "seeks": 0,
+      "releases": 8,
+      "impacts": 8,
+      "phases": 18,
+      "runtimeErrors": [],
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "hardware": "GitHub Linux Chromium SwiftShader; physical mobile test not run",
+  "visualAcceptance": false,
+  "productionReady": false
+}
