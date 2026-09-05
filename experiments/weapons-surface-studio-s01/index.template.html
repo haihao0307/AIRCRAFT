@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="dark"><title>Weapons Mother · Surface Studio S01</title><link rel="icon" href="data:,"><style>__STYLE__</style></head>
+<body>
+<header class="topbar"><div class="brand"><span class="brand-mark">W<span>M</span></span><div><b>WEAPONS MOTHER</b><small>SURFACE STUDIO <i>01</i></small></div></div><div class="header-middle"><span class="status-dot"></span>源数据保留 <span class="sep">/</span> 表面实验</div><div class="header-actions"><button id="source-info" class="quiet">来源与边界 <span>↗</span></button><button id="full-screen" class="icon-btn" title="全屏观察" aria-label="全屏观察">⛶</button></div></header>
+<div class="workspace">
+<aside id="panel" aria-label="材质参数面板">
+<div class="panel-top"><span class="overline">WORKSPACE</span><button class="mobile-only icon-btn" id="close-panel" aria-label="关闭参数面板">×</button></div>
+<div class="object-card"><div class="object-icon">01</div><div><strong>Aircraft AN/M2</strong><small>历史样本 · 核心外观</small></div><span class="status-dot"></span></div>
+<div class="source-note">取自已核验的 V016 恢复样本。<br>独立观察实验，未替换 R019。</div>
+<div class="section-title"><h2>表面方案</h2><span>01 / MATERIAL</span></div>
+<div class="preset-grid" id="presets"><button class="swatch selected" data-preset="balanced"><i class="swatch-steel"></i><span>深钢</span></button><button class="swatch" data-preset="dry"><i class="swatch-dry"></i><span>哑光</span></button><button class="swatch" data-preset="oiled"><i class="swatch-oil"></i><span>油膜</span></button></div>
+<p class="micro">自由观察参数，不作为历史表面判定。</p>
+<div id="material-controls">
+<label class="parameter" for="wear"><span>表层变化 <small>WEAR</small><output id="wear-value">0.32</output></span><input id="wear" type="range" min="0" max="1" step=".01" value=".32"></label>
+<label class="parameter" for="oil"><span>油膜 <small>OIL</small><output id="oil-value">0.28</output></span><input id="oil" type="range" min="0" max="1" step=".01" value=".28"></label>
+<label class="parameter" for="oxidation"><span>氧化候选 <small>OXIDATION</small><output id="oxidation-value">0.12</output></span><input id="oxidation" type="range" min="0" max="1" step=".01" value=".12"></label>
+<label class="parameter" for="roughness"><span>粗糙度 <small>ROUGHNESS</small><output id="roughness-value">0.50</output></span><input id="roughness" type="range" min="0" max="1" step=".01" value=".50"></label>
+<label class="parameter" for="detail"><span>微细节 <small>DETAIL</small><output id="detail-value">0.68</output></span><input id="detail" type="range" min="0" max="1" step=".01" value=".68"></label>
+</div>
+<div class="section-title"><h2>观察通道</h2><span>02 / INSPECT</span></div>
+<div class="channel-grid" id="channels"><button class="selected" data-channel="surface">完整材质</button><button data-channel="color">底色</button><button data-channel="roughness">粗糙度</button><button data-channel="normal">源法线</button><button data-channel="uv">UV 格纹</button><button data-channel="wire">三角网格</button></div>
+<div class="section-title"><h2>光照</h2><span>03 / LIGHT</span></div>
+<div class="light-grid"><button class="selected" data-light="studio">摄影棚</button><button data-light="neutral">中性</button><button data-light="grazing">掠射</button></div>
+<label class="parameter" for="exposure"><span>曝光 <small>EXPOSURE</small><output id="exposure-value">1.10</output></span><input id="exposure" type="range" min="0.5" max="1.8" step=".01" value="1.1"></label>
+<div class="save-row"><button id="save-state">保存参数</button><button id="load-state">载入</button><button id="reset-material" title="恢复本次实验的初始参数">重置</button></div><input type="file" id="state-file" accept="application/json,.json" hidden>
+<div class="panel-bottom"><span class="status-dot"></span><span id="status" role="status">正在核对源数据</span></div>
+</aside>
+<main id="stage" aria-label="可交互三维外观观察台">
+<canvas id="viewport" aria-label="AN/M2 历史样本三维外观"></canvas>
+<div class="stage-heading"><div class="overline">MATERIAL EXPLORATION <span> / S01</span></div><h1>质感，来自层次。</h1><p>同一份几何，观察光与表面的关系。</p></div>
+<div class="stage-tools"><button id="compare" class="glass-btn" aria-pressed="false"><span class="compare-icon"></span><span>A/B 同镜头对照</span></button><button id="rotate" class="glass-btn square" title="自动环绕观察" aria-label="自动环绕观察" aria-pressed="false">↻</button></div>
+<div id="compare-overlay" hidden><span class="compare-a">A <b>源材质参数</b></span><span class="compare-b">B <b>本轮表面候选</b></span><div id="divider"><span>‹ ›</span></div><input id="split" type="range" min="10" max="90" value="50" aria-label="移动新旧对照分界线"></div>
+<div class="object-caption"><div><span class="tiny-dot"></span><strong id="focus-caption">AN/M2 CORE</strong><span id="focus-detail">8 个源网格 / 仅外观观察</span></div><small id="channel-caption">SOURCE-BOUND MATERIAL STUDY</small></div>
+<div class="view-dock"><span class="dock-label">镜头</span><button class="selected" data-view="hero">整体</button><button data-view="side">侧面</button><button data-view="top">俯视</button><button data-view="detail">表面特写</button><span class="dock-sep"></span><button id="reset-view" title="重置镜头和环绕">复位 <kbd>F</kbd></button></div>
+<button id="open-panel" class="mobile-panel-button">调整材质 <span>☷</span></button>
+<div class="stage-bottom"><span>拖动旋转 · 滚轮缩放 · 右键平移 · 双击聚焦</span><span><b id="fps">0</b> FPS <i></i> <b id="triangle-count">0</b> TRI</span></div>
+<div id="loading"><span class="loading-ring"></span><strong>正在准备表面观察</strong><small id="load-state-text">核验历史样本与几何访问器</small></div>
+<div id="runtime-error" hidden role="alert"></div>
+</main></div>
+<dialog id="source-dialog"><div class="dialog-top"><span class="overline">SOURCE & SCOPE</span><button id="close-source" class="icon-btn" aria-label="关闭来源说明">×</button></div><h2>先保留依据，再改变表现。</h2><p>这是独立的材质与面板实验 S01。当前展示 V016 历史恢复包中的 AN/M2 核心外观，未替代 R019 生产工作台。</p><div class="receipt-grid"><span>源几何 / UV</span><b id="integrity-summary">核验中</b><span>产品基础体重画</span><b>0</b><span>新增产品贴图</span><b>0</b><span>浏览器 GLB 加载</span><b>0</b><span>历史材质判定</span><b>未完成</b><span>人工视觉接受</span><b>待审阅</b></div><p class="micro">A/B 使用相同镜头、光照、曝光和源网格。A 保留历史样本的材质参数；B 为本轮实现的程序化表面候选。表层变化与氧化分布为视觉实验，不能用来证明历史磨损。</p><p class="micro">源 UV 原样保留。其中一个源网格没有 UV；格纹诊断会用纯色标出，不自动生成 UV。B24 炮位、射击动画与内部机构不在本页试验范围，已有生产文件保持不变。</p><details><summary>查看源身份</summary><pre id="source-receipt"></pre></details><div class="dialog-footer">Blender / Designer 方法学习 · Three.js r170 实现<br>本页自包含，可离线观察。无外部脚本、字体或资产请求。</div></dialog>
+<div id="toast" role="status"></div><script id="packed-asset" type="application/octet-stream">__ASSET__</script>
+<script>__RUNTIME__</script>
+</body></html>
