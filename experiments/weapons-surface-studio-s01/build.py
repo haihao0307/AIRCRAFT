@@ -59,11 +59,15 @@ def build(source,vendor,output,session_path):
  d=export_subset(source);js,exp=strip_exports((vendor/'three.module.js').read_text());three='const THREE=(()=>{\n'+js+'\nreturn {'+exp+'};})();'
  orbit=(vendor/'OrbitControls.js').read_text();orbit=re.sub(r"import\s*\{([^}]+)\}\s*from\s*'three';",r'const {\1}=THREE;',orbit);orbit,exp=strip_exports(orbit);orbit='const {OrbitControls}=(()=>{\n'+orbit+'\nreturn {'+exp+'};})();'
  session=session_path.read_text();session=re.sub(r'\bexport\s+(?=(?:const|function))','',session);session='const WMState=(()=>{\n'+session+'\nreturn {createSession,PARAMS,SCHEMA};})();'
- app=(HERE/'studio.mjs').read_text();app=re.sub(r'^import .*?;\s*$','',app,flags=re.M);code=(three+'\n'+orbit+'\n'+session+'\n'+app).replace('</script','<\\/script')
+ app=(HERE/'studio.mjs').read_text()+'\n'+(HERE/'responsive-panel.mjs').read_text();app=re.sub(r'^import .*?;\s*$','',app,flags=re.M);code=(three+'\n'+orbit+'\n'+session+'\n'+app).replace('</script','<\\/script')
  packed=gzip.compress(json.dumps(d,separators=(',',':'),ensure_ascii=False).encode(),compresslevel=9,mtime=0)
+ # Python versions can emit different OS marker bytes for gzip mtime=0.
+ # Normalize that metadata only; compressed data and CRC remain untouched.
+ if packed[3]!=0:raise ValueError('Unexpected gzip flags')
+ packed=packed[:9]+b'\xff'+packed[10:]
  html=(HERE/'index.template.html').read_text().replace('__STYLE__',(HERE/'studio.css').read_text()).replace('__ASSET__',base64.b64encode(packed).decode()).replace('__RUNTIME__',code)
  output.parent.mkdir(parents=True,exist_ok=True);output.write_text(html,encoding='utf-8')
- receipt={**d['receipt'],'htmlBytes':output.stat().st_size,'htmlSha256':sha(output.read_bytes()),'renderer':'Three.js r170','vendorHashes':{n:sha((vendor/n).read_bytes()) for n in ['three.module.js','OrbitControls.js','THREE_LICENSE.txt']},'buildInputHashes':{n:sha((HERE/n).read_bytes()) for n in ['build.py','studio.mjs','studio.css','index.template.html']}}
+ receipt={**d['receipt'],'htmlBytes':output.stat().st_size,'htmlSha256':sha(output.read_bytes()),'renderer':'Three.js r170','vendorHashes':{n:sha((vendor/n).read_bytes()) for n in ['three.module.js','OrbitControls.js','THREE_LICENSE.txt']},'buildInputHashes':{n:sha((HERE/n).read_bytes()) for n in ['build.py','studio.mjs','studio.css','index.template.html','responsive-panel.mjs']}}
  output.with_suffix('.receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n');print(json.dumps(receipt,ensure_ascii=False,indent=2))
 if __name__=='__main__':
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=pathlib.Path,required=True);p.add_argument('--vendor',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--session',type=pathlib.Path,required=True);a=p.parse_args();build(a.source,a.vendor,a.output,a.session)
