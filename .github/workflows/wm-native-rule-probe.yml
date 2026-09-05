@@ -37,6 +37,7 @@ jobs:
       - name: Real Blender geometry and shader-graph probe
         run: |
           python native/weapons-visual/tools/blender_probe.py reports/blender-probe.json
+          python native/weapons-visual/tools/inspection_probe.py reports/inspection-blender-probe.json
           python native/weapons-visual/tools/check_release.py native/weapons-visual > reports/package-guard-after.json
       - name: Upload text reports only
         if: always()
