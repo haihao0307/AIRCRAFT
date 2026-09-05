@@ -90,6 +90,9 @@ export function install(api){
   const cinema=document.querySelector('[data-camera="cinema"]')?.classList.contains('active');
   state.impactFramed=state.enabled&&Boolean(api.effects.target)&&impactShot(time,api.effects.lastImpact,!cinema);
   if(state.impactFramed){target.copy(api.effects.target).add(new T.Vector3(0,5,0));eye.copy(target).add(new T.Vector3(48,23,60));api.camera.position.copy(eye);api.camera.lookAt(target);document.getElementById('shotLabel').textContent='落点与爆炸近景';}
+  // Preserve horizontal coverage on portrait screens; keep the impact close-up.
+  const zoom=innerWidth<650&&!state.impactFramed?Math.min(1,api.camera.aspect/1.22):1;
+  if(Math.abs(api.camera.zoom-zoom)>1e-5){api.camera.zoom=zoom;api.camera.updateProjectionMatrix();}
  }
  state.setEnabled=value=>{state.enabled=Boolean(value);applyMaterials();document.getElementById('r2Enabled').checked=state.enabled;};
  state.audit=()=>({enabled:state.enabled,weather:state.weather,fog:state.fog,surfaceCounts:state.surfaceCounts,rotorChannels:state.rotorChannels,bladeInstances:state.bladeInstances,warnings:[...warnings],lastRoll:state.lastRoll,impactFramed:state.impactFramed,frameCount:state.frameCount,sourceGeometryPreserved:rows.every(r=>plane.geometries.includes(r.mesh.geometry))});
@@ -98,6 +101,7 @@ export function install(api){
  document.getElementById('panel').insertBefore(box,document.querySelector('#panel section'));
  document.getElementById('r2Enabled').onchange=e=>state.setEnabled(e.target.checked);
  const footer=document.querySelector('#panel footer');if(footer)footer.textContent='V017 已确认保留 · V017.1 效果候选 · 天气与雾未接入';
+ const responsive=document.createElement('style');responsive.textContent='@media(max-width:650px){.wordmark small{display:none}.wordmark h1{font-size:14px;line-height:1.25;margin:0}.top{align-items:center}#panelToggle{white-space:nowrap;min-width:70px}}';document.head.append(responsive);
  applyMaterials();
  api.renderer.render=(scene,camera)=>{if(scene===api.scene&&camera===api.camera)update();return originalRender(scene,camera);};
  return state;

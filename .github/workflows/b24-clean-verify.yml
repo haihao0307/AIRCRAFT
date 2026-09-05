@@ -2,9 +2,20 @@ name: B24 clean source and browser verification
 on:
   push:
     branches: [feature/b24-v017-clean-restart-workbench]
+    paths:
+      - 'runtime/**'
+      - 'tools/build.py'
+      - 'tools/browser_qa.py'
+      - 'tools/effect-state.test.js'
+      - 'UPSTREAM_LOCK.json'
+      - 'package.json'
+      - '.github/workflows/b24-clean-verify.yml'
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: b24-clean-source-verification
+  cancel-in-progress: false
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -27,6 +38,19 @@ jobs:
         with:
           name: B24-clean-checks
           path: reports/
+      - name: Save complete clean source and dependencies
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: B24-clean-full-source
+          include-hidden-files: true
+          path: |
+            runtime/
+            tools/
+            knowledge/
+            *.md
+            *.json
+            .github/workflows/b24-clean-verify.yml
       - name: Commit verified standalone runtime
         if: success()
         run: |
