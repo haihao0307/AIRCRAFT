@@ -1,0 +1,30 @@
+name: WM surface studio pinned renderer
+on:
+  push:
+    branches: [feature/b24-weapons-mother-v1]
+    paths: [.github/workflows/wm-surface-studio-vendor.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fetch fixed Three.js r170 sources and license
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p vendor
+          base=https://raw.githubusercontent.com/mrdoob/three.js/r170
+          curl --fail --location --retry 2 "$base/build/three.module.js" -o vendor/three.module.js
+          curl --fail --location --retry 2 "$base/examples/jsm/controls/OrbitControls.js" -o vendor/OrbitControls.js
+          curl --fail --location --retry 2 "$base/LICENSE" -o vendor/THREE_LICENSE.txt
+          printf 'Three.js r170. Renderer only. No product mesh or production baseline replacement.\n' > vendor/README.txt
+          (cd vendor && sha256sum three.module.js OrbitControls.js THREE_LICENSE.txt > SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wm-surface-studio-three-r170-${{ github.sha }}
+          path: vendor/
+          retention-days: 30
+          if-no-files-found: error
