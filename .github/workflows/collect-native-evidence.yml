@@ -1,0 +1,51 @@
+name: Preserve completed B24 native evidence
+on:
+  push:
+    branches: [ops/b24-native-evidence-20260905]
+    paths: ['.github/workflows/collect-native-evidence.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          run-id: 33971144973
+          name: B24-native-soak-1440
+          path: evidence-desktop
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          run-id: 33971144973
+          name: B24-native-soak-390
+          path: evidence-mobile
+      - name: Validate provenance and preserve only the reports
+        run: |
+          python - <<'PY'
+          import json,hashlib,shutil
+          from pathlib import Path
+          rows=[]
+          for width,label,artifact in [(1440,'desktop',9971178991),(390,'mobile',9971176016)]:
+              files=list(Path('evidence-'+label).rglob('SOAK_'+str(width)+'.json'))
+              assert len(files)==1
+              raw=files[0].read_bytes();r=json.loads(raw)
+              assert r['passed'] and r['seeks']==0 and r['rate']==1 and r['lastState']['loops']==2 and not r['errors']
+              assert len(r['phasesObserved'])==18 and len(r['samples'])>300
+              assert all(x['finite'] and x['sourceMeshes']==348 for x in r['samples'])
+              assert sum(x['method']=='release' for x in r['events'])==8
+              assert sum(x['method']=='explode' for x in r['events'])==8
+              dst=Path('reports')/files[0].name;dst.write_bytes(raw)
+              rows.append({'viewport':r['viewport'],'run':33971144973,'artifact':artifact,'report':str(dst),'sha256':hashlib.sha256(raw).hexdigest(),'wallSeconds':r['elapsedWallSeconds'],'samples':len(r['samples']),'frames':r['lastState']['frames'],'loops':2,'rate':1,'seeks':0,'releases':8,'impacts':8,'phases':18,'runtimeErrors':[],'passed':True})
+          Path('reports/CONTINUOUS_SUMMARY.json').write_text(json.dumps({'sourceCommit':'f3a8e9edc3c2dc542d680aee469467e95211a31f','results':rows,'passed':True,'hardware':'GitHub Linux Chromium SwiftShader; physical mobile test not run','visualAcceptance':False,'productionReady':False},indent=2))
+          PY
+          git config user.name 'B24 evidence preservation'
+          git config user.email 'b24-verification@users.noreply.github.com'
+          git add reports/SOAK_*.json reports/CONTINUOUS_SUMMARY.json
+          git commit -m 'test(b24): retain original two-cycle desktop and mobile telemetry'
+          git push origin HEAD:ops/b24-native-evidence-20260905
