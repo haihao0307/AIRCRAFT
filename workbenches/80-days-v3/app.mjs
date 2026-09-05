@@ -6,7 +6,7 @@ import { heightToNormals } from 'material-math';
 
 const $ = id => document.getElementById(id);
 const D = JSON.parse($('workbench-data').textContent);
-const defaults = Object.freeze({side:'port',mode:'sample',channel:'beauty',light:'neutral',paint:'#666548',rough:0.67,fade:0.35,wear:0.30,relief:0.65,exposure:1.1,art:true,grime:true,structure:true,overlay:true,opacity:0.5});
+const defaults = Object.freeze({side:'port',mode:'sample',channel:'beauty',light:'neutral',paint:'#666548',rough:0.67,fade:0.35,wear:0.30,relief:0.65,exposure:0.85,art:true,grime:true,structure:true,overlay:true,opacity:0.5});
 const state = {...defaults};
 const qa = window.__B24QA = {ready:false,errors:[],frames:0,modelVerified:false,modelBinding:0,visualAcceptance:false,sourceSHA256:D.model.sha256};
 window.addEventListener('error',e=>qa.errors.push(e.message));
@@ -19,6 +19,9 @@ const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
 const smooth=(a,b,v)=>{const t=clamp((v-a)/(b-a));return t*t*(3-2*t);};
 const hash=(x,y)=>{let n=(Math.imul(x,374761393)+Math.imul(y,668265263))|0;n=Math.imul(n^(n>>>13),1274126177);return ((n^(n>>>16))>>>0)/4294967295;};
 const mix=(a,b,t)=>a+(b-a)*t;
+// The same normalized coverage field feeds base color, roughness and metalness.
+function chipAt(u,v){const edge=Math.min(u,1-u,v,1-v);return edge<.014*state.wear*(.3+.7*hash(Math.floor(u*40),Math.floor(v*26)))&&hash(Math.floor(u*512),Math.floor(v*360))>.48;}
+
 function image(url){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(new Error('参考照片无法读取'));im.src=url;});}
 function canvas(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;return c;}
 function polygon(ctx,pts){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.closePath();}
@@ -81,19 +84,18 @@ function rebuildMaps(){
  for(let y=0;y<actualH;y++){for(let x=0;x<W;x++){
   const u=x/W,v=y/actualH,n=hash(Math.floor(x/90),Math.floor(y/80)),fine=hash(x,y)-.5;
   const chalk=(.25+.18*Math.sin(u*9.4+v*5)+.1*Math.sin(v*12.3-u*6))*state.fade;
-  const stain=state.grime?.22*Math.exp(-((u-.83)/.17)**2-((v-.41)/.3)**2):0;
-  const edge=Math.min(u,1-u,v,1-v),wear=edge<.018*state.wear&&hash(x>>1,y>>1)>.52;
+  const stain=state.grime?.22*Math.exp(-(((u-.83)/.17)**2)-(((v-.41)/.3)**2)):0;
+  const edge=Math.min(u,1-u,v,1-v),wear=chipAt(u,v);
   const i=(y*W+x)*4;
   for(let k=0;k<3;k++)p[i+k]=wear?[161,166,158][k]:clamp((rgb[k]*(1-stain)+chalk*27+fine*3+(n-.5)*state.fade*5)/255)*255;
   p[i+3]=255;
  }}bc.putImageData(pixels,0,0);
  if(state.art)bc.drawImage(artCanvases[state.side],...crop,0,0,W,actualH);
- const art=canvas(W,actualH),ac=art.getContext('2d');ac.fillStyle='#000';ac.fillRect(0,0,W,actualH);if(state.art){ac.drawImage(artCanvases[state.side],...crop,0,0,W,actualH);ac.globalCompositeOperation='source-in';ac.fillStyle='#fff';/* mask below is rebuilt with correct alpha */}
  const mask=canvas(W,actualH),mx=mask.getContext('2d');if(state.art)mx.drawImage(artCanvases[state.side],...crop,0,0,W,actualH);mx.globalCompositeOperation='source-in';mx.fillStyle='white';mx.fillRect(0,0,W,actualH);mx.globalCompositeOperation='destination-over';mx.fillStyle='black';mx.fillRect(0,0,W,actualH);
  const w=512,h=Math.round(w*ratio),rough=canvas(w,h),rc=rough.getContext('2d'),metal=canvas(w,h),mc=metal.getContext('2d'),height=canvas(w,h),hc=height.getContext('2d');
  const rr=rc.createImageData(w,h),mm=mc.createImageData(w,h),hh=hc.createImageData(w,h);const values=new Float32Array(w*h);
- for(let y=0;y<h;y++)for(let x=0;x<w;x++){const u=x/(w-1),v=y/(h-1),i=y*w+x,j=i*4;const edge=Math.min(u,1-u,v,1-v);const chip=edge<.018*state.wear&&hash(x*3,y*3)>.52;
-  const stain=state.grime?Math.exp(-((u-.83)/.17)**2-((v-.41)/.3)**2):0;
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){const u=x/(w-1),v=y/(h-1),i=y*w+x,j=i*4;const edge=Math.min(u,1-u,v,1-v);const chip=chipAt(u,v);
+  const stain=state.grime?Math.exp(-(((u-.83)/.17)**2)-(((v-.41)/.3)**2)):0;
   const r=clamp(state.rough+state.fade*.055*Math.sin(u*8.3+v*2)-stain*.20+(hash(x,y)-.5)*.025,.12,.96)*255;
   const hv=.5+Math.sin(u*43+Math.sin(v*19))*Math.sin(v*28)*.011+(hash(x,y)-.5)*.008;
   values[i]=hv;for(let k=0;k<3;k++){rr.data[j+k]=chip?95:r;mm.data[j+k]=chip?255:0;hh.data[j+k]=hv*255;}rr.data[j+3]=mm.data[j+3]=hh.data[j+3]=255;
@@ -108,17 +110,17 @@ function rebuildMaps(){
  const nn=heightToNormals(up,w,h,{spacingU:6/(w-1),spacingV:6*ratio/(h-1),heightScale:.025});
  const normal=canvas(w,h),nc=normal.getContext('2d'),np=nc.createImageData(w,h);
  for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=((h-1-y)*w+x)*3,j=(y*w+x)*4;np.data[j]=nn[i]*255;np.data[j+1]=nn[i+1]*255;np.data[j+2]=nn[i+2]*255;np.data[j+3]=255;}nc.putImageData(np,0,0);
- for(const t of Object.values(maps))t.dispose();maps={base:texture(base,true),roughness:texture(rough),normal:texture(normal),metalness:texture(metal),height:texture(height),decal:texture(mask)};
+ for(const t of Object.values(maps))t.dispose();maps={base:texture(base,true),rawBase:texture(base),roughness:texture(rough),normal:texture(normal),metalness:texture(metal),height:texture(height),decal:texture(mask)};
  Object.assign(proofMaterial,{map:maps.base,roughnessMap:maps.roughness,roughness:1,metalnessMap:maps.metalness,metalness:1,normalMap:maps.normal});proofMaterial.normalScale.setScalar(state.relief);proofMaterial.needsUpdate=true;
  if(rivets){rivets.material.color.set(state.paint);rivets.material.roughness=state.rough;rivets.visible=state.structure&&state.channel==='beauty';}
- setChannel(state.channel);qa.mapRevision=(qa.mapRevision||0)+1;
+ setChannel(state.channel);qa.mapRevision=(qa.mapRevision||0)+1;qa.normalConvention='OpenGL +Y; input rows explicitly reversed';qa.rawInspector=true;qa.sharedChipField=true;
 }
 function setChannel(value){state.channel=value;document.querySelectorAll('[data-channel]').forEach(b=>b.classList.toggle('active',b.dataset.channel===value));if(!front)return;
- if(value==='beauty'){front.material=proofMaterial;}else{flatMaterial.map=maps[value];flatMaterial.color.set(0xffffff);flatMaterial.toneMapped=false;flatMaterial.needsUpdate=true;front.material=flatMaterial;}
+ if(value==='beauty'){front.material=proofMaterial;}else{flatMaterial.uniforms.rawMap.value=value==='base'?maps.rawBase:maps[value];front.material=flatMaterial;}
  rivets.visible=state.structure&&value==='beauty';$('viewBadge').textContent=value==='beauty'?'PBR · 实时':`通道 · ${value}`;
 }
 function setLight(name){state.light=name;document.querySelectorAll('[data-light]').forEach(b=>b.classList.toggle('active',b.dataset.light===name));
- const setups={neutral:[[1,4,6],3.2,1.1,.4,.65],raking:[[5,.3,1.2],5,.22,.18,.25],studio:[[-3,4,5],4.2,.65,2.6,.70]};const [p,k,f,r,e]=setups[name];lightKey.position.set(...p);lightKey.intensity=k;lightFill.intensity=f;lightRim.intensity=r;scene.environmentIntensity=e;
+ const setups={neutral:[[1,4,6],2.2,.65,.4,.55],raking:[[5,.3,1.2],5,.22,.18,.25],studio:[[-3,4,5],3.1,.55,2.0,.60]};const [p,k,f,r,e]=setups[name];lightKey.position.set(...p);lightKey.intensity=k;lightFill.intensity=f;lightRim.intensity=r;scene.environmentIntensity=e;
 }
 function cameraPreset(preset){const model=state.mode==='aircraft';controls.autoRotate=false;$('spin').setAttribute('aria-pressed','false');controls.target.set(0,0,0);
  const positions=model?{front:[0,1,11],angle:[7,3.7,7],close:[3,1.5,4]}:{front:[0,0,9.2],angle:[2.9,1.35,8.4],close:[1.2,.2,5.2]};camera.position.set(...positions[preset]);controls.update();}
@@ -158,6 +160,8 @@ function initKnowledge(){
 }
 function saveBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500);}
 function bind(){
+ for(const id of ['rough','fade','wear','relief','exposure','opacity']){$(id).value=state[id];$(id+'Value').textContent=state[id].toFixed(2);}
+
  document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));document.querySelectorAll('[data-channel]').forEach(b=>b.onclick=()=>setChannel(b.dataset.channel));document.querySelectorAll('[data-light]').forEach(b=>b.onclick=()=>setLight(b.dataset.light));document.querySelectorAll('[data-camera]').forEach(b=>b.onclick=()=>cameraPreset(b.dataset.camera));document.querySelectorAll('[data-paint]').forEach(b=>b.onclick=()=>{state.paint=b.dataset.paint;rebuildMaps();});
  let debounce;for(const id of ['rough','fade','wear','relief','exposure','opacity'])$(id).addEventListener('input',()=>{state[id]=Number($(id).value);$(id+'Value').textContent=state[id].toFixed(2);if(id==='exposure'){renderer.toneMappingExposure=state.exposure;return;}if(id==='relief'){proofMaterial.normalScale.setScalar(state.relief);return;}if(id==='opacity'){drawOverlay();return;}clearTimeout(debounce);debounce=setTimeout(rebuildMaps,110);});
  for(const id of ['art','grime','structure','overlay'])$(id).onchange=()=>{state[id]=$(id).checked;id==='overlay'?drawOverlay():rebuildMaps();};
@@ -178,7 +182,7 @@ async function start(){
   scene=new THREE.Scene();scene.background=new THREE.Color('#151b1e');camera=new THREE.PerspectiveCamera(39,1,.05,5000);controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.10;controls.minDistance=2;controls.maxDistance=24;controls.autoRotateSpeed=.65;
   const pmrem=new THREE.PMREMGenerator(renderer),room=new RoomEnvironment();scene.environment=pmrem.fromScene(room,.04).texture;room.dispose();pmrem.dispose();
   lightKey=new THREE.DirectionalLight('#ffffff',3);lightFill=new THREE.DirectionalLight('#dce5e8',1);lightFill.position.set(-5,1,4);lightRim=new THREE.DirectionalLight('#eeead9',1);lightRim.position.set(4,3,-3);scene.add(lightKey,lightFill,lightRim);
-  proofMaterial=new THREE.MeshPhysicalMaterial({color:0xffffff,roughness:1,metalness:1,clearcoat:0,side:THREE.FrontSide});flatMaterial=new THREE.MeshBasicMaterial({toneMapped:false});
+  proofMaterial=new THREE.MeshPhysicalMaterial({color:0xffffff,roughness:1,metalness:1,clearcoat:0,side:THREE.FrontSide});flatMaterial=new THREE.ShaderMaterial({uniforms:{rawMap:{value:null}},vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',fragmentShader:'uniform sampler2D rawMap;varying vec2 vUv;void main(){gl_FragColor=texture2D(rawMap,vUv);}',toneMapped:false});
   const loaded=await Promise.all(Object.entries(D.photos).map(async([k,v])=>[k,await image(v.data)]));for(const [k,v]of loaded)photoImages[k]=v;for(const k of ['port','starboard'])makeArtwork(k);
   updatePhoto();updateSampleGeometry();rebuildMaps();initKnowledge();setLight(state.light);cameraPreset('angle');bind();new ResizeObserver(resize).observe($('viewport'));resize();$('loading').hidden=true;qa.ready=true;qa.initMs=Math.round(performance.now()-initTime);qa.state=state;requestAnimationFrame(tick);
  }catch(e){qa.errors.push(e.message);$('loading').innerHTML='<b>工作台初始化未完成</b><span></span>';$('loading').querySelector('span').textContent=e.message;}

@@ -1,9 +1,9 @@
 {
   "schema": "b24-livery-workbench-build@1",
   "version": "3.0.0",
-  "bytes": 2661118,
-  "sha256": "4ce18e98b3b3a75177932b3ec05a956e931233689f9ee0e4ae8eafc7b3d30731",
-  "sourceCommit": "4fbd2a3ee89392b13d6ca7209d743cc6c2d095d5",
+  "bytes": 2661521,
+  "sha256": "7754c11188466713ff5fb2817a66279e41852e41d1c9d7b8f4c56e63fbbe1755",
+  "sourceCommit": "955bfc22be77e0a87acd35b8b58e174d061e8ae9",
   "threeVersion": "0.169.0",
   "threeModuleSHA256": "f7cee3c7533449a1505cc12cb5128b89e3d4fd3d7ea62b05f9f5464a217472ee",
   "photos": {

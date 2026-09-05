@@ -57,12 +57,12 @@
       "name": "channel views differ",
       "passed": true,
       "detail": {
-        "base": "eb498f6bf41a26d1d03b83d8d647357af1ab362a21869258f75693a63d5f3db0",
-        "roughness": "4de826e9a08ae744d6e440487a13690c62ec8ee0207e0369d67afcb199622153",
-        "normal": "c19c51bfd47aa1c62d210eb2d26cafbdac5b304a41f68f39923477413d6a325e",
-        "metalness": "78bd4302c3e05d52048795e4d4312319bd772f43eb9e37cd75f6bd23944d82d4",
-        "height": "82acd3938fd76da592e3bfb8aaecc2a9be01b0a8f0e8933fe73909cd74162433",
-        "decal": "3763a3841cce1351dd538a357b3840822614a2186a100388434c76de52196c33"
+        "base": "c08cf70aefac0cfac7b8ad709de1b9bf9592ae2dd2a1cd327c46c502dce2756f",
+        "roughness": "3c537e44d2460285ec940c7aff28e701e297d35974e2ca143f1a8ef23d2d33aa",
+        "normal": "3004adedbf09bf3f8521d94c286a5396088dcd1d487549fe8b9b1b4e38ad1bda",
+        "metalness": "01552a7aa7ad485ea989080f7584103dcc1784907719cf78aecfe50db6188aa5",
+        "height": "47b9dd685bdd2ad4dcd2fd34604c0d499a2ea25de9994e69e7e26c389b2bcaa5",
+        "decal": "4b8e434fc1474fb055b6c0e21e36441056e708cfd73e0760a589208cc4391165"
       }
     },
     {
@@ -164,14 +164,17 @@
   "desktopInitial": {
     "ready": true,
     "errors": [],
-    "frames": 63,
+    "frames": 62,
     "modelVerified": false,
     "modelBinding": 0,
     "visualAcceptance": false,
     "sourceSHA256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
     "couponRivets": 97,
     "mapRevision": 1,
-    "initMs": 2620,
+    "normalConvention": "OpenGL +Y; input rows explicitly reversed",
+    "rawInspector": true,
+    "sharedChipField": true,
+    "initMs": 2954,
     "state": {
       "side": "port",
       "mode": "sample",
@@ -182,7 +185,7 @@
       "fade": 0.35,
       "wear": 0.3,
       "relief": 0.65,
-      "exposure": 1.1,
+      "exposure": 0.85,
       "art": true,
       "grime": true,
       "structure": true,
@@ -194,15 +197,18 @@
   "aircraft": {
     "ready": true,
     "errors": [],
-    "frames": 476,
+    "frames": 430,
     "modelVerified": true,
     "modelBinding": 0,
     "visualAcceptance": false,
     "sourceSHA256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
     "couponRivets": 97,
     "mapRevision": 4,
-    "initMs": 2620,
-    "fps": 22,
+    "normalConvention": "OpenGL +Y; input rows explicitly reversed",
+    "rawInspector": true,
+    "sharedChipField": true,
+    "initMs": 2954,
+    "fps": 17,
     "modelBytes": 23085972,
     "sourceExtent": [
       33.07705116271973,
@@ -214,14 +220,17 @@
   "mobileFinal": {
     "ready": true,
     "errors": [],
-    "frames": 50,
+    "frames": 48,
     "modelVerified": false,
     "modelBinding": 0,
     "visualAcceptance": false,
     "sourceSHA256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
     "couponRivets": 33,
     "mapRevision": 2,
-    "initMs": 20653,
+    "normalConvention": "OpenGL +Y; input rows explicitly reversed",
+    "rawInspector": true,
+    "sharedChipField": true,
+    "initMs": 26505,
     "state": {
       "side": "starboard",
       "mode": "sample",
@@ -232,7 +241,7 @@
       "fade": 0.35,
       "wear": 0.3,
       "relief": 0.65,
-      "exposure": 1.1,
+      "exposure": 0.85,
       "art": true,
       "grime": true,
       "structure": true,
@@ -242,6 +251,6 @@
     "fps": 0
   },
   "result": "passed",
-  "htmlSHA256": "4ce18e98b3b3a75177932b3ec05a956e931233689f9ee0e4ae8eafc7b3d30731",
+  "htmlSHA256": "7754c11188466713ff5fb2817a66279e41852e41d1c9d7b8f4c56e63fbbe1755",
   "browser": "Chromium, headless software-rendering CI; not physical mobile hardware"
 }
