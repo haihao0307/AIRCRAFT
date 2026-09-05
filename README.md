@@ -1,36 +1,11 @@
-# AIRCRAFT · UBANGI BAG III and B-24 turret production line
+# B24 production
 
-This repository is the ChatGPT upstream and Codex downstream workspace for the Haihao Aircraft Production Line.
+This branch contains only the active B24 workbench, its locked dependency manifest, current knowledge and checks. Historical tasks and unrelated entrypoints have been removed from this active branch. Their original commit remains recoverable; other branches were not deleted.
 
-## Current online result
+Accepted V017: https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-v017-clean-restart/
 
-[B-24 ventral ball-turret separation and motion prototype v0.9.7](https://raw.githack.com/haihao0307/AIRCRAFT/a7f77a8d6ca3aab7ad831b327fa9a53f2ee076d4/turret-motion-v1.html)
+Read NEXT_START_HERE.md. V017.1 is a separate effects candidate using the same interface. It adds bind-local tire weathering and subtle metal roughness variation, source-blade exposure samples, time-derived visual roll and an impact camera hold. These are presentation approximations, not calibrated engineering or historical measurements.
 
-The standalone webpage runs with a procedural B-24 and independent turret immediately, so the complete interaction path can be reviewed before permanent topology extraction. It also accepts the locked GLB or the old embedded-HTML build.
+Weather and fog are not connected. Nose-wheel pose correction, source payload inventory/empty-bay binding, and historically grounded panel/UV corrections remain pending. No claim of completing them is made.
 
-Implemented prototype operations:
-
-- component selection and hypothesis classification
-- independent ball shell and twin-gun preview hierarchy
-- exploded inspection view
-- turret yaw and synchronized gun elevation
-- scan mode and virtual-target tracking
-- firing, muzzle-flash, tracer and recoil preview
-- temporary whole-turret detachment and reattachment
-- complete source-state restoration
-- component-map import and export
-
-The separation remains explicitly marked `hypothesis-motion-v1` until the exact source model topology audit is complete.
-
-## Historical livery line
-
-The first historical test aircraft is B-24J-45-CO serial `42-73436`, **UBANGI BAG III**, 308th Bomb Group, 374th Bomb Squadron, Fourteenth Air Force.
-
-The visible V1 livery board is a replaceable pipeline test. It does not claim final historical accuracy. The corrected V2 board will replace imagery and final PBR maps through the same livery contract.
-
-The source model gate accepts only `b-24_liberator.glb`, exactly `23,085,972` bytes with SHA-256 `541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d`.
-
-```bash
-npm test
-npm run build
-```
+Build: node --test tools/effect-state.test.js; python tools/build.py; python tools/browser_qa.py. The builder downloads only hash-locked dependencies missing from runtime/, verifies the native payload, and rejects unlisted runtime files. It never restores an old production branch.

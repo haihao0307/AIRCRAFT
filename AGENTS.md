@@ -1,19 +1,13 @@
-# AIRCRAFT repository guidance
+# B24 clean production
 
-## Authority
+Active branch: feature/b24-v017-clean-restart-workbench. This branch is exclusively the B24 production workbench. Do not merge it into main or another production line without explicit approval.
 
-ChatGPT is the upstream controller. Codex is the downstream engineering executor. Follow the active task file exactly and return verifiable results through GitHub.
+Read CURRENT.json, ACCEPTED_BASELINE.json, UPSTREAM_LOCK.json and knowledge/SKILL.md first.
 
-## Current scope
+The user accepted V017 for continuation on 2026-09-05. Its source commit is ceed8183dc5fb8399349e73ebeef5b997d7d7389 and recovery branch is accepted/b24-v017-20260905. Preserve the accepted public page and its pinned dependencies. Acceptance of that version does not automatically approve V017.1 or engineering accuracy.
 
-The active production aircraft is B-24J-45-CO serial 42-73436, **UBANGI BAG III**, 308th Bomb Group, 374th Bomb Squadron, Fourteenth Air Force, China Theater, 1944 to 1945.
+The only runtime is runtime/. Its geometry, hierarchy, native payload, four original spindle axes, mechanical tracks, runway, mission, audio and existing cameras are inherited from the accepted base. New presentation effects remain separately switchable. Do not substitute meshes, change original UV, invent panel positions, or overwrite approved appearance.
 
-## Hard rules
+Weather Mother, clouds and fog are deferred by the user. No old weather import, iframe composition, external reconstruction dependency, fallback model or automatic historical-branch recovery is permitted. Only explicitly locked files may enter the runtime or full package. Other aircraft, weapons and livery branches are separate and untouched.
 
-1. Keep the authoritative source GLB immutable and preserve its node hierarchy, original animation, propeller channels, landing-gear calibration, weapons nodes, materials, and textures.
-2. Do not create a substitute aircraft mesh, procedural fallback aircraft, or alternate B-24 model.
-3. Livery work is non-destructive. Preserve the source UV and create a separate `LiveryUV` only on approved exterior paint surfaces.
-4. Exclude propellers, engine internals, wheels, tires, brakes, landing-gear mechanisms, glass, guns, turret interiors, cockpit/interior parts, lights, antennas, and small mechanical fittings from the livery atlas.
-5. Keep external painted cowling and nacelle skins, fuselage skin, nose skin, wing skin, fixed tail skin, control-surface outer skins, bomb-bay doors, and exterior access panels in the livery system.
-6. Every factual source, transformation, generated asset, and test result must be recorded.
-7. No unrelated refactor. No silent asset substitution. No merge until upstream review.
+Run node --test tools/effect-state.test.js, python tools/build.py and python tools/browser_qa.py. Distinguish logic tests, actual browser checks, user visual acceptance and production readiness. Never promote a candidate merely because CI passed.

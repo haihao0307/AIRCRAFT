@@ -1,0 +1,18 @@
+{
+  "active_branch": "feature/b24-v017-clean-restart-workbench",
+  "runtime": "runtime/index.html",
+  "candidate_version": "V017.1",
+  "accepted_base": "V017",
+  "accepted_base_record": "ACCEPTED_BASELINE.json",
+  "visualAcceptance": false,
+  "productionReady": false,
+  "weather_enabled": false,
+  "fog_enabled": false,
+  "candidate_publication": "pending_browser_validation",
+  "source_logic_tests": "10 passed locally; see workflow for delivered-source rerun",
+  "browser_tests": "pending",
+  "pending_effects": ["nose-wheel pose correction with source evidence", "source payload inventory and empty-bay binding", "historically supported panel and UV correction"],
+  "cleanup_scope": "active B24 branch only; recovery commit and all other branches retained",
+  "runtime_fallbacks": [],
+  "mentor_commit": "498570fbe592b9a8578032af9bc1e51931c75072"
+}

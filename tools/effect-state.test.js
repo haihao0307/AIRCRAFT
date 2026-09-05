@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {blurWeight,shutterOffsets,rollAngle,impactShot,surfaceKind,SAMPLES} from '../runtime/effect-state.js';
+test('zero RPM has no blur',()=>assert.equal(blurWeight(0),0));
+test('threshold is continuous and bounded',()=>{for(let r=0;r<2400;r+=2)assert.ok(blurWeight(r)>=0&&blurWeight(r)<=1);assert.ok(blurWeight(301)<.00001);});
+test('signed source rotation is retained',()=>assert.deepEqual(shutterOffsets(-1200),shutterOffsets(1200).map(x=>-x)));
+test('fixed sample budget',()=>assert.equal(shutterOffsets(900).length,SAMPLES));
+test('roll uses absolute task time',()=>assert.equal(rollAngle(122,120),rollAngle(122,120)));
+test('roll resets before birth',()=>assert.equal(rollAngle(0,120),0));
+test('non finite inputs fail',()=>assert.throws(()=>blurWeight(NaN)));
+test('manual camera protected',()=>assert.equal(impactShot(131,130,true),false));
+test('impact camera window boundaries',()=>{assert.equal(impactShot(130,130,false),true);assert.equal(impactShot(136,130,false),false);assert.equal(impactShot(129,130,false),false);});
+test('tires and skin separated',()=>{assert.equal(surfaceKind(598,false,0),'tire');assert.equal(surfaceKind(10,true,.96),'skin');assert.equal(surfaceKind(10,false,.96),null);assert.equal(surfaceKind(10,true,.96,'rudder'),null);});
