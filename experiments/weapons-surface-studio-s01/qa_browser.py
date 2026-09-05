@@ -75,7 +75,7 @@ def run(html, out):
      region=(int(a.width*.1),int(a.height*.28),int(a.width*.9),int(a.height*.70));difference=ImageChops.difference(a.crop(region),b.crop(region));changed=sum(1 for px in difference.getdata() if max(px)>2)
      result['roughnessPixelDifference']={'crop':region,'pixelsOver2':changed,'meanAbsoluteChannelDelta':sum(ImageStat.Stat(difference).mean)/3}
      check('roughness_changes_real_model_pixels',changed>200)
-     current=page.evaluate('__WM_STUDIO__.state()');check('roughness_comparison_same_camera_and_exposure',fixed['camera']==current['camera'] and fixed['target']==current['target'] and fixed['exposure']==current['exposure'])
+     current=page.evaluate('__WM_STUDIO__.state()');delta=max(abs(x-y) for key in ['camera','target'] for x,y in zip(fixed[key],current[key]));result['fixedCameraMaxAbsoluteDelta']=delta;check('roughness_comparison_same_camera_and_exposure',delta<1e-10 and fixed['exposure']==current['exposure'])
      page.evaluate('__WM_STUDIO__.applyValues({wear:.32,oil:.28,oxidation:.12,roughness:.50,detail:.68})');capture('detail')
      page.locator('#compare').click();frames();check('same_camera_AB_activated',page.evaluate('__WM_STUDIO__.state().compared'));capture('compare')
      set_range('split',63);check('split_control_moves_boundary',page.evaluate('__WM_STUDIO__.state().split===.63'))
