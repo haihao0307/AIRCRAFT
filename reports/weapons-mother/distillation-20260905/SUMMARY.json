@@ -1,0 +1,99 @@
+{
+  "schema": "wm.distillation-implementation/1",
+  "date": "2026-09-05",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "feature/b24-weapons-mother-v1",
+  "readHead": "25b55b2f92d27cde57e0998938bd336b3fd2cb31",
+  "scope": "Reusable state and R019 DOM adapter implementation; original production viewer not integrated.",
+  "tests": {
+    "nodePassed": 42,
+    "pythonPassed": 9,
+    "browserFixtureChecksPassed": 24,
+    "browserViewports": [[1440, 900], [390, 844]],
+    "browserFixture": "synthetic DOM and mock runtime; no network or production rendering",
+    "productBrowserRun": false,
+    "localNodeVersion": "v22.16.0"
+  },
+  "historicalFixture": {
+    "sourceVersion": "V016 recovery snapshot only",
+    "sourceSha256": "81ec8016743c6e9cb86b6221c1d665be1d061b42ae73e241c7ddc572ea3af6c4",
+    "sourceBytes": 8585888,
+    "accessors": 150,
+    "uvAccessors": 40,
+    "nodes": 40,
+    "meshes": 33,
+    "sourceUnchanged": true,
+    "r019ParityEstablished": false,
+    "uvSha256": "f389e24a7291169a3a6ee0f0213c4b271f62027bf7ba2c3c057cabcd2ab3305b",
+    "nodeGraphSha256": "9469f8fc95569d0b9627a0f462793ee693770d55f1ff40ee761172ee889cb04f"
+  },
+  "developmentFindings": [
+    {
+      "type": "environment",
+      "observed": "Local HTTP browser navigation was blocked; tests were run via injected local DOM and in-memory source bundle. No claim of real webpage navigation."
+    },
+    {
+      "type": "new_module_bug",
+      "observed": "Import initially synchronized only the active project to the mock renderer.",
+      "fix": "Validate all values then synchronize both projects; attempt full previous-state restore on failure, disable controls if renderer restoration fails.",
+      "regressionChecksPassed": true
+    }
+  ],
+  "r019": {
+    "indexedEntryFileId": "file_0000000040c4823095d04ab4183a4dee",
+    "originalFileBytesAvailable": false,
+    "directDependencies": 10,
+    "dependencyIdentities": "unresolved",
+    "remoteDataDirectoryRead": "404 at pinned readHead",
+    "remoteRuntimeDirectoryRead": "404 at pinned readHead",
+    "latestSourceRestored": false,
+    "productionEntryModified": false,
+    "productionReady": false,
+    "visualAcceptance": "not_run"
+  },
+  "limitations": [
+    "Numeric material state and channel helpers only; no new material shader, SBSAR integration or Blender execution.",
+    "Expected dependency hashes must come from independently reviewed sources; the gate does not establish source authority or fetch missing files.",
+    "Source audit supports only embedded uncompressed dense scalar/vector accessors; sparse, matrix and required-extension layouts are rejected.",
+    "Browser tests use synthetic source hashes and a mock renderer. They do not test WebGL, original R019 visuals, animation or historical correctness.",
+    "Adapter requires exclusive ownership of the five inputs and synchronous runtime acknowledgment. Concurrent external material edits require a new session."
+  ],
+  "implementationFiles": [
+    {
+      "path": "src/mechanical-product-forge/knowledge-distillation/material-session.mjs",
+      "bytes": 5759,
+      "sha256": "f324d7375d2a9afc048c97126dfd042f9d2337973081cfc8cd5f9ed48fe791a7",
+      "gitBlob": "a177c332dcc5d855749635d6f1f96bdef382fd35"
+    },
+    {
+      "path": "src/mechanical-product-forge/knowledge-distillation/r019-panel-bridge.mjs",
+      "bytes": 5673,
+      "sha256": "a615f593f104603f949ccdeb83316856b7eafdf19a9eb33501256786ef30c3ef",
+      "gitBlob": "afe91e1a32b5d0d2cfea34e3256c913744d30489"
+    },
+    {
+      "path": "tests/weapons-mother/browser_bridge_test.py",
+      "bytes": 6316,
+      "sha256": "520a151bd52bd0c198727843a9cf4e03099d3a6f0eb5e80c15ff2c5df35395c1",
+      "gitBlob": "40106b6053b4921d6756615960708a12a02e2faa"
+    },
+    {
+      "path": "tests/weapons-mother/distillation.test.mjs",
+      "bytes": 5770,
+      "sha256": "55075ec7fdd60272b32405ce27a27cfd4900707d86c15aeea3f39d8f60d6976c",
+      "gitBlob": "012edc37b75870a0c22e992455a0d1cba04c0b42"
+    },
+    {
+      "path": "tests/weapons-mother/test_source_audit.py",
+      "bytes": 3344,
+      "sha256": "0e112d96c36b1f0c57daef9b32edb31d3e020120faff9aa65056a34d9d945eef",
+      "gitBlob": "1ffa34e0f2a4fd84d8b285e68adde1088ccd4196"
+    },
+    {
+      "path": "tools/audit-distillation-source.py",
+      "bytes": 5314,
+      "sha256": "351716d8c088f7828982902db78e4d130f14e2b23f40b7635c6f9de16db5820a",
+      "gitBlob": "31bf5cef352c728bdd9275ec7ec5d41927ed9154"
+    }
+  ]
+}
