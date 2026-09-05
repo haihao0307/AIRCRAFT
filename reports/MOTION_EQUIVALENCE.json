@@ -1,0 +1,13 @@
+{
+  "cases": 514,
+  "nodeComparisons": 916976,
+  "maxLocalComponentError": 1.1102230246251565e-16,
+  "maxWorldMatrixElementError": 8.881784197001252e-16,
+  "rotorError": 0,
+  "paused": true,
+  "reset": true,
+  "invalidRejected": true,
+  "failDetail": null,
+  "passed": true,
+  "scope": "same inherited playback over approved actuator domains; not engineering correctness"
+}
