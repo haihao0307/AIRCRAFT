@@ -1,1 +1,1 @@
-{"name":"b24-clean-production","private":true,"type":"module","scripts":{"test":"node --test tools/effect-state.test.js"}}
+{"name":"b24-native-distillation-r1","private":true,"type":"module","scripts":{"verify":"node tools/verify_motion.mjs _reference/runtime runtime"}}
