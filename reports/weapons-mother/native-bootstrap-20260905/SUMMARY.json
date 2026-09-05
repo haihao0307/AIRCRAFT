@@ -1,0 +1,83 @@
+{
+  "schema": "wm.native.bootstrap-receipt/1",
+  "date": "2026-09-05",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "feature/b24-weapons-mother-v1",
+  "sourceCommit": "24630015d2d5faeb2e0c125ff5600ea528523804",
+  "priorHead": "49c2a7002e0611bfe4283774fe2ecbac5b153907",
+  "entry": "native/weapons-visual/README.md",
+  "scope": "New rule-only geometry/material/presentation core, tested on neutral coupons. Not a completed Aircraft gun or workbench.",
+  "workflow": {
+    "runId": 33969907562,
+    "jobId": 101316450676,
+    "conclusion": "success",
+    "artifactId": 9970602288,
+    "artifactBytes": 2300,
+    "artifactSha256": "6d300e523957725109c7a55ad36f64e4f72f4fca108f5ccf605d38852d284fdb",
+    "downloadedAndHashVerified": true,
+    "artifactFiles": 6,
+    "scheduledAgent": false,
+    "jobHasFinished": true
+  },
+  "tests": {
+    "localPythonUnitTestsPassed": 19,
+    "remotePythonUnitTestsPassed": 19,
+    "realBlenderChecksPassed": 21,
+    "realBlenderVersion": "4.5.0",
+    "pythonInActions": "3.11.16",
+    "realBlenderLocation": "GitHub Actions isolated runner, not the user's computer",
+    "fixture": "three neutral rounded material coupons in arbitrary scene units",
+    "generatedMeshesInMemory": 3,
+    "generatedVerticesPerCoupon": [56, 56, 56],
+    "shaderNodes": 8,
+    "materialCoordinateMaxError": 0.0,
+    "generatedMeshesReleased": true,
+    "generatedMaterialsReleased": true,
+    "referenceAssetImports": 0,
+    "imageAssets": 0,
+    "externalBlendLibraries": 0,
+    "rendered": false,
+    "productBrowserTested": false
+  },
+  "sourceParity": {
+    "coreTree": "814aea247d7986844231105cff3b443f987864a7",
+    "testsTree": "229189c85d53d121c170d22695c64609462f1c60",
+    "toolsTree": "178654d0354d27d82aa9755fd926d2a4d47704da",
+    "localEqualsRemoteForTheseTrees": true
+  },
+  "assetGuard": {
+    "scope": "native/weapons-visual only",
+    "before": "pass",
+    "after": "pass",
+    "findings": [],
+    "limitation": "Heuristic file-extension, encoded-payload and Python-literal inspection. Not proof against all hidden data. Other AIRCRAFT archival and whole-aircraft assets were not deleted or certified by this check."
+  },
+  "adoptedDirection": {
+    "singleAircraftLine": true,
+    "retiredS01Reused": false,
+    "persistentMeshAssetsAllowed": false,
+    "persistentRasterTexturesAllowed": false,
+    "sourceVertexOrUVTableReencodingAllowed": false,
+    "transientRuleGeneratedGeometryAllowed": true,
+    "sourceAttributionRetained": true,
+    "blenderRole": "Replaceable build/check executor; readable rules remain the stored authority.",
+    "substanceRole": "Study material-graph concepts and implement explicit functions; Substance software was not executed this turn."
+  },
+  "notCompleted": [
+    "Evidence-backed complete Aircraft exterior and its orientation review",
+    "Independently evidenced aircraft mount",
+    "Full native PBR surface with browser visual comparison",
+    "Complete visual part spreading and presentation animation integration",
+    "Case/link/feed/tracer visual-effect integration",
+    "New interactive production webpage and public deployment",
+    "Physical device performance and user visual acceptance"
+  ],
+  "productionReady": false,
+  "visualAcceptance": false,
+  "deadline": {
+    "userRequestedReview": "tomorrow at 09:00",
+    "timezoneConfirmed": false,
+    "automaticReminderCreated": false,
+    "overnightAutonomousDevelopmentPromised": false
+  }
+}
