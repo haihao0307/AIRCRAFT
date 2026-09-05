@@ -7,6 +7,8 @@ on:
       - workbenches/80-days-v3/index.template.html
       - workbenches/80-days-v3/build.py
       - workbenches/80-days-v3/qa.py
+      - workbenches/80-days-v3/refine_source.py
+      - workbenches/80-days-v3/public_smoke.py
       - .github/workflows/80days-review-workbench.yml
   workflow_dispatch:
 permissions:
@@ -30,22 +32,29 @@ jobs:
         run: |
           python -m pip install Pillow==11.3.0 playwright==1.55.0
           python -m playwright install --with-deps chromium
+      - name: Apply bounded reviewed source correction
+        run: |
+          python workbenches/80-days-v3/refine_source.py
+          node --check workbenches/80-days-v3/app.mjs
       - name: Run isolated material tests
         run: node --test experiments/80-days-material-r1/material-channels.test.mjs
       - name: Build self-contained review page
         run: python workbenches/80-days-v3/build.py
       - name: Exercise desktop and mobile workbench
         run: python workbenches/80-days-v3/qa.py
-      - name: Publish only review page and receipts on existing draft branch
+      - name: Publish only review sources, page and receipts on existing draft branch
         run: |
-          git add 80-days-workbench-v3.html workbenches/80-days-v3/BUILD_RECEIPT.json workbenches/80-days-v3/BROWSER_QA.json
+          git add 80-days-workbench-v3.html workbenches/80-days-v3/app.mjs workbenches/80-days-v3/BUILD_RECEIPT.json workbenches/80-days-v3/BROWSER_QA.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           if ! git diff --cached --quiet; then
-            git commit -m 'build(livery): publish tested V3 review workbench, no aircraft binding'
+            git commit -m 'build(livery): publish refined V3 review workbench, no aircraft binding'
             git push origin HEAD:feature/b24-80days-texture-master-v2
           fi
           git rev-parse HEAD > workbenches/80-days-v3/PUBLISHED_HEAD.txt
+      - name: Verify fixed public preview and real-network source model
+        continue-on-error: true
+        run: python workbenches/80-days-v3/public_smoke.py
       - name: Collect reproducible preview artifact
         if: always()
         run: |
