@@ -1,0 +1,100 @@
+{
+  "schema": "aircraft.w03.delivery/1",
+  "date": "2026-09-06",
+  "status": "independent_sideplate_candidate_delivered",
+  "readHead": "626e654b762015f884478c6f492340da7111e7c8",
+  "recipeCommit": "5ebbd23f846842dcf12fe39f489e0144280933b7",
+  "recipeAndTestCommit": "fe3d091950e5cd56a722aadd7c8692ab6ae5dc9c",
+  "recipeGitBlob": "45629741cf6e900363b3bd8ea46d8b8222c41f96",
+  "recipeSha256": "140b0a24f3486241a4f66a38434822569f7a31ea7b61ebddf46a6b902699c071",
+  "recipeLocalRemoteIdentityVerified": true,
+  "html": {
+    "name": "AIRCRAFT_W03_DETAIL_COMPARE.html",
+    "bytes": 1409017,
+    "sha256": "67f97d87a9a2a6e52b80b89fb9de3813cb9d642899c29496b54d9b1246db644e",
+    "requiresReferenceForNativeView": false,
+    "referenceOptionalForComparison": true,
+    "publicURL": null
+  },
+  "package": {
+    "name": "AIRCRAFT_W03_DETAIL_COMPARE_PACKAGE_2026-09-06.zip",
+    "bytes": 604585,
+    "sha256": "3db5193af8e9746abedde401465818a6529be406ffcf18a79110e5f97f7f6c3c",
+    "fileCount": 17,
+    "manifestPayloadsVerified": 16,
+    "containsReferenceMeshOrProductRasterImage": false,
+    "containsCompleteWorkbenchSource": true,
+    "deliveryLocation": "current conversation sandbox"
+  },
+  "source": {
+    "fileSha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+    "node": 25,
+    "authorLabel": "sideplate_16",
+    "sourceTriangles": 687,
+    "connectedSurfaceGroups": 6,
+    "surfaceGroupsArePhysicalDisassemblyUnits": false,
+    "attribution": "Misja van Laatum, AN/M2 Browning .50 cal aircraft machine gun, CC-BY-4.0 metadata; fitted appearance adaptation recorded",
+    "dimensions": "normalized visible-span ratios only, not fabrication dimensions or certified physical measurements"
+  },
+  "newGeometry": {
+    "scope": "one exterior sideplate body and five visible head forms",
+    "generatedTriangles": 7238,
+    "featureGroups": 6,
+    "independentOfReferenceRuntime": true,
+    "nativeExistsBeforeAnyReferenceSelection": true,
+    "sourceVerticesOrUVTablesEncoded": false,
+    "storedProductMeshFiles": 0,
+    "storedProductRasterTextures": 0,
+    "retiredS01R01ImplementationUsed": false,
+    "claimsExactMeshReplica": false,
+    "runtimePerformanceImprovementEstablished": false
+  },
+  "verification": {
+    "unitTestsPassed": 22,
+    "browserChecksPerViewport": [34, 35],
+    "browser": "143.0.7499.4",
+    "viewports": [[1500, 950], [390, 844]],
+    "documentMode": "full actual HTML injected into an isolated headless browser with actual local reference, no mock renderer",
+    "fileNavigationTested": false,
+    "publicURLTested": false,
+    "userDesktopAccessed": false,
+    "sourceAttributesUnchanged": true,
+    "nativeHashUnchangedByReferenceLoadAndRelease": true,
+    "repeatSpreadReturnsToRest": true,
+    "comparisonUsesSameCameraAndMaterial": true,
+    "javascriptOrShaderErrors": 0,
+    "networkRequests": 0,
+    "physicalPhoneOrSafariTested": false
+  },
+  "silhouetteDiagnostics": {
+    "frontIoU": 0.9920166844504802,
+    "obliqueIoU": 0.991814132659203,
+    "reverseIoU": 0.99205479186271,
+    "topIoU": 0.9998786211361061,
+    "edgeIoU": 0.9931105705860771,
+    "meaning": "Foreground-mask overlap in five fixed views, including visible head silhouettes. This does not measure all 3D depths, material fidelity, historical accuracy or complete weapon correctness.",
+    "acceptanceClaimed": false
+  },
+  "findingsAndRemainingWork": [
+    "A round-looking source head was checked geometrically and modeled as a cylindrical form with softened shading, replacing the initial spherical guess.",
+    "The two polygon heads retain separate visual orientations and elevations; they are not replaced with a uniform rivet array.",
+    "Incorrect relief-border wall normal orientation in the new generator was fixed before final browser review.",
+    "Outer arcs, microedges and normal transitions still differ from the source. Those differences remain open for visual review.",
+    "Receiver body and complete Aircraft model have not yet been independently rebuilt.",
+    "Installation, ammunition flow, weapon animation and complete procedural PBR remain outside this delivered step.",
+    "The candidate has more runtime triangles than the source sideplate. No claim of smaller GPU cost or faster rendering is supported."
+  ],
+  "oldW02": {
+    "untouched": true,
+    "sha256": "8867aaa39b13c158d854f9eb0c4d2be03484a9aac76db0e0c3dec4e92bb0bd57"
+  },
+  "sourceFileUnchanged": true,
+  "persistence": {
+    "geometryRecipeAndUnitTestsCommitted": true,
+    "completeWorkbenchSourceInDeliveryPackage": true,
+    "completeWorkbenchSourceCommitted": false
+  },
+  "visualAcceptance": false,
+  "completeReplicaFinished": false,
+  "productionReady": false
+}
