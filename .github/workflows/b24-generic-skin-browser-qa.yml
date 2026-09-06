@@ -4,6 +4,7 @@ on:
     branches: [feature/b24-generic-skin-master-v1]
     paths:
       - b24-generic-skin-v1.html
+      - runtime/native-aircraft.js
       - .github/workflows/b24-generic-skin-browser-qa.yml
   workflow_dispatch:
 permissions:
@@ -36,13 +37,11 @@ jobs:
               page.on('console', lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
               page.on('pageerror', lambda e: errors.append('pageerror: '+str(e)))
               page.goto('http://127.0.0.1:8765/b24-generic-skin-v1.html', wait_until='domcontentloaded', timeout=30000)
-              try:
-                  page.wait_for_function("""() => {
-                    const el=document.querySelector('#loading');
-                    return el && (el.hidden || getComputedStyle(el).display==='none');
-                  }""", timeout=45000)
-              except Exception:
-                  pass
+              page.wait_for_function("""() => {
+                const el=document.querySelector('#loading');
+                return el && getComputedStyle(el).display==='none';
+              }""", timeout=45000)
+              page.wait_for_function("""() => document.querySelector('#status')?.textContent?.includes('V018 已载入')""", timeout=45000)
               state=page.evaluate("""() => ({
                 loadingHidden: document.querySelector('#loading')?.hidden,
                 loadingDisplay: getComputedStyle(document.querySelector('#loading')).display,
@@ -58,6 +57,7 @@ jobs:
               print(state)
               print(errors)
               assert state['loadingDisplay']=='none', state
+              assert 'V018 已载入' in state['status'], state
               assert not errors, errors
           PY
       - uses: actions/upload-artifact@v4
