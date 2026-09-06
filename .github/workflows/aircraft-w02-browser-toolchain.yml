@@ -1,0 +1,31 @@
+name: Aircraft W02 isolated browser toolchain
+on:
+  push:
+    branches: [feature/b24-weapons-mother-v1]
+    paths: [.github/workflows/aircraft-w02-browser-toolchain.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: /tmp/w02-browser
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Obtain fixed browser for source inspection
+        run: |
+          python -m pip install playwright==1.57.0
+          python -m playwright install --only-shell chromium
+          cd /tmp/w02-browser
+          find . -maxdepth 3 -type f -name chrome-headless-shell -exec sha256sum {} \; > BROWSER_SHA256.txt
+          printf 'Toolchain only. No user asset, original mesh or reference photo.\n' > TOOLCHAIN_ONLY.txt
+          tar -czf /tmp/w02-browser.tar.gz .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AIRCRAFT_W02_HEADLESS_BROWSER
+          path: /tmp/w02-browser.tar.gz
+          retention-days: 1
