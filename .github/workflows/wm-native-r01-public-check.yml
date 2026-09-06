@@ -1,0 +1,89 @@
+name: Aircraft native R01 public URL verification
+on:
+  push:
+    branches: [feature/b24-weapons-mother-v1]
+    paths: [.github/workflows/wm-native-r01-public-check.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      SOURCE: 03087fefd77d87c70e2e16cf3b48ff99cd41f1ca
+      PUBLIC_URL: https://haihao0307.github.io/guilin-dem-pipeline/aircraft/weapons-native-r01/
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser checks from reviewed source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p review
+          curl -fLsS --retry 2 "https://raw.githubusercontent.com/haihao0307/AIRCRAFT/$SOURCE/native/weapons-visual/web/r01/qa.py" -o review/qa.py
+          python -m pip install playwright==1.55.0 Pillow==11.3.0
+          python -m playwright install --with-deps chromium
+          sudo apt-get update -qq && sudo apt-get install -y fonts-noto-cjk
+      - name: Wait for matching deployed HTML then verify exact bytes
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, time, json, urllib.request, hashlib
+          from pathlib import Path
+          url=os.environ['PUBLIC_URL']; source=os.environ['SOURCE']; last='not fetched'
+          for attempt in range(45):
+              try:
+                  marker=urllib.request.urlopen(url+'SOURCE_COMMIT.txt?check='+str(attempt),timeout=15).read().decode().strip()
+                  if marker!=source:raise ValueError('Published source is not requested commit')
+                  receipt=json.load(urllib.request.urlopen(url+'index.receipt.json?check='+str(attempt),timeout=15))
+                  data=urllib.request.urlopen(url+'?check='+str(attempt),timeout=20).read()
+                  actual=hashlib.sha256(data).hexdigest()
+                  if actual!=receipt['htmlSha256']:raise ValueError('HTML and receipt disagree')
+                  Path('review/AIRCRAFT_NATIVE_R01.html').write_bytes(data)
+                  Path('review/published-byte-check.json').write_text(json.dumps({'url':url,'sourceCommit':source,'htmlBytes':len(data),'htmlSha256':actual,'receiptMatch':True,'attempt':attempt},indent=2)+'\n')
+                  break
+              except Exception as e:
+                  last=str(e);print(attempt,last,flush=True);time.sleep(10)
+          else:raise RuntimeError('Public deployment did not match: '+last)
+          PY
+      - name: Exercise actual public workbench
+        run: python review/qa.py review/AIRCRAFT_NATIVE_R01.html --out review/public-qa --url "$PUBLIC_URL"
+      - name: Check expanded support remains visible and verify offline file
+        shell: bash
+        run: |
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          from pathlib import Path
+          import json, os
+          result={'scope':'extra public scene checks and actual offline document load','checks':[]}
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-angle=swiftshader','--disable-dev-shm-usage'])
+              page=browser.new_page(viewport={'width':1440,'height':900})
+              page.goto(os.environ['PUBLIC_URL'],wait_until='load',timeout=90000)
+              page.wait_for_function('window.WM?.ready===true',timeout=90000)
+              page.evaluate('WM.setSpread(1);WM.view("hero",true)')
+              page.wait_for_function('WM.frames>5',timeout=60000)
+              a=page.evaluate('WM.audit()')
+              assert not a['presentationBaseVisible'] and not a['floorVisible']
+              assert a['parts'].count('mount')==1 and a['geometryUnchanged']
+              result['checks'].append({'name':'spread_has_no_platform_or_floor_occlusion','passed':True})
+              page.screenshot(path='review/public-exploded.png')
+              page.evaluate('WM.reset()')
+              assert page.evaluate('WM.audit().restRestored&&WM.audit().presentationBaseVisible')
+              result['checks'].append({'name':'reset_restores_stage_and_parts','passed':True})
+              page.goto(Path('review/AIRCRAFT_NATIVE_R01.html').resolve().as_uri(),wait_until='load',timeout=90000)
+              page.wait_for_function('window.WM?.ready===true&&WM.frames>3',timeout=90000)
+              a=page.evaluate('WM.audit()');assert a['renderer']['triangles']>1000 and not a['errors']
+              result['checks'].append({'name':'self_contained_local_file_renders','passed':True})
+              browser.close()
+          Path('review/extra-checks.json').write_text(json.dumps(result,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: WM_NATIVE_R01_PUBLIC_${{ env.SOURCE }}
+          path: review/
+          retention-days: 30
+          if-no-files-found: error
