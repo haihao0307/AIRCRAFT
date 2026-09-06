@@ -1,0 +1,100 @@
+{
+  "schema": "wm.native.r01.publication/1",
+  "date": "2026-09-06",
+  "status": "published_first_exterior_candidate",
+  "publicUrl": "https://haihao0307.github.io/guilin-dem-pipeline/aircraft/weapons-native-r01/",
+  "sourceRepository": "haihao0307/AIRCRAFT",
+  "sourceBranch": "feature/b24-weapons-mother-v1",
+  "sourceDirectory": "native/weapons-visual/web/r01",
+  "testedSourceCommit": "03087fefd77d87c70e2e16cf3b48ff99cd41f1ca",
+  "html": {
+    "fileName": "AIRCRAFT_NATIVE_R01.html",
+    "bytes": 1408978,
+    "sha256": "296853d3ad98c9d312fbeb45d6ddd1eed28e451e6e1b284812c6f2d0096f5960",
+    "selfContained": true,
+    "localRebuildEqualsSourceArtifact": true,
+    "publicBytesEqualSourceArtifactAndDownloadableHTML": true,
+    "renderer": "Three.js r170, bundled with full license",
+    "productMeshFileImports": 0,
+    "productRasterTextureImports": 0,
+    "referenceVertexOrUVTables": 0,
+    "geometrySource": "new readable procedural exterior rules; temporary runtime tessellation",
+    "retiredS01CodeOrAssetsUsed": false
+  },
+  "features": {
+    "visualGroups": ["receiver", "cover", "jacket", "barrel", "grips", "sight", "mount", "feed"],
+    "partInspection": ["select", "solo", "hide", "show all", "spread", "restore"],
+    "pbrControls": ["roughness", "wear", "oil", "detail"],
+    "channels": ["surface", "base color", "roughness", "normal", "wireframe"],
+    "lights": ["studio", "neutral", "grazing"],
+    "sameCameraSurfaceAB": true,
+    "parameterSaveLoad": true,
+    "presentation": ["play", "pause", "seek", "speed", "restart", "feed exterior movement", "case and link visual effects", "brief flash", "every-fifth-event tracer appearance"],
+    "mobileLayout": "drawers preserve visible 3D viewport above controls",
+    "coordinateConvention": "X forward, Y up, identity native root",
+    "tracerRatioStatus": "user-directed visual preset, not a verified historical ammunition configuration"
+  },
+  "sourceBrowserReview": {
+    "runId": 34002025758,
+    "artifactId": 9979826821,
+    "artifactSha256": "9588574a87dd83b34946e56edca61b45dc00d2918886955ca2a098a32da3758e",
+    "conclusion": "success",
+    "checksPassed": 70,
+    "artifactDownloadedAndHashVerified": true
+  },
+  "publication": {
+    "repository": "haihao0307/guilin-dem-pipeline",
+    "branch": "gh-pages",
+    "isolatedPath": "aircraft/weapons-native-r01/",
+    "buildPublishRunId": 34002132419,
+    "pagesCommit": "d307c3833f203d536eaf9aadaffea038dd3058bd",
+    "pagesDeploymentRunId": 34002297787,
+    "pagesDeploymentConclusion": "success",
+    "otherWorkbenchFilesChanged": false
+  },
+  "publicBrowserReview": {
+    "workflowCommit": "d260d412af7b0f8fc20847765ec1d04830c087ad",
+    "runId": 34002166504,
+    "jobId": 101402856163,
+    "artifactId": 9979918915,
+    "artifactSha256": "ce256c741d960adc75e711035f3cadd93d80dc5f8524a6f183201c8c6e606ada",
+    "artifactDownloadedAndHashVerified": true,
+    "reportsReadBack": true,
+    "publicHTMLHTTPStatus": 200,
+    "publicHTMLReceiptHashMatch": true,
+    "realChromiumVersion": "140.0.7339.16",
+    "realWebGL": true,
+    "viewports": [[1600, 1000], [390, 844]],
+    "checksPassedPerViewport": [35, 35],
+    "javascriptAndShaderErrors": 0,
+    "requestsPerViewport": [1, 1],
+    "externalAssetRequests": 0,
+    "geometryStayedUnchangedDuringControls": true,
+    "repeatedSpreadRestorationPassed": true,
+    "roughnessChangesRenderedModelPixels": true,
+    "extraChecks": {
+      "spreadHasNoPlatformOrFloorOcclusion": true,
+      "resetRestoresStageAndParts": true,
+      "actualOfflineFileLoadRenders": true
+    },
+    "conclusion": "success",
+    "note": "Functional tests use a software-rendered browser on GitHub Actions. Physical-device performance and Safari were not tested. Source and public runs repeat the same 70 checks; they are not 140 distinct behaviors."
+  },
+  "visualReview": {
+    "actualScreenshotsInspected": ["source desktop initial", "source desktop exploded", "source mobile material panel", "public desktop final"],
+    "fixedThisTurn": ["roughness uniform name binding", "display platform occluding downward-spread mount"],
+    "firstAttemptFailed": true,
+    "failedAttemptRunId": 34001682325,
+    "userAccepted": false
+  },
+  "limitations": [
+    "First visual exterior candidate, not a completed historically certified replica.",
+    "Proportions, sight placement, grip details, feed path and mount applicability require further source comparison and user review.",
+    "Mount exterior reference is from a B-26G museum image; it is not certified as a B24 mounting configuration.",
+    "Visual spreading is not a physical disassembly procedure. No functional internal mechanism, fabrication dimensions, ammunition physics or real performance simulation is supplied.",
+    "Surface colors and wear distributions are art-directed candidates. Substance software was not executed in this browser implementation.",
+    "No ongoing background development or scheduled worker is implied by these finished build and test jobs."
+  ],
+  "productionReady": false,
+  "visualAcceptance": false
+}
