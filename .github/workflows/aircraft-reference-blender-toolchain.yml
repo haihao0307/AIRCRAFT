@@ -1,0 +1,32 @@
+name: Aircraft reference study Blender toolchain
+on:
+  push:
+    branches: [feature/b24-weapons-mother-v1]
+    paths: [.github/workflows/aircraft-reference-blender-toolchain.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Acquire official portable Blender without product assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p toolchain
+          cd toolchain
+          base=https://download.blender.org/release/Blender4.5
+          curl -fLsS --retry 2 "$base/blender-4.5.0-linux-x64.tar.xz" -o blender-4.5.0-linux-x64.tar.xz
+          curl -fLsS --retry 2 "$base/blender-4.5.0.sha256" -o blender-4.5.0.sha256
+          grep 'blender-4.5.0-linux-x64.tar.xz' blender-4.5.0.sha256 > VERIFIED_SHA256.txt
+          sha256sum -c VERIFIED_SHA256.txt
+          printf 'Official portable Blender 4.5.0, temporary study tooling only. No product assets. No unattended production task.\n' > README.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AIRCRAFT_BLENDER_4_5_0_TOOLCHAIN
+          path: toolchain/
+          retention-days: 1
+          compression-level: 0
+          if-no-files-found: error
