@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-06",
+  "currentReview": "w05",
+  "entry": "https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-anm2-w05/",
+  "publicationRecord": "w05/PUBLICATION.json",
+  "publicationRecordCommit": "1e57bed567285f6fa5a92c75f0a9425e5bf8cf0b",
+  "testedSourceCommit": "5064f7557f0934b1f00e9550cc120ee646975611",
+  "htmlSha256": "c9e3a8fe83f550b8462f8fca43b3c42628c391cdeecb8b329a9e445b88ae72c9",
+  "scope": "Native sideplate with more ageing/material controls; optional temporary whole-reference context. Complete independent gun remains unfinished.",
+  "previousReviewsPreserved": ["w02", "w03", "w04"],
+  "B24Priority": true,
+  "retiredS01R01MayBeRestored": false,
+  "hiddenRearAndScrewShanksComplete": false,
+  "visualAcceptance": false,
+  "productionReady": false
+}
