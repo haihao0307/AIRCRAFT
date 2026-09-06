@@ -1,0 +1,15 @@
+# W05 public material study and whole-reference context
+
+2026-09-06. B24 priority remains. This candidate preserves the geometry from the already published W04, source commit 1f4f7c0c001c43a2fd393a469f7ef9051ee8a331. The local attachment with a similar W04 title was older and different. The final new sideplate.js uses exactly Git blob 5b9321299c39e3fec127e3d77bc6c339649286ff, retaining 4,904 generated triangles. No old file is overwritten or retired by this candidate.
+
+The source part remains an open visible shell; rear volume, screw shanks and threads are not present. W05 explicitly explains this in the reverse view. Opaque double-sided shading does not add a missing solid underside. We do not invent a rear plate or a hidden working connection to conceal the gap.
+
+New material controls: color, roughness, metalness, grain, shallow relief, film, wear, oxidation, dust and directional scratches. Six presets are artistic candidates, not certified B24 historical finishes. Masks affect related color, metalness and roughness responses. Unknown corrosion is off by default. Geometry does not change with these controls. W05 uses 16 labelled spectral waves plus an explicitly bounded scratch function; no raster map is shipped. No claim of full anti-aliasing or faster performance is made.
+
+Optional whole-reference context reads the user's Aircraft GLB through local File API, verifies its recorded identity and preserves 28 nodes and 13 mesh objects. It does not upload or persist the source. Core, core-plus-feed/box, and all-source-scene scopes are available. The independently generated sideplate can replace the displayed source sideplate under the same outer normalization. Other components remain temporary source meshes, not independent reconstruction. Source data is released on request. Default source materials are neutral; uniform trial painting is explicitly optional and does not certify per-part surface materials.
+
+This is still a partial native replica. Full independent receiver, complete gun, B24-specific mount/box applicability, historically calibrated finishes and animations remain unfinished. No fabrication data, functional internal model or firing optimization is included.
+
+Build: place fixed Three.js r170, OrbitControls and license in a vendor directory, then run `python build.py --vendor /path/to/vendor --output /path/to/index.html`. page.py reuses only frozen W04 CSS from frame-baseline.html and writes a new UI template. The build rejects runtime storage/upload calls and embedded reference payloads. Source and output HTML carry their license/attribution. No Blender session or user-desktop automation is used.
+
+The actual local browser checks include full reference loading and release, but use document injection in an isolated headless browser with its own virtual display. Public navigation is verified separately after deployment. A source audit or successful test does not constitute user visual approval. Publication status must be read from the final publication receipt, not inferred from this README.
