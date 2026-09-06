@@ -1,0 +1,102 @@
+{
+  "schema": "aircraft.w06.publication/1",
+  "date": "2026-09-06",
+  "status": "published_independent_whole_gun_exterior_candidate",
+  "publicUrl": "https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-anm2-w06/",
+  "sourceRepository": "haihao0307/AIRCRAFT",
+  "sourceBranch": "feature/b24-weapons-mother-v1",
+  "testedSourceCommit": "d58fb6547cee4dd3d0559cfb1ab7fb841f26f238",
+  "sourceDirectory": "production/aircraft-anm2/workbench/w06",
+  "html": {
+    "bytes": 1395039,
+    "sha256": "d8d9464752ac8b1278f74d1f8a2f9bc696447a65ba69a4a0c23286ab12edc9cb",
+    "selfContained": true,
+    "productMeshFiles": 0,
+    "productRasterTextures": 0,
+    "referenceEmbedded": false,
+    "runtimeLibrary": "Three.js r170 bundled with license"
+  },
+  "independentExterior": {
+    "visualPartGroups": ["receiver", "sideplate", "reverse", "grips", "sidehandle", "controls", "front"],
+    "partCount": 7,
+    "runtimeMeshObjects": 176,
+    "runtimeTriangles": 38136,
+    "savedGeometryRepresentation": "readable procedural rules and semantic parameters",
+    "savedSourceVertexIndexOrUvTables": false,
+    "retiredS01R01Used": false,
+    "currentGunOrientationUsesOldPatchChain": false,
+    "scope": "Independent Aircraft AN/M2 exterior appearance candidate for B24-priority review. It does not establish a complete aircraft installation."
+  },
+  "visibleDetailWork": {
+    "receiverAndSideplate": true,
+    "bodyFastenerHeadRhythm": true,
+    "distinctVisibleSideplateHeadForms": true,
+    "reverseExteriorOpeningsAndLatches": true,
+    "rearGripExterior": true,
+    "sideHandleExterior": true,
+    "frontRingBarrelAndPerforatedJacketAppearance": true,
+    "hiddenScrewShanksThreadsOrFunctionalInternals": false,
+    "factoryCadExactnessClaimed": false,
+    "periodDrawingCalibrationComplete": false
+  },
+  "materials": {
+    "program": "new procedural PBR, no raster product textures",
+    "controls": ["color", "roughness", "metalness", "grain", "relief", "oil", "wear", "oxidation", "dust", "scratches"],
+    "presets": ["维护良好", "服役状态", "干燥旧化", "旧金属油膜", "氧化候选", "重度使用候选"],
+    "restCoordinateVariation": true,
+    "historicallyCalibratedB24Finish": false,
+    "presetsAreReviewCandidates": true
+  },
+  "interaction": {
+    "partSelection": true,
+    "partIsolation": true,
+    "visualSpreadAndRestore": true,
+    "views": ["oblique", "side", "reverse", "top", "rear"],
+    "channels": ["pbr", "basecolor", "roughness", "metalness", "normal", "wire"],
+    "lights": ["neutral", "grazing", "studio"],
+    "mobileDrawers": true
+  },
+  "verification": {
+    "workflowRepository": "haihao0307/guilin-dem-pipeline",
+    "workflowCommit": "e1fd9f2161ca759ed1e4d67e55d6b92adb3c0edf",
+    "workflowRun": 34026170717,
+    "workflowConclusion": "success",
+    "pagesContentCommit": "6bb6f4a6a7111420b80f11dbb8c8f8cd08b2ed6a",
+    "pagesDeploymentRun": 34026215125,
+    "pagesDeploymentConclusion": "success",
+    "publicHttpStatus": 200,
+    "publicBytesMatchBuiltHtml": true,
+    "publicDesktopViewport": [1500, 950],
+    "publicMobileViewport": [390, 844],
+    "publicScriptOrShaderErrors": 0,
+    "publicRequestsPerViewport": 1,
+    "offlineDesktopAndMobileChecks": "passed",
+    "geometryStableAcrossRepeatedSpreadRestore": true,
+    "artifactId": 9987149786,
+    "artifactBytes": 967113,
+    "artifactSha256": "ed9fc5836abae21adeabcb5cef60b109d603a9e0531c6c752ebdb8f64135bdff",
+    "artifactDownloadedAndReportsReadBack": true,
+    "firstPublishAttemptRun": 34026066330,
+    "firstPublishAttemptPublished": false,
+    "firstPublishAttemptFailure": "Mobile test attempted a desktop material preset before opening the mobile surface drawer. Product HTML was not published by that failed run.",
+    "testCorrectionChangedProductBytes": false
+  },
+  "preservation": {
+    "W02W03W04W05DeletedOrOverwritten": false,
+    "sourceGunFileChanged": false,
+    "B17ResearchExpandedThisTurn": false,
+    "B24Priority": true
+  },
+  "stillIncomplete": [
+    "B24-specific ammunition box applicability and independent reconstruction",
+    "B24-specific gun mount or suspension applicability",
+    "B24-specific sight configuration",
+    "B24-visible case/link disposal path",
+    "new presentation animation",
+    "period drawing and finish calibration across the whole gun",
+    "physical phone and Safari visual/performance review"
+  ],
+  "visualAcceptance": false,
+  "completeB24InstallationFinished": false,
+  "productionReady": false
+}
