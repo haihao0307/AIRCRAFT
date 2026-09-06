@@ -1,13 +1,27 @@
 # Weapons Mother 当前接续入口
 
+## 当前可查看增量：W04，2026-09-06
+
+B24优先，B17研究暂停。先读 production/aircraft-anm2/AGENTS.md 的最新范围，再读原件研究入口及 workbench/w04/README.md。
+
+公开入口：https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-anm2-w04/
+
+W04是独立侧板和五个可见头部的方向修正与PBR候选，尚未完成整枪。源码固定提交1f4f7c0c001c43a2fd393a469f7ef9051ee8a331；实际公开与离线文件浏览器检查均已执行通过，具体字节身份、测试范围和限制见 production/aircraft-anm2/workbench/w04/PUBLICATION.json。
+
+圆头面方向错误已修正。参考背面不完整，候选撤去未支持的背平面填充；不能把外框深度认定为真实板厚。深灰金属配色仍待年代/实物标定。不要把W04的运行、局部轮廓校核或像素变化提升为整枪和B24安装正确性。
+
+W02/W03、原件与旧档案保持不变。公开目录是新的独立路径，没有覆盖退役R01页面或其他工作台。用户接受之前不得删除旧成果。下一步仍需收紧细节偏差、独立重建机匣主体，并依据适用的B24原始资料核对安装与材料；不以新增面板或重复测试代替造型。
+
+## 继续有效的研究与退役边界
+
 2026-09-06：用户已否决 R01 和既有生产实现，要求使用本次上传的 Aircraft 原件重新研究。先前关于沿用 R01、保留其工作台基线和复用旧内核的计划全部失效。
 
-唯一新入口：`production/aircraft-anm2/START_HERE.md`。
+原件研究入口：production/aircraft-anm2/START_HERE.md。其研究库存属于之前时点，应结合上方当前W04状态阅读。
 
-旧 `native/weapons-visual` 整体移至 `archive/weapons-mother/rejected-through-r01-20260906/native-weapons-visual`，只供参考。三个旧构建/测试workflow退出活跃目录，归档为文本。历史Git与过去报告保留，不改写历史、不伪造通过或接受状态。不得再把旧报告中的网址和已通过测试解释为用户接受。
+旧 native/weapons-visual 整体移至 archive/weapons-mother/rejected-through-r01-20260906/native-weapons-visual，只供参考。三个旧构建/测试workflow退出活跃目录，归档为文本。历史Git与过去报告保留，不改写历史、不伪造通过或接受状态。不得再把旧报告中的网址和已通过测试解释为用户接受。
 
-旧公开 R01 的三维程序及其自动发布workflow已在 guilin-dem-pipeline 的gh-pages提交 f384ee4713e5106eba61ce57ff1204f511d26b5c 撤下；网址保留撤回说明，不是新工作台。公网生效以实际部署结果为准。
+旧公开 R01 三维程序及其自动发布workflow已在 guilin-dem-pipeline 的gh-pages提交 f384ee4713e5106eba61ce57ff1204f511d26b5c 撤下；旧网址保留撤回说明，不能当作新工作台。
 
-本次原件已经实际到手，6,548,040字节，SHA-256 2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b。新研究以此附件的实际内容为基础，参见新入口中的源内容、推断、外部资料与未完成事项。另两份不同标称口径的弹药不接入本线。
+本次原件已经实际到手，6,548,040字节，SHA-256 2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b。新研究以此附件实际内容为基础，区分源内容、推断、外部资料与未完成事项。另两份弹药严格只作材质参考。
 
-不保留mesh与贴图的最终产品要求继续有效；临时研究与最终生产依赖严格分开。其他B24整机、涂装及无关仓库内容不受本次撤回影响。
+不保留mesh与贴图的最终产品要求继续有效；临时研究与最终生产依赖严格分开。Blender只在独立后台按需测量或检查，不操作用户桌面。其他B24整机、涂装及无关仓库内容保持不变。
