@@ -1,0 +1,143 @@
+{
+  "schema": "wm.aircraft.source-study/1",
+  "date": "2026-09-06",
+  "status": "source_received_and_studied_not_new_product",
+  "basis": "Three actual attachments uploaded in this conversation; external sources listed separately.",
+  "retirement": {
+    "userDecision": "R01 rejected; keep prior work for reference only; rebuild production from the uploaded Aircraft source.",
+    "archiveCommit": "eacdc7c2c075cf8bcdcaa722570d95dbaedda7f2",
+    "archiveDirectory": "archive/weapons-mother/rejected-through-r01-20260906",
+    "preservedNativeTree": "06376040343444d608ed2a2556b6ca437b10fdae",
+    "oldNativeFilesMovedWithoutContentChange": 16,
+    "oldWorkflowsRemovedAndArchivedAsText": 3,
+    "publicWithdrawalCommit": "f384ee4713e5106eba61ce57ff1204f511d26b5c",
+    "pagesWithdrawalRun": 34005943313,
+    "pagesWithdrawalConclusion": "success",
+    "publicBrowserRetestThisTurn": false,
+    "scope": "R01 native code and its own publication path; other aircraft projects and historical sources were not destructively purged. Git history and old chat attachments remain reference history.",
+    "oldCodeAcceptedAsNewProductionDependency": false
+  },
+  "attachments": [
+    {
+      "file": "anm2_browning_.50_cal_aircraft_machine_gun(1).glb",
+      "bytes": 6548040,
+      "sha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+      "historicalOriginalIdentityMatches": true,
+      "embeddedTitle": "AN/M2 Browning .50 cal aircraft machine gun",
+      "embeddedAuthor": "Misja van Laatum",
+      "nodes": 28,
+      "meshes": 13,
+      "storedVertexEntries": 151832,
+      "triangles": 139891,
+      "uvMeshNodes": 12,
+      "materials": 1,
+      "images": 0,
+      "textures": 0,
+      "animations": 0,
+      "material": {"sourceName":"Scene_-_Root","metallicFactor":0.0,"roughnessFactor":0.6,"doubleSided":true},
+      "role": "Current primary visual reference, temporary research input only. Not retained in the native production package."
+    },
+    {
+      "file": "ammo_7.62_x_54mmr.glb",
+      "bytes": 2941508,
+      "sha256": "1d1e3ba9a9aeb517418c87c1fa5f660da969e444daec592ed21f7d272378f555",
+      "embeddedTitle": "Ammo 7.62 x 54mmR",
+      "nodes": 15,
+      "meshes": 6,
+      "materials": 1,
+      "images": 3,
+      "animations": 0,
+      "role": "Separate reference only; not adopted or rescaled as .50 Aircraft ammunition."
+    },
+    {
+      "file": "ak_rounds_5.45x39_7.62x39.glb",
+      "bytes": 14844780,
+      "sha256": "ae395000098aacb0f370d2502b7589c70a91e46aa269f3adf2d7915d654d3d1b",
+      "embeddedTitle": "AK Rounds (5.45x39 7.62x39)",
+      "nodes": 27,
+      "meshes": 12,
+      "materials": 10,
+      "images": 16,
+      "animations": 0,
+      "role": "Separate reference only; not adopted or rescaled as .50 Aircraft ammunition."
+    }
+  ],
+  "sourceInterpretation": {
+    "labelsAreAuthorMetadata": true,
+    "meshCountsAreNotPhysicalPartCounts": true,
+    "fullSceneIncludesLoosePresentationObjects": true,
+    "visibleContent": "Gun exterior, ammunition box and linked-looking belt forms, plus separately positioned long and belt-shaped reference groups.",
+    "sourceAnimationFound": false,
+    "historicalPBRSegmentationProvided": false,
+    "independentCaliberOrManufacturingCertification": false,
+    "originalFilesUnchanged": true
+  },
+  "coordinateFindings": {
+    "opposingWrapperNodes": [0, 2],
+    "wrapperProductIdentityMaxAbsoluteError": 0.0,
+    "negativeDeterminantSourceNode": "box_9",
+    "interpretation": "Opposing quarter-turn wrapper transforms cancel in the complete hierarchy. Omitting one changes orientation. This does not establish the complete cause of any retired viewer error, and the anatomical up direction still requires visual approval.",
+    "oldRotationPatchesReused": false
+  },
+  "actualBlenderStudy": {
+    "version": "4.5.0",
+    "location": "Local isolated study environment using verified official portable Blender; not the user's computer.",
+    "allThreeAttachmentsImported": true,
+    "importedMeshCounts": [13, 6, 12],
+    "importedImageCounts": [0, 3, 16],
+    "importedActionCounts": [0, 0, 0],
+    "sourceGeometryAndWorldTransformSignaturesPreservedInInventoryPass": true,
+    "referenceViewsRendered": 7,
+    "referenceViewsVisuallyReviewed": 7,
+    "overallViews": "Three complete-scene axis samples. Their legacy screenshot names do not certify anatomical view directions.",
+    "detailViews": "Core oblique/profile and opposite receiver close views, with diagnostic neutral material override.",
+    "detailObservations": "Visible source has both round-headed and polygon-headed fastener forms, layered side outlines, openings and side-to-side differences. Per-fastener count, type and fine dimensions are not yet completely catalogued or historically validated.",
+    "newProductModelCreated": false,
+    "blenderSceneSaved": false,
+    "meshUvOrTextureExported": false,
+    "temporaryMeshAndImageDataReleased": true,
+    "researchViewIsProductionOutput": false
+  },
+  "toolchain": {
+    "acquisitionRun": 34005764936,
+    "officialArchiveBytes": 376170648,
+    "officialArchiveSha256": "1188b95cc12321c770b631939f7c25a096910b6f884a990bf9c0f62d52b38aec",
+    "includedInUserResearchPackage": false
+  },
+  "reportHashes": {
+    "source-inventory.json": "7d963f7d4658e57f3bd421f9f51b317f2e4466dd30c63aed4d2a1d1d557a9b73",
+    "blender-source-audit.json": "8d7a2a07dd7877ecc353fd673677109297db1e3cf8bdde4337709c089e9ba1d6",
+    "detail-review.json": "4709cd2909d53cf69dc20cc6eff233f542ce3478013697bc61b6edbdd2bdb2a6"
+  },
+  "externalResearch": [
+    {
+      "title": "TM 9-225 Browning Machine Gun Caliber .50, M2, Aircraft, Fixed and Flexible",
+      "publisher": "United States War Department",
+      "date": "1942-04-30",
+      "url": "https://archive.org/details/TM9-225_1942",
+      "readScope": "Bibliographic record, edition and contents listing checked. Full PDF fetch exceeded reader limits; not a full manual review. No operating procedures, fabrication data or functional internal design extracted."
+    },
+    {
+      "title": "Browning M2 Aircraft Machine Gun, REL26872",
+      "url": "https://www.awm.gov.au/collection/C358022",
+      "readScope": "Official indexed catalog description read; direct page request was rate-limited. Exterior and model cross-reference only."
+    },
+    {
+      "title": "Machine Gun, .50 Caliber, Browning, AN/M2 (Boeing B-17G), A19680511000",
+      "url": "https://airandspace.si.edu/collection-objects/machine-gun-50-caliber-browning-anm2/nasm_A19680511000",
+      "readScope": "Official indexed catalog text read; direct page request returned 403. Its aircraft and adapter labels are not automatically applicable to every installation."
+    }
+  ],
+  "nextWork": "Finish source-based exterior semantic and detail coverage study, compare fixed views, then author independent compact appearance rules with explicit evidence. Preserve side differences, source hierarchy interpretation and uncertainty. Build display animation only after separately validating visible motion references; never invent it from this animation-free GLB.",
+  "persistentNativeAssetPolicy": "No product mesh, raster texture or source vertex/index/UV tables, including encoded copies. Temporary reference inspection and renderer-generated buffers remain separate from permanent authored rules.",
+  "notCompleted": [
+    "Per-screw exterior feature catalogue and full proportion calibration",
+    "Complete independent high-detail shape rules",
+    "Historically verified finish and full procedural PBR implementation",
+    "Final aircraft mount applicability",
+    "New display animation implementation",
+    "New production workbench and user visual review"
+  ],
+  "productionReady": false,
+  "visualAcceptance": false
+}
