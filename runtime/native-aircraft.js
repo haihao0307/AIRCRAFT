@@ -21,6 +21,10 @@ export class NativeAircraft {
     if(payload.byteLength!==SOURCE.payloadBytes||digest!==SOURCE.payloadSha256)throw new Error('整机数字载荷校验失败，已停止载入。');
     if(m.components.length!==1784||m.meshes.length!==348)throw new Error('当前审查资产结构与已锁定版本不符。');
     progress(.70,'恢复已核验部件姿态与独立机械控制器');
+    const overlay=document.querySelector('#loading');
+    if(overlay){overlay.hidden=true;overlay.style.display='none';}
+    const status=document.querySelector('#status');
+    if(status)status.textContent='数据校验完成 · 正在构建整机显示';
     await new Promise(resolve=>requestAnimationFrame(resolve));
     return new NativeAircraft(m,payload,digest);
   }
@@ -73,7 +77,6 @@ export class NativeAircraft {
     const gear=/[lrc]_gear_|[lrc]_wheel_/i.test(path);
     if(gear||family==='landing-mechanism'){metal.color.set(0x8e9693);metal.roughness=.30;metal.metalness=.87;return metal;}
     if(family==='propulsion-mechanism'||family==='interior-detail'||family==='legacy-weapon'){metal.color.set(family==='interior-detail'?0x333f34:0x434946);metal.roughness=.43;metal.metalness=.65;return metal;}
-    // Reversible aluminum appearance. Raw native data is never rewritten.
     const variation=((d.mesh*73)%29)/29;
     metal.color.setRGB(.43+variation*.07,.47+variation*.06,.48+variation*.045);
     metal.roughness=.245+variation*.035;
