@@ -1,0 +1,52 @@
+{
+  "schema": "haihao.aircraft/b24-generic-skin-source-lock@1.0",
+  "date": "2026-09-06",
+  "scope": "B24 generic common-skin workbench only",
+  "inputArchive": "B24_Skin_Static_Data_V018_R2_SIDE_DOORS_CLOSED(2).zip",
+  "inputArchiveSha256": "741b39040d2dfaad0a8db9ec7a7ee8448c1cfa7def38e8e193960df4a7ea469a",
+  "packageId": "B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED",
+  "verification": {
+    "command": "python TOOLS/verify_package.py",
+    "passed": true,
+    "parts": 218,
+    "vertices": 236929,
+    "triangles": 238898,
+    "geometryBlockHashes": 347,
+    "assetBoundsSizeMetres": [33.07705116271973, 5.0038755088246205, 20.85940933227539],
+    "sideDoorAssemblies": 2,
+    "sideDoorMembers": 4,
+    "defaultSideDoorPose": "closed",
+    "sideDoorAnimationIncluded": false
+  },
+  "closedDoorBindings": [
+    {"side": "port", "skinNode": 764, "windowReferenceNode": 767},
+    {"side": "starboard", "skinNode": 773, "windowReferenceNode": 776}
+  ],
+  "invariants": {
+    "geometryBytesChanged": false,
+    "topologyChanged": false,
+    "scaleChanged": false,
+    "openPosePreserved": true,
+    "sourceRuntimeCommit": "f3a8e9edc3c2dc542d680aee469467e95211a31f",
+    "fullRuntimeReplacedByStaticSubset": false
+  },
+  "deliveryContract": {
+    "singleFileHtml": true,
+    "fixedCommitUrl": true,
+    "rawGithackDirectLink": true,
+    "aircraftSpecificNoseArtExcluded": true,
+    "unsupportedDetailsRemainUnresolved": true
+  },
+  "productionGates": {
+    "visualAcceptance": false,
+    "productionReady": false,
+    "manufacturerPanelSeamsApproved": 0,
+    "manufacturerRivetRowsApproved": 0
+  },
+  "notes": [
+    "Use the verified closed matrices only for the four recorded waist-side-door members on the inherited V018 full runtime.",
+    "Keep propellers, mechanisms, glass and all other reference parts from the full runtime.",
+    "Common insignia must be surface-conforming and placed from the approved four-view reference, with no freehand repositioning.",
+    "Panel seams and rivets enter the common layer only after source drawings support their routes."
+  ]
+}
