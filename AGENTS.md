@@ -1,8 +1,8 @@
 # AIRCRAFT repository guidance
 
-## Weapons Mother latest user decision (2026-09-05)
+## Weapons Mother latest user decision (2026-09-06)
 
-For Weapons Mother work, read `docs/weapons-mother/RESTART_START_HERE.md` before any historical handoff or learning note. The user has rejected S01 and requested its deletion, selecting a single clean Aircraft aviation-gun digital-asset line. Do not restore S01, continue its transform patches, or require the old two-project UI. Recover only individually validated visual-animation or component assets from older work as donors. The complete Aircraft original is not yet acquired in this restart; source identification is not source recovery or orientation approval. Other aircraft, B24 whole-aircraft and livery work remain unchanged.
+For Weapons Mother work, read `production/aircraft-anm2/START_HERE.md` and `docs/weapons-mother/RESTART_START_HERE.md` first. The user rejected R01 and the entire prior Weapons Mother production implementation, while allowing old work to remain as reference-only archives. The former native/weapons-visual subtree and its workflows have been archived and must not be imported, rebuilt or republished as a new baseline. S01 remains rejected. The current uploaded Aircraft original has now been received and actually inspected in Blender; its hash is recorded at the new entry. New production is source-study-led, with no persistent product mesh/texture or source vertex/UV-table reencoding. The two other uploaded ammunition packages are separately identified references, not accepted .50 Aircraft assets. No functional weapon engineering or fabrication data is authorized by a visual-asset task. Other B24 whole-aircraft, livery and unrelated projects remain unchanged.
 
 ## Authority
 
