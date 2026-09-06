@@ -39,7 +39,13 @@ def run(url,out,expected=None):
     check('W04_geometry_retained',initial['nativeStats']['triangles']==4904 and initial['nativeGeometryUnchanged'])
     check('actual_triangles_rendered',initial['renderer']['triangles']>1000)
     check('no_horizontal_overflow',page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
-    page.locator('#info').click();check('source_scope_opens',page.locator('#info-dialog').evaluate('e=>e.open'));page.locator('#close-info').click();snap('initial')
+    if w>=900:
+     page.locator('#info').click();check('desktop_source_dialog_opens',page.locator('#info-dialog').evaluate('e=>e.open'));page.locator('#close-info').click()
+    else:
+     page.locator('#parts-mobile').click();page.wait_for_timeout(250)
+     check('mobile_scope_available_in_part_drawer',page.locator('#scope-note').is_visible() and '独立生成范围' in page.locator('#scope-note').inner_text())
+     page.locator('[data-close]').first.click();page.wait_for_timeout(250)
+    snap('initial')
     if w<900:
      page.locator('#surface-mobile').click();page.wait_for_timeout(250);check('mobile_keeps_3d_visible',page.locator('#stage').bounding_box()['height']>100)
     fixed=page.evaluate('W05.snapshot().camera')
