@@ -1,0 +1,6 @@
+{
+  "mean_absolute_display_channel_delta": 0.09089152018229167,
+  "pixels_with_any_channel_delta_gt_2": 2357,
+  "total_pixels": 393216,
+  "interpretation": "Visible render difference under fixed view/sample conditions; not proof of historical accuracy or alias-free production output. Path-tracing sampling error can remain."
+}

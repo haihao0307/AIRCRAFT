@@ -1,0 +1,96 @@
+{
+  "date": "2026-09-06",
+  "decisionBasis": "User explicitly limits both auxiliary ammunition files to material reference; primary Aircraft original remains temporary exterior evidence.",
+  "nominalFamily": ".50 inch / 12.7 mm",
+  "caliberEvidence": "AWM REL26872 and REL26873 record .50 CAL; 0.50 * 25.4 = 12.7 is nominal unit conversion, not a measurement of the uploaded mesh.",
+  "sourceRoundGeometryCaliberCertified": false,
+  "attachments": [
+    {
+      "file": "anm2_browning_.50_cal_aircraft_machine_gun(1).glb",
+      "sha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+      "purpose": "primary exterior reference only",
+      "imagesReviewed": [],
+      "sourceFilesModified": false,
+      "sourceGeometryRetainedInProduction": false,
+      "rasterTextureRetainedInProduction": false,
+      "sourceShapeReferenceAllowed": true
+    },
+    {
+      "file": "ammo_7.62_x_54mmr.glb",
+      "sha256": "1d1e3ba9a9aeb517418c87c1fa5f660da969e444daec592ed21f7d272378f555",
+      "purpose": "material appearance reference only; geometry excluded",
+      "imagesReviewed": [
+        {
+          "imageIndex": 0,
+          "size": [
+            1024,
+            1024
+          ],
+          "sha256": "dc474d217a64f69785c945956908dc13277234415d3c14f7b68b7f9b35dacec3"
+        },
+        {
+          "imageIndex": 1,
+          "size": [
+            1024,
+            1024
+          ],
+          "sha256": "d323ab6c735faea7a6ec3b4d078744fb67fa78b3f04d451a99858a30a97b01fe"
+        },
+        {
+          "imageIndex": 2,
+          "size": [
+            1024,
+            1024
+          ],
+          "sha256": "25511451e555d89a38cb394347981005a0cfa58a8f1d8e7fb508f35b9cb6c853"
+        }
+      ],
+      "sourceFilesModified": false,
+      "sourceGeometryRetainedInProduction": false,
+      "rasterTextureRetainedInProduction": false,
+      "sourceShapeReferenceAllowed": false
+    },
+    {
+      "file": "ak_rounds_5.45x39_7.62x39.glb",
+      "sha256": "ae395000098aacb0f370d2502b7589c70a91e46aa269f3adf2d7915d654d3d1b",
+      "purpose": "material appearance reference only; geometry excluded",
+      "imagesReviewed": [
+        {
+          "imageIndex": 8,
+          "size": [
+            1024,
+            512
+          ],
+          "sha256": "c595dd8643dc254bf2cb098c94e0f82708024dd1b03b52fd4d99e2609cb5d158"
+        },
+        {
+          "imageIndex": 9,
+          "size": [
+            1024,
+            512
+          ],
+          "sha256": "dcc50f6f07237db936af010de549242ab265918b2ac8050c7dee7f64698a2a76"
+        },
+        {
+          "imageIndex": 10,
+          "size": [
+            1024,
+            512
+          ],
+          "sha256": "b5fd06be9760fd6a9a8894938da003c5f421fc2f0d5a5b49269bb30ef975c3f8"
+        }
+      ],
+      "sourceFilesModified": false,
+      "sourceGeometryRetainedInProduction": false,
+      "rasterTextureRetainedInProduction": false,
+      "sourceShapeReferenceAllowed": false
+    }
+  ],
+  "readings": {
+    "xiaomaRepo": "haihao0307/guilin-dem-pipeline",
+    "xiaomaCommit": "cdc47d0f43949c2ce70dab6cd856dbe6d88224a3",
+    "shaderSkillBlob": "44cb95f517e3382fc0284ab2b6d31ff4f8ada760",
+    "skillIndexBlob": "4480de410518df83503de02423810d14076edd8f",
+    "unifiedMethod": "File Library: MOTHER_UNIFIED_EVOLUTION_METHOD_V1.0.0.md, sections 3-5; candidate method, not a verified physics engine"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "schema": "aircraft.headless.material-study/1",
+  "studyOnly": true,
+  "sourceSha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+  "blenderVersion": "4.5.0",
+  "background": true,
+  "DISPLAY": null,
+  "localIsolatedRunner": true,
+  "userDesktopControlled": false,
+  "productModelBuilt": false,
+  "webWorkbenchBuilt": false,
+  "oldRuntimeImported": false,
+  "oldAnimationImported": false,
+  "oldMaterialImportedAsCandidate": false,
+  "candidatePhysicallyCalibrated": false,
+  "humanVisualAccepted": false,
+  "newAssetExported": false,
+  "checks": {
+    "imageNodesAbsent": true,
+    "noImageAssets": true,
+    "restCoordinateRoundTrip": true,
+    "sameMeshAndUVAndWorldTransforms": true,
+    "sourceFileUnchanged": true,
+    "actuallyHeadless": true
+  },
+  "renders": [
+    {
+      "label": "base_fields_no_relief",
+      "sha256": "24b4201c5b807538ecbb56c0574447aa3f3cdb12fbb479344eeb411b785aadaa",
+      "seconds": 15.229
+    },
+    {
+      "label": "same_fields_with_micro_relief",
+      "sha256": "123a73eebc3e79a2ffd7b6b9a5f0534de8bc4b5928a47cc82750b85df9ba79bb",
+      "seconds": 17.367
+    }
+  ],
+  "originalMeshObjects": 13,
+  "originalImages": 0,
+  "sourceMeshLabels": [
+    {
+      "object": "Object_23",
+      "parent": "body_15"
+    },
+    {
+      "object": "Object_25",
+      "parent": "sideplate_16"
+    }
+  ],
+  "nodeCounts": [
+    149,
+    149
+  ],
+  "localCoordinateRoundTripRoughnessDelta": 0.0,
+  "fixedRenderConditions": {
+    "cameraMatrix": [
+      [
+        0.9870527386665344,
+        -0.06510986387729645,
+        0.1465865522623062,
+        0.04297710955142975
+      ],
+      [
+        0.16039609909057617,
+        0.40067607164382935,
+        -0.9020708203315735,
+        -1.4463789463043213
+      ],
+      [
+        -1.4453896746147166e-08,
+        0.9139033555984497,
+        0.4059317708015442,
+        0.6492042541503906
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "renderSize": [
+      768,
+      512
+    ],
+    "samples": 128,
+    "seed": 47,
+    "viewTransform": "AgX"
+  },
+  "passed": true,
+  "releasedMeshDatablocks": true,
+  "releasedImageDatablocks": true,
+  "elapsedSeconds": 34.559,
+  "scope": "Two original source mesh objects with new provisional material only. No weapon rebuilding, historical finish certification, automatic anti-aliasing or browser performance test."
+}

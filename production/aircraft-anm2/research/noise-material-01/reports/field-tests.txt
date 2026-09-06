@@ -1,0 +1,21 @@
+test_added_layer_does_not_change_existing (test_surface.SurfaceTests.test_added_layer_does_not_change_existing) ... ok
+test_bad_coordinates (test_surface.SurfaceTests.test_bad_coordinates) ... ok
+test_bounded_outputs (test_surface.SurfaceTests.test_bounded_outputs) ... ok
+test_channels_not_same_pattern (test_surface.SurfaceTests.test_channels_not_same_pattern) ... ok
+test_entity_namespace (test_surface.SurfaceTests.test_entity_namespace) ... ok
+test_gradient_matches_finite_difference (test_surface.SurfaceTests.test_gradient_matches_finite_difference) ... ok
+test_height_does_not_change_tint (test_surface.SurfaceTests.test_height_does_not_change_tint) ... ok
+test_high_frequency_attenuation (test_surface.SurfaceTests.test_high_frequency_attenuation) ... ok
+test_layer_namespace (test_surface.SurfaceTests.test_layer_namespace) ... ok
+test_no_unobserved_oil_default (test_surface.SurfaceTests.test_no_unobserved_oil_default) ... ok
+test_oil_changes_related_outputs_only (test_surface.SurfaceTests.test_oil_changes_related_outputs_only) ... ok
+test_order_independent (test_surface.SurfaceTests.test_order_independent) ... ok
+test_parameters_validated (test_surface.SurfaceTests.test_parameters_validated) ... ok
+test_rebuild_deterministic (test_surface.SurfaceTests.test_rebuild_deterministic) ... ok
+test_temporal_state_not_input (test_surface.SurfaceTests.test_temporal_state_not_input) ... ok
+test_white_color_stays_bounded (test_surface.SurfaceTests.test_white_color_stays_bounded) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.015s
+
+OK

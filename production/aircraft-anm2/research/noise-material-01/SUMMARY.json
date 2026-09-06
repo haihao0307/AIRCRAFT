@@ -1,0 +1,111 @@
+{
+  "schema": "aircraft.material-noise-receipt/1",
+  "date": "2026-09-06",
+  "readHead": "df5db4d5090f361ae30513a93df6728ec07dcc72",
+  "scope": "Two source mesh objects studied with a newly authored provisional surface program. No new gun geometry, animation or website.",
+  "sourceRoleClarification": {
+    "aircraft": "temporary exterior reference",
+    "twoAuxiliaryAmmunitionFiles": "material_reference_only",
+    "auxiliaryGeometryOrMarkingsAdopted": false,
+    "nominalFamily": ".50 / 12.7 mm",
+    "actualSourceRoundCaliberMeasured": false
+  },
+  "xiaoma": {
+    "repository": "haihao0307/guilin-dem-pipeline",
+    "readCommit": "cdc47d0f43949c2ce70dab6cd856dbe6d88224a3",
+    "shaderSkillBlob": "44cb95f517e3382fc0284ab2b6d31ff4f8ada760",
+    "reading": "Generated shader review skill full text; skill index; coordinator entry; parts of merged mentor text; unified method sections 3-5 excerpts",
+    "reviewReceived": false,
+    "reviewChannel": "GitHub issue 62"
+  },
+  "implementation": {
+    "program": "surface_program.py",
+    "method": "New labelled sparse spectral visual approximation, not a copy of former pipelines or Blender/Adobe Perlin",
+    "processes": [
+      "finish_tint",
+      "surface_grain",
+      "micro_relief",
+      "film_variation"
+    ],
+    "scale": "fractions of part-rest reference span, not measured historic finish",
+    "explicitFootprint": "fixed Gaussian spectral attenuation only",
+    "sourceMapsOrVertexTablesPersisted": false,
+    "defaultUnobservedFilmCoverage": 0
+  },
+  "verified": {
+    "cpuUnitTestsPassed": 16,
+    "headlessChecksPassed": 6,
+    "actualBlender": "4.5.0",
+    "background": true,
+    "DISPLAY": null,
+    "environment": "isolated local container, user desktop not accessed",
+    "sourceMeshObjectsInRender": 2,
+    "nodesPerMaterial": [
+      149,
+      149
+    ],
+    "cyclesCPUThreads": 6,
+    "renderSamples": 128,
+    "elapsedSeconds": 34.559,
+    "temporarySourceFileMeshUVWorldTransformsUnchanged": true,
+    "temporaryMeshAndImageDataReleased": true,
+    "fullLogBundled": true
+  },
+  "limits": [
+    "Candidate local material experiment, not completed new product or historical finish certification.",
+    "No new animation; source GLB has no animation to inherit.",
+    "No automatic screen-space filtering, mobile performance or browser validation.",
+    "Initial low-sample renders had sampling grain. Final 128-sample evidence still does not distinguish every small difference from sampling error.",
+    "No coordinator response or user visual acceptance yet.",
+    "No overnight autonomous process or user-desktop Blender session."
+  ],
+  "productionReady": false,
+  "visualAcceptance": false,
+  "files": [
+    {
+      "path": "production/aircraft-anm2/AGENTS.md",
+      "bytes": 2063,
+      "sha256": "fd65236dc3b91a0506abc3c6af2e733e54866bc60533187e33235bd170edfac1"
+    },
+    {
+      "path": "production/aircraft-anm2/research/noise-material-01/README.md",
+      "bytes": 6713,
+      "sha256": "3fea9a937da17428733b71bd56a21a1cc0bd015c7d84a69f70465b662bbf93d5"
+    },
+    {
+      "path": "production/aircraft-anm2/research/noise-material-01/REFERENCE_ROLES.json",
+      "bytes": 3362,
+      "sha256": "87af70bdc3331e78fb2cd89c5719ae49a75f5e699b4a324b063a340e847ba021"
+    },
+    {
+      "path": "production/aircraft-anm2/research/noise-material-01/headless_study.py",
+      "bytes": 7006,
+      "sha256": "a83b4cf528b3d23bbd9bd49eb7e480e94e4efb76956ae85705457a24353cb7de"
+    },
+    {
+      "path": "production/aircraft-anm2/research/noise-material-01/reports/field-tests.txt",
+      "bytes": 1597,
+      "sha256": "428934ed3e453134ba7f6f39572ad5509582ca56071d81fbb45b904dd38af39a"
+    },
+    {
+      "path": "production/aircraft-anm2/research/noise-material-01/reports/headless-material.json",
+      "bytes": 2387,
+      "sha256": "092a9f9c2d177bd58e757ecc93c321b91d6e49d51dd1f5a752bde1bd0ac15e34"
+    },
+    {
+      "path": "production/aircraft-anm2/research/noise-material-01/reports/render-comparison.json",
+      "bytes": 328,
+      "sha256": "3eb75e753bec9c157c9d38f25cd87b70e062b5bfe9bc7274b4e6f1c8cda393a8"
+    },
+    {
+      "path": "production/aircraft-anm2/research/noise-material-01/surface_program.py",
+      "bytes": 8384,
+      "sha256": "b16668445dad273e53ad7b48a27c83e90db5236bb6e11eb25f0f09a964ee2254"
+    },
+    {
+      "path": "production/aircraft-anm2/research/noise-material-01/test_surface.py",
+      "bytes": 3162,
+      "sha256": "a2933a5ca5ec681993d41d695c7fdca8f5ec864ffdd79c1ff733689a228ddcb4"
+    }
+  ]
+}
