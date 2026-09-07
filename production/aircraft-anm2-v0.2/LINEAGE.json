@@ -1,0 +1,50 @@
+{
+  "schema": "aircraft-anm2-object-dna-lineage/0.2",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "generationId": "GEN-0002",
+  "createdFrom": {
+    "packageCommit": "29b48bf2582350ef0aa8242df25d13398805f87e",
+    "packageSourceCommit": "7bdbf658168423b34931bf88df1514b3407415b5",
+    "failedPilotBranch": "feature/object-dna-kernel-v0.1-browning-pilot",
+    "frozenBranch": "handoff/aircraft-anm2-object-dna-v0.1-failed-baseline-20260907"
+  },
+  "preserved": [
+    "Object DNA identity and ontology",
+    "semantic and evidence separation",
+    "truth states known inferred estimated unknown",
+    "Reference Twin local-only identity protection",
+    "dual-object review principle",
+    "cause-based material principles",
+    "lifecycle and time-evolution architecture",
+    "Web runtime target",
+    "fixed-commit single-HTML delivery"
+  ],
+  "rejected": [
+    {
+      "id": "S01",
+      "status": "retired"
+    },
+    {
+      "id": "R01",
+      "status": "rejected-low-quality"
+    },
+    {
+      "id": "W06",
+      "status": "geometry-rejected-material-method-only"
+    },
+    {
+      "id": "W07",
+      "status": "registration-rejected-dual-view-principle-only"
+    },
+    {
+      "id": "W08",
+      "status": "measurement-and-release-process-rejected",
+      "fixedCommit": "7095e8da44b2a9b589913718d0d1c01adb72615e"
+    }
+  ],
+  "identityContinuity": true,
+  "oldGeometryInherited": false,
+  "oldRegistrationInherited": false,
+  "oldMeasurementKernelInherited": false,
+  "currentCandidate": null
+}

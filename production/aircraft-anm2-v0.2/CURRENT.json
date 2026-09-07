@@ -1,0 +1,54 @@
+{
+  "schema": "aircraft-anm2-object-dna-current/0.2",
+  "status": "clean-restart-initialized",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "rebuild/aircraft-anm2-object-dna-v0.2-clean-restart",
+  "activeDirectory": "production/aircraft-anm2-v0.2",
+  "legacyDirectory": {
+    "path": "production/aircraft-anm2",
+    "mode": "read-only-history-and-failure-reference"
+  },
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "generationId": "GEN-0002",
+  "currentUserReviewCandidate": null,
+  "frozenHandoff": {
+    "commit": "29b48bf2582350ef0aa8242df25d13398805f87e",
+    "branch": "handoff/aircraft-anm2-object-dna-v0.1-failed-baseline-20260907",
+    "packagePath": "handoffs/weapons-mother/AIRCRAFT_ANM2_OBJECT_DNA_FULL_HANDOFF_2026-09-07_V001/dist/AIRCRAFT_ANM2_OBJECT_DNA_FULL_HANDOFF_2026-09-07_V001.zip",
+    "bytes": 876091,
+    "sha256": "02bcc81ad3b58f709544b95fb91a90388d5b6325395a19eee1cd143fc05f7185",
+    "failedW08Included": true
+  },
+  "referenceInput": {
+    "fileName": "anm2_browning_.50_cal_aircraft_machine_gun(1).glb",
+    "bytes": 6548040,
+    "sha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+    "mode": "temporary-local-read-only",
+    "includedInRepository": false
+  },
+  "priority": {
+    "aircraftFamily": "B-24",
+    "B17Deferred": true,
+    "runtimeTarget": "Web",
+    "exactB24Block": "unknown",
+    "exactGunStation": "unknown",
+    "exactServiceDate": "unknown"
+  },
+  "claims": {
+    "visualAcceptance": false,
+    "productionReady": false,
+    "measurementKernelAccepted": false,
+    "geometryParityAccepted": false,
+    "B24InstallationComplete": false
+  },
+  "firstGeometryGate": {
+    "region": "receiver datum shell, top-cover and plate layers, barrel-root and front-collar transition",
+    "status": "not-started",
+    "publicDeliveryBlocked": true
+  },
+  "worldKernel": {
+    "repository": "haihao0307/guilin-dem-pipeline",
+    "branch": "handoff/object-dna-kernel-v0.1-20260907",
+    "path": "docs/mother_coordination/object-dna-kernel-v0.1-20260907/"
+  }
+}

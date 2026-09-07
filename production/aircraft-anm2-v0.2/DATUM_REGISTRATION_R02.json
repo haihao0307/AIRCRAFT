@@ -1,0 +1,25 @@
+{
+  "schema": "object-dna.datum-registration/0.2",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "generationId": "GEN-0002",
+  "status": "pending",
+  "registrationPolicy": {
+    "sharedMechanicalDatumsRequired": true,
+    "boundingBoxCenterAlignmentAllowedAsFinal": false,
+    "totalLengthScaleAllowedAsFinal": false,
+    "sameStationMustMeanSameMechanicalLocation": true,
+    "referenceTransformReadOnly": true
+  },
+  "datums": [
+    {"datumId":"D01_LONGITUDINAL_AXIS","label":"principal longitudinal axis","status":"pending","source":null,"confidence":0},
+    {"datumId":"D02_BARREL_CENTERLINE","label":"barrel centerline","status":"pending","source":null,"confidence":0},
+    {"datumId":"D03_MUZZLE_PLANE","label":"muzzle plane","status":"pending","source":null,"confidence":0},
+    {"datumId":"D04_RECEIVER_FRONT_PLANE","label":"receiver front plane","status":"pending","source":null,"confidence":0},
+    {"datumId":"D05_RECEIVER_REAR_PLANE","label":"receiver rear plane","status":"pending","source":null,"confidence":0},
+    {"datumId":"D06_RECEIVER_TOP_PLANE","label":"receiver top plane","status":"pending","source":null,"confidence":0},
+    {"datumId":"D07_SIDE_PLATE_PLANE","label":"side-plate datum plane","status":"pending","source":null,"confidence":0}
+  ],
+  "residuals": null,
+  "gatePass": false,
+  "nextAction": "load verified reference, map semantic regions, solve shared datums, then establish Native datum shell"
+}

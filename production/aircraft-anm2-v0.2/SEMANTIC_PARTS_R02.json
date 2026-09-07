@@ -1,0 +1,29 @@
+{
+  "schema": "object-dna.semantic-parts/0.2",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "generationId": "GEN-0002",
+  "policy": {
+    "requiredMissingMeansWholeObjectFailure": true,
+    "truthStates": ["known", "inferred", "estimated", "unknown"]
+  },
+  "parts": [
+    {"partId":"ANM2.RECEIVER.DATUM_SHELL","label":"receiver datum shell","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.RECEIVER.TOP_COVER","label":"top cover and plate layers","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.RECEIVER.LEFT_SIDE_PLATE","label":"left side plate","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.RECEIVER.RIGHT_SIDE_PLATE","label":"right side plate","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.REAR.EXTERIOR_GROUP","label":"rear exterior group","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.BARREL.ROOT_COLLAR","label":"barrel root and front collar","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.BARREL.EXPOSED_INTERVAL","label":"exposed barrel interval","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.JACKET.VENTILATED","label":"ventilated jacket","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.MUZZLE.FORWARD_TERMINATION","label":"forward termination","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.FEED.EXTERIOR_OPENING","label":"feed-side exterior opening","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.DISPOSAL.EXTERIOR_OPENING","label":"disposal-side exterior opening","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.SIGHT.BASE_AND_SIGHT","label":"sight base and sight candidate","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing","applicability":"exact B24 context pending"},
+    {"partId":"ANM2.CONTROLS.EXTERIOR","label":"exterior controls","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"ANM2.FASTENERS.FAMILIES","label":"fastener families","required":true,"truth":"unknown","referenceMapped":false,"nativeStatus":"missing"},
+    {"partId":"B24.ANM2.INSTALLATION_INTERFACE","label":"B24 installation interface placeholder","required":false,"truth":"unknown","referenceMapped":false,"nativeStatus":"blocked-by-applicability"}
+  ],
+  "requiredCount": 14,
+  "requiredComplete": 0,
+  "wholeObjectPass": false
+}
