@@ -1,0 +1,64 @@
+name: B24 skin fixed single-file delivery
+on:
+  push:
+    branches: [handoff/b24-skin-singlefile-v018-r2]
+    paths:
+      - 'deliveries/b24-skin-static-v018-r2-singlefile/source/**'
+      - 'deliveries/b24-skin-static-v018-r2-singlefile/tools/**'
+      - '.github/workflows/b24-skin-singlefile.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: b24-skin-singlefile-v018-r2
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout delivery branch
+        uses: actions/checkout@v4
+      - name: Checkout fixed verified V018 numeric source
+        uses: actions/checkout@v4
+        with:
+          repository: haihao0307/AIRCRAFT
+          ref: f3a8e9edc3c2dc542d680aee469467e95211a31f
+          path: _reference
+          persist-credentials: false
+      - name: Install deterministic builder and browser dependencies
+        run: |
+          python -m pip install numpy==2.3.3 playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Build the one-file HTML from exact static numeric data
+        run: |
+          python deliveries/b24-skin-static-v018-r2-singlefile/tools/build_singlefile.py \
+            --reference-runtime _reference/runtime \
+            --pose-file deliveries/b24-skin-static-v018-r2-singlefile/source/SIDE_DOOR_POSES.json \
+            --out deliveries/b24-skin-static-v018-r2-singlefile/B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html \
+            --report deliveries/b24-skin-static-v018-r2-singlefile/DELIVERY.json
+      - name: Verify standalone behavior in desktop and mobile browsers
+        run: |
+          python deliveries/b24-skin-static-v018-r2-singlefile/tools/verify_singlefile.py \
+            --html deliveries/b24-skin-static-v018-r2-singlefile/B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html \
+            --out deliveries/b24-skin-static-v018-r2-singlefile/QA
+      - name: Preserve generated workbench and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: B24-skin-singlefile-v018-r2
+          path: |
+            deliveries/b24-skin-static-v018-r2-singlefile/B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html
+            deliveries/b24-skin-static-v018-r2-singlefile/DELIVERY.json
+            deliveries/b24-skin-static-v018-r2-singlefile/QA/
+      - name: Commit verified fixed file
+        if: success()
+        run: |
+          rm -rf _reference
+          git config user.name 'B24 skin delivery'
+          git config user.email 'b24-skin-delivery@users.noreply.github.com'
+          git add deliveries/b24-skin-static-v018-r2-singlefile/B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html \
+                  deliveries/b24-skin-static-v018-r2-singlefile/DELIVERY.json \
+                  deliveries/b24-skin-static-v018-r2-singlefile/QA
+          git diff --cached --quiet || git commit -m 'deliver(b24-skin): fixed verified single-file HTML V018 R2'
+          git push origin HEAD:handoff/b24-skin-singlefile-v018-r2
