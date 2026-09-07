@@ -1,0 +1,24 @@
+{
+  "schema": "object-dna.semantics/0.1",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "date": "2026-09-07",
+  "scope": "external reconstruction semantics only",
+  "stableParts": [
+    {"partId":"ANM2.receiver","label":"receiver exterior","truthStatus":"inferred","referenceNodes":["Object_23"],"evidence":["EV-REF-GLB-001"]},
+    {"partId":"ANM2.sideplate","label":"side plate exterior","truthStatus":"inferred","referenceNodes":["Object_25"],"evidence":["EV-REF-GLB-001"]},
+    {"partId":"ANM2.front.barrel-jacket","label":"front barrel and jacket visual group","truthStatus":"inferred","referenceNodes":["Object_9"],"evidence":["EV-REF-GLB-001"]},
+    {"partId":"ANM2.front.ring","label":"front ring visual group","truthStatus":"inferred","referenceNodes":["Object_15"],"evidence":["EV-REF-GLB-001"]},
+    {"partId":"ANM2.rear.grip-group","label":"rear grip visual group","truthStatus":"inferred","referenceNodes":["Object_17"],"evidence":["EV-REF-GLB-001"]},
+    {"partId":"ANM2.side.handle-group","label":"side handle/grip visual group","truthStatus":"inferred","referenceNodes":["Object_19"],"evidence":["EV-REF-GLB-001"]},
+    {"partId":"ANM2.rear.component-a","label":"rear small external component","truthStatus":"unknown","referenceNodes":["Object_21"],"evidence":["EV-REF-GLB-001"]},
+    {"partId":"ANM2.rear.control-candidate","label":"rear external control candidate","truthStatus":"unknown","referenceNodes":["Object_27"],"evidence":["EV-REF-GLB-001"]}
+  ],
+  "requiredButUnresolved": [
+    {"partId":"ANM2.feed.interface-exterior","truthStatus":"unknown","reason":"current native candidate lacks a source-resolved exterior feed opening/top-cover relationship"},
+    {"partId":"ANM2.disposal.visible-openings","truthStatus":"unknown","reason":"visible casing/link handling must remain station-evidence gated"},
+    {"partId":"ANM2.sight","truthStatus":"unknown","reason":"exact B-24 station/configuration unresolved"},
+    {"partId":"ANM2.mount.interface","truthStatus":"unknown","reason":"belongs to B-24 installation layer after applicability is resolved"},
+    {"partId":"ANM2.ammunition.external-system","truthStatus":"unknown","reason":"B-24-specific box/feed route remains separate from core gun object"}
+  ],
+  "identityRule": "Part IDs remain stable across geometry/material/time-state revisions unless evidence shows the semantic identity itself was wrong."
+}
