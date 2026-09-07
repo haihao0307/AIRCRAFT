@@ -37,6 +37,8 @@ jobs:
             --pose-file deliveries/b24-skin-static-v018-r2-singlefile/source/SIDE_DOOR_POSES.json \
             --out deliveries/b24-skin-static-v018-r2-singlefile/B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html \
             --report deliveries/b24-skin-static-v018-r2-singlefile/DELIVERY.json
+          python deliveries/b24-skin-static-v018-r2-singlefile/tools/patch_mobile_layout.py \
+            --html deliveries/b24-skin-static-v018-r2-singlefile/B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html
       - name: Verify standalone behavior in desktop and mobile browsers
         run: |
           python deliveries/b24-skin-static-v018-r2-singlefile/tools/verify_singlefile.py \
