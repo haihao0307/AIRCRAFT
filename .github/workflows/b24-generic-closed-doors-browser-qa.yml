@@ -3,8 +3,8 @@ on:
   push:
     branches: [feature/b24-generic-skin-closed-doors-v1]
     paths:
-      - b24-generic-skin-closed-doors-r2.html
-      - runtime/b24-generic-skin-closed-doors-r2.js
+      - b24-generic-skin-closed-doors-r3.html
+      - runtime/b24-generic-skin-closed-doors-r3.js
       - .github/workflows/b24-generic-closed-doors-browser-qa.yml
   workflow_dispatch:
 permissions:
@@ -23,24 +23,23 @@ jobs:
           python -m pip install playwright==1.55.0
           python -m playwright install --with-deps chromium
       - name: Serve fixed branch content
-        run: python -m http.server 8765 >/tmp/b24-r2-http.log 2>&1 &
-      - name: Verify closed doors, paint split and reference-locked insignia
+        run: python -m http.server 8765 >/tmp/b24-r3-http.log 2>&1 &
+      - name: Verify closed doors, lowered paint split and reference-locked insignia
         run: |
           python - <<'PY'
           from pathlib import Path
           import json
           from playwright.sync_api import sync_playwright
 
-          result={"page":"b24-generic-skin-closed-doors-r2.html","checks":[],"errors":[]}
+          result={"page":"b24-generic-skin-closed-doors-r3.html","checks":[],"errors":[]}
           with sync_playwright() as p:
               browser=p.chromium.launch(headless=True)
               page=browser.new_page(viewport={"width":1440,"height":900})
               page.on('console',lambda m: result["errors"].append(f"console {m.type}: {m.text}") if m.type=='error' else None)
               page.on('pageerror',lambda e: result["errors"].append('pageerror: '+str(e)))
-              page.goto('http://127.0.0.1:8765/b24-generic-skin-closed-doors-r2.html',wait_until='domcontentloaded',timeout=30000)
+              page.goto('http://127.0.0.1:8765/b24-generic-skin-closed-doors-r3.html',wait_until='domcontentloaded',timeout=30000)
               page.wait_for_function("() => getComputedStyle(document.querySelector('#loading')).display === 'none'",timeout=60000)
-              page.wait_for_function("() => window.__B24_GENERIC_R2__?.results?.length === 4",timeout=60000)
-              page.wait_for_function("() => document.querySelector('#status')?.textContent.includes('侧门关闭')",timeout=60000)
+              page.wait_for_function("() => window.__B24_GENERIC_R3__?.results?.length === 4",timeout=60000)
               state=page.evaluate("""() => ({
                 status:document.querySelector('#status').textContent,
                 door:document.querySelector('#doorState').textContent,
@@ -48,15 +47,10 @@ jobs:
                 loading:getComputedStyle(document.querySelector('#loading')).display,
                 canvas:[document.querySelector('#scene').width,document.querySelector('#scene').height],
                 split:document.querySelector('#split').value,
-                audit:window.__B24_GENERIC_R2__
+                audit:window.__B24_GENERIC_R3__
               })""")
-              audit=state['audit']
-              names=[r['name'] for r in audit['results']]
-              by_name={r['name']:r for r in audit['results']}
-              top=by_name['upper-port-wing']
-              bottom=by_name['lower-starboard-wing']
-              port=by_name['port-fuselage']
-              starboard=by_name['starboard-fuselage']
+              audit=state['audit'];names=[r['name'] for r in audit['results']];by={r['name']:r for r in audit['results']}
+              top,bottom,port,starboard=(by['upper-port-wing'],by['lower-starboard-wing'],by['port-fuselage'],by['starboard-fuselage'])
               result['state']=state
               result['checks'] += [
                 ["loading hidden",state['loading']=='none'],
@@ -65,34 +59,36 @@ jobs:
                 ["full V018 inventory",'1784 节点 / 348 网格' in state['status']],
                 ["paint restricted to airframe skin",audit['paintMeshCount']==228],
                 ["exactly four named insignia",names==['upper-port-wing','lower-starboard-wing','port-fuselage','starboard-fuselage']],
-                ["all insignia have surface triangles",all(r['triangles']>0 for r in audit['results'])],
-                ["upper insignia on positive-X outer wing",top['min'][0]>10.5 and top['max'][0]<14.5],
-                ["lower insignia on negative-X outer wing",bottom['max'][0]<-10.5 and bottom['min'][0]>-14.5],
-                ["port fuselage insignia remains on positive-X skin",port['min'][0]>0.7],
-                ["starboard fuselage insignia remains on negative-X skin",starboard['max'][0]<-0.7],
-                ["olive-drab demarcation lowered",abs(float(state['split'])+0.50)<1e-9],
+                ["all insignia have surface triangles",all(r['triangles']>200 for r in audit['results'])],
+                ["upper insignia outer port wing",top['min'][0]>10.8 and top['max'][0]<14.0],
+                ["upper insignia inside chord",top['min'][2]>-0.9 and top['max'][2]<0.6],
+                ["lower insignia outer starboard wing",bottom['max'][0]<-10.8 and bottom['min'][0]>-14.0],
+                ["lower insignia inside chord",bottom['min'][2]>-0.9 and bottom['max'][2]<0.6],
+                ["port fuselage never crosses centerline",port['min'][0]>.72],
+                ["starboard fuselage never crosses centerline",starboard['max'][0]<-.72],
+                ["fuselage insignia aft of wing and before tail",port['min'][2]>-6.2 and port['max'][2]<-3.8 and starboard['min'][2]>-6.2 and starboard['max'][2]<-3.8],
+                ["olive drab demarcation lowered",abs(float(state['split'])+.86)<1e-9],
+                ["reference work colors locked",audit['colors']=={'upper':'#5e5839','lower':'#8b8c97'}],
                 ["no page errors",not result['errors']]
               ]
-              page.screenshot(path='b24-generic-r2-orbit.png',full_page=True)
+              page.screenshot(path='b24-generic-r3-orbit.png',full_page=True)
               for view in ['top','bottom','port','starboard','front']:
-                  page.locator(f'button[data-view="{view}"]').click()
-                  page.wait_for_timeout(850)
-                  view_state=page.evaluate("() => document.querySelector('#status').dataset.view")
-                  result['checks'].append([f'{view} view selected',view_state==view])
-                  page.screenshot(path=f'b24-generic-r2-{view}.png',full_page=True)
-              page.locator('#doorFocus').click();page.wait_for_timeout(850)
-              page.screenshot(path='b24-generic-r2-door.png',full_page=True)
+                  page.locator(f'button[data-view="{view}"]').click();page.wait_for_timeout(950)
+                  result['checks'].append([f'{view} view selected',page.evaluate("() => window.__B24_VIEW__")==view])
+                  page.screenshot(path=f'b24-generic-r3-{view}.png',full_page=True)
+              page.locator('#doorFocus').click();page.wait_for_timeout(950)
+              page.screenshot(path='b24-generic-r3-door.png',full_page=True)
               browser.close()
           result['passed']=all(v for _,v in result['checks'])
-          Path('b24-generic-r2-browser-qa.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          Path('b24-generic-r3-browser-qa.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
           print(json.dumps(result,ensure_ascii=False,indent=2))
           assert result['passed'],result
           PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: b24-generic-closed-doors-r2-browser-qa
+          name: b24-generic-closed-doors-r3-browser-qa
           path: |
-            b24-generic-r2-browser-qa.json
-            b24-generic-r2-*.png
+            b24-generic-r3-browser-qa.json
+            b24-generic-r3-*.png
           retention-days: 30
