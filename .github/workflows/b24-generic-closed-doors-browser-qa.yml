@@ -92,3 +92,4 @@ jobs:
             b24-generic-r4-browser-qa.json
             b24-generic-r4-*.png
           retention-days: 30
+# R4 visual rerun requested after the user identified R1 placement and orientation errors.
