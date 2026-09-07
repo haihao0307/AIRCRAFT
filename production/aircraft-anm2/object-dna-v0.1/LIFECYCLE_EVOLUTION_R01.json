@@ -1,0 +1,33 @@
+{
+  "schema": "object-dna.lifecycle-evolution/0.1",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "date": "2026-09-07",
+  "scope": "cause-based exterior state model for historical visualization; not reliability or operational-life engineering",
+  "timeModel": {
+    "identityContinuity": true,
+    "ageIsNotFinishPreset": true,
+    "stateEquation": "ExteriorState(t+dt)=F(ExteriorState(t), environment, handling/use exposure, maintenance, storage, repair events, dt)",
+    "actualHistorySeparateFromPossibleEvolution": true
+  },
+  "possibleStages": [
+    {"stageId":"manufactured-or-restored-clean","historicalCalibration":"pending"},
+    {"stageId":"maintained-service","historicalCalibration":"pending"},
+    {"stageId":"weathered-service","historicalCalibration":"pending"},
+    {"stageId":"stored-or-preserved","historicalCalibration":"pending"},
+    {"stageId":"retired-display-or-archive","historicalCalibration":"pending"}
+  ],
+  "causeChannels": [
+    {"cause":"environmental_exposure","affects":["surface oxidation candidate","dust/film","roughness variation"],"calibration":"pending"},
+    {"cause":"contact_and_handling","affects":["localized polish","oil film","minor scratches"],"calibration":"pending"},
+    {"cause":"maintenance","affects":["oil/film reduction or renewal","cleanliness","localized replacement state"],"calibration":"pending"},
+    {"cause":"storage","affects":["dust accumulation","humidity-driven surface change"],"calibration":"pending"},
+    {"cause":"repair_or_part_replacement","affects":["part-local age/state discontinuity"],"calibration":"pending"}
+  ],
+  "eventHistory": [],
+  "rules": [
+    "Same chronological age may yield different appearance when history differs.",
+    "Each replaceable semantic part may carry its own local age and maintenance history while retaining assembly relation to the parent entity.",
+    "Material state must be generated from cause channels rather than an unqualified old/new slider."
+  ],
+  "historicalCalibrationReady": false
+}
