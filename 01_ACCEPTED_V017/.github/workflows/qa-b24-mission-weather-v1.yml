@@ -1,0 +1,108 @@
+name: QA B24 mission and Weather Mother workbench V1
+
+on:
+  push:
+    branches:
+      - feature/b24-mission-weather-workbench-v1
+      - main
+    paths:
+      - 'b24-weather-mission-v1/**'
+      - 'tools/validate-b24-mission-weather-v1.mjs'
+      - 'tools/qa-b24-mission-weather-v1.mjs'
+      - 'scripts/build-static.mjs'
+      - 'package.json'
+      - '.github/workflows/qa-b24-mission-weather-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: b24-mission-weather-v1-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  browser-mission-loop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install browser QA dependency
+        run: |
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Run repository and workbench static validation
+        run: npm test
+
+      - name: Build Pages output
+        run: npm run build
+
+      - name: Mount exact locked B24 for deterministic browser QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 6 --retry-all-errors --retry-delay 3 \
+            --output dist/b24-weather-mission-v1/b24.glb \
+            https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb
+          test "$(stat --format=%s dist/b24-weather-mission-v1/b24.glb)" = "23085972"
+          echo "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d  dist/b24-weather-mission-v1/b24.glb" | sha256sum --check
+
+      - name: Start built workbench server
+        shell: bash
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 --directory dist > b24-mission-http.log 2>&1 &
+          echo $! > b24-mission-http.pid
+          for attempt in $(seq 1 40); do
+            if curl --fail --silent http://127.0.0.1:8765/b24-weather-mission-v1/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat b24-mission-http.log
+          exit 1
+
+      - name: Run real Chromium full-loop QA
+        env:
+          B24_MISSION_URL: http://127.0.0.1:8765/b24-weather-mission-v1/?model=./b24.glb&qa=1&autostart=1
+          B24_MISSION_EVIDENCE: reports/b24-mission-weather-v1/browser-evidence
+        run: node tools/qa-b24-mission-weather-v1.mjs
+
+      - name: Stop preview server
+        if: always()
+        shell: bash
+        run: |
+          if [ -f b24-mission-http.pid ]; then
+            kill "$(cat b24-mission-http.pid)" 2>/dev/null || true
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-mission-weather-v1-${{ github.sha }}
+          retention-days: 90
+          if-no-files-found: error
+          path: |
+            reports/b24-mission-weather-v1/**
+            b24-mission-http.log
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo '## B24 full mission and Weather Mother workbench V1'
+            echo
+            echo "Commit: $GITHUB_SHA"
+            if [ -f reports/b24-mission-weather-v1/browser-evidence/browser-qa.json ]; then
+              node -e "const r=require('./reports/b24-mission-weather-v1/browser-evidence/browser-qa.json'); console.log('Browser QA: '+r.status.toUpperCase()+' '+r.passed+'/'+r.checks);"
+            else
+              echo 'Browser QA: no report'
+            fi
+            echo 'visualAcceptance=false'
+            echo 'productionReady=false'
+          } >> "$GITHUB_STEP_SUMMARY"

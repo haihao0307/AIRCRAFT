@@ -1,0 +1,42 @@
+{
+  "referenceCommit": "f3a8e9edc3c2dc542d680aee469467e95211a31f",
+  "geometryBytes": 6809416,
+  "geometrySHA256": "84d0eaf16e790989145605c3cd70de1fea64e1f62a58acfafb5455c0876e2e44",
+  "parts": 218,
+  "vertices": 236929,
+  "triangles": 238898,
+  "bufferCount": 347,
+  "roles": {
+    "skin_surface": 189,
+    "fit_surface_reference": 26,
+    "opening_reference": 3
+  },
+  "boundsMetres": {
+    "min": [
+      -16.538280487060547,
+      -2.279374790667987,
+      -12.990289449691772
+    ],
+    "max": [
+      16.53877067565918,
+      2.7245007181566336,
+      7.869119882583618
+    ],
+    "size": [
+      33.07705116271973,
+      5.0038755088246205,
+      20.85940933227539
+    ]
+  },
+  "sourceScalePreserved": true,
+  "sideDoorsDefault": "closed",
+  "sideDoorsReopenable": true,
+  "animationIncluded": false,
+  "imagesIncluded": false,
+  "uvIncluded": false,
+  "externalRuntimeDependencies": 0,
+  "htmlBytes": 4535395,
+  "htmlSHA256": "6aa418d28918d36e252b7c9ecb2ff758dbc95a2948edcdd723ea17c108cf29a4",
+  "singleHTML": true,
+  "embeddedThreeRevision": "180"
+}

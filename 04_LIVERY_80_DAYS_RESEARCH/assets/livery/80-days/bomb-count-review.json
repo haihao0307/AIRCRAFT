@@ -1,0 +1,10 @@
+{
+  "schema": "haihao.aircraft/bomb-count-review@1.0",
+  "evidenceIds": ["E01", "E03", "E04"],
+  "count": null,
+  "candidateBoxes": [],
+  "occlusionNotes": ["Crew members occlude part of the lower marking area in E01 and E02.", "Perspective and tonal compression prevent a reviewer-approved one-to-one bomb count."],
+  "status": "blocked-count",
+  "reviewerApproved": false,
+  "finalBakeApproved": false
+}

@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-05",
+  "scope": "local source-derived profile probes; no runtime binding",
+  "sourceCommit": "b8b2a6c441fa9a9b7e0831f4217511b4968d266e",
+  "sourceMesh": 243,
+  "sourceSpace": "normalized local mesh coordinates, span 2; not calibrated metres",
+  "environment": {"Python": "3.13.5", "NumPy": "2.3.5", "SciPy": "1.17.0"},
+  "replayScriptSHA256": "c3b44bce97b79f0e074915fd90f288849e66ddab0987eb96f118c23684ae2f2f",
+  "replayedNumericalResultsIdentical": true,
+  "closedFourierTrial": {
+    "modes": 17,
+    "adaptiveStations": 36,
+    "validationSeed": 729103,
+    "unseenValidationSections": 223,
+    "serializedFloat32Revalidated": true,
+    "sourceContourConnectionVerified": true,
+    "maxLocal": 0.005264386563130123,
+    "rmsLocal": 0.00047971877627451647,
+    "p95Local": 0.0009175645515554461,
+    "maxRelativeToSourceSpan": 0.0026321932815650613,
+    "jsonBytes": 59021,
+    "gzipJSONBytes": 25328,
+    "parameterBytes": 9936,
+    "gateMaxLocal": 0.004,
+    "numericalGatePassed": false
+  },
+  "otherExploratoryObservations": [
+    "An earlier chord polynomial trial passed its adaptive training stopping test but failed its separate 137-section validation: max local distance 0.004025625654101885 exceeded 0.004. It was not adopted.",
+    "A strict chordwise single-valued representation rejected a real connected source section near z=0.9893854166666667 because a chord position had four distinct boundary crossings. An envelope must not be treated as an exact description there.",
+    "A Cholesky-normalized radial Fourier trial also exceeded the local distance gate."
+  ],
+  "capSurfaceValidated": false,
+  "fullSurfaceValidated": false,
+  "crossObjectTransferValidated": false,
+  "productionBinding": 0,
+  "visualAcceptance": false,
+  "nextCandidateMethod": "separate root, main blade and tip domains; preserve topology and feature curves, then verify the full loft and caps before any binding"
+}

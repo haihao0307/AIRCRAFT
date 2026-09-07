@@ -1,0 +1,158 @@
+{
+  "schema": "haihao.aircraft/reference-intake-report@1.0",
+  "aircraftId": "308bg_374bs_42-73257_80-days",
+  "generatedAt": "2026-08-23T19:23:05.774Z",
+  "manifestPath": "data/aircraft/308bg/80-days-reference-manifest.json",
+  "stagingRoot": "source-input/historical/308bg/374bs/80-days",
+  "status": "blocked-missing-asset",
+  "blocking": true,
+  "summary": {
+    "expected": 10,
+    "verified": 0,
+    "missing": 10,
+    "integrityFailures": 0
+  },
+  "results": [
+    {
+      "filename": "374BS_80_DAYS_review_pack_v2.zip",
+      "evidenceId": null,
+      "recordType": "master-package",
+      "path": "source-input/historical/308bg/374bs/80-days/374BS_80_DAYS_review_pack_v2.zip",
+      "status": "missing",
+      "reasons": [
+        "file-not-present"
+      ],
+      "expectedBytes": 44303171,
+      "actualBytes": null,
+      "expectedSha256": "23428c52faf5f65d1fa97bf1402c9c4f8a3b721581ee6ba807a2ebe1cf52baee",
+      "actualSha256": null
+    },
+    {
+      "filename": "80_Days_China_2_1944.jpg",
+      "evidenceId": "E01",
+      "recordType": "direct-evidence",
+      "path": "source-input/historical/308bg/374bs/80-days/80_Days_China_2_1944.jpg",
+      "status": "missing",
+      "reasons": [
+        "file-not-present"
+      ],
+      "expectedBytes": 690771,
+      "actualBytes": null,
+      "expectedSha256": "c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5",
+      "actualSha256": null
+    },
+    {
+      "filename": "80days.jpg",
+      "evidenceId": "E02",
+      "recordType": "direct-evidence",
+      "path": "source-input/historical/308bg/374bs/80-days/80days.jpg",
+      "status": "missing",
+      "reasons": [
+        "file-not-present"
+      ],
+      "expectedBytes": 504418,
+      "actualBytes": null,
+      "expectedSha256": "38a82d8ac32f98182aee2e38bd6e288c409faae8b39e515445bbb0cc4bc2eee3",
+      "actualSha256": null
+    },
+    {
+      "filename": "80-days(1).jpg",
+      "evidenceId": "E03",
+      "recordType": "direct-evidence",
+      "path": "source-input/historical/308bg/374bs/80-days/80-days(1).jpg",
+      "status": "missing",
+      "reasons": [
+        "file-not-present"
+      ],
+      "expectedBytes": 89210,
+      "actualBytes": null,
+      "expectedSha256": "4ffd9160fba0d00ffd47e4925bcddc55c4efde800e17e3b73afc26007b248c06",
+      "actualSha256": null
+    },
+    {
+      "filename": "80_Days_asisbiz_left.jpg",
+      "evidenceId": "E04",
+      "recordType": "direct-evidence",
+      "path": "source-input/historical/308bg/374bs/80-days/80_Days_asisbiz_left.jpg",
+      "status": "missing",
+      "reasons": [
+        "file-not-present"
+      ],
+      "expectedBytes": 1006009,
+      "actualBytes": null,
+      "expectedSha256": "07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa",
+      "actualSha256": null
+    },
+    {
+      "filename": "80_Days_asisbiz_no487.jpg",
+      "evidenceId": "E05",
+      "recordType": "direct-evidence",
+      "path": "source-input/historical/308bg/374bs/80-days/80_Days_asisbiz_no487.jpg",
+      "status": "missing",
+      "reasons": [
+        "file-not-present"
+      ],
+      "expectedBytes": 1327936,
+      "actualBytes": null,
+      "expectedSha256": "67add5aa17bc09fb3ddfdcaadcd799d9a153ccd3a19d672c874871f23587f8ab",
+      "actualSha256": null
+    },
+    {
+      "filename": "80_Days_asisbiz_inflight.jpg",
+      "evidenceId": "E06",
+      "recordType": "direct-evidence",
+      "path": "source-input/historical/308bg/374bs/80-days/80_Days_asisbiz_inflight.jpg",
+      "status": "missing",
+      "reasons": [
+        "file-not-present"
+      ],
+      "expectedBytes": 3971800,
+      "actualBytes": null,
+      "expectedSha256": "03453abd80fa7be489ef89a72c591d8d1800a3c7e2a00dca63b6e9ddbe831564",
+      "actualSha256": null
+    },
+    {
+      "filename": "80_Days_asisbiz_right_inflight.jpg",
+      "evidenceId": "E07",
+      "recordType": "direct-evidence",
+      "path": "source-input/historical/308bg/374bs/80-days/80_Days_asisbiz_right_inflight.jpg",
+      "status": "missing",
+      "reasons": [
+        "file-not-present"
+      ],
+      "expectedBytes": 814824,
+      "actualBytes": null,
+      "expectedSha256": "2a4d1873055dbfef67f0416f4515b03e8489a566f6c451f4a133a09bf7b1043f",
+      "actualSha256": null
+    },
+    {
+      "filename": "80_Days_SDASM_10_0018697.jpg",
+      "evidenceId": "E08",
+      "recordType": "direct-evidence",
+      "path": "source-input/historical/308bg/374bs/80-days/80_Days_SDASM_10_0018697.jpg",
+      "status": "missing",
+      "reasons": [
+        "file-not-present"
+      ],
+      "expectedBytes": 76204,
+      "actualBytes": null,
+      "expectedSha256": "760ed33486cf24f6191391dbea07c9ee08eda07bec3bc5099b7fce0f37eecab0",
+      "actualSha256": null
+    },
+    {
+      "filename": "stam_crop_zoom.png",
+      "evidenceId": null,
+      "recordType": "derived-asset",
+      "path": "source-input/historical/308bg/374bs/80-days/stam_crop_zoom.png",
+      "status": "missing",
+      "reasons": [
+        "file-not-present"
+      ],
+      "expectedBytes": 343539,
+      "actualBytes": null,
+      "expectedSha256": "2dfdd44a6469f61d41dbe60954ba877effcb18235589bd2f7b5f8d0721839b1d",
+      "actualSha256": null
+    }
+  ],
+  "restorationAction": "Restore the exact external files under source-input/historical/308bg/374bs/80-days/ and rerun npm run validate:80days:references."
+}

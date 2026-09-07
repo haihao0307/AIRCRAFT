@@ -1,0 +1,105 @@
+{
+  "schema": "haihao.aircraft/b24-full-handoff@1.0.0",
+  "handoffId": "B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03",
+  "createdAt": "2026-09-03T09:15:00Z",
+  "purpose": "Freeze the current verified workbench and establish a clean restart point.",
+  "primaryOnlineHtml": "https://haihao0307.github.io/guilin-dem-pipeline/aircraft/b24-metal-grass-mission-r1/",
+  "runtime": {
+    "build": "B24_METAL_GRASS_MISSION_R1",
+    "repository": "haihao0307/AIRCRAFT",
+    "sourceBranch": "feature/b24-metal-grass-mission-r1-20260903",
+    "sourceCommit": "8ea0a34d016c46570e3916e37f587b2c7fb14ccf",
+    "sourceDirectory": "preview/b24-metal-grass-mission-r1"
+  },
+  "aircraftSource": {
+    "qualification": "Inherited current-review native aircraft payload. The exact missing V016 HTML is not recovered.",
+    "reviewFileLabel": "B24_V012_PROPELLER_INTERFACE_REVIEW.html",
+    "reviewHtmlBytes": 12557938,
+    "reviewHtmlSha256": "7cf4c78cea99f9bf3aed5507cbcb2bdb49a71465b3c4aabc29563214f3da2fde",
+    "nativePayloadBytes": 16647376,
+    "nativePayloadSha256": "7ba1b923844f5161911e9aa63b18191e0d08ff8de4b3750204aa544320bd34c2",
+    "components": 1784,
+    "meshes": 348,
+    "sourceTriangles": 325358,
+    "spindleSourceNodes": [1454, 1385, 1431, 1408]
+  },
+  "mission": {
+    "durationSeconds": 330,
+    "phaseCount": 18,
+    "phases": [
+      "ready",
+      "engine-start",
+      "warmup",
+      "taxi",
+      "takeoff",
+      "rotate",
+      "climb",
+      "cruise",
+      "bay-open",
+      "release",
+      "bay-close",
+      "return",
+      "gear-down",
+      "approach",
+      "flare",
+      "rollout",
+      "taxi-back",
+      "shutdown"
+    ],
+    "releasedBombs": 4,
+    "groundImpacts": 4,
+    "automaticLoop": true,
+    "audio": [
+      "four-engine synthesized layers",
+      "wind",
+      "release",
+      "explosion",
+      "touchdown"
+    ]
+  },
+  "browserEvidence": {
+    "runId": 33733439863,
+    "artifactId": 9884964353,
+    "artifactArchiveBytes": 16014875,
+    "artifactArchiveSha256": "94dd9f4bae178f3986999510e67bb83f97d8dd4c927d72eae3240639033e5d3e",
+    "status": "PASS",
+    "passed": 30,
+    "total": 30,
+    "captures": 9
+  },
+  "included": [
+    "online workbench source",
+    "native aircraft payload",
+    "same-origin renderer dependencies",
+    "QA script",
+    "browser report",
+    "desktop and mobile captures",
+    "file manifest",
+    "checksums",
+    "restart documentation"
+  ],
+  "excluded": {
+    "exactV016Recovered": false,
+    "weatherMotherIntegrated": false,
+    "weaponsMotherIncluded": false,
+    "img2threejsIncluded": false,
+    "image2threeIncluded": false,
+    "iframeComposition": false,
+    "newMountains": false,
+    "substituteAircraftMesh": false
+  },
+  "approval": {
+    "technicalBrowserVerification": true,
+    "visualAcceptance": false,
+    "productionReady": false
+  },
+  "package": {
+    "releaseTag": "b24-metal-grass-mission-r1-full-handoff-20260903",
+    "fileName": "AIRCRAFT_B24_METAL_GRASS_MISSION_R1_FULL_HANDOFF_2026-09-03.zip",
+    "generatedByWorkflow": ".github/workflows/b24-metal-grass-full-handoff.yml"
+  },
+  "restart": {
+    "newBranch": "restart/b24-production-line-clean-r2-20260903",
+    "rule": "Preserve accepted components and modify only the requested component plus genuine dependencies. The user reviews a directly clickable online HTML page first."
+  }
+}

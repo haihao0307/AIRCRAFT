@@ -1,0 +1,131 @@
+{
+  "schema": "haihao.aircraft/pbr-qa@1.1",
+  "generatedAt": "2026-08-25T04:38:16.830Z",
+  "uvSet": "TEXCOORD_1 / rejected diagnostic projection",
+  "maps": [
+    {
+      "file": "base-color-8192.png",
+      "path": "assets/livery/80-days/pbr/base-color-8192.png",
+      "bytes": 1354358,
+      "sha256": "bc7cd1cfe475512a62178636d6232fbeb20bd1c9285d29ab903cb55c81da3273",
+      "resolution": [
+        8192,
+        8192
+      ],
+      "colorSpace": "sRGB",
+      "convention": "Base Color"
+    },
+    {
+      "file": "normal-opengl-4096.png",
+      "path": "assets/livery/80-days/pbr/normal-opengl-4096.png",
+      "bytes": 306075,
+      "sha256": "85c8b7fb816c7d26613f5909306b1ab79c52116723742dc83ca1a7e0c9ef3dd9",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "colorSpace": "linear",
+      "convention": "OpenGL +Y"
+    },
+    {
+      "file": "roughness-4096.png",
+      "path": "assets/livery/80-days/pbr/roughness-4096.png",
+      "bytes": 308014,
+      "sha256": "2e912a2c85333f6bfb799e23e99cae9b6497d8c6151d023f075a7185f704ec85",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "colorSpace": "linear",
+      "convention": "roughness"
+    },
+    {
+      "file": "height-4096.png",
+      "path": "assets/livery/80-days/pbr/height-4096.png",
+      "bytes": 224668,
+      "sha256": "3259c06d9359019c5668c16ef9a53bb1160de3867af511209b7993a709108052",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "colorSpace": "linear",
+      "convention": "height"
+    },
+    {
+      "file": "ao-4096.png",
+      "path": "assets/livery/80-days/pbr/ao-4096.png",
+      "bytes": 307975,
+      "sha256": "545d90eb6e3f196772c5a5e15bc1ff09cd5d1d1d6506d07c489a5c8a4e2ff2cf",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "colorSpace": "linear",
+      "convention": "ambient occlusion"
+    },
+    {
+      "file": "metallic-4096.png",
+      "path": "assets/livery/80-days/pbr/metallic-4096.png",
+      "bytes": 306038,
+      "sha256": "465a5be53387e82b9833875d6cc58a374f8f1397a2c1a24d5dfbf89ae3c9735d",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "colorSpace": "linear",
+      "convention": "metallic"
+    },
+    {
+      "file": "id-4096.png",
+      "path": "assets/livery/80-days/pbr/id-4096.png",
+      "bytes": 132967,
+      "sha256": "beede6e57570a23749b6bef03e465f3f0c769bce5d10d9431525777e3ae344ef",
+      "resolution": [
+        4096,
+        4096
+      ],
+      "colorSpace": "non-color",
+      "convention": "classification ID"
+    },
+    {
+      "file": "decal-mask-8192.png",
+      "path": "assets/livery/80-days/pbr/decal-mask-8192.png",
+      "bytes": 682892,
+      "sha256": "7a2953f547e50ab8a9b262047a6d4587ef86d4b1ffa4edaa1886f8e7d3aa4d45",
+      "resolution": [
+        8192,
+        8192
+      ],
+      "colorSpace": "non-color",
+      "convention": "decal mask"
+    },
+    {
+      "file": "decal-mask-editable.svg",
+      "path": "assets/livery/80-days/pbr/decal-mask-editable.svg",
+      "bytes": 40888,
+      "sha256": "f6ea307c0cfb1f8158052223598beef7e0894d416ff0aee5e92f20de94aa3e23",
+      "resolution": [
+        8192,
+        8192
+      ],
+      "colorSpace": "vector",
+      "convention": "editable mask source"
+    }
+  ],
+  "pixelVariation": {
+    "baseColor": true,
+    "normal": true,
+    "roughness": true,
+    "height": true,
+    "ao": true,
+    "metallic": true,
+    "id": true,
+    "note": "file pixel variation does not establish physically valid or model registered PBR evidence"
+  },
+  "sourceTraces": "assets/livery/80-days/traces/manifest.json",
+  "surfaceUse": "diagnostic candidate rendering only",
+  "reviewStatus": "rejected-invalid-liveryuv",
+  "visualAcceptance": "blocked",
+  "blockingReport": "reports/80-days-liveryuv-topology-analysis.json",
+  "finalBakeApproved": false
+}

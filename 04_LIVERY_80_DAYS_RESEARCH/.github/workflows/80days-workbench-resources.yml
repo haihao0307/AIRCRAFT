@@ -1,0 +1,58 @@
+name: 80 DAYS workbench resources
+on:
+  push:
+    branches: [feature/b24-80days-texture-master-v2]
+    paths: [.github/workflows/80days-workbench-resources.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Collect pinned resources and original references
+        run: |
+          mkdir -p /tmp/b24resources/vendor /tmp/b24resources/photos /tmp/b24resources/source
+          cp public/assets/model/b-24_liberator.glb /tmp/b24resources/source/
+          cp -r experiments/80-days-material-r1 /tmp/b24resources/source/
+          cp -r assets/livery/80-days/traces /tmp/b24resources/source/
+          cp data/aircraft/308bg/80-days-reference-manifest.json /tmp/b24resources/source/
+          cd /tmp/b24resources/vendor
+          npm pack three@0.169.0 --silent
+          tar -xzf three-0.169.0.tgz
+          mv package three
+          rm three-0.169.0.tgz
+          cd /tmp/b24resources
+          python - <<'PY'
+          import urllib.request, pathlib, json, hashlib
+          photos = {
+            'starboard': 'https://dainthecbi.com/images/pitterle/80-days.jpg',
+            'port': 'https://asisbiz.com/il2/B-24/308BG/images/42-73257-B-24J-Liberator-14AF-308BG374BS-no-487-named-80-Days-nose-art-left-side-China-01.jpg',
+            'starboard-flight': 'https://asisbiz.com/il2/B-24/308BG/images/42-73257-B-24J-Liberator-14AF-308BG374BS-no-487-named-80-Days-nose-art-right-side-in-flight-CBI-01.jpg'
+          }
+          receipt = []
+          for name, url in photos.items():
+            try:
+              req = urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+              with urllib.request.urlopen(req, timeout=25) as response: data=response.read()
+              if data[:2] != b'\xff\xd8': raise ValueError('Not a JPEG')
+              pathlib.Path('photos/'+name+'.jpg').write_bytes(data)
+              receipt.append({'id':name,'url':url,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'status':'retrieved'})
+            except Exception as e: receipt.append({'id':name,'url':url,'status':'failed','error':str(e)})
+          pathlib.Path('photo-receipt.json').write_text(json.dumps(receipt,indent=2))
+          model=pathlib.Path('source/b-24_liberator.glb').read_bytes()
+          assert len(model)==23085972
+          assert hashlib.sha256(model).hexdigest()=='541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d'
+          print(json.dumps(receipt,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: 80-days-workbench-resources
+          path: /tmp/b24resources
+          retention-days: 14
+          if-no-files-found: error

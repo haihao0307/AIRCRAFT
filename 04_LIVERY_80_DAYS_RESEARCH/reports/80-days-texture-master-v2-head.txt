@@ -1,0 +1,4 @@
+B-24J-25-CO “80 DAYS” texture master V2
+Status: ready-for-upstream-visual-review
+Model binding: not-started-by-design
+Review entry: 80-days-texture-master-v2.html

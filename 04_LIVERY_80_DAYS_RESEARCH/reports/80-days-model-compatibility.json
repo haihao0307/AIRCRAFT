@@ -1,0 +1,105 @@
+{
+  "schema": "haihao.aircraft/model-compatibility@1.0",
+  "aircraftId": "308bg_374bs_42-73257_80-days",
+  "status": "real-model-audited-review-allow-list-pending",
+  "source": {
+    "releaseTag": "80-days-source-v1",
+    "filename": "b-24_liberator.glb",
+    "bytes": 23085972,
+    "sha256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "gltfVersion": 2,
+    "scenes": 1,
+    "nodes": 1784,
+    "meshes": 348,
+    "triangles": 325358,
+    "materials": 30,
+    "embeddedImages": 18,
+    "animations": 1,
+    "animationChannels": 2518
+  },
+  "coordinateAudit": {
+    "noseAxis": "+Z",
+    "tailAxis": "-Z",
+    "portAxis": "-X",
+    "starboardAxis": "+X",
+    "upAxis": "+Y",
+    "worldBounds": [-16.53828, -2.279375, -12.990289, 16.53877, 2.7245, 7.86912]
+  },
+  "classificationSummary": {
+    "totalMeshes": 348,
+    "paintableFuselageCandidates": 6,
+    "paintableFixedFinCandidates": 2,
+    "transparentExcluded": 7,
+    "horizontalTailExcluded": 1,
+    "wingOrLargeAirframeExcluded": 10,
+    "tailMechanismReview": 2,
+    "mechanicalInteriorOrDetailExcluded": 320
+  },
+  "scope": {
+    "included": [
+      "fuselage exterior shell candidates",
+      "glazed-nose surrounding metal candidates",
+      "exterior fuselage panels",
+      "two fixed vertical fins"
+    ],
+    "excluded": [
+      "propellers", "hubs", "engines", "wings", "nacelles", "horizontal tail",
+      "wheels", "tires", "landing gear", "glass", "guns", "turret interiors",
+      "cockpit", "interior", "lights", "antennas", "wires", "animated mechanisms"
+    ]
+  },
+  "provisionalPaintAllowList": {
+    "status": "review-required",
+    "fuselageNodeIds": [1654, 1666, 1678, 1714, 1747, 1760],
+    "fixedFinNodeIds": [719, 744],
+    "note": "The exact binary, world bounds and source material states were audited. Browser visual review must approve each candidate before a non-destructive LiveryUV bake."
+  },
+  "candidateRecords": [
+    {
+      "node": 1714, "mesh": 333, "material": "material13", "kind": "fuselage",
+      "bounds": [-1.34368, -2.27937, -12.35966, 1.34306, 1.32735, 7.63048],
+      "vertices": 14181, "triangles": 15020, "confidence": "medium"
+    },
+    {
+      "node": 1747, "mesh": 343, "material": "material04", "kind": "fuselage",
+      "bounds": [-1.08482, -2.15750, -12.31687, 1.08482, 0.89850, 7.63048],
+      "vertices": 11612, "triangles": 10217, "confidence": "medium"
+    },
+    {
+      "node": 1678, "mesh": 321, "material": "material19", "kind": "fuselage",
+      "bounds": [-1.05155, -0.97274, -12.41269, 1.05155, 0.79617, 7.14253],
+      "vertices": 7128, "triangles": 6308, "confidence": "medium"
+    },
+    {
+      "node": 1654, "mesh": 313, "material": "material25", "kind": "fuselage",
+      "bounds": [-0.78071, -1.44905, -12.02957, 0.77120, 0.92013, 6.77639],
+      "vertices": 23963, "triangles": 26727, "confidence": "medium"
+    },
+    {
+      "node": 1760, "mesh": 344, "material": "material05", "kind": "fuselage",
+      "bounds": [-0.87523, -2.04996, -6.77834, 0.87523, 0.57051, 7.44715],
+      "vertices": 18651, "triangles": 18820, "confidence": "medium"
+    },
+    {
+      "node": 1666, "mesh": 317, "material": "material16", "kind": "fuselage",
+      "bounds": [-0.59356, -1.54549, -7.93060, 0.66783, -0.58220, 7.33242],
+      "vertices": 310, "triangles": 436, "confidence": "medium"
+    },
+    {
+      "node": 719, "mesh": 125, "material": "material09", "kind": "fixed-fin-starboard",
+      "bounds": [3.70162, -0.90802, -11.92897, 4.27670, 2.65526, -10.75189],
+      "vertices": 977, "triangles": 980, "confidence": "high"
+    },
+    {
+      "node": 744, "mesh": 130, "material": "material09", "kind": "fixed-fin-port",
+      "bounds": [-4.05351, -0.90682, -11.90278, -3.47924, 2.65644, -10.72599],
+      "vertices": 974, "triangles": 980, "confidence": "high"
+    }
+  ],
+  "browserAudit": {
+    "page": "public/80-days-livery-workbench.html",
+    "runtimeExport": "80-days-browser-mesh-audit.json",
+    "purpose": "The workbench loads the exact Release GLB, reruns all 348 world-bound classifications and exports the complete browser-side record for reviewer approval."
+  },
+  "finalLiveryUVApproved": false
+}

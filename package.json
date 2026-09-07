@@ -1,1 +1,0 @@
-{"name":"b24-native-distillation-r1","private":true,"type":"module","scripts":{"verify":"node tools/verify_motion.mjs _reference/runtime runtime"}}

@@ -1,0 +1,128 @@
+name: Materialize 80 DAYS Release assets
+
+on:
+  push:
+    branches:
+      - feature/b24-80days-livery-production-v1
+    paths:
+      - .github/workflows/materialize-80-days-assets.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: materialize-80-days-assets-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  MODEL_URL: https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb
+  MODEL_BYTES: '23085972'
+  MODEL_SHA256: 541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d
+  REVIEW_URL: https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/374BS_80_DAYS_review_pack_v2.zip
+  REVIEW_BYTES: '44303171'
+  REVIEW_SHA256: 23428c52faf5f65d1fa97bf1402c9c4f8a3b721581ee6ba807a2ebe1cf52baee
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/b24-80days-livery-production-v1
+          fetch-depth: 0
+
+      - name: Download and verify authoritative Release assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .asset-cache
+          mkdir -p .asset-cache public/assets/model reports
+
+          curl --fail --location --retry 6 --retry-delay 2 --retry-all-errors \
+            --output .asset-cache/b-24_liberator.glb "$MODEL_URL"
+          curl --fail --location --retry 6 --retry-delay 2 --retry-all-errors \
+            --output .asset-cache/374BS_80_DAYS_review_pack_v2.zip "$REVIEW_URL"
+
+          test "$(stat -c%s .asset-cache/b-24_liberator.glb)" = "$MODEL_BYTES"
+          test "$(sha256sum .asset-cache/b-24_liberator.glb | awk '{print $1}')" = "$MODEL_SHA256"
+          test "$(stat -c%s .asset-cache/374BS_80_DAYS_review_pack_v2.zip)" = "$REVIEW_BYTES"
+          test "$(sha256sum .asset-cache/374BS_80_DAYS_review_pack_v2.zip | awk '{print $1}')" = "$REVIEW_SHA256"
+          unzip -t .asset-cache/374BS_80_DAYS_review_pack_v2.zip >/dev/null
+
+      - name: Publish same-origin model and repair browser loader
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp .asset-cache/b-24_liberator.glb public/assets/model/b-24_liberator.glb
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import json
+          from datetime import datetime, timezone
+
+          page = Path('public/80-days-livery-workbench.html')
+          text = page.read_text(encoding='utf-8')
+          release_url = "https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/b-24_liberator.glb"
+          relative_url = "./assets/model/b-24_liberator.glb"
+          if release_url in text:
+              text = text.replace(release_url, relative_url)
+          if relative_url not in text:
+              raise SystemExit('workbench MODEL_URL was not repaired to the same-origin asset')
+          text = text.replace(
+              '正在读取 GitHub Release 中的真实模型。',
+              '正在读取当前网页同源发布的真实模型。',
+          )
+          text = text.replace(
+              '从 GitHub Release 读取 23 MB 权威 GLB',
+              '从当前网页同源目录读取 23 MB 权威 GLB',
+          )
+          page.write_text(text, encoding='utf-8')
+
+          model = Path('public/assets/model/b-24_liberator.glb')
+          report = {
+              'schema': 'haihao.aircraft/release-materialization@1.0',
+              'createdAt': datetime.now(timezone.utc).isoformat(),
+              'releaseTag': '80-days-source-v1',
+              'model': {
+                  'path': str(model),
+                  'bytes': model.stat().st_size,
+                  'sha256': hashlib.sha256(model.read_bytes()).hexdigest(),
+                  'sameOriginBrowserUrl': './assets/model/b-24_liberator.glb',
+              },
+              'reviewPackage': {
+                  'verifiedInWorkflow': True,
+                  'bytes': 44303171,
+                  'sha256': '23428c52faf5f65d1fa97bf1402c9c4f8a3b721581ee6ba807a2ebe1cf52baee',
+                  'committedToRepository': False,
+                  'reason': 'kept as the authoritative Release source package; workflow verified archive integrity',
+              },
+              'corsRepair': {
+                  'previousMode': 'cross-origin GitHub Release fetch',
+                  'currentMode': 'same-origin static asset fetch',
+                  'workbench': 'public/80-days-livery-workbench.html',
+              },
+          }
+          Path('reports/80-days-release-materialization.json').write_text(
+              json.dumps(report, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          PY
+
+      - name: Commit the verified same-origin asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/assets/model/b-24_liberator.glb \
+                  public/80-days-livery-workbench.html \
+                  reports/80-days-release-materialization.json
+          if git diff --cached --quiet; then
+            echo "Verified asset is already materialized."
+            exit 0
+          fi
+          git commit -m "fix: serve authoritative B-24 model from same origin"
+          git push origin HEAD:feature/b24-80days-livery-production-v1

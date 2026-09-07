@@ -1,0 +1,94 @@
+name: B24 native distillation and continuous verification
+on:
+  push:
+    branches: [feature/b24-native-distillation-r1]
+    paths: ['tools/**','runtime/motion-system.js','.github/workflows/native-distill.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: b24-native-distillation-r1
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      runtime_commit: ${{ steps.commit.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: b8b2a6c441fa9a9b7e0831f4217511b4968d266e
+          path: _reference
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+      - name: Rebuild image-free candidate and check every geometric value
+        run: python tools/assemble.py _reference/runtime runtime
+      - name: Motion local/world equivalence across 514 states
+        run: node tools/verify_motion.mjs _reference/runtime runtime
+      - name: Browser prerequisites
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Real desktop and mobile browser checks
+        run: python tools/browser_qa.py
+      - name: Preserve all verification results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: B24-native-checks
+          path: reports/
+      - name: Preserve complete tested candidate
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: B24-native-candidate
+          include-hidden-files: true
+          path: |
+            runtime/
+            tools/
+            knowledge/
+            reports/
+            *.json
+            *.md
+            .github/workflows/native-distill.yml
+      - name: Record tested runtime without the reference payload
+        id: commit
+        if: success()
+        run: |
+          git config user.name 'B24 native verification'
+          git config user.email 'b24-verification@users.noreply.github.com'
+          git add runtime reports
+          git diff --cached --quiet || git commit -m 'build(b24): materialize verified compact data and independent motion runtime'
+          git push origin HEAD:feature/b24-native-distillation-r1
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+  continuous:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {width: 1440, height: 900}
+          - {width: 390, height: 844}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.verify.outputs.runtime_commit }}
+      - name: Browser prerequisites
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Two uninterrupted real-time mission cycles
+        run: python tools/soak.py --width ${{ matrix.width }} --height ${{ matrix.height }}
+      - name: Preserve continuous-run evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: B24-native-soak-${{ matrix.width }}
+          path: |
+            reports/SOAK_${{ matrix.width }}.json
+            reports/soak-${{ matrix.width }}.png

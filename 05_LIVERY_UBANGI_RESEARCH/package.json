@@ -1,0 +1,10 @@
+{
+  "name": "haihao-aircraft-ubangi-static-v1",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate-static.mjs",
+    "build": "node scripts/build-static.mjs"
+  }
+}

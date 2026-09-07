@@ -1,0 +1,256 @@
+{
+  "schema": "b24-workbench-browser-qa@1",
+  "visualAcceptance": false,
+  "productionReady": false,
+  "tests": [
+    {
+      "name": "desktop initializes",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "desktop no horizontal overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "interactive frames render",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "initial load did not fetch plane",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel base",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel roughness",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel normal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel metalness",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel height",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel decal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "channel views differ",
+      "passed": true,
+      "detail": {
+        "base": "c08cf70aefac0cfac7b8ad709de1b9bf9592ae2dd2a1cd327c46c502dce2756f",
+        "roughness": "3c537e44d2460285ec940c7aff28e701e297d35974e2ca143f1a8ef23d2d33aa",
+        "normal": "3004adedbf09bf3f8521d94c286a5396088dcd1d487549fe8b9b1b4e38ad1bda",
+        "metalness": "01552a7aa7ad485ea989080f7584103dcc1784907719cf78aecfe50db6188aa5",
+        "height": "47b9dd685bdd2ad4dcd2fd34604c0d499a2ea25de9994e69e7e26c389b2bcaa5",
+        "decal": "4b8e434fc1474fb055b6c0e21e36441056e708cfd73e0760a589208cc4391165"
+      }
+    },
+    {
+      "name": "light raking",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "light studio",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "light neutral",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "roughness control rebuilds",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "independent side switches",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "200 percent source view",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "five learning cards",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "settings export retains zero binding and pending review",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reset restores state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "exact source model passes hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "model remains unbound",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "sample remains after plane view",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no desktop page errors",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "no desktop failed requests",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "mobile initializes",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "mobile no horizontal overflow",
+      "passed": true,
+      "detail": {
+        "width": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "mobile controls respond",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no browser page errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "modelTransport": "local route fulfills exact authoritative bytes; public network not tested",
+  "desktopInitial": {
+    "ready": true,
+    "errors": [],
+    "frames": 62,
+    "modelVerified": false,
+    "modelBinding": 0,
+    "visualAcceptance": false,
+    "sourceSHA256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "couponRivets": 97,
+    "mapRevision": 1,
+    "normalConvention": "OpenGL +Y; input rows explicitly reversed",
+    "rawInspector": true,
+    "sharedChipField": true,
+    "initMs": 2954,
+    "state": {
+      "side": "port",
+      "mode": "sample",
+      "channel": "beauty",
+      "light": "neutral",
+      "paint": "#666548",
+      "rough": 0.67,
+      "fade": 0.35,
+      "wear": 0.3,
+      "relief": 0.65,
+      "exposure": 0.85,
+      "art": true,
+      "grime": true,
+      "structure": true,
+      "overlay": true,
+      "opacity": 0.5
+    },
+    "fps": 3
+  },
+  "aircraft": {
+    "ready": true,
+    "errors": [],
+    "frames": 430,
+    "modelVerified": true,
+    "modelBinding": 0,
+    "visualAcceptance": false,
+    "sourceSHA256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "couponRivets": 97,
+    "mapRevision": 4,
+    "normalConvention": "OpenGL +Y; input rows explicitly reversed",
+    "rawInspector": true,
+    "sharedChipField": true,
+    "initMs": 2954,
+    "fps": 17,
+    "modelBytes": 23085972,
+    "sourceExtent": [
+      33.07705116271973,
+      5.0038755088246205,
+      20.85940933227539
+    ],
+    "animationClips": 1
+  },
+  "mobileFinal": {
+    "ready": true,
+    "errors": [],
+    "frames": 48,
+    "modelVerified": false,
+    "modelBinding": 0,
+    "visualAcceptance": false,
+    "sourceSHA256": "541c3dcfb98ab590cdb1bc90d6ddcdfe80bce2a4b937f3bccefab0c7efe8be0d",
+    "couponRivets": 33,
+    "mapRevision": 2,
+    "normalConvention": "OpenGL +Y; input rows explicitly reversed",
+    "rawInspector": true,
+    "sharedChipField": true,
+    "initMs": 26505,
+    "state": {
+      "side": "starboard",
+      "mode": "sample",
+      "channel": "beauty",
+      "light": "neutral",
+      "paint": "#666548",
+      "rough": 0.67,
+      "fade": 0.35,
+      "wear": 0.3,
+      "relief": 0.65,
+      "exposure": 0.85,
+      "art": true,
+      "grime": true,
+      "structure": true,
+      "overlay": true,
+      "opacity": 0.5
+    },
+    "fps": 0
+  },
+  "result": "passed",
+  "htmlSHA256": "7754c11188466713ff5fb2817a66279e41852e41d1c9d7b8f4c56e63fbbe1755",
+  "browser": "Chromium, headless software-rendering CI; not physical mobile hardware"
+}

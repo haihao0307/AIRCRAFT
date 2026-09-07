@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="UBANGI BAG III B-24J 历史涂装生产线测试站" />
+  <title>UBANGI BAG III · B-24 涂装生产线测试站</title>
+  <link rel="stylesheet" href="./src/style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="./src/loader.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="brand">
+        <small>HAIHAO AIRCRAFT PRODUCTION LINE</small>
+        <h1>UBANGI BAG III</h1>
+        <p>B-24J-45-CO · 42-73436 · 308BG / 374BS / 14AF</p>
+      </div>
+      <div class="header-state">
+        <span class="test-badge">测试涂装 V1</span>
+        <div id="status">初始化</div>
+      </div>
+    </header>
+
+    <div class="test-notice">
+      当前图片只用于跑通模型、涂装、UV、材质和网页发布流程。历史准确版本将在第二版图片确认后，通过同一资产接口直接替换。
+    </div>
+
+    <main>
+      <aside>
+        <section>
+          <h2>模型资产</h2>
+          <p id="modelState">检查权威模型</p>
+          <label class="file-button">
+            <span>导入权威 GLB 或旧版内置 HTML</span>
+            <input id="assetInput" type="file" accept=".glb,.html,text/html,model/gltf-binary" />
+          </label>
+          <div class="button-row">
+            <button id="retryModel">重新自动读取</button>
+            <button id="clearCache">清除模型缓存</button>
+          </div>
+          <p class="hint">导入成功后保存到浏览器本地。后续刷新页面可直接继续检查。</p>
+        </section>
+
+        <section>
+          <h2>视角</h2>
+          <div id="views" class="grid"></div>
+        </section>
+
+        <section>
+          <h2>检查模式</h2>
+          <div id="modes" class="grid"></div>
+        </section>
+
+        <section>
+          <h2>涂装材质</h2>
+          <label>做旧 <input id="weathering" type="range" min="0" max="1" step="0.01" value="0.55"></label>
+          <label>法线 <input id="normalStrength" type="range" min="0" max="2" step="0.01" value="1"></label>
+          <label>粗糙度 <input id="roughness" type="range" min="0.25" max="1" step="0.01" value="0.72"></label>
+        </section>
+
+        <section>
+          <h2>机鼻投影校准</h2>
+          <label>前后 <input id="decalForward" type="range" min="-1" max="1" step="0.01" value="0"></label>
+          <label>高低 <input id="decalHeight" type="range" min="-1" max="1" step="0.01" value="0"></label>
+          <label>横向 <input id="decalSide" type="range" min="-1" max="1" step="0.01" value="0"></label>
+          <label>尺寸 <input id="decalScale" type="range" min="0.55" max="1.55" step="0.01" value="1"></label>
+          <label>旋转 <input id="decalRotation" type="range" min="-20" max="20" step="0.1" value="0"></label>
+          <button id="resetDecal">重置投影</button>
+        </section>
+
+        <section>
+          <h2>原始动画</h2>
+          <div class="button-row"><button id="play">播放</button><button id="pause">暂停</button></div>
+          <input id="timeline" type="range" min="0" max="1" step="0.0001" value="0">
+        </section>
+      </aside>
+
+      <section id="viewport">
+        <canvas id="canvas"></canvas>
+        <div id="fallbackPreview" class="fallback-preview">
+          <div class="fallback-model">
+            <iframe title="B-24 Liberator 权威公开模型" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen src="https://sketchfab.com/models/c64e58edfacb4c519b5602278a7e51aa/embed?autostart=1&ui_theme=dark&ui_infos=0&ui_watermark_link=0"></iframe>
+            <span>权威模型在线预览 · CreadorDeMu · CC BY 4.0</span>
+          </div>
+          <figure>
+            <img id="liveryBoardPreview" alt="UBANGI BAG III 测试涂装 V1" />
+            <figcaption>测试涂装 V1 · 仅用于生产线校准</figcaption>
+          </figure>
+        </div>
+        <div id="overlay">
+          <strong>正在检查权威 B-24 资产</strong>
+          <p>找到精确 GLB 后会自动切入 Three.js 涂装检查模式。当前仍可在下层查看权威公开模型和测试涂装板。</p>
+        </div>
+      </section>
+
+      <aside class="right">
+        <section>
+          <h2>资产锁</h2>
+          <dl>
+            <dt>文件</dt><dd>b-24_liberator.glb</dd>
+            <dt>大小</dt><dd>23,085,972 B</dd>
+            <dt>SHA-256</dt><dd>541c3dcf…efe8be0d</dd>
+            <dt>模型源</dt><dd>Sketchfab c64e58ed…e51aa</dd>
+            <dt>许可</dt><dd>CC BY 4.0</dd>
+          </dl>
+        </section>
+
+        <section>
+          <h2>涂装分类</h2>
+          <p id="inventory">等待模型扫描</p>
+          <button id="exportInventory">导出网格分类</button>
+        </section>
+
+        <section>
+          <h2>专用 LiveryUV</h2>
+          <p>保留机身、机鼻、固定机翼与尾翼、发动机外部整流罩、静态舱门和检修盖板。</p>
+          <p>排除螺旋桨、发动机内部、轮胎轮毂、起落架、玻璃、武器、炮塔内部、驾驶舱和细小机械附件。</p>
+        </section>
+
+        <section>
+          <h2>当前版本</h2>
+          <p><b>视觉状态：</b>测试图 V1</p>
+          <p><b>历史状态：</b>待第二版正确图片替换</p>
+          <p><b>替换方式：</b>保留模型和材质合同，仅更新 livery manifest 与纹理资产。</p>
+        </section>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

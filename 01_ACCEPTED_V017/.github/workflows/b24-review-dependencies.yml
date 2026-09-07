@@ -1,0 +1,30 @@
+name: Prepare pinned B24 review renderer
+on:
+  push:
+    branches: [feature/b24-metal-grass-mission-r1-20260903]
+    paths: [.github/workflows/b24-review-dependencies.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Download pinned renderer and preserve license
+        run: |
+          mkdir -p vendor
+          npm pack three@0.180.0 --silent
+          tar -xzf three-0.180.0.tgz
+          cp package/build/three.module.js package/build/three.core.js package/build/three.cjs vendor/
+          cp package/examples/jsm/controls/OrbitControls.js vendor/
+          cp package/LICENSE vendor/THREE-LICENSE.txt
+          sha256sum vendor/* > vendor/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24-pinned-three-0.180.0
+          path: vendor/
+          retention-days: 30

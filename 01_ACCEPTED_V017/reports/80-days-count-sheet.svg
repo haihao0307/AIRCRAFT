@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="720" viewBox="0 0 1400 720">
+  <rect width="1400" height="720" fill="#101820"/>
+  <rect x="40" y="40" width="1320" height="640" rx="24" fill="#17242d" stroke="#b98c52" stroke-width="3"/>
+  <text x="80" y="120" fill="#f0d6a2" font-family="system-ui,sans-serif" font-size="46" font-weight="700">B-24 “80 DAYS” symbol count sheet</text>
+  <text x="80" y="190" fill="#efb07b" font-family="system-ui,sans-serif" font-size="28">Status: blocked-missing-asset</text>
+  <text x="80" y="250" fill="#c9d4d9" font-family="system-ui,sans-serif" font-size="24">The locked E01 source image is absent.</text>
+  <text x="80" y="320" fill="#c9d4d9" font-family="system-ui,sans-serif" font-size="22">Required source: source-input/historical/308bg/374bs/80-days/80_Days_China_2_1944.jpg</text>
+  <text x="80" y="370" fill="#c9d4d9" font-family="system-ui,sans-serif" font-size="22">Expected SHA-256: c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5</text>
+  <text x="80" y="440" fill="#9fb0b8" font-family="system-ui,sans-serif" font-size="20">Restore the exact file, run npm run validate:80days:references, then rerun this command.</text>
+  <text x="80" y="500" fill="#9fb0b8" font-family="system-ui,sans-serif" font-size="20">No symbol count is inferred from generated art or computer-vision guesses.</text>
+</svg>

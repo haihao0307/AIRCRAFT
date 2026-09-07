@@ -1,0 +1,91 @@
+{
+  "schema": "b24-full-snapshot/1.0",
+  "backupDate": "2026-09-07",
+  "repository": "haihao0307/AIRCRAFT",
+  "backupBranch": "backup/b24-full-snapshot-20260907-r1",
+  "purpose": "Immutable full recovery snapshot before clean livery-workbench restart",
+  "snapshots": [
+    {
+      "directory": "01_ACCEPTED_V017",
+      "sourceBranch": "accepted/b24-v017-20260905",
+      "sourceCommit": "ceed8183dc5fb8399349e73ebeef5b997d7d7389",
+      "tree": "9a2b68343969a627fd1786b376ed9c44749cf2bb",
+      "status": "user-accepted continuation baseline",
+      "visualAcceptance": true,
+      "productionReady": false
+    },
+    {
+      "directory": "02_V018_NATIVE_CURRENT",
+      "sourceBranch": "feature/b24-native-distillation-r1",
+      "sourceCommit": "6bc8c8e842819ad8ff2cdb37ccfd7f9724494527",
+      "tree": "b342a06d94000cda8d9973b2537c1c4b504aaeb1",
+      "status": "compact numeric runtime plus bomb-bay closure diagnosis",
+      "visualAcceptance": false,
+      "productionReady": false
+    },
+    {
+      "directory": "03_SKIN_SINGLEFILE_V018_R2",
+      "sourceBranch": "handoff/b24-skin-singlefile-v018-r2",
+      "sourceCommit": "28bf57b7c03986fae9f7aad145e70a86618e61f1",
+      "tree": "db57b72dc16a49e0a61659efe750db20078efb4e",
+      "status": "verified fixed single-file static skin handoff",
+      "visualAcceptance": false,
+      "productionReady": false,
+      "htmlSHA256": "2579047f64a5f171bb67b1aca8f0f238620690b80c8b851e376a52e1c9c6fdb9",
+      "geometrySHA256": "84d0eaf16e790989145605c3cd70de1fea64e1f62a58acfafb5455c0876e2e44"
+    },
+    {
+      "directory": "04_LIVERY_80_DAYS_RESEARCH",
+      "sourceBranch": "feature/b24-80days-texture-master-v2",
+      "sourceCommit": "97cc531633806e277f0691c9e22814a86588b07d",
+      "tree": "58c12f47bdcad7ac1a608130aba3a8215ea894fd",
+      "status": "read-only livery research and rejected/unfinished candidates",
+      "visualAcceptance": false,
+      "productionReady": false
+    },
+    {
+      "directory": "05_LIVERY_UBANGI_RESEARCH",
+      "sourceBranch": "feature/ubangi-bag-iii-v1",
+      "sourceCommit": "8bfcdf93f6dffa1004b30797f6dabe856e67c809",
+      "tree": "3014f647ee0b3f587aa05ae2b96b1463d0157d51",
+      "status": "read-only livery research",
+      "visualAcceptance": false,
+      "productionReady": false
+    }
+  ],
+  "currentFacts": {
+    "staticSkinParts": 218,
+    "staticSkinVisibleDefault": 189,
+    "staticSkinVertices": 236929,
+    "staticSkinTriangles": 238898,
+    "sourceSpanMetres": 33.07705116271973,
+    "sideDoorsDefault": "closed",
+    "sideDoorsReopenable": true,
+    "propellersInStaticSkinSubset": false,
+    "bombBayClosedSourceGapForwardMetres": 0.2507530131148801,
+    "bombBayClosedSourceGapAftMetres": 0.25075366384815373,
+    "bombBayRepairImplemented": false,
+    "weatherEnabled": false,
+    "fogEnabled": false
+  },
+  "restart": {
+    "branch": "restart/b24-livery-workbench-clean-r1-20260907",
+    "baseCommit": "28bf57b7c03986fae9f7aad145e70a86618e61f1",
+    "scope": "livery workbench only",
+    "firstTasks": [
+      "restore propeller assemblies as non-paint fit references",
+      "add fixed port, starboard, nose, tail, top, bottom, and three-quarter views",
+      "preserve free orbit, pan, zoom, and stable part selection",
+      "apply livery through explicit surface records without reviving original image or UV payloads",
+      "repair bomb-bay closed endpoint in a separate verified candidate and synchronize its closed pose later"
+    ]
+  },
+  "exclusions": [
+    "weather, clouds, fog",
+    "automatic historical fallback",
+    "deprecated image-to-3D reconstruction route",
+    "weapons production line",
+    "unapproved geometry scaling",
+    "silent import of rejected livery candidates"
+  ]
+}
