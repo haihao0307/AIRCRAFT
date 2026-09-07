@@ -51,14 +51,28 @@ jobs:
           mkdir -p "$ROOT/01_CURRENT_REMOTE_SOURCE/workflows"
           cp -a .github/workflows/b24-generic-*.yml "$ROOT/01_CURRENT_REMOTE_SOURCE/workflows/" || true
 
-          unzip -q handoffs/b24-generic-skin-full-20260907/input/b24_reference_min.zip -d "$ROOT/02_REFERENCE_INPUTS"
-          cat > "$ROOT/02_REFERENCE_INPUTS/REFERENCE_SCOPE.md" <<'EOF'
-          # Reference scope
+          cat > "$ROOT/02_REFERENCE_INPUTS/REFERENCE_SCOPE_AND_MISSING_BYTES.md" <<'EOF'
+          # Reference scope and byte status
 
-          These are compressed copies of user-supplied Airfix reference crops.
-          Use each view independently for placement, size, orientation, and paint-demarcation review.
-          They are not final proof that every B-24D detail applies to the target B-24J-25-CO.
-          No B17 structure, window, or marking placement may be transferred into this B24 common master.
+          The user supplied four Airfix reference crops and two B17 color/material photographs during the conversation.
+          The exact local image bytes are included in the separately verified local maximal handoff ZIP delivered in the same chat.
+
+          A binary transfer attempt into this GitHub handoff branch produced an invalid truncated archive. That invalid file is deliberately excluded from this GitHub-built ZIP and must not be used.
+
+          Airfix compressed-review copies recorded from the local maximal handoff:
+
+          - Airfix_bottom.jpg: 49,598 bytes, SHA256 561af9d11caf3d64f6a9b6c6726d5c6fd625fa3eaf39f8c1f423ea9b2c7ecc9b
+          - Airfix_port.jpg: 54,531 bytes, SHA256 dfe6f252896c405424fa8ce989938a0dde1acc7c2a4e85ce96ec7c9ede0af2a5
+          - Airfix_starboard.jpg: 29,271 bytes, SHA256 f110084f0a330a908de863f34babd661eabdbe08cb0c9be8c4cbc0ab97ca2ed8
+          - Airfix_top.jpg: 61,193 bytes, SHA256 a7e6ef0db73acb8a058cbb4365f0f703574fe1d9b6cf7c03e13e9aa4039a57d2
+          - combined local reference ZIP: 187,643 bytes, SHA256 582d72de56e9bbfb977bc3525a22696c9f4ef591f9372ad9ea11a18f1b492e64
+
+          B17 local reference copies:
+
+          - B17_colour_ref_1.jpg: 156,926 bytes, SHA256 cfc28da788225a980472783a94ab700543772282242007d07fc241da95a317f6
+          - B17_colour_ref_2.jpg: 176,000 bytes, SHA256 65abe809caf94e29dc378d37c3ce1c5b8d4d584c6a416b95bcd837ba56dedb04
+
+          Use each Airfix view independently for placement, size, orientation and paint-demarcation review. They do not prove that every B-24D detail applies to the target B-24J-25-CO. B17 photographs were supplied only for exterior color and material feeling. Do not transfer B17 structure, windows or marking placement to the B24.
           EOF
 
           download_artifact() {
@@ -90,7 +104,7 @@ jobs:
           # Status
 
           This directory preserves remote 80 DAYS research and material experiments only.
-          V2 was rejected. The early generated nose-art boards contained hallucinated windows, lettering, dice, shark eye and mouth, and placement.
+          V2 was rejected. The early generated nose-art boards contained hallucinated windows, lettering, dice, shark eye, shark mouth and placement.
           Do not use those outputs as historical truth. The generic B24 common master must be accepted before aircraft-specific nose art resumes.
           EOF
 
@@ -128,7 +142,7 @@ jobs:
                   h=hashlib.sha256(p.read_bytes()).hexdigest()
                   files.append({'path':p.relative_to(root).as_posix(),'bytes':p.stat().st_size,'sha256':h})
           manifest={
-            'schema':'haihao.aircraft/b24-generic-skin-github-full-handoff@1.0',
+            'schema':'haihao.aircraft/b24-generic-skin-github-handoff@1.1',
             'createdUtc':datetime.datetime.now(datetime.UTC).isoformat(),
             'repository':os.environ['GITHUB_REPOSITORY'],
             'handoffSourceCommit':os.environ['GITHUB_SHA'],
@@ -139,6 +153,8 @@ jobs:
             'visualAcceptance':False,
             'productionReady':False,
             'r7Exists':False,
+            'exactUserReferenceImageBytesEmbedded':False,
+            'exactUserReferenceImageBytesLocation':'local maximal ZIP delivered in chat',
             'files':files
           }
           (root/'PACKAGE_MANIFEST.json').write_text(json.dumps(manifest,indent=2,ensure_ascii=False),encoding='utf-8')
@@ -153,7 +169,7 @@ jobs:
 
           python - <<'PY'
           from pathlib import Path
-          import zipfile,hashlib,json
+          import zipfile,hashlib
           out=Path('handoffs/b24-generic-skin-full-20260907/build')
           root=out/'B24_Generic_Skin_Full_Handoff_2026-09-07_R1'
           target=Path('handoffs/b24-generic-skin-full-20260907/B24_Generic_Skin_Full_Handoff_2026-09-07_R1.zip')
@@ -163,6 +179,9 @@ jobs:
                   if p.is_file(): z.write(p,root.name+'/'+p.relative_to(root).as_posix())
           data=target.read_bytes(); digest=hashlib.sha256(data).hexdigest()
           if len(data)>=99_000_000: raise SystemExit(f'package too large for GitHub: {len(data)}')
+          with zipfile.ZipFile(target) as z:
+              bad=z.testzip()
+              if bad: raise SystemExit('ZIP integrity failure: '+bad)
           (target.parent/'PACKAGE_SHA256.txt').write_text(f'{digest}  {target.name}\nbytes={len(data)}\n',encoding='utf-8')
           print({'zip':str(target),'bytes':len(data),'sha256':digest})
           PY
@@ -173,5 +192,5 @@ jobs:
           git add handoffs/b24-generic-skin-full-20260907/B24_Generic_Skin_Full_Handoff_2026-09-07_R1.zip handoffs/b24-generic-skin-full-20260907/PACKAGE_SHA256.txt
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'handoff(b24): publish full generic-skin package with errors and QA'
+          git commit -m 'handoff(b24): publish source QA and error package for transfer'
           git push origin HEAD:handoff/b24-generic-skin-full-20260907
