@@ -1,0 +1,66 @@
+name: B24 generic R5 surface node diagnostic
+on:
+  push:
+    branches: [feature/b24-generic-skin-closed-doors-v1]
+    paths: [.github/workflows/b24-generic-node-diagnostic.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Build diagnostic page without changing production files
+        shell: python
+        run: |
+          from pathlib import Path
+          src=Path('runtime/b24-generic-skin-closed-doors-r5.js').read_text()
+          token="closeWaistDoors();paintMeshes=aircraft.meshes.filter"
+          if token not in src: raise SystemExit('R5 load token missing')
+          expose="""closeWaistDoors();window.__B24_PICK__=(clientX,clientY)=>{const rect=canvas.getBoundingClientRect(),p=new THREE.Vector2((clientX-rect.left)/rect.width*2-1,-((clientY-rect.top)/rect.height)*2+1),ray=new THREE.Raycaster();ray.setFromCamera(p,activeCamera);return ray.intersectObjects(aircraft.meshes,false).slice(0,12).map(h=>({node:h.object.userData.sourceNode,family:h.object.userData.family,distance:h.distance,point:h.point.toArray()}));};paintMeshes=aircraft.meshes.filter"""
+          src=src.replace(token,expose)
+          Path('runtime/b24-generic-skin-r5-diagnostic.js').write_text(src)
+          html=Path('b24-generic-skin-closed-doors-r5.html').read_text().replace('b24-generic-skin-closed-doors-r5.js','b24-generic-skin-r5-diagnostic.js')
+          Path('b24-generic-skin-r5-diagnostic.html').write_text(html)
+      - name: Serve and inspect top and bottom screen points
+        run: |
+          python -m http.server 8765 >/tmp/b24-diag-http.log 2>&1 &
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          from playwright.sync_api import sync_playwright
+          out={}
+          with sync_playwright() as p:
+              b=p.chromium.launch(headless=True)
+              page=b.new_page(viewport={"width":1440,"height":900})
+              page.goto('http://127.0.0.1:8765/b24-generic-skin-r5-diagnostic.html',wait_until='domcontentloaded',timeout=30000)
+              page.wait_for_function("() => window.__B24_PICK__ && window.__B24_GENERIC_R5__",timeout=60000)
+              for view,points in {
+                  'top':[(290,405),(360,420),(450,410),(610,410),(700,420),(790,405),(235,392),(835,392)],
+                  'bottom':[(290,485),(360,500),(450,500),(610,500),(700,500),(790,485),(235,500),(835,500)]
+              }.items():
+                  page.locator(f'button[data-view="{view}"]').click();page.wait_for_timeout(800)
+                  out[view]=[]
+                  for x,y in points:
+                      out[view].append({'screen':[x,y],'hits':page.evaluate('([x,y])=>window.__B24_PICK__(x,y)',[x,y])})
+                  page.screenshot(path=f'diagnostic-{view}.png',full_page=True)
+              b.close()
+          Path('diagnostic-picks.json').write_text(json.dumps(out,indent=2))
+          print(json.dumps(out,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b24-r5-surface-node-diagnostic
+          path: |
+            diagnostic-picks.json
+            diagnostic-*.png
+          retention-days: 7
