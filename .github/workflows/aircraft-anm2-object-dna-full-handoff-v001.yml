@@ -1,0 +1,151 @@
+name: Build Aircraft ANM2 Object DNA full handoff V001
+on:
+  push:
+    branches: [feature/object-dna-kernel-v0.1-browning-pilot]
+    paths:
+      - handoffs/weapons-mother/AIRCRAFT_ANM2_OBJECT_DNA_FULL_HANDOFF_2026-09-07_V001/source/**
+      - .github/workflows/aircraft-anm2-object-dna-full-handoff-v001.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: aircraft-anm2-object-dna-full-handoff-v001
+  cancel-in-progress: false
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      BRANCH: feature/object-dna-kernel-v0.1-browning-pilot
+      NAME: AIRCRAFT_ANM2_OBJECT_DNA_FULL_HANDOFF_2026-09-07_V001
+      BASE: handoffs/weapons-mother/AIRCRAFT_ANM2_OBJECT_DNA_FULL_HANDOFF_2026-09-07_V001
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/object-dna-kernel-v0.1-browning-pilot
+          fetch-depth: 0
+          sparse-checkout: |
+            production/aircraft-anm2
+            handoffs/weapons-mother/AIRCRAFT_ANM2_OBJECT_DNA_FULL_HANDOFF_2026-09-07_V001/source
+            .github/workflows/aircraft-anm2-w07-fixed-html.yml
+            .github/workflows/object-dna-anm2-w08.yml
+            .github/workflows/aircraft-native-forge.yml
+            .github/workflows/aircraft-native-forge-policy.yml
+            .github/workflows/aircraft-reference-blender-toolchain.yml
+            .github/workflows/aircraft-w02-browser-toolchain.yml
+            .github/workflows/weapons-mother-v016-full-package.yml
+            .github/workflows/aircraft-anm2-object-dna-full-handoff-v001.yml
+            AGENTS.md
+            HANDOFF.md
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Assemble full recoverable snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="/tmp/$NAME"
+          rm -rf "$ROOT" "$BASE/dist"
+          mkdir -p "$ROOT/snapshot/production" "$ROOT/snapshot/.github/workflows" "$ROOT/handoff" "$BASE/dist"
+          cp -a production/aircraft-anm2 "$ROOT/snapshot/production/"
+          cp -a "$BASE/source/." "$ROOT/handoff/"
+          for f in \
+            .github/workflows/aircraft-anm2-w07-fixed-html.yml \
+            .github/workflows/object-dna-anm2-w08.yml \
+            .github/workflows/aircraft-native-forge.yml \
+            .github/workflows/aircraft-native-forge-policy.yml \
+            .github/workflows/aircraft-reference-blender-toolchain.yml \
+            .github/workflows/aircraft-w02-browser-toolchain.yml \
+            .github/workflows/weapons-mother-v016-full-package.yml; do
+            test -f "$f" && cp "$f" "$ROOT/snapshot/.github/workflows/"
+          done
+          test -f AGENTS.md && cp AGENTS.md "$ROOT/snapshot/AGENTS.md"
+          test -f HANDOFF.md && cp HANDOFF.md "$ROOT/snapshot/HANDOFF.md"
+          git rev-parse HEAD > "$ROOT/SOURCE_COMMIT.txt"
+          printf '%s\n' "$BRANCH" > "$ROOT/SOURCE_BRANCH.txt"
+          git show -s --format='%H%n%aI%n%s' HEAD > "$ROOT/SOURCE_COMMIT_METADATA.txt"
+          git log --oneline --decorate --all -- production/aircraft-anm2 > "$ROOT/COMMIT_HISTORY_AIRCRAFT_ANM2.txt"
+          find "$ROOT" -type f \( -iname '*.glb' -o -iname '*.gltf' -o -iname '*.bin' -o -iname '*.blend' -o -iname '*.fbx' -o -iname '*.obj' -o -iname '*.stl' -o -iname '*.usd' -o -iname '*.usdz' \) -print -quit | grep -q . && { echo 'Forbidden persistent model payload found'; exit 1; } || true
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, os
+          root=Path('/tmp')/os.environ['NAME']
+          files=[]
+          for p in sorted(x for x in root.rglob('*') if x.is_file()):
+              b=p.read_bytes()
+              files.append({'path':p.relative_to(root).as_posix(),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+          manifest={
+              'schema':'aircraft-anm2-object-dna-package-manifest/1',
+              'package':os.environ['NAME'],
+              'sourceCommit':(root/'SOURCE_COMMIT.txt').read_text().strip(),
+              'sourceBranch':os.environ['BRANCH'],
+              'files':files,
+              'fileCount':len(files),
+              'payloadBytes':sum(x['bytes'] for x in files),
+              'referenceGlbIncluded':False,
+              'productMeshIncluded':False,
+              'rasterProductTextureIncluded':False,
+              'failedW08Included':True,
+              'visualAcceptance':False,
+              'productionReady':False
+          }
+          (root/'MANIFEST.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          lines=[f"{x['sha256']}  {x['path']}" for x in files]
+          (root/'SHA256SUMS.txt').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+          PY
+      - name: Build deterministic ZIP and verify every payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, os, zipfile
+          name=os.environ['NAME']; root=Path('/tmp')/name; out=Path(os.environ['BASE'])/'dist'/f'{name}.zip'
+          with zipfile.ZipFile(out,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for p in sorted(x for x in root.rglob('*') if x.is_file()):
+                  rel=(Path(name)/p.relative_to(root)).as_posix()
+                  info=zipfile.ZipInfo(rel,(2026,9,7,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16
+                  z.writestr(info,p.read_bytes(),compresslevel=9)
+          data=out.read_bytes(); zipsha=hashlib.sha256(data).hexdigest()
+          with zipfile.ZipFile(out) as z:
+              bad=z.testzip(); assert bad is None,bad
+              names=z.namelist(); assert len(names)==len(set(names))
+              assert all(n.startswith(name+'/') for n in names)
+              assert not any(n.lower().endswith(('.glb','.gltf','.bin','.blend','.fbx','.obj','.stl','.usd','.usdz')) for n in names)
+          report={'schema':'aircraft-anm2-object-dna-package-validation/1','package':out.name,'bytes':len(data),'sha256':zipsha,'zipTest':'passed','duplicatePaths':0,'referenceGlbIncluded':False,'failedW08Included':True,'sourceCommit':(root/'SOURCE_COMMIT.txt').read_text().strip(),'visualAcceptance':False,'productionReady':False}
+          dist=out.parent
+          (dist/'PACKAGE_VALIDATION.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          (dist/'SHA256SUMS.txt').write_text(f"{zipsha}  {out.name}\n")
+          (dist/'SOURCE_COMMIT.txt').write_text(report['sourceCommit']+'\n')
+          print(json.dumps(report,indent=2))
+          PY
+      - name: Commit handoff package to GitHub
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$BASE/dist"
+          git diff --cached --name-only | tee /tmp/package-paths.txt
+          python - <<'PY'
+          from pathlib import Path
+          import os
+          paths=Path('/tmp/package-paths.txt').read_text().splitlines()
+          prefix=os.environ['BASE']+'/dist/'
+          assert paths and all(p.startswith(prefix) for p in paths),paths
+          PY
+          git diff --cached --quiet || git commit -m 'handoff(aircraft): publish full Object DNA restart package V001'
+          for i in 1 2 3; do
+            git pull --rebase origin "$BRANCH"
+            git push origin HEAD:"$BRANCH" && break
+            test "$i" != 3
+          done
+          git rev-parse HEAD > /tmp/PACKAGE_COMMIT.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AIRCRAFT_ANM2_OBJECT_DNA_FULL_HANDOFF_V001
+          path: |
+            ${{ env.BASE }}/dist/
+            /tmp/PACKAGE_COMMIT.txt
+          retention-days: 30
+          if-no-files-found: error
