@@ -1,0 +1,14 @@
+{
+  "schema": "object-dna.w08.fixed-html/0.1",
+  "bytes": 1432663,
+  "sha256": "9e232d03eb37af158dfb8af91f73a20be16708bc91ffe5da8c2e5e9235d30d6a",
+  "sourceW07Sha256": "d8f3a04dbd55ffbb01bc63fda8106f135284fc09951fb434b3dacd8fb1550cfe",
+  "measurementGraphSha256": "97eb7a892e9df9d55bc151f4d64f6a53d2e946785addd1fe46f08c553e24baf3",
+  "referenceEmbedded": false,
+  "productMeshFiles": 0,
+  "productRasterTextures": 0,
+  "nativeRuntimeSections": 64,
+  "referenceRuntimeSectionsWhenLoaded": 64,
+  "visualAcceptance": false,
+  "productionReady": false
+}
