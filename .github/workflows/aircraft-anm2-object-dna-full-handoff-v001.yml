@@ -125,7 +125,7 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add "$BASE/dist"
+          git add --sparse "$BASE/dist"
           git diff --cached --name-only | tee /tmp/package-paths.txt
           python - <<'PY'
           from pathlib import Path
