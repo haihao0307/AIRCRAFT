@@ -1,0 +1,28 @@
+{
+  "date": "2026-09-07",
+  "phase": "method-finding",
+  "currentMethod": "tool-stack-r01",
+  "entry": "production/aircraft-anm2/research/tool-stack-r01/README.md",
+  "probe": "production/aircraft-anm2/research/tool-stack-r01/PROBE_RESULTS.json",
+  "currentReferenceWorkbench": "w07",
+  "fixedReviewHtml": "production/aircraft-anm2/releases/w07/AIRCRAFT_B24_ANM2_W07_PROGRESS.html",
+  "goal": "Build a reusable mechanical digital-asset compiler that understands object role, measures reference evidence, generates readable native rules, compiles materials, and verifies the result without retaining the source mesh as the product asset.",
+  "selectedDefaultStack": [
+    "Trimesh + NumPy/SciPy for reference intake and section semantics",
+    "VTK for repeated background cutting and surface-distance maps",
+    "CadQuery/OCP for accepted B-Rep primitive and constraint compilation",
+    "Three.js + size-gated three-mesh-bvh for browser spatial queries",
+    "OpenCV for photo-to-known-geometry pose registration",
+    "COLMAP only for overlapping multi-view photo reconstruction",
+    "Open3D only when point clouds/scans require registration",
+    "SurfaceProgram with OpenPBR-aligned semantics and later MaterialX interchange",
+    "Headless Blender as optional independent referee"
+  ],
+  "nextExperiment": "MeasurementKernel R01: reference/native BVHs, named anchor planes, 64-128 normalized cross sections, section-envelope differences, candidate primitive fits with confidence, receiver and barrel exterior continuity first.",
+  "B24Priority": true,
+  "B17ExpansionPaused": true,
+  "referenceMeshBecomesProductAsset": false,
+  "functionalWeaponEngineeringIncluded": false,
+  "productionReady": false,
+  "visualAcceptance": false
+}
