@@ -37,6 +37,11 @@ def main() -> int:
         ".panel{position:absolute;right:0;top:0;bottom:0;width:min(350px,88vw);z-index:10;transform:translateX(100%);transition:transform .22s;box-shadow:-10px 0 40px #0008}.panel.open{transform:none}",
         ".panel{position:absolute;right:0;top:0;bottom:0;width:min(350px,88vw);z-index:10;transform:none;visibility:hidden;opacity:0;pointer-events:none;transition:opacity .18s;box-shadow:-10px 0 40px #0008}.panel.open{visibility:visible;opacity:1;pointer-events:auto}",
     )
+    text = replace_once(
+        text,
+        ".mobilePanel{display:none;position:absolute;right:14px;top:14px;z-index:4}",
+        ".mobilePanel{display:none;position:absolute;right:14px;top:14px;z-index:12}",
+    )
     text = replace_once(text, "const canvas=scene,renderer=", "const canvas=$('scene'),renderer=")
     args.html.write_text(text, encoding="utf-8")
     return 0
