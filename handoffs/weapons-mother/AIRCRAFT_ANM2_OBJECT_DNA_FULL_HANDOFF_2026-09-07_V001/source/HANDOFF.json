@@ -1,0 +1,124 @@
+{
+  "schema": "aircraft-anm2-object-dna-full-handoff/1",
+  "productionLine": "Weapons Mother / Aircraft Browning M2 / AN-M2 / B-24 priority",
+  "packageVersion": "V001",
+  "date": "2026-09-07",
+  "repository": "haihao0307/AIRCRAFT",
+  "sourceBranch": "feature/object-dna-kernel-v0.1-browning-pilot",
+  "failedStateCommit": "7b8a0f0b18d9ba10fa8c993e10bfed76ca23261c",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "identityContinuity": true,
+  "nextGenerationId": "GEN-0002",
+  "currentUserReviewCandidate": null,
+  "claims": {
+    "visualAcceptance": false,
+    "productionReady": false,
+    "measurementKernelAccepted": false,
+    "geometryParityAccepted": false,
+    "B24InstallationComplete": false,
+    "ObjectDnaConceptRetained": true,
+    "WorldKernelHandoffCompleted": true
+  },
+  "worldKernelHandoff": {
+    "repository": "haihao0307/guilin-dem-pipeline",
+    "branch": "handoff/object-dna-kernel-v0.1-20260907",
+    "path": "docs/mother_coordination/object-dna-kernel-v0.1-20260907/",
+    "coordinationCommentId": 5564217685
+  },
+  "referenceInput": {
+    "fileName": "anm2_browning_.50_cal_aircraft_machine_gun(1).glb",
+    "bytes": 6548040,
+    "sha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+    "includedInPackage": false,
+    "use": "temporary read-only visual reference",
+    "knownInventory": {
+      "nodes": 28,
+      "meshObjects": 13,
+      "accessors": 51,
+      "vertices": 151832,
+      "triangles": 139891,
+      "uvMeshes": 12,
+      "images": 0,
+      "animations": 0
+    }
+  },
+  "rejectedBaselines": [
+    {
+      "id": "S01",
+      "reason": "retired orientation and dependency chain",
+      "allowedUse": "historical failure record only"
+    },
+    {
+      "id": "R01",
+      "reason": "low-quality native exterior candidate",
+      "allowedUse": "historical failure record only"
+    },
+    {
+      "id": "W06",
+      "reason": "PBR visually useful, whole-gun geometry incomplete and inaccurate",
+      "allowedUse": "material-method study only; geometry prohibited as restart baseline"
+    },
+    {
+      "id": "W07",
+      "reason": "dual-object method useful, bounding-box registration invalid",
+      "allowedUse": "reference-reader and delivery-format study only"
+    },
+    {
+      "id": "W08",
+      "fixedCommit": "7095e8da44b2a9b589913718d0d1c01adb72615e",
+      "reason": "visual parity, registration, measurement and release-process failure",
+      "allowedUse": "failed historical experiment only"
+    }
+  ],
+  "retainedKnowledge": [
+    "stable entity identity",
+    "ontology and semantic part IDs",
+    "truth states known inferred estimated unknown",
+    "function and evidence graph separation",
+    "Reference Twin and Native Twin coexistence",
+    "reference identity verification and local-only intake",
+    "B-24 priority and B-17 deferral",
+    "cause-based material and stable surface-coordinate principles",
+    "lifecycle and time-evolution architecture",
+    "fixed-commit self-contained HTML delivery",
+    "tool-stack research: Trimesh, VTK, NumPy/SciPy, CadQuery/OCP, Three.js, OpenCV"
+  ],
+  "mandatoryNextGate": {
+    "name": "datum-registered-semantic-parity-r02",
+    "requiredDatums": [
+      "principal longitudinal axis",
+      "barrel centerline",
+      "muzzle plane",
+      "receiver front plane",
+      "receiver rear plane",
+      "receiver top plane",
+      "side-plate datum plane"
+    ],
+    "firstRegion": "receiver datum shell, top-cover layers, barrel-root and front-collar transition",
+    "userDeliveryBlocked": true,
+    "unblockCondition": "actual reference loaded, visible local convergence, numerical gates passed, and executor manual review completed"
+  },
+  "packageIncludes": [
+    "production/aircraft-anm2 full directory snapshot",
+    "relevant workflow files",
+    "handoff source documents",
+    "commit history",
+    "file manifest and SHA-256 sums",
+    "failed W08 release and rejection records"
+  ],
+  "packageExcludes": [
+    "reference and auxiliary GLB files",
+    "product mesh files",
+    "source vertex/index/UV exports",
+    "raster product textures",
+    "Blender and browser toolchain binaries",
+    "fonts and caches",
+    "credentials"
+  ],
+  "delivery": {
+    "archiveName": "AIRCRAFT_ANM2_OBJECT_DNA_FULL_HANDOFF_2026-09-07_V001.zip",
+    "repositoryPath": "handoffs/weapons-mother/AIRCRAFT_ANM2_OBJECT_DNA_FULL_HANDOFF_2026-09-07_V001/dist/",
+    "newRestartBranch": "rebuild/aircraft-anm2-object-dna-v0.2-clean-restart",
+    "frozenHandoffBranch": "handoff/aircraft-anm2-object-dna-v0.1-failed-baseline-20260907"
+  }
+}
