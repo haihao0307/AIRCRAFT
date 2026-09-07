@@ -1,0 +1,314 @@
+{
+  "html": "B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html",
+  "htmlBytes": 4535543,
+  "htmlSHA256": "2579047f64a5f171bb67b1aca8f0f238620690b80c8b851e376a52e1c9c6fdb9",
+  "checks": [
+    {
+      "name": "one HTML contains no external URL",
+      "passed": true
+    },
+    {
+      "name": "one HTML contains no relative script or stylesheet",
+      "passed": true
+    },
+    {
+      "name": "embedded geometry identity is present",
+      "passed": true
+    },
+    {
+      "name": "1440 document HTTP 200",
+      "passed": true
+    },
+    {
+      "name": "1440 static part count",
+      "passed": true,
+      "detail": {
+        "parts": 218,
+        "visible": 189,
+        "sideDoorPose": "closed",
+        "bounds": {
+          "min": [
+            -16.538280487060547,
+            -2.279374790667987,
+            -12.990289449691772
+          ],
+          "max": [
+            16.53877067565918,
+            2.7245007181566336,
+            7.869119882583618
+          ],
+          "size": [
+            33.07705116271973,
+            5.0038755088246205,
+            20.85940933227539
+          ]
+        },
+        "geometrySHA256": "84d0eaf16e790989145605c3cd70de1fea64e1f62a58acfafb5455c0876e2e44",
+        "externalAssetRequests": 0
+      }
+    },
+    {
+      "name": "1440 skin-only default visibility",
+      "passed": true,
+      "detail": {
+        "parts": 218,
+        "visible": 189,
+        "sideDoorPose": "closed",
+        "bounds": {
+          "min": [
+            -16.538280487060547,
+            -2.279374790667987,
+            -12.990289449691772
+          ],
+          "max": [
+            16.53877067565918,
+            2.7245007181566336,
+            7.869119882583618
+          ],
+          "size": [
+            33.07705116271973,
+            5.0038755088246205,
+            20.85940933227539
+          ]
+        },
+        "geometrySHA256": "84d0eaf16e790989145605c3cd70de1fea64e1f62a58acfafb5455c0876e2e44",
+        "externalAssetRequests": 0
+      }
+    },
+    {
+      "name": "1440 geometry SHA-256",
+      "passed": true
+    },
+    {
+      "name": "1440 closed side doors by default",
+      "passed": true
+    },
+    {
+      "name": "1440 metre bounds retained",
+      "passed": true
+    },
+    {
+      "name": "1440 side doors reopen",
+      "passed": true
+    },
+    {
+      "name": "1440 side doors close again",
+      "passed": true
+    },
+    {
+      "name": "1440 all references independently visible",
+      "passed": true
+    },
+    {
+      "name": "1440 stable part identity selectable",
+      "passed": true
+    },
+    {
+      "name": "1440 only one network document",
+      "passed": true,
+      "detail": [
+        "http://127.0.0.1:8765/B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html"
+      ]
+    },
+    {
+      "name": "1440 no runtime errors",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "1440 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "390 document HTTP 200",
+      "passed": true
+    },
+    {
+      "name": "390 static part count",
+      "passed": true,
+      "detail": {
+        "parts": 218,
+        "visible": 189,
+        "sideDoorPose": "closed",
+        "bounds": {
+          "min": [
+            -16.538280487060547,
+            -2.279374790667987,
+            -12.990289449691772
+          ],
+          "max": [
+            16.53877067565918,
+            2.7245007181566336,
+            7.869119882583618
+          ],
+          "size": [
+            33.07705116271973,
+            5.0038755088246205,
+            20.85940933227539
+          ]
+        },
+        "geometrySHA256": "84d0eaf16e790989145605c3cd70de1fea64e1f62a58acfafb5455c0876e2e44",
+        "externalAssetRequests": 0
+      }
+    },
+    {
+      "name": "390 skin-only default visibility",
+      "passed": true,
+      "detail": {
+        "parts": 218,
+        "visible": 189,
+        "sideDoorPose": "closed",
+        "bounds": {
+          "min": [
+            -16.538280487060547,
+            -2.279374790667987,
+            -12.990289449691772
+          ],
+          "max": [
+            16.53877067565918,
+            2.7245007181566336,
+            7.869119882583618
+          ],
+          "size": [
+            33.07705116271973,
+            5.0038755088246205,
+            20.85940933227539
+          ]
+        },
+        "geometrySHA256": "84d0eaf16e790989145605c3cd70de1fea64e1f62a58acfafb5455c0876e2e44",
+        "externalAssetRequests": 0
+      }
+    },
+    {
+      "name": "390 geometry SHA-256",
+      "passed": true
+    },
+    {
+      "name": "390 closed side doors by default",
+      "passed": true
+    },
+    {
+      "name": "390 metre bounds retained",
+      "passed": true
+    },
+    {
+      "name": "390 closed mobile panel does not overflow",
+      "passed": true
+    },
+    {
+      "name": "390 mobile controls open",
+      "passed": true
+    },
+    {
+      "name": "390 side doors reopen",
+      "passed": true
+    },
+    {
+      "name": "390 side doors close again",
+      "passed": true
+    },
+    {
+      "name": "390 all references independently visible",
+      "passed": true
+    },
+    {
+      "name": "390 stable part identity selectable",
+      "passed": true
+    },
+    {
+      "name": "390 mobile controls close",
+      "passed": true
+    },
+    {
+      "name": "390 only one network document",
+      "passed": true,
+      "detail": [
+        "http://127.0.0.1:8765/B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html"
+      ]
+    },
+    {
+      "name": "390 no runtime errors",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "390 no horizontal overflow",
+      "passed": true
+    }
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "requests": [
+        "http://127.0.0.1:8765/B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html",
+        "blob:http://127.0.0.1:8765/536ae6eb-8531-410b-a2e2-d882f9dffa07",
+        "blob:http://127.0.0.1:8765/e8f9b4dc-8fca-4595-8d75-c9ed0e348ff2"
+      ],
+      "errors": [],
+      "state": {
+        "parts": 218,
+        "visible": 189,
+        "sideDoorPose": "closed",
+        "bounds": {
+          "min": [
+            -16.538280487060547,
+            -2.279374790667987,
+            -12.990289449691772
+          ],
+          "max": [
+            16.53877067565918,
+            2.7245007181566336,
+            7.869119882583618
+          ],
+          "size": [
+            33.07705116271973,
+            5.0038755088246205,
+            20.85940933227539
+          ]
+        },
+        "geometrySHA256": "84d0eaf16e790989145605c3cd70de1fea64e1f62a58acfafb5455c0876e2e44",
+        "externalAssetRequests": 0
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "requests": [
+        "http://127.0.0.1:8765/B24_SKIN_STATIC_V018_R2_SIDE_DOORS_CLOSED.html",
+        "blob:http://127.0.0.1:8765/56a12567-4d09-4a9a-b73f-e7aca5efd941",
+        "blob:http://127.0.0.1:8765/fbb6ffc1-4822-4481-9a81-78f9f2db5a20"
+      ],
+      "errors": [],
+      "state": {
+        "parts": 218,
+        "visible": 189,
+        "sideDoorPose": "closed",
+        "bounds": {
+          "min": [
+            -16.538280487060547,
+            -2.279374790667987,
+            -12.990289449691772
+          ],
+          "max": [
+            16.53877067565918,
+            2.7245007181566336,
+            7.869119882583618
+          ],
+          "size": [
+            33.07705116271973,
+            5.0038755088246205,
+            20.85940933227539
+          ]
+        },
+        "geometrySHA256": "84d0eaf16e790989145605c3cd70de1fea64e1f62a58acfafb5455c0876e2e44",
+        "externalAssetRequests": 0
+      }
+    }
+  ],
+  "visualAcceptance": false,
+  "productionReady": false,
+  "passed": true,
+  "passedCount": 32,
+  "total": 32
+}
