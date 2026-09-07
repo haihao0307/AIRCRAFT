@@ -1,5 +1,13 @@
 # Aircraft AN/M2 latest material and execution rules
 
+## Fixed user-facing delivery contract: 2026-09-07
+
+Every user-reviewable workbench version must be delivered as one self-contained HTML file committed to `haihao0307/AIRCRAFT`. After the generated HTML is tested, use the exact immutable commit SHA in a `https://raw.githack.com/haihao0307/AIRCRAFT/<commit>/<path>.html` link in chat. Do not substitute a moving branch URL, a local-only sandbox link, a Pages-only URL, an Actions artifact, or a source folder for this primary review link.
+
+The user expects one click on the chat link, followed by the client’s external-site confirmation and “打开链接”, after which the workbench runs directly. Keep the HTML independent of relative files, CDN runtime requests, product mesh files and raster product textures. A local Aircraft GLB may still be selected through the browser File API for read-only comparison when a workbench explicitly supports it; the reference remains outside the committed HTML.
+
+For each version, record the exact HTML path, immutable commit SHA, SHA-256, byte count, source commit, test scope, visual-acceptance state and production-readiness state. Preserve prior review versions until the user explicitly accepts a replacement and authorizes cleanup. The raw.githack link is a delivery mechanism; it does not upgrade an unfinished candidate to an accepted or production-ready asset.
+
 ## Latest user priority: B24 first, 2026-09-06
 
 The current target is the Aircraft Browning M2 / AN/M2 digital exterior in the B24 project. Stop expanding B17 research or modeling for this task. Keep previously supplied B17 photographs and notes as deferred references only; do not use their mounts, suspension, boxes, sights or visible disposal arrangements as proof of B24 configuration. B17 work comes later, after the B24 task and fresh user direction.
