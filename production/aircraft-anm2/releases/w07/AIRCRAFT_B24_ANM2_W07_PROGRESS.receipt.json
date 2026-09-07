@@ -1,0 +1,20 @@
+{
+  "schema": "aircraft.w07.progress-build/1",
+  "bytes": 1420223,
+  "sha256": "d8f3a04dbd55ffbb01bc63fda8106f135284fc09951fb434b3dacd8fb1550cfe",
+  "productMeshFiles": 0,
+  "productRasterTextures": 0,
+  "referenceEmbedded": false,
+  "referenceLocalFileOnly": true,
+  "sourceFiles": {
+    "fullgun.js": "04001da03ac01e2970036fda316668b6b6c639d8c1820c756fdd1a8d83c9fa2e",
+    "surface.js": "5a6581f92741e15e41ed1f5bbaf8ac2cf22c236ed407569c086689c3b0e60cb1",
+    "reference-reader.js": "5dfb8d191c6892c6e64bb36870d158cf50215851bc1d27e6e12eb993ad941488",
+    "reference-view.js": "45a46e48458b2bdba32b84e089805d23941fab162aa0fbeda0777d2d0c5dc752",
+    "app.js": "54d1c879bc73c805dcb648d731da924e89c6ad795f6eff65cd82c89345d3b203",
+    "template.html": "f5f29b45f69620520d73492fbf76ca215ec0324b0a66303941fdcfd4e4f13535",
+    "build.py": "39e21a115bd410f59418b16728d1112586bdd3ca60e6d73412db2d6b85ca2c2f"
+  },
+  "visualAcceptance": false,
+  "productionReady": false
+}
