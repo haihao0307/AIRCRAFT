@@ -1,0 +1,70 @@
+name: B24 generic skin browser QA
+on:
+  push:
+    branches: [feature/b24-generic-skin-master-v1]
+    paths:
+      - b24-generic-skin-v1.html
+      - runtime/native-aircraft.js
+      - .github/workflows/b24-generic-skin-browser-qa.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Chromium driver
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Serve branch locally
+        run: |
+          python -m http.server 8765 >/tmp/b24-http.log 2>&1 &
+      - name: Verify startup enters workbench
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True)
+              page=browser.new_page(viewport={"width":1440,"height":900})
+              errors=[]
+              page.on('console', lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
+              page.on('pageerror', lambda e: errors.append('pageerror: '+str(e)))
+              page.goto('http://127.0.0.1:8765/b24-generic-skin-v1.html', wait_until='domcontentloaded', timeout=30000)
+              page.wait_for_function("""() => {
+                const el=document.querySelector('#loading');
+                return el && getComputedStyle(el).display==='none';
+              }""", timeout=45000)
+              page.wait_for_function("""() => document.querySelector('#status')?.textContent?.includes('V018 已载入')""", timeout=45000)
+              state=page.evaluate("""() => ({
+                loadingHidden: document.querySelector('#loading')?.hidden,
+                loadingDisplay: getComputedStyle(document.querySelector('#loading')).display,
+                loadText: document.querySelector('#loadText')?.textContent,
+                diag: document.querySelector('#diag')?.textContent,
+                status: document.querySelector('#status')?.textContent,
+                canvasWidth: document.querySelector('#scene')?.width,
+                canvasHeight: document.querySelector('#scene')?.height
+              })""")
+              Path('generic-skin-browser-state.json').write_text(__import__('json').dumps({'state':state,'errors':errors},ensure_ascii=False,indent=2))
+              page.screenshot(path='generic-skin-browser.png', full_page=True)
+              browser.close()
+              print(state)
+              print(errors)
+              assert state['loadingDisplay']=='none', state
+              assert 'V018 已载入' in state['status'], state
+              assert not errors, errors
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-generic-skin-browser-qa
+          path: |
+            generic-skin-browser-state.json
+            generic-skin-browser.png
+          retention-days: 14
