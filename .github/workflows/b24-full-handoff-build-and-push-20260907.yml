@@ -1,0 +1,177 @@
+name: B24 full handoff build and push 20260907
+on:
+  push:
+    branches: [handoff/b24-generic-skin-full-20260907]
+    paths: [.github/workflows/b24-full-handoff-build-and-push-20260907.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Assemble truthful handoff tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT=handoffs/b24-generic-skin-full-20260907/build
+          ROOT="$OUT/B24_Generic_Skin_Full_Handoff_2026-09-07_R1"
+          rm -rf "$OUT"
+          mkdir -p "$ROOT"/{00_HANDOFF_DOCS,01_CURRENT_REMOTE_SOURCE,02_REFERENCE_INPUTS,03_QA_AND_DIAGNOSTICS,04_LEGACY_80DAYS_REMOTE,TOOLS}
+
+          cp -a handoffs/b24-generic-skin-full-20260907/00_START_HERE.md "$ROOT/00_START_HERE.md"
+          cp -a handoffs/b24-generic-skin-full-20260907/0*.json handoffs/b24-generic-skin-full-20260907/0*.md "$ROOT/00_HANDOFF_DOCS/" || true
+
+          cp -a \
+            b24-generic-skin-v1.html \
+            b24-generic-skin-closed-doors-r1.html \
+            b24-generic-skin-closed-doors-r2.html \
+            b24-generic-skin-closed-doors-r3.html \
+            b24-generic-skin-closed-doors-r4.html \
+            b24-generic-skin-closed-doors-r5.html \
+            b24-generic-skin-closed-doors-r6.html \
+            runtime \
+            docs/b24-generic-skin \
+            B24_GENERIC_SKIN_START_HERE.md \
+            CURRENT.json \
+            NEXT_START_HERE.md \
+            ACCEPTED_BASELINE.json \
+            AGENTS.md \
+            README.md \
+            knowledge \
+            reports \
+            package.json \
+            "$ROOT/01_CURRENT_REMOTE_SOURCE/"
+          mkdir -p "$ROOT/01_CURRENT_REMOTE_SOURCE/workflows"
+          cp -a .github/workflows/b24-generic-*.yml "$ROOT/01_CURRENT_REMOTE_SOURCE/workflows/" || true
+
+          unzip -q handoffs/b24-generic-skin-full-20260907/input/b24_reference_min.zip -d "$ROOT/02_REFERENCE_INPUTS"
+          cat > "$ROOT/02_REFERENCE_INPUTS/REFERENCE_SCOPE.md" <<'EOF'
+          # Reference scope
+
+          These are compressed copies of user-supplied Airfix reference crops.
+          Use each view independently for placement, size, orientation, and paint-demarcation review.
+          They are not final proof that every B-24D detail applies to the target B-24J-25-CO.
+          No B17 structure, window, or marking placement may be transferred into this B24 common master.
+          EOF
+
+          download_artifact() {
+            local id="$1" name="$2" tmp
+            tmp="$(mktemp --suffix=.zip)"
+            gh api -H 'Accept: application/vnd.github+json' "/repos/${GITHUB_REPOSITORY}/actions/artifacts/${id}/zip" > "$tmp"
+            mkdir -p "$ROOT/03_QA_AND_DIAGNOSTICS/$name"
+            unzip -q "$tmp" -d "$ROOT/03_QA_AND_DIAGNOSTICS/$name"
+            rm -f "$tmp"
+          }
+          download_artifact 9986852833 00_INITIAL_GENERIC_STARTUP_QA
+          download_artifact 10000051372 01_CLOSED_DOORS_R1_QA
+          download_artifact 10001517759 04_R4_QA
+          download_artifact 10001727397 05_R5_QA
+          download_artifact 10001851222 05_R5_SURFACE_NODE_DIAGNOSTIC
+          download_artifact 10001997285 06_R6_QA
+
+          git fetch --depth=1 origin feature/b24-80days-texture-master-v2:refs/remotes/origin/feature/b24-80days-texture-master-v2
+          if git cat-file -e origin/feature/b24-80days-texture-master-v2:experiments/80-days-material-r1/RESTART_START_HERE.md 2>/dev/null; then
+            git archive origin/feature/b24-80days-texture-master-v2 experiments/80-days-material-r1 | tar -xf - -C "$ROOT/04_LEGACY_80DAYS_REMOTE"
+          fi
+          for p in TASK_010_B24_80_DAYS_TEXTURE_MASTER_V2.md docs/aircraft-pipeline/B24_80_DAYS_TEXTURE_SPEC.md reports/80-days-liveryuv-qa.json; do
+            if git cat-file -e "origin/feature/b24-80days-texture-master-v2:$p" 2>/dev/null; then
+              mkdir -p "$ROOT/04_LEGACY_80DAYS_REMOTE/$(dirname "$p")"
+              git show "origin/feature/b24-80days-texture-master-v2:$p" > "$ROOT/04_LEGACY_80DAYS_REMOTE/$p"
+            fi
+          done
+          cat > "$ROOT/04_LEGACY_80DAYS_REMOTE/STATUS.md" <<'EOF'
+          # Status
+
+          This directory preserves remote 80 DAYS research and material experiments only.
+          V2 was rejected. The early generated nose-art boards contained hallucinated windows, lettering, dice, shark eye and mouth, and placement.
+          Do not use those outputs as historical truth. The generic B24 common master must be accepted before aircraft-specific nose art resumes.
+          EOF
+
+          cat > "$ROOT/TOOLS/verify_handoff.py" <<'PY'
+          from pathlib import Path
+          import hashlib,sys
+          root=Path(__file__).resolve().parents[1]
+          failed=[];count=0
+          for line in (root/'SHA256SUMS.txt').read_text().splitlines():
+              if not line.strip(): continue
+              digest,rel=line.split('  ',1);p=root/rel
+              if not p.exists(): failed.append((rel,'missing'));continue
+              h=hashlib.sha256(p.read_bytes()).hexdigest();count+=1
+              if h!=digest: failed.append((rel,'hash mismatch'))
+          print({'checked':count,'failed':failed})
+          sys.exit(bool(failed))
+          PY
+          cat > "$ROOT/TOOLS/run_r6_local.py" <<'PY'
+          from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
+          from pathlib import Path
+          import os
+          root=Path(__file__).resolve().parents[1]/'01_CURRENT_REMOTE_SOURCE'
+          os.chdir(root)
+          print('Open http://127.0.0.1:8765/b24-generic-skin-closed-doors-r6.html')
+          ThreadingHTTPServer(('127.0.0.1',8765),SimpleHTTPRequestHandler).serve_forever()
+          PY
+
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,datetime,os
+          root=Path('handoffs/b24-generic-skin-full-20260907/build/B24_Generic_Skin_Full_Handoff_2026-09-07_R1')
+          files=[]
+          for p in sorted(root.rglob('*')):
+              if p.is_file() and p.name not in {'SHA256SUMS.txt','PACKAGE_MANIFEST.json'}:
+                  h=hashlib.sha256(p.read_bytes()).hexdigest()
+                  files.append({'path':p.relative_to(root).as_posix(),'bytes':p.stat().st_size,'sha256':h})
+          manifest={
+            'schema':'haihao.aircraft/b24-generic-skin-github-full-handoff@1.0',
+            'createdUtc':datetime.datetime.now(datetime.UTC).isoformat(),
+            'repository':os.environ['GITHUB_REPOSITORY'],
+            'handoffSourceCommit':os.environ['GITHUB_SHA'],
+            'latestImplementedVersion':'R6',
+            'latestImplementedContentCommit':'dd71ae1441b106aa275211cea84c5b0a464e3c9c',
+            'latestValidationCommit':'c3aefc82bbe5bd0d03ca77ef8115d5eb7b7fdb0f',
+            'latestValidationRun':34075740090,
+            'visualAcceptance':False,
+            'productionReady':False,
+            'r7Exists':False,
+            'files':files
+          }
+          (root/'PACKAGE_MANIFEST.json').write_text(json.dumps(manifest,indent=2,ensure_ascii=False),encoding='utf-8')
+          lines=[]
+          for p in sorted(root.rglob('*')):
+              if p.is_file() and p.name!='SHA256SUMS.txt':
+                  lines.append(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.relative_to(root).as_posix())
+          (root/'SHA256SUMS.txt').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+          PY
+          python "$ROOT/TOOLS/verify_handoff.py"
+          node --check "$ROOT/01_CURRENT_REMOTE_SOURCE/runtime/b24-generic-skin-closed-doors-r6.js"
+
+          python - <<'PY'
+          from pathlib import Path
+          import zipfile,hashlib,json
+          out=Path('handoffs/b24-generic-skin-full-20260907/build')
+          root=out/'B24_Generic_Skin_Full_Handoff_2026-09-07_R1'
+          target=Path('handoffs/b24-generic-skin-full-20260907/B24_Generic_Skin_Full_Handoff_2026-09-07_R1.zip')
+          if target.exists(): target.unlink()
+          with zipfile.ZipFile(target,'w',zipfile.ZIP_DEFLATED,compresslevel=9,allowZip64=True) as z:
+              for p in sorted(root.rglob('*')):
+                  if p.is_file(): z.write(p,root.name+'/'+p.relative_to(root).as_posix())
+          data=target.read_bytes(); digest=hashlib.sha256(data).hexdigest()
+          if len(data)>=99_000_000: raise SystemExit(f'package too large for GitHub: {len(data)}')
+          (target.parent/'PACKAGE_SHA256.txt').write_text(f'{digest}  {target.name}\nbytes={len(data)}\n',encoding='utf-8')
+          print({'zip':str(target),'bytes':len(data),'sha256':digest})
+          PY
+
+          rm -rf "$OUT"
+      - name: Commit fixed package to handoff branch
+        run: |
+          git add handoffs/b24-generic-skin-full-20260907/B24_Generic_Skin_Full_Handoff_2026-09-07_R1.zip handoffs/b24-generic-skin-full-20260907/PACKAGE_SHA256.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'handoff(b24): publish full generic-skin package with errors and QA'
+          git push origin HEAD:handoff/b24-generic-skin-full-20260907
