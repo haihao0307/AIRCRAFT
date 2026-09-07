@@ -1,0 +1,48 @@
+{
+  "schema": "object-dna.pilot-state/0.1",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "date": "2026-09-07",
+  "currentReview": {
+    "workbench": "W08",
+    "fixedCommit": "7095e8da44b2a9b589913718d0d1c01adb72615e",
+    "path": "production/aircraft-anm2/releases/w08/AIRCRAFT_B24_ANM2_W08_MEASUREMENT.html",
+    "htmlSha256": "9e232d03eb37af158dfb8af91f73a20be16708bc91ffe5da8c2e5e9235d30d6a",
+    "bytes": 1432663
+  },
+  "objectDnaLayersImplemented": [
+    "Identity",
+    "Ontology",
+    "Semantics R01",
+    "FunctionGraph R01",
+    "EvidenceGraph R01",
+    "MeasurementGraph R01",
+    "Lifecycle/Evolution skeleton R01"
+  ],
+  "measurement": {
+    "offlineReferenceProbe": {
+      "sourceSha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+      "selectedMainVisibleNodes": 8,
+      "normalizedSections": 64,
+      "allSectionsNonEmpty": true,
+      "heightOverLength": 0.108473,
+      "depthOverLength": 0.143908,
+      "principalLongAxisAbsDotW07X": 0.99996216,
+      "rawReferenceCoordinatesPersisted": false
+    },
+    "browserKernel": {
+      "nativeSections": 64,
+      "referenceSectionsWhenLocalReferenceLoaded": 64,
+      "workflowRun": 34078017253,
+      "workflowConclusion": "success",
+      "desktopAndMobileNoReferenceRuntimeVerified": true,
+      "actualReferenceBrowserRuntimeVerifiedInW08": false,
+      "note": "The reference GLB remains outside GitHub by design. W08 keeps the local File API path from W07; the new A/B section measurement path still requires a local-reference browser run or user load before it is marked verified."
+    }
+  },
+  "nextGeometryGate": {
+    "anchor": "A4_RECEIVER_FRONT_TRANSITION",
+    "normalizedT": 0.399654,
+    "goal": "rebuild and compare the external receiver-to-front-group continuity before adding unrelated details",
+    "blockedClaims": ["visualAcceptance", "productionReady", "B24InstallationComplete"]
+  }
+}
