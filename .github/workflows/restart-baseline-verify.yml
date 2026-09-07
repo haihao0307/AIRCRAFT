@@ -22,8 +22,17 @@ jobs:
           assert current['restartCandidate']['bombBayClosureRepairImplemented'] is False
           assert current['weatherEnabled'] is False and current['fogEnabled'] is False
           assert (root/'diagnostics/BOMB_BAY_CLOSURE_DIAGNOSIS_R1.json').is_file()
-          forbidden=['.glb','.gltf','.png','.jpg','.jpeg','.webp']
-          found=[str(p) for p in root.rglob('*') if p.is_file() and p.suffix.lower() in forbidden]
+          forbidden={'.glb','.gltf','.png','.jpg','.jpeg','.webp'}
+          found=[]
+          for p in root.rglob('*'):
+              if not p.is_file() or p.suffix.lower() not in forbidden:
+                  continue
+              rel=p.relative_to(root).as_posix()
+              if rel.startswith('workbench/QA/'):
+                  continue
+              found.append(rel)
           assert not found, found
-          print('RESTART_BASELINE_OK', html.stat().st_size)
+          qa_pngs=sorted(p.relative_to(root).as_posix() for p in (root/'workbench/QA').glob('*.png'))
+          assert qa_pngs == ['workbench/QA/B24_SKIN_SINGLEFILE_1440.png','workbench/QA/B24_SKIN_SINGLEFILE_390.png']
+          print('RESTART_BASELINE_OK', html.stat().st_size, qa_pngs)
           PY
