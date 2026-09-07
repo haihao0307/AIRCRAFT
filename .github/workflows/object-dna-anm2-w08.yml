@@ -1,0 +1,106 @@
+name: Freeze Aircraft ANM2 W08 Object DNA Measurement HTML
+on:
+  push:
+    branches: [feature/object-dna-kernel-v0.1-browning-pilot]
+    paths:
+      - production/aircraft-anm2/workbench/w08/**
+      - production/aircraft-anm2/object-dna-v0.1/MEASUREMENT_GRAPH_R01.json
+      - .github/workflows/object-dna-anm2-w08.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: object-dna-anm2-w08
+  cancel-in-progress: false
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OUTPUT: production/aircraft-anm2/releases/w08/AIRCRAFT_B24_ANM2_W08_MEASUREMENT.html
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/object-dna-kernel-v0.1-browning-pilot
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build fixed single-file W08
+        shell: bash
+        run: |
+          set -euo pipefail
+          python production/aircraft-anm2/workbench/w08/patch.py --root . --output "$OUTPUT"
+          node --check production/aircraft-anm2/workbench/w08/measurement-kernel.js
+          node --check production/aircraft-anm2/workbench/w08/overlay.js
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          p=Path(os.environ['OUTPUT']);r=json.loads(p.with_suffix('.receipt.json').read_text())
+          assert r['bytes']==p.stat().st_size
+          assert r['referenceEmbedded'] is False
+          assert r['productMeshFiles']==0 and r['productRasterTextures']==0
+          assert r['nativeRuntimeSections']==64 and r['referenceRuntimeSectionsWhenLoaded']==64
+          PY
+      - name: Exercise self-contained W08 without external reference
+        shell: bash
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.55.0
+          python -m playwright install --with-deps chromium
+          python - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          import json,os
+          html=Path(os.environ['OUTPUT']).read_text()
+          result={'source':'actual generated W08 single HTML','viewports':[]}
+          with sync_playwright() as p:
+            browser=p.chromium.launch(headless=True,args=['--no-sandbox','--enable-unsafe-swiftshader','--use-angle=swiftshader','--disable-dev-shm-usage'])
+            for label,w,h in [('desktop',1500,950),('mobile',390,844)]:
+              page=browser.new_page(viewport={'width':w,'height':h});errors=[]
+              page.on('pageerror',lambda e,errors=errors:errors.append(str(e)))
+              page.on('console',lambda m,errors=errors:errors.append(m.text) if m.type=='error' else None)
+              page.set_content(html,wait_until='load',timeout=90000)
+              page.wait_for_function('window.W08?.ready===true',timeout=90000)
+              a=page.evaluate('W08.audit()')
+              assert a['nativeSections']==64 and a['referenceSections']==0
+              assert a['priorAnchors']==7 and not a['errors'] and not errors
+              result['viewports'].append({'label':label,'size':[w,h],'audit':a,'errors':errors})
+              page.close()
+            browser.close()
+          Path('/tmp/w08-browser-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+          PY
+      - name: Commit immutable W08 release
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$OUTPUT" "${OUTPUT%.html}.receipt.json"
+          git diff --cached --name-only | tee /tmp/w08-paths.txt
+          python - <<'PY'
+          from pathlib import Path
+          paths=Path('/tmp/w08-paths.txt').read_text().splitlines()
+          assert paths and all(p.startswith('production/aircraft-anm2/releases/w08/') for p in paths)
+          PY
+          git diff --cached --quiet || git commit -m 'release(aircraft): freeze W08 Object DNA measurement workbench'
+          for i in 1 2 3; do
+            git pull --rebase origin feature/object-dna-kernel-v0.1-browning-pilot
+            git push origin HEAD:feature/object-dna-kernel-v0.1-browning-pilot && break
+            test "$i" != 3
+          done
+          git rev-parse HEAD | tee /tmp/W08_FIXED_COMMIT.txt
+          sha256sum "$OUTPUT" > /tmp/W08_SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AIRCRAFT_ANM2_W08_OBJECT_DNA_${{ github.sha }}
+          path: |
+            ${{ env.OUTPUT }}
+            production/aircraft-anm2/releases/w08/AIRCRAFT_B24_ANM2_W08_MEASUREMENT.receipt.json
+            /tmp/w08-browser-check.json
+            /tmp/W08_FIXED_COMMIT.txt
+            /tmp/W08_SHA256SUMS.txt
+          retention-days: 30
+          if-no-files-found: error
