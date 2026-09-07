@@ -1,0 +1,25 @@
+{
+  "schema": "object-dna.function-graph/0.1",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "date": "2026-09-07",
+  "scope": "high-level historical-visualization roles; no operating sequence, internal mechanism, fabrication guidance or performance optimization",
+  "nodes": [
+    {"functionId":"FN-STRUCTURE","label":"maintain the external gun-body structure and attachment relationships","status":"known-at-high-level"},
+    {"functionId":"FN-FRONT-AXIS","label":"maintain a continuous external longitudinal barrel/receiver relationship","status":"known-at-high-level"},
+    {"functionId":"FN-AMMO-INTERFACE","label":"provide an external ammunition-feed interface appropriate to the configuration","status":"known-at-high-level","implementation":"unresolved"},
+    {"functionId":"FN-VISIBLE-DISPOSAL","label":"represent only evidence-supported visible casing/link handling openings for the selected aircraft station","status":"evidence-gated","implementation":"unresolved"},
+    {"functionId":"FN-SIGHTING","label":"represent the evidence-supported external sighting arrangement for the selected station","status":"evidence-gated","implementation":"unresolved"},
+    {"functionId":"FN-MOUNTING","label":"connect the gun object to the aircraft installation through a separate mount/interface layer","status":"evidence-gated","implementation":"unresolved"}
+  ],
+  "dependencies": [
+    {"from":"FN-STRUCTURE","to":"FN-FRONT-AXIS","relation":"supports"},
+    {"from":"FN-STRUCTURE","to":"FN-AMMO-INTERFACE","relation":"hosts-exterior-interface"},
+    {"from":"FN-STRUCTURE","to":"FN-SIGHTING","relation":"hosts-exterior-interface"},
+    {"from":"FN-STRUCTURE","to":"FN-MOUNTING","relation":"connects-to-installation"}
+  ],
+  "completionGates": [
+    "A visual-complete claim is blocked while required external semantic parts remain unresolved.",
+    "A B-24-installed claim is blocked until model/block/station/date applicability is explicit.",
+    "Behavior animation is blocked where its visible external path has no evidence."
+  ]
+}
