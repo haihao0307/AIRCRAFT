@@ -3,19 +3,28 @@
   "entityId": "ODNA:MECH:ANM2:PILOT-0001",
   "date": "2026-09-07",
   "currentReview": {
-    "workbench": "W08",
-    "fixedCommit": "7095e8da44b2a9b589913718d0d1c01adb72615e",
-    "path": "production/aircraft-anm2/releases/w08/AIRCRAFT_B24_ANM2_W08_MEASUREMENT.html",
-    "htmlSha256": "9e232d03eb37af158dfb8af91f73a20be16708bc91ffe5da8c2e5e9235d30d6a",
-    "bytes": 1432663
+    "workbench": null,
+    "status": "no-active-user-review-candidate",
+    "reason": "W08 rejected after actual loaded-reference screenshots exposed gross registration, geometry, completeness, and measurement failures."
   },
+  "rejectedReviews": [
+    {
+      "workbench": "W08",
+      "fixedCommit": "7095e8da44b2a9b589913718d0d1c01adb72615e",
+      "path": "production/aircraft-anm2/releases/w08/AIRCRAFT_B24_ANM2_W08_MEASUREMENT.html",
+      "htmlSha256": "9e232d03eb37af158dfb8af91f73a20be16708bc91ffe5da8c2e5e9235d30d6a",
+      "bytes": 1432663,
+      "rejectionRecord": "production/aircraft-anm2/object-dna-v0.1/W08_REJECTION_2026-09-07.md",
+      "use": "failed historical experiment only"
+    }
+  ],
   "objectDnaLayersImplemented": [
     "Identity",
     "Ontology",
     "Semantics R01",
     "FunctionGraph R01",
     "EvidenceGraph R01",
-    "MeasurementGraph R01",
+    "MeasurementGraph R01 rejected for parity decisions",
     "Lifecycle/Evolution skeleton R01"
   ],
   "measurement": {
@@ -27,22 +36,49 @@
       "heightOverLength": 0.108473,
       "depthOverLength": 0.143908,
       "principalLongAxisAbsDotW07X": 0.99996216,
-      "rawReferenceCoordinatesPersisted": false
+      "rawReferenceCoordinatesPersisted": false,
+      "parityDecisionValid": false,
+      "failure": "Own-bounding-box normalized min/max envelopes discard semantic location, contour topology, centroid, area, holes, component identity, and local offset."
     },
     "browserKernel": {
-      "nativeSections": 64,
-      "referenceSectionsWhenLocalReferenceLoaded": 64,
       "workflowRun": 34078017253,
       "workflowConclusion": "success",
-      "desktopAndMobileNoReferenceRuntimeVerified": true,
-      "actualReferenceBrowserRuntimeVerifiedInW08": false,
-      "note": "The reference GLB remains outside GitHub by design. W08 keeps the local File API path from W07; the new A/B section measurement path still requires a local-reference browser run or user load before it is marked verified."
+      "whatItActuallyVerified": "single-file runtime without the local reference",
+      "actualReferenceBrowserRuntimeVerifiedBeforeRelease": false,
+      "userLoadedReferenceExposedFailure": true,
+      "accepted": false
     }
   },
-  "nextGeometryGate": {
-    "anchor": "A4_RECEIVER_FRONT_TRANSITION",
-    "normalizedT": 0.399654,
-    "goal": "rebuild and compare the external receiver-to-front-group continuity before adding unrelated details",
-    "blockedClaims": ["visualAcceptance", "productionReady", "B24InstallationComplete"]
-  }
+  "mandatoryNextGate": {
+    "name": "datum-registered-semantic-parity-r02",
+    "requiredDatums": [
+      "principal longitudinal axis",
+      "barrel centerline",
+      "muzzle plane",
+      "receiver front plane",
+      "receiver rear plane",
+      "receiver top plane"
+    ],
+    "requiredIndependentChecks": [
+      "semantic part presence",
+      "section contour centroid",
+      "section area and perimeter",
+      "section loop and hole count",
+      "2D contour distance",
+      "side top and end silhouette overlap",
+      "3D surface distance",
+      "anchor error",
+      "fixed-view manual visual review with the actual reference loaded"
+    ],
+    "firstGeometryRegion": "receiver and barrel-root transition",
+    "publicDeliveryBlocked": true,
+    "unblockCondition": "Actual reference loaded, visible improvement in the rebuilt semantic region, numerical gates passed, and manual review record completed."
+  },
+  "blockedClaims": [
+    "visualAcceptance",
+    "productionReady",
+    "measurementKernelAccepted",
+    "geometryParityAccepted",
+    "B24InstallationComplete"
+  ]
 }
