@@ -3,8 +3,8 @@ on:
   push:
     branches: [feature/b24-generic-skin-closed-doors-v1]
     paths:
-      - b24-generic-skin-closed-doors-r3.html
-      - runtime/b24-generic-skin-closed-doors-r3.js
+      - b24-generic-skin-closed-doors-r4.html
+      - runtime/b24-generic-skin-closed-doors-r4.js
       - .github/workflows/b24-generic-closed-doors-browser-qa.yml
   workflow_dispatch:
 permissions:
@@ -20,26 +20,26 @@ jobs:
           python-version: '3.12'
       - name: Install browser
         run: |
-          python -m pip install playwright==1.55.0
+          python -m pip install playwright==1.55.0 Pillow==11.3.0
           python -m playwright install --with-deps chromium
       - name: Serve fixed branch content
-        run: python -m http.server 8765 >/tmp/b24-r3-http.log 2>&1 &
-      - name: Verify closed doors, lowered paint split and reference-locked insignia
+        run: python -m http.server 8765 >/tmp/b24-r4-http.log 2>&1 &
+      - name: Verify closed doors, surface-facing paint and reference-locked insignia
         run: |
           python - <<'PY'
           from pathlib import Path
           import json
           from playwright.sync_api import sync_playwright
 
-          result={"page":"b24-generic-skin-closed-doors-r3.html","checks":[],"errors":[]}
+          result={"page":"b24-generic-skin-closed-doors-r4.html","checks":[],"errors":[]}
           with sync_playwright() as p:
               browser=p.chromium.launch(headless=True)
               page=browser.new_page(viewport={"width":1440,"height":900})
               page.on('console',lambda m: result["errors"].append(f"console {m.type}: {m.text}") if m.type=='error' else None)
               page.on('pageerror',lambda e: result["errors"].append('pageerror: '+str(e)))
-              page.goto('http://127.0.0.1:8765/b24-generic-skin-closed-doors-r3.html',wait_until='domcontentloaded',timeout=30000)
+              page.goto('http://127.0.0.1:8765/b24-generic-skin-closed-doors-r4.html',wait_until='domcontentloaded',timeout=30000)
               page.wait_for_function("() => getComputedStyle(document.querySelector('#loading')).display === 'none'",timeout=60000)
-              page.wait_for_function("() => window.__B24_GENERIC_R3__?.results?.length === 4",timeout=60000)
+              page.wait_for_function("() => window.__B24_GENERIC_R4__?.results?.length === 4",timeout=60000)
               state=page.evaluate("""() => ({
                 status:document.querySelector('#status').textContent,
                 door:document.querySelector('#doorState').textContent,
@@ -47,7 +47,7 @@ jobs:
                 loading:getComputedStyle(document.querySelector('#loading')).display,
                 canvas:[document.querySelector('#scene').width,document.querySelector('#scene').height],
                 split:document.querySelector('#split').value,
-                audit:window.__B24_GENERIC_R3__
+                audit:window.__B24_GENERIC_R4__
               })""")
               audit=state['audit'];names=[r['name'] for r in audit['results']];by={r['name']:r for r in audit['results']}
               top,bottom,port,starboard=(by['upper-port-wing'],by['lower-starboard-wing'],by['port-fuselage'],by['starboard-fuselage'])
@@ -71,24 +71,24 @@ jobs:
                 ["reference work colors locked",audit['colors']=={'upper':'#5e5839','lower':'#8b8c97'}],
                 ["no page errors",not result['errors']]
               ]
-              page.screenshot(path='b24-generic-r3-orbit.png',full_page=True)
+              page.screenshot(path='b24-generic-r4-orbit.png',full_page=True)
               for view in ['top','bottom','port','starboard','front']:
                   page.locator(f'button[data-view="{view}"]').click();page.wait_for_timeout(950)
                   result['checks'].append([f'{view} view selected',page.evaluate("() => window.__B24_VIEW__")==view])
-                  page.screenshot(path=f'b24-generic-r3-{view}.png',full_page=True)
+                  page.screenshot(path=f'b24-generic-r4-{view}.png',full_page=True)
               page.locator('#doorFocus').click();page.wait_for_timeout(950)
-              page.screenshot(path='b24-generic-r3-door.png',full_page=True)
+              page.screenshot(path='b24-generic-r4-door.png',full_page=True)
               browser.close()
           result['passed']=all(v for _,v in result['checks'])
-          Path('b24-generic-r3-browser-qa.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          Path('b24-generic-r4-browser-qa.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
           print(json.dumps(result,ensure_ascii=False,indent=2))
           assert result['passed'],result
           PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: b24-generic-closed-doors-r3-browser-qa
+          name: b24-generic-closed-doors-r4-browser-qa
           path: |
-            b24-generic-r3-browser-qa.json
-            b24-generic-r3-*.png
+            b24-generic-r4-browser-qa.json
+            b24-generic-r4-*.png
           retention-days: 30
