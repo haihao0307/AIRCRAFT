@@ -1,0 +1,79 @@
+name: B24 generic closed-door skin browser QA
+on:
+  push:
+    branches: [feature/b24-generic-skin-closed-doors-v1]
+    paths:
+      - b24-generic-skin-closed-doors-r1.html
+      - runtime/b24-generic-skin-closed-doors-r1.js
+      - .github/workflows/b24-generic-closed-doors-browser-qa.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Serve fixed branch content
+        run: python -m http.server 8765 >/tmp/b24-closed-http.log 2>&1 &
+      - name: Verify closed doors, color layer and conforming insignia
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+          from playwright.sync_api import sync_playwright
+          result={"page":"b24-generic-skin-closed-doors-r1.html","checks":[],"errors":[]}
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True)
+              page=browser.new_page(viewport={"width":1440,"height":900})
+              page.on('console',lambda m: result["errors"].append(f"console {m.type}: {m.text}") if m.type=='error' else None)
+              page.on('pageerror',lambda e: result["errors"].append('pageerror: '+str(e)))
+              page.goto('http://127.0.0.1:8765/b24-generic-skin-closed-doors-r1.html',wait_until='domcontentloaded',timeout=30000)
+              page.wait_for_function("() => getComputedStyle(document.querySelector('#loading')).display === 'none'",timeout=60000)
+              page.wait_for_function("() => document.querySelector('#status')?.textContent.includes('腰部侧门已关闭')",timeout=60000)
+              page.wait_for_function("() => document.querySelector('#decalState')?.textContent.includes('贴面三角形')",timeout=60000)
+              state=page.evaluate("""() => ({
+                status:document.querySelector('#status').textContent,
+                door:document.querySelector('#doorState').textContent,
+                decal:document.querySelector('#decalState').textContent,
+                loading:getComputedStyle(document.querySelector('#loading')).display,
+                canvas:[document.querySelector('#scene').width,document.querySelector('#scene').height]
+              })""")
+              match=re.search(r'共\s+(\d+)\s+个贴面三角形',state['decal'])
+              triangles=int(match.group(1)) if match else 0
+              result['state']=state;result['conformingDecalTriangles']=triangles
+              result['checks'] += [
+                ["loading hidden",state['loading']=='none'],
+                ["closed door text",'关闭端点' in state['door']],
+                ["four conforming insignia",triangles>0],
+                ["full V018 inventory",'1784 节点 / 348 网格' in state['status']],
+                ["no page errors",not result['errors']]
+              ]
+              page.screenshot(path='b24-generic-closed-orbit.png',full_page=True)
+              for view in ['top','bottom','port','starboard']:
+                  page.locator(f'button[data-view="{view}"]').click();page.wait_for_timeout(600)
+                  page.screenshot(path=f'b24-generic-closed-{view}.png',full_page=True)
+              page.locator('#doorFocus').click();page.wait_for_timeout(600)
+              page.screenshot(path='b24-generic-closed-door.png',full_page=True)
+              browser.close()
+          result['passed']=all(v for _,v in result['checks'])
+          Path('b24-generic-closed-browser-qa.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+          print(json.dumps(result,ensure_ascii=False,indent=2))
+          assert result['passed'],result
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-generic-closed-doors-browser-qa
+          path: |
+            b24-generic-closed-browser-qa.json
+            b24-generic-closed-*.png
+          retention-days: 30
