@@ -60,6 +60,10 @@ def main() -> int:
                 check(f"{width} geometry SHA-256", state["geometrySHA256"] == EXPECTED_GEOMETRY)
                 check(f"{width} closed side doors by default", state["sideDoorPose"] == "closed")
                 check(f"{width} metre bounds retained", all(abs(a-b) < 2e-12 for a,b in zip(state["bounds"]["size"], EXPECTED_BOUNDS)))
+                if width <= 820:
+                    check(f"{width} closed mobile panel does not overflow", page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"))
+                    page.locator("#mobilePanel").click()
+                    check(f"{width} mobile controls open", page.locator("#panel").evaluate("el => el.classList.contains('open') && getComputedStyle(el).visibility === 'visible'"))
                 page.locator("#doorOpen").click()
                 check(f"{width} side doors reopen", page.evaluate("__B24_SKIN_WORKBENCH__.getState().sideDoorPose") == "open")
                 page.locator("#doorClosed").click()
@@ -69,6 +73,9 @@ def main() -> int:
                 check(f"{width} all references independently visible", page.evaluate("__B24_SKIN_WORKBENCH__.getState().visible") == 218)
                 page.evaluate("__B24_SKIN_WORKBENCH__.selectPart('b24.v018.node.0764')")
                 check(f"{width} stable part identity selectable", "b24.v018.node.0764" in page.locator("#selectedCard").inner_text())
+                if width <= 820:
+                    page.locator("#mobilePanel").click()
+                    check(f"{width} mobile controls close", page.locator("#panel").evaluate("el => !el.classList.contains('open') && getComputedStyle(el).visibility === 'hidden'"))
                 network = [url for url in requests if not url.startswith("blob:") and not url.endswith("/favicon.ico")]
                 check(f"{width} only one network document", len(network) == 1, network)
                 check(f"{width} no runtime errors", not errors, errors)
