@@ -1,0 +1,77 @@
+name: B24 generic skin materialize R5
+on:
+  push:
+    branches: [feature/b24-generic-skin-closed-doors-v1]
+    paths: [.github/workflows/b24-generic-r5-materialize.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Apply bounded R5 corrections
+        shell: python
+        run: |
+          from pathlib import Path
+
+          source=Path('runtime/b24-generic-skin-closed-doors-r4.js')
+          target=Path('runtime/b24-generic-skin-closed-doors-r5.js')
+          s=source.read_text()
+          required=[
+            'renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;',
+            'let aircraft,insigniaGroup,guideGroup,split=-.86,paintMeshes=[];',
+            'function applySkinShader()',
+            "center:new THREE.Vector3(12.40,.35,-.15)",
+            "center:new THREE.Vector3(-12.40,.35,-.15),normal:new THREE.Vector3(0,-1,0),axisU:new THREE.Vector3(1,0,0),axisV:new THREE.Vector3(0,0,1),width:2.28,height:1.06",
+            "targets:[...fuselage,meshNode(764)],center:new THREE.Vector3(1.10,-.31,-5.02)",
+            "targets:[...fuselage,meshNode(773)],center:new THREE.Vector3(-1.10,-.31,-5.02)",
+          ]
+          for token in required:
+              if token not in s: raise SystemExit('missing expected R4 token: '+token[:80])
+          s=s.replace('renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;','renderer.shadowMap.enabled=false;')
+          s=s.replace('key.castShadow=true;','key.castShadow=false;')
+          s=s.replace('let aircraft,insigniaGroup,guideGroup,split=-.86,paintMeshes=[];','let aircraft,insigniaGroup,guideGroup,split=-.96,paintMeshes=[];')
+          start=s.index('function applySkinShader()')
+          end=s.index('function makeInsigniaTexture()',start)
+          skin="""const horizontalLocalYSign=new Map([[1669,1],[1681,1],[1693,1],[1696,1],[1699,1],[1705,1],[1708,1],[1711,1],[1672,1],[1741,1],[1684,1],[575,1],[829,-1]]);\nfunction applySkinShader(){for(const mesh of paintMeshes){const mat=mesh.material,node=mesh.userData.sourceNode,box=mesh.geometry.boundingBox;const localSign=horizontalLocalYSign.get(node)||0;const localMid=box?(box.min.y+box.max.y)*.5:0;const localFeather=box?Math.max((box.max.y-box.min.y)*.045,.001):.004;mat.color.set(0xffffff);mat.metalness=.02;mat.roughness=.76;mat.onBeforeCompile=shader=>{shader.uniforms.skinUpper={value:upper};shader.uniforms.skinLower={value:lower};shader.uniforms.fuselageSplit={value:split};shader.uniforms.localClassSign={value:localSign};shader.uniforms.localClassMid={value:localMid};shader.uniforms.localClassFeather={value:localFeather};shader.vertexShader='varying vec3 vSkinWorld;varying vec3 vSkinNormal;varying vec3 vSkinLocal;\\n'+shader.vertexShader.replace('#include <worldpos_vertex>','#include <worldpos_vertex>\\nvSkinLocal=position;vSkinWorld=(modelMatrix*vec4(transformed,1.0)).xyz;vSkinNormal=normalize(mat3(modelMatrix)*objectNormal);');shader.fragmentShader='uniform vec3 skinUpper;uniform vec3 skinLower;uniform float fuselageSplit;uniform float localClassSign;uniform float localClassMid;uniform float localClassFeather;varying vec3 vSkinWorld;varying vec3 vSkinNormal;varying vec3 vSkinLocal;\\n'+shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\\nfloat upperWeight=smoothstep(fuselageSplit-.055,fuselageSplit+.055,vSkinWorld.y);if(abs(localClassSign)>.5){float localVertical=localClassSign*(vSkinLocal.y-localClassMid);upperWeight=smoothstep(-localClassFeather,localClassFeather,localVertical);}float ax=abs(vSkinWorld.x);float z=vSkinWorld.z;float nacelle=step(1.55,ax)*step(ax,8.85)*step(1.45,z)*step(z,4.45);if(nacelle>.5&&abs(localClassSign)<.5){upperWeight=smoothstep(-.39,-.29,vSkinWorld.y);}if(z<-9.0&&ax>1.15&&abs(vSkinNormal.y)<.36){upperWeight=1.0;}diffuseColor.rgb*=mix(skinLower,skinUpper,clamp(upperWeight,0.0,1.0));');};mat.customProgramCacheKey=()=>`b24-generic-r5-${node}-${split.toFixed(3)}`;mat.needsUpdate=true}}\n"""
+          s=s[:start]+skin+s[end:]
+          s=s.replace('center:new THREE.Vector3(12.40,.35,-.15)','center:new THREE.Vector3(12.90,.35,-.15)')
+          s=s.replace('center:new THREE.Vector3(-12.40,.35,-.15),normal:new THREE.Vector3(0,-1,0),axisU:new THREE.Vector3(1,0,0),axisV:new THREE.Vector3(0,0,1),width:2.28,height:1.06','center:new THREE.Vector3(-9.55,.12,-.15),normal:new THREE.Vector3(0,-1,0),axisU:new THREE.Vector3(1,0,0),axisV:new THREE.Vector3(0,0,-1),width:2.70,height:1.25')
+          s=s.replace('targets:[...fuselage,meshNode(764)],center:new THREE.Vector3(1.10,-.31,-5.02)','targets:fuselage,center:new THREE.Vector3(1.10,-.34,-4.15)')
+          s=s.replace('targets:[...fuselage,meshNode(773)],center:new THREE.Vector3(-1.10,-.31,-5.02)','targets:fuselage,center:new THREE.Vector3(-1.10,-.34,-4.15)')
+          s=s.replace('width:2.08,height:1.04','width:2.15,height:1.08')
+          s=s.replace('window.__B24_GENERIC_R4__=','window.__B24_GENERIC_R5__=')
+          s=s.replace("closedDoorNodes:[764,767,773,776],paintMeshCount:paintMeshes.length,split,colors:{upper:'#5e5839',lower:'#8b8c97'}", "closedDoorNodes:[764,767,773,776],paintMeshCount:paintMeshes.length,split,colors:{upper:'#5e5839',lower:'#8b8c97'},placement:{upperWing:{center:[12.90,.35,-.15],sourceView:'top'},lowerWing:{center:[-9.55,.12,-.15],sourceView:'bottom',axisV:[0,0,-1]},fuselage:{centerZ:-4.15,centerY:-.34,doorTargetsExcluded:true}},shadows:false")
+          s=s.replace('军徽与上下表修正 R4','军徽方向、位置与上下表修正 R5')
+          s=s.replace('if(window.__B24_GENERIC_R4__)window.__B24_GENERIC_R4__.split=split','if(window.__B24_GENERIC_R5__)window.__B24_GENERIC_R5__.split=split')
+          target.write_text(s)
+
+          h=Path('b24-generic-skin-closed-doors-r4.html').read_text()
+          h=h.replace('军徽与上下表 R4','通用军徽与色区 R5').replace('REFERENCE LOCKED · R4','REFERENCE LOCKED · R5')
+          h=h.replace('generic-skin-closed-doors-r4','generic-skin-closed-doors-r5')
+          h=h.replace('−0.86 m','−0.96 m').replace('value="-0.86"','value="-0.96"')
+          h=h.replace('翼面军徽沿参考图移动到约 75% 半翼展和弦向中部，整枚标志落在机翼上。机身军徽限定在对应侧外壳和关闭门皮，不穿到另一侧。军徽三角朝外，背面不透显。','上翼军徽按上视图移到外翼；下翼军徽按下视图单独移回中外翼，并翻正星形方向。左右机身军徽移到机翼后方、腰部枪窗之前，只命中本侧外壳。')
+          h=h.replace('Olive Drab 色区继续下移。主翼和水平尾翼按表面朝向区分上下表，翼缘按高度衔接；发动机罩和机身使用独立高度分界。当前材质不读取 UV，也不使用噪波。','Olive Drab 色区继续下移。水平蒙皮使用各源部件局部厚度方向区分上下表，检查场关闭阴影，避免把阴影条纹误认为 UV 或蒙皮纹理。当前材质不读取 UV，也不使用噪波。')
+          h=h.replace('<b>上翼：</b>左舷上表，约 75% 半翼展','<b>上翼：</b>上视图左侧外翼，按参考图重新定位')
+          h=h.replace('<b>下翼：</b>右舷下表，位置跟随参考图','<b>下翼：</b>下视图机头朝下，画面右侧中外翼，星形方向已翻正')
+          h=h.replace('<b>机身：</b>左右各一处，位于机翼后方和腰部窗区域','<b>机身：</b>左右各一处，位于机翼后方、腰部枪窗之前')
+          Path('b24-generic-skin-closed-doors-r5.html').write_text(h)
+      - name: Syntax and scope checks
+        run: |
+          node --check runtime/b24-generic-skin-closed-doors-r5.js
+          grep -q '__B24_GENERIC_R5__' runtime/b24-generic-skin-closed-doors-r5.js
+          grep -q 'b24-generic-skin-closed-doors-r5.js' b24-generic-skin-closed-doors-r5.html
+          ! grep -q '80 DAYS' b24-generic-skin-closed-doors-r5.html
+      - name: Commit generated R5
+        run: |
+          git add b24-generic-skin-closed-doors-r5.html runtime/b24-generic-skin-closed-doors-r5.js
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'feat(b24-skin): correct common insignia placement, orientation and paint split R5'
+          git push origin HEAD:feature/b24-generic-skin-closed-doors-v1
