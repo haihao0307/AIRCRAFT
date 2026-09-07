@@ -1,0 +1,66 @@
+{
+  "schema": "mechanical-distillation.tool-probe/1",
+  "date": "2026-09-07",
+  "sourceIdentity": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+  "sourceBytes": 6548040,
+  "referencePersistedInReport": false,
+  "absoluteWeaponDimensionsPersisted": false,
+  "environment": {
+    "trimesh": "4.11.1",
+    "vtk": "9.6.2",
+    "opencv": "4.13.0",
+    "cadquery": "2.8.0",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "open3dInstalled": false
+  },
+  "timingsMs": {
+    "trimeshSceneLoad": 77.79,
+    "trimesh96Sections": 265.64,
+    "vtk96Sections": 55.14,
+    "vtk3000SurfaceDistanceQueries": 74.91,
+    "cadqueryGenericBrepBuildAndTessellate": 60.21,
+    "opencvSyntheticSolvePnP": 1.221
+  },
+  "capabilityNotes": {
+    "trimeshProximityExercised": false,
+    "trimeshProximityBlocker": "Optional rtree package absent in the current isolated environment.",
+    "vtkRepeatedSectioning": "exercised",
+    "vtkSurfaceDistance": "exercised",
+    "cadqueryBrepCompiler": "exercised on a generic calibration solid, not a weapon component",
+    "opencvPnP": "synthetic capability check only",
+    "open3d": "web-researched as optional scan/point-cloud adapter, not executed"
+  },
+  "normalizedReferenceChecks": {
+    "mainVisibleNodeCount": 8,
+    "transientMergedVertices": 12872,
+    "transientMergedFaces": 12709,
+    "heightOverLength": 0.108473,
+    "depthOverLength": 0.143908,
+    "principalLongAxisAbsDotW07X": 0.999962,
+    "sampledSections": 96,
+    "nonEmptyTrimeshSections": 96,
+    "nonEmptyVtkSections": 96
+  },
+  "sparseSectionSummary": [
+    {"x": 0.01, "height": 0.07188, "depth": 0.08546, "entities": 9},
+    {"x": 0.0925, "height": 0.09614, "depth": 0.05775, "entities": 6},
+    {"x": 0.1854, "height": 0.09178, "depth": 0.12274, "entities": 7},
+    {"x": 0.2679, "height": 0.07733, "depth": 0.051, "entities": 4},
+    {"x": 0.3607, "height": 0.074, "depth": 0.06812, "entities": 2},
+    {"x": 0.4536, "height": 0.03048, "depth": 0.03051, "entities": 3},
+    {"x": 0.5361, "height": 0.03048, "depth": 0.03049, "entities": 2},
+    {"x": 0.6289, "height": 0.02957, "depth": 0.02956, "entities": 2},
+    {"x": 0.7218, "height": 0.03049, "depth": 0.0305, "entities": 1},
+    {"x": 0.8043, "height": 0.03052, "depth": 0.0305, "entities": 1},
+    {"x": 0.8972, "height": 0.02823, "depth": 0.0282, "entities": 1},
+    {"x": 0.99, "height": 0.02907, "depth": 0.02908, "entities": 2}
+  ],
+  "limits": [
+    "This benchmark is machine- and source-specific and does not establish universal tool performance.",
+    "No absolute firearm dimensions, source coordinates, source UVs or product mesh files are retained here.",
+    "The normalized sections are external appearance checks, not functional internal engineering data.",
+    "A synthetic PnP result does not prove automatic registration of uncontrolled real photographs.",
+    "No historical correctness or visual acceptance is granted by these timings."
+  ]
+}
