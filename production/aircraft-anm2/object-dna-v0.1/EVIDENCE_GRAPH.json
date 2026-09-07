@@ -1,0 +1,105 @@
+{
+  "schema": "object-dna.evidence-graph/0.1",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "date": "2026-09-07",
+  "policy": {
+    "truthStates": ["known", "inferred", "estimated", "unknown"],
+    "catalogLeadIsAcquiredEvidence": false,
+    "visualCandidateIsHistoricalProof": false
+  },
+  "sources": [
+    {
+      "evidenceId": "EV-REF-GLB-001",
+      "kind": "digital-reference-model",
+      "status": "known",
+      "title": "AN/M2 Browning .50 cal aircraft machine gun",
+      "author": "Misja van Laatum",
+      "license": "CC-BY-4.0",
+      "sourceUrl": "https://sketchfab.com/3d-models/anm2-browning-50-cal-aircraft-machine-gun-83d967f5d3ea4fe18603514741c781d5",
+      "localIdentity": {
+        "sha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+        "bytes": 6548040
+      },
+      "supports": [
+        "reference exterior shape study",
+        "source node/scene structure",
+        "normalized exterior measurement"
+      ],
+      "doesNotSupport": [
+        "factory dimensions",
+        "specific B-24 gun-station applicability",
+        "historical finish calibration",
+        "functional internal engineering"
+      ]
+    },
+    {
+      "evidenceId": "EV-W02-REVIEW-001",
+      "kind": "internal-review-record",
+      "status": "known",
+      "path": "production/aircraft-anm2/workbench/w02/REFERENCE_REVIEW.md",
+      "supports": [
+        "verified source identity",
+        "read-only reference policy",
+        "28-node/13-mesh source-review context"
+      ]
+    },
+    {
+      "evidenceId": "EV-W07-REVIEW-001",
+      "kind": "internal-review-workbench",
+      "status": "known",
+      "fixedCommit": "3f92275c6976b66ed202886c49b35b490da63c38",
+      "path": "production/aircraft-anm2/releases/w07/AIRCRAFT_B24_ANM2_W07_PROGRESS.html",
+      "supports": [
+        "Reference Twin / Native Twin comparison method",
+        "orthographic review camera",
+        "current native exterior candidate"
+      ],
+      "doesNotSupport": [
+        "visual acceptance",
+        "historical correctness",
+        "B-24 installation completeness"
+      ]
+    },
+    {
+      "evidenceId": "EV-TM9-225-CATALOG-001",
+      "kind": "period-manual-bibliographic-record",
+      "status": "known",
+      "title": "TM 9-225 Browning machine gun caliber .50, M2, aircraft, fixed and flexible",
+      "date": "1942-04-30",
+      "url": "https://digital.library.unt.edu/ark:/67531/metadc29988/",
+      "inspectionLevel": "bibliographic record only in current evidence ledger",
+      "supports": ["period identity/source navigation"],
+      "doesNotSupport": ["specific B-24 installation geometry in this ledger"]
+    },
+    {
+      "evidenceId": "EV-B24-AUS-CATALOG-001",
+      "kind": "B-24-manual-catalog-lead",
+      "status": "known",
+      "url": "https://www.b24australia.org.au/library/air-craft-manuals-b-24/parts-manuals",
+      "leads": [
+        "ZE-32-047 B-24D/B-24J/PB4Y-1 April 1944",
+        "AN 01-5E-4 B-24D/B-24J/PB4Y-1 June 1944"
+      ],
+      "inspectionLevel": "catalog listing only",
+      "supports": ["future applicability research"],
+      "doesNotSupport": ["current station-specific geometry"]
+    },
+    {
+      "evidenceId": "EV-AIRCORPS-B24-001",
+      "kind": "B-24-manual-catalog-lead",
+      "status": "known",
+      "url": "https://app.aircorpslibrary.com/aircraft/consolidated-b-24-liberator",
+      "inspectionLevel": "catalog level only",
+      "supports": ["future B-24 armament-source navigation"],
+      "doesNotSupport": ["current station-specific geometry"]
+    }
+  ],
+  "openEvidenceQuestions": [
+    "exact B-24 model/block for the target installation",
+    "exact B-24 gun station",
+    "exact service date for the target state",
+    "period-correct sight for that station",
+    "B-24-specific ammunition box/feed/mount/disposal relationships",
+    "period finish and maintenance-state calibration"
+  ]
+}
