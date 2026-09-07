@@ -1,17 +1,9 @@
-# B24 full snapshot backup R1
+# B24 livery workbench clean restart
 
-Date: 2026-09-07
+This branch is the new active livery-only continuation after the complete backup.
 
-This branch is an immutable recovery snapshot for the current B24 production, compact numeric runtime, static skin workbench, side-door endpoints, bomb-bay closure diagnosis, and the two relevant livery research lines.
+Baseline workbench: `workbench/B24_LIVERY_WORKBENCH_R1_BASELINE.html`.
 
-## Snapshot directories
+The baseline retains exact static numeric skin geometry, closed and reopenable waist side doors, part identities, orbit, zoom, and desktop/mobile verification. Propellers are not yet present in this static subset. The bomb-bay closure gap is diagnosed and preserved as an open issue.
 
-1. `01_ACCEPTED_V017/` is the user-accepted continuation baseline.
-2. `02_V018_NATIVE_CURRENT/` contains the compact image-free numeric runtime and the measured bomb-bay closure diagnosis.
-3. `03_SKIN_SINGLEFILE_V018_R2/` contains the verified fixed single-file static skin workbench with both waist side doors closed by default and reopenable.
-4. `04_LIVERY_80_DAYS_RESEARCH/` preserves the current 80 DAYS research branch as read-only evidence. It is not automatically accepted for visual production.
-5. `05_LIVERY_UBANGI_RESEARCH/` preserves the current UBANGI BAG III research branch as read-only evidence. It is not automatically accepted for visual production.
-
-The restart line must read `BACKUP_MANIFEST.json` and `RESTART_PLAN.md`. Archive content must never be imported wholesale into the active runtime. Only explicitly selected, verified, and relevant files may cross into the restarted livery workbench.
-
-The accepted V017 page, V018 compact page, and earlier fixed commits remain unchanged. Weather, clouds, and fog remain outside this restart until Weather Mother is rebuilt and explicitly integrated.
+Read `NEXT_START_HERE.md` before implementation. The first increment restores propeller fit references and adds all required fixed review views. Historical livery work follows after those checks.

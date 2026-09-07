@@ -1,0 +1,29 @@
+name: Verify clean B24 livery restart baseline
+on:
+  push:
+    branches: [restart/b24-livery-workbench-clean-r1-20260907]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify frozen baseline identities and clean scope
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib
+          root=pathlib.Path('.')
+          html=root/'workbench/B24_LIVERY_WORKBENCH_R1_BASELINE.html'
+          assert hashlib.sha256(html.read_bytes()).hexdigest() == '2579047f64a5f171bb67b1aca8f0f238620690b80c8b851e376a52e1c9c6fdb9'
+          current=json.loads((root/'CURRENT.json').read_text())
+          assert current['restartCandidate']['propellersVisible'] is False
+          assert current['restartCandidate']['bombBayClosureRepairImplemented'] is False
+          assert current['weatherEnabled'] is False and current['fogEnabled'] is False
+          assert (root/'diagnostics/BOMB_BAY_CLOSURE_DIAGNOSIS_R1.json').is_file()
+          forbidden=['.glb','.gltf','.png','.jpg','.jpeg','.webp']
+          found=[str(p) for p in root.rglob('*') if p.is_file() and p.suffix.lower() in forbidden]
+          assert not found, found
+          print('RESTART_BASELINE_OK', html.stat().st_size)
+          PY

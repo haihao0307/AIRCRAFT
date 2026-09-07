@@ -1,0 +1,27 @@
+{
+  "schema": "b24-livery-source-locks/1.0",
+  "geometry": {
+    "staticSkinCommit": "28bf57b7c03986fae9f7aad145e70a86618e61f1",
+    "nativeCompactCommit": "6bc8c8e842819ad8ff2cdb37ccfd7f9724494527",
+    "geometrySHA256": "84d0eaf16e790989145605c3cd70de1fea64e1f62a58acfafb5455c0876e2e44",
+    "unit": "metre",
+    "sourceScalePreserved": true,
+    "historicalAbsoluteDimensionsValidated": false
+  },
+  "liveryResearch": {
+    "80_DAYS": {
+      "branch": "feature/b24-80days-texture-master-v2",
+      "commit": "97cc531633806e277f0691c9e22814a86588b07d",
+      "status": "read-only research; prior visual candidates are not accepted"
+    },
+    "UBANGI_BAG_III": {
+      "branch": "feature/ubangi-bag-iii-v1",
+      "commit": "8bfcdf93f6dffa1004b30797f6dabe856e67c809",
+      "status": "read-only research"
+    }
+  },
+  "weatherSource": "deferred",
+  "fogSource": "deferred",
+  "weaponsSource": "separate production line",
+  "deprecatedImageTo3DRoute": "forbidden"
+}

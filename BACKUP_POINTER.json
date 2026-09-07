@@ -1,0 +1,16 @@
+{
+  "schema": "b24-backup-pointer/1.0",
+  "repository": "haihao0307/AIRCRAFT",
+  "backupBranch": "backup/b24-full-snapshot-20260907-r1",
+  "backupCommit": "f3b1f1a27b036df7d41ddda653ec6662ffe05653",
+  "releaseTag": "b24-full-backup-20260907-r1",
+  "releaseAsset": "B24_FULL_BACKUP_2026-09-07_R1.zip",
+  "contains": [
+    "accepted V017 baseline",
+    "V018 compact numeric runtime and bomb-bay diagnosis",
+    "V018 R2 single-file static skin workbench and side-door endpoints",
+    "80 DAYS livery research snapshot",
+    "UBANGI BAG III livery research snapshot"
+  ],
+  "restorePolicy": "restore exact snapshot only; no automatic whole-branch merge into active workbench"
+}
