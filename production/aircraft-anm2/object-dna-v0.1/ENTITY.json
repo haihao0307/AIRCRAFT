@@ -1,0 +1,64 @@
+{
+  "schema": "object-dna.entity/0.1",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "identityKind": "versioned-digital-reconstruction-entity",
+  "historicalPhysicalSerialClaimed": false,
+  "essentialType": "aircraft-armament-object",
+  "configurationType": "Aircraft Browning M2 / AN/M2 exterior reconstruction pilot",
+  "ontologyPath": [
+    "PhysicalObject",
+    "Artifact",
+    "Machine",
+    "AircraftArmament",
+    "Firearm",
+    "AircraftBrowningM2-ANM2",
+    "DigitalReconstructionPilot"
+  ],
+  "worldContext": {
+    "priorityAircraftFamily": "B-24",
+    "exactAircraftBlock": "unknown",
+    "exactGunStation": "unknown",
+    "exactServiceDate": "unknown",
+    "worldKernelPlacementReady": false
+  },
+  "referenceTwin": {
+    "kind": "verified-local-read-only-glb",
+    "sha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+    "bytes": 6548040,
+    "persistedAsProductData": false
+  },
+  "currentReview": {
+    "workbench": "W07",
+    "visualAcceptance": false,
+    "productionReady": false
+  },
+  "truthPolicy": ["known", "inferred", "estimated", "unknown"],
+  "requiredLayers": [
+    "Identity",
+    "Ontology",
+    "Semantics",
+    "FunctionGraph",
+    "EvidenceGraph",
+    "MeasurementGraph",
+    "GeometryProgram",
+    "SurfaceCoordinateProgram",
+    "MaterialProgram",
+    "LifecycleGraph",
+    "EvolutionGraph",
+    "BehaviorGraph",
+    "EventHistory",
+    "ApprovalLedger",
+    "WorldObjectContract"
+  ],
+  "implementationState": {
+    "researchReady": true,
+    "pilotImplementationReady": true,
+    "measurementKernelReady": false,
+    "geometryProgramReady": false,
+    "surfaceCoordinateProgramReady": false,
+    "materialHistoricalCalibrationReady": false,
+    "lifecycleModelReady": false,
+    "behaviorGraphReady": false,
+    "worldObjectContractReady": false
+  }
+}
