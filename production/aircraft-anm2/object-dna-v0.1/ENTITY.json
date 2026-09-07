@@ -28,7 +28,9 @@
     "persistedAsProductData": false
   },
   "currentReview": {
-    "workbench": "W07",
+    "workbench": "W08",
+    "fixedCommit": "7095e8da44b2a9b589913718d0d1c01adb72615e",
+    "path": "production/aircraft-anm2/releases/w08/AIRCRAFT_B24_ANM2_W08_MEASUREMENT.html",
     "visualAcceptance": false,
     "productionReady": false
   },
@@ -53,11 +55,16 @@
   "implementationState": {
     "researchReady": true,
     "pilotImplementationReady": true,
-    "measurementKernelReady": false,
+    "semanticsReady": true,
+    "functionGraphReady": true,
+    "evidenceGraphReady": true,
+    "measurementGraphReady": true,
+    "measurementKernelReady": true,
+    "referenceRuntimeMeasurementVerifiedInW08": false,
     "geometryProgramReady": false,
     "surfaceCoordinateProgramReady": false,
     "materialHistoricalCalibrationReady": false,
-    "lifecycleModelReady": false,
+    "lifecycleModelReady": true,
     "behaviorGraphReady": false,
     "worldObjectContractReady": false
   }
