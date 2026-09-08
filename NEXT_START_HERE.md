@@ -1,3 +1,9 @@
+# 最新接续：R15 蒙皮与服役生命周期（2026-09-08）
+
+当前分支 `feature/b24-service-life-r15`。[R15固定公网预览与验收](docs/service-life/PUBLIC_PREVIEW.md)已完成；固定代码为 `1e0504037f8caa2f651fd860b52be1dbbf09e148`，入口 `b24-service-life-r15.html`。五种服役状态、使用/保养/暴露独立调节、轮胎胎面/胎侧/轮毂细节及其他固定外表面的缝/钉排已实现。两侧腹部漆界尖角由截面尖峰修正，前轮后方重叠表面以深度偏移稳定显示，无原UV输入。
+
+详细机制、来源和范围见 [R15知识](docs/service-life/KNOWLEDGE.md)。新增全机缝位、钉距、战损与修复为外观示意；原机壳数组不变，未据此声称制造复原或结构损伤分析。原始载荷哈希、348网格/1784节点、军徽锚点保持；禁止复用已作废105段线。R14结构工作台与旧版链接保留。继续遵守固定版本公网HTTPS交付规则，公网实际验收之后才能交付。以下为历史交接。
+
 # 最新接续：R14 蒙皮连接模块（2026-09-08）
 
 当前工作分支 `feature/aircraft-skin-joints-r14`。新增结构工作台 `aircraft-skin-joints-r14.html` 与 B-24 局部集成 `b24-skin-integration-r14.html`。见 [知识与实际资料边界](docs/skin-joints/KNOWLEDGE.md)、[范围合同](docs/skin-joints/CONTRACT.md)。[R14固定公网预览与实际验收](docs/skin-joints/PUBLIC_PREVIEW.md)已完成；两页均通过公网浏览器交互和关键资源一致性检查。
