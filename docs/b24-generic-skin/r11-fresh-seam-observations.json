@@ -1,0 +1,1945 @@
+{
+  "schema": "b24-fresh-seam-observations/1",
+  "date": "2026-09-08",
+  "version": "R11",
+  "legacyReferenceLines": "REJECTED BY USER; none read by this script or used as input",
+  "status": "first-pass four-view reinspection; candidate observations only",
+  "method": "Independent manual visual transcription from original images at native dimensions; no AI enhancement, no legacy SVG tracing, no mirrored invention.",
+  "sources": [
+    {
+      "view": "top",
+      "path": "G:\\AIRCRAFT\\skin-mother-intake-20260907\\recovered-reference-candidates\\top.webp",
+      "sha256": "d55b9d47530b1fc5a0523e7005ab4d2f10d5f3b2ef00c83b827cf5c21004e68b",
+      "width": 1969,
+      "height": 1265,
+      "type": "paint-instruction illustration; not a structural drawing",
+      "rivetPointsResolvable": false
+    },
+    {
+      "view": "bottom",
+      "path": "G:\\AIRCRAFT\\skin-mother-intake-20260907\\recovered-reference-candidates\\bottom.webp",
+      "sha256": "429754754a1acebe1ec5395c3553229019612ceab35d0bfe19b5a2eb804925ea",
+      "width": 2048,
+      "height": 1197,
+      "type": "paint-instruction illustration; not a structural drawing",
+      "rivetPointsResolvable": false
+    },
+    {
+      "view": "port",
+      "path": "G:\\AIRCRAFT\\skin-mother-intake-20260907\\recovered-reference-candidates\\port.webp",
+      "sha256": "a3b4968ba2fbdfddb1b2a27d56bf248f787a7352e7b715a7a0a79f63de3a3b8d",
+      "width": 1241,
+      "height": 862,
+      "type": "paint-instruction illustration; not a structural drawing",
+      "rivetPointsResolvable": false
+    },
+    {
+      "view": "starboard",
+      "path": "G:\\AIRCRAFT\\skin-mother-intake-20260907\\recovered-reference-candidates\\starboard.webp",
+      "sha256": "2b3dee062a574245f83109f14f176dfc88a4f26d07406003c80e3a2510e32f6d",
+      "width": 1323,
+      "height": 497,
+      "type": "paint-instruction illustration; not a structural drawing",
+      "rivetPointsResolvable": false
+    }
+  ],
+  "records": [
+    {
+      "id": "top-fresh-001",
+      "view": "top",
+      "part": "image-left outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          463,
+          417
+        ],
+        [
+          463,
+          506
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-002",
+      "view": "top",
+      "part": "image-left outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          109,
+          439
+        ],
+        [
+          109,
+          491
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Tip region excluded beyond the straight visible segment."
+    },
+    {
+      "id": "top-fresh-003",
+      "view": "top",
+      "part": "image-left outer wing",
+      "kind": "control-surface-boundary",
+      "points": [
+        [
+          115,
+          499
+        ],
+        [
+          294,
+          503
+        ],
+        [
+          460,
+          510
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Keep separate from a riveted skin joint."
+    },
+    {
+      "id": "top-fresh-004",
+      "view": "top",
+      "part": "image-left mid wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          540,
+          451
+        ],
+        [
+          650,
+          450
+        ],
+        [
+          773,
+          449
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-005",
+      "view": "top",
+      "part": "image-left mid wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          541,
+          477
+        ],
+        [
+          654,
+          477
+        ],
+        [
+          771,
+          476
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-006",
+      "view": "top",
+      "part": "image-left mid wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          528,
+          419
+        ],
+        [
+          529,
+          507
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Adjacent nacelle boundary requires component assignment."
+    },
+    {
+      "id": "top-fresh-007",
+      "view": "top",
+      "part": "image-left mid wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          777,
+          422
+        ],
+        [
+          777,
+          515
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Do not continue into nacelle."
+    },
+    {
+      "id": "top-fresh-008",
+      "view": "top",
+      "part": "image-left inner wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          804,
+          465
+        ],
+        [
+          932,
+          467
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-009",
+      "view": "top",
+      "part": "image-left inner wing",
+      "kind": "control-surface-boundary",
+      "points": [
+        [
+          804,
+          520
+        ],
+        [
+          937,
+          526
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-010",
+      "view": "top",
+      "part": "image-right inner wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1067,
+          466
+        ],
+        [
+          1198,
+          466
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-011",
+      "view": "top",
+      "part": "image-right inner wing",
+      "kind": "control-surface-boundary",
+      "points": [
+        [
+          1066,
+          526
+        ],
+        [
+          1198,
+          520
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-012",
+      "view": "top",
+      "part": "image-right mid wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1224,
+          451
+        ],
+        [
+          1386,
+          451
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-013",
+      "view": "top",
+      "part": "image-right mid wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1225,
+          478
+        ],
+        [
+          1461,
+          478
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-014",
+      "view": "top",
+      "part": "image-right mid wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1201,
+          423
+        ],
+        [
+          1201,
+          515
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-015",
+      "view": "top",
+      "part": "image-right outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1503,
+          430
+        ],
+        [
+          1503,
+          503
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-016",
+      "view": "top",
+      "part": "image-right outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1743,
+          437
+        ],
+        [
+          1743,
+          498
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-017",
+      "view": "top",
+      "part": "image-right outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1543,
+          459
+        ],
+        [
+          1740,
+          459
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-018",
+      "view": "top",
+      "part": "image-right outer wing",
+      "kind": "control-surface-boundary",
+      "points": [
+        [
+          1544,
+          510
+        ],
+        [
+          1711,
+          501
+        ],
+        [
+          1879,
+          495
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-019",
+      "view": "top",
+      "part": "image-left tailplane",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          842,
+          998
+        ],
+        [
+          842,
+          1037
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-020",
+      "view": "top",
+      "part": "image-left tailplane",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          896,
+          998
+        ],
+        [
+          896,
+          1038
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-021",
+      "view": "top",
+      "part": "image-left tailplane",
+      "kind": "control-surface-boundary",
+      "points": [
+        [
+          796,
+          1043
+        ],
+        [
+          977,
+          1043
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-022",
+      "view": "top",
+      "part": "image-right tailplane",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1105,
+          998
+        ],
+        [
+          1105,
+          1037
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-023",
+      "view": "top",
+      "part": "image-right tailplane",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1159,
+          998
+        ],
+        [
+          1159,
+          1037
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-024",
+      "view": "top",
+      "part": "image-right tailplane",
+      "kind": "control-surface-boundary",
+      "points": [
+        [
+          1028,
+          1043
+        ],
+        [
+          1208,
+          1043
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-025",
+      "view": "top",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          948,
+          650
+        ],
+        [
+          1056,
+          650
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-026",
+      "view": "top",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          954,
+          746
+        ],
+        [
+          1050,
+          746
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-027",
+      "view": "top",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          960,
+          842
+        ],
+        [
+          1044,
+          842
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-028",
+      "view": "top",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          967,
+          950
+        ],
+        [
+          1035,
+          950
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-029",
+      "view": "top",
+      "part": "image-left outer nacelle",
+      "kind": "cover-boundary-candidate",
+      "points": [
+        [
+          528,
+          339
+        ],
+        [
+          602,
+          340
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Cover seam, flap boundary and fastener type require close-up confirmation."
+    },
+    {
+      "id": "top-fresh-030",
+      "view": "top",
+      "part": "image-left outer nacelle",
+      "kind": "cover-boundary-candidate",
+      "points": [
+        [
+          530,
+          379
+        ],
+        [
+          603,
+          379
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-031",
+      "view": "top",
+      "part": "image-left inner nacelle",
+      "kind": "cover-boundary-candidate",
+      "points": [
+        [
+          776,
+          325
+        ],
+        [
+          848,
+          326
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-032",
+      "view": "top",
+      "part": "image-right inner nacelle",
+      "kind": "cover-boundary-candidate",
+      "points": [
+        [
+          1150,
+          325
+        ],
+        [
+          1225,
+          325
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "top-fresh-033",
+      "view": "top",
+      "part": "image-right outer nacelle",
+      "kind": "cover-boundary-candidate",
+      "points": [
+        [
+          1399,
+          339
+        ],
+        [
+          1471,
+          339
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-001",
+      "view": "bottom",
+      "part": "image-left outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          172,
+          720
+        ],
+        [
+          399,
+          711
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-002",
+      "view": "bottom",
+      "part": "image-left outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          172,
+          743
+        ],
+        [
+          395,
+          741
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-003",
+      "view": "bottom",
+      "part": "image-left outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          172,
+          760
+        ],
+        [
+          313,
+          761
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Stop before the access-panel outline."
+    },
+    {
+      "id": "bottom-fresh-004",
+      "view": "bottom",
+      "part": "image-left outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          337,
+          762
+        ],
+        [
+          396,
+          763
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Resume only after the access-panel outline."
+    },
+    {
+      "id": "bottom-fresh-005",
+      "view": "bottom",
+      "part": "image-left outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          401,
+          715
+        ],
+        [
+          401,
+          785
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-006",
+      "view": "bottom",
+      "part": "image-left outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          502,
+          711
+        ],
+        [
+          502,
+          790
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-007",
+      "view": "bottom",
+      "part": "image-left outer wing",
+      "kind": "tip-panel-boundary-candidate",
+      "points": [
+        [
+          168,
+          706
+        ],
+        [
+          168,
+          781
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-008",
+      "view": "bottom",
+      "part": "image-right outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1540,
+          713
+        ],
+        [
+          1861,
+          721
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-009",
+      "view": "bottom",
+      "part": "image-right outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1540,
+          740
+        ],
+        [
+          1610,
+          741
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Artwork interrupts the rest; no extrapolation."
+    },
+    {
+      "id": "bottom-fresh-010",
+      "view": "bottom",
+      "part": "image-right outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1748,
+          742
+        ],
+        [
+          1862,
+          742
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Separate segment beyond artwork."
+    },
+    {
+      "id": "bottom-fresh-011",
+      "view": "bottom",
+      "part": "image-right outer wing",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1537,
+          716
+        ],
+        [
+          1537,
+          790
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-012",
+      "view": "bottom",
+      "part": "image-right outer wing",
+      "kind": "tip-panel-boundary-candidate",
+      "points": [
+        [
+          1868,
+          707
+        ],
+        [
+          1868,
+          780
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-013",
+      "view": "bottom",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          980,
+          285
+        ],
+        [
+          1049,
+          285
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-014",
+      "view": "bottom",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          973,
+          388
+        ],
+        [
+          1058,
+          388
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-015",
+      "view": "bottom",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          967,
+          480
+        ],
+        [
+          1065,
+          480
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-016",
+      "view": "bottom",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          964,
+          574
+        ],
+        [
+          1069,
+          574
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Adjacent bomb-bay boundary; do not turn door corrugations into rivet rows."
+    },
+    {
+      "id": "bottom-fresh-017",
+      "view": "bottom",
+      "part": "forward fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          963,
+          915
+        ],
+        [
+          1073,
+          915
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-018",
+      "view": "bottom",
+      "part": "forward fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          971,
+          969
+        ],
+        [
+          1064,
+          969
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-019",
+      "view": "bottom",
+      "part": "image-left tailplane",
+      "kind": "control-surface-boundary",
+      "points": [
+        [
+          812,
+          199
+        ],
+        [
+          978,
+          199
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-020",
+      "view": "bottom",
+      "part": "image-right tailplane",
+      "kind": "control-surface-boundary",
+      "points": [
+        [
+          1049,
+          199
+        ],
+        [
+          1218,
+          199
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-021",
+      "view": "bottom",
+      "part": "image-left outer nacelle",
+      "kind": "cover-boundary-candidate",
+      "points": [
+        [
+          565,
+          870
+        ],
+        [
+          639,
+          870
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-022",
+      "view": "bottom",
+      "part": "image-left inner nacelle",
+      "kind": "cover-boundary-candidate",
+      "points": [
+        [
+          799,
+          883
+        ],
+        [
+          875,
+          883
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-023",
+      "view": "bottom",
+      "part": "image-right inner nacelle",
+      "kind": "cover-boundary-candidate",
+      "points": [
+        [
+          1158,
+          883
+        ],
+        [
+          1232,
+          883
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "bottom-fresh-024",
+      "view": "bottom",
+      "part": "image-right outer nacelle",
+      "kind": "cover-boundary-candidate",
+      "points": [
+        [
+          1395,
+          870
+        ],
+        [
+          1469,
+          870
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "port-fresh-001",
+      "view": "port",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          650,
+          270
+        ],
+        [
+          743,
+          270
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "port-fresh-002",
+      "view": "port",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          783,
+          271
+        ],
+        [
+          944,
+          271
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Interrupted at marked/artwork region."
+    },
+    {
+      "id": "port-fresh-003",
+      "view": "port",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          844,
+          308
+        ],
+        [
+          944,
+          308
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Only segment outside insignia."
+    },
+    {
+      "id": "port-fresh-004",
+      "view": "port",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          652,
+          348
+        ],
+        [
+          704,
+          348
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Stop at insignia."
+    },
+    {
+      "id": "port-fresh-005",
+      "view": "port",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          842,
+          331
+        ],
+        [
+          945,
+          331
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "port-fresh-006",
+      "view": "port",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          842,
+          351
+        ],
+        [
+          946,
+          351
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "port-fresh-007",
+      "view": "port",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          946,
+          260
+        ],
+        [
+          947,
+          363
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "port-fresh-008",
+      "view": "port",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          840,
+          258
+        ],
+        [
+          841,
+          288
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Upper segment only; remainder occluded by artwork."
+    },
+    {
+      "id": "port-fresh-009",
+      "view": "port",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          840,
+          346
+        ],
+        [
+          841,
+          381
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Lower segment resumes beyond artwork."
+    },
+    {
+      "id": "port-fresh-010",
+      "view": "port",
+      "part": "center fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          649,
+          256
+        ],
+        [
+          649,
+          375
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Keep endpoints clear of painted lower demarcation."
+    },
+    {
+      "id": "port-fresh-011",
+      "view": "port",
+      "part": "center fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          344,
+          348
+        ],
+        [
+          344,
+          397
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Below wing root only."
+    },
+    {
+      "id": "port-fresh-012",
+      "view": "port",
+      "part": "center fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          295,
+          348
+        ],
+        [
+          295,
+          397
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Below wing root only."
+    },
+    {
+      "id": "starboard-fresh-001",
+      "view": "starboard",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          316,
+          232
+        ],
+        [
+          417,
+          232
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "starboard-fresh-002",
+      "view": "starboard",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          318,
+          269
+        ],
+        [
+          417,
+          269
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "starboard-fresh-003",
+      "view": "starboard",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          318,
+          293
+        ],
+        [
+          417,
+          293
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "starboard-fresh-004",
+      "view": "starboard",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          366,
+          316
+        ],
+        [
+          455,
+          320
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Stop before insignia."
+    },
+    {
+      "id": "starboard-fresh-005",
+      "view": "starboard",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          315,
+          220
+        ],
+        [
+          316,
+          329
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "starboard-fresh-006",
+      "view": "starboard",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          423,
+          222
+        ],
+        [
+          423,
+          272
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Stop at insignia border."
+    },
+    {
+      "id": "starboard-fresh-007",
+      "view": "starboard",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          424,
+          307
+        ],
+        [
+          424,
+          340
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Resume below insignia."
+    },
+    {
+      "id": "starboard-fresh-008",
+      "view": "starboard",
+      "part": "aft fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          617,
+          220
+        ],
+        [
+          617,
+          349
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "End before painted lower demarcation."
+    },
+    {
+      "id": "starboard-fresh-009",
+      "view": "starboard",
+      "part": "center fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          764,
+          304
+        ],
+        [
+          764,
+          355
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Only the segment below the wing root; corrected during fresh overlay review."
+    },
+    {
+      "id": "starboard-fresh-010",
+      "view": "starboard",
+      "part": "center fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          863,
+          305
+        ],
+        [
+          863,
+          356
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "starboard-fresh-011",
+      "view": "starboard",
+      "part": "center fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          918,
+          308
+        ],
+        [
+          919,
+          358
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": ""
+    },
+    {
+      "id": "starboard-fresh-012",
+      "view": "starboard",
+      "part": "forward fuselage",
+      "kind": "panel-boundary-candidate",
+      "points": [
+        [
+          1017,
+          305
+        ],
+        [
+          1128,
+          305
+        ]
+      ],
+      "coordinates": "source-image-pixels; origin top-left",
+      "status": "visually-readable-drawing-candidate",
+      "precision": "approximate visual transcription; not subpixel tracing",
+      "manufacturingConfirmed": false,
+      "projectedToAircraft": false,
+      "rivetBasis": false,
+      "note": "Do not include windows or nose art."
+    }
+  ],
+  "reviewedRegions": [
+    "both main-wing faces",
+    "both fuselage sides",
+    "aft fuselage upper and lower faces",
+    "four nacelles",
+    "horizontal tailplane upper and lower faces",
+    "vertical fins"
+  ],
+  "unresolved": [
+    "Fine rivet rows and sizes are not resolved by these paint-instruction images.",
+    "Vertical fin illustrations contain rib/control-surface markings and artwork; no new skin seam adopted there.",
+    "Wing-root occlusion, nose artwork, insignia, numbered arrows and lower-paint demarcations are excluded.",
+    "Bomb-bay corrugations and control-surface subdivision lines must not be interpreted as riveted skin seams.",
+    "All candidates need classification and 3D part-local calibration before any replacement seam is rendered."
+  ],
+  "manufacturerApprovedSeams": 0,
+  "approvedRivetRows": 0,
+  "newRenderedSeams": 0
+}
