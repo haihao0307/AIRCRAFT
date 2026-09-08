@@ -1,3 +1,7 @@
+# 最新接续：R13 蒙皮—加强件关系（2026-09-08）
+
+当前分支 feature/b24-skin-stiffener-study-r13；[R13固定公网预览](docs/stiffener-study/PUBLIC_PREVIEW.md)已实际浏览器验收。用户提供三张照片，观察与来源记录在docs/stiffener-study/photo-observations.json，知识在同目录KNOWLEDGE.md。本轮做通用结构反例，不将钉排直接解释为蒙皮搭缝；实例截面和毫米尺度仍未知。下次有效证据是同部位内外对位、标尺或结构图。R12及整机R11保持原样，禁止复用作废旧接缝线，继续遵守统一公网规则。以下为历史交接。
+
 # 最新接续：R12 蒙皮铆接学习样板（2026-09-08）
 
 当前分支 feature/b24-skin-rivet-study-r12。独立小样已完成公网验收，见 [R12 固定预览](docs/rivet-study/PUBLIC_PREVIEW.md) 与 [知识正文](docs/rivet-study/KNOWLEDGE.md)。本轮不替换 R11 整机。继续学习须保留资料、示例参数与实机测量的区别；旧接缝线禁止复用。统一公网规则继续有效，旧版本不覆盖。下文是历史蒸馏交接，不能覆盖本节当前任务。
