@@ -1,0 +1,78 @@
+{
+  "asset": {
+    "name": "B24 service-life R15",
+    "role": "hero",
+    "sourceMethod": "procedural",
+    "provenance": [
+      "user R14 screenshots 2026-09-08",
+      "FAA AC43-4B chapter4",
+      "Goodyear Aircraft Tire Care 2024 pp28-32"
+    ],
+    "licenseNotes": "User screenshots offline. Source documents linked, not bundled. No source raster runtime."
+  },
+  "visual": {
+    "approvedReferences": [
+      "user accepted R14 skin appearance"
+    ],
+    "closestCameraMeters": 0.5,
+    "maximumScreenCoveragePercent": 100,
+    "silhouetteCriticalViews": [
+      "port belly",
+      "starboard belly",
+      "nose wheel aft belly",
+      "main tires",
+      "wing top/bottom"
+    ],
+    "artDirectionNotes": "Fix triangular camouflage dents; stabilize near-coplanar skin; separate exposure/contact/dirt/maintenance/damage/replacement. New layouts and damage are illustrative, not manufactured or historical calibration."
+  },
+  "runtime": {
+    "renderer": "Three.js native numeric source",
+    "targetDevices": [
+      "desktop Chrome",
+      "390px mobile layout"
+    ],
+    "weakestTestDevice": "Chrome SwiftShader software, no physical mobile GPU claim",
+    "animation": false,
+    "physics": false,
+    "requiredNodeNames": [
+      "source 348 meshes/1784 nodes immutable"
+    ],
+    "requiredExtensions": []
+  },
+  "budgets": {
+    "downloadMiB": 0.15,
+    "decodedTextureMiB": 0.25,
+    "triangles": 20000,
+    "primitives": 12,
+    "materials": 12,
+    "drawCalls": 12,
+    "bones": 0,
+    "frameTimeMs": 0,
+    "scope": "incremental over inherited aircraft runtime"
+  },
+  "variants": [
+    {
+      "name": "desktop",
+      "trigger": "default",
+      "texturePolicy": "generated numeric surface fields only",
+      "geometryPolicy": "shared source and instanced wheel hardware; shader microdetail"
+    },
+    {
+      "name": "mobile",
+      "trigger": "narrow viewport",
+      "texturePolicy": "same small fields",
+      "geometryPolicy": "DPR cap; derivative based detail fading"
+    }
+  ],
+  "acceptanceEvidence": {
+    "lockedCameraComparisons": [
+      "reports/service-life-r15/local/new-skin.png",
+      "reports/service-life-r15/local/field-skin.png",
+      "reports/service-life-r15/local/tire.png"
+    ],
+    "neutralLightingCapture": "reports/service-life-r15/local/overview.png",
+    "targetDeviceCapture": "reports/service-life-r15/local/mobile-controls.png",
+    "validatorReport": "reports/service-life-r15/local/qa.json",
+    "glbAuditReport": "not applicable: no GLB runtime; source payload hash checked"
+  }
+}
