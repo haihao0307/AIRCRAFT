@@ -1,3 +1,7 @@
+# 最新接续：R12 蒙皮铆接学习样板（2026-09-08）
+
+当前分支 feature/b24-skin-rivet-study-r12。独立小样已完成公网验收，见 [R12 固定预览](docs/rivet-study/PUBLIC_PREVIEW.md) 与 [知识正文](docs/rivet-study/KNOWLEDGE.md)。本轮不替换 R11 整机。继续学习须保留资料、示例参数与实机测量的区别；旧接缝线禁止复用。统一公网规则继续有效，旧版本不覆盖。下文是历史蒸馏交接，不能覆盖本节当前任务。
+
 # Continue B24 native distillation
 
 Active continuation branch: feature/b24-native-distillation-r1 in haihao0307/AIRCRAFT. Read CURRENT.json, AGENTS.md, knowledge/NATIVE_R1.md and knowledge/RECEIPT.md. Re-read the live remote HEAD before writing.
