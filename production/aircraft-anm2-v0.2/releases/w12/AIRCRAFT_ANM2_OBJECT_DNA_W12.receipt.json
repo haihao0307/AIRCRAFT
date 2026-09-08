@@ -1,0 +1,26 @@
+{
+  "schema": "object-dna.review-build/0.2",
+  "path": "releases/w12/AIRCRAFT_ANM2_OBJECT_DNA_W12.html",
+  "bytes": 1519864,
+  "sha256": "595ae3842d19c60ec8ff15f0cc1c4a9a3d36c718fa3897186c468f196ba5cb4f",
+  "referenceEmbedded": false,
+  "previousGeometryInherited": true,
+  "geometryBaseline": "W11 core with W12 hollow tube, separate cartridge parts and box details",
+  "visualAcceptance": false,
+  "productionReady": false,
+  "sources": {
+    "vendor\\three-controls.runtime.js": "9b7a58b51a20fe4c8b8afaae839acd9e3d17690f6cc8aec9f7bcc8f608b6c737",
+    "vendor\\reference-input.js": "476ac7ac16b8d40918e0142832a4608bac8feefda45229ae6f50e0e247d5549b",
+    "rules\\w12\\geometry-program.js": "1eb9f92d29b72931d8244b38416b6187cf0b4d145b7245e33d1c30b4da02d75d",
+    "rules\\w12\\cartridge-program.js": "c2429957a6ac2d3f38f28ea3f264c03d530fb4ce07b58eb83c8f2e3640adab66",
+    "rules\\w12\\supply-program.js": "fd12bc1e9054c56166739ec33c30ab74db007ab321685570b6bd3b62d97d6d0b",
+    "rules\\w12\\object-dna.js": "2404a0eb3187458a421004d025fdc49f9d5c0441916a31bc3272b6e37fda523d",
+    "rules\\w12\\surface-program.js": "560666f7bc0926819340d746e29339c56173eb9aebb06fd72d3ead937f40b112",
+    "rules\\reference-twin.js": "10df8ed10ff3c621531b7d503cbe851d900f4bcd83745e429f48b6a501e41461",
+    "rules\\w12\\cal50-reference.js": "569e3fc8f559acc689bd2b549a4912dc620b26e6785902039934f71fec7e07e7",
+    "workbench\\w12\\app.js": "7662b037878edfcc682a716a12356dc342708727e7578f77b381a0ce2af25e7e",
+    "workbench\\w12\\template.html": "2fbb0a9af8d8c3761dac3707c404ca7f75dac49b1c0b36b242b2ed532adb9d4d",
+    "rules\\w12\\EXTERIOR_RECIPE_R01.json": "9e5e32806b99a1aa0e6d014b84fab9aa873498b0f96b64b2f7b47a416c2609fd",
+    "DATUM_REGISTRATION_R02.json": "4fbcbb2a589bbdd00c8ed41d1aaac643dad8e39d3b66c91e5542ca55b96ddfe6"
+  }
+}

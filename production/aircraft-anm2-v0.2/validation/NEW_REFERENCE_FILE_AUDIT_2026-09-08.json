@@ -1,0 +1,211 @@
+[
+  {
+    "file": "M2  ammo_7.62_x_54mmr.glb",
+    "bytes": 2941508,
+    "sha256": "1d1e3ba9a9aeb517418c87c1fa5f660da969e444daec592ed21f7d272378f555",
+    "source": {
+      "author": "Pedro Belthori (https://sketchfab.com/pedrobelthori)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/ammo-762-x-54mmr-d097387f41cc483fa1bd9b0296ebcf90",
+      "title": "Ammo 7.62 x 54mmR"
+    },
+    "nodes": 15,
+    "meshes": 6,
+    "materials": 1,
+    "images": 3,
+    "imageSizes": [
+      [
+        1024,
+        1024
+      ],
+      [
+        1024,
+        1024
+      ],
+      [
+        1024,
+        1024
+      ]
+    ],
+    "animationClips": 0,
+    "skins": 0,
+    "morphTargets": 0,
+    "meshAudit": [
+      {
+        "mesh": 0,
+        "name": "Cartridge_05_low_7.62x54mm_Mat_0",
+        "vertices": 201,
+        "triangles": 272,
+        "connectedSurfaceComponents": 1,
+        "watertightAfterPositionWeld": false,
+        "uvOutsideUnitSquare": false
+      },
+      {
+        "mesh": 1,
+        "name": "Projectile_05_low_7.62x54mm_Mat_0",
+        "vertices": 298,
+        "triangles": 480,
+        "connectedSurfaceComponents": 1,
+        "watertightAfterPositionWeld": true,
+        "uvOutsideUnitSquare": false
+      },
+      {
+        "mesh": 2,
+        "name": "Cartridge_05_low.001_7.62x54mm_Mat_0",
+        "vertices": 201,
+        "triangles": 272,
+        "connectedSurfaceComponents": 1,
+        "watertightAfterPositionWeld": false,
+        "uvOutsideUnitSquare": false
+      },
+      {
+        "mesh": 3,
+        "name": "Projectile_05_low.001_7.62x54mm_Mat_0",
+        "vertices": 298,
+        "triangles": 480,
+        "connectedSurfaceComponents": 1,
+        "watertightAfterPositionWeld": true,
+        "uvOutsideUnitSquare": false
+      },
+      {
+        "mesh": 4,
+        "name": "Cartridge_05_low.002_7.62x54mm_Mat_0",
+        "vertices": 201,
+        "triangles": 272,
+        "connectedSurfaceComponents": 1,
+        "watertightAfterPositionWeld": false,
+        "uvOutsideUnitSquare": false
+      },
+      {
+        "mesh": 5,
+        "name": "Projectile_05_low.002_7.62x54mm_Mat_0",
+        "vertices": 298,
+        "triangles": 480,
+        "connectedSurfaceComponents": 1,
+        "watertightAfterPositionWeld": true,
+        "uvOutsideUnitSquare": false
+      }
+    ]
+  },
+  {
+    "file": "browning_m2.glb",
+    "bytes": 18143688,
+    "sha256": "23273a3232a479d118e87ebeb82348498bd8f57b5559f6012a3b1476272d0fbb",
+    "source": {
+      "author": "emran.bayati (https://sketchfab.com/emran.bayati)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/browning-m2-381c0f1939e843ceae232500e24e7231",
+      "title": "Browning M2"
+    },
+    "nodes": 17,
+    "meshes": 7,
+    "materials": 3,
+    "images": 9,
+    "imageSizes": [
+      [
+        1024,
+        1024
+      ],
+      [
+        1024,
+        1024
+      ],
+      [
+        1024,
+        1024
+      ],
+      [
+        1024,
+        1024
+      ],
+      [
+        1024,
+        1024
+      ],
+      [
+        1024,
+        1024
+      ],
+      [
+        1024,
+        1024
+      ],
+      [
+        1024,
+        1024
+      ],
+      [
+        1024,
+        1024
+      ]
+    ],
+    "animationClips": 0,
+    "skins": 0,
+    "morphTargets": 0,
+    "meshAudit": [
+      {
+        "mesh": 0,
+        "name": "base_low_T_BrowningM2_03_0",
+        "vertices": 2612,
+        "triangles": 3490,
+        "connectedSurfaceComponents": 17,
+        "watertightAfterPositionWeld": false,
+        "uvOutsideUnitSquare": true
+      },
+      {
+        "mesh": 1,
+        "name": "bullet_low094_T_BrowningM2_02_0",
+        "vertices": 37124,
+        "triangles": 43784,
+        "connectedSurfaceComponents": 95,
+        "watertightAfterPositionWeld": false,
+        "uvOutsideUnitSquare": true
+      },
+      {
+        "mesh": 2,
+        "name": "Main_low001_T_BrowningM2_01_0",
+        "vertices": 27223,
+        "triangles": 29899,
+        "connectedSurfaceComponents": 166,
+        "watertightAfterPositionWeld": false,
+        "uvOutsideUnitSquare": true
+      },
+      {
+        "mesh": 3,
+        "name": "Main_low001_T_BrowningM2_02_0",
+        "vertices": 13373,
+        "triangles": 19690,
+        "connectedSurfaceComponents": 39,
+        "watertightAfterPositionWeld": false,
+        "uvOutsideUnitSquare": true
+      },
+      {
+        "mesh": 4,
+        "name": "box_low002_T_BrowningM2_02_0",
+        "vertices": 65532,
+        "triangles": 79414,
+        "connectedSurfaceComponents": 152,
+        "watertightAfterPositionWeld": false,
+        "uvOutsideUnitSquare": true
+      },
+      {
+        "mesh": 5,
+        "name": "box_low002_T_BrowningM2_02_0",
+        "vertices": 23535,
+        "triangles": 28015,
+        "connectedSurfaceComponents": 51,
+        "watertightAfterPositionWeld": false,
+        "uvOutsideUnitSquare": true
+      },
+      {
+        "mesh": 6,
+        "name": "box_low003_T_BrowningM2_02_0",
+        "vertices": 2568,
+        "triangles": 2915,
+        "connectedSurfaceComponents": 17,
+        "watertightAfterPositionWeld": false,
+        "uvOutsideUnitSquare": true
+      }
+    ]
+  }
+]

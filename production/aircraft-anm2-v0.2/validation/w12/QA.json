@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "stats": {
+    "meshes": 302,
+    "triangles": 207077,
+    "vertices": 288564,
+    "finite": true,
+    "degenerate": 0,
+    "badNormals": 0,
+    "perGroup": {
+      "receiver": 27008,
+      "cover": 856,
+      "positivePlate": 2089,
+      "collar": 756,
+      "barrel": 54464,
+      "rear": 5032,
+      "sideHandle": 764,
+      "supplyBox": 804,
+      "supplyBelt": 115304
+    }
+  },
+  "errors": [],
+  "objectCount": 248,
+  "coordinateChainVerified": 248,
+  "assemblyGeometryRestored": true,
+  "realReferenceLoaded": true,
+  "cal50": {
+    "identity": "f109fb80201d3c2339394c41155a4ca5e8f912f732c7d5d83832087356d81026",
+    "kind": "cal50",
+    "counts": {
+      "nodes": 5,
+      "meshObjects": 3,
+      "animations": 0
+    },
+    "sourceHierarchyUnchanged": true,
+    "sourceMatricesUnchanged": true,
+    "registration": {
+      "sourceAxis": "+Y after original scene transform",
+      "origin": [
+        -0.0000062,
+        62.5650594,
+        31.7390938
+      ],
+      "uniformScale": 0.0018955968553518692,
+      "rotation": "source Y,Z,X -> display X,Y,Z",
+      "scope": "artist reference at first display-instance position, not physical dimensions"
+    },
+    "referenceBytesPersisted": false
+  },
+  "original": {
+    "identity": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+    "counts": {
+      "nodes": 28,
+      "meshObjects": 13,
+      "vertices": 151832,
+      "triangles": 139891,
+      "uvMeshes": 12,
+      "images": 0,
+      "animations": 0
+    },
+    "sourceMatricesUnchanged": true,
+    "sourceHierarchyUnchanged": true,
+    "registrationMethod": "named receiver datum planes and fitted barrel centerline",
+    "referenceBytesPersisted": false
+  },
+  "muzzleCenterOpen": true,
+  "unchangedW11Core": true,
+  "materialFieldStable": true,
+  "exportVerified": true,
+  "mobileNoOverflow": true,
+  "url": null
+}

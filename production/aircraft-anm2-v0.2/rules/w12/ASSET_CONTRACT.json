@@ -1,0 +1,74 @@
+{
+  "asset": {
+    "name": "AN/M2 W12 source distillation exterior candidate",
+    "role": "hero",
+    "sourceMethod": "procedural",
+    "provenance": [
+      {
+        "author": "Misja van Laatum",
+        "license": "CC-BY-4.0 per GLB metadata",
+        "sourceSha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b"
+      }
+    ],
+    "licenseNotes": "Credit reference author; no source mesh redistribution."
+  },
+  "visual": {
+    "approvedReferences": [
+      "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b"
+    ],
+    "closestCameraMeters": null,
+    "maximumScreenCoveragePercent": 85,
+    "silhouetteCriticalViews": [
+      "positive-Z",
+      "negative-Z",
+      "top",
+      "bottom",
+      "front",
+      "rear",
+      "receiver-root-close"
+    ],
+    "artDirectionNotes": "Preserve W11 camera and gun silhouette baseline. Distill separate exterior cartridge components, openable display box, chain links and material families. No source animations exist; authored display controls only."
+  },
+  "runtime": {
+    "renderer": "Three.js",
+    "targetDevices": [
+      "desktop WebGL2",
+      "390x844 mobile layout"
+    ],
+    "weakestTestDevice": "not physically tested; headless software renderer used",
+    "animation": false,
+    "physics": false,
+    "requiredNodeNames": [
+      "receiver",
+      "cover",
+      "positivePlate",
+      "collar",
+      "barrel",
+      "rear",
+      "sideHandle",
+      "supplyBox",
+      "supplyBelt"
+    ],
+    "requiredExtensions": []
+  },
+  "budgets": {
+    "downloadMiB": 2.5,
+    "decodedTextureMiB": 8,
+    "triangles": 240000,
+    "primitives": 380,
+    "materials": 8,
+    "drawCalls": 380,
+    "bones": 0,
+    "frameTimeMs": 33.3,
+    "reason": "58 independently selectable case/projectile/link sets; 24 radial sides for close inspection; no source meshes or textures embedded"
+  },
+  "variants": [],
+  "acceptanceEvidence": {
+    "status": "pending W12 checks"
+  },
+  "delivery": {
+    "format": "self-contained fixed-commit HTML",
+    "glb": false,
+    "editableSourceRequired": true
+  }
+}
