@@ -9,3 +9,5 @@ Real rendered colors were sampled at 170 paired main-wing points (340 pixels), 4
 Fixed preview: https://rawcdn.githack.com/haihao0307/AIRCRAFT/74890b9d630118ccae7b1ced57de78b2c8966141/b24-generic-skin-closed-doors-r10.html
 
 See ../../docs/b24-generic-skin/R10.md for root causes, manual provenance, material choices and the panel-seam/rivet plan. Full rivet placement remains uncalibrated and is not added in this version.
+
+Public preview passed: five deployed files match Git blob bytes, the complete payload digest and all inventory/marking checks match the local report, and Chrome recorded no JavaScript errors. Four public screenshots are included. The local system resolver returned unrelated IP addresses; verification used per-process DNS-over-HTTPS results cross-checked with Google and Cloudflare, with TLS verification retained. No system DNS settings were changed. The Githack External Content Notice was passed using its normal Open the page button.
