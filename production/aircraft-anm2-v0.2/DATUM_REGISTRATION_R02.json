@@ -2,24 +2,192 @@
   "schema": "object-dna.datum-registration/0.2",
   "entityId": "ODNA:MECH:ANM2:PILOT-0001",
   "generationId": "GEN-0002",
-  "status": "pending",
+  "status": "source-registration-and-generated-front-rear-plane-residuals-measured",
+  "referenceSha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+  "units": "dimensionless; one receiver datum-plane separation = 1; not manufacturing dimensions",
+  "frame": {
+    "forward": "+X",
+    "up": "+Y",
+    "right": "+Z",
+    "origin": "barrel centerline at receiver-front plane",
+    "scaleReference": "receiver front-to-rear datum planes"
+  },
+  "sourceToReview": {
+    "origin": [
+      0.07527956863244374,
+      -0.0003402497785837054,
+      -0.0033978276609972252
+    ],
+    "uniformScale": 1.9028149880089817,
+    "rotation": [
+      0,
+      0,
+      0
+    ],
+    "method": "named planes plus fitted cylinder centerline"
+  },
+  "datums": [
+    {
+      "datumId": "D01_LONGITUDINAL_AXIS",
+      "kind": "axis",
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "sourceNode": 23,
+      "status": "reference-fitted",
+      "confidence": 0.97,
+      "source": "normal of receiver front/rear planes"
+    },
+    {
+      "datumId": "D02_BARREL_CENTERLINE",
+      "kind": "axis",
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "point": [
+        0,
+        0,
+        0
+      ],
+      "sourceNode": 9,
+      "status": "reference-fitted",
+      "confidence": 0.96,
+      "circleResidual": 0.00015093313078380887,
+      "ringCenterResidualMax": 7.749573726979433e-06,
+      "source": "five exterior tube rings; no bounding-box center"
+    },
+    {
+      "datumId": "D03_MUZZLE_PLANE",
+      "kind": "plane",
+      "axis": 0,
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "position": 1.7207058384518172,
+      "sourceNode": 9,
+      "status": "reference-fitted",
+      "confidence": 0.94,
+      "source": "visible front termination planar rim"
+    },
+    {
+      "datumId": "D04_RECEIVER_FRONT_PLANE",
+      "label": "receiver front",
+      "kind": "plane",
+      "axis": 0,
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "position": 0.0,
+      "sourceNode": 23,
+      "supportingTriangles": 2,
+      "residual": 7.750135114538886e-07,
+      "confidence": 0.97,
+      "status": "reference-fitted"
+    },
+    {
+      "datumId": "D05_RECEIVER_REAR_PLANE",
+      "label": "receiver rear",
+      "kind": "plane",
+      "axis": 0,
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "position": -1.0,
+      "sourceNode": 23,
+      "supportingTriangles": 2,
+      "residual": 1.0562745056447063e-16,
+      "confidence": 0.97,
+      "status": "reference-fitted"
+    },
+    {
+      "datumId": "D06_RECEIVER_TOP_PLANE",
+      "label": "receiver top",
+      "kind": "plane",
+      "axis": 1,
+      "normal": [
+        0,
+        1,
+        0
+      ],
+      "position": 0.13635169098403252,
+      "sourceNode": 23,
+      "supportingTriangles": 2,
+      "residual": 7.088538320225233e-09,
+      "confidence": 0.97,
+      "status": "reference-fitted"
+    },
+    {
+      "datumId": "D07_SIDE_PLATE_PLANE",
+      "label": "positive-Z receiver outer face",
+      "kind": "plane",
+      "axis": 2,
+      "normal": [
+        0,
+        0,
+        1
+      ],
+      "position": 0.05437874668684847,
+      "sourceNode": 23,
+      "supportingTriangles": 14,
+      "residual": 1.2521587330430259e-06,
+      "confidence": 0.97,
+      "status": "reference-fitted"
+    },
+    {
+      "datumId": "D08_OPPOSITE_SIDE_PLANE",
+      "label": "negative-Z receiver outer face",
+      "kind": "plane",
+      "axis": 2,
+      "normal": [
+        0,
+        0,
+        -1
+      ],
+      "position": -0.06821187335456744,
+      "sourceNode": 23,
+      "supportingTriangles": 41,
+      "residual": 2.2965332154019195e-06,
+      "confidence": 0.97,
+      "status": "reference-fitted"
+    }
+  ],
   "registrationPolicy": {
     "sharedMechanicalDatumsRequired": true,
     "boundingBoxCenterAlignmentAllowedAsFinal": false,
     "totalLengthScaleAllowedAsFinal": false,
-    "sameStationMustMeanSameMechanicalLocation": true,
     "referenceTransformReadOnly": true
   },
-  "datums": [
-    {"datumId":"D01_LONGITUDINAL_AXIS","label":"principal longitudinal axis","status":"pending","source":null,"confidence":0},
-    {"datumId":"D02_BARREL_CENTERLINE","label":"barrel centerline","status":"pending","source":null,"confidence":0},
-    {"datumId":"D03_MUZZLE_PLANE","label":"muzzle plane","status":"pending","source":null,"confidence":0},
-    {"datumId":"D04_RECEIVER_FRONT_PLANE","label":"receiver front plane","status":"pending","source":null,"confidence":0},
-    {"datumId":"D05_RECEIVER_REAR_PLANE","label":"receiver rear plane","status":"pending","source":null,"confidence":0},
-    {"datumId":"D06_RECEIVER_TOP_PLANE","label":"receiver top plane","status":"pending","source":null,"confidence":0},
-    {"datumId":"D07_SIDE_PLATE_PLANE","label":"side-plate datum plane","status":"pending","source":null,"confidence":0}
-  ],
-  "residuals": null,
+  "acceptedResidualLimits": {
+    "plane": 0.001,
+    "ringCenter": 0.001
+  },
   "gatePass": false,
-  "nextAction": "load verified reference, map semantic regions, solve shared datums, then establish Native datum shell"
+  "nativeResiduals": null,
+  "nativePlaneChecks": [
+    {
+      "datum": "front",
+      "nativeFittedPlane": -3.899999865097925e-05,
+      "target": 0,
+      "absoluteResidual": 3.899999865097925e-05,
+      "fit": "area weighted planar generated triangles"
+    },
+    {
+      "datum": "rear",
+      "nativeFittedPlane": -0.9999610185623169,
+      "target": -1,
+      "absoluteResidual": 3.898143768310547e-05,
+      "fit": "area weighted planar generated triangles"
+    }
+  ],
+  "otherGeneratedDatums": "not independently certified"
 }

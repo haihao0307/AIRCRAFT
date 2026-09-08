@@ -45,3 +45,8 @@ Accept only the verified local file with 6,548,040 bytes and SHA-256 `2d6a1f3230
 Use identical neutral materials and fixed orthographic cameras for geometry approval. Required checks include part presence, named datum residuals, contour centroid, area, perimeter, loop and hole count, 2D contour distance, side/top/end silhouette overlap, 3D surface distance and fixed-view manual inspection.
 
 User-facing review requires a self-contained single HTML in an immutable GitHub commit and a raw.githack link. Keep `visualAcceptance=false` and `productionReady=false` until the user explicitly changes them.
+
+## Public preview delivery rule (2026-09-08)
+
+Read PUBLIC_PREVIEW_DELIVERY_RULE.md. Preserve fixed-version public HTTPS previews and old links. Before final delivery, open the actual public URL and verify version, resources and core interactions. Local tests or HTTP 200 alone are insufficient. Carry this rule into subsequent versions and handoffs; do not modify frozen historical artifacts.
+

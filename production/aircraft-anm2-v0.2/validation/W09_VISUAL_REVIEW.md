@@ -1,0 +1,15 @@
+# W09 exterior review record
+
+The executor loaded the actual local GLB and verified its SHA-256 before comparison. Both panes use the same orthographic camera, datum registration and opaque neutral material. Reference nodes and hierarchy remain unchanged; clipping is a shared review setting. No reference mesh, UV or index arrays enter the native generator or permanent artifacts.
+
+The receiver, body, positive plate, collar, rear, jacket and full context were captured in seven fixed views each. Executor inspection covered the first region from both sides, top, bottom and both ends, plus close sideplate and collar views, full-context oblique and the mobile layout. Captures are evidence, not textures used by the model.
+
+Corrections made during this review include the sideplate backing depth, actual slot/notch topology, smooth relief shading, cylindrical lower cap, collar lug taper and opening position, lower ears, cylindrical tessellation and invalid tessellator corner triangles. A 255k-triangle intermediate was discarded; the final candidate stays below the original 100k native triangle budget.
+
+The 24 silhouette tests now have at least 95.8% overlap. This is a measured result, not a retrospectively invented acceptance threshold. Individual regions and opposite views remain separate. Shared section planes report loop counts, nesting, area, perimeter and centroid without min/max envelopes. Double-sided surface sampling reports both directions; native overlapping shell interiors produce much larger reverse distances and different section topology. This diagnostic cannot certify exterior or solid equivalence. Maximum sampled distances are not Hausdorff bounds.
+
+Remaining visible differences: the opening ledges are simplified, end-face chamfer shading and small corner transitions differ. The collar's smooth transition remains flatter than the source. Rear assembly and jacket are useful context but have not received the same numerical regional approval work. Disposal semantics, sights, B24 installation and historical material/behavior claims remain unresolved. Required missing semantic parts stay missing. No whole-object completion, geometry parity, user acceptance or production-ready status is claimed.
+
+Review readiness means the user can inspect a newly authored and actually tested version. It does not mean these remaining differences have passed acceptance.
+
+An additional exterior-surface check was declared before its first run: each regional direction must have P95 <= 0.01 and sampled maximum <= 0.03 receiver datum lengths. Each of 2000 candidate samples is retained only if an unobstructed ray escapes its own mesh along at least one of the six review axes. All four regions and both directions pass after removing the reference-absent plate rear closure and nonperforated tube inner wall. Actual visible sample counts are in the report. These are sampled tolerances; narrow unseen regions and distances to hidden target faces remain limitations. No signed distance or solid topology equivalence is claimed.

@@ -1,0 +1,39 @@
+{
+  "stats": {
+    "meshes": 107,
+    "triangles": 90717,
+    "vertices": 192211,
+    "finite": true,
+    "degenerate": 0,
+    "badNormals": 0,
+    "perGroup": {
+      "receiver": 27008,
+      "cover": 856,
+      "positivePlate": 2089,
+      "collar": 756,
+      "barrel": 54208,
+      "rear": 5036,
+      "sideHandle": 764
+    }
+  },
+  "audit": {
+    "identity": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+    "counts": {
+      "nodes": 28,
+      "meshObjects": 13,
+      "vertices": 151832,
+      "triangles": 139891,
+      "uvMeshes": 12,
+      "images": 0,
+      "animations": 0
+    },
+    "sourceMatricesUnchanged": true,
+    "sourceHierarchyUnchanged": true,
+    "registrationMethod": "named receiver datum planes and fitted barrel centerline",
+    "referenceBytesPersisted": false
+  },
+  "errors": [],
+  "requests": [
+    "file:///G:/AIRCRAFT/object-dna-mother/production/aircraft-anm2-v0.2/releases/w09/AIRCRAFT_ANM2_OBJECT_DNA_W09.html"
+  ]
+}

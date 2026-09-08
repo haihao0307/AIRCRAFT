@@ -1,0 +1,1145 @@
+{
+  "schema": "object-dna.w09-measurements/1",
+  "units": "receiver datum separation = 1; uncalibrated display coordinates",
+  "surfaceMethod": "bidirectional area-weighted surface sampling, 4000 points each, exact nearest triangle; includes hidden overlapping surfaces; diagnostic, not exterior-only acceptance",
+  "silhouetteMethod": "identical orthographic camera and pixel viewport; threshold 127; 4-neighbour boundary; distances in pixels",
+  "stats": {
+    "meshes": 107,
+    "triangles": 90717,
+    "vertices": 192211,
+    "finite": true,
+    "degenerate": 0,
+    "badNormals": 0,
+    "perGroup": {
+      "receiver": 27008,
+      "cover": 856,
+      "positivePlate": 2089,
+      "collar": 756,
+      "barrel": 54208,
+      "rear": 5036,
+      "sideHandle": 764
+    }
+  },
+  "silhouettes": [
+    {
+      "region": "receiver",
+      "view": "side",
+      "iou": 0.9860886602987999,
+      "contourP95Pixels": 2.0,
+      "contourMaxPixels": 9.055385138137417,
+      "reference": {
+        "areaPixels": 60584,
+        "perimeterBoundaryPixels": 1868,
+        "centroidPixels": [
+          346.50155156476956,
+          294.4889904925393
+        ],
+        "connectedComponents": 1,
+        "holes": 3
+      },
+      "native": {
+        "areaPixels": 61054,
+        "perimeterBoundaryPixels": 1835,
+        "centroidPixels": [
+          348.2522521046942,
+          294.1108690667278
+        ],
+        "connectedComponents": 1,
+        "holes": 3
+      }
+    },
+    {
+      "region": "receiver",
+      "view": "reverse",
+      "iou": 0.9863669017763845,
+      "contourP95Pixels": 2.0,
+      "contourMaxPixels": 9.055385138137417,
+      "reference": {
+        "areaPixels": 60605,
+        "perimeterBoundaryPixels": 1867,
+        "centroidPixels": [
+          419.4448147842587,
+          294.4809834172098
+        ],
+        "connectedComponents": 1,
+        "holes": 3
+      },
+      "native": {
+        "areaPixels": 61056,
+        "perimeterBoundaryPixels": 1834,
+        "centroidPixels": [
+          417.73733949161425,
+          294.1158608490566
+        ],
+        "connectedComponents": 1,
+        "holes": 3
+      }
+    },
+    {
+      "region": "receiver",
+      "view": "top",
+      "iou": 0.970936417755042,
+      "contourP95Pixels": 5.0,
+      "contourMaxPixels": 12.0,
+      "reference": {
+        "areaPixels": 43406,
+        "perimeterBoundaryPixels": 1443,
+        "centroidPixels": [
+          371.6020135465143,
+          296.0080634013731
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 43668,
+        "perimeterBoundaryPixels": 1427,
+        "centroidPixels": [
+          372.3767747549693,
+          296.0002977008336
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "receiver",
+      "view": "bottom",
+      "iou": 0.9728013689377223,
+      "contourP95Pixels": 5.019803902718539,
+      "contourMaxPixels": 13.0,
+      "reference": {
+        "areaPixels": 43589,
+        "perimeterBoundaryPixels": 1447,
+        "centroidPixels": [
+          370.9715065727592,
+          308.1462524948955
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 44031,
+        "perimeterBoundaryPixels": 1430,
+        "centroidPixels": [
+          372.0004996479753,
+          308.3207740001363
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "receiver",
+      "view": "front",
+      "iou": 0.9585195872570111,
+      "contourP95Pixels": 9.0,
+      "contourMaxPixels": 24.0,
+      "reference": {
+        "areaPixels": 76703,
+        "perimeterBoundaryPixels": 1586,
+        "centroidPixels": [
+          397.8566157777401,
+          291.75079201595764
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 75331,
+        "perimeterBoundaryPixels": 1584,
+        "centroidPixels": [
+          397.68087507135175,
+          293.5396052090109
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "receiver",
+      "view": "back",
+      "iou": 0.958533127094612,
+      "contourP95Pixels": 9.0,
+      "contourMaxPixels": 24.0,
+      "reference": {
+        "areaPixels": 76652,
+        "perimeterBoundaryPixels": 1587,
+        "centroidPixels": [
+          368.1073292282002,
+          291.6341126128477
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 75291,
+        "perimeterBoundaryPixels": 1587,
+        "centroidPixels": [
+          368.30601267083716,
+          293.4476497854989
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "body",
+      "view": "side",
+      "iou": 0.9848409107950711,
+      "contourP95Pixels": 3.0,
+      "contourMaxPixels": 11.045361017187261,
+      "reference": {
+        "areaPixels": 79013,
+        "perimeterBoundaryPixels": 1913,
+        "centroidPixels": [
+          362.78671864123623,
+          294.5809930011517
+        ],
+        "connectedComponents": 1,
+        "holes": 2
+      },
+      "native": {
+        "areaPixels": 79810,
+        "perimeterBoundaryPixels": 1867,
+        "centroidPixels": [
+          365.7532389424884,
+          294.03539656684626
+        ],
+        "connectedComponents": 1,
+        "holes": 2
+      }
+    },
+    {
+      "region": "body",
+      "view": "reverse",
+      "iou": 0.9849041513583765,
+      "contourP95Pixels": 3.0,
+      "contourMaxPixels": 11.045361017187261,
+      "reference": {
+        "areaPixels": 79020,
+        "perimeterBoundaryPixels": 1915,
+        "centroidPixels": [
+          403.2146418628195,
+          294.5843963553531
+        ],
+        "connectedComponents": 1,
+        "holes": 2
+      },
+      "native": {
+        "areaPixels": 79816,
+        "perimeterBoundaryPixels": 1868,
+        "centroidPixels": [
+          400.2375588854365,
+          294.03917760849953
+        ],
+        "connectedComponents": 1,
+        "holes": 2
+      }
+    },
+    {
+      "region": "body",
+      "view": "top",
+      "iou": 0.9661001804892868,
+      "contourP95Pixels": 8.0,
+      "contourMaxPixels": 15.0,
+      "reference": {
+        "areaPixels": 54706,
+        "perimeterBoundaryPixels": 1468,
+        "centroidPixels": [
+          383.62929111980407,
+          300.2456768910174
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 55315,
+        "perimeterBoundaryPixels": 1443,
+        "centroidPixels": [
+          385.7296754948929,
+          300.1127361475188
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "body",
+      "view": "bottom",
+      "iou": 0.9687879871290669,
+      "contourP95Pixels": 8.0,
+      "contourMaxPixels": 15.0,
+      "reference": {
+        "areaPixels": 54731,
+        "perimeterBoundaryPixels": 1466,
+        "centroidPixels": [
+          383.6927518225503,
+          303.9429208309733
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 55403,
+        "perimeterBoundaryPixels": 1441,
+        "centroidPixels": [
+          385.8630579571503,
+          303.9717524321788
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "body",
+      "view": "front",
+      "iou": 0.95828095057916,
+      "contourP95Pixels": 10.0,
+      "contourMaxPixels": 24.596747752497688,
+      "reference": {
+        "areaPixels": 80929,
+        "perimeterBoundaryPixels": 1628,
+        "centroidPixels": [
+          384.7104499005301,
+          298.26246462949007
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 79511,
+        "perimeterBoundaryPixels": 1629,
+        "centroidPixels": [
+          384.46818679176465,
+          299.9113833306083
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "body",
+      "view": "back",
+      "iou": 0.9586982812328215,
+      "contourP95Pixels": 10.0,
+      "contourMaxPixels": 25.0,
+      "reference": {
+        "areaPixels": 80915,
+        "perimeterBoundaryPixels": 1630,
+        "centroidPixels": [
+          381.2874003584008,
+          298.24206883766914
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 79426,
+        "perimeterBoundaryPixels": 1629,
+        "centroidPixels": [
+          381.4484425754791,
+          300.00926648704456
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "positivePlate",
+      "view": "side",
+      "iou": 0.992369465554906,
+      "contourP95Pixels": 1.4142135623730951,
+      "contourMaxPixels": 4.123105625617661,
+      "reference": {
+        "areaPixels": 64986,
+        "perimeterBoundaryPixels": 2548,
+        "centroidPixels": [
+          376.51211030068015,
+          304.24694549595296
+        ],
+        "connectedComponents": 1,
+        "holes": 1
+      },
+      "native": {
+        "areaPixels": 64522,
+        "perimeterBoundaryPixels": 2552,
+        "centroidPixels": [
+          374.5380800347168,
+          304.192368494467
+        ],
+        "connectedComponents": 1,
+        "holes": 1
+      }
+    },
+    {
+      "region": "positivePlate",
+      "view": "reverse",
+      "iou": 0.9924919611674385,
+      "contourP95Pixels": 1.4142135623730951,
+      "contourMaxPixels": 4.123105625617661,
+      "reference": {
+        "areaPixels": 64983,
+        "perimeterBoundaryPixels": 2549,
+        "centroidPixels": [
+          389.53267777726484,
+          304.28435129187636
+        ],
+        "connectedComponents": 1,
+        "holes": 1
+      },
+      "native": {
+        "areaPixels": 64523,
+        "perimeterBoundaryPixels": 2552,
+        "centroidPixels": [
+          391.4549850440928,
+          304.2350014723432
+        ],
+        "connectedComponents": 1,
+        "holes": 1
+      }
+    },
+    {
+      "region": "positivePlate",
+      "view": "top",
+      "iou": 0.9983093829247676,
+      "contourP95Pixels": 0.0,
+      "contourMaxPixels": 2.0,
+      "reference": {
+        "areaPixels": 28391,
+        "perimeterBoundaryPixels": 1352,
+        "centroidPixels": [
+          366.27286816244583,
+          288.56760945370013
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 28345,
+        "perimeterBoundaryPixels": 1353,
+        "centroidPixels": [
+          366.08421238313633,
+          288.5331098959252
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "positivePlate",
+      "view": "bottom",
+      "iou": 0.9982741617357002,
+      "contourP95Pixels": 0.0,
+      "contourMaxPixels": 2.0,
+      "reference": {
+        "areaPixels": 28390,
+        "perimeterBoundaryPixels": 1353,
+        "centroidPixels": [
+          366.263332159211,
+          315.43247622402254
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 28345,
+        "perimeterBoundaryPixels": 1355,
+        "centroidPixels": [
+          366.0620920797319,
+          315.46498500617395
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "positivePlate",
+      "view": "front",
+      "iou": 0.9984156921916258,
+      "contourP95Pixels": 1.0,
+      "contourMaxPixels": 3.1622776601683795,
+      "reference": {
+        "areaPixels": 66170,
+        "perimeterBoundaryPixels": 1261,
+        "centroidPixels": [
+          409.6313737343207,
+          313.6418467583497
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 66275,
+        "perimeterBoundaryPixels": 1261,
+        "centroidPixels": [
+          409.5107204828367,
+          313.47707280271595
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "positivePlate",
+      "view": "back",
+      "iou": 0.9984306387602047,
+      "contourP95Pixels": 0.0,
+      "contourMaxPixels": 3.1622776601683795,
+      "reference": {
+        "areaPixels": 66165,
+        "perimeterBoundaryPixels": 1261,
+        "centroidPixels": [
+          356.3637270460213,
+          313.640293206378
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 66269,
+        "perimeterBoundaryPixels": 1260,
+        "centroidPixels": [
+          356.483363261857,
+          313.4807375997827
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "collar",
+      "view": "side",
+      "iou": 0.9874709355815393,
+      "contourP95Pixels": 4.426236901423458,
+      "contourMaxPixels": 9.899494936611665,
+      "reference": {
+        "areaPixels": 118784,
+        "perimeterBoundaryPixels": 1878,
+        "centroidPixels": [
+          345.7111142914871,
+          265.8250774515086
+        ],
+        "connectedComponents": 1,
+        "holes": 1
+      },
+      "native": {
+        "areaPixels": 118842,
+        "perimeterBoundaryPixels": 1887,
+        "centroidPixels": [
+          346.0546776392185,
+          265.9410477777217
+        ],
+        "connectedComponents": 1,
+        "holes": 1
+      }
+    },
+    {
+      "region": "collar",
+      "view": "reverse",
+      "iou": 0.9874967591934364,
+      "contourP95Pixels": 4.242640687119285,
+      "contourMaxPixels": 9.848857801796104,
+      "reference": {
+        "areaPixels": 118787,
+        "perimeterBoundaryPixels": 1878,
+        "centroidPixels": [
+          420.293357017182,
+          265.82936684990784
+        ],
+        "connectedComponents": 1,
+        "holes": 1
+      },
+      "native": {
+        "areaPixels": 118856,
+        "perimeterBoundaryPixels": 1887,
+        "centroidPixels": [
+          419.96306454869756,
+          265.960363801575
+        ],
+        "connectedComponents": 1,
+        "holes": 1
+      }
+    },
+    {
+      "region": "collar",
+      "view": "top",
+      "iou": 0.9983310602253966,
+      "contourP95Pixels": 1.0,
+      "contourMaxPixels": 1.0,
+      "reference": {
+        "areaPixels": 111448,
+        "perimeterBoundaryPixels": 1640,
+        "centroidPixels": [
+          354.6150312253248,
+          301.1056995190582
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 111262,
+        "perimeterBoundaryPixels": 1640,
+        "centroidPixels": [
+          354.4400334345958,
+          301.10420449030215
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "collar",
+      "view": "bottom",
+      "iou": 0.9983338260191879,
+      "contourP95Pixels": 1.0,
+      "contourMaxPixels": 1.0,
+      "reference": {
+        "areaPixels": 111633,
+        "perimeterBoundaryPixels": 1640,
+        "centroidPixels": [
+          354.35217184882606,
+          303.10991373518584
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 111447,
+        "perimeterBoundaryPixels": 1640,
+        "centroidPixels": [
+          354.1770258508529,
+          303.11176613098604
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "collar",
+      "view": "front",
+      "iou": 0.9825735945653244,
+      "contourP95Pixels": 7.0,
+      "contourMaxPixels": 9.055385138137417,
+      "reference": {
+        "areaPixels": 80950,
+        "perimeterBoundaryPixels": 1032,
+        "centroidPixels": [
+          385.3732303891291,
+          283.7780111179741
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 80146,
+        "perimeterBoundaryPixels": 1064,
+        "centroidPixels": [
+          385.38794200583936,
+          283.02866019514386
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    },
+    {
+      "region": "collar",
+      "view": "back",
+      "iou": 0.9825982081323226,
+      "contourP95Pixels": 7.0,
+      "contourMaxPixels": 9.219544457292887,
+      "reference": {
+        "areaPixels": 80950,
+        "perimeterBoundaryPixels": 1033,
+        "centroidPixels": [
+          380.64987029030266,
+          283.7809388511427
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      },
+      "native": {
+        "areaPixels": 80148,
+        "perimeterBoundaryPixels": 1064,
+        "centroidPixels": [
+          380.62148774766683,
+          283.026189050257
+        ],
+        "connectedComponents": 1,
+        "holes": 0
+      }
+    }
+  ],
+  "surfaces": {
+    "receiver": {
+      "referenceToNative": {
+        "mean": 0.0006411543735594762,
+        "p95": 0.005077158007749952,
+        "maxSampled": 0.01922207241827971
+      },
+      "nativeToReference": {
+        "mean": 0.006732830347533365,
+        "p95": 0.023135084325378898,
+        "maxSampled": 0.05501169427619921
+      },
+      "visibleExteriorThresholds": {
+        "p95": 0.01,
+        "maxSampled": 0.03,
+        "scope": "each direction independently; dimensionless review tolerance, not manufacturing tolerance"
+      },
+      "visibleExterior": {
+        "referenceToNative": {
+          "visibleSamples": 1534,
+          "p95": 0.005077158007749952,
+          "maxSampled": 0.018191596894198983,
+          "pass": true
+        },
+        "nativeToReference": {
+          "visibleSamples": 782,
+          "p95": 0.004699638278736199,
+          "maxSampled": 0.025466910497710632,
+          "pass": true
+        }
+      }
+    },
+    "body": {
+      "referenceToNative": {
+        "mean": 0.0007337286223383047,
+        "p95": 0.005077158007749952,
+        "maxSampled": 0.01922207241827971
+      },
+      "nativeToReference": {
+        "mean": 0.007237152235664843,
+        "p95": 0.02534295308373049,
+        "maxSampled": 0.054513650305242065
+      },
+      "visibleExteriorThresholds": {
+        "p95": 0.01,
+        "maxSampled": 0.03,
+        "scope": "each direction independently; dimensionless review tolerance, not manufacturing tolerance"
+      },
+      "visibleExterior": {
+        "referenceToNative": {
+          "visibleSamples": 1575,
+          "p95": 0.005074274387781341,
+          "maxSampled": 0.01922207241827971,
+          "pass": true
+        },
+        "nativeToReference": {
+          "visibleSamples": 757,
+          "p95": 0.005073964339713405,
+          "maxSampled": 0.019634850216174914,
+          "pass": true
+        }
+      }
+    },
+    "positivePlate": {
+      "referenceToNative": {
+        "mean": 0.00019800747948237778,
+        "p95": 0.0014006220302485765,
+        "maxSampled": 0.005214758934101643
+      },
+      "nativeToReference": {
+        "mean": 0.0006952652534234904,
+        "p95": 0.005007342650618192,
+        "maxSampled": 0.014609223351063568
+      },
+      "visibleExteriorThresholds": {
+        "p95": 0.01,
+        "maxSampled": 0.03,
+        "scope": "each direction independently; dimensionless review tolerance, not manufacturing tolerance"
+      },
+      "visibleExterior": {
+        "referenceToNative": {
+          "visibleSamples": 1998,
+          "p95": 0.0013058634437685364,
+          "maxSampled": 0.005141052066010137,
+          "pass": true
+        },
+        "nativeToReference": {
+          "visibleSamples": 1966,
+          "p95": 0.0053943186284122055,
+          "maxSampled": 0.013177410104682204,
+          "pass": true
+        }
+      }
+    },
+    "collar": {
+      "referenceToNative": {
+        "mean": 0.0003775034135228348,
+        "p95": 0.002546989546707052,
+        "maxSampled": 0.005895555008504838
+      },
+      "nativeToReference": {
+        "mean": 0.0007977839465128212,
+        "p95": 0.005387368263920673,
+        "maxSampled": 0.017649993348338448
+      },
+      "visibleExteriorThresholds": {
+        "p95": 0.01,
+        "maxSampled": 0.03,
+        "scope": "each direction independently; dimensionless review tolerance, not manufacturing tolerance"
+      },
+      "visibleExterior": {
+        "referenceToNative": {
+          "visibleSamples": 1631,
+          "p95": 0.0019517976358075792,
+          "maxSampled": 0.0045098481343916,
+          "pass": true
+        },
+        "nativeToReference": {
+          "visibleSamples": 1513,
+          "p95": 0.0012238279384478017,
+          "maxSampled": 0.004831966786229407,
+          "pass": true
+        }
+      }
+    }
+  },
+  "sections": {
+    "receiver": [
+      {
+        "planeX": -0.85,
+        "reference": {
+          "loops": 1,
+          "validLoops": 1,
+          "nestedLoops": 0,
+          "summedLoopArea": 0.033705600111694614,
+          "summedPerimeter": 0.900137063755065,
+          "areaWeightedCentroidYZ": [
+            0.005286800361486161,
+            -0.006500642767913709
+          ]
+        },
+        "native": {
+          "loops": 11,
+          "validLoops": 9,
+          "nestedLoops": 2,
+          "summedLoopArea": 0.007523884735955137,
+          "summedPerimeter": 0.7225970140341799,
+          "areaWeightedCentroidYZ": [
+            -0.07740014074033263,
+            -0.007325322462691598
+          ]
+        }
+      },
+      {
+        "planeX": -0.65,
+        "reference": {
+          "loops": 3,
+          "validLoops": 3,
+          "nestedLoops": 0,
+          "summedLoopArea": 0.03398300553785849,
+          "summedPerimeter": 1.1088440737939138,
+          "areaWeightedCentroidYZ": [
+            0.0008831524294958824,
+            -0.005688725948320754
+          ]
+        },
+        "native": {
+          "loops": 11,
+          "validLoops": 8,
+          "nestedLoops": 2,
+          "summedLoopArea": 0.03057869259499273,
+          "summedPerimeter": 1.387643478749828,
+          "areaWeightedCentroidYZ": [
+            -0.015118842935935004,
+            -0.0005481704428098002
+          ]
+        }
+      },
+      {
+        "planeX": -0.25,
+        "reference": {
+          "loops": 2,
+          "validLoops": 2,
+          "nestedLoops": 0,
+          "summedLoopArea": 0.024017770745583974,
+          "summedPerimeter": 0.9175022493389958,
+          "areaWeightedCentroidYZ": [
+            0.02181414639016651,
+            -0.006775103963072325
+          ]
+        },
+        "native": {
+          "loops": 5,
+          "validLoops": 0,
+          "nestedLoops": 0,
+          "summedLoopArea": 0,
+          "summedPerimeter": 0,
+          "areaWeightedCentroidYZ": null
+        }
+      },
+      {
+        "planeX": -0.08,
+        "reference": {
+          "loops": 2,
+          "validLoops": 2,
+          "nestedLoops": 0,
+          "summedLoopArea": 0.021892945765924852,
+          "summedPerimeter": 0.8663282861323194,
+          "areaWeightedCentroidYZ": [
+            0.012276874732978395,
+            -0.006821947333389422
+          ]
+        },
+        "native": {
+          "loops": 4,
+          "validLoops": 0,
+          "nestedLoops": 0,
+          "summedLoopArea": 0,
+          "summedPerimeter": 0,
+          "areaWeightedCentroidYZ": null
+        }
+      }
+    ],
+    "body": [
+      {
+        "planeX": -0.85,
+        "reference": {
+          "loops": 1,
+          "validLoops": 1,
+          "nestedLoops": 0,
+          "summedLoopArea": 0.033705600111694614,
+          "summedPerimeter": 0.900137063755065,
+          "areaWeightedCentroidYZ": [
+            0.005286800361486161,
+            -0.006500642767913709
+          ]
+        },
+        "native": {
+          "loops": 11,
+          "validLoops": 9,
+          "nestedLoops": 2,
+          "summedLoopArea": 0.007523884735955137,
+          "summedPerimeter": 0.7225970140341799,
+          "areaWeightedCentroidYZ": [
+            -0.07740014074033263,
+            -0.007325322462691598
+          ]
+        }
+      },
+      {
+        "planeX": -0.65,
+        "reference": {
+          "loops": 3,
+          "validLoops": 3,
+          "nestedLoops": 0,
+          "summedLoopArea": 0.03398300553785849,
+          "summedPerimeter": 1.1088440737939138,
+          "areaWeightedCentroidYZ": [
+            0.0008831524294958824,
+            -0.005688725948320754
+          ]
+        },
+        "native": {
+          "loops": 11,
+          "validLoops": 8,
+          "nestedLoops": 2,
+          "summedLoopArea": 0.03057869259499273,
+          "summedPerimeter": 1.387643478749828,
+          "areaWeightedCentroidYZ": [
+            -0.015118842935935004,
+            -0.0005481704428098002
+          ]
+        }
+      },
+      {
+        "planeX": -0.25,
+        "reference": {
+          "loops": 2,
+          "validLoops": 2,
+          "nestedLoops": 0,
+          "summedLoopArea": 0.024017770745583974,
+          "summedPerimeter": 0.9175022493389958,
+          "areaWeightedCentroidYZ": [
+            0.02181414639016651,
+            -0.006775103963072325
+          ]
+        },
+        "native": {
+          "loops": 5,
+          "validLoops": 0,
+          "nestedLoops": 0,
+          "summedLoopArea": 0,
+          "summedPerimeter": 0,
+          "areaWeightedCentroidYZ": null
+        }
+      },
+      {
+        "planeX": -0.08,
+        "reference": {
+          "loops": 2,
+          "validLoops": 2,
+          "nestedLoops": 0,
+          "summedLoopArea": 0.021892945765924852,
+          "summedPerimeter": 0.8663282861323194,
+          "areaWeightedCentroidYZ": [
+            0.012276874732978395,
+            -0.006821947333389422
+          ]
+        },
+        "native": {
+          "loops": 4,
+          "validLoops": 0,
+          "nestedLoops": 0,
+          "summedLoopArea": 0,
+          "summedPerimeter": 0,
+          "areaWeightedCentroidYZ": null
+        }
+      }
+    ],
+    "positivePlate": [
+      {
+        "planeX": -0.9,
+        "reference": {
+          "loops": 0,
+          "validLoops": 0,
+          "nestedLoops": 0,
+          "summedLoopArea": 0,
+          "summedPerimeter": 0,
+          "areaWeightedCentroidYZ": null
+        },
+        "native": {
+          "loops": 0,
+          "validLoops": 0,
+          "nestedLoops": 0,
+          "summedLoopArea": 0,
+          "summedPerimeter": 0,
+          "areaWeightedCentroidYZ": null
+        }
+      },
+      {
+        "planeX": -0.7,
+        "reference": {
+          "loops": 0,
+          "validLoops": 0,
+          "nestedLoops": 0,
+          "summedLoopArea": 0,
+          "summedPerimeter": 0,
+          "areaWeightedCentroidYZ": null
+        },
+        "native": {
+          "loops": 0,
+          "validLoops": 0,
+          "nestedLoops": 0,
+          "summedLoopArea": 0,
+          "summedPerimeter": 0,
+          "areaWeightedCentroidYZ": null
+        }
+      },
+      {
+        "planeX": -0.55,
+        "reference": {
+          "loops": 0,
+          "validLoops": 0,
+          "nestedLoops": 0,
+          "summedLoopArea": 0,
+          "summedPerimeter": 0,
+          "areaWeightedCentroidYZ": null
+        },
+        "native": {
+          "loops": 0,
+          "validLoops": 0,
+          "nestedLoops": 0,
+          "summedLoopArea": 0,
+          "summedPerimeter": 0,
+          "areaWeightedCentroidYZ": null
+        }
+      }
+    ],
+    "collar": [
+      {
+        "planeX": 0.02,
+        "reference": {
+          "loops": 2,
+          "validLoops": 2,
+          "nestedLoops": 1,
+          "summedLoopArea": 0.02151545405705245,
+          "summedPerimeter": 0.7234737909102082,
+          "areaWeightedCentroidYZ": [
+            -0.0016012784586316232,
+            -0.0008166392909194444
+          ]
+        },
+        "native": {
+          "loops": 3,
+          "validLoops": 3,
+          "nestedLoops": 2,
+          "summedLoopArea": 0.021660193895077763,
+          "summedPerimeter": 0.8528618533043539,
+          "areaWeightedCentroidYZ": [
+            -0.0018058608910544317,
+            -0.000811352928788323
+          ]
+        }
+      },
+      {
+        "planeX": 0.07,
+        "reference": {
+          "loops": 3,
+          "validLoops": 3,
+          "nestedLoops": 1,
+          "summedLoopArea": 0.022608408858374982,
+          "summedPerimeter": 0.8866277698340348,
+          "areaWeightedCentroidYZ": [
+            -0.006860054944352032,
+            -0.0008188672782727668
+          ]
+        },
+        "native": {
+          "loops": 4,
+          "validLoops": 4,
+          "nestedLoops": 2,
+          "summedLoopArea": 0.023310260198285047,
+          "summedPerimeter": 1.028761118369195,
+          "areaWeightedCentroidYZ": [
+            -0.008612359504843781,
+            -0.0008341633533027784
+          ]
+        }
+      },
+      {
+        "planeX": 0.18,
+        "reference": {
+          "loops": 1,
+          "validLoops": 1,
+          "nestedLoops": 0,
+          "summedLoopArea": 0.005992113743337719,
+          "summedPerimeter": 0.27465414524983933,
+          "areaWeightedCentroidYZ": [
+            -5.943020751342295e-06,
+            1.2112496124447851e-05
+          ]
+        },
+        "native": {
+          "loops": 1,
+          "validLoops": 1,
+          "nestedLoops": 0,
+          "summedLoopArea": 0.005969809395546244,
+          "summedPerimeter": 0.27710408286724475,
+          "areaWeightedCentroidYZ": [
+            -3.3201597536805502e-18,
+            -1.0130630284038835e-18
+          ]
+        }
+      }
+    ]
+  },
+  "datumResiduals": [
+    {
+      "datum": "front",
+      "nativeFittedPlane": -3.899999865097925e-05,
+      "target": 0,
+      "absoluteResidual": 3.899999865097925e-05,
+      "fit": "area weighted planar generated triangles"
+    },
+    {
+      "datum": "rear",
+      "nativeFittedPlane": -0.9999610185623169,
+      "target": -1,
+      "absoluteResidual": 3.898143768310547e-05,
+      "fit": "area weighted planar generated triangles"
+    }
+  ]
+}

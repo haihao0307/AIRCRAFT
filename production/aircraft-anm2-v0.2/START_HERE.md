@@ -8,7 +8,7 @@
 
 ## 当前状态
 
-本目录是新的活动生产入口。旧目录 `production/aircraft-anm2/` 保留为只读历史与失败对照。当前没有用户审阅候选，也没有已接受几何。
+本目录是新的活动生产入口。旧目录 `production/aircraft-anm2/` 保留为只读历史与失败对照。当前审阅候选为 W09，入口见 `README.md`。已实际载入原件进行对照，四个局部的双向可见表面采样通过本轮审阅阈值；详细结果和剩余差异见 `validation/W09_PREFLIGHT.json`。几何等价与用户验收仍未通过。
 
 `visualAcceptance=false`
 

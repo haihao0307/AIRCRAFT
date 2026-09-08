@@ -46,5 +46,13 @@
   "oldGeometryInherited": false,
   "oldRegistrationInherited": false,
   "oldMeasurementKernelInherited": false,
-  "currentCandidate": null
+  "currentCandidate": null,
+  "activeCandidate": {
+    "id": "W09",
+    "generation": "GEN-0002",
+    "geometryProgram": "rules/geometry-program.js",
+    "legacyGeneratorInherited": false,
+    "referenceGeometryPersisted": false,
+    "visualAcceptance": false
+  }
 }
