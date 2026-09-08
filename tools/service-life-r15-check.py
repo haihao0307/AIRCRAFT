@@ -50,6 +50,7 @@ with sync_playwright() as p:
  assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
  page.screenshot(path=str(out/'mobile.png'),full_page=True)
  page.locator('#mobileToggle').click();page.locator('[data-life=new]').click();assert page.evaluate('__B24_SERVICE_R15__.state().preset')=='new'
+ assert page.evaluate('document.documentElement.scrollWidth<=innerWidth')
  page.screenshot(path=str(out/'mobile-controls.png'),full_page=True)
  report['resources']=page.evaluate('performance.getEntriesByType("resource").map(r=>({name:r.name,bytes:r.decodedBodySize}))')
  assert not any(any(ext in r['name'] for ext in ['.glb','.png','.jpg']) for r in report['resources'])

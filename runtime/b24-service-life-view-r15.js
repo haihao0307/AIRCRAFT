@@ -7,7 +7,7 @@ import {BAY_POSES_R8 as BAY_POSES_R15} from './b24-r8-bay-poses.js';
 import {applyDetailMaterials} from './b24-r10-detail-materials.js';
 import {createSkinSystem,makeInsigniaTexture,makeDecal} from './b24-r15-skin-system.js';
 const $=s=>document.querySelector(s),canvas=$('#scene'),stage=$('#stage'),loading=$('#loading'),bar=$('#bar'),loadText=$('#loadText'),diag=$('#diag'),status=$('#status');
-let renderer;try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});}catch(e){loadText.textContent='此设备无法建立 WebGL 画面。';diag.textContent='请使用支持 WebGL 的浏览器查看 3D；结构说明可在 R15 工作台阅读。';throw e;}renderer.setPixelRatio(Math.min(devicePixelRatio,1.55));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.10;renderer.shadowMap.enabled=false;
+let renderer;try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});}catch(e){loadText.textContent='此设备无法建立 WebGL 画面。';diag.textContent='请使用支持 WebGL 的浏览器查看 3D；结构说明可在 R14 工作台阅读。';throw e;}renderer.setPixelRatio(Math.min(devicePixelRatio,1.55));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.10;renderer.shadowMap.enabled=false;
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x111512);
 const perspective=new THREE.PerspectiveCamera(38,1,.05,300),ortho=new THREE.OrthographicCamera(-18,18,15,-15,.05,300);let activeCamera=perspective;
 const orbitControls=new OrbitControls(perspective,canvas);orbitControls.enableDamping=true;orbitControls.target.set(0,0,-2.56);
