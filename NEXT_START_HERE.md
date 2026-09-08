@@ -1,3 +1,9 @@
+# 最新接续：R14 蒙皮连接模块（2026-09-08）
+
+当前工作分支 `feature/aircraft-skin-joints-r14`。新增结构工作台 `aircraft-skin-joints-r14.html` 与 B-24 局部集成 `b24-skin-integration-r14.html`。见 [知识与实际资料边界](docs/skin-joints/KNOWLEDGE.md)、[范围合同](docs/skin-joints/CONTRACT.md)。公网验收记录单独写入本版 PUBLIC_PREVIEW.md；未有该记录前不要声称已公网交付。
+
+三类接头、凸头/埋头、孔/杆/板厚共同生成。后机身 88 枚外侧钉头和接缝是未测量的示意集成，严禁改称 B-24 制造线；机壳未开孔，压窝尚未实现。旧105段、R11候选及历史源文件不重新启用。继续遵守固定版本公网 HTTPS 规则，旧版本不改。以下均为历史交接。
+
 # 最新接续：R13 蒙皮—加强件关系（2026-09-08）
 
 当前分支 feature/b24-skin-stiffener-study-r13；[R13固定公网预览](docs/stiffener-study/PUBLIC_PREVIEW.md)已实际浏览器验收。用户提供三张照片，观察与来源记录在docs/stiffener-study/photo-observations.json，知识在同目录KNOWLEDGE.md。本轮做通用结构反例，不将钉排直接解释为蒙皮搭缝；实例截面和毫米尺度仍未知。下次有效证据是同部位内外对位、标尺或结构图。R12及整机R11保持原样，禁止复用作废旧接缝线，继续遵守统一公网规则。以下为历史交接。
