@@ -1,3 +1,5 @@
+当前候选：**W11 总装与对象关系**。入口 `releases/w11/AIRCRAFT_ANM2_OBJECT_DNA_W11.html`，说明 `validation/W11_REVIEW.md`。W10、W09 固定版本保留。
+
 当前新增候选：**W10 表面与形态**，入口 `releases/w10/AIRCRAFT_ANM2_OBJECT_DNA_W10.html`，说明 `validation/W10_REVIEW.md`。W09 作为前版保留。
 
 # AN/M2 Object DNA W09

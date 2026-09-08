@@ -1,0 +1,24 @@
+{
+  "schema": "object-dna.review-build/0.2",
+  "path": "releases/w11/AIRCRAFT_ANM2_OBJECT_DNA_W11.html",
+  "bytes": 1507257,
+  "sha256": "cda669958892b7cd01a4900d2cb63db84b63d657a9669a02074b6e92c4980e73",
+  "referenceEmbedded": false,
+  "previousGeometryInherited": true,
+  "geometryBaseline": "W10 with W11 rear corrections and supply additions",
+  "visualAcceptance": false,
+  "productionReady": false,
+  "sources": {
+    "vendor\\three-controls.runtime.js": "9b7a58b51a20fe4c8b8afaae839acd9e3d17690f6cc8aec9f7bcc8f608b6c737",
+    "vendor\\reference-input.js": "476ac7ac16b8d40918e0142832a4608bac8feefda45229ae6f50e0e247d5549b",
+    "rules\\w11\\geometry-program.js": "1be104cb095038ee5821173a63f49b4b22540909ea381897e842d8b7d41f918a",
+    "rules\\w11\\supply-program.js": "63602f8d05c8a14c5f114c6127b67073f0a7b543bc4aeef55a4e8288c3cdf6cb",
+    "rules\\w11\\object-dna.js": "0b616c24aa20d0775c1135fa809fb0fa4b1d43881f16b3d4d2034e14e5898ecc",
+    "rules\\w11\\surface-program.js": "5f46c148221efd25b3f1cbdc8f6ea8b110f49d443fd33a33003c2c40608a18c3",
+    "rules\\reference-twin.js": "10df8ed10ff3c621531b7d503cbe851d900f4bcd83745e429f48b6a501e41461",
+    "workbench\\w11\\app.js": "67266d62f59cce1cf178bcf52e1404c2c0c6ed376f2bd41c3501d54c31d7cedf",
+    "workbench\\w11\\template.html": "e85bdddcef8113c0df5833201913f9e831a94f7970127817763be6c37c40d737",
+    "rules\\w11\\EXTERIOR_RECIPE_R01.json": "9e5e32806b99a1aa0e6d014b84fab9aa873498b0f96b64b2f7b47a416c2609fd",
+    "DATUM_REGISTRATION_R02.json": "4fbcbb2a589bbdd00c8ed41d1aaac643dad8e39d3b66c91e5542ca55b96ddfe6"
+  }
+}

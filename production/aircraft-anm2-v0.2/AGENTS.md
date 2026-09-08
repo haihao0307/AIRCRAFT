@@ -50,3 +50,9 @@ User-facing review requires a self-contained single HTML in an immutable GitHub 
 
 Read PUBLIC_PREVIEW_DELIVERY_RULE.md. Preserve fixed-version public HTTPS previews and old links. Before final delivery, open the actual public URL and verify version, resources and core interactions. Local tests or HTTP 200 alone are insufficient. Carry this rule into subsequent versions and handoffs; do not modify frozen historical artifacts.
 
+## Camera correction from user (2026-09-08)
+
+For all subsequent object work, also read OBJECT_DNA_ASSEMBLY_POLICY.md. Each semantic entity needs its own DNA record and declared relative frame. Include ammunition supply and associated display objects in the station relationship model; do not mistake display meshes for physical parts or unknown transforms for identity transforms.
+
+Default spatial presentation must use ordinary perspective with normal depth scaling. W10 used orthographic projection in the orbiting display, creating confusing depth cues; do not repeat this default. Measurement uses explicitly labeled fixed side/top/end orthographic views. Oblique orthographic views are supplementary and cannot alone determine depth proportions. Never use inverse perspective, mirroring, negative scale, or independent per-object fitting to compensate. Reference and native views share projection, pose, datum, zoom and equivalent viewport aspect. Verify views from both ends and after resize. Preserve frozen W10; apply corrections in the next version.
+

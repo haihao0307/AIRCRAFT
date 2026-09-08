@@ -1,6 +1,6 @@
 {
   "schema": "aircraft-anm2-object-dna-current/0.2",
-  "status": "W10-local-reference-tested-surface-review-candidate",
+  "status": "W11-local-reference-tested-assembly-review-candidate",
   "repository": "haihao0307/AIRCRAFT",
   "branch": "rebuild/aircraft-anm2-object-dna-v0.2-clean-restart",
   "activeDirectory": "production/aircraft-anm2-v0.2",
@@ -11,9 +11,9 @@
   "entityId": "ODNA:MECH:ANM2:PILOT-0001",
   "generationId": "GEN-0002",
   "currentUserReviewCandidate": {
-    "id": "W10",
-    "path": "releases/w10/AIRCRAFT_ANM2_OBJECT_DNA_W10.html",
-    "scope": "W09 geometry baseline; stable material coordinates and explicit appearance presets",
+    "id": "W11",
+    "path": "releases/w11/AIRCRAFT_ANM2_OBJECT_DNA_W11.html",
+    "scope": "normal perspective, rear exterior correction, source supply assembly, per-object DNA and display expansion",
     "approval": "awaiting-user-review"
   },
   "frozenHandoff": {
@@ -77,9 +77,9 @@
     "G5": "runtime-preflight-only"
   },
   "previousUserReviewCandidate": {
-    "id": "W09",
-    "path": "releases/w09/AIRCRAFT_ANM2_OBJECT_DNA_W09.html",
-    "scope": "receiver, cover and plates, root and collar",
+    "id": "W10",
+    "path": "releases/w10/AIRCRAFT_ANM2_OBJECT_DNA_W10.html",
+    "scope": "W09 geometry baseline; stable material coordinates and explicit appearance presets",
     "approval": "awaiting-user-review"
   }
 }
