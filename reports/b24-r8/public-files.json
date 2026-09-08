@@ -1,0 +1,46 @@
+{
+  "commit": "73e22dc003de56c8aaeb22c20367366449c36821",
+  "files": [
+    {
+      "path": "b24-generic-skin-closed-doors-r8.html",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 8542,
+      "sha256": "9e2f2e1f8bd7fd834cec0e84f78c603be6cf7577cf1ea190d8a42349433bb425",
+      "matchesGitBlob": true
+    },
+    {
+      "path": "runtime/b24-generic-skin-closed-doors-r8.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "bytes": 13369,
+      "sha256": "c63c5c5e5262ba8acd6ae18f19e70cf60d063dbcb6f3cb85d18c54ccd4dbaf32",
+      "matchesGitBlob": true
+    },
+    {
+      "path": "runtime/b24-r8-skin-system.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "bytes": 23512,
+      "sha256": "f47a3d9e8f3925add1df7d3a87d6673e7803a12c9ce4e50af8d3025f7e657364",
+      "matchesGitBlob": true
+    },
+    {
+      "path": "runtime/b24-r8-detail-materials.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "bytes": 6719,
+      "sha256": "2b096071c2c1a2b09df7df94a8273b36643d1e580d710f5d9c49d8c166a90696",
+      "matchesGitBlob": true
+    },
+    {
+      "path": "runtime/b24-r8-bay-poses.js",
+      "status": 200,
+      "contentType": "application/javascript; charset=utf-8",
+      "bytes": 19177,
+      "sha256": "4a18b9ccd73676ffa7281d12fec9e05737eeda6436698afbc8033212fa546c76",
+      "matchesGitBlob": true
+    }
+  ],
+  "passed": true
+}
