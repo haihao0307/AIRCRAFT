@@ -1,0 +1,769 @@
+{
+  "stats": {
+    "meshes": 107,
+    "triangles": 90717,
+    "vertices": 192211,
+    "finite": true,
+    "degenerate": 0,
+    "badNormals": 0,
+    "perGroup": {
+      "receiver": 27008,
+      "cover": 856,
+      "positivePlate": 2089,
+      "collar": 756,
+      "barrel": 54208,
+      "rear": 5036,
+      "sideHandle": 764
+    }
+  },
+  "errors": [],
+  "audit": {
+    "context": {
+      "assetId": "ODNA:MECH:ANM2:PILOT-0001",
+      "frame": "digital-reference/R02",
+      "snapshot": "W10-demo/1",
+      "worldTransform": null,
+      "historicalTime": null
+    },
+    "state": "coated",
+    "domains": [
+      {
+        "domainId": "surface/receiver/receiver-central-shell",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-central-shell",
+        "materialInstanceId": "surface/receiver/receiver-central-shell/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/negative-side-recess-skin",
+        "partId": "part/receiver",
+        "regionId": "region/negative-side-recess-skin",
+        "materialInstanceId": "surface/receiver/negative-side-recess-skin/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/negative-edge-return",
+        "partId": "part/receiver",
+        "regionId": "region/negative-edge-return",
+        "materialInstanceId": "surface/receiver/negative-edge-return/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/negative-pocket-floor",
+        "partId": "part/receiver",
+        "regionId": "region/negative-pocket-floor",
+        "materialInstanceId": "surface/receiver/negative-pocket-floor/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/negative-lower-plate",
+        "partId": "part/receiver",
+        "regionId": "region/negative-lower-plate",
+        "materialInstanceId": "surface/receiver/negative-lower-plate/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/negative-tab-0",
+        "partId": "part/receiver",
+        "regionId": "region/negative-tab-0",
+        "materialInstanceId": "surface/receiver/negative-tab-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/negative-tab-1",
+        "partId": "part/receiver",
+        "regionId": "region/negative-tab-1",
+        "materialInstanceId": "surface/receiver/negative-tab-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/rear-upper-lip",
+        "partId": "part/receiver",
+        "regionId": "region/rear-upper-lip",
+        "materialInstanceId": "surface/receiver/rear-upper-lip/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/rear-lower-lip",
+        "partId": "part/receiver",
+        "regionId": "region/rear-lower-lip",
+        "materialInstanceId": "surface/receiver/rear-lower-lip/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-rail",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-rail",
+        "materialInstanceId": "surface/receiver/receiver-lower-rail/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/lower-exterior-ear-0",
+        "partId": "part/receiver",
+        "regionId": "region/lower-exterior-ear-0",
+        "materialInstanceId": "surface/receiver/lower-exterior-ear-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/lower-exterior-ear-1",
+        "partId": "part/receiver",
+        "regionId": "region/lower-exterior-ear-1",
+        "materialInstanceId": "surface/receiver/lower-exterior-ear-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-0-0",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-0-0",
+        "materialInstanceId": "surface/receiver/receiver-upper-0-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-0-1",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-0-1",
+        "materialInstanceId": "surface/receiver/receiver-upper-0-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-0-2",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-0-2",
+        "materialInstanceId": "surface/receiver/receiver-upper-0-2/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-0-3",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-0-3",
+        "materialInstanceId": "surface/receiver/receiver-upper-0-3/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-0-4",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-0-4",
+        "materialInstanceId": "surface/receiver/receiver-upper-0-4/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-0-5",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-0-5",
+        "materialInstanceId": "surface/receiver/receiver-upper-0-5/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-0-6",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-0-6",
+        "materialInstanceId": "surface/receiver/receiver-upper-0-6/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-0-7",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-0-7",
+        "materialInstanceId": "surface/receiver/receiver-upper-0-7/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-1-0",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-1-0",
+        "materialInstanceId": "surface/receiver/receiver-upper-1-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-1-1",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-1-1",
+        "materialInstanceId": "surface/receiver/receiver-upper-1-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-1-2",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-1-2",
+        "materialInstanceId": "surface/receiver/receiver-upper-1-2/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-1-3",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-1-3",
+        "materialInstanceId": "surface/receiver/receiver-upper-1-3/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-1-4",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-1-4",
+        "materialInstanceId": "surface/receiver/receiver-upper-1-4/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-1-5",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-1-5",
+        "materialInstanceId": "surface/receiver/receiver-upper-1-5/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-1-6",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-1-6",
+        "materialInstanceId": "surface/receiver/receiver-upper-1-6/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-upper-1-7",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-upper-1-7",
+        "materialInstanceId": "surface/receiver/receiver-upper-1-7/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-0-0",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-0-0",
+        "materialInstanceId": "surface/receiver/receiver-lower-0-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-0-1",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-0-1",
+        "materialInstanceId": "surface/receiver/receiver-lower-0-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-0-2",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-0-2",
+        "materialInstanceId": "surface/receiver/receiver-lower-0-2/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-0-3",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-0-3",
+        "materialInstanceId": "surface/receiver/receiver-lower-0-3/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-0-4",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-0-4",
+        "materialInstanceId": "surface/receiver/receiver-lower-0-4/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-0-5",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-0-5",
+        "materialInstanceId": "surface/receiver/receiver-lower-0-5/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-0-6",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-0-6",
+        "materialInstanceId": "surface/receiver/receiver-lower-0-6/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-0-7",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-0-7",
+        "materialInstanceId": "surface/receiver/receiver-lower-0-7/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-1-0",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-1-0",
+        "materialInstanceId": "surface/receiver/receiver-lower-1-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-1-1",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-1-1",
+        "materialInstanceId": "surface/receiver/receiver-lower-1-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-1-2",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-1-2",
+        "materialInstanceId": "surface/receiver/receiver-lower-1-2/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-1-3",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-1-3",
+        "materialInstanceId": "surface/receiver/receiver-lower-1-3/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-1-4",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-1-4",
+        "materialInstanceId": "surface/receiver/receiver-lower-1-4/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-1-5",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-1-5",
+        "materialInstanceId": "surface/receiver/receiver-lower-1-5/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-1-6",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-1-6",
+        "materialInstanceId": "surface/receiver/receiver-lower-1-6/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-lower-1-7",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-lower-1-7",
+        "materialInstanceId": "surface/receiver/receiver-lower-1-7/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-forward-lower-0-0",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-forward-lower-0-0",
+        "materialInstanceId": "surface/receiver/receiver-forward-lower-0-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-forward-lower-0-1",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-forward-lower-0-1",
+        "materialInstanceId": "surface/receiver/receiver-forward-lower-0-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-forward-lower-0-2",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-forward-lower-0-2",
+        "materialInstanceId": "surface/receiver/receiver-forward-lower-0-2/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-forward-lower-0-3",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-forward-lower-0-3",
+        "materialInstanceId": "surface/receiver/receiver-forward-lower-0-3/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-forward-lower-0-4",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-forward-lower-0-4",
+        "materialInstanceId": "surface/receiver/receiver-forward-lower-0-4/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-forward-lower-1-0",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-forward-lower-1-0",
+        "materialInstanceId": "surface/receiver/receiver-forward-lower-1-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-forward-lower-1-1",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-forward-lower-1-1",
+        "materialInstanceId": "surface/receiver/receiver-forward-lower-1-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-forward-lower-1-2",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-forward-lower-1-2",
+        "materialInstanceId": "surface/receiver/receiver-forward-lower-1-2/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-forward-lower-1-3",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-forward-lower-1-3",
+        "materialInstanceId": "surface/receiver/receiver-forward-lower-1-3/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/receiver-forward-lower-1-4",
+        "partId": "part/receiver",
+        "regionId": "region/receiver-forward-lower-1-4",
+        "materialInstanceId": "surface/receiver/receiver-forward-lower-1-4/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/forward-cap-0-0",
+        "partId": "part/receiver",
+        "regionId": "region/forward-cap-0-0",
+        "materialInstanceId": "surface/receiver/forward-cap-0-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/forward-cap-0-1",
+        "partId": "part/receiver",
+        "regionId": "region/forward-cap-0-1",
+        "materialInstanceId": "surface/receiver/forward-cap-0-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/forward-cap-0-2",
+        "partId": "part/receiver",
+        "regionId": "region/forward-cap-0-2",
+        "materialInstanceId": "surface/receiver/forward-cap-0-2/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/forward-cap-1-0",
+        "partId": "part/receiver",
+        "regionId": "region/forward-cap-1-0",
+        "materialInstanceId": "surface/receiver/forward-cap-1-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/forward-cap-1-1",
+        "partId": "part/receiver",
+        "regionId": "region/forward-cap-1-1",
+        "materialInstanceId": "surface/receiver/forward-cap-1-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/forward-cap-1-2",
+        "partId": "part/receiver",
+        "regionId": "region/forward-cap-1-2",
+        "materialInstanceId": "surface/receiver/forward-cap-1-2/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/rear-top-cap-0",
+        "partId": "part/receiver",
+        "regionId": "region/rear-top-cap-0",
+        "materialInstanceId": "surface/receiver/rear-top-cap-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/rear-top-cap-1",
+        "partId": "part/receiver",
+        "regionId": "region/rear-top-cap-1",
+        "materialInstanceId": "surface/receiver/rear-top-cap-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/forward-hex-0",
+        "partId": "part/receiver",
+        "regionId": "region/forward-hex-0",
+        "materialInstanceId": "surface/receiver/forward-hex-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/forward-hex-1",
+        "partId": "part/receiver",
+        "regionId": "region/forward-hex-1",
+        "materialInstanceId": "surface/receiver/forward-hex-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/opening-lower-lip-positive",
+        "partId": "part/receiver",
+        "regionId": "region/opening-lower-lip-positive",
+        "materialInstanceId": "surface/receiver/opening-lower-lip-positive/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/opening-central-lip-positive",
+        "partId": "part/receiver",
+        "regionId": "region/opening-central-lip-positive",
+        "materialInstanceId": "surface/receiver/opening-central-lip-positive/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/opening-lower-lip-negative",
+        "partId": "part/receiver",
+        "regionId": "region/opening-lower-lip-negative",
+        "materialInstanceId": "surface/receiver/opening-lower-lip-negative/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/receiver/opening-central-lip-negative",
+        "partId": "part/receiver",
+        "regionId": "region/opening-central-lip-negative",
+        "materialInstanceId": "surface/receiver/opening-central-lip-negative/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/cover/top-cover-sidewalls",
+        "partId": "part/cover",
+        "regionId": "region/top-cover-sidewalls",
+        "materialInstanceId": "surface/cover/top-cover-sidewalls/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/cover/top-cover-folded-cap",
+        "partId": "part/cover",
+        "regionId": "region/top-cover-folded-cap",
+        "materialInstanceId": "surface/cover/top-cover-folded-cap/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/cover/top-cover-forward-cap",
+        "partId": "part/cover",
+        "regionId": "region/top-cover-forward-cap",
+        "materialInstanceId": "surface/cover/top-cover-forward-cap/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/cover/cover-band-negative",
+        "partId": "part/cover",
+        "regionId": "region/cover-band-negative",
+        "materialInstanceId": "surface/cover/cover-band-negative/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/cover/cover-band-positive",
+        "partId": "part/cover",
+        "regionId": "region/cover-band-positive",
+        "materialInstanceId": "surface/cover/cover-band-positive/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/cover/top-cover-raised-pad",
+        "partId": "part/cover",
+        "regionId": "region/top-cover-raised-pad",
+        "materialInstanceId": "surface/cover/top-cover-raised-pad/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/cover/top-cover-button",
+        "partId": "part/cover",
+        "regionId": "region/top-cover-button",
+        "materialInstanceId": "surface/cover/top-cover-button/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/sideplate-contour-and-nose",
+        "partId": "part/positivePlate",
+        "regionId": "region/sideplate-contour-and-nose",
+        "materialInstanceId": "surface/positivePlate/sideplate-contour-and-nose/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/sideplate-stepped-face",
+        "partId": "part/positivePlate",
+        "regionId": "region/sideplate-stepped-face",
+        "materialInstanceId": "surface/positivePlate/sideplate-stepped-face/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/sideplate-relief-0-lower",
+        "partId": "part/positivePlate",
+        "regionId": "region/sideplate-relief-0-lower",
+        "materialInstanceId": "surface/positivePlate/sideplate-relief-0-lower/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/sideplate-relief-0-upper",
+        "partId": "part/positivePlate",
+        "regionId": "region/sideplate-relief-0-upper",
+        "materialInstanceId": "surface/positivePlate/sideplate-relief-0-upper/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/sideplate-relief-1-lower",
+        "partId": "part/positivePlate",
+        "regionId": "region/sideplate-relief-1-lower",
+        "materialInstanceId": "surface/positivePlate/sideplate-relief-1-lower/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/sideplate-relief-1-upper",
+        "partId": "part/positivePlate",
+        "regionId": "region/sideplate-relief-1-upper",
+        "materialInstanceId": "surface/positivePlate/sideplate-relief-1-upper/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/rear-upper-cap",
+        "partId": "part/positivePlate",
+        "regionId": "region/rear-upper-cap",
+        "materialInstanceId": "surface/positivePlate/rear-upper-cap/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/rear-lower-cap",
+        "partId": "part/positivePlate",
+        "regionId": "region/rear-lower-cap",
+        "materialInstanceId": "surface/positivePlate/rear-lower-cap/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/lower-round-head",
+        "partId": "part/positivePlate",
+        "regionId": "region/lower-round-head",
+        "materialInstanceId": "surface/positivePlate/lower-round-head/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/upper-hex-a",
+        "partId": "part/positivePlate",
+        "regionId": "region/upper-hex-a",
+        "materialInstanceId": "surface/positivePlate/upper-hex-a/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/positivePlate/upper-hex-b",
+        "partId": "part/positivePlate",
+        "regionId": "region/upper-hex-b",
+        "materialInstanceId": "surface/positivePlate/upper-hex-b/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/collar/front-collar",
+        "partId": "part/collar",
+        "regionId": "region/front-collar",
+        "materialInstanceId": "surface/collar/front-collar/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/collar/front-collar-exterior-lug",
+        "partId": "part/collar",
+        "regionId": "region/front-collar-exterior-lug",
+        "materialInstanceId": "surface/collar/front-collar-exterior-lug/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/barrel/ventilated-shell-56-openings",
+        "partId": "part/barrel",
+        "regionId": "region/ventilated-shell-56-openings",
+        "materialInstanceId": "surface/barrel/ventilated-shell-56-openings/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/barrel/forward-band",
+        "partId": "part/barrel",
+        "regionId": "region/forward-band",
+        "materialInstanceId": "surface/barrel/forward-band/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/barrel/forward-termination-visual-recess",
+        "partId": "part/barrel",
+        "regionId": "region/forward-termination-visual-recess",
+        "materialInstanceId": "surface/barrel/forward-termination-visual-recess/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/rear/rear-grip-0",
+        "partId": "part/rear",
+        "regionId": "region/rear-grip-0",
+        "materialInstanceId": "surface/rear/rear-grip-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/rear/rear-grip-cap-0",
+        "partId": "part/rear",
+        "regionId": "region/rear-grip-cap-0",
+        "materialInstanceId": "surface/rear/rear-grip-cap-0/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/rear/rear-grip-1",
+        "partId": "part/rear",
+        "regionId": "region/rear-grip-1",
+        "materialInstanceId": "surface/rear/rear-grip-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/rear/rear-grip-cap-1",
+        "partId": "part/rear",
+        "regionId": "region/rear-grip-cap-1",
+        "materialInstanceId": "surface/rear/rear-grip-cap-1/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/rear/rear-handle-frame",
+        "partId": "part/rear",
+        "regionId": "region/rear-handle-frame",
+        "materialInstanceId": "surface/rear/rear-handle-frame/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/rear/rear-external-cylinder",
+        "partId": "part/rear",
+        "regionId": "region/rear-external-cylinder",
+        "materialInstanceId": "surface/rear/rear-external-cylinder/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/rear/rear-upper-control",
+        "partId": "part/rear",
+        "regionId": "region/rear-upper-control",
+        "materialInstanceId": "surface/rear/rear-upper-control/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/rear/rear-control-visible-tab",
+        "partId": "part/rear",
+        "regionId": "region/rear-control-visible-tab",
+        "materialInstanceId": "surface/rear/rear-control-visible-tab/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/sideHandle/side-handle-attachment",
+        "partId": "part/sideHandle",
+        "regionId": "region/side-handle-attachment",
+        "materialInstanceId": "surface/sideHandle/side-handle-attachment/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/sideHandle/side-handle-curved-arm",
+        "partId": "part/sideHandle",
+        "regionId": "region/side-handle-curved-arm",
+        "materialInstanceId": "surface/sideHandle/side-handle-curved-arm/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/sideHandle/side-grip",
+        "partId": "part/sideHandle",
+        "regionId": "region/side-grip",
+        "materialInstanceId": "surface/sideHandle/side-grip/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      },
+      {
+        "domainId": "surface/sideHandle/side-handle-exterior-head",
+        "partId": "part/sideHandle",
+        "regionId": "region/side-handle-exterior-head",
+        "materialInstanceId": "surface/sideHandle/side-handle-exterior-head/candidate-layer-1",
+        "interpretation": "authored-exterior-region; physical partition unverified"
+      }
+    ],
+    "coordinateFrame": "fixed digital reference; dimensionless",
+    "materialCoordinatesIndependentOfCamera": true,
+    "automaticAging": false,
+    "geometryDisplacement": false,
+    "worldKernelConnected": false,
+    "remeshMappingImplemented": false,
+    "historicalMaterialVerified": false,
+    "shaderFiltering": "screen derivative low-pass; underlying field remains fixed",
+    "queryScope": "domain field evaluator, not a surface location validator"
+  },
+  "geometryHash": "e3f89459ed1371f048100188f2e1255e5e69ff10ac3a7582899e479a84075fef",
+  "geometryUnchangedByAppearance": true,
+  "queryStableAcrossViewAndLight": true,
+  "invalidContextUnknown": true,
+  "realReferenceLoaded": true,
+  "neutralComparisonEnforced": true,
+  "mobileNoOverflow": true
+}

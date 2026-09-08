@@ -1,0 +1,26 @@
+{
+  "status": "review-candidate",
+  "summary": "真实原件已载入对照；表面查询稳定、状态不改几何、手机布局检查通过。W09 遗留形态差异仍待修整。",
+  "regionResults": [
+    {
+      "label": "形态基线",
+      "value": "W09 原规则保持一致；未宣称新的几何改进"
+    },
+    {
+      "label": "材质位置",
+      "value": "固定数字参考坐标；独立于观察相机"
+    },
+    {
+      "label": "状态与观察",
+      "value": "显式候选材质；光照不改变对象状态"
+    },
+    {
+      "label": "未知信息",
+      "value": "世界变换、历史时间为 unknown；无真实老化模拟"
+    },
+    {
+      "label": "验收",
+      "value": "visualAcceptance=false / productionReady=false"
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+当前新增候选：**W10 表面与形态**，入口 `releases/w10/AIRCRAFT_ANM2_OBJECT_DNA_W10.html`，说明 `validation/W10_REVIEW.md`。W09 作为前版保留。
+
 # AN/M2 Object DNA W09
 
 Open `releases/w09/AIRCRAFT_ANM2_OBJECT_DNA_W09.html`. It is self-contained and renders the native exterior immediately. Select the verified local GLB to compare; the reference is never uploaded or bundled.

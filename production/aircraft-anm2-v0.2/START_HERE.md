@@ -1,3 +1,5 @@
+当前新增候选：**W10 表面与形态**，入口 `releases/w10/AIRCRAFT_ANM2_OBJECT_DNA_W10.html`，说明 `validation/W10_REVIEW.md`。W09 作为前版保留。
+
 # Aircraft AN/M2 Object DNA V0.2 Clean Restart
 
 分支：`rebuild/aircraft-anm2-object-dna-v0.2-clean-restart`
