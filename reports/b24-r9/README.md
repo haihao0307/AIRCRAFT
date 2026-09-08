@@ -5,3 +5,5 @@ All 53 browser checks passed from clean content commit 1bad8dc884ec71b38ba257603
 Fixed preview: https://rawcdn.githack.com/haihao0307/AIRCRAFT/1bad8dc884ec71b38ba2576038438d2468895451/b24-generic-skin-closed-doors-r9.html
 
 See ../../docs/b24-generic-skin/R9.md for the B-17 photograph reference scope and retained B-24 data. User-provided photographs are not included in runtime. This remains a visual paint candidate for user review.
+
+Public preview verified: four deployed source files match Git blobs; browser smoke passed without JavaScript errors. Public engine and gear screenshots are included. First visits may show a Githack External Content Notice; select Open the page to continue.
