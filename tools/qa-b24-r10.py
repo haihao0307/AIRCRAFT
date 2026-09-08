@@ -110,7 +110,7 @@ with sync_playwright() as p:
     page.locator('#seamToggle').uncheck();page.wait_for_timeout(200);unlined=pixels()
     changed=sum(max(p)>3 for p in ImageChops.difference(lined,unlined).getdata());report['seamChangedPixels']=changed
     check('Reference line toggle changes rendered wing pixels',changed>100);page.locator('#seamToggle').check()
-    for detail in ['bay-port','bay-starboard','bay-bottom','engine','engine-starboard','cowl-side','gear','propeller','under-port','under-starboard','under-outer-port','under-outer-starboard','gear-starboard']:
+    for detail in ['bay-port','bay-starboard','bay-bottom','engine','engine-starboard','cowl-side','gear','propeller','under-port','under-starboard','under-outer-port','under-outer-starboard','gear-starboard','under-tail']:
         page.locator(f'button[data-detail={detail}]').click();page.wait_for_timeout(650)
         page.screenshot(path=str(args.output/(detail+'.png')))
         check(detail+' detail camera selectable',page.evaluate('window.__B24_DETAIL_VIEW__')==detail)
@@ -129,6 +129,17 @@ with sync_playwright() as p:
             if (side=='lower' and difference<2) or (side=='upper' and difference>-10):failures.append({'sample':sample,'pixel':[x,y],'rgb':rgb})
         report['wingPixelAudit'][side]={'samples':len(samples),'failures':failures}
         check('Rendered '+side+' wing paint stays correct across span and four nacelles',len(samples)>100 and not failures)
+    page.evaluate('window.__B24_R10_QA__.isolateWings(false)')
+    page.evaluate('window.__B24_R10_QA__.isolateWings(true,[1717,726,729])')
+    tail_samples=page.evaluate('window.__B24_R10_QA__.tailSurfaceSamples()');report['tailPixelAudit']={}
+    for view,side in [('bottom','lower'),('top','upper')]:
+        page.locator(f'button[data-view={view}]').click();page.wait_for_timeout(650)
+        points=page.evaluate('(a)=>a.map(p=>window.__B24_R10_QA__.project(p))',[a[side] for a in tail_samples]);shot=pixels();shot.save(args.output/('isolated-tail-'+view+'.png'));failures=[]
+        for sample,point in zip(tail_samples,points):
+            rgb=shot.getpixel(tuple(map(round,point)));difference=rgb[2]-rgb[0]
+            if (side=='lower' and difference<2) or (side=='upper' and difference>-10):failures.append({'sample':sample,'rgb':rgb})
+        report['tailPixelAudit'][side]={'samples':len(tail_samples),'failures':failures}
+        check('Rendered '+side+' tailplane paint including root',len(tail_samples)>=40 and not failures)
     page.evaluate('window.__B24_R10_QA__.isolateWings(false)')
     # Actual lower-lip pixels must be olive on inner and aft-offset outer cowls.
     page.evaluate('window.__B24_R10_QA__.hidePropellersForAudit(true)')

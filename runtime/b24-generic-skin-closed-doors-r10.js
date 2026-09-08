@@ -43,8 +43,8 @@ function buildInsignia(){
   window.__B24_GENERIC_R10__={...skinSystem.audit,results,closedDoorNodes:[764,767,773,776],split:0,colors:{upper:'#5e5839',lower:'#8b8c97'}};
   let wingIsolationRestore,propVisibilityRestore;
   window.__B24_R10_QA__={
-    isolateWings:enabled=>{
-      if(enabled){wingIsolationRestore=aircraft.meshes.map(m=>m.visible);aircraft.meshes.forEach(m=>m.visible=[1696,1708].includes(m.userData.sourceNode));insigniaGroup.visible=false;seamGroup.visible=false;skinSystem.setInsigniaVisible(false);}
+    isolateWings:(enabled,ids=[1696,1708])=>{
+      if(enabled){wingIsolationRestore=aircraft.meshes.map(m=>m.visible);aircraft.meshes.forEach(m=>m.visible=ids.includes(m.userData.sourceNode));insigniaGroup.visible=false;seamGroup.visible=false;skinSystem.setInsigniaVisible(false);}
       else {aircraft.meshes.forEach((m,i)=>m.visible=wingIsolationRestore[i]);insigniaGroup.visible=true;seamGroup.visible=true;skinSystem.setInsigniaVisible(true);}
     },
     wingSurfaceSamples:()=>{
@@ -55,6 +55,13 @@ function buildInsignia(){
         if(high.y-low.y>.06)samples.push({x:sign*x,z,lower:low.toArray(),upper:high.toArray()});
       }return samples;
     },
+    tailSurfaceSamples:()=>{
+      const targets=aircraft.meshes.filter(m=>[1717,726,729].includes(m.userData.sourceNode)),samples=[];
+      for(const x of [-3,-2,-1.5,-1,-.7,.7,1,1.5,2,3])for(const z of [-11.25,-10.75,-10.25,-9.75]){
+        const hits=new THREE.Raycaster(new THREE.Vector3(x,-5,z),new THREE.Vector3(0,1,0)).intersectObjects(targets,false);
+        if(hits.length<2)continue;const low=hits[0].point,high=hits.at(-1).point;if(high.y-low.y>.025)samples.push({x,z,lower:low.toArray(),upper:high.toArray()});
+      }return samples;
+    },
     hidePropellersForAudit:hide=>{
       if(hide){propVisibilityRestore=aircraft.meshes.map(m=>m.visible);aircraft.meshes.filter(m=>m.userData.family==='propeller').forEach(m=>m.visible=false);}
       else aircraft.meshes.forEach((m,i)=>m.visible=propVisibilityRestore[i]);
@@ -63,7 +70,7 @@ function buildInsignia(){
       const targets=aircraft.meshes.filter(m=>[1693,1711,1702].includes(m.userData.sourceNode)),samples=[];
       for(const x of [-7.802,-3.378,3.378,7.802]){
         const y=Math.abs(x)>5.5?.09068:-.05645,points=[];
-        for(const angle of [225,270,315]){const a=angle*Math.PI/180,hits=new THREE.Raycaster(new THREE.Vector3(x+.62*Math.cos(a),y+.62*Math.sin(a),5),new THREE.Vector3(0,0,-1)).intersectObjects(targets,false);if(hits.length)points.push(hits[0].point.toArray());}
+        for(const angle of [225,270,315]){const a=angle*Math.PI/180,hits=new THREE.Raycaster(new THREE.Vector3(x+.58*Math.cos(a),y+.58*Math.sin(a),5),new THREE.Vector3(0,0,-1)).intersectObjects(targets,false);if(hits.length)points.push(hits[0].point.toArray());}
         samples.push({x,y,points});
       }return samples;
     },
@@ -101,6 +108,7 @@ addEventListener('resize',resize);resize();
 try{aircraft=await NativeAircraft.load((p,t)=>{bar.style.width=(p*100)+'%';loadText.textContent=t});scene.add(aircraft.group);aircraft.group.position.set(0,0,0);aircraft.group.rotation.set(0,0,0);aircraft.group.scale.set(1,1,1);aircraft.group.updateMatrixWorld(true);closeWaistDoors();closeRepairedBombBay();window.__B24_DETAILS_R10__=applyDetailMaterials(aircraft,renderer);skinSystem=createSkinSystem(aircraft,renderer);paintMeshes=skinSystem.paintMeshes;applySkinShader();buildInsignia();loading.hidden=true;status.textContent=`R10 已载入 · 弹舱与侧门关闭 · 发动机、轮胎与桨叶细节 · 待审查`;setView('orbit')}catch(e){loading.hidden=false;loading.style.display='flex';console.error(e);loadText.textContent='载入失败';diag.textContent=String(e?.stack||e);status.textContent='载入失败，原数据未替换'}
 $('#views').addEventListener('click',e=>{const b=e.target.closest('button[data-view]');if(b)setView(b.dataset.view)});$('#skinToggle').addEventListener('change',e=>paintMeshes.forEach(m=>m.visible=e.target.checked));$('#split').addEventListener('input',e=>{split=+e.target.value;$('#splitOut').textContent=(split<0?'−':'')+Math.abs(split).toFixed(2)+' m';applySkinShader();if(window.__B24_GENERIC_R10__)window.__B24_GENERIC_R10__.split=split});$('#insigniaToggle').addEventListener('change',e=>{if(insigniaGroup)insigniaGroup.visible=e.target.checked;skinSystem?.setInsigniaVisible(e.target.checked)});$('#guideToggle').addEventListener('change',e=>guideGroup&&(guideGroup.visible=e.target.checked));$('#doorFocus').addEventListener('click',()=>{activeCamera=perspective;fixedControls.enabled=false;orbitControls.enabled=true;perspective.position.set(5.4,.15,-6.1);perspective.up.set(0,1,0);orbitControls.target.set(.88,-.12,-6.2);orbitControls.update();status.textContent='左舷腰部侧门关闭近看。腰部机枪保持原状态。'});$('#mobileToggle').addEventListener('click',()=>$('#panel').classList.toggle('open'));
 const detailViews={
+  'under-tail':{position:[4,-4,-7],target:[.9,.4,-10.4],label:'平尾仰视：根部下表面与外段连续分色。'},
   'under-port':{position:[6,-5,5],target:[4,.1,0],label:'左内翼仰视：检查发动机舱与主翼底面分色。'},
   'under-starboard':{position:[-6,-5,5],target:[-4,.1,0],label:'右内翼仰视：检查主翼底面与发动机罩的独立分色。'},
   'under-outer-port':{position:[10,-4,5],target:[7.8,.1,.4],label:'左外翼仰视：核对外侧发动机与机翼交界。'},

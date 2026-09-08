@@ -177,7 +177,7 @@ export function createSkinSystem(aircraft,renderer){
       float oliveLip=smoothstep(2.70,2.94,engineZ);
       upperWeight=max(lowerBand,oliveLip);
     }
-    if(p.z<-9.0 && abs(p.x)>1.15){
+    if(tailPaint>.5 || (p.z<-9.0 && abs(p.x)>1.15)){
       if(abs(p.x)>3.55)upperWeight=1.0;
       else {
         vec4 tailSample=texture2D(tailEnvelope,clamp(vec2((p.x+3.45)/6.90,(p.z+11.65)/2.62),0.0,1.0));
@@ -207,9 +207,9 @@ export function createSkinSystem(aircraft,renderer){
     const control=controlFields.get(mesh.userData.sourceNode),cb=control?.bounds||[0,1,0,1];
     mat.onBeforeCompile=shader=>{
       Object.assign(shader.uniforms,uniforms);
-      Object.assign(shader.uniforms,{nacellePaint:{value:nacelleNodes.includes(mesh.userData.sourceNode)?1:0},hubCapPaint:{value:mesh.userData.sourceNode===1672?1:0},controlPaint:{value:control?1:0},controlEnvelope:{value:control?.texture||wingField.texture},controlBounds:{value:new THREE.Vector4(cb[0],cb[2],cb[1]-cb[0],cb[3]-cb[2])}});
+      Object.assign(shader.uniforms,{tailPaint:{value:[1717,726,729].includes(mesh.userData.sourceNode)?1:0},nacellePaint:{value:nacelleNodes.includes(mesh.userData.sourceNode)?1:0},hubCapPaint:{value:mesh.userData.sourceNode===1672?1:0},controlPaint:{value:control?1:0},controlEnvelope:{value:control?.texture||wingField.texture},controlBounds:{value:new THREE.Vector4(cb[0],cb[2],cb[1]-cb[0],cb[3]-cb[2])}});
       shader.vertexShader='varying vec3 vSkinWorld;\n'+shader.vertexShader.replace('#include <worldpos_vertex>','#include <worldpos_vertex>\nvSkinWorld=(modelMatrix*vec4(transformed,1.0)).xyz;');
-      shader.fragmentShader='varying vec3 vSkinWorld;uniform vec3 skinUpper;uniform vec3 skinLower;uniform sampler2D wingEnvelope;uniform sampler2D tailEnvelope;uniform sampler2D bodyProfile;uniform vec2 profileBounds;uniform float paintOffset;uniform float nacellePaint;uniform float hubCapPaint;uniform float controlPaint;uniform sampler2D controlEnvelope;uniform vec4 controlBounds;\n'+shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\n'+shaderCode);
+      shader.fragmentShader='varying vec3 vSkinWorld;uniform vec3 skinUpper;uniform vec3 skinLower;uniform sampler2D wingEnvelope;uniform sampler2D tailEnvelope;uniform sampler2D bodyProfile;uniform vec2 profileBounds;uniform float paintOffset;uniform float tailPaint;uniform float nacellePaint;uniform float hubCapPaint;uniform float controlPaint;uniform sampler2D controlEnvelope;uniform vec4 controlBounds;\n'+shader.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\n'+shaderCode);
     };
     mat.customProgramCacheKey=()=> 'b24-r10-structural-paint-v2';mat.needsUpdate=true;
   }
@@ -271,7 +271,7 @@ export function createSkinSystem(aircraft,renderer){
     setOffset:v=>{uniforms.paintOffset.value=v;},
     audit:{version:'R10',visualAcceptance:false,productionReady:false,referenceJPEGIdentityVerified:false,
       paintClassifier:'explicit nacelle node membership before spatial paint; wing envelope and control surfaces isolated from cowl overrides',
-      nacellePaintNodes:nacelleNodes,hubCapPaintNodes:[1672],
+      tailPaintNodes:[1717,726,729],nacellePaintNodes:nacelleNodes,hubCapPaintNodes:[1672],
       sourcePayloadSHA256:aircraft.digest,paintMeshCount:paintMeshes.length,paintNodes:paintMeshes.map(m=>m.userData.sourceNode),
       normalSignUsedForPaint:false,generatedNumericTextureBytes:wingField.bytes+tailField.bytes+profile.byteLength+[...controlFields.values()].reduce((sum,f)=>sum+f.bytes,0),
       controlSurfacePaintNodes:[...controlFields.keys()],fuselageOcclusionAccepted:true,
