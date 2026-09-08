@@ -1,0 +1,17 @@
+{
+  "version": "R12",
+  "question": "One solid rivet, two sheet layers: how are front and back connected?",
+  "scope": "Generic educational lap-joint coupon, not a measured B-24 part or repair specification",
+  "units": "mm",
+  "axes": "X across overlap, Y along rivet row, Z through thickness; interface Z=1",
+  "method": "Editable procedural Three.js geometry with real holes and explicit section caps",
+  "shots": ["whole coupon", "factory-head face", "shop-head face", "central rivet section", "exploded inspection"],
+  "closestCameraDistanceMm": 9,
+  "target": "Desktop and mobile WebGL2; touch orbit and pinch; mobile browser emulation checked, physical mobile untested",
+  "budget": {"newSourceBytes": 35000, "triangles": 45000, "drawCalls": 100, "rasterDownloads": 0},
+  "sampleParameters": {"diameter": 3.175, "sheetThicknesses": [1,1], "pitch": 15, "overlap": 20, "shopDiameter": 4.7625, "shopHeight": 1.5875},
+  "parameterStatus": "D=1/8 inch chosen; shop 1.5D and 0.5D are textbook nominal targets. Plate sizes and round factory-head silhouette are illustrative, not AN470 tolerance geometry.",
+  "material": "Neutral aluminum-like PBR; optical values illustrative, no invented corrosion or physical strength result",
+  "identity": "plate-A, plate-B, rivet-01 through rivet-03; views preserve identities; exploded view is inspection, not assembly animation",
+  "validation": "No head without shank, no hidden unperforated sheet, no gap when assembled; source/public browser/interaction checks"
+}
