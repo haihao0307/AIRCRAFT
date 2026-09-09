@@ -1,15 +1,24 @@
 {
-  "name": "B-24 公版母体 01",
-  "id": "b24-generic-mother-01",
-  "status": "user-accepted-frozen",
-  "acceptedOn": "2026-09-09",
-  "visualVersion": "R16",
-  "renderCommit": "47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a",
-  "archiveCommit": "83a182720d78cb9da58457be7491bcc8fdee2a7c",
-  "entry": "b24-wing-seams-r16.html",
-  "preview": "https://rawcdn.githack.com/haihao0307/AIRCRAFT/47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a/b24-wing-seams-r16.html",
-  "branch": "accepted/b24-generic-mother-01",
-  "numericPayloadSHA256": "f5ff859a7ff0e38112fa099d8c7d3a4cd8e859434701fb4dd9d81629374c5e3e",
-  "nextPhase": "derive individually identified aircraft only on user request",
-  "engineeringCalibration": false
+  "id": "b24-42-73257-80-days-placement-r1",
+  "name": "80 DAYS 定位试验 R1",
+  "status": "visual-placement-trial",
+  "entry": "b24-80-days-r1.html",
+  "branch": "experiment/80-days-placement-r1",
+  "parent": {
+    "name": "B-24 公版母体 01",
+    "id": "b24-generic-mother-01",
+    "status": "user-accepted-frozen",
+    "acceptedOn": "2026-09-09",
+    "visualVersion": "R16",
+    "renderCommit": "47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a",
+    "archiveCommit": "83a182720d78cb9da58457be7491bcc8fdee2a7c",
+    "entry": "b24-wing-seams-r16.html",
+    "preview": "https://rawcdn.githack.com/haihao0307/AIRCRAFT/47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a/b24-wing-seams-r16.html",
+    "branch": "accepted/b24-generic-mother-01",
+    "numericPayloadSHA256": "f5ff859a7ff0e38112fa099d8c7d3a4cd8e859434701fb4dd9d81629374c5e3e",
+    "nextPhase": "derive individually identified aircraft only on user request",
+    "engineeringCalibration": false
+  },
+  "engineeringCalibration": false,
+  "historicalComplete": false
 }

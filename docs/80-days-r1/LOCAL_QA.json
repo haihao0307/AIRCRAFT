@@ -1,0 +1,217 @@
+{
+  "url": "http://127.0.0.1:18779/b24-80-days-r1.html",
+  "passed": true,
+  "views": {
+    "nose-port": {
+      "view": "nose-port",
+      "type": "PerspectiveCamera",
+      "left": null,
+      "right": null,
+      "top": null,
+      "bottom": null,
+      "zoom": 1
+    },
+    "nose-starboard": {
+      "view": "nose-starboard",
+      "type": "PerspectiveCamera",
+      "left": null,
+      "right": null,
+      "top": null,
+      "bottom": null,
+      "zoom": 1
+    },
+    "tail-port": {
+      "view": "tail-port",
+      "type": "PerspectiveCamera",
+      "left": null,
+      "right": null,
+      "top": null,
+      "bottom": null,
+      "zoom": 1
+    },
+    "tail-starboard": {
+      "view": "tail-starboard",
+      "type": "PerspectiveCamera",
+      "left": null,
+      "right": null,
+      "top": null,
+      "bottom": null,
+      "zoom": 1
+    },
+    "whole": {
+      "view": "whole",
+      "type": "PerspectiveCamera",
+      "left": null,
+      "right": null,
+      "top": null,
+      "bottom": null,
+      "zoom": 1
+    },
+    "front": {
+      "view": "front",
+      "type": "OrthographicCamera",
+      "left": -19.151999999999997,
+      "right": 19.151999999999997,
+      "top": 15.2,
+      "bottom": -15.2,
+      "zoom": 1
+    },
+    "rear": {
+      "view": "rear",
+      "type": "OrthographicCamera",
+      "left": -19.151999999999997,
+      "right": 19.151999999999997,
+      "top": 15.2,
+      "bottom": -15.2,
+      "zoom": 1
+    },
+    "top": {
+      "view": "top",
+      "type": "OrthographicCamera",
+      "left": -19.151999999999997,
+      "right": 19.151999999999997,
+      "top": 15.2,
+      "bottom": -15.2,
+      "zoom": 1
+    },
+    "ortho-port": {
+      "view": "ortho-port",
+      "type": "OrthographicCamera",
+      "left": -2.7499999999999996,
+      "right": 2.7499999999999996,
+      "top": 2.1825396825396823,
+      "bottom": -2.1825396825396823,
+      "zoom": 1
+    },
+    "ortho-starboard": {
+      "view": "ortho-starboard",
+      "type": "OrthographicCamera",
+      "left": -2.7499999999999996,
+      "right": 2.7499999999999996,
+      "top": 2.1825396825396823,
+      "bottom": -2.1825396825396823,
+      "zoom": 1
+    }
+  },
+  "attachment": {
+    "error": 0,
+    "distance": 1.3044065570758507,
+    "hosts": [
+      1714,
+      1747,
+      1717,
+      719,
+      744
+    ],
+    "rudders": 2,
+    "report": {
+      "version": "80-days-placement-r1",
+      "source": {
+        "id": "b24-generic-mother-01",
+        "commit": "47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a",
+        "payloadSHA256": "f5ff859a7ff0e38112fa099d8c7d3a4cd8e859434701fb4dd9d81629374c5e3e"
+      },
+      "frame": {
+        "id": "mother01:aircraft",
+        "axes": {
+          "x": "port",
+          "y": "up",
+          "z": "nose"
+        },
+        "unit": "parent-working-metre",
+        "engineeringCalibrated": false
+      },
+      "shapes": 160,
+      "generatedTriangles": 71236,
+      "rejectedTriangles": 31628,
+      "maxAttachmentResidual": 0.0020000000000005565,
+      "patches": {
+        "port": {
+          "source": "E04",
+          "targetIds": [
+            1714,
+            1747,
+            1678,
+            1760
+          ],
+          "hits": 83057,
+          "misses": 24660,
+          "maxNormalOffset": 0.002,
+          "side": "port",
+          "workingPlacementEnvelope": 0.18,
+          "temporarySurfaceTriangles": 10192
+        },
+        "starboard": {
+          "source": "E07",
+          "targetIds": [
+            1714,
+            1747,
+            1678,
+            1760
+          ],
+          "hits": 72066,
+          "misses": 14510,
+          "maxNormalOffset": 0.002,
+          "side": "starboard",
+          "workingPlacementEnvelope": 0.22,
+          "temporarySurfaceTriangles": 8931
+        },
+        "tail-port": {
+          "source": "E07",
+          "targetIds": [
+            1717,
+            719,
+            744
+          ],
+          "hits": 11531,
+          "misses": 1805,
+          "maxNormalOffset": 0.002,
+          "side": "port",
+          "workingPlacementEnvelope": 0.14,
+          "temporarySurfaceTriangles": 1885
+        },
+        "tail-starboard": {
+          "source": "E07",
+          "targetIds": [
+            1717,
+            719,
+            744
+          ],
+          "hits": 6866,
+          "misses": 115,
+          "maxNormalOffset": 0.002,
+          "side": "starboard",
+          "workingPlacementEnvelope": 0.14,
+          "temporarySurfaceTriangles": 1759
+        }
+      },
+      "omittedMarks": [
+        {
+          "text": "ROBBY",
+          "source": "E04",
+          "reason": "parent surface/window correspondence not complete",
+          "sampleHits": 18,
+          "sampleCount": 24
+        }
+      ],
+      "historicalComplete": false,
+      "engineeringCalibrated": false,
+      "view": "ortho-starboard"
+    }
+  },
+  "pageErrors": [],
+  "httpErrors": [],
+  "mobile": [
+    390,
+    844
+  ],
+  "checks": [
+    "actual view button clicks",
+    "candidate/marking/anchor/propeller switches",
+    "root attachment",
+    "rudder hosts",
+    "same-scale orthographic",
+    "responsive canvas",
+    "method link"
+  ]
+}
