@@ -47,11 +47,13 @@ jobs:
           assert not state['error'],state
           a=state['audit']
           assert a['sourcePayloadSHA256']=='f5ff859a7ff0e38112fa099d8c7d3a4cd8e859434701fb4dd9d81629374c5e3e',a
-          assert a['glassCount']>0,a
+          assert a['glassCount']==3,a
+          assert a['glassComponentCount']>100,a
+          assert len(a['portNoseComponents'])>20,a
           assert not errors,errors
-          print('candidateCount',a['candidateCount'],'glassCount',a['glassCount'])
-          print('LIKELY_PORT_NOSE')
-          print(json.dumps(a['likelyPortNose'],ensure_ascii=False,indent=2))
+          print('candidateCount',a['candidateCount'],'glassCount',a['glassCount'],'glassComponents',a['glassComponentCount'])
+          print('PORT_NOSE_FIRST_24')
+          print(json.dumps(a['portNoseComponents'][:24],ensure_ascii=False,indent=2))
           print('NOSE_SKIN')
           print(json.dumps(a['noseSkin'],ensure_ascii=False,indent=2))
           PY
