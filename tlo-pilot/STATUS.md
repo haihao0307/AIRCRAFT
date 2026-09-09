@@ -12,6 +12,6 @@ Python与JavaScript独立解码通过，原WSD0容器实现也能解析并逐字
 
 小妈与Weather已提交实际读取回执，均核对同一SHA及102份原资源，并区分未知世界位置、未知物理时间和示意状态。二者使用随附Python语义解码器，不能称为两套独立CBOR实现；小妈另独立扫描容器并与原ZIP逐文件比较。相关工具当时的准确Python版本保存在`references/reviewed-codec-python.py`；现行工具增加必需词汇/重复块名单检查，样本未改变。
 
-Object DNA Mother另收到按公开说明独立读取的邀请；最终状态以其实际回执及PUBLIC_PREVIEW.md为准。网页读取和完整三维恢复分别验收，不把点击既有R16链接当成从新格式运行模型。
+Object DNA Mother已按公开说明独立实现最小Python读取器，实际读取同一二进制并通过112块CRC、102文件SHA及整容器逐字节回写；回执及实现见reviews/object-dna.md和object-dna-read.py。三位Mother均已实际打开。公网阅读器与从TLO提取102文件后的三维恢复分别验收通过，见PUBLIC_PREVIEW.md；没有把点击既有R16链接当成从新格式运行模型。
 
 最终固定公网地址与完成状态见PUBLIC_PREVIEW.md。首次试存仅证明此实验配置的文件保全与有限核心语义可读；具体80 DAYS/机组还未实例化，物理时间、世界锚定与制造校准未补造。

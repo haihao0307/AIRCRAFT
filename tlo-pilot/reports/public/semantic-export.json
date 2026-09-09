@@ -1,0 +1,1734 @@
+{
+  "profile": {
+    "profile": "tlo-mother01-pilot/0.1",
+    "status": "experimental-not-a-final-TLO-standard",
+    "container": "WSD0/0.1",
+    "semanticEncoding": "cbor-m01-subset/1",
+    "requiredChunks": [
+      "VOCB",
+      "FRAM",
+      "TIME",
+      "DNA_",
+      "OBJS",
+      "RELS",
+      "EVNT",
+      "PROV",
+      "RMAP"
+    ],
+    "optionalUnknownChunks": "preserve raw bytes on whole-file roundtrip; do not interpret",
+    "blobEncoding": "identity bytes; path and SHA256 in RMAP",
+    "readerExecution": "data-only; embedded JS is never executed by the reader",
+    "spec": "../FORMAT.md",
+    "specSHA256": "8fb3ce66a6048e836877f5a6927f024dc5b49fbfb5cc0e0879f7b227172dea2b"
+  },
+  "chunks": {
+    "VOCB": {
+      "id": "tlo-m01-vocabulary/0.1",
+      "definitions": {
+        "typeOf": "Category membership, not physical containment or pose parenting.",
+        "objectId": "Persistent logical identity; a content hash identifies a revision, not a new physical object.",
+        "managedBy": "Project responsibility; not physical composition.",
+        "worldTime": "Effective physical-world time, explicitly unknown when no evidence exists.",
+        "localFrame": "Coordinate frame of the inherited numeric model; not a geographic CRS.",
+        "derivedFrom": "Versioned source lineage; independent of physical parentage.",
+        "requiredFor": "basic-meaning, full-file-recovery, or rendering; necessity has a declared task scope.",
+        "valueStatus": "known, unknown, not-provided, not-applicable, conflict, or not-implemented; zero is a known numerical value only.",
+        "recordedDate": "Project record date; never silently interpreted as historical aircraft world time.",
+        "sourceResource": "Byte-exact resource in the accepted package, including exact numeric transition and editable code.",
+        "genericTemplate": "Reusable digital aircraft baseline; no assertion that this record is a particular historical aircraft.",
+        "evidenceResource": "Acceptance/documentation material; not runtime geometry and not proof of historical accuracy.",
+        "poseReferencedTo": "A reference-frame relation; must not be inferred from type or project ownership.",
+        "visualAcceptance": "User acceptance of displayed appearance; does not establish manufacturing calibration.",
+        "normalizedService": "Illustrative 0..1 appearance state; not elapsed hours or dates.",
+        "plannedDerivative": "A future work direction only; no historical instance, crew membership, or identifying number is fabricated.",
+        "representationPartOf": "A named region of this digital baseline; source node IDs identify its inherited representation."
+      },
+      "numericPolicy": "Integers retain exact signed/unsigned values through 64 bits. Binary64 floats remain binary64. This profile uses no implicit defaults.",
+      "requiredTerms": [
+        "objectId",
+        "genericTemplate",
+        "worldTime",
+        "localFrame",
+        "valueStatus",
+        "typeOf",
+        "poseReferencedTo",
+        "managedBy",
+        "derivedFrom",
+        "normalizedService"
+      ]
+    },
+    "FRAM": {
+      "frames": [
+        {
+          "id": "urn:mother:aircraft:b24:generic:01:local-frame",
+          "axes": {
+            "x": "inherited lateral positive axis",
+            "y": "up",
+            "z": "forward toward nose"
+          },
+          "kind": "local-model",
+          "units": {
+            "angle": "rad",
+            "length": "m"
+          },
+          "origin": "inherited model root, not geodetic origin",
+          "worldCRS": {
+            "status": "not-provided"
+          },
+          "worldPose": {
+            "reason": "no placement in Earth frame",
+            "status": "unknown"
+          },
+          "handedness": "right",
+          "worldLocation": {
+            "reason": "generic baseline has no evidenced geographic position",
+            "status": "unknown"
+          },
+          "modelRootScale": [
+            1,
+            1,
+            1
+          ],
+          "worldParentFrame": {
+            "status": "not-provided"
+          }
+        }
+      ],
+      "frameContract": "Presentation uses normal perspective; measurement views are explicitly orthographic. Paired comparisons share camera, datum and scale."
+    },
+    "TIME": {
+      "worldTime": {
+        "reason": "generic baseline has no historical flight instant",
+        "status": "unknown"
+      },
+      "eventOrder": "array-order; project events only",
+      "flightHours": {
+        "reason": "service sliders were not calibrated to hours",
+        "status": "unknown"
+      },
+      "recordedDate": {
+        "value": "2026-09-09",
+        "status": "known",
+        "meaning": "project acceptance and trial record",
+        "calendar": "Gregorian",
+        "precision": "day"
+      },
+      "stateTimeMode": "illustrative-static-preset",
+      "sourceVersionTime": {
+        "value": "2026-09-09T10:13:38+08:00",
+        "status": "known",
+        "meaning": "Git source package commit time; not historical aircraft time"
+      }
+    },
+    "DNA_": {
+      "id": "urn:mother:aircraft:b24:generic:01:dna",
+      "version": "01",
+      "functions": [
+        {
+          "role": "appearance state evaluation",
+          "resource": "runtime/b24-service-life-r16.js",
+          "execution": "requires the original Three.js runtime; not evaluated by this data reader"
+        },
+        {
+          "role": "finite panel definition and mapped microdetail",
+          "resource": "runtime/b24-reference-panels-r16.js",
+          "execution": "requires inherited source wing geometry"
+        }
+      ],
+      "nextPhase": {
+        "label": "80 DAYS and separate aircraft/crew systems",
+        "status": "plannedDerivative",
+        "identity": {
+          "reason": "specific historical identity and crew evidence to be provided",
+          "status": "unknown"
+        },
+        "implemented": false
+      },
+      "panelRule": "upper/lower finite endpoints in runtime/b24-reference-panels-r16.js; positions approximate, rivet spacing illustrative",
+      "serviceUnits": {
+        "use": "normalized 0..1",
+        "care": "normalized 0..1",
+        "damage": "illustrative event flag",
+        "repair": "illustrative event flag",
+        "exposure": "normalized 0..1"
+      },
+      "materialSystem": {
+        "alloyGrade": {
+          "reason": "not established by this accepted visual baseline",
+          "status": "unknown"
+        },
+        "appearance": "inherited olive upper and grey underside paint"
+      },
+      "representation": "exact-numeric-transition-with-editable-runtime",
+      "servicePresets": {
+        "new": {
+          "use": 0.03,
+          "care": 0.98,
+          "label": "新机 / 初期使用",
+          "seams": 1,
+          "damage": 0,
+          "preset": "new",
+          "repair": 0,
+          "exposure": 0.08
+        },
+        "field": {
+          "use": 0.82,
+          "care": 0.25,
+          "label": "野外服役 / 保养不足",
+          "seams": 1,
+          "damage": 0,
+          "preset": "field",
+          "repair": 0,
+          "exposure": 0.82
+        },
+        "damage": {
+          "use": 0.62,
+          "care": 0.45,
+          "label": "局部战损示意",
+          "seams": 1,
+          "damage": 1,
+          "preset": "damage",
+          "repair": 0,
+          "exposure": 0.55
+        },
+        "repaired": {
+          "use": 0.62,
+          "care": 0.85,
+          "label": "换板与补漆后的服役机",
+          "seams": 1,
+          "damage": 1,
+          "preset": "repaired",
+          "repair": 1,
+          "exposure": 0.55
+        },
+        "maintained": {
+          "use": 0.62,
+          "care": 0.9,
+          "label": "长期服役 / 保养良好",
+          "seams": 1,
+          "damage": 0,
+          "preset": "maintained",
+          "repair": 0,
+          "exposure": 0.5
+        }
+      },
+      "sourceMeshCount": 348,
+      "sourceNodeCount": 1784,
+      "numericPayloadSHA256": "f5ff859a7ff0e38112fa099d8c7d3a4cd8e859434701fb4dd9d81629374c5e3e"
+    },
+    "OBJS": {
+      "objects": [
+        {
+          "crew": {
+            "reason": "no crew assigned to a generic template",
+            "status": "not-applicable"
+          },
+          "kind": "genericTemplate",
+          "name": "B-24 公版母体 01",
+          "status": "user-accepted-frozen",
+          "typeId": "urn:type:aircraft:b24:generic-family",
+          "frameId": "urn:mother:aircraft:b24:generic:01:local-frame",
+          "version": "01/R16",
+          "objectId": "urn:mother:aircraft:b24:generic:01",
+          "snapshotId": "mother01-r16-accepted-20260909",
+          "limitations": [
+            "no engineering calibration",
+            "no calibrated flight-hour model",
+            "not a completed historical 80 DAYS aircraft"
+          ],
+          "capabilities": [
+            "inspect-source-model",
+            "switch-illustrative-service-state",
+            "view-labeled-orthographic-measurement",
+            "derive-separate-aircraft-instance"
+          ],
+          "serialNumber": {
+            "reason": "template, not a historical individual",
+            "status": "not-applicable"
+          },
+          "worldTimeRef": "TIME.worldTime"
+        },
+        {
+          "kind": "digitalRegion",
+          "name": "负X主翼",
+          "frameId": "urn:mother:aircraft:b24:generic:01:local-frame",
+          "objectId": "urn:mother:aircraft:b24:generic:01:region:mainwing-negative-x",
+          "worldTimeRef": "TIME.worldTime",
+          "sourceNodeIds": [
+            1696
+          ],
+          "sourceIndexSpace": "inherited numeric source node IDs"
+        },
+        {
+          "kind": "digitalRegion",
+          "name": "正X主翼",
+          "frameId": "urn:mother:aircraft:b24:generic:01:local-frame",
+          "objectId": "urn:mother:aircraft:b24:generic:01:region:mainwing-positive-x",
+          "worldTimeRef": "TIME.worldTime",
+          "sourceNodeIds": [
+            1708
+          ],
+          "sourceIndexSpace": "inherited numeric source node IDs"
+        },
+        {
+          "kind": "digitalRegion",
+          "name": "平尾区域",
+          "frameId": "urn:mother:aircraft:b24:generic:01:local-frame",
+          "objectId": "urn:mother:aircraft:b24:generic:01:region:horizontal-tail",
+          "worldTimeRef": "TIME.worldTime",
+          "sourceNodeIds": [
+            1717,
+            726,
+            729
+          ],
+          "sourceIndexSpace": "inherited numeric source node IDs"
+        },
+        {
+          "kind": "digitalRegion",
+          "name": "发动机罩表面A",
+          "frameId": "urn:mother:aircraft:b24:generic:01:local-frame",
+          "objectId": "urn:mother:aircraft:b24:generic:01:region:cowl-surface-a",
+          "worldTimeRef": "TIME.worldTime",
+          "sourceNodeIds": [
+            1693
+          ],
+          "sourceIndexSpace": "inherited numeric source node IDs"
+        },
+        {
+          "kind": "digitalRegion",
+          "name": "发动机罩表面B",
+          "frameId": "urn:mother:aircraft:b24:generic:01:local-frame",
+          "objectId": "urn:mother:aircraft:b24:generic:01:region:cowl-surface-b",
+          "worldTimeRef": "TIME.worldTime",
+          "sourceNodeIds": [
+            1711
+          ],
+          "sourceIndexSpace": "inherited numeric source node IDs"
+        },
+        {
+          "kind": "digitalRegion",
+          "name": "四个排气出口的源表面",
+          "frameId": "urn:mother:aircraft:b24:generic:01:local-frame",
+          "objectId": "urn:mother:aircraft:b24:generic:01:region:exhaust-outlets",
+          "worldTimeRef": "TIME.worldTime",
+          "sourceNodeIds": [
+            1681
+          ],
+          "sourceIndexSpace": "inherited numeric source node IDs"
+        }
+      ]
+    },
+    "RELS": {
+      "relations": [
+        {
+          "id": "rel:type",
+          "kind": "typeOf",
+          "object": "urn:type:aircraft:b24:generic-family",
+          "subject": "urn:mother:aircraft:b24:generic:01"
+        },
+        {
+          "id": "rel:frame",
+          "kind": "poseReferencedTo",
+          "object": "urn:mother:aircraft:b24:generic:01:local-frame",
+          "subject": "urn:mother:aircraft:b24:generic:01"
+        },
+        {
+          "id": "rel:management",
+          "kind": "managedBy",
+          "object": "urn:mother:skin",
+          "subject": "urn:mother:aircraft:b24:generic:01"
+        },
+        {
+          "id": "rel:source",
+          "kind": "derivedFrom",
+          "object": "urn:git:haihao0307/AIRCRAFT:636f26ec102680b4154a6f9dca0cf49fc951f51e",
+          "subject": "urn:mother:aircraft:b24:generic:01"
+        },
+        {
+          "id": "rel:region:mainwing-negative-x",
+          "kind": "representationPartOf",
+          "object": "urn:mother:aircraft:b24:generic:01",
+          "subject": "urn:mother:aircraft:b24:generic:01:region:mainwing-negative-x"
+        },
+        {
+          "id": "rel:region:mainwing-positive-x",
+          "kind": "representationPartOf",
+          "object": "urn:mother:aircraft:b24:generic:01",
+          "subject": "urn:mother:aircraft:b24:generic:01:region:mainwing-positive-x"
+        },
+        {
+          "id": "rel:region:horizontal-tail",
+          "kind": "representationPartOf",
+          "object": "urn:mother:aircraft:b24:generic:01",
+          "subject": "urn:mother:aircraft:b24:generic:01:region:horizontal-tail"
+        },
+        {
+          "id": "rel:region:cowl-surface-a",
+          "kind": "representationPartOf",
+          "object": "urn:mother:aircraft:b24:generic:01",
+          "subject": "urn:mother:aircraft:b24:generic:01:region:cowl-surface-a"
+        },
+        {
+          "id": "rel:region:cowl-surface-b",
+          "kind": "representationPartOf",
+          "object": "urn:mother:aircraft:b24:generic:01",
+          "subject": "urn:mother:aircraft:b24:generic:01:region:cowl-surface-b"
+        },
+        {
+          "id": "rel:region:exhaust-outlets",
+          "kind": "representationPartOf",
+          "object": "urn:mother:aircraft:b24:generic:01",
+          "subject": "urn:mother:aircraft:b24:generic:01:region:exhaust-outlets"
+        }
+      ]
+    },
+    "EVNT": {
+      "events": [
+        {
+          "id": "project:acceptance:20260909",
+          "date": "2026-09-09",
+          "kind": "project-visual-acceptance",
+          "source": "user acceptance of R16",
+          "subject": "urn:mother:aircraft:b24:generic:01"
+        },
+        {
+          "id": "project:freeze:20260909",
+          "date": "2026-09-09",
+          "kind": "project-baseline-freeze",
+          "subject": "urn:mother:aircraft:b24:generic:01",
+          "sourceCommit": "636f26ec102680b4154a6f9dca0cf49fc951f51e"
+        }
+      ],
+      "historicalAircraftEvents": {
+        "status": "not-provided"
+      }
+    },
+    "PROV": {
+      "guidance": {
+        "path": "../references/xiaoma-guidance.md",
+        "role": "theory guidance, not a successful test receipt",
+        "sha256": "d534e96e78523871200c58c7c7dcfbdc98dbdbfb5e780371f4b38976b3c2d743"
+      },
+      "commitRoles": {
+        "trialCommit": "outside payload, fixed by the published delivery receipt to avoid self-reference",
+        "renderCommit": "user-accepted unchanged visual build",
+        "sourceCommit": "clean frozen full-package source",
+        "archiveCommit": "pre-cleanup R16 handoff history"
+      },
+      "formatStatus": "trial profile only; no claim of universally supported final TLO format",
+      "renderCommit": "47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a",
+      "sourceCommit": "636f26ec102680b4154a6f9dca0cf49fc951f51e",
+      "archiveCommit": "83a182720d78cb9da58457be7491bcc8fdee2a7c",
+      "formatSources": [
+        "TLO人机共读与知识交换.md, 2026-09-08",
+        "06_WSD_BINARY_FORMAT_DRAFT.md, WSD0/0.1",
+        "RFC8949 CBOR basic data model; constrained experimental subset"
+      ],
+      "acceptedPreview": "https://rawcdn.githack.com/haihao0307/AIRCRAFT/47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a/b24-wing-seams-r16.html",
+      "claimBoundaries": [
+        {
+          "claim": "accepted appearance",
+          "status": "supported",
+          "evidence": "docs/wing-seams-r16/PUBLIC_PREVIEW.md"
+        },
+        {
+          "claim": "precise manufacturing panel positions",
+          "status": "not-established",
+          "evidence": "docs/wing-seams-r16/KNOWLEDGE.md"
+        },
+        {
+          "claim": "physical-world time/geography",
+          "status": "unknown",
+          "evidence": "generic baseline"
+        }
+      ],
+      "semanticCoverage": {
+        "extracted": [
+          "template identity",
+          "6 named digital regions",
+          "local units/frame and world unknown",
+          "5 illustrative service presets",
+          "project acceptance/freeze",
+          "separate relation kinds",
+          "whole-package resource inventory"
+        ],
+        "notIncluded": [
+          "external source PDF/GLB/photos outside the accepted ZIP"
+        ],
+        "preservedOpaque": [
+          "remaining inherited source-node semantics",
+          "detailed numeric geometry",
+          "shader implementation and visual rules",
+          "original knowledge/report prose"
+        ],
+        "physicalPartCount": "not inferred from node or mesh counts"
+      },
+      "sourcePackageSHA256": "c50241d9587267025dcb8849b195ca4f31a1b653604a69a16928c8cf61002b84",
+      "retainedKnowledgeScope": "all 102 file entries in the accepted full ZIP, including its manifest; no original PDF/GLB outside that ZIP is claimed retained"
+    },
+    "RMAP": {
+      "files": [
+        {
+          "path": ".gitattributes",
+          "role": "evidenceResource",
+          "bytes": 56,
+          "sha256": "6c69cc0790906f3c257ae147c4cb27c34112607870158cf3bc7038451d5d563d",
+          "encoding": "identity",
+          "resourceId": "02b73afe-c9b1-5104-bbb9-1bdf4ce8301b",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 10
+        },
+        {
+          "path": ".gitignore",
+          "role": "evidenceResource",
+          "bytes": 51,
+          "sha256": "c1fc1cc04b92f8cd2d66991b7245eab656e1b8b20d9faced6d4634869f205fcc",
+          "encoding": "identity",
+          "resourceId": "16f516e1-3a07-5516-b0f8-865b93668060",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 11
+        },
+        {
+          "path": "ACCEPTED_BASELINE.json",
+          "role": "evidenceResource",
+          "bytes": 707,
+          "sha256": "8a6b44cf975ca91bd19bf34b89a40ca4f55737ab880cba37e998939ef2cc3e7c",
+          "encoding": "identity",
+          "resourceId": "944bb5d6-cdee-5359-8c91-83036e2b40fb",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 12
+        },
+        {
+          "path": "AGENTS.md",
+          "role": "evidenceResource",
+          "bytes": 5045,
+          "sha256": "3d69a3683808d4e852c9f94a0245c1192beae1cb6919bc1ac48a8e1d5a0ce8ee",
+          "encoding": "identity",
+          "resourceId": "b8abb4f7-47b7-5474-9f3a-8d8456f76416",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 13
+        },
+        {
+          "path": "CURRENT.json",
+          "role": "evidenceResource",
+          "bytes": 707,
+          "sha256": "8a6b44cf975ca91bd19bf34b89a40ca4f55737ab880cba37e998939ef2cc3e7c",
+          "encoding": "identity",
+          "resourceId": "48f0b275-02e8-5c55-a426-63784f79189a",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 14
+        },
+        {
+          "path": "MANIFEST.json",
+          "role": "evidenceResource",
+          "bytes": 18457,
+          "sha256": "b600763fb2d6bfacf129c8ad990ebfe64862de5455f29636f0a22b4abb2f7765",
+          "encoding": "identity",
+          "resourceId": "2a511368-aa87-522f-a1c8-204fef5dbf65",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 15
+        },
+        {
+          "path": "MOTHER_PUBLIC_PREVIEW_DELIVERY_RULE_2026-09-08.md",
+          "role": "evidenceResource",
+          "bytes": 1503,
+          "sha256": "6d3d97e100717143377f6e573e8f8dc0c964a901a977b67acd9593fa888f4dec",
+          "encoding": "identity",
+          "resourceId": "be7b6356-f3e4-531f-b933-13e51de51a95",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 16
+        },
+        {
+          "path": "NEXT_START_HERE.md",
+          "role": "evidenceResource",
+          "bytes": 483,
+          "sha256": "9cf79a29fd7aaaae53ab86d036c4aba2712971954410857094fa994d5dc46a9c",
+          "encoding": "identity",
+          "resourceId": "532b6759-c70d-5ddc-85f3-659af935db68",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 17
+        },
+        {
+          "path": "README.md",
+          "role": "evidenceResource",
+          "bytes": 2436,
+          "sha256": "7b14b1113297a2e77e7595cbc4dd73cc29f410c35c4ca81176758bc831002b79",
+          "encoding": "identity",
+          "resourceId": "c8c86954-3a80-5916-b002-5913e787ce37",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 18
+        },
+        {
+          "path": "aircraft-skin-joints-r14.html",
+          "role": "sourceResource",
+          "bytes": 6088,
+          "sha256": "f0a12918e76b56878e000aca94843e7dfa2cc73b164d89040b6e954ec0c19805",
+          "encoding": "identity",
+          "resourceId": "2d54e353-8989-5999-ae10-90c6c252dd47",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 19
+        },
+        {
+          "path": "b24-skin-integration-r14.html",
+          "role": "sourceResource",
+          "bytes": 8940,
+          "sha256": "9e10e7002ccc6f65e29a2cf62ccf0bf636c1f2ec2ceaab96e30da86765050c84",
+          "encoding": "identity",
+          "resourceId": "c5497ad9-2529-540a-90fc-e914776bb0f9",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 20
+        },
+        {
+          "path": "b24-wing-seams-r16.html",
+          "role": "sourceResource",
+          "bytes": 11222,
+          "sha256": "9c3c364ba7141ce78ea0d29351c750443288ce5dbd7ccfdd28bf0159710a77bd",
+          "encoding": "identity",
+          "resourceId": "952ba7f7-b11a-53b0-b42c-35eaddb17539",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 21
+        },
+        {
+          "path": "docs/b24-generic-skin/CLOSED_DOOR_SOURCE_LOCK_V018_R2.json",
+          "role": "evidenceResource",
+          "bytes": 2070,
+          "sha256": "f9d93485a184f4748566bc355671b7729253e91480d93ba473c42c4b7dbc587b",
+          "encoding": "identity",
+          "resourceId": "dc0532e0-7d8c-5a24-bf13-99c8a2a6cba1",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 22
+        },
+        {
+          "path": "docs/generic-mother-01/CLEANUP.json",
+          "role": "evidenceResource",
+          "bytes": 17383,
+          "sha256": "a444204d1257646c60833e0a62c98ac549a804eae51a6c3dc2edd144b52c707e",
+          "encoding": "identity",
+          "resourceId": "fb3d4e60-885b-5b9c-9e47-5c98c5baf468",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 23
+        },
+        {
+          "path": "docs/generic-mother-01/DERIVATION.md",
+          "role": "evidenceResource",
+          "bytes": 1350,
+          "sha256": "4260093e8ea1ba60f3daa3604fb838400247a1c9fdd53bef40ccc6290a366040",
+          "encoding": "identity",
+          "resourceId": "8dded985-d824-55aa-96d2-4b3367a9f51b",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 24
+        },
+        {
+          "path": "docs/service-life/KNOWLEDGE.md",
+          "role": "evidenceResource",
+          "bytes": 4914,
+          "sha256": "7f617288c914058cdf6a721f51e1683c864fa244c261e154621d6f827d137fe7",
+          "encoding": "identity",
+          "resourceId": "ab2faab9-9901-551d-a41a-c4893754b12a",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 25
+        },
+        {
+          "path": "docs/service-life/PUBLIC_PREVIEW.md",
+          "role": "evidenceResource",
+          "bytes": 1923,
+          "sha256": "5bc3cc61de3febb15d47965b6b8ec83a9ef921f582d7e50ff4c870bf7af26490",
+          "encoding": "identity",
+          "resourceId": "8596d23f-becb-5bb9-84ec-af471042710b",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 26
+        },
+        {
+          "path": "docs/service-life/R15-contract.json",
+          "role": "evidenceResource",
+          "bytes": 2547,
+          "sha256": "73fde05818e57d287baf1b08e5ad3572579e0d8485faf0996c98849fdba240fc",
+          "encoding": "identity",
+          "resourceId": "90765a4d-ac7b-5398-9808-8b679aec9bb9",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 27
+        },
+        {
+          "path": "docs/skin-joints/CONTRACT.md",
+          "role": "evidenceResource",
+          "bytes": 1631,
+          "sha256": "37b460cddc440183625cb4f89253cf454fd85ae2971433f7d121fe54fd2e1973",
+          "encoding": "identity",
+          "resourceId": "0d008ed7-e76b-513f-a261-92735bfa8400",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 28
+        },
+        {
+          "path": "docs/skin-joints/KNOWLEDGE.md",
+          "role": "evidenceResource",
+          "bytes": 4716,
+          "sha256": "7e3e1f64d5cc9e5b9e077a137e9901f0d36071bbd2c9a700b2f5cdc3f85cd9f3",
+          "encoding": "identity",
+          "resourceId": "474d6000-889e-5f09-9c2f-1bff343e5476",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 29
+        },
+        {
+          "path": "docs/skin-joints/PUBLIC_PREVIEW.md",
+          "role": "evidenceResource",
+          "bytes": 1450,
+          "sha256": "0638086d827e8b9a2f69a58bab1ea95e1c8c11167ccf3d26b9621af0e89f8236",
+          "encoding": "identity",
+          "resourceId": "43637c68-6350-53b8-ac93-748d5e5080a1",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 30
+        },
+        {
+          "path": "docs/wing-seams-r16/KNOWLEDGE.md",
+          "role": "evidenceResource",
+          "bytes": 4693,
+          "sha256": "8ef74048537e7791a8fff5991c522e094ff01487a5453fb7a499f94f2ca769f8",
+          "encoding": "identity",
+          "resourceId": "ecc18870-87ca-5fac-80c8-a951bf4a6ce4",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 31
+        },
+        {
+          "path": "docs/wing-seams-r16/PUBLIC_PREVIEW.md",
+          "role": "evidenceResource",
+          "bytes": 1643,
+          "sha256": "6c8a9d6979af9de192f5f9ae49eeaf97c2caa8e4aab36f6d9246502690993dca",
+          "encoding": "identity",
+          "resourceId": "485c9177-8c9c-5b09-aab8-aa91e22e769b",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 32
+        },
+        {
+          "path": "docs/wing-seams-r16/asset-contract.json",
+          "role": "evidenceResource",
+          "bytes": 2522,
+          "sha256": "12219b70bba4ed2172644b96dc727eaa956736bcec10fb7f240180d001c3b9cb",
+          "encoding": "identity",
+          "resourceId": "237d43c2-42e2-5550-bac1-791277c89197",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 33
+        },
+        {
+          "path": "knowledge/NATIVE_R1.md",
+          "role": "evidenceResource",
+          "bytes": 2764,
+          "sha256": "4129c90fb4950203d1d8c0d5756a835a77ccd9752357d2553682d1bc94cf243d",
+          "encoding": "identity",
+          "resourceId": "98048520-de59-5f94-b9ec-49a3ba703044",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 34
+        },
+        {
+          "path": "knowledge/RECEIPT.md",
+          "role": "evidenceResource",
+          "bytes": 5434,
+          "sha256": "2d49b55180879292a82d805e752f18b831c65e14db0df15ed5b195de25f370f0",
+          "encoding": "identity",
+          "resourceId": "0f2ba5be-dc13-5e29-8692-4c217f1c262d",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 35
+        },
+        {
+          "path": "package.json",
+          "role": "evidenceResource",
+          "bytes": 144,
+          "sha256": "b46c9749af48031e95e67cb70a4d0e4e112e37516a9c33a18fbcb62882ca0c17",
+          "encoding": "identity",
+          "resourceId": "ca5c3602-5b10-5523-9a43-c00852676adb",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 36
+        },
+        {
+          "path": "reports/service-life-r16/public/belly-angle-0.png",
+          "role": "evidenceResource",
+          "bytes": 452023,
+          "sha256": "98ac56acd5deda718d8f396da5d19be35413a844e32d01edecb027d8fff41750",
+          "encoding": "identity",
+          "resourceId": "fce527ac-1433-56a3-8079-ec159c601819",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 37
+        },
+        {
+          "path": "reports/service-life-r16/public/belly-angle-1.png",
+          "role": "evidenceResource",
+          "bytes": 379065,
+          "sha256": "41f69794de7a084393507e2a6d564223289500cf9886e851f5edc09380f72a88",
+          "encoding": "identity",
+          "resourceId": "67b9b396-3659-5bf1-b202-4d0b156fefe7",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 38
+        },
+        {
+          "path": "reports/service-life-r16/public/belly-angle-2.png",
+          "role": "evidenceResource",
+          "bytes": 258411,
+          "sha256": "a630982b0b91ef32db185caf1ff49d8c802b1de920a933750a1b9b8aa53b29c2",
+          "encoding": "identity",
+          "resourceId": "251a812d-f29a-5ffe-a8ff-815058f85c7b",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 39
+        },
+        {
+          "path": "reports/service-life-r16/public/belly-angle-3.png",
+          "role": "evidenceResource",
+          "bytes": 411793,
+          "sha256": "602bd1401be679530b478870982bd17e7450b7470e5d5dec4a1234fc50ed7bb6",
+          "encoding": "identity",
+          "resourceId": "2dbc9e7b-6e4b-5543-a2b9-9236e80c8c95",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 40
+        },
+        {
+          "path": "reports/service-life-r16/public/belly-angle-4.png",
+          "role": "evidenceResource",
+          "bytes": 460354,
+          "sha256": "a11d28297cf365b8b33fc32820124dfa43b169440a899645cf61648c46ab5a28",
+          "encoding": "identity",
+          "resourceId": "f79e4027-77b6-5443-a038-18f6469f4aac",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 41
+        },
+        {
+          "path": "reports/service-life-r16/public/belly.png",
+          "role": "evidenceResource",
+          "bytes": 411934,
+          "sha256": "d9b82d23a2bca17359e34670eab1ef5808f11d81f2dad22db5ab80a89dd90fce",
+          "encoding": "identity",
+          "resourceId": "0e601c74-6792-52e5-a765-f28376aaa083",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 42
+        },
+        {
+          "path": "reports/service-life-r16/public/camera-bottom.png",
+          "role": "evidenceResource",
+          "bytes": 154484,
+          "sha256": "7230ee8b0ce94f62c03fa3612c59b6c8a2fab178a7113952944ee2268f16b39c",
+          "encoding": "identity",
+          "resourceId": "bc56f986-eacd-5e9c-b9d5-a32bed6a3d70",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 43
+        },
+        {
+          "path": "reports/service-life-r16/public/camera-front.png",
+          "role": "evidenceResource",
+          "bytes": 116898,
+          "sha256": "038cb4d127a6516717ed704ee94a16feb1b06b051bb7b7179c3ca302649fc2b3",
+          "encoding": "identity",
+          "resourceId": "9dc9ef9f-21e0-5733-bf4e-05298f5ab3d7",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 44
+        },
+        {
+          "path": "reports/service-life-r16/public/camera-orbit.png",
+          "role": "evidenceResource",
+          "bytes": 235187,
+          "sha256": "957180f9f0e1f9ec771ac39ef6fbe7cc0488e9e1797cde1fef06df1f1bc85dd8",
+          "encoding": "identity",
+          "resourceId": "399333b1-5ca7-5a51-b3e6-bbc23f4a8478",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 45
+        },
+        {
+          "path": "reports/service-life-r16/public/camera-perspective-front.png",
+          "role": "evidenceResource",
+          "bytes": 191651,
+          "sha256": "f0f54c157e426f48d7c631ae74e3384f7f0de4477abf68e1af856c66ae89a59c",
+          "encoding": "identity",
+          "resourceId": "1469fc61-7556-5095-abd2-067c7fe34e3c",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 46
+        },
+        {
+          "path": "reports/service-life-r16/public/camera-perspective-rear.png",
+          "role": "evidenceResource",
+          "bytes": 141933,
+          "sha256": "503fd75b19ee51093b2f5b5036a26d7e6d5c345984801a82d792c17ae06c695c",
+          "encoding": "identity",
+          "resourceId": "cc277dcf-efc1-56e8-9dc2-fd120a6f8e68",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 47
+        },
+        {
+          "path": "reports/service-life-r16/public/camera-port.png",
+          "role": "evidenceResource",
+          "bytes": 147127,
+          "sha256": "970d6bd1413177779890ec7e11893d35f8db27124d712edc82d53816eceaf1a7",
+          "encoding": "identity",
+          "resourceId": "88ef8c86-13cf-5d4f-af34-d900a6d895a7",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 48
+        },
+        {
+          "path": "reports/service-life-r16/public/camera-rear.png",
+          "role": "evidenceResource",
+          "bytes": 108837,
+          "sha256": "070694333a1fb4143433a426347653e2969a11416469fe52017aa3eaff1c8de2",
+          "encoding": "identity",
+          "resourceId": "e545543d-fb93-52b6-892d-081d9f3dec8a",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 49
+        },
+        {
+          "path": "reports/service-life-r16/public/camera-starboard.png",
+          "role": "evidenceResource",
+          "bytes": 147640,
+          "sha256": "93448ae5b4409027dc66da91cf86a74641804848d345287d6aa4d494b7466ba6",
+          "encoding": "identity",
+          "resourceId": "5f7a87a8-62b7-51c4-9578-13d186787afa",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 50
+        },
+        {
+          "path": "reports/service-life-r16/public/camera-top.png",
+          "role": "evidenceResource",
+          "bytes": 142958,
+          "sha256": "39802a04e3fffa1e998c624bf65c0db0e9cc5aa19c91b88a1f9f49852fec4d98",
+          "encoding": "identity",
+          "resourceId": "913d8270-ab03-5d04-ac82-3e7fd4bedf5e",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 51
+        },
+        {
+          "path": "reports/service-life-r16/public/damage-exhaust-starboard.png",
+          "role": "evidenceResource",
+          "bytes": 488306,
+          "sha256": "8926e005d8c12cd0f09ff51f1b5c4fb763b2e404ce4cb183a1a3dc37da68cd8a",
+          "encoding": "identity",
+          "resourceId": "0e83bbeb-9d32-5948-a301-fcb0e0f91523",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 52
+        },
+        {
+          "path": "reports/service-life-r16/public/damage-exhaust.png",
+          "role": "evidenceResource",
+          "bytes": 492916,
+          "sha256": "89407e4786ad68318533d635631d6809704342397b4b145f6298e53ddb00377c",
+          "encoding": "identity",
+          "resourceId": "bf0f35a8-b398-524c-b847-dafe44c3c0c2",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 53
+        },
+        {
+          "path": "reports/service-life-r16/public/exhaust-starboard.png",
+          "role": "evidenceResource",
+          "bytes": 463734,
+          "sha256": "dc786d8e2029714d96265ce4a85674393dd0b3e0c56a3b4e607bd86fef0326cb",
+          "encoding": "identity",
+          "resourceId": "88078f10-523e-59f2-a726-c3506390d064",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 54
+        },
+        {
+          "path": "reports/service-life-r16/public/exhaust.png",
+          "role": "evidenceResource",
+          "bytes": 457067,
+          "sha256": "a4c35f1f21e6dd097522f061d4dfb332f74ed03922f8481317efaaea29b82af9",
+          "encoding": "identity",
+          "resourceId": "e304967f-d481-59b1-b253-de6f0694769f",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 55
+        },
+        {
+          "path": "reports/service-life-r16/public/field-exhaust-starboard.png",
+          "role": "evidenceResource",
+          "bytes": 520250,
+          "sha256": "6b0395caa6d083f9cc70f6cb0d943f716e149ab70298c25e3d2bdd2828fb1ede",
+          "encoding": "identity",
+          "resourceId": "1ab1efba-b9c6-54b7-84f3-72c5ebb6c3d8",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 56
+        },
+        {
+          "path": "reports/service-life-r16/public/field-exhaust.png",
+          "role": "evidenceResource",
+          "bytes": 520874,
+          "sha256": "cbb13789bad136059d68444d3912b6be0127ee3e7c66e4cd85b4583b5fa92d33",
+          "encoding": "identity",
+          "resourceId": "9bb8e736-e7aa-5f6f-be1d-7ec3dee9567c",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 57
+        },
+        {
+          "path": "reports/service-life-r16/public/gear-port.png",
+          "role": "evidenceResource",
+          "bytes": 426014,
+          "sha256": "b55c8f45a65cf619e049c4e0aa64a72c4155e2e9bc96f88236216c66fbbf2779",
+          "encoding": "identity",
+          "resourceId": "a9233b98-e90e-519d-815c-6c6f03838cad",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 58
+        },
+        {
+          "path": "reports/service-life-r16/public/gear-starboard.png",
+          "role": "evidenceResource",
+          "bytes": 409938,
+          "sha256": "80d5267da720b4d27e49f3d28f3a2499a20cb193978cff763f0eb05c8c353770",
+          "encoding": "identity",
+          "resourceId": "7b146c8e-c120-5f78-b73f-365bd0a33a6b",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 59
+        },
+        {
+          "path": "reports/service-life-r16/public/maintained-exhaust-starboard.png",
+          "role": "evidenceResource",
+          "bytes": 463734,
+          "sha256": "dc786d8e2029714d96265ce4a85674393dd0b3e0c56a3b4e607bd86fef0326cb",
+          "encoding": "identity",
+          "resourceId": "3196ad56-cd45-5862-a0f0-1ebda3c0e0e2",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 60
+        },
+        {
+          "path": "reports/service-life-r16/public/maintained-exhaust.png",
+          "role": "evidenceResource",
+          "bytes": 457067,
+          "sha256": "a4c35f1f21e6dd097522f061d4dfb332f74ed03922f8481317efaaea29b82af9",
+          "encoding": "identity",
+          "resourceId": "3f831994-bfc8-5b88-a021-29ced251c9eb",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 61
+        },
+        {
+          "path": "reports/service-life-r16/public/mobile-controls.png",
+          "role": "evidenceResource",
+          "bytes": 61365,
+          "sha256": "8187e225345d36837aa4233e709640b0d16ca992b5d9dea1f7a29bc2d4b8ea29",
+          "encoding": "identity",
+          "resourceId": "b3cb7b0e-1ae0-5de9-8386-1c75f48ce0cf",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 62
+        },
+        {
+          "path": "reports/service-life-r16/public/mobile.png",
+          "role": "evidenceResource",
+          "bytes": 84043,
+          "sha256": "9a50ece73a86a16fd8ed68cb3f4cd2885c0f75c6c1e3d1486c82e722537a227b",
+          "encoding": "identity",
+          "resourceId": "350a49d5-ebf4-590b-ba48-d8cb0b6c0840",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 63
+        },
+        {
+          "path": "reports/service-life-r16/public/new-exhaust-starboard.png",
+          "role": "evidenceResource",
+          "bytes": 432030,
+          "sha256": "ce659479d7940c68c6cb48c2fd78af22c4e2379471899f5de2111b8d085d216f",
+          "encoding": "identity",
+          "resourceId": "ecfd569e-f235-50ca-a86b-c6345b2a4c37",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 64
+        },
+        {
+          "path": "reports/service-life-r16/public/new-exhaust.png",
+          "role": "evidenceResource",
+          "bytes": 415034,
+          "sha256": "516669b30ea5652a69b9e931f9ad015eff6eb5305b809a5cd446340a75043139",
+          "encoding": "identity",
+          "resourceId": "2018c73d-d87f-5256-bf30-b30b66aecc1d",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 65
+        },
+        {
+          "path": "reports/service-life-r16/public/nose.png",
+          "role": "evidenceResource",
+          "bytes": 272581,
+          "sha256": "7fb1e14f8fe0c0b5188d239d09f257e78002cff9c1e3efa5e6f1598a99d09bb3",
+          "encoding": "identity",
+          "resourceId": "c9a370d3-0616-566d-a279-6575608927a9",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 66
+        },
+        {
+          "path": "reports/service-life-r16/public/overview.png",
+          "role": "evidenceResource",
+          "bytes": 236127,
+          "sha256": "80d62eff6a44b8a06b3da7e8acb6080167cd58a7b79208f5c2b8b5815ffa73af",
+          "encoding": "identity",
+          "resourceId": "cbf940b6-eb14-5503-9f0a-1bdc9e696416",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 67
+        },
+        {
+          "path": "reports/service-life-r16/public/port.png",
+          "role": "evidenceResource",
+          "bytes": 180375,
+          "sha256": "e0047c148118001b2b2e7baa33c92a70cb029088b5687802b1888a5dc16898b2",
+          "encoding": "identity",
+          "resourceId": "79b238d1-37f7-5d1b-bc4a-875667a122e5",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 68
+        },
+        {
+          "path": "reports/service-life-r16/public/qa.json",
+          "role": "evidenceResource",
+          "bytes": 67185,
+          "sha256": "6a9eca4886811ae6d28e957c83a1c83aa019bf00f178d8d5aaa1d3ba78695e58",
+          "encoding": "identity",
+          "resourceId": "edbc5061-e2bf-5de0-a86b-33949dc6bddb",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 69
+        },
+        {
+          "path": "reports/service-life-r16/public/repaired-exhaust-starboard.png",
+          "role": "evidenceResource",
+          "bytes": 465789,
+          "sha256": "afc9371d6ab52b4b0ed5b361bd29673589589121911c899becb85cef3b37cc7b",
+          "encoding": "identity",
+          "resourceId": "8c95a193-573e-51af-b817-c38af2f5d52f",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 70
+        },
+        {
+          "path": "reports/service-life-r16/public/repaired-exhaust.png",
+          "role": "evidenceResource",
+          "bytes": 462906,
+          "sha256": "73d0a6af2b692ad88587dc7c3a58729ebf82b4d52b68d63cbd39c3bf05bc811b",
+          "encoding": "identity",
+          "resourceId": "77733499-1c43-5c56-9754-301663e65a41",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 71
+        },
+        {
+          "path": "reports/service-life-r16/public/resized-perspective.png",
+          "role": "evidenceResource",
+          "bytes": 164060,
+          "sha256": "c4960212ccd6e60c4eddf38d7596fad65a7ec5763b36519334cef232505954a7",
+          "encoding": "identity",
+          "resourceId": "e5ae6828-bd0b-5c54-8c06-2d64a7b38654",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 72
+        },
+        {
+          "path": "reports/service-life-r16/public/skin.png",
+          "role": "evidenceResource",
+          "bytes": 162430,
+          "sha256": "b63aba33172cbae65934a6b6e2c39782f6406810d023ee89a3e8914bfac07de6",
+          "encoding": "identity",
+          "resourceId": "f4b2ef03-3f42-5ebc-838b-e0e50c73d858",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 73
+        },
+        {
+          "path": "reports/service-life-r16/public/starboard.png",
+          "role": "evidenceResource",
+          "bytes": 195003,
+          "sha256": "1e47520f0acee9630651ac72ad53ff96583c8c17ed1c2fe36fefa09d58d41e31",
+          "encoding": "identity",
+          "resourceId": "ad2842db-a1d5-5349-89aa-edc8d5b6123e",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 74
+        },
+        {
+          "path": "reports/service-life-r16/public/tail-root.png",
+          "role": "evidenceResource",
+          "bytes": 294390,
+          "sha256": "0ec6fa486f10638a148359796123820aadbb13cec36ef185d7ebaa08c70952d3",
+          "encoding": "identity",
+          "resourceId": "2422c6d3-8721-5566-abe5-7a221601c939",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 75
+        },
+        {
+          "path": "reports/service-life-r16/public/tire.png",
+          "role": "evidenceResource",
+          "bytes": 280259,
+          "sha256": "2fdcf75b94a2dbb4bbf2323f8e8e3941d14bb12d98d3c95f62cee217bdf704b0",
+          "encoding": "identity",
+          "resourceId": "ff722a41-ca9d-53ed-bf70-23c0ce596d0d",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 76
+        },
+        {
+          "path": "reports/service-life-r16/public/wing-bottom.png",
+          "role": "evidenceResource",
+          "bytes": 223972,
+          "sha256": "250714045e9daa177e85371eb8b6a129fb8a165a0f41f3f79255698ce5566ab0",
+          "encoding": "identity",
+          "resourceId": "98de9d7b-98f5-5fdf-90fc-823756a32741",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 77
+        },
+        {
+          "path": "reports/service-life-r16/public/wing.png",
+          "role": "evidenceResource",
+          "bytes": 157933,
+          "sha256": "8b5b41379fc84f3b8a6a5d2aaa4463c1a807b5c211660a087f96580545b6196a",
+          "encoding": "identity",
+          "resourceId": "14655977-b20f-5225-a764-8ac8eb2db96d",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 78
+        },
+        {
+          "path": "runtime/asset-layout.js",
+          "role": "sourceResource",
+          "bytes": 2615,
+          "sha256": "68c0dd258ffc5eae37510891174ef24485b970d27a036b4fbfb57897dd6dd463",
+          "encoding": "identity",
+          "resourceId": "26d59343-4d97-596c-a954-20203a88eb41",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 79
+        },
+        {
+          "path": "runtime/asset-loader.js",
+          "role": "sourceResource",
+          "bytes": 7468,
+          "sha256": "a9782f95d32f8c2130ac0a9d89475b0302a8f32a6ebcf416f519e80a65aab9c7",
+          "encoding": "identity",
+          "resourceId": "26ee7e92-0b4a-583c-8287-cbddcc417405",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 80
+        },
+        {
+          "path": "runtime/assets/parts/bin-000-328814bb6f3b2678.part",
+          "role": "sourceResource",
+          "bytes": 524288,
+          "sha256": "328814bb6f3b267883d1fa12f9c1f3bcaa26719d8d6ac78fe6113664f33b3858",
+          "encoding": "identity",
+          "resourceId": "72cbbf05-45b7-5bac-98c3-38fe3bb13e5a",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 81
+        },
+        {
+          "path": "runtime/assets/parts/bin-001-def9bcae9f915cd9.part",
+          "role": "sourceResource",
+          "bytes": 524288,
+          "sha256": "def9bcae9f915cd9eeb150c0c9e90516aa1dac2fa3c90aa5c05f46d10e37d769",
+          "encoding": "identity",
+          "resourceId": "2941181a-0f32-5070-ae90-3bfd14e4e862",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 82
+        },
+        {
+          "path": "runtime/assets/parts/bin-002-b2c80b6ee3b4a64e.part",
+          "role": "sourceResource",
+          "bytes": 524288,
+          "sha256": "b2c80b6ee3b4a64ed0d9e38d3c24e3b5f9b8f31d7cabaf183ae18300fc14a11d",
+          "encoding": "identity",
+          "resourceId": "d0c7d14c-89e6-5eeb-891f-662f5bb9f9f3",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 83
+        },
+        {
+          "path": "runtime/assets/parts/bin-003-d02f982b0ffd4a53.part",
+          "role": "sourceResource",
+          "bytes": 524288,
+          "sha256": "d02f982b0ffd4a53ff34210216ddc38438b3db320284c0fe9a8b2c309dfe9647",
+          "encoding": "identity",
+          "resourceId": "8be544b8-ae56-5e78-80a3-c5e62f01e461",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 84
+        },
+        {
+          "path": "runtime/assets/parts/bin-004-dcf915b2a7c9db6c.part",
+          "role": "sourceResource",
+          "bytes": 524288,
+          "sha256": "dcf915b2a7c9db6c4576dfb3a4e019f4cc90758d8a2e72821da87abb497e63b5",
+          "encoding": "identity",
+          "resourceId": "c6ee5d9b-6115-5e7e-9acc-d6a52cc3c6ea",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 85
+        },
+        {
+          "path": "runtime/assets/parts/bin-005-9881509e794eb6e7.part",
+          "role": "sourceResource",
+          "bytes": 524288,
+          "sha256": "9881509e794eb6e74c2af2694937b0111a605edcbda808e61452e4b4334192f4",
+          "encoding": "identity",
+          "resourceId": "6738b076-a970-5f84-adfc-bc020d1883a0",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 86
+        },
+        {
+          "path": "runtime/assets/parts/bin-006-ecb1e3940c8a586f.part",
+          "role": "sourceResource",
+          "bytes": 524288,
+          "sha256": "ecb1e3940c8a586fa730ec38b2232e65a4b73033a20431a77bf5ca7b7b2caba8",
+          "encoding": "identity",
+          "resourceId": "cdafac87-0c66-54ad-913e-5c5b6b00fbe7",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 87
+        },
+        {
+          "path": "runtime/assets/parts/bin-007-d06d2dbc5c16bc46.part",
+          "role": "sourceResource",
+          "bytes": 235010,
+          "sha256": "d06d2dbc5c16bc468d2bcc221a588354b4b31468a2b1994be45fc7be891c1dc0",
+          "encoding": "identity",
+          "resourceId": "91e2b05a-91c0-5a08-a584-0bd9284b52e0",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 88
+        },
+        {
+          "path": "runtime/assets/parts/json-000-7ab928624ced9d47.part",
+          "role": "sourceResource",
+          "bytes": 156451,
+          "sha256": "7ab928624ced9d474d73796bc99c3e6da18f9c863cf03fa4e33060472744e26d",
+          "encoding": "identity",
+          "resourceId": "4b11af8a-8a43-57f1-b3a0-0c53fdd6d22e",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 89
+        },
+        {
+          "path": "runtime/b24-joint-demo-r14.js",
+          "role": "sourceResource",
+          "bytes": 2813,
+          "sha256": "2c4514864a053c4acee78d00443ede2313f41e8fc6a19da254dcc57bbb0d33db",
+          "encoding": "identity",
+          "resourceId": "d9d08a8f-2cbe-5b58-acf2-279ba55e5cde",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 90
+        },
+        {
+          "path": "runtime/b24-r10-detail-materials.js",
+          "role": "sourceResource",
+          "bytes": 11141,
+          "sha256": "f6eb8bf3085d527e56328598cec6242c29971e2055ad4ac514e78d705f666371",
+          "encoding": "identity",
+          "resourceId": "6899b720-3e42-5789-b535-0e456d379062",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 91
+        },
+        {
+          "path": "runtime/b24-r10-detail-regions.js",
+          "role": "sourceResource",
+          "bytes": 4248,
+          "sha256": "6bdb5540db7ae5bcc02ae1bd474c1d130c43691d8340077bdb5af414aab564eb",
+          "encoding": "identity",
+          "resourceId": "0507e7f1-c3e5-59d3-b577-5267b7527b9a",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 92
+        },
+        {
+          "path": "runtime/b24-r11-skin-system.js",
+          "role": "sourceResource",
+          "bytes": 21668,
+          "sha256": "b6baf93203edfc33046cfad1985bd4bad6a837c37f413c93885472839c555fcd",
+          "encoding": "identity",
+          "resourceId": "97be0df2-fc5b-5695-bf60-30fd0709a858",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 93
+        },
+        {
+          "path": "runtime/b24-r16-skin-system.js",
+          "role": "sourceResource",
+          "bytes": 23429,
+          "sha256": "ae4b38a6b63dbd60db314df4dc8da1a92ac2121945642024beef7681643b9703",
+          "encoding": "identity",
+          "resourceId": "4d7269bd-ae02-59d1-ad7d-9bc70ba56ab5",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 94
+        },
+        {
+          "path": "runtime/b24-r7-bay-poses.js",
+          "role": "sourceResource",
+          "bytes": 17143,
+          "sha256": "11dfb04feaa512ed02af7f2693bc97d9ca596bea529f1daac88f13f16dba46ee",
+          "encoding": "identity",
+          "resourceId": "d386583a-3b3c-5b84-940e-8ef34c1bb441",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 95
+        },
+        {
+          "path": "runtime/b24-r7-reference.js",
+          "role": "sourceResource",
+          "bytes": 10518,
+          "sha256": "009e477b0ab40eba39ea88e1207a585a033246317169cf828e108dc921783828",
+          "encoding": "identity",
+          "resourceId": "67116f0d-0beb-56f1-b933-1e4cf1280275",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 96
+        },
+        {
+          "path": "runtime/b24-r8-bay-poses.js",
+          "role": "sourceResource",
+          "bytes": 19177,
+          "sha256": "4a18b9ccd73676ffa7281d12fec9e05737eeda6436698afbc8033212fa546c76",
+          "encoding": "identity",
+          "resourceId": "a2fd9194-8a50-5732-957c-0ab1ed0e29e2",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 97
+        },
+        {
+          "path": "runtime/b24-reference-panels-r16.js",
+          "role": "sourceResource",
+          "bytes": 6761,
+          "sha256": "0e2b54f717f24239ded2492b223e2d158ca8bf1d5e6e95f1dc267eae857eaefe",
+          "encoding": "identity",
+          "resourceId": "08299403-697f-5eda-8319-56cf7d9adb4c",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 98
+        },
+        {
+          "path": "runtime/b24-service-life-r16.js",
+          "role": "sourceResource",
+          "bytes": 17613,
+          "sha256": "4f0155db5925a004d6c834827c57e33ac24e7567f31d0a164dec8e01561d311d",
+          "encoding": "identity",
+          "resourceId": "6076ca4c-3049-5d1d-a533-e679530559e9",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 99
+        },
+        {
+          "path": "runtime/b24-skin-integration-r14.js",
+          "role": "sourceResource",
+          "bytes": 19357,
+          "sha256": "8143f9979d5709342bfc2c2fd39c674cba4b0719b3fa3060df554febfaedaa3a",
+          "encoding": "identity",
+          "resourceId": "9f3d7878-7177-5a94-9bf2-6c7e3de749ad",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 100
+        },
+        {
+          "path": "runtime/b24-wing-seams-view-r16.js",
+          "role": "sourceResource",
+          "bytes": 20608,
+          "sha256": "65c4c923898e8d98cdcc9967ad5d9192b8720745da25b99c8590fffca2ab9f02",
+          "encoding": "identity",
+          "resourceId": "b16d384d-1f9e-5b11-b127-bc15d8c789ca",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 101
+        },
+        {
+          "path": "runtime/motion-system.js",
+          "role": "sourceResource",
+          "bytes": 2588,
+          "sha256": "a5033345f32e7a1b6fe452f4a9be6c517af17631e6296656f3e6b0532c350831",
+          "encoding": "identity",
+          "resourceId": "1fc3a038-6c23-5b3d-9400-9bf4f276c574",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 102
+        },
+        {
+          "path": "runtime/native-aircraft.js",
+          "role": "sourceResource",
+          "bytes": 8641,
+          "sha256": "b3ae31187296afffe3ea9fbbdf8c958e39f8705a799ef2b3db4f9b5c185d0afb",
+          "encoding": "identity",
+          "resourceId": "7f57fff9-792f-5fc8-ae96-e34c71eb01be",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 103
+        },
+        {
+          "path": "runtime/skin-joints-r14.js",
+          "role": "sourceResource",
+          "bytes": 8065,
+          "sha256": "e6f744600f8e474d5838e074f2b4d9d4d66e0aa0d9376ee4f64acc78ad0d4979",
+          "encoding": "identity",
+          "resourceId": "98a4078a-4009-5cec-bd13-621191dbf3b0",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 104
+        },
+        {
+          "path": "runtime/skin-joints-workbench-r14.js",
+          "role": "sourceResource",
+          "bytes": 8839,
+          "sha256": "d4b1ff5f54764160f8dee1471b4f86e6c3ff608bd730cbc4bacb8c1586d20bd3",
+          "encoding": "identity",
+          "resourceId": "50e33e4c-8c97-5604-bf0f-8d52a63ef431",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 105
+        },
+        {
+          "path": "runtime/vendor/OrbitControls.js",
+          "role": "sourceResource",
+          "bytes": 38703,
+          "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+          "encoding": "identity",
+          "resourceId": "b2dc9f92-9e60-5191-984b-4786f9a1fd07",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 106
+        },
+        {
+          "path": "runtime/vendor/THREE-LICENSE.txt",
+          "role": "sourceResource",
+          "bytes": 1081,
+          "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+          "encoding": "identity",
+          "resourceId": "77ce8518-1f59-5a65-a038-c7e41466cc12",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 107
+        },
+        {
+          "path": "runtime/vendor/three.core.js",
+          "role": "sourceResource",
+          "bytes": 1403455,
+          "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+          "encoding": "identity",
+          "resourceId": "f42aba32-a411-5244-bb0a-253caee81cd3",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 108
+        },
+        {
+          "path": "runtime/vendor/three.module.js",
+          "role": "sourceResource",
+          "bytes": 603113,
+          "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+          "encoding": "identity",
+          "resourceId": "75fc8d8c-a74c-541d-974a-036524539bbb",
+          "requiredFor": [
+            "full-file-recovery",
+            "rendering"
+          ],
+          "chunkOrdinal": 109
+        },
+        {
+          "path": "tools/verify-package.py",
+          "role": "evidenceResource",
+          "bytes": 464,
+          "sha256": "d67071e6c38b881837db3b3e1c073c4693ea77e461905ffacde5bf06d61bf658",
+          "encoding": "identity",
+          "resourceId": "43c56e01-553d-5e65-8e0f-6367d1a8774e",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 110
+        },
+        {
+          "path": "tools/wing-seams-r16-check.py",
+          "role": "evidenceResource",
+          "bytes": 6994,
+          "sha256": "6ed92f882aae01d003ef0bbbca6cbef317e6076078df69f18b5b848470ae4878",
+          "encoding": "identity",
+          "resourceId": "fb8ac236-a909-575a-83f8-727f7525bc17",
+          "requiredFor": [
+            "full-file-recovery"
+          ],
+          "chunkOrdinal": 111
+        }
+      ],
+      "scope": "all accepted ZIP entries",
+      "pathPolicy": "relative POSIX paths, no absolute path or traversal; extraction never executes files"
+    }
+  }
+}

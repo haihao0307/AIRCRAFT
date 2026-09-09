@@ -1,0 +1,54 @@
+{
+  "url": "https://rawcdn.githack.com/haihao0307/AIRCRAFT/51623c3c2caa2a7af6d4b909dd10faeddb058d09/tlo-pilot/index.html",
+  "errors": [],
+  "badResponses": [],
+  "verified": {
+    "passed": true,
+    "profile": "tlo-mother01-pilot/0.1",
+    "sha256": "fb76422e2999536a935132b2c28c382e69a86bef9969cf2ca21e9650da8e01a5",
+    "bytes": 19095163,
+    "chunks": 112,
+    "resourceFiles": 102,
+    "objects": 7,
+    "objectId": "urn:mother:aircraft:b24:generic:01",
+    "name": "B-24 公版母体 01",
+    "lengthUnit": "m",
+    "worldTime": {
+      "reason": "generic baseline has no historical flight instant",
+      "status": "unknown"
+    },
+    "worldLocation": {
+      "reason": "generic baseline has no evidenced geographic position",
+      "status": "unknown"
+    },
+    "sourceCommit": "636f26ec102680b4154a6f9dca0cf49fc951f51e",
+    "unknownOptionalChunks": []
+  },
+  "downloadRawFile": true,
+  "semanticExport": true,
+  "damagedInputRejected": true,
+  "mobileOverflow": false,
+  "publicFiles": [
+    {
+      "path": "tlo-pilot/index.html",
+      "sha256": "edc316bc5a102cedcef9bdd1dacea7135c029050d7ff61b88d839c28752dc28a"
+    },
+    {
+      "path": "tlo-pilot/reader.js",
+      "sha256": "a953a887769f5f091fe89430a1dad21ee9262508f77e156d80cba925412f9e33"
+    },
+    {
+      "path": "tlo-pilot/reader-codec.js",
+      "sha256": "e27cf0366b3ef99f9bd7835260c17a8bad9703782f140f65d7fa5981cdd0c6f1"
+    },
+    {
+      "path": "tlo-pilot/reader.css",
+      "sha256": "e153278943f958659ae6930528ea0ff364bfaa1ebb9266d21d14afc99b0b6241"
+    },
+    {
+      "path": "tlo-pilot/FORMAT.md",
+      "sha256": "8fb3ce66a6048e836877f5a6927f024dc5b49fbfb5cc0e0879f7b227172dea2b"
+    }
+  ],
+  "passed": true
+}
