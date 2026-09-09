@@ -1,3 +1,7 @@
+# 当前有效基线：公版母体01（2026-09-09）
+
+用户已接受R16为公版母体01，当前分支accepted/b24-generic-mother-01。本阶段冻结；只做必要归档及完整性修复，不自动开启研发。先读CURRENT.json、README.md与docs/generic-mother-01/DERIVATION.md。以下历史阶段说明只用于来源追溯，不能覆盖本节。原有已发布公网地址和历史提交保留；当前树删除旧入口不代表删除历史。逐架新飞机必须派生，不能覆盖公版。
+
 # B24 native distillation R1
 
 The user approved proceeding with image-free compact data, an independent motion system, then source-grounded geometry recipes. This branch is feature/b24-native-distillation-r1. Read CURRENT.json and knowledge/NATIVE_R1.md. Do not merge other branches or activate old reconstruction workflows.
