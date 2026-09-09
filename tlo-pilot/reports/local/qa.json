@@ -1,0 +1,32 @@
+{
+  "url": "http://127.0.0.1:18769/tlo-pilot/index.html",
+  "errors": [],
+  "badResponses": [],
+  "verified": {
+    "passed": true,
+    "profile": "tlo-mother01-pilot/0.1",
+    "sha256": "fb76422e2999536a935132b2c28c382e69a86bef9969cf2ca21e9650da8e01a5",
+    "bytes": 19095163,
+    "chunks": 112,
+    "resourceFiles": 102,
+    "objects": 7,
+    "objectId": "urn:mother:aircraft:b24:generic:01",
+    "name": "B-24 公版母体 01",
+    "lengthUnit": "m",
+    "worldTime": {
+      "reason": "generic baseline has no historical flight instant",
+      "status": "unknown"
+    },
+    "worldLocation": {
+      "reason": "generic baseline has no evidenced geographic position",
+      "status": "unknown"
+    },
+    "sourceCommit": "636f26ec102680b4154a6f9dca0cf49fc951f51e",
+    "unknownOptionalChunks": []
+  },
+  "downloadRawFile": true,
+  "semanticExport": true,
+  "damagedInputRejected": true,
+  "mobileOverflow": false,
+  "passed": true
+}

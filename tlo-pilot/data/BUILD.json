@@ -1,0 +1,13 @@
+{
+  "profile": "tlo-mother01-pilot/0.1",
+  "sourceCommit": "636f26ec102680b4154a6f9dca0cf49fc951f51e",
+  "sourcePackageSHA256": "c50241d9587267025dcb8849b195ca4f31a1b653604a69a16928c8cf61002b84",
+  "tloSHA256": "fb76422e2999536a935132b2c28c382e69a86bef9969cf2ca21e9650da8e01a5",
+  "tloBytes": 19095163,
+  "resourceFiles": 102,
+  "chunks": 112,
+  "semanticBytes": 39268,
+  "sourceFileBytes": 19054535,
+  "fullFileRecovery": "pending independent verification",
+  "productionBaselineModified": false
+}
