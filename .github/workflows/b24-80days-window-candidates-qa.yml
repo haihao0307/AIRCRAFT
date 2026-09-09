@@ -1,0 +1,62 @@
+name: B24 80 DAYS window candidates QA
+on:
+  push:
+    branches: [feature/b24-80days-instance-from-mother01-r3]
+    paths:
+      - b24-80days-window-candidates.html
+      - runtime/b24-80days-window-candidates.js
+      - .github/workflows/b24-80days-window-candidates-qa.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static check
+        run: node --check runtime/b24-80days-window-candidates.js
+      - name: Install Chromium
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Serve
+        run: python -m http.server 8765 >/tmp/window-http.log 2>&1 &
+      - name: Capture candidates
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          from playwright.sync_api import sync_playwright
+          ids=[7,80,8,81,12,85,13,86,10,83,69,71,63,65,59,60]
+          out=Path('reports/80-days-window-candidates');out.mkdir(parents=True,exist_ok=True)
+          records=[];errors=[]
+          with sync_playwright() as p:
+              b=p.chromium.launch(headless=True)
+              page=b.new_page(viewport={"width":1280,"height":860},device_scale_factor=1)
+              page.on('console',lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
+              page.on('pageerror',lambda e: errors.append('pageerror: '+str(e)))
+              page.goto('http://127.0.0.1:8765/b24-80days-window-candidates.html',wait_until='domcontentloaded',timeout=30000)
+              page.wait_for_function("() => window.__B24_WINDOW_CANDIDATES_READY__ || window.__B24_WINDOW_CANDIDATES_ERROR__",timeout=60000)
+              assert not page.evaluate("() => window.__B24_WINDOW_CANDIDATES_ERROR__||null")
+              for cid in ids:
+                  page.click(f'button[data-c="{cid}"]');page.wait_for_timeout(450)
+                  rec=page.evaluate("() => window.__B24_WINDOW_CANDIDATE__")
+                  records.append(rec)
+                  page.screenshot(path=str(out/f'component-{cid}.png'))
+              Path(out/'candidates.json').write_text(json.dumps({'records':records,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
+              b.close()
+          assert len(records)==len(ids),records
+          assert not errors,errors
+          print(json.dumps([{k:r[k] for k in ['id','center','size','triangles']} for r in records],ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-80days-window-candidates
+          path: reports/80-days-window-candidates
+          retention-days: 30
