@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>B-24 “80 DAYS” · Mother 01 实例 R1</title>
+<link rel="icon" href="data:,">
+<script type="importmap">{"imports":{"three":"./runtime/vendor/three.module.js"}}</script>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#0b0e0c;color:#eef0e8;font-family:Inter,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}body{overflow:hidden}button,input{font:inherit}#app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 360px}#stage{position:relative;min-width:0;background:radial-gradient(circle at 48% 28%,#343933 0,#171b18 46%,#0a0c0b 100%)}canvas{display:block;width:100%;height:100%}#panel{overflow:auto;background:#121612;border-left:1px solid rgba(240,242,226,.1);padding:18px}.top{position:absolute;left:18px;right:18px;top:16px;display:flex;justify-content:space-between;gap:12px;pointer-events:none}.title,.badge,.status{border:1px solid rgba(237,240,224,.14);background:rgba(9,12,10,.8);backdrop-filter:blur(12px);border-radius:8px}.title{padding:11px 14px}.title small{display:block;color:#aab4a6;font-size:9px;letter-spacing:.17em}.title h1{font-size:20px;margin:5px 0 0;font-weight:650}.badge{align-self:flex-start;padding:9px 11px;color:#d8cca2;font-size:10px}.status{position:absolute;left:18px;bottom:18px;max-width:min(820px,calc(100% - 36px));padding:9px 12px;color:#cad1c5;font-size:11px}.section{padding:14px 0;border-bottom:1px solid rgba(240,242,226,.08)}.section:first-child{padding-top:0}.section h2{font-size:13px;margin:0 0 10px}.section p{font-size:10px;line-height:1.65;color:#aab2a7;margin:7px 0}.notice{padding:10px;border:1px solid rgba(199,180,105,.34);background:rgba(126,102,27,.11);border-radius:6px;color:#d8cca2;font-size:10px;line-height:1.6}.btns{display:grid;grid-template-columns:1fr 1fr;gap:7px}.btns button,.wide{border:1px solid #394139;background:#1a211b;color:#e9ebe3;padding:9px 8px;border-radius:6px;cursor:pointer}.btns button.active{border-color:#9eaa82;background:#313a30}.toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;font-size:11px;color:#cad0c6}.legend{display:grid;gap:7px;font-size:10px;color:#aeb6aa}.legend b{color:#eef0e8}.small{font-size:9px;color:#8f998e;line-height:1.6}#loading{position:absolute;inset:0;display:grid;place-items:center;background:#0b0e0c;z-index:10}.loadbox{width:min(430px,calc(100vw - 36px));padding:20px;border:1px solid #30382f;background:#121712;border-radius:9px}.loadbox h2{font-size:16px;margin:0 0 8px}.loadbox p{font-size:11px;line-height:1.6;color:#9fa99d}.bar{height:5px;border-radius:9px;background:#222a22;overflow:hidden}.bar i{display:block;height:100%;width:8%;background:#a9b78c;transition:width .2s}.readout{margin-top:10px;font:10px/1.5 ui-monospace,monospace;color:#b8c2b3;white-space:pre-wrap}.mobileToggle{display:none;pointer-events:auto;border:1px solid #4d5849;background:#172018;color:#eef0e8;padding:9px 11px;border-radius:7px;cursor:pointer}@media(max-width:760px){#app{grid-template-columns:1fr}#panel{position:absolute;z-index:7;right:8px;top:8px;bottom:8px;width:min(342px,calc(100vw - 16px));border:1px solid rgba(240,242,226,.14);border-radius:9px;background:rgba(18,22,18,.97);display:none}#panel.open{display:block}.mobileToggle{display:block}.badge{display:none}.title{max-width:calc(100% - 58px)}.title h1{font-size:16px}.status{left:12px;bottom:12px;max-width:calc(100% - 24px)}}
+</style>
+</head>
+<body>
+<div id="app">
+<main id="stage">
+<canvas id="scene"></canvas>
+<div id="loading"><div class="loadbox"><h2>载入 “80 DAYS” · R1</h2><p id="loadText">读取已冻结公版母体 01，建立独立实例。</p><div class="bar"><i id="bar"></i></div><div class="readout" id="diag">mother-01 / instance-r1</div></div></div>
+<header class="top"><div class="title"><small>B-24J 42-73257 / 374BS · INSTANCE R1</small><h1>“80 DAYS” · 自检修正版</h1></div><button class="mobileToggle" id="mobileToggle">控制</button><div class="badge">Mother 01 不修改</div></header>
+<div class="status" id="status">准备载入</div>
+</main>
+<aside id="panel">
+<section class="section"><h2>本轮原则</h2><div class="notice">不是继续修旧 V2。当前实例从已验收 Mother 01 派生。左右舷独立；未知数量不补造；鲨鱼嘴按照片曲线投到真实机鼻曲面，不使用平面镜像贴板。</div></section>
+<section class="section"><h2>固定视图</h2><div class="btns" id="views"><button data-view="orbit" class="active">立体透视</button><button data-view="port">左舷正交</button><button data-view="starboard">右舷正交</button><button data-view="front">机头透视</button></div></section>
+<section class="section"><h2>实例图层</h2><label class="toggle"><span>“80 DAYS” 主图装</span><input id="artToggle" type="checkbox" checked></label><label class="toggle"><span>任务标记可见子集</span><input id="missionToggle" type="checkbox" checked></label><p>任务标记只显示来源中能够分离的可见部分，不代表总任务数；炸弹总数仍未锁定。</p></section>
+<section class="section"><h2>本轮已经主动修正</h2><div class="legend"><span><b>鲨鱼嘴：</b>深红口腔，前宽后尖；上下牙向口内，取消均匀三角模板。</span><span><b>左右舷：</b>单独绘制，不镜像。</span><span><b>标题：</b>保留引号，D 独立拉高/倾斜。</span><span><b>骰子：</b>五点与三点，完整放在嘴线上方。</span><span><b>人名：</b>左舷 ROBBY + HUFF；右舷 STAM。</span><span><b>窗口：</b>不再额外画假的方窗；鲨鱼眼与真实窗分离。</span><span><b>战果旗：</b>右舷 8 面来源记录进入审查层；红心与白底分层。</span></div></section>
+<section class="section"><h2>仍未冒充完成</h2><p id="qaReadout">等待曲面投射 QA。</p><div class="small">visualAcceptance=false · productionReady=false。当前重点先纠正形状逻辑、左右关系与曲面贴附；未锁定的炸弹总数、个别低分辨率边缘继续保留未知。</div></section>
+</aside>
+</div>
+<script type="module" src="./runtime/b24-80days-instance-r1.js"></script>
+</body></html>
