@@ -1,0 +1,110 @@
+{
+  "schema": "haihao.aircraft/80-days-instance-marking-contract@1.0",
+  "status": "active-review-contract",
+  "aircraft": {
+    "type": "B-24J-25-CO Liberator",
+    "name": "80 DAYS",
+    "serial": "42-73257",
+    "aircraftNumber": "487",
+    "unit": "14AF / 308BG / 374BS",
+    "theater": "China",
+    "period": "1944"
+  },
+  "mother": {
+    "id": "b24-generic-mother-01",
+    "branch": "accepted/b24-generic-mother-01",
+    "freezeCommit": "636f26ec102680b4154a6f9dca0cf49fc951f51e",
+    "renderCommit": "47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a",
+    "immutable": true
+  },
+  "method": {
+    "rule": "Each visible marking is an independent evidence-bound component; no port/starboard mirroring and no freehand completion from symmetry.",
+    "surfaceBinding": "Project each component to the inherited curved Mother-01 skin with the existing raycast decal mechanism; do not flatten the nose into one billboard.",
+    "unknownPolicy": "Unknown values remain unknown. They are not completed for visual neatness."
+  },
+  "evidence": [
+    {
+      "id": "PORT_CLOSE",
+      "kind": "exact-aircraft historical photo",
+      "filename": "42-73257-B-24J-Liberator-14AF-308BG374BS-no-487-named-80-Days-nose-art-left-side-China-01.jpg",
+      "supports": ["port shark mouth", "port title", "port dice", "ROBBY", "HUFF", "port eye/window relationship"]
+    },
+    {
+      "id": "STARBOARD_INFLIGHT",
+      "kind": "exact-aircraft historical photo",
+      "filename": "42-73257-B-24J-Liberator-14AF-308BG374BS-no-487-named-80-Days-nose-art-right-side-in-flight-CBI-01.jpg",
+      "supports": ["starboard shark mouth proportion", "starboard title/dice scale", "fuselage relationship", "tail 487"]
+    },
+    {
+      "id": "E01_GROUND",
+      "kind": "verified historical photo record",
+      "filename": "80_Days_China_2_1944.jpg",
+      "sha256": "c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5",
+      "supports": ["STAM", "mission-mark area", "victory flags", "shark mouth/dice relationship"]
+    },
+    {
+      "id": "CORRECTIONS_V02",
+      "kind": "accepted review correction record",
+      "supports": ["independent sides", "ROBBY dots and small flag", "remove invented square window", "separate shark eye and real multi-part window", "distorted D in DAYS", "dice fully visible", "mouth taper direction", "upper/lower teeth point inward", "mission bombs and victory flags belong in reconstruction"]
+    }
+  ],
+  "components": {
+    "port": {
+      "sharkMouth": {
+        "independent": true,
+        "interiorColor": {"value": "deep red reconstruction", "historicalMeasuredColor": false},
+        "teeth": "aged off-white; irregular size/spacing; both rows point into the mouth; no repeated uniform triangle stamp",
+        "taper": "follow port photograph, not starboard mirror",
+        "status": "rebuild-required"
+      },
+      "sharkEye": {"separateFromWindow": true, "status": "rebuild-required"},
+      "title": {"text": "\u201c80 DAYS\u201d", "D": "taller, skewed, protruding", "status": "rebuild-required"},
+      "dice": {"count": 2, "fullyVisibleAboveMouth": true, "status": "rebuild-required"},
+      "ROBBY": {"twoFlankingDots": true, "smallFlagBelow": true, "status": "rebuild-required"},
+      "HUFF": {"present": true, "status": "rebuild-required"},
+      "inventedSquareWindow": {"allowed": false}
+    },
+    "starboard": {
+      "sharkMouth": {
+        "independent": true,
+        "interiorColor": {"value": "deep red reconstruction", "historicalMeasuredColor": false},
+        "teeth": "aged off-white; irregular size/spacing; both rows point into the mouth; no repeated uniform triangle stamp",
+        "taper": "follow starboard evidence, not port mirror",
+        "status": "rebuild-required"
+      },
+      "sharkEye": {"separateFromWindow": true, "status": "rebuild-required"},
+      "title": {"text": "\u201c80 DAYS\u201d", "status": "rebuild-required"},
+      "dice": {"count": 2, "fullyVisibleAboveMouth": true, "status": "rebuild-required"},
+      "ROBBY": {"present": true, "status": "rebuild-required"},
+      "HUFF": {"present": false},
+      "STAM": {"placement": "directly below the real upper multi-part side-window area", "status": "rebuild-required"},
+      "victoryFlags": {"count": 8, "countStatus": "verified source / review required", "redCenters": true, "status": "rebuild-required"}
+    },
+    "missionBombs": {
+      "presentInReconstruction": true,
+      "exactCount": null,
+      "countStatus": "blocked pending approved count sheet",
+      "rule": "Do not fabricate an exact count. Render only evidence-resolved marks in a review layer until count is locked."
+    },
+    "fixedVerticalFins": {
+      "labels": ["273257", "487", "white triangle"],
+      "status": "inherited historical requirement; placement requires instance review"
+    }
+  },
+  "rejectedLegacyAssumptions": [
+    "Old V2 rule that omitted all bomb mission symbols",
+    "Nearly cloned port/starboard mouth templates",
+    "Near-black mouth interior used as final reconstruction color",
+    "Uniform repeated triangular teeth",
+    "Mirroring one side to generate the other",
+    "Invented square window",
+    "Treating the shark eye as a window or merging it with the real window"
+  ],
+  "gates": {
+    "visualAcceptance": false,
+    "productionReady": false,
+    "motherModified": false,
+    "exactBombCountLocked": false,
+    "engineeringCalibration": false
+  }
+}
