@@ -1,10 +1,10 @@
-name: B24 80 DAYS instance R1 QA
+name: B24 80 DAYS instance R2 QA
 on:
   push:
     branches: [feature/b24-80days-instance-from-mother01-r1]
     paths:
-      - b24-80days-instance-r1.html
-      - runtime/b24-80days-instance-r1.js
+      - b24-80days-instance-r2.html
+      - runtime/b24-80days-instance-r2.js
       - instances/80-days-r1/MARKING_CONTRACT.json
       - .github/workflows/b24-80days-instance-r1-qa.yml
   workflow_dispatch:
@@ -13,7 +13,7 @@ permissions:
 jobs:
   browser:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 14
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,7 +21,7 @@ jobs:
           python-version: '3.12'
       - name: Static checks
         run: |
-          node --check runtime/b24-80days-instance-r1.js
+          node --check runtime/b24-80days-instance-r2.js
           python -m json.tool instances/80-days-r1/MARKING_CONTRACT.json >/dev/null
       - name: Install Chromium driver
         run: |
@@ -35,50 +35,67 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import json
-          from playwright.sync_api import sync_playwright
+          from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
-          out=Path('reports/80-days-r1-qa')
+          out=Path('reports/80-days-r2-qa')
           out.mkdir(parents=True,exist_ok=True)
+          state=None; errors=[]; timed_out=False
           with sync_playwright() as p:
               browser=p.chromium.launch(headless=True)
-              page=browser.new_page(viewport={"width":1440,"height":900}, device_scale_factor=1)
-              errors=[]
-              page.on('console', lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
-              page.on('pageerror', lambda e: errors.append('pageerror: '+str(e)))
-              page.goto('http://127.0.0.1:8765/b24-80days-instance-r1.html', wait_until='domcontentloaded', timeout=30000)
-              page.wait_for_function("""() => {
-                const el=document.querySelector('#loading');
-                return el && el.hidden && window.__B24_80DAYS_R1__;
-              }""", timeout=60000)
+              page=browser.new_page(viewport={"width":1440,"height":900},device_scale_factor=1)
+              page.on('console',lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
+              page.on('pageerror',lambda e: errors.append('pageerror: '+str(e)))
+              page.goto('http://127.0.0.1:8765/b24-80days-instance-r2.html',wait_until='domcontentloaded',timeout=30000)
+              try:
+                  page.wait_for_function("""() => {
+                    const el=document.querySelector('#loading');
+                    return el && el.hidden && window.__B24_80DAYS_R2__;
+                  }""",timeout=120000)
+              except PlaywrightTimeoutError:
+                  timed_out=True
+                  errors.append('timeout waiting for R2 runtime self-audit')
+              page.screenshot(path=str(out/'diagnostic-current.png'))
               state=page.evaluate("""() => ({
-                status: document.querySelector('#status')?.textContent,
-                qa: document.querySelector('#qaReadout')?.textContent,
+                status:document.querySelector('#status')?.textContent,
+                loadingHidden:document.querySelector('#loading')?.hidden,
+                loadText:document.querySelector('#loadText')?.textContent,
+                diag:document.querySelector('#diag')?.textContent,
+                qa:document.querySelector('#qaReadout')?.textContent,
                 canvas:[document.querySelector('#scene')?.width,document.querySelector('#scene')?.height],
-                audit: window.__B24_80DAYS_R1__
+                audit:window.__B24_80DAYS_R2__||null,
+                runtimeError:window.__B24_80DAYS_R2_ERROR__||null
               })""")
-              for name in ['port','starboard','front']:
-                  page.click(f'button[data-view="{name}"]')
-                  page.wait_for_timeout(800)
-                  page.screenshot(path=str(out/f'{name}.png'))
-              Path(out/'state.json').write_text(json.dumps({'state':state,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
+              if state['audit']:
+                  for name in ['port','starboard','front']:
+                      page.click(f'button[data-view="{name}"]')
+                      page.wait_for_timeout(900)
+                      page.screenshot(path=str(out/f'{name}.png'))
+              Path(out/'state.json').write_text(json.dumps({'state':state,'errors':errors,'timedOut':timed_out},ensure_ascii=False,indent=2),encoding='utf-8')
               browser.close()
 
+          print(json.dumps({'state':state,'errors':errors,'timedOut':timed_out},ensure_ascii=False,indent=2))
+          assert not timed_out, errors
+          assert state and state['audit'], state
           audit=state['audit']
           assert '载入失败' not in (state['status'] or ''), state
           assert audit['mother']['id']=='b24-generic-mother-01', audit
           assert audit['mother']['modified'] is False, audit
-          assert audit['methods']['mirroring'] is False, audit
-          assert audit['methods']['sidesIndependent'] is True, audit
-          assert len(audit['audits'])==4, audit
+          assert audit['evidence']['portMouthCoordinateCount']==38, audit
+          assert audit['evidence']['placementCalibrationLocked'] is False, audit
+          assert audit['evidence']['mouthColorLocked'] is False, audit
+          assert audit['removedErrors']['redEye'] is False and audit['removedErrors']['eyeRendered'] is False, audit
+          assert audit['removedErrors']['inventedTeeth'] is False and audit['removedErrors']['teethRendered'] is False, audit
+          assert audit['removedErrors']['genericTitle'] is False and audit['removedErrors']['titleRendered'] is False, audit
+          assert audit['removedErrors']['defaultDicePips'] is False and audit['removedErrors']['diceRendered'] is False, audit
+          assert audit['removedErrors']['missionOverlayRendered'] is False, audit
+          assert audit['removedErrors']['starboardMirror'] is False and audit['removedErrors']['starboardApproximation'] is False, audit
           assert audit['minCoverage']>0, audit
-          assert audit['missionState']['bombExactCount'] is None, audit
           assert audit['visualAcceptance'] is False and audit['productionReady'] is False, audit
-          assert not errors, errors
-          print(json.dumps({'status':state['status'],'qa':state['qa'],'minCoverage':audit['minCoverage'],'errors':errors},ensure_ascii=False,indent=2))
+          assert not [e for e in errors if not e.startswith('console warning')], errors
           PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: b24-80days-instance-r1-qa
-          path: reports/80-days-r1-qa
+          name: b24-80days-instance-r2-qa
+          path: reports/80-days-r2-qa
           retention-days: 30
