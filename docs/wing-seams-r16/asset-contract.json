@@ -63,5 +63,25 @@
       "geometryPolicy": "DPR cap; derivative based detail fading"
     }
   ],
-  "acceptanceEvidence": {}
+  "acceptanceEvidence": {
+    "local": "reports/service-life-r16/local/qa.json",
+    "passed": true,
+    "sourcePayloadSHA256": "f5ff859a7ff0e38112fa099d8c7d3a4cd8e859434701fb4dd9d81629374c5e3e",
+    "cameraViews": [
+      "orbit",
+      "perspective-front",
+      "perspective-rear",
+      "port",
+      "starboard",
+      "top",
+      "bottom",
+      "front",
+      "rear"
+    ],
+    "public": "reports/service-life-r16/public/qa.json",
+    "publicPassed": true,
+    "fixedCommit": "47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a",
+    "numericPanelTextureBytes": 51360,
+    "verifiedPublicFiles": 6
+  }
 }
