@@ -1,5 +1,5 @@
 {
-  "schema": "haihao.aircraft/80-days-instance-marking-contract@1.0",
+  "schema": "haihao.aircraft/80-days-instance-marking-contract@1.1",
   "status": "active-review-contract",
   "aircraft": {
     "type": "B-24J-25-CO Liberator",
@@ -45,7 +45,7 @@
     {
       "id": "CORRECTIONS_V02",
       "kind": "accepted review correction record",
-      "supports": ["independent sides", "ROBBY dots and small flag", "remove invented square window", "separate shark eye and real multi-part window", "distorted D in DAYS", "dice fully visible", "mouth taper direction", "upper/lower teeth point inward", "mission bombs and victory flags belong in reconstruction"]
+      "supports": ["independent sides", "port ROBBY dots and small flag", "remove invented square window", "separate shark eye and real multi-part window", "distorted D in DAYS", "dice fully visible", "mouth taper direction", "upper/lower teeth point inward", "mission bombs and victory flags belong in reconstruction"]
     }
   ],
   "components": {
@@ -59,7 +59,7 @@
       },
       "sharkEye": {"separateFromWindow": true, "status": "rebuild-required"},
       "title": {"text": "\u201c80 DAYS\u201d", "D": "taller, skewed, protruding", "status": "rebuild-required"},
-      "dice": {"count": 2, "fullyVisibleAboveMouth": true, "status": "rebuild-required"},
+      "dice": {"count": 2, "faces": [5,3], "fullyVisibleAboveMouth": true, "status": "rebuild-required"},
       "ROBBY": {"twoFlankingDots": true, "smallFlagBelow": true, "status": "rebuild-required"},
       "HUFF": {"present": true, "status": "rebuild-required"},
       "inventedSquareWindow": {"allowed": false}
@@ -74,8 +74,8 @@
       },
       "sharkEye": {"separateFromWindow": true, "status": "rebuild-required"},
       "title": {"text": "\u201c80 DAYS\u201d", "status": "rebuild-required"},
-      "dice": {"count": 2, "fullyVisibleAboveMouth": true, "status": "rebuild-required"},
-      "ROBBY": {"present": true, "status": "rebuild-required"},
+      "dice": {"count": 2, "faces": [5,3], "fullyVisibleAboveMouth": true, "status": "rebuild-required"},
+      "ROBBY": {"present": null, "render": false, "status": "not-confirmed-by-current-locked-facts"},
       "HUFF": {"present": false},
       "STAM": {"placement": "directly below the real upper multi-part side-window area", "status": "rebuild-required"},
       "victoryFlags": {"count": 8, "countStatus": "verified source / review required", "redCenters": true, "status": "rebuild-required"}
@@ -98,7 +98,8 @@
     "Uniform repeated triangular teeth",
     "Mirroring one side to generate the other",
     "Invented square window",
-    "Treating the shark eye as a window or merging it with the real window"
+    "Treating the shark eye as a window or merging it with the real window",
+    "Drawing starboard ROBBY without present locked evidence"
   ],
   "gates": {
     "visualAcceptance": false,
