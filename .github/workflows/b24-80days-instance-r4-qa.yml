@@ -34,19 +34,25 @@ jobs:
           from playwright.sync_api import sync_playwright
           out=Path('reports/80-days-r4-qa');out.mkdir(parents=True,exist_ok=True)
           errors=[]
+          state=None
           with sync_playwright() as p:
               b=p.chromium.launch(headless=True)
               page=b.new_page(viewport={"width":1440,"height":900},device_scale_factor=1)
               page.on('console',lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
               page.on('pageerror',lambda e: errors.append('pageerror: '+str(e)))
               page.goto('http://127.0.0.1:8765/b24-80days-instance-r4.html',wait_until='domcontentloaded',timeout=30000)
-              page.wait_for_function("() => document.querySelector('#loading')?.hidden && (window.__B24_80DAYS_R4__ || window.__B24_80DAYS_R4_ERROR__)",timeout=60000)
-              state=page.evaluate("() => ({audit:window.__B24_80DAYS_R4__||null,error:window.__B24_80DAYS_R4_ERROR__||null,status:document.querySelector('#status')?.textContent,qa:document.querySelector('#qaReadout')?.textContent})")
-              for name in ['nose-port','front','port','starboard','orbit']:
-                  page.click(f'button[data-view="{name}"]');page.wait_for_timeout(850);page.screenshot(path=str(out/f'{name}.png'))
+              page.wait_for_function("() => window.__B24_80DAYS_R4__ || window.__B24_80DAYS_R4_ERROR__",timeout=90000)
+              state=page.evaluate("() => ({audit:window.__B24_80DAYS_R4__||null,error:window.__B24_80DAYS_R4_ERROR__||null,status:document.querySelector('#status')?.textContent,qa:document.querySelector('#qaReadout')?.textContent,loadingHidden:document.querySelector('#loading')?.hidden,loadText:document.querySelector('#loadText')?.textContent,diag:document.querySelector('#diag')?.textContent})")
               Path(out/'state.json').write_text(json.dumps({'state':state,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
+              if state['error']:
+                  page.screenshot(path=str(out/'runtime-error.png'))
+              else:
+                  for name in ['nose-port','front','port','starboard','orbit']:
+                      page.click(f'button[data-view="{name}"]');page.wait_for_timeout(850);page.screenshot(path=str(out/f'{name}.png'))
               b.close()
+          assert state is not None,state
           assert not state['error'],state
+          assert state['loadingHidden'] is True,state
           a=state['audit'];assert a['mother']['modified'] is False,a
           assert a['anchor']['component']==69,a
           assert 0.15<a['calibration']['shrinkRatio']<0.40,a
