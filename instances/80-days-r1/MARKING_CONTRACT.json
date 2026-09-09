@@ -1,5 +1,5 @@
 {
-  "schema": "haihao.aircraft/80-days-instance-marking-contract@1.1",
+  "schema": "haihao.aircraft/80-days-instance-marking-contract@1.2",
   "status": "active-review-contract",
   "aircraft": {
     "type": "B-24J-25-CO Liberator",
@@ -20,7 +20,9 @@
   "method": {
     "rule": "Each visible marking is an independent evidence-bound component; no port/starboard mirroring and no freehand completion from symmetry.",
     "surfaceBinding": "Project each component to the inherited curved Mother-01 skin with the existing raycast decal mechanism; do not flatten the nose into one billboard.",
-    "unknownPolicy": "Unknown values remain unknown. They are not completed for visual neatness."
+    "unknownPolicy": "Unknown values remain unknown. They are not completed for visual neatness.",
+    "photoStatePolicy": "Mission and victory markings are time-dependent. A final historical build may not combine unmatched photo states. Unsynchronised evidence stays in review overlays only.",
+    "tracePolicy": "The photographed 80 DAYS lettering and dice contours must come from photo-pixel tracing. Generic fonts and default dice pip layouts are review-invalid."
   },
   "evidence": [
     {
@@ -43,23 +45,30 @@
       "supports": ["STAM", "mission-mark area", "victory flags", "shark mouth/dice relationship"]
     },
     {
-      "id": "CORRECTIONS_V02",
+      "id": "R3_PHOTO_TRACE",
+      "kind": "prior evidence-distillation workbench",
+      "filename": "80_DAYS_Workbench_R3.html",
+      "supports": ["port mouth photographed perimeter", "80 DAYS photo-pixel title paths", "dice photographed edge polygons and dark-pixel contours", "visible-only mission traces", "no invented occluded teeth"]
+    },
+    {
+      "id": "CORRECTIONS_V02_AND_LATER",
       "kind": "accepted review correction record",
-      "supports": ["independent sides", "port ROBBY dots and small flag", "remove invented square window", "separate shark eye and real multi-part window", "distorted D in DAYS", "dice fully visible", "mouth taper direction", "upper/lower teeth point inward", "mission bombs and victory flags belong in reconstruction"]
+      "supports": ["independent sides", "port ROBBY dots and small flag", "remove invented square window", "separate shark eye and real multi-part window", "no red component inside shark eye", "distorted photographed D in DAYS", "avoid over-thick title strokes", "title and mouth keep photographed gap", "dice fully visible", "mouth taper direction", "upper/lower teeth point inward", "mission bombs and victory flags belong in reconstruction", "over-dark mouth red rejected as final color"]
     }
   ],
   "components": {
     "port": {
       "sharkMouth": {
         "independent": true,
-        "interiorColor": {"value": "deep red reconstruction", "historicalMeasuredColor": false},
-        "teeth": "aged off-white; irregular size/spacing; both rows point into the mouth; no repeated uniform triangle stamp",
+        "interiorColor": {"value": null, "status": "unresolved-review-color", "rejectedCandidate": "over-dark deep red"},
+        "perimeter": "inherit R3 E04 photo-pixel hand trace where supported",
+        "teeth": "use photographed visible teeth only; both rows point inward; do not generate a repeated triangular tooth pattern and do not invent occluded teeth",
         "taper": "follow port photograph, not starboard mirror",
         "status": "rebuild-required"
       },
-      "sharkEye": {"separateFromWindow": true, "status": "rebuild-required"},
-      "title": {"text": "\u201c80 DAYS\u201d", "D": "taller, skewed, protruding", "status": "rebuild-required"},
-      "dice": {"count": 2, "faces": [5,3], "fullyVisibleAboveMouth": true, "status": "rebuild-required"},
+      "sharkEye": {"separateFromWindow": true, "redInteriorAllowed": false, "status": "rebuild-required"},
+      "title": {"text": "\u201c80 DAYS\u201d", "source": "R3 E04 photo-pixel trace", "genericFontAllowed": false, "D": "taller, skewed and protruding according to photographed trace", "keepGapFromMouth": true, "status": "trace-recovery-required"},
+      "dice": {"count": 2, "faces": [5,3], "source": "R3 photographed edge polygons and visible dark-pixel contours", "defaultPipLayoutAllowed": false, "fullyVisibleAboveMouth": true, "status": "trace-recovery-required"},
       "ROBBY": {"twoFlankingDots": true, "smallFlagBelow": true, "status": "rebuild-required"},
       "HUFF": {"present": true, "status": "rebuild-required"},
       "inventedSquareWindow": {"allowed": false}
@@ -67,24 +76,25 @@
     "starboard": {
       "sharkMouth": {
         "independent": true,
-        "interiorColor": {"value": "deep red reconstruction", "historicalMeasuredColor": false},
-        "teeth": "aged off-white; irregular size/spacing; both rows point into the mouth; no repeated uniform triangle stamp",
+        "interiorColor": {"value": null, "status": "unresolved-review-color", "rejectedCandidate": "over-dark deep red"},
+        "teeth": "use starboard evidence only; both rows point inward; no mirrored or repeated triangular tooth template",
         "taper": "follow starboard evidence, not port mirror",
         "status": "rebuild-required"
       },
-      "sharkEye": {"separateFromWindow": true, "status": "rebuild-required"},
-      "title": {"text": "\u201c80 DAYS\u201d", "status": "rebuild-required"},
-      "dice": {"count": 2, "faces": [5,3], "fullyVisibleAboveMouth": true, "status": "rebuild-required"},
+      "sharkEye": {"separateFromWindow": true, "redInteriorAllowed": false, "status": "rebuild-required"},
+      "title": {"text": "\u201c80 DAYS\u201d", "genericFontAllowed": false, "keepGapFromMouth": true, "status": "trace-required"},
+      "dice": {"count": 2, "faces": [5,3], "defaultPipLayoutAllowed": false, "fullyVisibleAboveMouth": true, "status": "trace-required"},
       "ROBBY": {"present": null, "render": false, "status": "not-confirmed-by-current-locked-facts"},
       "HUFF": {"present": false},
       "STAM": {"placement": "directly below the real upper multi-part side-window area", "status": "rebuild-required"},
-      "victoryFlags": {"count": 8, "countStatus": "verified source / review required", "redCenters": true, "status": "rebuild-required"}
+      "victoryFlags": {"count": 8, "countStatus": "verified evidence for a starboard photo state", "redCenters": true, "finalBake": false, "status": "review-overlay-only-until-photo-state-lock"}
     },
     "missionBombs": {
-      "presentInReconstruction": true,
+      "presentInEvidence": true,
       "exactCount": null,
       "countStatus": "blocked pending approved count sheet",
-      "rule": "Do not fabricate an exact count. Render only evidence-resolved marks in a review layer until count is locked."
+      "finalBake": false,
+      "rule": "Do not fabricate an exact count and do not mix unmatched time states. Only photo-resolved marks may appear in a side-specific review overlay."
     },
     "fixedVerticalFins": {
       "labels": ["273257", "487", "white triangle"],
@@ -94,18 +104,26 @@
   "rejectedLegacyAssumptions": [
     "Old V2 rule that omitted all bomb mission symbols",
     "Nearly cloned port/starboard mouth templates",
-    "Near-black mouth interior used as final reconstruction color",
+    "Near-black or over-dark-red mouth interior treated as final truth",
     "Uniform repeated triangular teeth",
+    "Inventing occluded teeth not visible in source photographs",
     "Mirroring one side to generate the other",
     "Invented square window",
     "Treating the shark eye as a window or merging it with the real window",
-    "Drawing starboard ROBBY without present locked evidence"
+    "Adding a red iris/interior component to the shark eye",
+    "Using Arial Black, Impact or any generic font as the final 80 DAYS lettering",
+    "Using default dice pip geometry instead of photographed contours",
+    "Drawing starboard ROBBY without present locked evidence",
+    "Combining mission-mark sets from unmatched photo states into one claimed historical state"
   ],
   "gates": {
     "visualAcceptance": false,
     "productionReady": false,
     "motherModified": false,
     "exactBombCountLocked": false,
+    "singlePhotoStateLocked": false,
+    "titleTraceRecovered": false,
+    "diceTraceRecovered": false,
     "engineeringCalibration": false
   }
 }
