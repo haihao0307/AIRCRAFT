@@ -1,0 +1,68 @@
+name: B24 80 DAYS instance R3 QA
+on:
+  push:
+    branches: [feature/b24-80days-instance-from-mother01-r3]
+    paths:
+      - b24-80days-instance-r3.html
+      - runtime/b24-80days-instance-r3.js
+      - .github/workflows/b24-80days-instance-r3-qa.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static checks
+        run: node --check runtime/b24-80days-instance-r3.js
+      - name: Install Chromium
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Serve
+        run: python -m http.server 8765 >/tmp/80days-r3-http.log 2>&1 &
+      - name: Browser and fixed-view QA
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          from playwright.sync_api import sync_playwright
+          out=Path('reports/80-days-r3-qa'); out.mkdir(parents=True,exist_ok=True)
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True)
+              page=browser.new_page(viewport={"width":1440,"height":900}, device_scale_factor=1)
+              errors=[]
+              page.on('console',lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
+              page.on('pageerror',lambda e: errors.append('pageerror: '+str(e)))
+              page.goto('http://127.0.0.1:8765/b24-80days-instance-r3.html',wait_until='domcontentloaded',timeout=30000)
+              page.wait_for_function("""() => document.querySelector('#loading')?.hidden && window.__B24_80DAYS_R3__""",timeout=60000)
+              state=page.evaluate("""() => ({status:document.querySelector('#status')?.textContent,qa:document.querySelector('#qaReadout')?.textContent,audit:window.__B24_80DAYS_R3__,error:window.__B24_80DAYS_R3_ERROR__||null})""")
+              for name in ['port','front','starboard']:
+                  page.click(f'button[data-view="{name}"]')
+                  page.wait_for_timeout(900)
+                  page.screenshot(path=str(out/f'{name}.png'))
+              page.click('button[data-view="orbit"]'); page.wait_for_timeout(900); page.screenshot(path=str(out/'orbit.png'))
+              Path(out/'state.json').write_text(json.dumps({'state':state,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
+              browser.close()
+          a=state['audit']
+          assert not state['error'],state
+          assert a['mother']['id']=='b24-generic-mother-01' and a['mother']['modified'] is False,a
+          assert a['mapping']['legacyInsigniaAspectScaleRemoved'] is True,a
+          assert a['evidence']['crop']['w']==1770 and a['evidence']['crop']['h']==520,a
+          assert a['evidence']['toothPathsRecovered']>=8,a
+          assert a['surfaceAudit']['gridCoverage']>.25,a
+          assert a['visualAcceptance'] is False and a['productionReady'] is False,a
+          assert not errors,errors
+          print(json.dumps({'qa':state['qa'],'coverage':a['surfaceAudit']['gridCoverage'],'bbox':[a['surfaceAudit']['min'],a['surfaceAudit']['max']],'errors':errors},ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-80days-instance-r3-qa
+          path: reports/80-days-r3-qa
+          retention-days: 30
