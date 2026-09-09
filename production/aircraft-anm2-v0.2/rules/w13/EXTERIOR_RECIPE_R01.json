@@ -1,0 +1,576 @@
+{
+  "schema": "object-dna.exterior-geometry-program/0.2",
+  "revision": "GEN-0002-W09-R01",
+  "entityId": "ODNA:MECH:ANM2:PILOT-0001",
+  "purpose": "nonfunctional visual reconstruction from an uncalibrated digital reference",
+  "previousResultUsedAsGeometryInput": false,
+  "units": "dimensionless; one receiver datum-plane separation = 1; not manufacturing dimensions",
+  "frame": {
+    "forward": "+X",
+    "up": "+Y",
+    "right": "+Z",
+    "origin": "barrel centerline at receiver-front plane",
+    "scaleReference": "receiver front-to-rear datum planes"
+  },
+  "evidence": {
+    "sourceSha256": "2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b",
+    "inspection": "research/reference-intake-20260907/REVIEW.md",
+    "truth": "inferred visual rules; source-group measurements are not factory dimensions"
+  },
+  "sourceNodes": {
+    "receiver": 23,
+    "sideplate": 25,
+    "collar": 15,
+    "barrel": 9,
+    "rearGrips": 17,
+    "rearCylinder": 21,
+    "rearControl": 27,
+    "sideHandle": 19
+  },
+  "receiver": {
+    "rear": -1,
+    "front": 0,
+    "sideLo": -0.068212,
+    "sideHi": 0.054378,
+    "innerNegative": -0.045396,
+    "faceX0": -0.994884,
+    "faceX1": -0.005116,
+    "faceY0": -0.080207,
+    "faceY1": 0.121727,
+    "bevel": 0.005077,
+    "zFlatLo": -0.063134,
+    "zFlatHi": 0.0493,
+    "feedWindow": {
+      "x0": -0.287136,
+      "x1": -0.055322,
+      "y0": 0.044435,
+      "y1": 0.08134,
+      "notchX0": -0.222634,
+      "notchX1": -0.172048,
+      "notchY": 0.100524
+    },
+    "negativeSlot": {
+      "x0": -0.843782,
+      "x1": -0.40848,
+      "y0": 0.016053,
+      "y1": 0.045074,
+      "floorZ": -0.045396
+    },
+    "negativeLowerPlate": {
+      "lo": [
+        -0.896562,
+        -0.032389,
+        -0.075091
+      ],
+      "hi": [
+        -0.599749,
+        0.008394,
+        -0.068212
+      ],
+      "windows": [
+        [
+          -0.870539,
+          -0.797625,
+          -0.023802,
+          -0.001786,
+          -0.048431
+        ],
+        [
+          -0.698688,
+          -0.622794,
+          -0.023802,
+          -0.001786,
+          -0.053298
+        ]
+      ]
+    },
+    "negativeTabs": [
+      {
+        "lo": [
+          -0.98549,
+          -0.022692,
+          -0.082071
+        ],
+        "hi": [
+          -0.965076,
+          0.041432,
+          -0.065126
+        ]
+      },
+      {
+        "lo": [
+          -0.393355,
+          -0.022692,
+          -0.082071
+        ],
+        "hi": [
+          -0.372941,
+          0.041432,
+          -0.065126
+        ]
+      }
+    ],
+    "rearUpperLip": {
+      "lo": [
+        -1.020348,
+        0.098981,
+        -0.063134
+      ],
+      "hi": [
+        -0.994884,
+        0.125318,
+        0.0493
+      ]
+    },
+    "rearLowerLip": {
+      "lo": [
+        -1.019069,
+        -0.093129,
+        -0.063134
+      ],
+      "hi": [
+        -0.994884,
+        -0.085284,
+        0.0493
+      ]
+    },
+    "bottomRail": {
+      "x0": -0.994884,
+      "x1": -0.520134,
+      "shoulderEnd": -0.476666,
+      "y0": -0.126719,
+      "y1": -0.083798,
+      "shoulderY": -0.112229,
+      "z0": -0.079976,
+      "z1": 0.066143,
+      "bevel": 0.002093
+    },
+    "lowerEars": {
+      "x0": -0.692458,
+      "x1": -0.62926,
+      "y0": -0.162064,
+      "y1": -0.114813,
+      "zIntervals": [
+        [
+          -0.050307,
+          -0.021953
+        ],
+        [
+          0.006983,
+          0.035337
+        ]
+      ],
+      "holeCenter": [
+        -0.660859,
+        -0.140161
+      ],
+      "holeRadius": 0.011988
+    }
+  },
+  "cover": {
+    "x0": -0.994884,
+    "x1": -0.145365,
+    "bandX0": -0.245704,
+    "y0": 0.08134,
+    "sideY": 0.123474,
+    "topY": 0.136352,
+    "z0": -0.077907,
+    "z1": 0.064071,
+    "topZ0": -0.065033,
+    "topZ1": 0.051199,
+    "bandZ0": -0.087642,
+    "bandZ1": 0.072221,
+    "notchX0": -0.222634,
+    "notchX1": -0.172048,
+    "notchY": 0.100524,
+    "pad": {
+      "lo": [
+        -0.969464,
+        0.136352,
+        -0.034662
+      ],
+      "hi": [
+        -0.708756,
+        0.148841,
+        0.022852
+      ],
+      "corner": 0.009514
+    },
+    "topButton": {
+      "center": [
+        -0.422456,
+        0.135136,
+        0.014935
+      ],
+      "radius": 0.016684,
+      "rise": 0.008728
+    }
+  },
+  "positivePlate": {
+    "x0": -0.984601,
+    "shoulder": -0.585229,
+    "taperStart": -0.564146,
+    "x1": -0.469304,
+    "y0": -0.07232,
+    "y1": 0.058385,
+    "tipBottom": -0.043422,
+    "tipTop": 0.022872,
+    "zBack": 0.041871,
+    "zNose": 0.066252,
+    "zFace": 0.085548,
+    "zRecess": 0.072455,
+    "corner": 0.006279,
+    "slot": {
+      "x0": -0.971015,
+      "x1": -0.492819,
+      "y0": -0.024546,
+      "y1": 0.010447
+    },
+    "recesses": [
+      {
+        "x0": -0.945622,
+        "x1": -0.737854,
+        "transition": 0.021045,
+        "top": 0.022244,
+        "bottom": -0.036096
+      },
+      {
+        "x0": -0.68781,
+        "x1": -0.632419,
+        "transition": 0.007802,
+        "top": 0.023101,
+        "bottom": -0.035772
+      }
+    ],
+    "heads": [
+      {
+        "id": "rear-upper-cap",
+        "kind": "dome",
+        "center": [
+          -0.970503,
+          0.042915,
+          0.083712
+        ],
+        "radius": 0.00804,
+        "rise": 0.004152
+      },
+      {
+        "id": "rear-lower-cap",
+        "kind": "dome",
+        "center": [
+          -0.970503,
+          -0.038054,
+          0.083862
+        ],
+        "radius": 0.00804,
+        "rise": 0.004152
+      },
+      {
+        "id": "lower-round-head",
+        "kind": "cylinder",
+        "center": [
+          -0.611836,
+          -0.049018,
+          0.076137
+        ],
+        "radius": 0.013071,
+        "rise": 0.026143
+      },
+      {
+        "id": "upper-hex-a",
+        "kind": "hex",
+        "center": [
+          -0.712147,
+          0.027308,
+          0.083286
+        ],
+        "radius": 0.012368,
+        "rise": 0.01143
+      },
+      {
+        "id": "upper-hex-b",
+        "kind": "hex",
+        "center": [
+          -0.567339,
+          0.027308,
+          0.06312
+        ],
+        "radius": 0.012368,
+        "rise": 0.01143
+      }
+    ]
+  },
+  "receiverHeads": {
+    "radius": 0.008144,
+    "rise": 0.004279,
+    "rows": [
+      {
+        "id": "upper",
+        "x0": -0.966281,
+        "pitch": 0.060302,
+        "count": 8,
+        "y": 0.096119,
+        "zPair": [
+          -0.076381,
+          0.064227
+        ]
+      },
+      {
+        "id": "lower",
+        "x0": -0.966281,
+        "pitch": 0.060302,
+        "count": 8,
+        "y": -0.09624,
+        "zPair": [
+          -0.078096,
+          0.064227
+        ]
+      },
+      {
+        "id": "forward-lower",
+        "x0": -0.335642,
+        "pitch": 0.031358,
+        "count": 5,
+        "y": -0.06221,
+        "zPair": [
+          -0.067368,
+          0.053037
+        ]
+      }
+    ],
+    "frontPositions": [
+      [
+        -0.017064,
+        0.107064
+      ],
+      [
+        -0.017064,
+        0.074248
+      ],
+      [
+        -0.042371,
+        0.114851
+      ]
+    ],
+    "frontZPair": [
+      -0.066909,
+      0.053083
+    ],
+    "rearTop": {
+      "x": -1.006196,
+      "y": 0.124231,
+      "zs": [
+        -0.049179,
+        0.035179
+      ]
+    },
+    "frontHex": {
+      "x": -0.097397,
+      "y": 0.108482,
+      "zs": [
+        -0.065039,
+        0.051328
+      ],
+      "radius": 0.011702,
+      "rise": 0.010561
+    }
+  },
+  "feedLedges": {
+    "x0": -0.287117,
+    "x1": -0.05531,
+    "y0": 0.020891,
+    "y1": 0.044435,
+    "positiveZ0": 0.054378,
+    "positiveZ1": 0.084979,
+    "negativeZ0": -0.102946,
+    "negativeZ1": -0.068212,
+    "centerX0": -0.22467,
+    "centerX1": -0.170381,
+    "centerPositive": 0.087716,
+    "centerNegative": -0.107521
+  },
+  "collar": {
+    "x0": -0.007525,
+    "x1": 0.09682,
+    "centerYZ": [
+      0.000343,
+      -0.001121
+    ],
+    "radius": 0.069396,
+    "endRadius": 0.067207,
+    "bevel": 0.002188,
+    "radialSegments": 24,
+    "lug": {
+      "x0": 0.01412,
+      "x1": 0.092116,
+      "y0": -0.118495,
+      "y1": -0.056437,
+      "z0": -0.033246,
+      "z1": 0.030993,
+      "corner": 0.011417,
+      "holeCenter": [
+        0.063973,
+        -0.088785
+      ],
+      "holeRadius": 0.014842
+    }
+  },
+  "barrel": {
+    "rootX": -0.00163,
+    "jacketEnd": 1.611095,
+    "radius": 0.043727,
+    "innerRadius": 0.028923,
+    "radialSegments": 96,
+    "holePattern": {
+      "firstX": 0.600092,
+      "pitch": 0.074096,
+      "stations": 14,
+      "holesPerStation": 4,
+      "evenAngleDegrees": 45,
+      "oddAngleDegrees": 0,
+      "radius": 0.020265,
+      "evidence": "56 disconnected visible perforation wall regions; 14 alternating axial stations"
+    },
+    "endBand": {
+      "x0": 1.592627,
+      "x1": 1.643439,
+      "radius": 0.054356,
+      "bevel": 0.001522
+    },
+    "termination": {
+      "x0": 1.621047,
+      "x1": 1.720705,
+      "radius": 0.040987,
+      "openingRadius": 0.020132,
+      "recessX": 1.66934
+    }
+  },
+  "rear": {
+    "gripCenters": [
+      [
+        -1.086607,
+        0.107174
+      ],
+      [
+        -1.087273,
+        -0.108446
+      ]
+    ],
+    "gripY0": -0.079214,
+    "gripY1": 0.108779,
+    "gripRadius": 0.028091,
+    "capRadius": 0.030928,
+    "upperCapY": [
+      0.116213,
+      0.124673
+    ],
+    "lowerCapY": [
+      -0.093519,
+      -0.085057
+    ],
+    "frame": {
+      "x0": -1.119941,
+      "x1": -0.995386,
+      "z0": -0.14063,
+      "z1": 0.138294,
+      "corner": 0.030445,
+      "width": 0.012939,
+      "upper": [
+        0.105466,
+        0.117065
+      ],
+      "lower": [
+        -0.086003,
+        -0.074405
+      ]
+    },
+    "cylinder": {
+      "x0": -1.145482,
+      "x1": -0.992036,
+      "centerYZ": [
+        0.007028,
+        -0.005576
+      ],
+      "radius": 0.036026
+    },
+    "upperControl": {
+      "x0": -1.083563,
+      "x1": -0.99556,
+      "y0": 0.039878,
+      "y1": 0.111016,
+      "z0": -0.067014,
+      "z1": 0.055916,
+      "thickness": 0.011417
+    }
+  },
+  "sideHandle": {
+    "centerXY": [
+      -0.614802,
+      0.090689
+    ],
+    "z0": 0.102352,
+    "z1": 0.271838,
+    "radius": 0.027956,
+    "armXY": [
+      [
+        -0.679702,
+        -0.0317
+      ],
+      [
+        -0.664614,
+        -0.04424
+      ],
+      [
+        -0.603724,
+        -0.006964
+      ],
+      [
+        -0.591891,
+        0.078663
+      ],
+      [
+        -0.59421,
+        0.103399
+      ],
+      [
+        -0.615141,
+        0.114558
+      ],
+      [
+        -0.636072,
+        0.095788
+      ],
+      [
+        -0.639878,
+        0.046315
+      ],
+      [
+        -0.662712,
+        -0.008867
+      ]
+    ],
+    "armZ0": 0.083817,
+    "armZ1": 0.105678,
+    "attachment": {
+      "lo": [
+        -0.665518,
+        -0.02399,
+        0.019473
+      ],
+      "hi": [
+        -0.606548,
+        0.00952,
+        0.086722
+      ]
+    },
+    "head": {
+      "center": [
+        -0.636232,
+        -0.007441,
+        0.100181
+      ],
+      "radius": 0.015223,
+      "rise": 0.014096
+    }
+  }
+}

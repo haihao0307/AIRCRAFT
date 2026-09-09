@@ -1,0 +1,25 @@
+{
+  "status": "review-candidate",
+  "version": "W13",
+  "summary": "单发、连发、五发一曳光、两次弹跳停稳与复位通过自动预检；外观及历史适用性待用户审阅。",
+  "visualAcceptance": false,
+  "productionReady": false,
+  "regionResults": [
+    {
+      "label": "动画与复位",
+      "value": "4 序列 / 两次弹跳 / 停稳零速度 / 可重复拖动"
+    },
+    {
+      "label": "外观几何",
+      "value": "396 网格 / 212337 三角形 / 0 退化与异常法线"
+    },
+    {
+      "label": "本地参考",
+      "value": "5 文件身份、层级与变换核验通过"
+    },
+    {
+      "label": "限制",
+      "value": "展示轨迹与简化碰撞；内部机构、实际弹道与历史厂号未知"
+    }
+  ]
+}

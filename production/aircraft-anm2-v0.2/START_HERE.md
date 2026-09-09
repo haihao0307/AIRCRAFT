@@ -1,3 +1,5 @@
+当前候选：**W13 动态质感研究**。说明 `validation/W13_REVIEW.md`，规则与页面源码位于 `rules/w13`、`workbench/w13`。固定提交公网预览交付；W12 及更早版本保留。
+
 当前候选：**W12 分体与表面研究**。说明 `validation/W12_REVIEW.md`；可重建源码在 `rules/w12` 与 `workbench/w12`。主预览使用本轮交付的固定提交公网链接；W11 及更早版本保留。
 
 当前候选：**W11 总装与对象关系**。入口 `releases/w11/AIRCRAFT_ANM2_OBJECT_DNA_W11.html`，说明 `validation/W11_REVIEW.md`。W10、W09 固定版本保留。

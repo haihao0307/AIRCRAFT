@@ -1,0 +1,30 @@
+{
+  "schema": "object-dna.review-build/0.2",
+  "path": "releases/w13/AIRCRAFT_ANM2_OBJECT_DNA_W13.html",
+  "bytes": 1563154,
+  "sha256": "9480f86e2be55ee182a82de54a482a3c4bb4287247dcab96e6aae8b113196e05",
+  "referenceEmbedded": false,
+  "previousGeometryInherited": true,
+  "geometryBaseline": "W11 core with W13 hollow tube, separate cartridge parts and box details",
+  "visualAcceptance": false,
+  "productionReady": false,
+  "sources": {
+    "vendor\\three-controls.runtime.js": "9b7a58b51a20fe4c8b8afaae839acd9e3d17690f6cc8aec9f7bcc8f608b6c737",
+    "vendor\\reference-input.js": "476ac7ac16b8d40918e0142832a4608bac8feefda45229ae6f50e0e247d5549b",
+    "rules\\w13\\geometry-program.js": "c7145df82efb89ed5ec847ea590bbe2f9351834caf768349cc4ad7026326505f",
+    "rules\\w13\\cartridge-program.js": "c2429957a6ac2d3f38f28ea3f264c03d530fb4ce07b58eb83c8f2e3640adab66",
+    "rules\\w13\\supply-program.js": "e7aff84bace618b67d41e0f689bb1184a8d008d04ccd59d603644c21dd89622d",
+    "rules\\w13\\accessory-program.js": "8d1d50005aed4a3225ea3da3fec6f4befe273f2bb2ca7e70372b4bb33ebb3ed8",
+    "rules\\w13\\object-dna.js": "6a9ef2489ae6c70a242e86389294a17a46d29edb6dac89393f54c28c30173fc7",
+    "rules\\w13\\marking-program.js": "ef7df6c390756fa41a61209e20286c9fe830244da0443996abb90b18deeea995",
+    "rules\\w13\\surface-program.js": "7a111f5c4b467794c4eb8bd87e5e9d73564bca34873f580b6db8dedc2d4e5587",
+    "rules\\w13\\animation-program.js": "45ee6bfd2d724c8ab94fb4717e728efbcd8332fd17bb64fd24c44151e0e736d4",
+    "rules\\reference-twin.js": "10df8ed10ff3c621531b7d503cbe851d900f4bcd83745e429f48b6a501e41461",
+    "rules\\w13\\cal50-reference.js": "74ad78c319103786cf79d723b8a9cfc5c55df19501dcd17d4317aff47e3ed21c",
+    "rules\\w13\\reference-study.js": "6b14eb00ee831dcc3160b3c021b59c6e3f61685b604ffbd81e9b1daa84417c3e",
+    "workbench\\w13\\app.js": "07785e5d573889ae34d3ca10ad246c903108d44dc18856c55a9030186a9b8929",
+    "workbench\\w13\\template.html": "d66ed122bf40bc7e94d58901b6c7c4733aff7d8873c664ac5366baadf043b027",
+    "rules\\w13\\EXTERIOR_RECIPE_R01.json": "9e5e32806b99a1aa0e6d014b84fab9aa873498b0f96b64b2f7b47a416c2609fd",
+    "DATUM_REGISTRATION_R02.json": "4fbcbb2a589bbdd00c8ed41d1aaac643dad8e39d3b66c91e5542ca55b96ddfe6"
+  }
+}

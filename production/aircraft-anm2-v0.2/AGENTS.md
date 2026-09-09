@@ -1,58 +1,22 @@
-# Aircraft AN/M2 V0.2 execution rules
+# 项目协作规则
+## 统一公网预览交付规则（用户要求，2026-09-08）
 
-## Identity and scope
+适用于小妈总项目、全部 Mother 及其后续版本的网页/交互预览交付。用户已明确要求延续固定版本公网预览的交付方式；随意改变入口会导致用户反复花时间排查。
 
-Preserve Entity ID `ODNA:MECH:ANM2:PILOT-0001`. Use generation `GEN-0002` for this clean restart. Work on the Aircraft Browning M2 / AN/M2 exterior and B-24 applicability. B17 remains deferred.
+- 主交付入口必须是可直接点击、固定到该版本的公网 HTTPS 预览链接，标签清楚写明版本。保留已有版本链接，不覆盖旧版本。
+- 不得用 localhost、127.0.0.1、本地磁盘路径、file 链接、ZIP 下载或源码链接替代公网预览。开发期间可本地测试，但不得把本地页面作为最终预览打开给用户。
+- 延续用户已认可的预览入口格式；除非用户明确要求，不擅自改变交付方式。
+- 交付前实际打开该版本公网地址，确认页面与关键资源可加载、显示正确版本，必要的核心交互可用。仅本地测试或 HTTP 200 不代表公网预览验收通过。
+- 如公网发布或访问失败，明确说明尚未完成公网交付及具体障碍，不宣称已交付，不偷偷换成本地入口。
+- 源码、全量包及备份按用户需要作为附加交付；纯文档任务不因此变成网站发布任务。
+- 新版本、接续任务、全量交接包及下属 Mother 应携带此规则。不要为了传播规则修改已经固定发布的历史产物。
 
-The active target is Web. Blender may run only as an isolated background measuring or checking instrument. CAD, temporary meshes, UVs and renderer buffers are build products. Permanent truth remains Object DNA, evidence, semantic constraints, readable geometry rules, surface coordinates, material rules, lifecycle, behavior and approval state.
+共同规则原件：G:/小妈/MOTHER_PUBLIC_PREVIEW_DELIVERY_RULE_2026-09-08.md。
 
-## Mandatory historical read
+## 相机与对照验收规则（用户纠正，2026-09-08）
 
-Before editing, read the full V001 handoff package source, especially `FAILURE_LEDGER.md`, `VALID_KNOWLEDGE.md`, `NEXT_PRODUCTION_GATES.md`, the W08 rejection record and the current state files.
-
-## Prohibited inheritance
-
-1. Do not copy the W06 whole-gun geometry into the active generator.
-2. Do not use W07 total-length scaling and bounding-box-center translation as final registration.
-3. Do not use W08 per-object normalized min/max section envelopes as parity evidence.
-4. Do not average away receiver errors with long barrel regions.
-5. Do not mark an object complete when required semantic parts are absent.
-6. Do not use B17 mounts, suspension, boxes, sights or disposal paths to fill B24 gaps.
-7. Do not recover retired S01, R01 or other rejected chains.
-8. Do not use PBR, transparency, bloom, dirt or strong highlights to hide geometry differences.
-9. Do not publish a review HTML before the actual local reference has been loaded and inspected by the executor.
-10. Do not equate CI success with historical accuracy or visual acceptance.
-
-## Reference Twin
-
-Accept only the verified local file with 6,548,040 bytes and SHA-256 `2d6a1f323018523db42d1fe54dcf1a26661f139548134835779933d61ab68c8b`. Preserve its nodes and transforms in the temporary reference view. Never upload, cache or serialize its product geometry into the repository.
-
-## Geometry order
-
-1. Semantic correspondence table.
-2. Mechanical datum registration.
-3. Receiver datum shell.
-4. Top cover and plate layering.
-5. Rear exterior groups.
-6. Receiver front plane, barrel centerline, barrel root and front collar.
-7. Ventilated jacket and forward termination.
-8. Evidence-backed feed-side and disposal-side exterior openings.
-9. Sight and controls after exact B24 applicability evidence.
-10. B24 box, feed route, mounting and disposal layer after World Kernel contract.
-
-## Review gate
-
-Use identical neutral materials and fixed orthographic cameras for geometry approval. Required checks include part presence, named datum residuals, contour centroid, area, perimeter, loop and hole count, 2D contour distance, side/top/end silhouette overlap, 3D surface distance and fixed-view manual inspection.
-
-User-facing review requires a self-contained single HTML in an immutable GitHub commit and a raw.githack link. Keep `visualAcceptance=false` and `productionReady=false` until the user explicitly changes them.
-
-## Public preview delivery rule (2026-09-08)
-
-Read PUBLIC_PREVIEW_DELIVERY_RULE.md. Preserve fixed-version public HTTPS previews and old links. Before final delivery, open the actual public URL and verify version, resources and core interactions. Local tests or HTTP 200 alone are insufficient. Carry this rule into subsequent versions and handoffs; do not modify frozen historical artifacts.
-
-## Camera correction from user (2026-09-08)
-
-For all subsequent object work, also read OBJECT_DNA_ASSEMBLY_POLICY.md. Each semantic entity needs its own DNA record and declared relative frame. Include ammunition supply and associated display objects in the station relationship model; do not mistake display meshes for physical parts or unknown transforms for identity transforms.
-
-Default spatial presentation must use ordinary perspective with normal depth scaling. W10 used orthographic projection in the orbiting display, creating confusing depth cues; do not repeat this default. Measurement uses explicitly labeled fixed side/top/end orthographic views. Oblique orthographic views are supplementary and cannot alone determine depth proportions. Never use inverse perspective, mirroring, negative scale, or independent per-object fitting to compensate. Reference and native views share projection, pose, datum, zoom and equivalent viewport aspect. Verify views from both ends and after resize. Preserve frozen W10; apply corrections in the next version.
-
+- 立体展示默认使用正常透视，近大远小；不得再把斜向正交视图作为默认立体展示，使用户误判远近大小。禁止反向透视、镜像或负尺度补偿。
+- 测量对照使用明确标注的正侧、俯视、前后端正交视图；斜向正交只能辅助看结构，不能独立裁定纵深比例。展示和测量相机必须分开。
+- 双对象必须共享投影类型、相机姿态、基准、缩放和等比例画布；禁止各自自动缩放后称为同尺度。
+- 每次交付前检查前后两端观察、正常透视、固定正交对照和窗口缩放；仅有渲染截图或 HTTP 200 不能通过。
+- 此规则写入后续版本与交接；保留已经固定发布的旧版页面，不覆盖历史。
