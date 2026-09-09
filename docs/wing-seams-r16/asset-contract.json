@@ -1,0 +1,67 @@
+{
+  "asset": {
+    "name": "B24 wing panel relations R16",
+    "role": "hero",
+    "sourceMethod": "procedural",
+    "provenance": [
+      "User Airfix A09011 PDF pages8/17/18",
+      "User R15 correction screenshots September8"
+    ],
+    "licenseNotes": "User screenshots offline. Source documents linked, not bundled. No source raster runtime."
+  },
+  "visual": {
+    "approvedReferences": [
+      "user accepted R14 skin appearance"
+    ],
+    "closestCameraMeters": 0.5,
+    "maximumScreenCoveragePercent": 100,
+    "silhouetteCriticalViews": [
+      "port belly",
+      "starboard belly",
+      "nose wheel aft belly",
+      "main tires",
+      "wing top/bottom"
+    ],
+    "artDirectionNotes": "Replace R15 periodic wing grid with explicit reference panel endpoints; fix horizontal tail upper paint, inspect both nacelle undersides and anchor exhaust soot."
+  },
+  "runtime": {
+    "renderer": "Three.js native numeric source",
+    "targetDevices": [
+      "desktop Chrome",
+      "390px mobile layout"
+    ],
+    "weakestTestDevice": "Chrome SwiftShader software, no physical mobile GPU claim",
+    "animation": false,
+    "physics": false,
+    "requiredNodeNames": [
+      "source 348 meshes/1784 nodes immutable"
+    ],
+    "requiredExtensions": []
+  },
+  "budgets": {
+    "downloadMiB": 0.2,
+    "decodedTextureMiB": 0.25,
+    "triangles": 10000,
+    "primitives": 12,
+    "materials": 12,
+    "drawCalls": 8,
+    "bones": 0,
+    "frameTimeMs": 0,
+    "scope": "increment over R15"
+  },
+  "variants": [
+    {
+      "name": "desktop",
+      "trigger": "default",
+      "texturePolicy": "generated numeric surface fields only",
+      "geometryPolicy": "shared source and instanced wheel hardware; shader microdetail"
+    },
+    {
+      "name": "mobile",
+      "trigger": "narrow viewport",
+      "texturePolicy": "same small fields",
+      "geometryPolicy": "DPR cap; derivative based detail fading"
+    }
+  ],
+  "acceptanceEvidence": {}
+}
