@@ -1,0 +1,126 @@
+{
+  "AGENTS.md": {
+    "bytes": 4206,
+    "sha256": "aeb75c4ed191e83fccfa0a7dd6e084b7b7039bbbbc313fff84ca27f0bdc2a44b"
+  },
+  "CURRENT.json": {
+    "bytes": 591,
+    "sha256": "bc6489e94b38eb0838f03d4ff5f622a1d22e0f3939c87809b69f7c51f4ac8f7c"
+  },
+  "README.md": {
+    "bytes": 722,
+    "sha256": "289d89debfb2a26fa6448d5220e2732f0f254d23f5d03e0895744f4ef28a856f"
+  },
+  "b24-80-days-r2.html": {
+    "bytes": 15640,
+    "sha256": "24bd9fcc6e3c18c9cbbe707eb3febb13439b6abdcb8c454caf4de6a90ce9bd02"
+  },
+  "runtime/80-days-r2.js": {
+    "bytes": 16440,
+    "sha256": "c268205ad1246bd8cbb5e04de51b62218c061657df08491dc2cef4d175d37354"
+  },
+  "runtime/80-days-instance-r2.js": {
+    "bytes": 4051,
+    "sha256": "8674ec5d1dee439e4329ec1bd46e9743d07e537dfcb985aab9d275c9d958b3dd"
+  },
+  "docs/80-days-r2/CORRECTIONS.md": {
+    "bytes": 3453,
+    "sha256": "6c5652f24a45b89e91f38c9a3338b3bf22e1f026c322087790a4151239626997"
+  },
+  "docs/80-days-r2/DEPENDENCIES.json": {
+    "bytes": 816,
+    "sha256": "d9e3cbc816dc13b840b375c6bef745c86bb71b404affd9ceb6337877d82ff3f2"
+  },
+  "docs/80-days-r2/LOCAL_QA.json": {
+    "bytes": 20148,
+    "sha256": "5f3eedbebd3256ac263a6767651d3f77e13e96b4af5c0fb2c5f8b4330d09b707"
+  },
+  "docs/80-days-r2/MOTHER_OBJECT_DEFINITION_RULE_2026-09-09.md": {
+    "bytes": 2405,
+    "sha256": "497f64e0ebae7e98b2a40638cff808ee646ec60759b2c2fd0d2d733bc436ace8"
+  },
+  "docs/80-days-r2/MOTHER_PUBLIC_PREVIEW_DELIVERY_RULE_2026-09-08.md": {
+    "bytes": 1503,
+    "sha256": "6d3d97e100717143377f6e573e8f8dc0c964a901a977b67acd9593fa888f4dec"
+  },
+  "assets/80-days-r2/bomb.png": {
+    "bytes": 966,
+    "sha256": "cdbcf9e2bc96f4b1508ce31ae7b17aee050b0382a34f3089ab29c1e741067f14"
+  },
+  "assets/80-days-r2/dice.png": {
+    "bytes": 88357,
+    "sha256": "dd128d6a171a312d631cf724749448d124e4adb93cb914f4a15b1880e5047eac"
+  },
+  "assets/80-days-r2/eye.png": {
+    "bytes": 21100,
+    "sha256": "7c73bac332c1a28ed87cbb84d5a5ff99e1bec4c8c69266af5086d3e4b1d5f69b"
+  },
+  "assets/80-days-r2/flag-0.png": {
+    "bytes": 3180,
+    "sha256": "9c2c06f138d9245e232e3f7962aae0bbc0f0efd7e4073dbfcbc200bfd8990574"
+  },
+  "assets/80-days-r2/flag-1.png": {
+    "bytes": 3185,
+    "sha256": "7eaa2b5b8c8a54da9acdb8a9bc8a3573744fc86222acbc4b1eb46c26a4c18a31"
+  },
+  "assets/80-days-r2/flag-2.png": {
+    "bytes": 3153,
+    "sha256": "55d45303586b02a57c2829b5a3da6d0f789f33d1c7215a538f7e0de7c92b9632"
+  },
+  "assets/80-days-r2/flag-3.png": {
+    "bytes": 3141,
+    "sha256": "d43692ca64942aa3ab4c4a660f4a44df3f863cba4a7479bfe2ddc109cb4a7d8c"
+  },
+  "assets/80-days-r2/flag-4.png": {
+    "bytes": 2940,
+    "sha256": "1b12cd5f5e906f304ea6ba13e70eaacb2e5c9e565c523ed8ff980ad6332a7a80"
+  },
+  "assets/80-days-r2/flag-5.png": {
+    "bytes": 2806,
+    "sha256": "ca665d589302d8a6f66b369b18d64cb11f4b8392a4864a21bfce886ca2052dfd"
+  },
+  "assets/80-days-r2/flag-row.png": {
+    "bytes": 17874,
+    "sha256": "235e86e2a69b1c365cb13a0c29163a8a79771a8c352958ac059796532d9a8cfd"
+  },
+  "assets/80-days-r2/huff.png": {
+    "bytes": 11443,
+    "sha256": "fe396326584afbbb1ba6f151f2e6a4af4620cc013b667eace4bf75673b5e7186"
+  },
+  "assets/80-days-r2/mouth.png": {
+    "bytes": 380681,
+    "sha256": "743e04800da040dc1fa63847cbd7ababf00748c1950f973f404006e39b35427c"
+  },
+  "assets/80-days-r2/name.png": {
+    "bytes": 139579,
+    "sha256": "c67571198da254cd50bf88bec6c859d899e8c066fedefb69fe0680adea9f9325"
+  },
+  "assets/80-days-r2/PROVENANCE.json": {
+    "bytes": 9317,
+    "sha256": "e38fabbf9dce48ca58a8aed6a9be3a6d63f7f5a8443cb0b56ab2974a8a81279d"
+  },
+  "assets/80-days-r2/reference-bomb.jpeg": {
+    "bytes": 61707,
+    "sha256": "63017ac51c634f34ef022c226cebdbb4fcd6bbb5813c680fc361da41550ce9ad"
+  },
+  "assets/80-days-r2/reference-port.jpg": {
+    "bytes": 690771,
+    "sha256": "c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5"
+  },
+  "assets/80-days-r2/reference-starboard.jpg": {
+    "bytes": 814824,
+    "sha256": "2a4d1873055dbfef67f0416f4515b03e8489a566f6c451f4a133a09bf7b1043f"
+  },
+  "assets/80-days-r2/robby.png": {
+    "bytes": 19322,
+    "sha256": "00740b14ca72a6a852bba88544ec3def8bace110fe1df3a020b8c48af130dd0d"
+  },
+  "assets/80-days-r2/stam.png": {
+    "bytes": 4366,
+    "sha256": "3e7dd21fd98935d98c6efdf43a8161723b39ab1c76d79b9664ce970e69d91bf0"
+  },
+  "assets/80-days-r2/user-original.png": {
+    "bytes": 719734,
+    "sha256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4"
+  }
+}

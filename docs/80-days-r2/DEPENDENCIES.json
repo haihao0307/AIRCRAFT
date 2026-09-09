@@ -1,0 +1,25 @@
+{
+  "entry": "runtime/80-days-r2.js",
+  "modules": [
+    "runtime/80-days-base-view-r1.js",
+    "runtime/80-days-instance-r2.js",
+    "runtime/80-days-r2.js",
+    "runtime/b24-r10-detail-materials.js",
+    "runtime/b24-r10-detail-regions.js",
+    "runtime/b24-r16-skin-system.js",
+    "runtime/b24-r7-bay-poses.js",
+    "runtime/b24-r7-reference.js",
+    "runtime/b24-r8-bay-poses.js",
+    "runtime/b24-reference-panels-r16.js",
+    "runtime/b24-service-life-r16.js",
+    "runtime/motion-system.js",
+    "runtime/native-aircraft.js",
+    "runtime/skin-joints-r14.js",
+    "runtime/vendor/OrbitControls.js",
+    "runtime/vendor/three.core.js",
+    "runtime/vendor/three.module.js"
+  ],
+  "sourceImages": "assets/80-days-r2/PROVENANCE.json",
+  "parentGeometryModified": false,
+  "noseArtworkUsesOriginalPixels": true
+}

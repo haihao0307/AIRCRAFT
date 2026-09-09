@@ -1,0 +1,893 @@
+{
+  "url": "http://127.0.0.1:18780/b24-80-days-r2.html",
+  "passed": true,
+  "views": {
+    "nose-port": {
+      "view": "nose-port",
+      "type": "PerspectiveCamera",
+      "left": null,
+      "right": null,
+      "top": null,
+      "bottom": null,
+      "zoom": 1
+    },
+    "nose-starboard": {
+      "view": "nose-starboard",
+      "type": "PerspectiveCamera",
+      "left": null,
+      "right": null,
+      "top": null,
+      "bottom": null,
+      "zoom": 1
+    },
+    "tail-port": {
+      "view": "tail-port",
+      "type": "PerspectiveCamera",
+      "left": null,
+      "right": null,
+      "top": null,
+      "bottom": null,
+      "zoom": 1
+    },
+    "tail-starboard": {
+      "view": "tail-starboard",
+      "type": "PerspectiveCamera",
+      "left": null,
+      "right": null,
+      "top": null,
+      "bottom": null,
+      "zoom": 1
+    },
+    "whole": {
+      "view": "whole",
+      "type": "PerspectiveCamera",
+      "left": null,
+      "right": null,
+      "top": null,
+      "bottom": null,
+      "zoom": 1
+    },
+    "front": {
+      "view": "front",
+      "type": "OrthographicCamera",
+      "left": -19.687619047619048,
+      "right": 19.687619047619048,
+      "top": 15.2,
+      "bottom": -15.2,
+      "zoom": 1
+    },
+    "rear": {
+      "view": "rear",
+      "type": "OrthographicCamera",
+      "left": -19.687619047619048,
+      "right": 19.687619047619048,
+      "top": 15.2,
+      "bottom": -15.2,
+      "zoom": 1
+    },
+    "top": {
+      "view": "top",
+      "type": "OrthographicCamera",
+      "left": -19.687619047619048,
+      "right": 19.687619047619048,
+      "top": 15.2,
+      "bottom": -15.2,
+      "zoom": 1
+    },
+    "ortho-port": {
+      "view": "ortho-port",
+      "type": "OrthographicCamera",
+      "left": -2.75,
+      "right": 2.75,
+      "top": 2.1231617647058822,
+      "bottom": -2.1231617647058822,
+      "zoom": 1
+    },
+    "ortho-starboard": {
+      "view": "ortho-starboard",
+      "type": "OrthographicCamera",
+      "left": -2.75,
+      "right": 2.75,
+      "top": 2.1231617647058822,
+      "bottom": -2.1231617647058822,
+      "zoom": 1
+    }
+  },
+  "sourcePNG_SHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+  "defaultPropellersVisible": true,
+  "sourceReferences": 4,
+  "state": {
+    "reversed": 0,
+    "total": 51553,
+    "error": 0,
+    "distance": 1.1531608535824849,
+    "report": {
+      "version": "80-days-source-r2",
+      "source": {
+        "id": "b24-generic-mother-01",
+        "commit": "47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a",
+        "payloadSHA256": "f5ff859a7ff0e38112fa099d8c7d3a4cd8e859434701fb4dd9d81629374c5e3e"
+      },
+      "frame": {
+        "id": "mother01:aircraft",
+        "axes": {
+          "x": "port",
+          "y": "up",
+          "z": "nose"
+        },
+        "unit": "parent-working-metre",
+        "engineeringCalibrated": false
+      },
+      "shapes": 68,
+      "generatedTriangles": 59567,
+      "rejectedTriangles": 12241,
+      "maxAttachmentResidual": 0.0020000000000005565,
+      "patches": {
+        "port": {
+          "source": "80_Days_China_2_1944.jpg",
+          "targetIds": [
+            1714,
+            1747,
+            1678,
+            1760
+          ],
+          "hits": 61304,
+          "misses": 7030,
+          "maxNormalOffset": 0.002,
+          "side": "port",
+          "workingPlacementEnvelope": 0.18,
+          "temporarySurfaceTriangles": 10666
+        },
+        "starboard": {
+          "source": "E07",
+          "targetIds": [
+            1714,
+            1747,
+            1678,
+            1760
+          ],
+          "hits": 24245,
+          "misses": 0,
+          "maxNormalOffset": 0.002,
+          "side": "starboard",
+          "workingPlacementEnvelope": 0.22,
+          "temporarySurfaceTriangles": 9683
+        },
+        "tail-port": {
+          "source": "E07",
+          "targetIds": [
+            1717,
+            719,
+            744
+          ],
+          "hits": 11531,
+          "misses": 1805,
+          "maxNormalOffset": 0.002,
+          "side": "port",
+          "workingPlacementEnvelope": 0.14,
+          "temporarySurfaceTriangles": 1885
+        },
+        "tail-starboard": {
+          "source": "E07",
+          "targetIds": [
+            1717,
+            719,
+            744
+          ],
+          "hits": 6866,
+          "misses": 115,
+          "maxNormalOffset": 0.002,
+          "side": "starboard",
+          "workingPlacementEnvelope": 0.14,
+          "temporarySurfaceTriangles": 1759
+        },
+        "starboard-mouth": {
+          "source": "E07",
+          "targetIds": [
+            1714,
+            1747,
+            1678,
+            1760
+          ],
+          "hits": 34770,
+          "misses": 7421,
+          "maxNormalOffset": 0.002,
+          "side": "starboard",
+          "workingPlacementEnvelope": 0.22,
+          "temporarySurfaceTriangles": 9683
+        },
+        "starboard-text": {
+          "source": "E07",
+          "targetIds": [
+            1714,
+            1747,
+            1678,
+            1760
+          ],
+          "hits": 601,
+          "misses": 0,
+          "maxNormalOffset": 0.002,
+          "side": "starboard",
+          "workingPlacementEnvelope": 0.22,
+          "temporarySurfaceTriangles": 9683
+        }
+      },
+      "omittedMarks": [
+        {
+          "text": "ROBBY",
+          "reason": "user accepts deferral; window correspondence incomplete"
+        }
+      ],
+      "historicalComplete": false,
+      "engineeringCalibrated": false,
+      "imagePlacements": [
+        {
+          "image": "name",
+          "photoRect": [
+            382,
+            92,
+            435,
+            126
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "dice",
+          "photoRect": [
+            489,
+            204,
+            210,
+            108
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "mouth",
+          "photoRect": [
+            82,
+            181,
+            671,
+            206
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "eye",
+          "photoRect": [
+            307,
+            -25,
+            97,
+            117
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "stam",
+          "photoRect": [
+            969,
+            110,
+            67,
+            29
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "flag-0",
+          "photoRect": [
+            685,
+            77,
+            19,
+            20
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "flag-1",
+          "photoRect": [
+            704.8,
+            77.9,
+            19,
+            20
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "flag-2",
+          "photoRect": [
+            724.6,
+            78.8,
+            19,
+            20
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "flag-3",
+          "photoRect": [
+            744.4,
+            79.7,
+            19,
+            20
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "flag-4",
+          "photoRect": [
+            764.2,
+            80.6,
+            19,
+            20
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "flag-5",
+          "photoRect": [
+            784,
+            81.5,
+            19,
+            20
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "flag-0",
+          "photoRect": [
+            803.8,
+            82.4,
+            19,
+            20
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "flag-1",
+          "photoRect": [
+            823.6,
+            83.3,
+            19,
+            20
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            445,
+            25,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            462.7,
+            26.1505,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            480.4,
+            27.301,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            498.1,
+            28.451500000000003,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            515.8,
+            29.601999999999997,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            533.5,
+            30.7525,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            551.2,
+            31.903000000000002,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            568.9,
+            33.0535,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            586.6,
+            34.204,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            604.3,
+            35.3545,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            622,
+            36.505,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            639.7,
+            37.6555,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            657.4,
+            38.806,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            675.1,
+            39.956500000000005,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            692.8,
+            41.107,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            710.5,
+            42.2575,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            740.2,
+            44.188,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            757.9,
+            45.338499999999996,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            775.5999999999999,
+            46.48899999999999,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            793.3,
+            47.6395,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            811,
+            48.79,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            828.7,
+            49.9405,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            846.4,
+            51.091,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            864.0999999999999,
+            52.241499999999995,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            881.8,
+            53.391999999999996,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            899.5,
+            54.542500000000004,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            917.2,
+            55.693000000000005,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            934.9,
+            56.8435,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            952.5999999999999,
+            57.99399999999999,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "bomb",
+          "photoRect": [
+            970.3,
+            59.1445,
+            13,
+            31
+          ],
+          "patch": "port",
+          "source": "80_Days_China_2_1944.jpg",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "name",
+          "photoRect": [
+            1428,
+            491,
+            220,
+            65
+          ],
+          "patch": "starboard",
+          "source": "E07",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "dice",
+          "photoRect": [
+            1490,
+            552,
+            113,
+            57
+          ],
+          "patch": "starboard",
+          "source": "E07",
+          "flip": false,
+          "candidate": false
+        },
+        {
+          "image": "mouth",
+          "photoRect": [
+            1532,
+            548,
+            373,
+            113
+          ],
+          "patch": "starboard-mouth",
+          "source": "E07",
+          "flip": true,
+          "candidate": false
+        },
+        {
+          "image": "eye",
+          "photoRect": [
+            1639,
+            449,
+            48,
+            58
+          ],
+          "patch": "starboard",
+          "source": "E07",
+          "flip": true,
+          "candidate": false
+        },
+        {
+          "image": "huff",
+          "photoRect": [
+            1420,
+            450,
+            49,
+            25
+          ],
+          "patch": "starboard-text",
+          "source": "E07",
+          "flip": false,
+          "candidate": false
+        }
+      ],
+      "originalArtwork": {
+        "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+        "nameRedrawn": false,
+        "diceRedrawn": false,
+        "mouthRedrawn": false,
+        "bombContourRedrawn": false
+      },
+      "view": "ortho-starboard"
+    },
+    "images": [
+      "name",
+      "dice",
+      "mouth",
+      "eye",
+      "stam",
+      "flag-0",
+      "flag-1",
+      "flag-2",
+      "flag-3",
+      "flag-4",
+      "flag-5",
+      "bomb",
+      "huff"
+    ],
+    "rootScale": [
+      1,
+      1,
+      1
+    ]
+  },
+  "pageErrors": [],
+  "httpErrors": [],
+  "checks": [
+    "all view buttons",
+    "all switches",
+    "source-image buttons",
+    "original PNG byte identity",
+    "outward surface winding",
+    "no backside paint",
+    "root attachment",
+    "same-scale orthographic",
+    "mobile resize",
+    "method document"
+  ]
+}

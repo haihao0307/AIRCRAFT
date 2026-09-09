@@ -1,24 +1,14 @@
-# 当前实例：80 DAYS 定位试验 R1
+# 当前任务：80 DAYS 原图修正 R2
 
-当前分支 experiment/80-days-placement-r1，用户要求从已冻结母体派生一版以检查测量与位置。读取 CURRENT.json、docs/80-days-r1/MEASUREMENT.md 与本目录随附的共同规则原件。此授权仅覆盖本实例试验，不等于全局清理完成或恢复旧生产工具。下文母体冻结说明是继承背景，原冻结分支保持不变。
+用户明确要求完成本 Skin Mother 修正，并说明 Weapon Mother 清理与本任务无关、不要因此停止。本次继续授权仅用于本实例；不恢复任何撤销工具，不改变其他 Mother 的清理状态。
 
-# 当前有效基线：公版母体01（2026-09-09）
+必须使用本轮用户给定 PNG 的图案，禁止用自造字形/骰子/嘴部替代。文字和骰子不得镜像。图案像素、图像来源、照片登记位置与母体几何事实分别记录。当前目录的原始图像是用户明确指定的视觉输入，不代表恢复旧图像转三维流程。母体冻结，R1 固定版本保留。
 
-用户已接受R16为公版母体01，当前分支accepted/b24-generic-mother-01。本阶段冻结；只做必要归档及完整性修复，不自动开启研发。先读CURRENT.json、README.md与docs/generic-mother-01/DERIVATION.md。以下历史阶段说明只用于来源追溯，不能覆盖本节。原有已发布公网地址和历史提交保留；当前树删除旧入口不代表删除历史。逐架新飞机必须派生，不能覆盖公版。
+# 项目协作规则
 
-# B24 native distillation R1
+## Weapon 当前接续（2026-09-09）
 
-The user approved proceeding with image-free compact data, an independent motion system, then source-grounded geometry recipes. This branch is feature/b24-native-distillation-r1. Read CURRENT.json and knowledge/NATIVE_R1.md. Do not merge other branches or activate old reconstruction workflows.
-
-Read-only comparison source is haihao0307/AIRCRAFT@b8b2a6c441fa9a9b7e0831f4217511b4968d266e. The user-accepted V017 source remains ceed8183dc5fb8399349e73ebeef5b997d7d7389 on accepted/b24-v017-20260905. Previous public V017 and V017.1 pages remain unchanged. No acceptance is inherited by V018.
-
-This authorization permits removal of unused image and UV bytes, new payload layout/hashes, baked initialization poses and an independent source-derived actuator runtime after equivalence tests. It does not permit silent geometry simplification, changing aircraft identity, inventing dimensions or pretending sampled curves are engineering-calibrated mechanisms.
-
-runtime/ must have no original GLB, raster image files, original image byte blocks, original UV blocks, or full old animation table. Geometry is initially an exact numeric transition and must be labeled as such. All original position, normal and index values must compare equal. Source-derived mechanisms must pass local and world-transform comparison before browser release.
-
-Generated environment reflection, shadow buffers and the existing event-smoke canvas are renderer caches, explicitly inventoried. Do not describe this as zero GPU texture objects. Weather, clouds and fog remain deferred.
-
-Build source lives outside runtime and never enters its package. The only offline reference is the pinned snapshot. Update provenance and tests when representations change. Never promise an overnight agent is running without a real task execution. CI checks are not autonomous geometry research or user acceptance.
+Object DNA Mother Weapon 任务先读 `G:/AIRCRAFT/WEAPON_RESTART_2026-09-09.md`。用户最新要求整个旧Weapon体系退出：不再读取或依赖旧代码、旧知识、模型、参考资料、历史包及Git历史；用户将重新提供资料。当前唯一工作集为 `G:/AIRCRAFT/weapons-mother-site`，只保留小妈现行方法、规则与清理记录，对象事实和参考输入为空。旧材料的保留条款不能抵消用户本轮清理授权。物理删除受自动审批拦截，旧工作集已移出项目；不要恢复或继续研究它。
 
 ## 统一公网预览交付规则（用户要求，2026-09-08）
 
@@ -34,14 +24,16 @@ Build source lives outside runtime and never enters its package. The only offlin
 
 共同规则原件：G:/小妈/MOTHER_PUBLIC_PREVIEW_DELIVERY_RULE_2026-09-08.md。
 
-## 接缝参考作废与重新扫描（2026-09-08）
-用户明确否定旧的 105 段接缝参考线，要求移除并重新扫描。b24-r7-seams.js、旧 *-seams.svg、旧接缝坐标与衍生投影只为历史版本保留，禁止作为新接缝或铆钉输入。当前新入口是 R11，见 docs/b24-generic-skin/R11.md。新 r11-fresh-seam-observations.json 仅为原图独立重读后的候选，不是已校准制造线。严禁把旧线重新启用、改名复用或据此补线。
-
-
 ## 相机与对照验收规则（用户纠正，2026-09-08）
 
-- 立体展示默认使用正常透视，近大远小；不得把斜向正交视图作为默认立体展示，禁止反向透视、镜像或负尺度补偿。
-- 测量对照采用明确标注的正侧、俯视、前后端正交视图。斜向正交只辅助看结构，展示和测量相机分开。
-- 双对象共享投影类型、相机姿态、基准、缩放和等比例画布，不得分别自动缩放后称为同尺度。
-- 每次交付检查前后两端、正常透视、固定正交和窗口缩放；仅截图或HTTP 200不构成通过。
-- 规则延续到后续版本和交接；固定历史页面不改。
+- 立体展示默认使用正常透视，近大远小；不得再把斜向正交视图作为默认立体展示，使用户误判远近大小。禁止反向透视、镜像或负尺度补偿。
+- 测量对照使用明确标注的正侧、俯视、前后端正交视图；斜向正交只能辅助看结构，不能独立裁定纵深比例。展示和测量相机必须分开。
+- 双对象必须共享投影类型、相机姿态、基准、缩放和等比例画布；禁止各自自动缩放后称为同尺度。
+- 每次交付前检查前后两端观察、正常透视、固定正交对照和窗口缩放；仅有渲染截图或 HTTP 200 不能通过。
+- 此规则写入后续版本与交接；保留已经固定发布的旧版页面，不覆盖历史。
+
+## Mother 工具与对象定义（用户要求，2026-09-09）
+
+全部 Mother 及后续任务执行 G:/小妈/MOTHER_OBJECT_DEFINITION_RULE_2026-09-09.md，并在后续交接中携带原件。已撤销的旧图像转三维、上游副本和旧资产生产技能不得读取、调用、恢复或间接引入；旧列表、旧会话和历史包不构成授权，不得改名包装旧流程。
+
+持久事实是对象身份、带参考架和误差的测量、位置/方向、组成与坐标父架、明确连接以及曲线曲面规则；显示缓冲是临时输出。先检验连接和空间逻辑，再验外观。清理完成前暂停资产生产与新工具重建。

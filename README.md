@@ -1,9 +1,7 @@
-# 80 DAYS · 定位试验 R1
+# 80 DAYS · 原图修正 R2
 
-独立派生自冻结公版母体 01 / R16。入口为 b24-80-days-r1.html。本分支不覆盖母体与旧固定发布。
+入口 `b24-80-days-r2.html`。按用户本轮提供的透明 PNG 保留名称、骰子、红黑嘴部和眼部图案，黄色炸弹从用户 B-17 照片分离。STAM 与 HUFF 的字迹来自照片。螺旋桨默认显示。
 
-名称、骰子、嘴与尾标按指定照片状态试放到现有宿主表面；ROBBY 因窗口构型对应不完整暂不放置。尾号补全、对侧配置等可通过候选开关检查。本轮尚未制造标定，也不是完整历史复原。
+[修改与来源说明](docs/80-days-r2/CORRECTIONS.md)。当前依然存在母体机首玻璃构型与照片的差异，ROBBY 按用户要求暂缓，不宣称完成历史构型复原或制造测量标定。
 
-方法、证据、误差与已知差异见 [测量记录](docs/80-days-r1/MEASUREMENT.md)。父版本信息见 [PARENT.json](docs/80-days-r1/PARENT.json)。新增文件的 SHA256 见 docs/80-days-r1/INSTANCE_MANIFEST.json；根目录原有 MANIFEST.json 属于父版，不包括本轮新增内容。
-
-主交付继续使用经实际浏览器验收的固定提交公网 HTTPS 链接。当前试版不代表全局旧工具清理已经完成，不恢复已撤销入口。
+[R1 固定历史预览](https://rawcdn.githack.com/haihao0307/AIRCRAFT/6d90da20c983aa55254f9297aa9b52a1f3696ac4/b24-80-days-r1.html) 保持原样。当前新文件校验见 `docs/80-days-r2/MANIFEST.json`；根原有 MANIFEST.json 属于公版父版本。
