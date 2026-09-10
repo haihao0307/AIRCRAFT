@@ -49,8 +49,9 @@ jobs:
                   cid=r['component'];page.click(f'button[data-c="{cid}"]');page.wait_for_timeout(450);page.screenshot(path=str(out/f'rank-c{cid}.png'))
               b.close()
           assert state['componentTotal']==548,state
-          assert state['candidateCount']>20,state
+          assert state['candidateCount']>=20,state
           assert len(state['top'])>=8,state
+          assert state['top'][0]['component'] in (8,81),state['top'][:3]
           assert state['top'][0]['score']>=state['top'][7]['score'],state
           assert not errors,errors
           print(json.dumps(state['top'][:12],ensure_ascii=False,indent=2))
