@@ -33,23 +33,26 @@ jobs:
           import json
           from playwright.sync_api import sync_playwright
           out=Path('reports/80-days-r5-qa');out.mkdir(parents=True,exist_ok=True)
-          errors=[]
+          desktop_errors=[]
+          mobile_errors=[]
           with sync_playwright() as p:
               b=p.chromium.launch(headless=True)
               page=b.new_page(viewport={"width":1440,"height":900},device_scale_factor=1)
-              page.on('console',lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
-              page.on('pageerror',lambda e: errors.append('pageerror: '+str(e)))
+              page.on('console',lambda m: desktop_errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
+              page.on('pageerror',lambda e: desktop_errors.append('pageerror: '+str(e)))
               page.goto('http://127.0.0.1:8765/b24-80days-instance-r5.html',wait_until='domcontentloaded',timeout=30000)
               page.wait_for_function("() => window.__B24_80DAYS_R5__ || window.__B24_80DAYS_R5_ERROR__",timeout=60000)
               state=page.evaluate("() => ({audit:window.__B24_80DAYS_R5__||null,error:window.__B24_80DAYS_R5_ERROR__||null,status:document.querySelector('#status')?.textContent,qa:document.querySelector('#qaReadout')?.textContent,loading:getComputedStyle(document.querySelector('#loading')).display})")
               for name in ['nose-port','port','front','orbit']:
                   page.click(f'button[data-view="{name}"]');page.wait_for_timeout(700);page.screenshot(path=str(out/f'{name}.png'))
-              mobile=page.context.new_page()
-              mobile.set_viewport_size({"width":390,"height":844})
+              mobile=b.new_page(viewport={"width":390,"height":844},device_scale_factor=1)
+              mobile.on('console',lambda m: mobile_errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
+              mobile.on('pageerror',lambda e: mobile_errors.append('pageerror: '+str(e)))
               mobile.goto('http://127.0.0.1:8765/b24-80days-instance-r5.html',wait_until='domcontentloaded',timeout=30000)
               mobile.wait_for_function("() => window.__B24_80DAYS_R5__ || window.__B24_80DAYS_R5_ERROR__",timeout=60000)
+              mobile_state=mobile.evaluate("() => ({error:window.__B24_80DAYS_R5_ERROR__||null,loading:getComputedStyle(document.querySelector('#loading')).display,canvas:[document.querySelector('#scene')?.clientWidth,document.querySelector('#scene')?.clientHeight],toggle:getComputedStyle(document.querySelector('#mobileToggle')).display})")
               mobile.screenshot(path=str(out/'mobile-390x844.png'))
-              Path(out/'state.json').write_text(json.dumps({'state':state,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
+              Path(out/'state.json').write_text(json.dumps({'desktop':state,'desktopErrors':desktop_errors,'mobile':mobile_state,'mobileErrors':mobile_errors},ensure_ascii=False,indent=2),encoding='utf-8')
               b.close()
           assert not state['error'],state
           a=state['audit']
@@ -66,8 +69,13 @@ jobs:
           assert a['startupMs']<60000,a['startupMs']
           assert a['visualAcceptance'] is False and a['productionReady'] is False,a
           assert state['loading']=='none',state
-          assert not errors,errors
-          print(json.dumps({'qa':state['qa'],'startupMs':a['startupMs'],'physicalMouthRect':a['calibration']['physicalMouthRect'],'bounds':a['calibration']['bounds'],'errors':errors},ensure_ascii=False,indent=2))
+          assert not desktop_errors,desktop_errors
+          assert not mobile_state['error'],mobile_state
+          assert mobile_state['loading']=='none',mobile_state
+          assert mobile_state['canvas'][0] > 0 and mobile_state['canvas'][1] > 0,mobile_state
+          assert mobile_state['toggle']!='none',mobile_state
+          assert not mobile_errors,mobile_errors
+          print(json.dumps({'qa':state['qa'],'startupMs':a['startupMs'],'physicalMouthRect':a['calibration']['physicalMouthRect'],'bounds':a['calibration']['bounds'],'mobile':mobile_state,'errors':desktop_errors+mobile_errors},ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         if: always()
