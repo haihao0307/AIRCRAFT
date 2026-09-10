@@ -32,6 +32,7 @@ jobs:
           from pathlib import Path
           import json
           from playwright.sync_api import sync_playwright
+          expected={'69','59','63','7','8'}
           out=Path('reports/80-days-r7-candidates');out.mkdir(parents=True,exist_ok=True)
           errors=[]
           with sync_playwright() as p:
@@ -52,7 +53,8 @@ jobs:
           assert not initial['error'],initial
           a=initial['audit']
           assert a['mother']['id']=='b24-generic-mother-01' and a['mother']['modified'] is False,a
-          assert a['candidateIds']==['69','59','63','7','8'],a
+          assert set(a['candidateIds'])==expected,a
+          assert set(states)==expected,states
           assert a['visualAcceptance'] is False and a['productionReady'] is False,a
           assert all(states[c]['active']==c for c in states),states
           assert not errors,errors
