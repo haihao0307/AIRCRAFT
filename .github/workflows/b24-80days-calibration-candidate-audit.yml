@@ -1,0 +1,60 @@
+name: B24 80 DAYS calibration candidate audit
+on:
+  push:
+    branches: [feature/b24-80days-instance-from-mother01-r5]
+    paths:
+      - b24-80days-calibration-candidate-audit.html
+      - runtime/b24-80days-calibration-candidate-audit.js
+      - .github/workflows/b24-80days-calibration-candidate-audit.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static check
+        run: node --check runtime/b24-80days-calibration-candidate-audit.js
+      - name: Install Chromium
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Serve
+        run: python -m http.server 8765 >/tmp/calibration-http.log 2>&1 &
+      - name: Compare candidates against Mother-01 envelope
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          from playwright.sync_api import sync_playwright
+          out=Path('reports/80-days-calibration-candidates');out.mkdir(parents=True,exist_ok=True)
+          errors=[]
+          with sync_playwright() as p:
+              b=p.chromium.launch(headless=True)
+              page=b.new_page(viewport={"width":1200,"height":900})
+              page.on('console',lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
+              page.on('pageerror',lambda e: errors.append('pageerror: '+str(e)))
+              page.goto('http://127.0.0.1:8765/b24-80days-calibration-candidate-audit.html',wait_until='domcontentloaded',timeout=30000)
+              page.wait_for_function("() => window.__B24_80DAYS_CALIBRATION_AUDIT__ || window.__B24_80DAYS_CALIBRATION_ERROR__",timeout=60000)
+              state=page.evaluate("() => ({audit:window.__B24_80DAYS_CALIBRATION_AUDIT__||null,error:window.__B24_80DAYS_CALIBRATION_ERROR__||null})")
+              Path(out/'audit.json').write_text(json.dumps({'state':state,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
+              b.close()
+          assert not state['error'],state
+          assert not errors,errors
+          a=state['audit']
+          assert a['sourcePayloadSHA256']=='f5ff859a7ff0e38112fa099d8c7d3a4cd8e859434701fb4dd9d81629374c5e3e',a
+          assert len(a['candidates'])>=8,a
+          compact=[{k:v for k,v in c.items() if k!='samples'} for c in a['candidates']]
+          print(json.dumps({'bestByContainment':a['bestByContainment'],'candidates':compact},ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-80days-calibration-candidate-audit
+          path: reports/80-days-calibration-candidates
+          retention-days: 30
