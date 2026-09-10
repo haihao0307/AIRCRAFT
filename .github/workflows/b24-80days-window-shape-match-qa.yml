@@ -1,7 +1,7 @@
 name: B24 80 DAYS window shape match QA
 on:
   push:
-    branches: [feature/b24-80days-instance-from-mother01-r3]
+    branches: [feature/b24-80days-registration-r7]
     paths:
       - b24-80days-window-shape-match.html
       - runtime/b24-80days-window-shape-match.js
