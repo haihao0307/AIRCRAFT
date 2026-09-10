@@ -1,0 +1,66 @@
+name: B24 80 DAYS registration R7 QA
+on:
+  push:
+    branches: [feature/b24-80days-registration-r7]
+    paths:
+      - b24-80days-registration-r7.html
+      - runtime/b24-80days-registration-r7.js
+      - .github/workflows/b24-80days-registration-r7-qa.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static check
+        run: node --check runtime/b24-80days-registration-r7.js
+      - name: Install Chromium
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Serve
+        run: python -m http.server 8765 >/tmp/r7-http.log 2>&1 &
+      - name: Capture every candidate
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          from playwright.sync_api import sync_playwright
+          out=Path('reports/80-days-r7-candidates');out.mkdir(parents=True,exist_ok=True)
+          errors=[]
+          with sync_playwright() as p:
+              b=p.chromium.launch(headless=True)
+              page=b.new_page(viewport={"width":1440,"height":900})
+              page.on('console',lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
+              page.on('pageerror',lambda e: errors.append('pageerror: '+str(e)))
+              page.goto('http://127.0.0.1:8765/b24-80days-registration-r7.html',wait_until='domcontentloaded',timeout=30000)
+              page.wait_for_function("() => window.__B24_80DAYS_R7__ || window.__B24_80DAYS_R7_ERROR__",timeout=60000)
+              initial=page.evaluate("() => ({audit:window.__B24_80DAYS_R7__||null,error:window.__B24_80DAYS_R7_ERROR__||null})")
+              states={}
+              for cid in ['69','59','63','7','8']:
+                  page.click(f'button[data-candidate="{cid}"]');page.wait_for_timeout(700)
+                  states[cid]=page.evaluate("() => ({active:window.__B24_80DAYS_R7__.active,readout:document.querySelector('#readout').textContent})")
+                  page.screenshot(path=str(out/f'candidate-{cid}.png'))
+              Path(out/'state.json').write_text(json.dumps({'initial':initial,'states':states,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
+              b.close()
+          assert not initial['error'],initial
+          a=initial['audit']
+          assert a['mother']['id']=='b24-generic-mother-01' and a['mother']['modified'] is False,a
+          assert a['candidateIds']==['69','59','63','7','8'],a
+          assert a['visualAcceptance'] is False and a['productionReady'] is False,a
+          assert all(states[c]['active']==c for c in states),states
+          assert not errors,errors
+          print(json.dumps(states,ensure_ascii=False,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-80days-registration-r7-candidates
+          path: reports/80-days-r7-candidates
+          retention-days: 30
