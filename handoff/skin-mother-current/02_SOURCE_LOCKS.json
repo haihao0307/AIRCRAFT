@@ -1,0 +1,52 @@
+{
+  "handoffDate": "2026-09-12",
+  "repository": "haihao0307/AIRCRAFT",
+  "currentWorkingBranch": "feature/b24-80days-simple-placement-r9",
+  "r9ForkBase": "6a6403b256514cf8943395bcfc8ed0fa0e841922",
+  "genericMother01": {
+    "id": "b24-generic-mother-01",
+    "name": "B-24 公版母体 01",
+    "status": "user-accepted-frozen",
+    "branch": "accepted/b24-generic-mother-01",
+    "freezeCommit": "636f26ec102680b4154a6f9dca0cf49fc951f51e",
+    "renderCommit": "47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a",
+    "entry": "b24-wing-seams-r16.html",
+    "preview": "https://rawcdn.githack.com/haihao0307/AIRCRAFT/47ba8a21676b49e6a1d4d6d4285c28ba1f2f538a/b24-wing-seams-r16.html",
+    "engineeringCalibration": false,
+    "mutable": false
+  },
+  "aircraft80Days": {
+    "type": "B-24J-25-CO",
+    "serial": "42-73257",
+    "name": "80 DAYS",
+    "unit": "14AF / 308BG / 374BS",
+    "aircraftNumber": 487,
+    "currentStableRuntime": "R6",
+    "currentStableRuntimeCommit": "6a6403b256514cf8943395bcfc8ed0fa0e841922",
+    "visualAcceptance": false,
+    "productionReady": false
+  },
+  "deadEnds": [
+    {
+      "label": "R7 automatic window/candidate registration",
+      "status": "diagnostic-only-do-not-continue"
+    },
+    {
+      "label": "R8 projective homography registration",
+      "branch": "feature/b24-80days-projective-r8",
+      "commit": "479e812c2461e91083c8f1e286fb05b23508cd5f",
+      "status": "failed-abandoned",
+      "failure": "singular homography"
+    }
+  ],
+  "continuationMethod": "direct-observation-measure-placement-curvature-wrap-same-view-compare",
+  "prohibitions": [
+    "do-not-modify-frozen-generic-mother01",
+    "do-not-mirror-port-to-starboard",
+    "do-not-invent-missing-historical-markings",
+    "do-not-use-generic-font-for-80-DAYS-title",
+    "do-not-use-default-dice-pip-layout",
+    "do-not-generate-uniform-shark-teeth",
+    "do-not-resume-homography-or-window-candidate-search-as-product-path"
+  ]
+}
