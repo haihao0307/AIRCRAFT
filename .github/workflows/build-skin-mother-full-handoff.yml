@@ -1,0 +1,74 @@
+name: Build Skin Mother Current Full Handoff
+
+on:
+  push:
+    branches:
+      - feature/b24-80days-simple-placement-r9
+    paths:
+      - 'handoff/skin-mother-current/**'
+      - 'CURRENT_SKIN_MOTHER_HANDOFF.md'
+      - '.github/workflows/build-skin-mother-full-handoff.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current R9 handoff branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Build full handoff ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          PACKAGE_BASE='B24_Skin_Mother_Current_Full_Handoff_R9_WIP_2026-09-12'
+          STAGE="/tmp/${PACKAGE_BASE}"
+          rm -rf "$STAGE"
+          mkdir -p "$STAGE"
+
+          rsync -a ./ "$STAGE/" \
+            --exclude '.git/' \
+            --exclude 'releases/*.zip' \
+            --exclude 'releases/*.sha256'
+
+          mkdir -p "$STAGE/handoff/skin-mother-current"
+          cat > "$STAGE/handoff/skin-mother-current/PACKAGE_BUILD_INFO.json" <<EOF
+          {
+            "package": "${PACKAGE_BASE}.zip",
+            "sourceRepository": "${GITHUB_REPOSITORY}",
+            "sourceBranch": "${GITHUB_REF_NAME}",
+            "sourceCommit": "${GITHUB_SHA}",
+            "buildRun": "${GITHUB_RUN_ID}",
+            "builtBy": "GitHub Actions",
+            "visualAcceptance80Days": false,
+            "productionReady80Days": false
+          }
+          EOF
+
+          cd /tmp
+          zip -r -9 "${PACKAGE_BASE}.zip" "${PACKAGE_BASE}" >/dev/null
+          cd "$GITHUB_WORKSPACE"
+          mkdir -p releases
+          mv "/tmp/${PACKAGE_BASE}.zip" "releases/${PACKAGE_BASE}.zip"
+          sha256sum "releases/${PACKAGE_BASE}.zip" > "releases/${PACKAGE_BASE}.zip.sha256"
+
+      - name: Commit full handoff package to GitHub
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add releases/B24_Skin_Mother_Current_Full_Handoff_R9_WIP_2026-09-12.zip
+          git add releases/B24_Skin_Mother_Current_Full_Handoff_R9_WIP_2026-09-12.zip.sha256
+          if git diff --cached --quiet; then
+            echo 'Package already current; nothing to commit.'
+            exit 0
+          fi
+          git commit -m 'handoff(skin): package current R9 WIP full handoff [skip ci]'
+          git push origin HEAD:${GITHUB_REF_NAME}
