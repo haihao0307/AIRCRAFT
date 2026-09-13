@@ -1,0 +1,31 @@
+{
+  "schema": "b24.skin.scan.r10",
+  "aircraft": "B-24J-25-CO 42-73257 80 DAYS",
+  "side": "port",
+  "reference": {
+    "id": "E04-left",
+    "width": 2000,
+    "height": 1243,
+    "sha256": "07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa",
+    "source": "https://asisbiz.com/il2/B-24/308BG/images/42-73257-B-24J-Liberator-14AF-308BG374BS-no-487-named-80-Days-nose-art-left-side-China-01.jpg"
+  },
+  "coordinateSystem": {
+    "origin": "image top-left",
+    "x": "+right",
+    "y": "+down",
+    "units": "pixel",
+    "mirrored": false
+  },
+  "fixedAnchors": [
+    {"id":"window-tl","kind":"window","x":767,"y":163,"status":"locked-from-R9"},
+    {"id":"window-tr","kind":"window","x":947,"y":163,"status":"locked-from-R9"},
+    {"id":"window-br","kind":"window","x":947,"y":359,"status":"locked-from-R9"},
+    {"id":"window-bl","kind":"window","x":767,"y":359,"status":"locked-from-R9"},
+    {"id":"window-center","kind":"window","x":857,"y":261,"status":"locked-from-R9"}
+  ],
+  "pendingAnchorClasses": ["mouth","tooth","title","dice","flag","structure"],
+  "structuralCorrespondence": "UNRESOLVED",
+  "motherGeometryModified": false,
+  "visualAcceptance": false,
+  "productionReady": false
+}
