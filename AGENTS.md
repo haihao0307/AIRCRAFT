@@ -27,3 +27,11 @@ The active production aircraft is B-24J-45-CO serial 42-73436, **UBANGI BAG III*
 5. If publication or browser verification has not completed, state that the online review page is not ready. Never present a local build result as an online delivery.
 6. Keep the last accepted online page available while a new candidate is being developed. Publish new work to a separate review path until the user accepts it.
 7. Once the user accepts a component, preserve its actual source files, parameters, dependency contract, and accepted evidence. Later work changes only the requested component and its genuine dependencies.
+
+## All Mother visual-output rule
+
+All AIRCRAFT Mothers and later production modules default to **no image generation and no image editing**. Do not generate concept images, beauty renders, preview pictures, reference images, posters, thumbnails, or still images as a substitute for the requested 3D result.
+
+Only use an image-generation or image-editing tool when the user explicitly asks for an image in the current conversation. Requests such as “做一个看看”, “试试做一个”, “给我看成果”, “参考这个形状做一个” default to a real 3D deliverable: interactive HTML, Three.js/WebGPU workbench, procedural geometry, GLB/3D file when requested, or the relevant production source.
+
+Screenshots may be generated internally for QA and evidence, but must not be sent as the creative deliverable unless the user explicitly asks for screenshots or images.
