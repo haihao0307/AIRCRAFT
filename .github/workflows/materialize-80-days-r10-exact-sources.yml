@@ -1,0 +1,132 @@
+name: Materialize exact 80 DAYS R10 source images
+
+on:
+  push:
+    branches:
+      - feature/b24-80days-scan-calibration-r10
+    paths:
+      - .github/workflows/materialize-80-days-r10-exact-sources.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: materialize-80-days-r10-exact-sources
+  cancel-in-progress: false
+
+env:
+  REVIEW_URL: https://github.com/haihao0307/AIRCRAFT/releases/download/80-days-source-v1/374BS_80_DAYS_review_pack_v2.zip
+  REVIEW_SHA256: 23428c52faf5f65d1fa97bf1402c9c4f8a3b721581ee6ba807a2ebe1cf52baee
+  E04_SHA256: 07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa
+  PORT_ART_SHA256: 799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact continuation branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/b24-80days-scan-calibration-r10
+          fetch-depth: 0
+
+      - name: Download and verify locked review package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .asset-cache assets/80-days-port-master reports
+          curl --fail --location --retry 6 --retry-delay 2 --retry-all-errors \
+            --output .asset-cache/374BS_80_DAYS_review_pack_v2.zip "$REVIEW_URL"
+          test "$(sha256sum .asset-cache/374BS_80_DAYS_review_pack_v2.zip | awk '{print $1}')" = "$REVIEW_SHA256"
+          unzip -t .asset-cache/374BS_80_DAYS_review_pack_v2.zip >/dev/null
+
+      - name: Scan archive by exact byte hash and materialize only exact matches
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, json, struct, zipfile
+
+          archive = Path('.asset-cache/374BS_80_DAYS_review_pack_v2.zip')
+          out = Path('assets/80-days-port-master')
+          out.mkdir(parents=True, exist_ok=True)
+          wanted = {
+              'e04': '07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa',
+              'portArt': '799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4',
+          }
+          found = {}
+          image_candidates = []
+
+          def dims(data):
+              if data.startswith(b'\x89PNG\r\n\x1a\n') and len(data) >= 24:
+                  return list(struct.unpack('>II', data[16:24]))
+              if data[:2] == b'\xff\xd8':
+                  i = 2
+                  while i + 9 < len(data):
+                      if data[i] != 0xff:
+                          i += 1; continue
+                      marker = data[i+1]; i += 2
+                      if marker in (0xd8,0xd9): continue
+                      if i + 2 > len(data): break
+                      n = int.from_bytes(data[i:i+2], 'big')
+                      if marker in range(0xc0,0xc4) and i + 7 < len(data):
+                          return [int.from_bytes(data[i+5:i+7],'big'), int.from_bytes(data[i+3:i+5],'big')]
+                      i += max(n, 2)
+              return None
+
+          with zipfile.ZipFile(archive) as z:
+              for info in z.infolist():
+                  if info.is_dir(): continue
+                  data = z.read(info)
+                  sha = hashlib.sha256(data).hexdigest()
+                  low = info.filename.lower()
+                  if low.endswith(('.png','.jpg','.jpeg','.webp')):
+                      image_candidates.append({'name':info.filename,'bytes':len(data),'sha256':sha,'dimensions':dims(data)})
+                  for key, target in wanted.items():
+                      if sha == target:
+                          found[key] = {'archivePath': info.filename, 'bytes': len(data), 'sha256': sha}
+                          dest = out / ('E04-left.jpg' if key == 'e04' else '80-days-port-master.png')
+                          dest.write_bytes(data)
+                          found[key]['outputPath'] = str(dest)
+
+          report = {
+              'schema':'haihao.aircraft/r10-source-materialization@1',
+              'archiveSha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
+              'wanted': wanted,
+              'found': found,
+              'exactE04Found': 'e04' in found,
+              'exactPortArtworkFound': 'portArt' in found,
+              'imageCandidates': image_candidates,
+              'substitutionAllowed': False,
+          }
+          Path('reports/80-days-r10-source-materialization.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          print(json.dumps(report, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Commit any exact sources and the scan report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/80-days-r10-source-materialization.json assets/80-days-port-master/E04-left.jpg assets/80-days-port-master/80-days-port-master.png 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No new exact source files materialized."
+          else
+            git commit -m "assets(skin): materialize exact R10 source images"
+            git push origin HEAD:feature/b24-80days-scan-calibration-r10
+          fi
+
+      - name: Fail closed when either exact source is absent
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          r=json.load(open('reports/80-days-r10-source-materialization.json',encoding='utf-8'))
+          if not r['exactE04Found'] or not r['exactPortArtworkFound']:
+              raise SystemExit('Exact-source gate failed: no substitutions are permitted.')
+          print('Exact E04 and exact port artwork are both materialized.')
+          PY
