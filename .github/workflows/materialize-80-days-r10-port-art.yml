@@ -1,0 +1,71 @@
+name: Materialize exact 80 DAYS R10 port artwork
+
+on:
+  push:
+    branches:
+      - feature/b24-80days-scan-calibration-r10
+    paths:
+      - .github/workflows/materialize-80-days-r10-port-art.yml
+      - assets/80-days-port-master/source64-*.txt
+      - assets/80-days-port-master/SOURCE64_MANIFEST.json
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: materialize-80-days-r10-port-art
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact continuation branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/b24-80days-scan-calibration-r10
+          fetch-depth: 0
+
+      - name: Validate chunks and decode exact source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, json
+
+          root=Path('assets/80-days-port-master')
+          m=json.loads((root/'SOURCE64_MANIFEST.json').read_text(encoding='utf-8'))
+          parts=[]
+          for item in m['chunks']:
+              p=root/item['path']
+              s=p.read_text(encoding='utf-8').strip()
+              assert len(s)==item['chars'], (p, len(s), item['chars'])
+              got=hashlib.sha256(s.encode()).hexdigest()
+              assert got==item['textSha256'], (p, got, item['textSha256'])
+              parts.append(s)
+          encoded=''.join(parts)
+          data=base64.b64decode(encoded, validate=True)
+          assert len(data)==m['decodedBytes'], (len(data),m['decodedBytes'])
+          got=hashlib.sha256(data).hexdigest()
+          assert got==m['decodedSha256'], (got,m['decodedSha256'])
+          out=Path(m['outputPath'])
+          out.write_bytes(data)
+          print('decoded', out, len(data), got)
+          PY
+
+      - name: Commit verified binary source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/80-days-port-master/80-days-port-master.webp
+          if git diff --cached --quiet; then
+            echo "Exact port artwork already materialized."
+          else
+            git commit -m "assets(skin): materialize exact user port artwork"
+            git push origin HEAD:feature/b24-80days-scan-calibration-r10
+          fi
