@@ -1,0 +1,32 @@
+{
+  "schema": "haihao.aircraft/80-days-source-art-lock@1",
+  "aircraft": "B-24J-25-CO 42-73257 80 DAYS",
+  "side": "port",
+  "source": {
+    "role": "authoritative appearance source",
+    "description": "user-supplied transparent composite artwork; do not redraw or substitute",
+    "pixelWidth": 1448,
+    "pixelHeight": 1086,
+    "rgbaPngSha256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+    "losslessWebpBytes": 482878,
+    "losslessWebpSha256": "bbc839209fe43f174becb9b1b4a95006adef1726979099def99487c58eb1680e",
+    "visiblePixelsVerifiedExact": true
+  },
+  "rules": {
+    "redrawForbidden": true,
+    "r9VectorArtworkAuthoritative": false,
+    "allowedTransforms": ["component crop", "translation", "uniform scale", "rotation", "surface projection/wrap"],
+    "historicalPhotosRole": "placement/proportion/perspective/evidence only",
+    "starboardMirrorForbidden": true,
+    "motherGeometryModified": false
+  },
+  "componentCrops": {
+    "robby": {"sourceRect":[145,235,165,115],"pngSha256":"690dc485c2cf2dcdafcbe17f9c969a7f716ff2b2e131d57878fa2d9ca83f8e5f"},
+    "window": {"sourceRect":[345,115,245,240],"pngSha256":"823e85d1f4d5b8982c22a3e42d9cba4458b32514c152a6e93c7c97ce525f65d8"},
+    "title": {"sourceRect":[520,215,905,275],"pngSha256":"d3f6f296a3c4907005a1a3ef96edc265c3f80bc86acd023224784d2af6bbf661"},
+    "dice1": {"sourceRect":[825,480,230,235],"pngSha256":"6ac3f4f54459f71ed7ea2998cb29d50c66b08ae1458e42b66c3d61c66e351f6c"},
+    "dice2": {"sourceRect":[1050,480,230,240],"pngSha256":"3c45aa61edccc93f4f400ee1bc8b7af2282d5564adf9265939ee6bf54344058b"},
+    "mission": {"sourceRect":[525,75,923,145],"pngSha256":"5d8799be8fb12b3ffc2817abd2a32d6e105ac6fc198fd634eaafb3ca6ddae1a9"}
+  },
+  "state": {"visualAcceptance":false,"productionReady":false}
+}
