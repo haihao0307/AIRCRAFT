@@ -13,7 +13,7 @@
     {"path":"source-03.b85","chars":100000,"sha256":"3d55c7f0595c83032acc91de1437031b30ec02ca18a3fa4543df607c4dc0c76b"},
     {"path":"source-04.b85","chars":100000,"sha256":"86237e4ac95392670c1efd74212012f36708761e6138f347f307cda7507ae74a"},
     {"path":"source-05.b85","chars":100000,"sha256":"17db3b6371db8ecd8a1d67d026198340748cd11c4c41ee8b95744a6b0c759354"},
-    {"path":"source-06.b85","chars":3598,"sha256":"PENDING_RECHECK_BEFORE_FINALIZE"}
+    {"path":"source-06.b85","chars":3598,"sha256":"ebfd9c527506e1039f8199b679f817bfb39e84f7f23e94c06ced6e3c5ca33e2c"}
   ],
   "note": "The earlier robby-part000.hex and source-test000.b85 files are transport probes only and are not production inputs. Runtime must fail closed until all listed source-* chunks validate."
 }
