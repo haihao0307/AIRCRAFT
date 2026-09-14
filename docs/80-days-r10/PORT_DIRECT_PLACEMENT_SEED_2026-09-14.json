@@ -1,0 +1,28 @@
+{
+  "schema": "haihao.aircraft/80-days-port-direct-placement-seed@1",
+  "referencePhoto": {
+    "id": "E04-left",
+    "pixelSize": [2000,1243],
+    "sha256": "07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa"
+  },
+  "sourceArtwork": {
+    "pixelSize": [1448,1086],
+    "pngSha256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+    "appearanceSourceOnly": true
+  },
+  "measurements": {
+    "title80DAYS": {
+      "sourceLetterCenters": [[697.0165,385.3458],[816.1635,349.8769],[962.1920,313.7887],[1080.3783,339.7099],[1192.3234,326.5652],[1299.7719,372.5158]],
+      "photoLetterCenters": [[1083.1907,441.5587],[1225.7549,408.9510],[1401.3677,379.1821],[1541.6867,409.8051],[1677.9494,396.5659],[1812.7250,448.0052]],
+      "similarity2D": {"scale":1.20386678,"rotationDeg":1.73451,"translationPx":[256.87944,-41.42754]},
+      "fitRmsePx":4.06
+    },
+    "dicePair": {
+      "sourceCenters": [[943.2891,598.4991],[1167.0925,601.9094]],
+      "photoCenters": [[1310.6999,685.4844],[1580.4338,700.2751]],
+      "similarity2D": {"scale":1.20689748,"rotationDeg":2.26564,"translationPx":[201.69201,-81.28390]}
+    }
+  },
+  "interpretation": "These are direct photo-space placement seeds only. They do not authorize redrawing. Different component translations show the supplied composite is a layout sheet, not one globally registered photo sheet; components must retain their source pixels and be placed independently before surface wrapping.",
+  "constraints": {"uniformScalePerComponent":true,"motherGeometryModified":false,"starboardMirror":false,"visualAcceptance":false}
+}
