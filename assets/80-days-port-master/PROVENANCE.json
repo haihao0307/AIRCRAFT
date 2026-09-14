@@ -1,0 +1,266 @@
+{
+  "originalPNG": {
+    "sha256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+    "size": [
+      1448,
+      1086
+    ],
+    "mode": "RGBA"
+  },
+  "assets": [
+    {
+      "file": "name.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        555,
+        238,
+        1448,
+        488
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 139579,
+      "sha256": "c67571198da254cd50bf88bec6c859d899e8c066fedefb69fe0680adea9f9325",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "dice.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        838,
+        494,
+        1279,
+        710
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 88357,
+      "sha256": "dd128d6a171a312d631cf724749448d124e4adb93cb914f4a15b1880e5047eac",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "mouth.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        8,
+        526,
+        1388,
+        950
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 380681,
+      "sha256": "743e04800da040dc1fa63847cbd7ababf00748c1950f973f404006e39b35427c",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "eye.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        367,
+        134,
+        564,
+        337
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 21100,
+      "sha256": "7c73bac332c1a28ed87cbb84d5a5ff99e1bec4c8c69266af5086d3e4b1d5f69b",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "flag-row.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        1126,
+        164,
+        1424,
+        214
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 17874,
+      "sha256": "235e86e2a69b1c365cb13a0c29163a8a79771a8c352958ac059796532d9a8cfd",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "flag-0.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        1127,
+        166,
+        1174,
+        211
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 3180,
+      "sha256": "9c2c06f138d9245e232e3f7962aae0bbc0f0efd7e4073dbfcbc200bfd8990574",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "flag-1.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        1177,
+        166,
+        1224,
+        211
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 3185,
+      "sha256": "7eaa2b5b8c8a54da9acdb8a9bc8a3573744fc86222acbc4b1eb46c26a4c18a31",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "flag-2.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        1227,
+        166,
+        1274,
+        211
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 3153,
+      "sha256": "55d45303586b02a57c2829b5a3da6d0f789f33d1c7215a538f7e0de7c92b9632",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "flag-3.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        1277,
+        166,
+        1324,
+        211
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 3141,
+      "sha256": "d43692ca64942aa3ab4c4a660f4a44df3f863cba4a7479bfe2ddc109cb4a7d8c",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "flag-4.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        1327,
+        166,
+        1374,
+        211
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 2940,
+      "sha256": "1b12cd5f5e906f304ea6ba13e70eaacb2e5c9e565c523ed8ff980ad6332a7a80",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "flag-5.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        1377,
+        166,
+        1424,
+        211
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 2806,
+      "sha256": "ca665d589302d8a6f66b369b18d64cb11f4b8392a4864a21bfce886ca2052dfd",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "robby.png",
+      "source": "ChatGPT Image 2026年8月30日 15_03_25.png",
+      "sourceSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+      "sourceRect": [
+        156,
+        234,
+        337,
+        342
+      ],
+      "method": "source pixel crop; unrelated components masked only; retained RGB and alpha unchanged",
+      "bytes": 19322,
+      "sha256": "00740b14ca72a6a852bba88544ec3def8bace110fe1df3a020b8c48af130dd0d",
+      "retainedPixelsUnchanged": true
+    },
+    {
+      "file": "stam.png",
+      "source": "80_Days_China_2_1944.jpg",
+      "sourceSHA256": "c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5",
+      "sourceRect": [
+        969,
+        110,
+        1036,
+        139
+      ],
+      "method": "original photo RGB; local brightness alpha extraction, no replacement font",
+      "bytes": 4366,
+      "sha256": "3e7dd21fd98935d98c6efdf43a8161723b39ab1c76d79b9664ce970e69d91bf0"
+    },
+    {
+      "file": "huff.png",
+      "source": "E04_port_nose_ROBBY_HUFF.jpg",
+      "sourceSHA256": "07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa",
+      "sourceRect": [
+        1838,
+        100,
+        1999,
+        161
+      ],
+      "method": "original photo RGB; local brightness alpha extraction, no replacement font",
+      "bytes": 11443,
+      "sha256": "fe396326584afbbb1ba6f151f2e6a4af4620cc013b667eace4bf75673b5e7186"
+    },
+    {
+      "file": "bomb.png",
+      "source": "一睹传奇轰炸机｜ B-17孟菲斯美女号真身_1_六边形的拿铁_来自小红书网页版 - 副本.jpeg",
+      "sourceSHA256": "63017ac51c634f34ef022c226cebdbb4fcd6bbb5813c680fc361da41550ce9ad",
+      "sourceRect": [
+        332,
+        171,
+        344,
+        199
+      ],
+      "method": "source photo RGB unchanged; yellow-background separation for alpha; no new contour",
+      "bytes": 966,
+      "sha256": "cdbcf9e2bc96f4b1508ce31ae7b17aee050b0382a34f3089ab29c1e741067f14",
+      "colorReference": "user-supplied B17 photograph",
+      "sourceResolutionLimit": [
+        12,
+        28
+      ]
+    },
+    {
+      "file": "reference-port.jpg",
+      "source": "80_Days_China_2_1944.jpg",
+      "sourceSHA256": "c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5",
+      "sourceRect": null,
+      "method": "unmodified user photo",
+      "bytes": 690771,
+      "sha256": "c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5"
+    },
+    {
+      "file": "reference-starboard.jpg",
+      "source": "42-73257-B-24J-Liberator-14AF-308BG374BS-no-487-named-80-Days-nose-art-right-side-in-flight-CBI-01.jpg",
+      "sourceSHA256": "2a4d1873055dbfef67f0416f4515b03e8489a566f6c451f4a133a09bf7b1043f",
+      "sourceRect": null,
+      "method": "unmodified user photo",
+      "bytes": 814824,
+      "sha256": "2a4d1873055dbfef67f0416f4515b03e8489a566f6c451f4a133a09bf7b1043f"
+    },
+    {
+      "file": "reference-bomb.jpeg",
+      "source": "一睹传奇轰炸机｜ B-17孟菲斯美女号真身_1_六边形的拿铁_来自小红书网页版 - 副本.jpeg",
+      "sourceSHA256": "63017ac51c634f34ef022c226cebdbb4fcd6bbb5813c680fc361da41550ce9ad",
+      "sourceRect": null,
+      "method": "unmodified user photo",
+      "bytes": 61707,
+      "sha256": "63017ac51c634f34ef022c226cebdbb4fcd6bbb5813c680fc361da41550ce9ad"
+    }
+  ]
+}
