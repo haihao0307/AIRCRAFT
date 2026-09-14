@@ -1,0 +1,354 @@
+{
+  "schema": "haihao.aircraft/r10-source-materialization@1",
+  "archiveSha256": "23428c52faf5f65d1fa97bf1402c9c4f8a3b721581ee6ba807a2ebe1cf52baee",
+  "wanted": {
+    "e04": "07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa",
+    "portArt": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4"
+  },
+  "found": {
+    "e04": {
+      "archivePath": "374BS_80_DAYS_review_pack_v2/01_80_DAYS_original/E04_port_nose_ROBBY_HUFF.jpg",
+      "bytes": 1006009,
+      "sha256": "07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa",
+      "outputPath": "assets/80-days-port-master/E04-left.jpg"
+    }
+  },
+  "exactE04Found": true,
+  "exactPortArtworkFound": false,
+  "imageCandidates": [
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/01_80_DAYS_original/E01_starboard_crew_STAM_mission_marks.jpg",
+      "bytes": 690771,
+      "sha256": "c47c5285d0b95abf61cd426f43bbfb6f550d29b9f180ee52606283cf306d0ed5",
+      "dimensions": [
+        1332,
+        823
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/01_80_DAYS_original/E02_starboard_crew_title_dice_sharkmouth.jpg",
+      "bytes": 504418,
+      "sha256": "38a82d8ac32f98182aee2e38bd6e288c409faae8b39e515445bbb0cc4bc2eee3",
+      "dimensions": [
+        1346,
+        820
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/01_80_DAYS_original/E03_starboard_two_crew_STAM_position.jpg",
+      "bytes": 89210,
+      "sha256": "4ffd9160fba0d00ffd47e4925bcddc55c4efde800e17e3b73afc26007b248c06",
+      "dimensions": [
+        640,
+        490
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/01_80_DAYS_original/E04_port_nose_ROBBY_HUFF.jpg",
+      "bytes": 1006009,
+      "sha256": "07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa",
+      "dimensions": [
+        2000,
+        1243
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/01_80_DAYS_original/E05_port_front_ground_aircraft_487.jpg",
+      "bytes": 1327936,
+      "sha256": "67add5aa17bc09fb3ddfdcaadcd799d9a153ccd3a19d672c874871f23587f8ab",
+      "dimensions": [
+        1932,
+        1455
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/01_80_DAYS_original/E06_port_inflight_full_aircraft.jpg",
+      "bytes": 3971800,
+      "sha256": "03453abd80fa7be489ef89a72c591d8d1800a3c7e2a00dca63b6e9ddbe831564",
+      "dimensions": [
+        3744,
+        2799
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/01_80_DAYS_original/E07_starboard_inflight_full_aircraft.jpg",
+      "bytes": 814824,
+      "sha256": "2a4d1873055dbfef67f0416f4515b03e8489a566f6c451f4a133a09bf7b1043f",
+      "dimensions": [
+        2000,
+        933
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/01_80_DAYS_original/E08_SDASM_10_0018697_nose_archive.jpg",
+      "bytes": 76204,
+      "sha256": "760ed33486cf24f6191391dbea07c9ee08eda07bec3bc5099b7fce0f37eecab0",
+      "dimensions": [
+        640,
+        419
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D01_The_Goon_crew_01.jpg",
+      "bytes": 2215671,
+      "sha256": "92934b29e42cc2273d8580e3c93c96598db3955234121baa197b0979480b5ba1",
+      "dimensions": [
+        2400,
+        1799
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D02_The_Goon_crew_02.jpg",
+      "bytes": 2697404,
+      "sha256": "1fe121db4f7a8dddf603981d57e321af481f38a99b4b5ac3fdcbd756bf5f3707",
+      "dimensions": [
+        2756,
+        2160
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D03_The_Goon_crew_group.jpg",
+      "bytes": 132245,
+      "sha256": "01fa5f2e775262d1496449372c73ce3cf5a91fa69bd0d7933cb6cb345c89bc93",
+      "dimensions": [
+        1236,
+        1057
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D04_Ubangi_Bag_port.jpg",
+      "bytes": 856583,
+      "sha256": "49e4d76e893f7e38f3bd6cb40a9d0a15863471caa235b8799f28ef8f9fd7c866",
+      "dimensions": [
+        1800,
+        1190
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D05_Ubangi_Bag_starboard.jpg",
+      "bytes": 200074,
+      "sha256": "1499a2b4eaef41aa936b21a7a2152602a74ac7be51867d4b498e813c30a1d70d",
+      "dimensions": [
+        1725,
+        1409
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D06_Snowball_From_Hell_port.jpg",
+      "bytes": 3533594,
+      "sha256": "ad5961d2ff65aa5c97f61f013c1c9671a79248cdcf533c03491bd1e468a8d923",
+      "dimensions": [
+        3746,
+        2982
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D07_Snowball_From_Hell_starboard.jpg",
+      "bytes": 374377,
+      "sha256": "6efd2cba4d41dea71c4fed5c8fa385aeea9f1604dc8e092bb80c1e33aed6d347",
+      "dimensions": [
+        2200,
+        1682
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D08_Jungle_Pussy_port.jpg",
+      "bytes": 812157,
+      "sha256": "5bdd4568195e1f99752fc4bddb1de7fc1fb5009f1eb7d30a0f12fc196c1347bd",
+      "dimensions": [
+        1800,
+        1210
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D09_Jungle_Pussy_starboard_01.jpg",
+      "bytes": 1302707,
+      "sha256": "9a709367c3a5951ec4de89f090d880718f727aea9abeaf44f88cb8f448ddc420",
+      "dimensions": [
+        1993,
+        1442
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D10_Jungle_Pussy_starboard_color_unverified.jpg",
+      "bytes": 1212543,
+      "sha256": "47bfa4ccc56de8107e22fe3a13076e1bb5839f96f86acc6764bf05800193aa8e",
+      "dimensions": [
+        2191,
+        1413
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D11_Johnny_Dough_Boy_port_01.jpg",
+      "bytes": 1477806,
+      "sha256": "e298678d8147dc32ef0ffc113393cea3f2799768fe835ab17657c0c85f41645b",
+      "dimensions": [
+        2000,
+        1548
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D12_Johnny_Dough_Boy_port_02.jpg",
+      "bytes": 871935,
+      "sha256": "24120904b18ddd80749a75cac5df417a35287e50bcce510f2a3361eae42de6c6",
+      "dimensions": [
+        2000,
+        1230
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D13_Lakanooki_port.jpg",
+      "bytes": 235678,
+      "sha256": "6acfe49ba47bef0cc48753eddb04b78934b738826722cae33be2588af8ecdd0a",
+      "dimensions": [
+        1764,
+        1393
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/02_374BS_B24D_reference/D14_The_Wolf_starboard.jpg",
+      "bytes": 342688,
+      "sha256": "9aeca0f264ddbeedd2b5109bb05f7e052aa85a67a4978beb4340d90757c1f0eb",
+      "dimensions": [
+        2000,
+        1611
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J01_Forever_Amber_port_color_unverified.jpg",
+      "bytes": 1404127,
+      "sha256": "fd2d45ce7bd103365fadb4aee3e1cac80c7be3010a690c0bc1ed892651a54c39",
+      "dimensions": [
+        1912,
+        1460
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J02_Shootin_Star_starboard.jpg",
+      "bytes": 1273801,
+      "sha256": "329ab09fe2b75f71081ebf5b96caef76f4e4cb92362e985f19ebc678a52e0c7e",
+      "dimensions": [
+        2000,
+        1513
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J03_Reluctant_Dragon_nose.jpg",
+      "bytes": 53028,
+      "sha256": "70677eb6916b7d097a1c7d4dccb3b6ffa52f0faa5b39db64b205b2dad83716bf",
+      "dimensions": [
+        898,
+        597
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J04_Reluctant_Dragon_inflight.jpg",
+      "bytes": 242943,
+      "sha256": "20d10704cf2c639a6e2b1b8d02903607f83b673d64cf9c207185cb7c7250d381",
+      "dimensions": [
+        1800,
+        1108
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J05_The_Flying_Cloud_port_01.jpg",
+      "bytes": 969666,
+      "sha256": "870c7e07deb42b4b17aeaa2bc14da590185f945b88a9c1120921105a79b9561b",
+      "dimensions": [
+        1800,
+        1658
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J06_The_Flying_Cloud_port_02.jpg",
+      "bytes": 936940,
+      "sha256": "a13475229d9f65a9894023bda70a65db3b63e132ad42996b28ae62020ac4bff8",
+      "dimensions": [
+        1992,
+        1503
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J07_The_Flying_Cloud_starboard.jpg",
+      "bytes": 1071819,
+      "sha256": "87315806a1f2a576a6d4b2cc17b36159764af67ec64583e36ef7abcc7d925381",
+      "dimensions": [
+        1800,
+        1141
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J08_Buzz_Z_Buggy_nose.jpg",
+      "bytes": 59824,
+      "sha256": "d35ed57f0592c8b97b10be2670be027470a3f40e5ae4530be417995cf73698bd",
+      "dimensions": [
+        800,
+        765
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J09_Buzz_Z_Buggy_starboard.jpg",
+      "bytes": 886550,
+      "sha256": "6a2d388743d0aa5a031f37054c86c9c0028d12e36481a147c63d5d918ce677c3",
+      "dimensions": [
+        2000,
+        1429
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J10_Buzz_Z_Buggy_crew_starboard.jpg",
+      "bytes": 1132940,
+      "sha256": "29360da465bf08167a0e82b6c1eddc411a2ed4350e8f081a1db16d5a55a5ca0a",
+      "dimensions": [
+        1503,
+        1800
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/03_374BS_B24J_reference/J11_Massas_Dragon_starboard.jpg",
+      "bytes": 1485347,
+      "sha256": "dacea5f2c98cb4c88dde1d918a437da7a56db81d244a4a1a46f72095c6e48cf6",
+      "dimensions": [
+        2000,
+        1483
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/04_contact_sheets/00_all_photos_overview.jpg",
+      "bytes": 3569378,
+      "sha256": "1a8b25d7bc69f4226ef3f4990ec91be1d8bfbedaa80d59e5aaac3689363d94d3",
+      "dimensions": [
+        2656,
+        7002
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/04_contact_sheets/01_80_DAYS_original_review.jpg",
+      "bytes": 2272383,
+      "sha256": "28b1d02f11cde0209ef72bec1ee44c26a9a9222e249aad5683ec46c31e5c4491",
+      "dimensions": [
+        3056,
+        4298
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/04_contact_sheets/02_374BS_B24D_reference.jpg",
+      "bytes": 3962990,
+      "sha256": "87884a135449fdee9b2f81d1c8c442d60517af084f41fb4e38d2571691b4ef88",
+      "dimensions": [
+        3056,
+        7316
+      ]
+    },
+    {
+      "name": "374BS_80_DAYS_review_pack_v2/04_contact_sheets/03_374BS_B24J_reference.jpg",
+      "bytes": 2854356,
+      "sha256": "6bc092e69d9332ab1acf2c58e6e12ae606cda166fb9b50af23a0bd20e4a1ffeb",
+      "dimensions": [
+        3056,
+        6310
+      ]
+    }
+  ],
+  "substitutionAllowed": false
+}
