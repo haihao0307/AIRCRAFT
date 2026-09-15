@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>B-24 “80 DAYS” · R10 精确照片校准台</title>
+<link rel="icon" href="data:,">
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#0a0d0b;color:#eef1e8;font-family:Inter,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}body{overflow:hidden}.app{height:100%;display:grid;grid-template-rows:auto 1fr auto}.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 14px;border-bottom:1px solid rgba(240,242,226,.12);background:#111512}.bar h1{font-size:15px;margin:0;font-weight:650}.bar small{display:block;color:#98a298;font-size:9px;letter-spacing:.14em;margin-bottom:3px}.state{font:10px/1.4 ui-monospace,monospace;color:#d7cda8;text-align:right}.main{min-height:0;display:grid;grid-template-columns:1fr 1fr}.pane{position:relative;min-width:0;min-height:0;overflow:hidden;background:#0d110e}.pane+.pane{border-left:1px solid rgba(240,242,226,.12)}.tag{position:absolute;z-index:5;top:10px;left:10px;padding:7px 9px;border:1px solid rgba(240,242,226,.15);background:rgba(7,10,8,.78);backdrop-filter:blur(8px);border-radius:6px;font-size:10px;color:#dfe5dc}.refWrap{position:absolute;inset:0;display:grid;place-items:center;padding:44px 14px 14px}.ref{position:relative;max-width:100%;max-height:100%;display:inline-block}.ref img{display:block;max-width:100%;max-height:calc(100vh - 116px);object-fit:contain;user-select:none;-webkit-user-drag:none}.cross{position:absolute;pointer-events:none;display:none}.cross:before,.cross:after{content:"";position:absolute;background:#f1d889}.cross:before{width:1px;height:22px;left:0;top:-11px}.cross:after{height:1px;width:22px;top:0;left:-11px}.read{position:absolute;z-index:5;right:10px;bottom:10px;padding:7px 9px;border:1px solid rgba(240,242,226,.14);background:rgba(7,10,8,.78);border-radius:6px;font:10px/1.45 ui-monospace,monospace;color:#cbd4c8;white-space:pre}.frame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#0b0e0c}.foot{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:8px 14px;border-top:1px solid rgba(240,242,226,.12);background:#111512;color:#aab4a9;font-size:10px;line-height:1.45}.foot b{color:#edf0e9;font-weight:600}.warn{color:#d8cca2}.tools{display:flex;gap:8px;align-items:center}.tools button{border:1px solid #394139;background:#1a211b;color:#e9ebe3;padding:6px 9px;border-radius:5px;cursor:pointer;font-size:10px}.tools button:hover{background:#273028}@media(max-width:900px){.main{grid-template-columns:1fr;grid-template-rows:46% 54%}.pane+.pane{border-left:0;border-top:1px solid rgba(240,242,226,.12)}.ref img{max-height:calc(46vh - 72px)}.bar{padding:8px 10px}.foot{padding:7px 10px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="bar">
+    <div><small>B-24J-25-CO 42-73257 / 374BS · CALIBRATION R10</small><h1>“80 DAYS” 精确照片校准台</h1></div>
+    <div class="state">Mother 01：冻结<br>visualAcceptance=false · productionReady=false</div>
+  </header>
+  <main class="main">
+    <section class="pane" id="refPane">
+      <div class="tag">左：E04 精确源照片 · SHA-256 07439c42…a81fa</div>
+      <div class="refWrap"><div class="ref" id="refBox"><img id="refImg" src="./assets/80-days-port-master/E04-left.jpg" alt="E04 port nose exact source"><i class="cross" id="cross"></i></div></div>
+      <div class="read" id="read">点击照片读取像素坐标</div>
+    </section>
+    <section class="pane">
+      <div class="tag">右：R9 当前 3D 候选 · 仅作校准，不作为历史真值</div>
+      <iframe class="frame" src="./b24-80days-instance-r9.html" title="R9 current 3D candidate"></iframe>
+    </section>
+  </main>
+  <footer class="foot">
+    <div><b>当前执行：</b>同屏观察 → 逐点测量 → 定位 → 曲面贴合 → 同视角复核。<span class="warn">不再用普通字体、默认骰子、镜像右舷或重新猜画。</span></div>
+    <div class="tools"><button id="clear">清坐标</button><button id="copy">复制最近坐标</button></div>
+  </footer>
+</div>
+<script>
+const img=document.getElementById('refImg'),box=document.getElementById('refBox'),cross=document.getElementById('cross'),read=document.getElementById('read');let last=null;
+function pick(e){const r=img.getBoundingClientRect();const x=(e.clientX-r.left)*img.naturalWidth/r.width;const y=(e.clientY-r.top)*img.naturalHeight/r.height;last={x:+x.toFixed(1),y:+y.toFixed(1),w:img.naturalWidth,h:img.naturalHeight};cross.style.display='block';cross.style.left=(e.clientX-box.getBoundingClientRect().left)+'px';cross.style.top=(e.clientY-box.getBoundingClientRect().top)+'px';read.textContent=`x=${last.x}  y=${last.y}\nsource=${last.w}×${last.h}`;}
+img.addEventListener('click',pick);document.getElementById('clear').onclick=()=>{last=null;cross.style.display='none';read.textContent='点击照片读取像素坐标'};document.getElementById('copy').onclick=async()=>{if(!last)return;await navigator.clipboard?.writeText(JSON.stringify(last));read.textContent=`x=${last.x}  y=${last.y}\n已复制 JSON`};
+</script>
+</body>
+</html>
