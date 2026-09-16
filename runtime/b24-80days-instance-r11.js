@@ -44,8 +44,8 @@ function paintNoseFrames(aircraft){
     if(family==='glass'||/glass/.test(path))continue;
     box.setFromObject(mesh);box.getCenter(center);box.getSize(size);
     const dims=[size.x,size.y,size.z].sort((a,b)=>a-b);
-    const nose=center.z>5.05&&center.z<8.15&&center.y>-1.95&&center.y<1.45&&Math.abs(center.x)<1.65;
-    const slender=dims[0]<.22&&dims[1]<.62&&dims[2]<2.85;
+    const nose=center.z>5.0&&center.z<10.25&&center.y>-2.2&&center.y<2.05&&Math.abs(center.x)<2.05;
+    const slender=dims[0]<.50&&dims[1]<1.55&&dims[2]<4.60;
     const hinted=/(frame|window|windscreen|windshield|canopy|cockpit|nose)/.test(path);
     const excluded=/(gun|barrel|turret|seat|wheel|gear|antenna|pitot|instrument)/.test(path)||family==='legacy-weapon';
     if(nose&&!excluded&&(hinted||slender)&&mesh.material?.color){
