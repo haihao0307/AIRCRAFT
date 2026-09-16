@@ -4,6 +4,7 @@ import {NativeAircraft} from './native-aircraft.js';
 import {BAY_POSES_R8 as BAY_POSES_R16} from './b24-r8-bay-poses.js';
 import {applyDetailMaterials} from './b24-r10-detail-materials.js';
 import {createSkinSystem} from './b24-r16-skin-system.js';
+import {SOURCE_PIXELS,SOURCE_PIXEL_AUDIT} from './80-days-source-pixels-inline.js';
 
 const $=s=>document.querySelector(s);
 const canvas=$('#scene'),stage=$('#stage'),loading=$('#loading'),status=$('#status');
@@ -27,7 +28,6 @@ const closedDoorAssetMatrices={764:[-0.49668446950821343,0.0011307731244016028,0
 const E04={width:2000,height:1243,sha256:'07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa'};
 const placement={z:6.7,y:-1.1,metresPerPixel:0.0013,angle:0};
 const placementUniform={value:new THREE.Vector4(placement.z,placement.y,placement.metresPerPixel,0)};
-const sourceRoot=new URL('../assets/80-days-port-master/',import.meta.url).href;
 const SOURCE_SHA='799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4';
 
 function applyAssetMatrix(aircraft,nodeId,a){const node=aircraft.nodes[nodeId];if(!node)return;aircraft.group.updateMatrixWorld(true);node.parent.updateMatrixWorld(true);const target=new THREE.Matrix4().multiplyMatrices(aircraft.group.matrixWorld,new THREE.Matrix4().fromArray(a));const local=new THREE.Matrix4().multiplyMatrices(node.parent.matrixWorld.clone().invert(),target);local.decompose(node.position,node.quaternion,node.scale);node.matrixAutoUpdate=true;node.updateMatrix();node.updateMatrixWorld(true);}
@@ -36,7 +36,7 @@ function loadImage(src){return new Promise((resolve,reject)=>{const im=new Image
 function drawSourceComponent(ctx,img,origin,t){const r=t.rotationDeg*Math.PI/180,c=Math.cos(r),s=Math.sin(r);ctx.save();ctx.setTransform(t.scale*c,t.scale*s,-t.scale*s,t.scale*c,t.translationPx[0],t.translationPx[1]);ctx.drawImage(img,origin[0],origin[1]);ctx.restore();}
 async function makeSourcePixelTexture(){
   const [mouth,robby,title,dice]=await Promise.all([
-    loadImage(sourceRoot+'mouth.png'),loadImage(sourceRoot+'robby.png'),loadImage(sourceRoot+'title.png'),loadImage(sourceRoot+'dice.png')
+    loadImage(SOURCE_PIXELS.mouth),loadImage(SOURCE_PIXELS.robby),loadImage(SOURCE_PIXELS.title),loadImage(SOURCE_PIXELS.dice)
   ]);
   const c=document.createElement('canvas');c.width=E04.width;c.height=E04.height;const x=c.getContext('2d',{alpha:true});x.clearRect(0,0,c.width,c.height);
   drawSourceComponent(x,mouth,[8,526],{scale:1.21,rotationDeg:0,translationPx:[-9.7,-90.5]});
@@ -53,7 +53,7 @@ function setView(view){grid.visible=view==='orbit';if(view==='port')setOrtho([40
 addEventListener('resize',resize);resize();
 try{
   const aircraft=await NativeAircraft.load(()=>{});scene.add(aircraft.group);aircraft.group.position.set(0,0,0);aircraft.group.rotation.set(0,0,0);aircraft.group.scale.set(1,1,1);aircraft.group.updateMatrixWorld(true);lockMotherPosture(aircraft);applyDetailMaterials(aircraft,renderer);const skinSystem=createSkinSystem(aircraft,renderer);const texture=await makeSourcePixelTexture();const projection=installProjection(skinSystem.paintMeshes,texture);
-  window.__B24_80DAYS_R10__={schema:'haihao.aircraft/80-days-instance-runtime@10.0',mother:{id:'b24-generic-mother-01',freezeCommit:'636f26ec102680b4154a6f9dca0cf49fc951f51e',modified:false},sourceArtwork:{sha256:SOURCE_SHA,redrawn:false,components:['mouth','robby','title','dice']},reference:{id:'E04-left',sha256:E04.sha256},placement:{...placement},componentPlacementStatus:'seed-unaccepted',visualAcceptance:false,productionReady:false};
+  window.__B24_80DAYS_R10__={schema:'haihao.aircraft/80-days-instance-runtime@10.0',mother:{id:'b24-generic-mother-01',freezeCommit:'636f26ec102680b4154a6f9dca0cf49fc951f51e',modified:false},sourceArtwork:{sha256:SOURCE_SHA,redrawn:false,transport:'inline-exact-png-data-url',componentAudit:SOURCE_PIXEL_AUDIT,components:['mouth','robby','title','dice']},reference:{id:'E04-left',sha256:E04.sha256},placement:{...placement},componentPlacementStatus:'seed-unaccepted',visualAcceptance:false,productionReady:false};
   loading.hidden=true;setView('nose-port');
   $('#artToggle').addEventListener('change',e=>projection.setVisible(e.target.checked));
   $('#views').addEventListener('click',e=>{const b=e.target.closest('button[data-view]');if(b)setView(b.dataset.view);});
