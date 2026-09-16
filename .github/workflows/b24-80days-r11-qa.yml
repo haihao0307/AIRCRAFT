@@ -63,7 +63,7 @@ jobs:
           assert a['sourceArtwork']['redrawn'] is False,a
           assert a['sourceArtwork']['logicalXRange'][0] <= -800,a
           assert a['windowFrames']['red'] is True and a['windowFrames']['glassTransparent'] is True,a
-          assert a['windowFrames']['mode']=='port-skin-world-region',a['windowFrames']
+          assert a['windowFrames']['mode']=='port-skin-world-frame-bands',a['windowFrames']
           assert state['loading']=='none',state
           assert not errors,errors
           full=Image.open(out/'port-review.png').convert('RGB')
