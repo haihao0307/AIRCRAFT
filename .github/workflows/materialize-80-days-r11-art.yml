@@ -1,0 +1,107 @@
+name: Materialize 80 DAYS R11 source-pixel composite
+on:
+  push:
+    branches: [feature/b24-80days-scan-calibration-r10]
+    paths:
+      - .github/workflows/materialize-80-days-r11-art.yml
+      - runtime/b24-80days-instance-r11.js
+      - b24-80days-instance-r11.html
+      - b24-80days-r11-review.html
+      - assets/80-days-port-master/80-days-port-master.png
+      - assets/80-days-port-master/mouth.png
+      - assets/80-days-port-master/robby.png
+      - assets/80-days-port-master/title.png
+      - assets/80-days-port-master/dice.png
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/b24-80days-scan-calibration-r10
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow
+      - name: Build E04-space source-pixel composite
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageDraw, ImageChops
+          from pathlib import Path
+          import base64, hashlib, json
+          root=Path('.')
+          assets=root/'assets/80-days-port-master'
+          source=Image.open(assets/'80-days-port-master.png').convert('RGBA')
+          mouth=Image.open(assets/'mouth.png').convert('RGBA')
+          robby=Image.open(assets/'robby.png').convert('RGBA')
+          title=Image.open(assets/'title.png').convert('RGBA')
+          dice=Image.open(assets/'dice.png').convert('RGBA')
+          canvas=Image.new('RGBA',(2000,1243),(0,0,0,0))
+          def place(im,xywh):
+              x,y,w,h=xywh
+              im=im.resize((w,h),Image.Resampling.LANCZOS)
+              canvas.paste(im,(x,y),im)
+          # Retained source pixels only. Positions respond directly to the user's R10 review.
+          place(mouth,(-175,455,1765,530))
+          place(robby,(465,245,182,127))
+          place(title,(850,190,1180,330))
+          place(dice,(1188,575,535,262))
+          # Shark eye / circular window surround from the locked source sheet.
+          eye=source.crop((367,134,564,337))
+          mask=Image.new('L',eye.size,0);d=ImageDraw.Draw(mask);d.ellipse((3,3,eye.width-4,eye.height-4),fill=255)
+          eye.putalpha(ImageChops.multiply(eye.getchannel('A'),mask))
+          place(eye,(760,162,190,196))
+          # Mission bombs: retain source silhouette and alpha; use the supplied yellow colour reference.
+          bombs=source.crop((535,88,1435,164))
+          px=bombs.load()
+          for y in range(bombs.height):
+              for x in range(bombs.width):
+                  r,g,b,a=px[x,y]
+                  if not a: continue
+                  lum=(r*54+g*183+b*19)//256
+                  if lum<45: colour=(47,39,17)
+                  elif lum<120: colour=(166,127,22)
+                  else: colour=(236,195,46)
+                  px[x,y]=(*colour,a)
+          place(bombs,(1050,102,840,71))
+          # Six Japanese flags retained from the source sheet and placed above the title.
+          flags=source.crop((1126,164,1424,214))
+          place(flags,(1588,178,310,52))
+          out=Path('/tmp/80-days-r11-e04.png');canvas.save(out,optimize=True)
+          data=out.read_bytes();sha=hashlib.sha256(data).hexdigest();b64=base64.b64encode(data).decode('ascii')
+          Path('runtime/80-days-r11-art-inline.js').write_text(
+              '// Generated from retained user-supplied source pixels. Do not redraw or substitute.\n'
+              +f"export const R11_ART_SHA256='{sha}';\n"
+              +f"export const R11_ART_DATA_URL='data:image/png;base64,{b64}';\n",encoding='utf-8')
+          doc=Path('docs/80-days-r11');doc.mkdir(parents=True,exist_ok=True)
+          (doc/'PLACEMENT.json').write_text(json.dumps({
+            'schema':'haihao.aircraft/80-days-r11-placement@1',
+            'sourceArtworkSHA256':'799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4',
+            'referenceE04SHA256':'07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa',
+            'compositeSHA256':sha,'pixelSize':[2000,1243],
+            'components':{
+              'mouth':[-175,455,1765,530],
+              'robby':[465,245,182,127],
+              'title':[850,190,1180,330],
+              'dice':[1188,575,535,262],
+              'eye':[760,162,190,196],
+              'bombs':[1050,102,840,71],
+              'japaneseFlags':[1588,178,310,52]
+            },
+            'constraints':{'motherGeometryModified':False,'glassRemainsTransparent':True,'redFrameMaterialOnly':True,'visualAcceptance':False}
+          },ensure_ascii=False,indent=2),encoding='utf-8')
+          print('R11_ART',len(data),sha)
+          PY
+      - name: Commit R11 exact source-pixel composite
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add runtime/80-days-r11-art-inline.js docs/80-days-r11/PLACEMENT.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "feat(skin): materialize R11 forward-mouth source-pixel composite"
+          git push origin HEAD:feature/b24-80days-scan-calibration-r10
