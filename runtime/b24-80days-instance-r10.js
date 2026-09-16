@@ -27,7 +27,7 @@ const closedDoorAssetMatrices={764:[-0.49668446950821343,0.0011307731244016028,0
 const E04={width:2000,height:1243,sha256:'07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa'};
 const placement={z:6.7,y:-1.1,metresPerPixel:0.0013,angle:0};
 const placementUniform={value:new THREE.Vector4(placement.z,placement.y,placement.metresPerPixel,0)};
-const sourceRoot='../assets/80-days-port-master/';
+const sourceRoot=new URL('../assets/80-days-port-master/',import.meta.url).href;
 const SOURCE_SHA='799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4';
 
 function applyAssetMatrix(aircraft,nodeId,a){const node=aircraft.nodes[nodeId];if(!node)return;aircraft.group.updateMatrixWorld(true);node.parent.updateMatrixWorld(true);const target=new THREE.Matrix4().multiplyMatrices(aircraft.group.matrixWorld,new THREE.Matrix4().fromArray(a));const local=new THREE.Matrix4().multiplyMatrices(node.parent.matrixWorld.clone().invert(),target);local.decompose(node.position,node.quaternion,node.scale);node.matrixAutoUpdate=true;node.updateMatrix();node.updateMatrixWorld(true);}
@@ -39,7 +39,6 @@ async function makeSourcePixelTexture(){
     loadImage(sourceRoot+'mouth.png'),loadImage(sourceRoot+'robby.png'),loadImage(sourceRoot+'title.png'),loadImage(sourceRoot+'dice.png')
   ]);
   const c=document.createElement('canvas');c.width=E04.width;c.height=E04.height;const x=c.getContext('2d',{alpha:true});x.clearRect(0,0,c.width,c.height);
-  // Direct retained source pixels only. Transform seeds are photo-space placement estimates; no redraw.
   drawSourceComponent(x,mouth,[8,526],{scale:1.21,rotationDeg:0,translationPx:[-9.7,-90.5]});
   drawSourceComponent(x,robby,[156,234],{scale:0.97,rotationDeg:0,translationPx:[383.7,43.0]});
   drawSourceComponent(x,title,[555,238],{scale:1.20386678,rotationDeg:1.73451,translationPx:[256.87944,-41.42754]});
