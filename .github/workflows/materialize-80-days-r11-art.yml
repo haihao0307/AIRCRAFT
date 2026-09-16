@@ -28,7 +28,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install pillow
-      - name: Build E04-space source-pixel composite
+      - name: Build extended E04-space source-pixel composite
         run: |
           python - <<'PY'
           from PIL import Image, ImageDraw, ImageChops
@@ -41,61 +41,68 @@ jobs:
           robby=Image.open(assets/'robby.png').convert('RGBA')
           title=Image.open(assets/'title.png').convert('RGBA')
           dice=Image.open(assets/'dice.png').convert('RGBA')
-          canvas=Image.new('RGBA',(2000,1243),(0,0,0,0))
+          logical_min_x=-800
+          logical_max_x=2000
+          width=logical_max_x-logical_min_x
+          height=1243
+          offset_x=-logical_min_x
+          canvas=Image.new('RGBA',(width,height),(0,0,0,0))
           def place(im,xywh):
               x,y,w,h=xywh
               im=im.resize((w,h),Image.Resampling.LANCZOS)
-              canvas.paste(im,(x,y),im)
-          # Retained source pixels only. Positions respond directly to the user's R10 review.
-          place(mouth,(-175,455,1765,530))
-          place(robby,(465,245,182,127))
-          place(title,(850,190,1180,330))
-          place(dice,(1188,575,535,262))
-          # Shark eye / circular window surround from the locked source sheet.
+              canvas.paste(im,(x+offset_x,y),im)
+          # Retain the supplied artwork pixels. Uniform resize only; no replacement drawing.
+          # The mouth is enlarged and extended forward while its rear tip remains under the dice area.
+          place(mouth,(-650,455,2150,661))
+          place(robby,(390,245,190,135))
+          place(title,(840,150,1210,340))
+          place(dice,(1180,575,535,262))
+          # Circular-window / shark-eye source region, masked only to remove unrelated pixels.
           eye=source.crop((367,134,564,337))
           mask=Image.new('L',eye.size,0);d=ImageDraw.Draw(mask);d.ellipse((3,3,eye.width-4,eye.height-4),fill=255)
           eye.putalpha(ImageChops.multiply(eye.getchannel('A'),mask))
-          place(eye,(760,162,190,196))
-          # Mission bombs: retain source silhouette and alpha; use the supplied yellow colour reference.
+          place(eye,(700,145,215,220))
+          # Mission-bomb silhouettes retain the supplied contours; colour follows the user's yellow reference.
           bombs=source.crop((535,88,1435,164))
           px=bombs.load()
-          for y in range(bombs.height):
-              for x in range(bombs.width):
-                  r,g,b,a=px[x,y]
-                  if not a: continue
+          for yy in range(bombs.height):
+              for xx in range(bombs.width):
+                  r,g,b,a=px[xx,yy]
+                  if a<8: continue
                   lum=(r*54+g*183+b*19)//256
-                  if lum<45: colour=(47,39,17)
-                  elif lum<120: colour=(166,127,22)
-                  else: colour=(236,195,46)
-                  px[x,y]=(*colour,a)
-          place(bombs,(1050,102,840,71))
-          # Six Japanese flags retained from the source sheet and placed above the title.
+                  colour=(82,58,9) if lum<28 else (239,190,30)
+                  px[xx,yy]=(*colour,a)
+          place(bombs,(930,72,950,82))
+          # Six Japanese flags are retained directly from the supplied source sheet.
           flags=source.crop((1126,164,1424,214))
-          place(flags,(1588,178,310,52))
-          out=Path('/tmp/80-days-r11-e04.png');canvas.save(out,optimize=True)
+          place(flags,(1570,160,325,55))
+          out=Path('/tmp/80-days-r11-e04-extended.png');canvas.save(out,optimize=True)
           data=out.read_bytes();sha=hashlib.sha256(data).hexdigest();b64=base64.b64encode(data).decode('ascii')
           Path('runtime/80-days-r11-art-inline.js').write_text(
               '// Generated from retained user-supplied source pixels. Do not redraw or substitute.\n'
               +f"export const R11_ART_SHA256='{sha}';\n"
+              +f"export const R11_ART_MIN_X={logical_min_x};\n"
+              +f"export const R11_ART_WIDTH={width};\n"
+              +f"export const R11_ART_HEIGHT={height};\n"
               +f"export const R11_ART_DATA_URL='data:image/png;base64,{b64}';\n",encoding='utf-8')
           doc=Path('docs/80-days-r11');doc.mkdir(parents=True,exist_ok=True)
           (doc/'PLACEMENT.json').write_text(json.dumps({
-            'schema':'haihao.aircraft/80-days-r11-placement@1',
+            'schema':'haihao.aircraft/80-days-r11-placement@2',
             'sourceArtworkSHA256':'799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4',
             'referenceE04SHA256':'07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa',
-            'compositeSHA256':sha,'pixelSize':[2000,1243],
+            'compositeSHA256':sha,'logicalXRange':[logical_min_x,logical_max_x],'pixelSize':[width,height],
             'components':{
-              'mouth':[-175,455,1765,530],
-              'robby':[465,245,182,127],
-              'title':[850,190,1180,330],
-              'dice':[1188,575,535,262],
-              'eye':[760,162,190,196],
-              'bombs':[1050,102,840,71],
-              'japaneseFlags':[1588,178,310,52]
+              'mouth':[-650,455,2150,661],
+              'robby':[390,245,190,135],
+              'title':[840,150,1210,340],
+              'dice':[1180,575,535,262],
+              'eye':[700,145,215,220],
+              'bombs':[930,72,950,82],
+              'japaneseFlags':[1570,160,325,55]
             },
-            'constraints':{'motherGeometryModified':False,'glassRemainsTransparent':True,'redFrameMaterialOnly':True,'visualAcceptance':False}
+            'constraints':{'motherGeometryModified':False,'glassRemainsTransparent':True,'redFrameShaderRegion':True,'visualAcceptance':False}
           },ensure_ascii=False,indent=2),encoding='utf-8')
-          print('R11_ART',len(data),sha)
+          print('R11_ART_EXTENDED',len(data),sha)
           PY
       - name: Commit R11 exact source-pixel composite
         run: |
@@ -103,5 +110,5 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add runtime/80-days-r11-art-inline.js docs/80-days-r11/PLACEMENT.json
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "feat(skin): materialize R11 forward-mouth source-pixel composite"
+          git commit -m "fix(skin): extend R11 mouth forward and brighten mission marks"
           git push origin HEAD:feature/b24-80days-scan-calibration-r10
