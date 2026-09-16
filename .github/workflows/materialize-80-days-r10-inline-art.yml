@@ -1,0 +1,58 @@
+name: Inline exact 80 DAYS R10 artwork pixels
+on:
+  push:
+    branches: [feature/b24-80days-scan-calibration-r10]
+    paths:
+      - .github/workflows/materialize-80-days-r10-inline-art.yml
+permissions:
+  contents: write
+jobs:
+  inline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/b24-80days-scan-calibration-r10
+          fetch-depth: 0
+      - name: Build exact inline source-pixel module and bind runtime
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, json
+          root=Path('assets/80-days-port-master')
+          files=['mouth.png','robby.png','title.png','dice.png']
+          entries=[]
+          for fn in files:
+              b=(root/fn).read_bytes()
+              entries.append((fn.split('.')[0],len(b),hashlib.sha256(b).hexdigest(),'data:image/png;base64,'+base64.b64encode(b).decode('ascii')))
+          lines=['// Generated from retained user-supplied source pixels. Do not redraw or substitute.','export const SOURCE_PIXELS=Object.freeze({']
+          for name,size,sha,data in entries:
+              lines.append(f"  {name}: {json.dumps(data)},")
+          lines.append('});')
+          lines.append('export const SOURCE_PIXEL_AUDIT=Object.freeze({')
+          for name,size,sha,data in entries:
+              lines.append(f"  {name}: Object.freeze({{bytes:{size},sha256:{json.dumps(sha)}}}),")
+          lines.append('});')
+          Path('runtime/80-days-source-pixels-inline.js').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+          p=Path('runtime/b24-80days-instance-r10.js')
+          s=p.read_text(encoding='utf-8')
+          imp="import {SOURCE_PIXELS,SOURCE_PIXEL_AUDIT} from './80-days-source-pixels-inline.js';\n"
+          if imp not in s:
+              anchor="import {createSkinSystem} from './b24-r16-skin-system.js';\n"
+              s=s.replace(anchor,anchor+imp)
+          s=s.replace("const sourceRoot=new URL('../assets/80-days-port-master/',import.meta.url).href;\n",'')
+          s=s.replace("loadImage(sourceRoot+'mouth.png'),loadImage(sourceRoot+'robby.png'),loadImage(sourceRoot+'title.png'),loadImage(sourceRoot+'dice.png')","loadImage(SOURCE_PIXELS.mouth),loadImage(SOURCE_PIXELS.robby),loadImage(SOURCE_PIXELS.title),loadImage(SOURCE_PIXELS.dice)")
+          s=s.replace("sourceArtwork:{sha256:SOURCE_SHA,redrawn:false,components:['mouth','robby','title','dice']}","sourceArtwork:{sha256:SOURCE_SHA,redrawn:false,transport:'inline-exact-png-data-url',componentAudit:SOURCE_PIXEL_AUDIT,components:['mouth','robby','title','dice']}")
+          p.write_text(s,encoding='utf-8')
+          PY
+          node --check runtime/b24-80days-instance-r10.js
+          node --check runtime/80-days-source-pixels-inline.js
+      - name: Commit exact inline payload
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add runtime/80-days-source-pixels-inline.js runtime/b24-80days-instance-r10.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "fix(skin): inline exact R10 artwork pixels for public runtime"
+          git push origin HEAD:feature/b24-80days-scan-calibration-r10
