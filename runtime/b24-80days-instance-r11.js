@@ -38,6 +38,7 @@ async function makeTexture(){const img=await loadImage(R11_ART_DATA_URL);const t
 function installProjection(paintMeshes,texture){
   const visible={value:1};
   const artMaxX=R11_ART_MIN_X+R11_ART_WIDTH;
+  const artOffsetX=-R11_ART_MIN_X;
   for(const mesh of paintMeshes){
     const mat=mesh.material,previous=mat.onBeforeCompile,previousKey=mat.customProgramCacheKey?.bind(mat);
     mat.onBeforeCompile=shader=>{
@@ -54,7 +55,7 @@ if(e04Visible>.5 && vSkinWorld.x>${FRAME_REGION.xMin.toFixed(3)}){
   float photoX=c*delta.x+s*delta.y;
   float photoY=546.0-s*delta.x+c*delta.y;
   if(photoX>=${R11_ART_MIN_X.toFixed(1)}&&photoX<=${artMaxX.toFixed(1)}&&photoY>=0.0&&photoY<=${R11_ART_HEIGHT.toFixed(1)}){
-    vec2 e04uv=vec2((photoX-${R11_ART_MIN_X.toFixed(1)})/${R11_ART_WIDTH.toFixed(1)},1.0-photoY/${R11_ART_HEIGHT.toFixed(1)});
+    vec2 e04uv=vec2((photoX+${artOffsetX.toFixed(1)})/${R11_ART_WIDTH.toFixed(1)},1.0-photoY/${R11_ART_HEIGHT.toFixed(1)});
     e04Color=texture2D(e04Map,e04uv);
     outgoingLight=mix(outgoingLight,e04Color.rgb,e04Color.a);
   }
@@ -62,7 +63,7 @@ if(e04Visible>.5 && vSkinWorld.x>${FRAME_REGION.xMin.toFixed(3)}){
 `;
       shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',code+'\n#include <opaque_fragment>');
     };
-    mat.customProgramCacheKey=()=>`${previousKey?previousKey():''}|80days-r11-forward-mouth-red-frame-v2`;
+    mat.customProgramCacheKey=()=>`${previousKey?previousKey():''}|80days-r11-forward-mouth-red-frame-v3`;
     mat.needsUpdate=true;
   }
   return {setVisible:v=>visible.value=v?1:0};
