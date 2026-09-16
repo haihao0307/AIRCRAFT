@@ -1,0 +1,83 @@
+name: B24 80 DAYS R10 pinned public QA
+on:
+  push:
+    branches: [feature/b24-80days-scan-calibration-r10]
+    paths:
+      - b24-80days-instance-r10-public.html
+      - b24-80days-r10-review-public.html
+      - .github/workflows/b24-80days-r10-public-qa.yml
+permissions:
+  contents: read
+jobs:
+  public-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Chromium
+        run: |
+          python -m pip install playwright==1.55.0 pillow
+          python -m playwright install --with-deps chromium
+      - name: Verify pinned public review
+        env:
+          PUBLIC_URL: https://raw.githack.com/haihao0307/AIRCRAFT/${{ github.sha }}/b24-80days-r10-review-public.html
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          import os, time, json
+          from PIL import Image
+          url=os.environ['PUBLIC_URL']
+          out=Path('reports/r10-public');out.mkdir(parents=True,exist_ok=True)
+          errors=[]
+          with sync_playwright() as p:
+              b=p.chromium.launch(headless=True)
+              page=b.new_page(viewport={'width':1728,'height':960},device_scale_factor=1)
+              page.on('console',lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
+              page.on('pageerror',lambda e: errors.append('pageerror: '+str(e)))
+              last=None
+              for attempt in range(12):
+                  try:
+                      page.goto(url,wait_until='domcontentloaded',timeout=30000)
+                      iframe=page.frame_locator('iframe')
+                      iframe.locator('#scene').wait_for(state='visible',timeout=30000)
+                      page.wait_for_timeout(1000)
+                      frame=page.frames[-1]
+                      frame.wait_for_function('() => window.__B24_80DAYS_R10__ || document.querySelector("#status")?.textContent.includes("失败")',timeout=60000)
+                      last=frame.evaluate('() => ({audit:window.__B24_80DAYS_R10__||null,status:document.querySelector("#status")?.textContent,loading:getComputedStyle(document.querySelector("#loading")).display})')
+                      if last.get('audit'):
+                          break
+                  except Exception as e:
+                      last={'attemptError':str(e)}
+                  time.sleep(5)
+              page.screenshot(path=str(out/'review-public.png'),full_page=True)
+              frame=page.frames[-1]
+              frame.locator('button[data-view="port"]').click()
+              page.wait_for_timeout(1200)
+              frame.locator('#scene').screenshot(path=str(out/'instance-port-public.png'))
+              Path(out/'state.json').write_text(json.dumps({'url':url,'state':last,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
+              b.close()
+          assert last and last.get('audit'), (last,errors)
+          a=last['audit']
+          assert a['sourceArtwork']['redrawn'] is False,a
+          assert a['sourceArtwork']['components']==['mouth','robby','title','dice'],a
+          assert last['loading']=='none',last
+          assert not errors,errors
+          # A large red mouth region must be visible in the port screenshot; blank olive Mother 01 must fail.
+          im=Image.open(out/'instance-port-public.png').convert('RGB')
+          red=sum(1 for r,g,b in im.getdata() if r>55 and r>g*1.35 and r>b*1.18 and g<90)
+          pixels=im.width*im.height
+          ratio=red/pixels
+          Path(out/'pixel-check.txt').write_text(f'red_pixels={red}\nratio={ratio:.6f}\n',encoding='utf-8')
+          assert ratio>0.0025,(red,ratio)
+          print('PUBLIC_OK',url,'red_ratio',ratio)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-80days-r10-public-qa
+          path: reports/r10-public
+          retention-days: 30
