@@ -4,7 +4,7 @@ import {NativeAircraft} from './native-aircraft.js';
 import {BAY_POSES_R8 as BAY_POSES_R16} from './b24-r8-bay-poses.js';
 import {applyDetailMaterials} from './b24-r10-detail-materials.js';
 import {createSkinSystem} from './b24-r16-skin-system.js';
-import {R11_ART_DATA_URL,R11_ART_SHA256} from './80-days-r11-art-inline.js';
+import {R11_ART_DATA_URL,R11_ART_SHA256,R11_ART_MIN_X,R11_ART_WIDTH,R11_ART_HEIGHT} from './80-days-r11-art-inline.js';
 
 const $=s=>document.querySelector(s);
 const canvas=$('#scene'),stage=$('#stage'),loading=$('#loading'),status=$('#status');
@@ -29,31 +29,43 @@ const E04={width:2000,height:1243,sha256:'07439c42eac526d5a209a6bf76785330208909
 const placement={z:6.7,y:-1.1,metresPerPixel:0.0013,angle:0};
 const placementUniform={value:new THREE.Vector4(placement.z,placement.y,placement.metresPerPixel,0)};
 const SOURCE_SHA='799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4';
+const FRAME_REGION=Object.freeze({zMin:6.56,zMax:9.85,yMin:-1.48,yMax:1.18,xMin:.045});
 
 function applyAssetMatrix(aircraft,nodeId,a){const node=aircraft.nodes[nodeId];if(!node)return;aircraft.group.updateMatrixWorld(true);node.parent.updateMatrixWorld(true);const target=new THREE.Matrix4().multiplyMatrices(aircraft.group.matrixWorld,new THREE.Matrix4().fromArray(a));const local=new THREE.Matrix4().multiplyMatrices(node.parent.matrixWorld.clone().invert(),target);local.decompose(node.position,node.quaternion,node.scale);node.matrixAutoUpdate=true;node.updateMatrix();node.updateMatrixWorld(true);}
 function lockMotherPosture(aircraft){for(const [id,v] of Object.entries(closedDoorAssetMatrices))applyAssetMatrix(aircraft,+id,v);for(const part of BAY_POSES_R16.parts)applyAssetMatrix(aircraft,part.sourceNode,part.closed);aircraft.group.updateMatrixWorld(true);}
 function loadImage(src){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(new Error('image load failed'));im.src=src;});}
 async function makeTexture(){const img=await loadImage(R11_ART_DATA_URL);const t=new THREE.Texture(img);t.colorSpace=THREE.SRGBColorSpace;t.generateMipmaps=true;t.minFilter=THREE.LinearMipmapLinearFilter;t.magFilter=THREE.LinearFilter;t.needsUpdate=true;return t;}
-function installProjection(paintMeshes,texture){const visible={value:1};for(const mesh of paintMeshes){const mat=mesh.material,previous=mat.onBeforeCompile,previousKey=mat.customProgramCacheKey?.bind(mat);mat.onBeforeCompile=shader=>{previous?.(shader);shader.uniforms.e04Map={value:texture};shader.uniforms.e04Visible=visible;shader.uniforms.e04Anchor=placementUniform;shader.fragmentShader='uniform sampler2D e04Map;uniform float e04Visible;uniform vec4 e04Anchor;\n'+shader.fragmentShader;const code=`\nvec4 e04Color=vec4(0.0);\nif(e04Visible>.5 && vSkinWorld.x>.045){\n  vec2 delta=vec2(e04Anchor.x-vSkinWorld.z,e04Anchor.y-vSkinWorld.y)/e04Anchor.z;\n  float c=cos(e04Anchor.w),s=sin(e04Anchor.w);\n  float photoX=c*delta.x+s*delta.y;\n  float photoY=546.0-s*delta.x+c*delta.y;\n  if(photoX>=0.0&&photoX<=2000.0&&photoY>=0.0&&photoY<=1243.0){\n    vec2 e04uv=vec2(photoX/2000.0,1.0-photoY/1243.0);\n    e04Color=texture2D(e04Map,e04uv);\n    outgoingLight=mix(outgoingLight,e04Color.rgb,e04Color.a);\n  }\n}\n`;shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',code+'\n#include <opaque_fragment>');};mat.customProgramCacheKey=()=>`${previousKey?previousKey():''}|80days-r11-source-pixels`;mat.needsUpdate=true;}return {setVisible:v=>visible.value=v?1:0};}
-
-function paintNoseFrames(aircraft){
-  const hits=[],red=new THREE.Color('#8f1118'),box=new THREE.Box3(),center=new THREE.Vector3(),size=new THREE.Vector3();
-  aircraft.group.updateMatrixWorld(true);
-  for(const mesh of aircraft.meshes){
-    const id=mesh.userData.sourceNode,path=(aircraft.paths[id]||'').toLowerCase(),family=(mesh.userData.family||'').toLowerCase();
-    if(family==='glass'||/glass/.test(path))continue;
-    box.setFromObject(mesh);box.getCenter(center);box.getSize(size);
-    const dims=[size.x,size.y,size.z].sort((a,b)=>a-b);
-    const nose=center.z>5.0&&center.z<10.25&&center.y>-2.2&&center.y<2.05&&Math.abs(center.x)<2.05;
-    const slender=dims[0]<.50&&dims[1]<1.55&&dims[2]<4.60;
-    const hinted=/(frame|window|windscreen|windshield|canopy|cockpit|nose)/.test(path);
-    const excluded=/(gun|barrel|turret|seat|wheel|gear|antenna|pitot|instrument)/.test(path)||family==='legacy-weapon';
-    if(nose&&!excluded&&(hinted||slender)&&mesh.material?.color){
-      mesh.material.color.copy(red);mesh.material.metalness=Math.min(mesh.material.metalness??.55,.55);mesh.material.roughness=Math.max(mesh.material.roughness??.35,.38);mesh.material.needsUpdate=true;
-      hits.push({id,path,family,center:center.toArray().map(v=>+v.toFixed(3)),size:size.toArray().map(v=>+v.toFixed(3))});
-    }
+function installProjection(paintMeshes,texture){
+  const visible={value:1};
+  const artMaxX=R11_ART_MIN_X+R11_ART_WIDTH;
+  for(const mesh of paintMeshes){
+    const mat=mesh.material,previous=mat.onBeforeCompile,previousKey=mat.customProgramCacheKey?.bind(mat);
+    mat.onBeforeCompile=shader=>{
+      previous?.(shader);
+      shader.uniforms.e04Map={value:texture};shader.uniforms.e04Visible=visible;shader.uniforms.e04Anchor=placementUniform;
+      shader.fragmentShader='uniform sampler2D e04Map;uniform float e04Visible;uniform vec4 e04Anchor;\n'+shader.fragmentShader;
+      const code=`
+vec4 e04Color=vec4(0.0);
+if(e04Visible>.5 && vSkinWorld.x>${FRAME_REGION.xMin.toFixed(3)}){
+  float frameRegion=step(${FRAME_REGION.zMin.toFixed(2)},vSkinWorld.z)*step(vSkinWorld.z,${FRAME_REGION.zMax.toFixed(2)})*step(${FRAME_REGION.yMin.toFixed(2)},vSkinWorld.y)*step(vSkinWorld.y,${FRAME_REGION.yMax.toFixed(2)});
+  outgoingLight=mix(outgoingLight,vec3(0.40,0.018,0.030),0.92*frameRegion);
+  vec2 delta=vec2(e04Anchor.x-vSkinWorld.z,e04Anchor.y-vSkinWorld.y)/e04Anchor.z;
+  float c=cos(e04Anchor.w),s=sin(e04Anchor.w);
+  float photoX=c*delta.x+s*delta.y;
+  float photoY=546.0-s*delta.x+c*delta.y;
+  if(photoX>=${R11_ART_MIN_X.toFixed(1)}&&photoX<=${artMaxX.toFixed(1)}&&photoY>=0.0&&photoY<=${R11_ART_HEIGHT.toFixed(1)}){
+    vec2 e04uv=vec2((photoX-${R11_ART_MIN_X.toFixed(1)})/${R11_ART_WIDTH.toFixed(1)},1.0-photoY/${R11_ART_HEIGHT.toFixed(1)});
+    e04Color=texture2D(e04Map,e04uv);
+    outgoingLight=mix(outgoingLight,e04Color.rgb,e04Color.a);
   }
-  return hits;
+}
+`;
+      shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',code+'\n#include <opaque_fragment>');
+    };
+    mat.customProgramCacheKey=()=>`${previousKey?previousKey():''}|80days-r11-forward-mouth-red-frame-v2`;
+    mat.needsUpdate=true;
+  }
+  return {setVisible:v=>visible.value=v?1:0};
 }
 
 function resize(){const w=stage.clientWidth,h=stage.clientHeight,aspect=w/h;renderer.setSize(w,h,false);perspective.aspect=aspect;perspective.updateProjectionMatrix();const hh=ortho.userData.halfHeight||2.0;ortho.left=-hh*aspect;ortho.right=hh*aspect;ortho.top=hh;ortho.bottom=-hh;ortho.updateProjectionMatrix();}
@@ -62,8 +74,8 @@ function setPerspective(position,target){activeCamera=perspective;fixedControls.
 function setView(view){grid.visible=view==='orbit';if(view==='port')setOrtho([40,-.82,5.63],[0,-.82,5.63],1.73);else if(view==='orbit')setPerspective([26,8,24],[0,0,-2.56]);else setPerspective([3.0,-.40,10.05],[.35,-.82,6.25]);document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));status.textContent=view==='port'?'R11 · 左舷近看':view==='orbit'?'R11 · 整机透视':'R11 · 左前 3/4';}
 addEventListener('resize',resize);resize();
 try{
-  const aircraft=await NativeAircraft.load(()=>{});scene.add(aircraft.group);aircraft.group.position.set(0,0,0);aircraft.group.rotation.set(0,0,0);aircraft.group.scale.set(1,1,1);aircraft.group.updateMatrixWorld(true);lockMotherPosture(aircraft);applyDetailMaterials(aircraft,renderer);const skinSystem=createSkinSystem(aircraft,renderer);const texture=await makeTexture();const projection=installProjection(skinSystem.paintMeshes,texture);const frameHits=paintNoseFrames(aircraft);
-  window.__B24_80DAYS_R11__={schema:'haihao.aircraft/80-days-instance-runtime@11.0',mother:{id:'b24-generic-mother-01',freezeCommit:'636f26ec102680b4154a6f9dca0cf49fc951f51e',modified:false},sourceArtwork:{sha256:SOURCE_SHA,compositeSha256:R11_ART_SHA256,redrawn:false,transport:'inline-exact-png-data-url',components:['mouth-forward','robby-forward','title-enlarged-raised','dice','eye','bombs','japanese-flags']},reference:{id:'E04-left',sha256:E04.sha256},windowFrames:{red:true,glassTransparent:true,meshCount:frameHits.length,meshes:frameHits},placement:{...placement},visualAcceptance:false,productionReady:false};
+  const aircraft=await NativeAircraft.load(()=>{});scene.add(aircraft.group);aircraft.group.position.set(0,0,0);aircraft.group.rotation.set(0,0,0);aircraft.group.scale.set(1,1,1);aircraft.group.updateMatrixWorld(true);lockMotherPosture(aircraft);applyDetailMaterials(aircraft,renderer);const skinSystem=createSkinSystem(aircraft,renderer);const texture=await makeTexture();const projection=installProjection(skinSystem.paintMeshes,texture);
+  window.__B24_80DAYS_R11__={schema:'haihao.aircraft/80-days-instance-runtime@11.1',mother:{id:'b24-generic-mother-01',freezeCommit:'636f26ec102680b4154a6f9dca0cf49fc951f51e',modified:false},sourceArtwork:{sha256:SOURCE_SHA,compositeSha256:R11_ART_SHA256,redrawn:false,transport:'inline-exact-png-data-url',logicalXRange:[R11_ART_MIN_X,R11_ART_MIN_X+R11_ART_WIDTH],components:['mouth-forward','robby-forward','title-enlarged-raised','dice','eye','bombs','japanese-flags']},reference:{id:'E04-left',sha256:E04.sha256},windowFrames:{red:true,glassTransparent:true,mode:'port-skin-world-region',region:FRAME_REGION},placement:{...placement},visualAcceptance:false,productionReady:false};
   window.__B24_AIRCRAFT__=aircraft;
   loading.hidden=true;setView('port');
   $('#artToggle').addEventListener('change',e=>projection.setVisible(e.target.checked));
