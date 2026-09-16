@@ -1,60 +1,64 @@
 {
-  "schema": "haihao.aircraft/80-days-r11-placement@1",
+  "schema": "haihao.aircraft/80-days-r11-placement@2",
   "sourceArtworkSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
   "referenceE04SHA256": "07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa",
-  "compositeSHA256": "f2e5067d5adb92f5dec51ae658f1978e94840e0a203ba27150ae79b5bfa92373",
+  "compositeSHA256": "03bfe4e9653e7f6b6e9b553f61e668b57fcc5a0bde052e52af03616fe8db5043",
+  "logicalXRange": [
+    -800,
+    2000
+  ],
   "pixelSize": [
-    2000,
+    2800,
     1243
   ],
   "components": {
     "mouth": [
-      -175,
+      -650,
       455,
-      1765,
-      530
+      2150,
+      661
     ],
     "robby": [
-      465,
+      390,
       245,
-      182,
-      127
+      190,
+      135
     ],
     "title": [
-      850,
-      190,
-      1180,
-      330
+      840,
+      150,
+      1210,
+      340
     ],
     "dice": [
-      1188,
+      1180,
       575,
       535,
       262
     ],
     "eye": [
-      760,
-      162,
-      190,
-      196
+      700,
+      145,
+      215,
+      220
     ],
     "bombs": [
-      1050,
-      102,
-      840,
-      71
+      930,
+      72,
+      950,
+      82
     ],
     "japaneseFlags": [
-      1588,
-      178,
-      310,
-      52
+      1570,
+      160,
+      325,
+      55
     ]
   },
   "constraints": {
     "motherGeometryModified": false,
     "glassRemainsTransparent": true,
-    "redFrameMaterialOnly": true,
+    "redFrameShaderRegion": true,
     "visualAcceptance": false
   }
 }
