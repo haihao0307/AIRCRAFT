@@ -50,29 +50,32 @@ jobs:
               frame=page.frames[-1]
               frame.wait_for_function('() => window.__B24_80DAYS_R11__ || window.__B24_80DAYS_R11_ERROR__',timeout=90000)
               state=frame.evaluate('() => ({audit:window.__B24_80DAYS_R11__||null,error:window.__B24_80DAYS_R11_ERROR__||null,status:document.querySelector("#status")?.textContent,loading:getComputedStyle(document.querySelector("#loading")).display})')
-              page.screenshot(path=str(out/'review.png'),full_page=True)
-              frame.locator('button[data-view="port"]').click();page.wait_for_timeout(1000)
-              frame.locator('#scene').screenshot(path=str(out/'port.png'))
-              frame.locator('button[data-view="nose-port"]').click();page.wait_for_timeout(1000)
-              frame.locator('#scene').screenshot(path=str(out/'nose-port.png'))
+              page.screenshot(path=str(out/'review.png'))
+              frame.locator('button[data-view="port"]').click();page.wait_for_timeout(1200)
+              page.screenshot(path=str(out/'port-review.png'))
+              frame.locator('button[data-view="nose-port"]').click();page.wait_for_timeout(1200)
+              page.screenshot(path=str(out/'nose-port-review.png'))
               Path(out/'state.json').write_text(json.dumps({'state':state,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
               b.close()
           assert not state['error'],state
           a=state['audit']
           assert a and a['mother']['modified'] is False,a
           assert a['sourceArtwork']['redrawn'] is False,a
+          assert a['sourceArtwork']['logicalXRange'][0] <= -800,a
           assert a['windowFrames']['red'] is True and a['windowFrames']['glassTransparent'] is True,a
-          assert a['windowFrames']['meshCount']>0,a['windowFrames']
+          assert a['windowFrames']['mode']=='port-skin-world-region',a['windowFrames']
           assert state['loading']=='none',state
           assert not errors,errors
-          im=Image.open(out/'port.png').convert('RGB')
+          full=Image.open(out/'port-review.png').convert('RGB')
+          im=full.crop((int(full.width*.38),0,full.width,full.height))
+          im.save(out/'port.png')
           red=sum(1 for r,g,b in im.getdata() if r>65 and r>g*1.35 and r>b*1.15 and g<100)
           yellow=sum(1 for r,g,b in im.getdata() if r>120 and g>80 and r>b*1.7 and g>b*1.4)
           total=im.width*im.height
           Path(out/'pixel-check.txt').write_text(f'red={red}\nyellow={yellow}\nred_ratio={red/total:.6f}\nyellow_ratio={yellow/total:.6f}\n',encoding='utf-8')
-          assert red/total>.002,(red,total)
-          assert yellow>20,(yellow,total)
-          print(json.dumps({'frames':a['windowFrames']['meshCount'],'red':red,'yellow':yellow},ensure_ascii=False))
+          assert red/total>.004,(red,total)
+          assert yellow>100,(yellow,total)
+          print(json.dumps({'frameMode':a['windowFrames']['mode'],'red':red,'yellow':yellow},ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         if: always()
