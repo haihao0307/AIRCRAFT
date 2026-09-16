@@ -11,7 +11,7 @@ permissions:
 jobs:
   public-browser:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,7 +28,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           from playwright.sync_api import sync_playwright
-          import os, time, json
+          import os, json
           from PIL import Image
           url=os.environ['PUBLIC_URL']
           out=Path('reports/r10-public');out.mkdir(parents=True,exist_ok=True)
@@ -38,39 +38,26 @@ jobs:
               page=b.new_page(viewport={'width':1728,'height':960},device_scale_factor=1)
               page.on('console',lambda m: errors.append('console '+m.type+': '+m.text) if m.type=='error' else None)
               page.on('pageerror',lambda e: errors.append('pageerror: '+str(e)))
-              last=None
-              for attempt in range(12):
-                  try:
-                      page.goto(url,wait_until='domcontentloaded',timeout=30000)
-                      iframe=page.frame_locator('iframe')
-                      iframe.locator('#scene').wait_for(state='visible',timeout=30000)
-                      page.wait_for_timeout(1000)
-                      frame=page.frames[-1]
-                      frame.wait_for_function('() => window.__B24_80DAYS_R10__ || document.querySelector("#status")?.textContent.includes("失败")',timeout=60000)
-                      last=frame.evaluate('() => ({audit:window.__B24_80DAYS_R10__||null,status:document.querySelector("#status")?.textContent,loading:getComputedStyle(document.querySelector("#loading")).display})')
-                      if last.get('audit'):
-                          break
-                  except Exception as e:
-                      last={'attemptError':str(e)}
-                  time.sleep(5)
-              page.screenshot(path=str(out/'review-public.png'),full_page=True)
+              page.goto(url,wait_until='domcontentloaded',timeout=45000)
+              iframe=page.frame_locator('iframe')
+              iframe.locator('#scene').wait_for(state='visible',timeout=30000)
               frame=page.frames[-1]
-              frame.locator('button[data-view="port"]').click()
-              page.wait_for_timeout(1200)
+              frame.wait_for_function('() => window.__B24_80DAYS_R10__ || document.querySelector("#status")?.textContent.includes("失败")',timeout=90000)
+              state=frame.evaluate('() => ({audit:window.__B24_80DAYS_R10__||null,status:document.querySelector("#status")?.textContent,loading:getComputedStyle(document.querySelector("#loading")).display})')
+              page.screenshot(path=str(out/'review-public.png'),full_page=True)
+              frame.locator('button[data-view="port"]').click();page.wait_for_timeout(1200)
               frame.locator('#scene').screenshot(path=str(out/'instance-port-public.png'))
-              Path(out/'state.json').write_text(json.dumps({'url':url,'state':last,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
+              Path(out/'state.json').write_text(json.dumps({'url':url,'state':state,'errors':errors},ensure_ascii=False,indent=2),encoding='utf-8')
               b.close()
-          assert last and last.get('audit'), (last,errors)
-          a=last['audit']
+          assert state.get('audit'),(state,errors)
+          a=state['audit']
           assert a['sourceArtwork']['redrawn'] is False,a
-          assert a['sourceArtwork']['components']==['mouth','robby','title','dice'],a
-          assert last['loading']=='none',last
+          assert a['sourceArtwork'].get('transport')=='inline-exact-png-data-url',a
+          assert state['loading']=='none',state
           assert not errors,errors
-          # A large red mouth region must be visible in the port screenshot; blank olive Mother 01 must fail.
           im=Image.open(out/'instance-port-public.png').convert('RGB')
           red=sum(1 for r,g,b in im.getdata() if r>55 and r>g*1.35 and r>b*1.18 and g<90)
-          pixels=im.width*im.height
-          ratio=red/pixels
+          ratio=red/(im.width*im.height)
           Path(out/'pixel-check.txt').write_text(f'red_pixels={red}\nratio={ratio:.6f}\n',encoding='utf-8')
           assert ratio>0.0025,(red,ratio)
           print('PUBLIC_OK',url,'red_ratio',ratio)
@@ -81,3 +68,4 @@ jobs:
           name: b24-80days-r10-public-qa
           path: reports/r10-public
           retention-days: 30
+# rerun after exact artwork was inlined for public delivery
