@@ -50,7 +50,7 @@ vec4 e04Color=vec4(0.0);
 if(e04Visible>.5 && vSkinWorld.x>${FRAME_REGION.xMin.toFixed(3)}){
   float noseRegion=step(${FRAME_REGION.zMin.toFixed(2)},vSkinWorld.z)*step(vSkinWorld.z,${FRAME_REGION.zMax.toFixed(2)})*step(${FRAME_REGION.yMin.toFixed(2)},vSkinWorld.y)*step(vSkinWorld.y,${FRAME_REGION.yMax.toFixed(2)});
   float zFrames=max(max(1.0-smoothstep(0.045,0.105,abs(vSkinWorld.z-${FRAME_REGION.zBars[0].toFixed(2)})),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.z-${FRAME_REGION.zBars[1].toFixed(2)}))),max(1.0-smoothstep(0.045,0.105,abs(vSkinWorld.z-${FRAME_REGION.zBars[2].toFixed(2)})),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.z-${FRAME_REGION.zBars[3].toFixed(2)}))));
-  float yFrames=max(max(1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y-${FRAME_REGION.yBars[0].toFixed(2)})),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y-${FRAME_REGION.yBars[1].toFixed(2)}))),max(max(1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y-${FRAME_REGION.yBars[2].toFixed(2)})),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y-${FRAME_REGION.yBars[3].toFixed(2)}))),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y-${FRAME_REGION.yBars[4].toFixed(2)}))));
+  float yFrames=max(max(1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y-${FRAME_REGION.yBars[0].toFixed(2)})),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y-${FRAME_REGION.yBars[1].toFixed(2)}))),max(max(1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y+${Math.abs(FRAME_REGION.yBars[2]).toFixed(2)})),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y+${Math.abs(FRAME_REGION.yBars[3]).toFixed(2)}))),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y+${Math.abs(FRAME_REGION.yBars[4]).toFixed(2)}))));
   float frameRegion=noseRegion*clamp(max(zFrames,yFrames),0.0,1.0);
   outgoingLight=mix(outgoingLight,vec3(0.40,0.018,0.030),0.94*frameRegion);
   vec2 delta=vec2(e04Anchor.x-vSkinWorld.z,e04Anchor.y-vSkinWorld.y)/e04Anchor.z;
@@ -66,7 +66,7 @@ if(e04Visible>.5 && vSkinWorld.x>${FRAME_REGION.xMin.toFixed(3)}){
 `;
       shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',code+'\n#include <opaque_fragment>');
     };
-    mat.customProgramCacheKey=()=>`${previousKey?previousKey():''}|80days-r11-forward-mouth-red-frame-v4`;
+    mat.customProgramCacheKey=()=>`${previousKey?previousKey():''}|80days-r11-forward-mouth-red-frame-v5`;
     mat.needsUpdate=true;
   }
   return {setVisible:v=>visible.value=v?1:0};
