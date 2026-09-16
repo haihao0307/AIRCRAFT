@@ -35,3 +35,17 @@ All AIRCRAFT Mothers and later production modules default to **no image generati
 Only use an image-generation or image-editing tool when the user explicitly asks for an image in the current conversation. Requests such as “做一个看看”, “试试做一个”, “给我看成果”, “参考这个形状做一个” default to a real 3D deliverable: interactive HTML, Three.js/WebGPU workbench, procedural geometry, GLB/3D file when requested, or the relevant production source.
 
 Screenshots may be generated internally for QA and evidence, but must not be sent as the creative deliverable unless the user explicitly asks for screenshots or images.
+
+## Mandatory real-3D checklist
+
+Every plan, task card, README, START_HERE, handoff, meeting note, delivery note, and acceptance checklist must include equivalent checks for all of the following:
+
+- [ ] No generated image is being used as a substitute for the real 3D implementation.
+- [ ] Production source files were actually changed.
+- [ ] The user-facing result is a real interactive 3D workbench.
+- [ ] The scene is rendered by the actual 3D runtime, not a still image, video, fake Canvas frame, or placeholder page.
+- [ ] Camera and required controls can be operated.
+- [ ] The fixed public HTTPS page and a real browser were verified.
+- [ ] A screenshot-only result without the workbench is an automatic failure and must not be delivered.
+
+When no runnable 3D candidate exists yet, continue engineering and state that the candidate is not ready. Never generate a picture to fill the gap.
