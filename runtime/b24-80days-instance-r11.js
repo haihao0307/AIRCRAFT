@@ -29,7 +29,7 @@ const E04={width:2000,height:1243,sha256:'07439c42eac526d5a209a6bf76785330208909
 const placement={z:6.7,y:-1.1,metresPerPixel:0.0013,angle:0};
 const placementUniform={value:new THREE.Vector4(placement.z,placement.y,placement.metresPerPixel,0)};
 const SOURCE_SHA='799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4';
-const FRAME_REGION=Object.freeze({zMin:6.50,zMax:9.92,yMin:-1.52,yMax:1.23,xMin:.045,zBars:[9.68,8.50,7.15,6.60],yBars:[1.10,.58,-.04,-.78,-1.42]});
+const FRAME_REGION=Object.freeze({zMin:7.46,zMax:10.05,yMin:-1.52,yMax:1.23,xMin:.045,zBars:[9.70,8.56,7.58],yBars:[1.10,.57,-.04,-.77,-1.42]});
 
 function applyAssetMatrix(aircraft,nodeId,a){const node=aircraft.nodes[nodeId];if(!node)return;aircraft.group.updateMatrixWorld(true);node.parent.updateMatrixWorld(true);const target=new THREE.Matrix4().multiplyMatrices(aircraft.group.matrixWorld,new THREE.Matrix4().fromArray(a));const local=new THREE.Matrix4().multiplyMatrices(node.parent.matrixWorld.clone().invert(),target);local.decompose(node.position,node.quaternion,node.scale);node.matrixAutoUpdate=true;node.updateMatrix();node.updateMatrixWorld(true);}
 function lockMotherPosture(aircraft){for(const [id,v] of Object.entries(closedDoorAssetMatrices))applyAssetMatrix(aircraft,+id,v);for(const part of BAY_POSES_R16.parts)applyAssetMatrix(aircraft,part.sourceNode,part.closed);aircraft.group.updateMatrixWorld(true);}
@@ -49,8 +49,8 @@ function installProjection(paintMeshes,texture){
 vec4 e04Color=vec4(0.0);
 if(e04Visible>.5 && vSkinWorld.x>${FRAME_REGION.xMin.toFixed(3)}){
   float noseRegion=step(${FRAME_REGION.zMin.toFixed(2)},vSkinWorld.z)*step(vSkinWorld.z,${FRAME_REGION.zMax.toFixed(2)})*step(${FRAME_REGION.yMin.toFixed(2)},vSkinWorld.y)*step(vSkinWorld.y,${FRAME_REGION.yMax.toFixed(2)});
-  float zFrames=max(max(1.0-smoothstep(0.045,0.105,abs(vSkinWorld.z-${FRAME_REGION.zBars[0].toFixed(2)})),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.z-${FRAME_REGION.zBars[1].toFixed(2)}))),max(1.0-smoothstep(0.045,0.105,abs(vSkinWorld.z-${FRAME_REGION.zBars[2].toFixed(2)})),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.z-${FRAME_REGION.zBars[3].toFixed(2)}))));
-  float yFrames=max(max(1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y-${FRAME_REGION.yBars[0].toFixed(2)})),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y-${FRAME_REGION.yBars[1].toFixed(2)}))),max(max(1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y+${Math.abs(FRAME_REGION.yBars[2]).toFixed(2)})),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y+${Math.abs(FRAME_REGION.yBars[3]).toFixed(2)}))),1.0-smoothstep(0.045,0.105,abs(vSkinWorld.y+${Math.abs(FRAME_REGION.yBars[4]).toFixed(2)}))));
+  float zFrames=max(max(1.0-smoothstep(0.028,0.072,abs(vSkinWorld.z-${FRAME_REGION.zBars[0].toFixed(2)})),1.0-smoothstep(0.028,0.072,abs(vSkinWorld.z-${FRAME_REGION.zBars[1].toFixed(2)}))),1.0-smoothstep(0.028,0.072,abs(vSkinWorld.z-${FRAME_REGION.zBars[2].toFixed(2)})));
+  float yFrames=max(max(1.0-smoothstep(0.028,0.072,abs(vSkinWorld.y-${FRAME_REGION.yBars[0].toFixed(2)})),1.0-smoothstep(0.028,0.072,abs(vSkinWorld.y-${FRAME_REGION.yBars[1].toFixed(2)}))),max(max(1.0-smoothstep(0.028,0.072,abs(vSkinWorld.y+${Math.abs(FRAME_REGION.yBars[2]).toFixed(2)})),1.0-smoothstep(0.028,0.072,abs(vSkinWorld.y+${Math.abs(FRAME_REGION.yBars[3]).toFixed(2)}))),1.0-smoothstep(0.028,0.072,abs(vSkinWorld.y+${Math.abs(FRAME_REGION.yBars[4]).toFixed(2)}))));
   float frameRegion=noseRegion*clamp(max(zFrames,yFrames),0.0,1.0);
   outgoingLight=mix(outgoingLight,vec3(0.40,0.018,0.030),0.94*frameRegion);
   vec2 delta=vec2(e04Anchor.x-vSkinWorld.z,e04Anchor.y-vSkinWorld.y)/e04Anchor.z;
@@ -66,7 +66,7 @@ if(e04Visible>.5 && vSkinWorld.x>${FRAME_REGION.xMin.toFixed(3)}){
 `;
       shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',code+'\n#include <opaque_fragment>');
     };
-    mat.customProgramCacheKey=()=>`${previousKey?previousKey():''}|80days-r11-forward-mouth-red-frame-v5`;
+    mat.customProgramCacheKey=()=>`${previousKey?previousKey():''}|80days-r11-forward-mouth-red-frame-v6`;
     mat.needsUpdate=true;
   }
   return {setVisible:v=>visible.value=v?1:0};
@@ -79,7 +79,7 @@ function setView(view){grid.visible=view==='orbit';if(view==='port')setOrtho([40
 addEventListener('resize',resize);resize();
 try{
   const aircraft=await NativeAircraft.load(()=>{});scene.add(aircraft.group);aircraft.group.position.set(0,0,0);aircraft.group.rotation.set(0,0,0);aircraft.group.scale.set(1,1,1);aircraft.group.updateMatrixWorld(true);lockMotherPosture(aircraft);applyDetailMaterials(aircraft,renderer);const skinSystem=createSkinSystem(aircraft,renderer);const texture=await makeTexture();const projection=installProjection(skinSystem.paintMeshes,texture);
-  window.__B24_80DAYS_R11__={schema:'haihao.aircraft/80-days-instance-runtime@11.2',mother:{id:'b24-generic-mother-01',freezeCommit:'636f26ec102680b4154a6f9dca0cf49fc951f51e',modified:false},sourceArtwork:{sha256:SOURCE_SHA,compositeSha256:R11_ART_SHA256,redrawn:false,transport:'inline-exact-png-data-url',logicalXRange:[R11_ART_MIN_X,R11_ART_MIN_X+R11_ART_WIDTH],components:['mouth-forward','robby-forward','title-enlarged-raised','dice','eye','bombs','japanese-flags']},reference:{id:'E04-left',sha256:E04.sha256},windowFrames:{red:true,glassTransparent:true,mode:'port-skin-world-frame-bands',region:FRAME_REGION},placement:{...placement},visualAcceptance:false,productionReady:false};
+  window.__B24_80DAYS_R11__={schema:'haihao.aircraft/80-days-instance-runtime@11.3',mother:{id:'b24-generic-mother-01',freezeCommit:'636f26ec102680b4154a6f9dca0cf49fc951f51e',modified:false},sourceArtwork:{sha256:SOURCE_SHA,compositeSha256:R11_ART_SHA256,redrawn:false,transport:'inline-exact-png-data-url',logicalXRange:[R11_ART_MIN_X,R11_ART_MIN_X+R11_ART_WIDTH],components:['mouth-forward','robby-forward','title-enlarged-raised','dice','eye','bombs','japanese-flags']},reference:{id:'E04-left',sha256:E04.sha256},windowFrames:{red:true,glassTransparent:true,mode:'forward-port-frame-bands',region:FRAME_REGION},placement:{...placement},visualAcceptance:false,productionReady:false};
   window.__B24_AIRCRAFT__=aircraft;
   loading.hidden=true;setView('port');
   $('#artToggle').addEventListener('change',e=>projection.setVisible(e.target.checked));
