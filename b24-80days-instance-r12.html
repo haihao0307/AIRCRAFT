@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>B-24 “80 DAYS” · R12 逐件校准</title>
+  <link rel="icon" href="data:,">
+  <script type="importmap">{"imports":{"three":"./runtime/vendor/three.module.js"}}</script>
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:#0b0e0c;color:#eef0e8;font-family:Inter,system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+    body{overflow:hidden}
+    button,select,input{font:inherit}
+    .app{height:100%;display:grid;grid-template-rows:42px 1fr}
+    .head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 12px;border-bottom:1px solid rgba(240,242,226,.12);background:#111512}
+    .head b{font-size:13px}
+    .head span{font-size:9px;color:#9ba49b;text-align:right}
+    .grid{min-height:0;display:grid;grid-template-columns:38% 62%}
+    .pane{position:relative;min-width:0;min-height:0;overflow:hidden;background:#0d110e}
+    .pane+.pane{border-left:1px solid rgba(240,242,226,.12)}
+    .tag{position:absolute;z-index:5;top:9px;left:9px;max-width:calc(100% - 18px);padding:6px 8px;border:1px solid rgba(240,242,226,.14);background:rgba(7,10,8,.82);border-radius:6px;font-size:9px;line-height:1.35}
+    .photo{position:absolute;inset:0;display:grid;place-items:center;padding:36px 8px 8px}
+    .photo img{display:block;max-width:100%;max-height:100%;object-fit:contain}
+    #stage{position:relative;height:100%;background:radial-gradient(circle at 48% 28%,#343933 0,#171b18 46%,#0a0c0b 100%)}
+    canvas{display:block;width:100%;height:100%}
+    .view-controls{position:absolute;right:15px;bottom:15px;display:flex;gap:7px;align-items:center;padding:7px;border:1px solid rgba(237,240,224,.14);background:rgba(9,12,10,.8);backdrop-filter:blur(12px);border-radius:8px}
+    button{border:1px solid #394139;background:#1a211b;color:#e9ebe3;padding:7px 9px;border-radius:6px;cursor:pointer}
+    button:hover{background:#252d26}
+    button.active{border-color:#9eaa82;background:#313a30}
+    .toggle{display:flex;align-items:center;gap:6px;font-size:10px;color:#cad0c6;padding:0 4px}
+    .status{position:absolute;left:15px;bottom:15px;padding:8px 10px;border:1px solid rgba(237,240,224,.14);background:rgba(9,12,10,.8);border-radius:8px;font-size:10px;color:#cad1c5}
+    .loading{position:absolute;inset:0;display:grid;place-items:center;background:#0b0e0c;z-index:20;color:#cbd4c8;font-size:12px}
+    .loading[hidden]{display:none}
+    .calibration{position:absolute;z-index:8;right:15px;top:48px;width:min(330px,calc(100% - 30px));border:1px solid rgba(237,240,224,.14);background:rgba(9,12,10,.88);backdrop-filter:blur(14px);border-radius:9px;overflow:hidden}
+    .calibration summary{cursor:pointer;padding:9px 11px;font-size:11px;font-weight:650;color:#edf0e7;list-style:none}
+    .calibration summary::-webkit-details-marker{display:none}
+    .calibration summary:after{content:"＋";float:right;color:#9da897}
+    .calibration[open] summary:after{content:"－"}
+    .calibration-body{padding:0 10px 10px;border-top:1px solid rgba(237,240,224,.1)}
+    .row{display:flex;align-items:center;gap:7px;margin-top:9px}
+    .row label{font-size:9px;color:#aab2a8;min-width:42px}
+    select{min-width:0;flex:1;border:1px solid #394139;background:#151a16;color:#e9ebe3;border-radius:6px;padding:7px 8px}
+    .nudge{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:8px}
+    .nudge button{padding:6px 5px;font-size:11px}
+    .component-toggles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 8px;margin-top:9px}
+    .component-toggle{display:flex;align-items:center;gap:5px;min-width:0;font-size:9px;color:#c7cec3}
+    .component-toggle span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .readout{margin-top:8px;padding:7px 8px;border:1px solid rgba(237,240,224,.1);border-radius:6px;background:rgba(255,255,255,.025);font-size:9px;color:#b9c2b7;line-height:1.4}
+    .actions{display:flex;gap:6px;margin-top:8px}
+    .actions button{flex:1;font-size:9px}
+    .constraint{margin-top:8px;font-size:8.5px;line-height:1.45;color:#919b91}
+    @media(max-width:1000px){
+      .grid{grid-template-columns:1fr;grid-template-rows:39% 61%}
+      .pane+.pane{border-left:0;border-top:1px solid rgba(240,242,226,.12)}
+      .calibration{top:42px}
+      .view-controls{left:10px;right:10px;bottom:10px;justify-content:center;flex-wrap:wrap}
+      .status{left:10px;bottom:74px}
+    }
+    @media(max-width:620px){
+      .head span{display:none}
+      .calibration{width:calc(100% - 20px);left:10px;right:10px}
+      .view-controls button{padding:6px}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="head">
+      <b>“80 DAYS” · 历史照片 vs R12 逐件校准</b>
+      <span>Mother 01 frozen · 7 个独立图层 · visualAcceptance=false</span>
+    </header>
+    <main class="grid">
+      <section class="pane">
+        <div class="tag">历史照片 · E04 左舷参考</div>
+        <div class="photo">
+          <img src="./assets/80-days-port-master/E04-left.jpg" alt="E04 historical reference">
+        </div>
+      </section>
+      <section class="pane" id="stage">
+        <canvas id="scene"></canvas>
+        <div class="loading" id="loading">载入 Mother 01 与 R12 独立涂装图层…</div>
+        <div class="tag">R12 · 去除无结构证据的红色坐标窗框；嘴、标题、ROBBY、骰子、眼部源区、炸弹、4 枚旗标分别校准</div>
+        <div class="status" id="status">准备载入</div>
+
+        <details class="calibration" open>
+          <summary>逐件校准面板</summary>
+          <div class="calibration-body" id="calibrationControls">
+            <div class="row">
+              <label for="componentSelect">部件</label>
+              <select id="componentSelect" aria-label="选择涂装部件"></select>
+            </div>
+            <div class="nudge" aria-label="位置与缩放">
+              <button type="button" data-dx="-10" title="向左 10 像素">←10</button>
+              <button type="button" data-dy="-10" title="向上 10 像素">↑10</button>
+              <button type="button" data-dy="10" title="向下 10 像素">↓10</button>
+              <button type="button" data-dx="10" title="向右 10 像素">10→</button>
+              <button type="button" data-scale="0.98" title="缩小 2%">－</button>
+              <button type="button" data-scale="1.02" title="放大 2%">＋</button>
+              <button type="button" data-dx="-2" title="向左 2 像素">←2</button>
+              <button type="button" data-dy="-2" title="向上 2 像素">↑2</button>
+              <button type="button" data-dy="2" title="向下 2 像素">↓2</button>
+              <button type="button" data-dx="2" title="向右 2 像素">2→</button>
+            </div>
+            <div class="component-toggles" id="componentToggles"></div>
+            <div class="readout" id="calibrationReadout">等待载入</div>
+            <div class="actions">
+              <button type="button" id="resetCalibration">恢复 R12 初值</button>
+              <button type="button" id="exportCalibration">复制校准 JSON</button>
+            </div>
+            <div class="constraint">方向约束：当前只做左舷。右舷不镜像；旗标按已知照片证据限定为 4 枚；炸弹总数仍标记为未决。</div>
+          </div>
+        </details>
+
+        <div class="view-controls" id="views">
+          <button data-view="port" class="active">左舷近看</button>
+          <button data-view="nose-port">左前 3/4</button>
+          <button data-view="orbit">整机</button>
+          <label class="toggle">全部图案<input id="artToggle" type="checkbox" checked></label>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="./runtime/b24-80days-instance-r12.js"></script>
+</body>
+</html>

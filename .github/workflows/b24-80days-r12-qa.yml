@@ -1,0 +1,221 @@
+name: B24 80 DAYS R12 component browser QA
+
+on:
+  push:
+    branches:
+      - feature/b24-80days-r12-component-calibration
+    paths:
+      - b24-80days-instance-r12.html
+      - b24-80days-r12-review-direct.html
+      - runtime/b24-80days-instance-r12.js
+      - assets/80-days-port-master/**
+      - docs/80-days-r12/**
+      - .github/workflows/b24-80days-r12-qa.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Static syntax check
+        shell: bash
+        run: |
+          cp runtime/b24-80days-instance-r12.js /tmp/b24-80days-instance-r12.mjs
+          node --check /tmp/b24-80days-instance-r12.mjs
+          python -m json.tool docs/80-days-r12/PLACEMENT.json >/dev/null
+
+      - name: Install Chromium
+        run: |
+          python -m pip install playwright==1.55.0 pillow
+          python -m playwright install --with-deps chromium
+
+      - name: Serve repository
+        run: python -m http.server 8765 >/tmp/r12-http.log 2>&1 &
+
+      - name: Browser and visual-regression QA
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageChops
+          from playwright.sync_api import sync_playwright
+          import json
+
+          out = Path('reports/80-days-r12-qa')
+          out.mkdir(parents=True, exist_ok=True)
+          errors = []
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch(headless=True)
+              page = browser.new_page(
+                  viewport={'width': 1728, 'height': 960},
+                  device_scale_factor=1
+              )
+              page.on(
+                  'console',
+                  lambda message: errors.append(
+                      f'console {message.type}: {message.text}'
+                  ) if message.type == 'error' else None
+              )
+              page.on('pageerror', lambda error: errors.append(f'pageerror: {error}'))
+
+              page.goto(
+                  'http://127.0.0.1:8765/b24-80days-r12-review-direct.html',
+                  wait_until='domcontentloaded',
+                  timeout=30000
+              )
+              page.locator('#scene').wait_for(state='visible', timeout=30000)
+              page.wait_for_function(
+                  '() => window.__B24_80DAYS_R12__ || window.__B24_80DAYS_R12_ERROR__',
+                  timeout=90000
+              )
+              page.wait_for_timeout(1500)
+
+              state = page.evaluate("""() => ({
+                audit: window.__B24_80DAYS_R12__ || null,
+                error: window.__B24_80DAYS_R12_ERROR__ || null,
+                status: document.querySelector('#status')?.textContent,
+                loading: getComputedStyle(document.querySelector('#loading')).display
+              })""")
+              page.screenshot(path=str(out / 'port-art-on.png'))
+
+              page.locator('#artToggle').uncheck()
+              page.wait_for_timeout(500)
+              page.screenshot(path=str(out / 'port-art-off.png'))
+              page.locator('#artToggle').check()
+              page.wait_for_timeout(500)
+
+              title_toggle = page.locator('input[data-component="title"]')
+              title_toggle.uncheck()
+              page.wait_for_timeout(500)
+              title_state_off = page.evaluate(
+                  "() => window.__B24_80DAYS_R12__.components.title.enabled"
+              )
+              page.screenshot(path=str(out / 'port-title-off.png'))
+              title_toggle.check()
+              page.wait_for_timeout(500)
+              title_state_on = page.evaluate(
+                  "() => window.__B24_80DAYS_R12__.components.title.enabled"
+              )
+
+              page.select_option('#componentSelect', 'mouth')
+              before = page.evaluate(
+                  "() => [...window.__B24_80DAYS_R12__.components.mouth.rect]"
+              )
+              page.locator('button[data-dx="10"]').click()
+              page.wait_for_timeout(100)
+              after = page.evaluate(
+                  "() => [...window.__B24_80DAYS_R12__.components.mouth.rect]"
+              )
+              page.locator('#resetCalibration').click()
+              page.wait_for_timeout(100)
+              reset = page.evaluate(
+                  "() => [...window.__B24_80DAYS_R12__.components.mouth.rect]"
+              )
+
+              page.locator('button[data-view="nose-port"]').click()
+              page.wait_for_timeout(1000)
+              page.screenshot(path=str(out / 'nose-port.png'))
+              page.locator('button[data-view="orbit"]').click()
+              page.wait_for_timeout(1000)
+              page.screenshot(path=str(out / 'orbit.png'))
+
+              final = page.evaluate("""() => ({
+                audit: window.__B24_80DAYS_R12__,
+                error: window.__B24_80DAYS_R12_ERROR__ || null
+              })""")
+              (out / 'state.json').write_text(
+                  json.dumps(
+                      {
+                          'initial': state,
+                          'final': final,
+                          'errors': errors,
+                          'titleState': [title_state_off, title_state_on],
+                          'mouthRect': {
+                              'before': before,
+                              'after': after,
+                              'reset': reset
+                          }
+                      },
+                      ensure_ascii=False,
+                      indent=2
+                  ),
+                  encoding='utf-8'
+              )
+              browser.close()
+
+          assert not state['error'], state
+          audit = state['audit']
+          assert audit, state
+          assert audit['mother']['modified'] is False, audit
+          assert audit['sourceArtwork']['redrawn'] is False, audit
+          assert audit['projection']['leftRightMirrored'] is False, audit
+          assert len(audit['components']) == 7, audit['components']
+          assert audit['components']['flags']['count'] == 4, audit['components']['flags']
+          assert audit['historicalConstraints']['japaneseFlags'] == 4, audit
+          assert audit['historicalConstraints']['missionBombCount'] == 'unresolved', audit
+          assert audit['windowFrames']['red'] is False, audit['windowFrames']
+          assert audit['windowFrames']['glassTransparent'] is True, audit['windowFrames']
+          assert audit['windowFrames']['mode'] == 'unpainted-pending-verified-frame-mesh-binding'
+          assert audit['visualAcceptance'] is False
+          assert audit['productionReady'] is False
+          assert state['loading'] == 'none', state
+          assert title_state_off is False and title_state_on is True
+          assert after[0] == before[0] + 10, (before, after)
+          assert reset == before, (before, reset)
+          assert not errors, errors
+
+          on = Image.open(out / 'port-art-on.png').convert('RGB')
+          off = Image.open(out / 'port-art-off.png').convert('RGB')
+          title_off = Image.open(out / 'port-title-off.png').convert('RGB')
+          split = int(on.width * 0.38)
+          on_3d = on.crop((split, 0, on.width, on.height))
+          off_3d = off.crop((split, 0, off.width, off.height))
+          title_off_3d = title_off.crop((split, 0, title_off.width, title_off.height))
+
+          art_diff = ImageChops.difference(on_3d, off_3d)
+          title_diff = ImageChops.difference(on_3d, title_off_3d)
+          art_changed = sum(1 for pixel in art_diff.getdata() if max(pixel) > 12)
+          title_changed = sum(1 for pixel in title_diff.getdata() if max(pixel) > 12)
+
+          yellow = sum(
+              1 for r, g, b in on_3d.getdata()
+              if r > 120 and g > 75 and r > b * 1.7 and g > b * 1.35
+          )
+          red = sum(
+              1 for r, g, b in on_3d.getdata()
+              if r > 65 and r > g * 1.35 and r > b * 1.15 and g < 100
+          )
+
+          (out / 'pixel-check.txt').write_text(
+              f'art_changed={art_changed}\n'
+              f'title_changed={title_changed}\n'
+              f'yellow={yellow}\n'
+              f'red={red}\n',
+              encoding='utf-8'
+          )
+
+          assert art_changed > 4000, art_changed
+          assert title_changed > 500, title_changed
+          assert yellow > 100, yellow
+          assert red > 100, red
+          print(json.dumps({
+              'componentCount': len(audit['components']),
+              'artChanged': art_changed,
+              'titleChanged': title_changed,
+              'yellow': yellow,
+              'red': red
+          }, ensure_ascii=False))
+          PY
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b24-80days-r12-qa
+          path: reports/80-days-r12-qa
+          retention-days: 30

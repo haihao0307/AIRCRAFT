@@ -1,0 +1,72 @@
+{
+  "schema": "haihao.aircraft/80-days-r12-placement@1",
+  "predecessor": {
+    "branch": "feature/b24-80days-scan-calibration-r10",
+    "commit": "09b3ad195b77ce45f9d6d548d1e7ac808c49c512",
+    "runtime": "R11.3"
+  },
+  "reference": {
+    "id": "E04-left",
+    "pixelSize": [
+      2000,
+      1243
+    ],
+    "sha256": "07439c42eac526d5a209a6bf767853302089099eda4df11128a0e8b56a6a81fa"
+  },
+  "sourceArtworkSHA256": "799e52d96a3427ef11272974a1f2a1318fa1d32102dce445e079691fe36c12c4",
+  "projection": {
+    "z": 6.7,
+    "y": -1.1,
+    "metresPerPixel": 0.0013,
+    "angle": 0,
+    "method": "independent-component-world-projection",
+    "portOnly": true,
+    "mirrorToStarboard": false
+  },
+  "components": {
+    "mouth": {
+      "rect": [-650, 455, 2150, 661],
+      "source": "mouth.png"
+    },
+    "robby": {
+      "rect": [390, 245, 190, 135],
+      "source": "robby.png"
+    },
+    "title": {
+      "rect": [840, 150, 1210, 340],
+      "source": "title.png"
+    },
+    "dice": {
+      "rect": [1180, 575, 535, 262],
+      "source": "dice.png"
+    },
+    "eye": {
+      "rect": [700, 145, 215, 220],
+      "sourceCrop": [367, 134, 197, 203]
+    },
+    "bombs": {
+      "rect": [930, 72, 950, 82],
+      "sourceCrop": [535, 88, 900, 76],
+      "count": "unresolved",
+      "direction": "downward"
+    },
+    "flags": {
+      "rect": [1570, 160, 217, 55],
+      "sourceCrop": [1126, 164, 199, 50],
+      "count": 4
+    }
+  },
+  "windowFrames": {
+    "red": false,
+    "glassTransparent": true,
+    "mode": "unpainted-pending-verified-frame-mesh-binding",
+    "rejectedMethod": "R11 world-coordinate bars"
+  },
+  "constraints": {
+    "motherGeometryModified": false,
+    "sourceRedrawn": false,
+    "rightSideIndependent": true,
+    "visualAcceptance": false,
+    "productionReady": false
+  }
+}

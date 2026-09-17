@@ -1,0 +1,83 @@
+name: Build Skin Mother R12 Full Continuation Package
+
+on:
+  push:
+    branches:
+      - feature/b24-80days-r12-component-calibration
+    paths:
+      - b24-80days-instance-r12.html
+      - b24-80days-r12-review-direct.html
+      - runtime/b24-80days-instance-r12.js
+      - docs/80-days-r12/**
+      - handoff/skin-mother-current/**
+      - CURRENT_SKIN_MOTHER_HANDOFF.md
+      - .github/workflows/build-skin-mother-r12-full-handoff.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package-and-push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout R12 continuation branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Build full continuation ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          PACKAGE_BASE='B24_Skin_Mother_Full_Continuation_R12_2026-09-17'
+          STAGE="/tmp/${PACKAGE_BASE}"
+          rm -rf "$STAGE"
+          mkdir -p "$STAGE"
+
+          rsync -a ./ "$STAGE/" \
+            --exclude '.git/' \
+            --exclude 'releases/*.zip' \
+            --exclude 'releases/*.sha256' \
+            --exclude 'reports/'
+
+          mkdir -p "$STAGE/handoff/skin-mother-current"
+          cat > "$STAGE/handoff/skin-mother-current/PACKAGE_BUILD_INFO.json" <<EOF
+          {
+            "schema": "haihao.aircraft/skin-mother-full-continuation-package@12",
+            "package": "${PACKAGE_BASE}.zip",
+            "sourceRepository": "${GITHUB_REPOSITORY}",
+            "sourceBranch": "${GITHUB_REF_NAME}",
+            "sourceCommit": "${GITHUB_SHA}",
+            "buildRun": "${GITHUB_RUN_ID}",
+            "builtBy": "GitHub Actions",
+            "directReviewEntry": "b24-80days-r12-review-direct.html",
+            "motherGeometryModified": false,
+            "visualAcceptance80Days": false,
+            "productionReady80Days": false
+          }
+          EOF
+
+          cd /tmp
+          zip -r -9 "${PACKAGE_BASE}.zip" "${PACKAGE_BASE}" >/dev/null
+          cd "$GITHUB_WORKSPACE"
+          mkdir -p releases
+          mv "/tmp/${PACKAGE_BASE}.zip" "releases/${PACKAGE_BASE}.zip"
+          sha256sum "releases/${PACKAGE_BASE}.zip" > "releases/${PACKAGE_BASE}.zip.sha256"
+
+      - name: Commit package
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add releases/B24_Skin_Mother_Full_Continuation_R12_2026-09-17.zip
+          git add releases/B24_Skin_Mother_Full_Continuation_R12_2026-09-17.zip.sha256
+          if git diff --cached --quiet; then
+            echo 'Package already current; nothing to commit.'
+            exit 0
+          fi
+          git commit -m 'handoff(skin): package R12 full continuation [skip ci]'
+          git push origin HEAD:${GITHUB_REF_NAME}
