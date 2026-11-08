@@ -1,0 +1,1022 @@
+{
+  "schemaVersion": 1,
+  "cleanupDate": "2026-11-08",
+  "repository": "haihao0307/AIRCRAFT",
+  "branch": "feature/b24-80days-r12-component-calibration",
+  "baseCommit": "0ec4d9d7c652e5b399a31b68b6de44ba24b9b274",
+  "scope": "Keep the last R12 workbench and all its actual dependencies; remove superseded entries, modules, packaged releases and QA images from this branch.",
+  "recovery": "Ordinary descendant commit. Restore deleted files from baseCommit or revert this cleanup commit. No branch, tag, release asset or Git history was deleted.",
+  "retainedVersion": "B-24 80 DAYS R12 component calibration",
+  "retainedEntries": [
+    "b24-80days-r12-review-direct.html",
+    "b24-80days-instance-r12.html"
+  ],
+  "sourceAcceptance": {
+    "visualAcceptance": false,
+    "productionReady": false,
+    "latestKnownBrowserQA": "failure (run 35177268622); cleanup does not resolve or supersede that failure"
+  },
+  "verification": {
+    "applicationModuleSyntax": "passed",
+    "localImportClosure": "passed",
+    "layoutPayloadParts": 9,
+    "keptBlobIdentity": "All listed retained blobs copied by existing Git blob SHA without changing bytes.",
+    "browserRendering": "not run; no rendering changes"
+  },
+  "storage": {
+    "beforeLogicalBytes": 89785326,
+    "retainedOriginalBytes": 17489126,
+    "deletedOriginalFiles": 139,
+    "deletedOriginalBytes": 72293052,
+    "actualGitObjectBytesReclaimed": 0,
+    "note": "README/receipt metadata adds small bytes. Git history and historical branches still retain prior objects; logical removal is not reclaimed GitHub storage."
+  },
+  "kept": [
+    {
+      "path": ".gitattributes",
+      "sha": "ad4f14b4dbc3c690274232ae114dfd271b6aff4f",
+      "bytes": 56
+    },
+    {
+      "path": ".github/workflows/b24-80days-r12-qa.yml",
+      "sha": "744ae7a9bec7f160d6295361bc7ff66d2f012dc6",
+      "bytes": 8855
+    },
+    {
+      "path": ".gitignore",
+      "sha": "8a3f42ce480fee131a742c4306d361890acdea1f",
+      "bytes": 51
+    },
+    {
+      "path": "ACCEPTED_BASELINE.json",
+      "sha": "bdb2dcd73e5b839b3a94575d86451371973d49ca",
+      "bytes": 707
+    },
+    {
+      "path": "AGENTS.md",
+      "sha": "0ba764060005e03da92032a59bedfdc2b6d1a34f",
+      "bytes": 5045
+    },
+    {
+      "path": "assets/80-days-port-master/80-days-port-master.png",
+      "sha": "000da8736d9bd50c870ad30c132f1629eea8cc24",
+      "bytes": 719734
+    },
+    {
+      "path": "assets/80-days-port-master/E04-left.jpg",
+      "sha": "3717504dfe7a31d0cd6930c9c6f1a4d0f811f88e",
+      "bytes": 1006009
+    },
+    {
+      "path": "assets/80-days-port-master/PROVENANCE.json",
+      "sha": "a5a62e694ac0b7fd0610cc34082abd91d6e9f9b8",
+      "bytes": 9317
+    },
+    {
+      "path": "assets/80-days-port-master/dice.png",
+      "sha": "b88b139dd0bd68b4dbbc6bb3b733341e71655c7e",
+      "bytes": 88357
+    },
+    {
+      "path": "assets/80-days-port-master/mouth.png",
+      "sha": "c007f005ab7144e1a6c083f70642028a50968aef",
+      "bytes": 380681
+    },
+    {
+      "path": "assets/80-days-port-master/robby.png",
+      "sha": "bb94584de19282cb8c8da7aadac1f818719bfea1",
+      "bytes": 19322
+    },
+    {
+      "path": "assets/80-days-port-master/source-06.b85",
+      "sha": "58e95603a251f16f10818a3b3a967e9a2ec26887",
+      "bytes": 3598
+    },
+    {
+      "path": "assets/80-days-port-master/title.png",
+      "sha": "02340762acb58a12275593bcf1384d0585c2257c",
+      "bytes": 139579
+    },
+    {
+      "path": "b24-80days-instance-r12.html",
+      "sha": "e497e91704171ffb19c1724b35fa9e54029d4d44",
+      "bytes": 8037
+    },
+    {
+      "path": "b24-80days-r12-review-direct.html",
+      "sha": "e497e91704171ffb19c1724b35fa9e54029d4d44",
+      "bytes": 8037
+    },
+    {
+      "path": "docs/80-days-r12/PLACEMENT.json",
+      "sha": "1769984cd98e32c39482d255d0b892e063e18532",
+      "bytes": 1798
+    },
+    {
+      "path": "docs/80-days-r12/STATUS.md",
+      "sha": "923528023b34e597ad7e3746e8371b1c6eeb2441",
+      "bytes": 2099
+    },
+    {
+      "path": "docs/b24-generic-skin/CLOSED_DOOR_SOURCE_LOCK_V018_R2.json",
+      "sha": "7bfa7ac35ba5b26be0c6c34555ab56dd14cfca2c",
+      "bytes": 2070
+    },
+    {
+      "path": "docs/generic-mother-01/CLEANUP.json",
+      "sha": "967f5eb8ea46cc73328a5028f347709f2afe94f3",
+      "bytes": 17383
+    },
+    {
+      "path": "docs/generic-mother-01/DERIVATION.md",
+      "sha": "b7c7c4f24a9d112d6d3b030b2cf84aa8045f0079",
+      "bytes": 1350
+    },
+    {
+      "path": "docs/service-life/KNOWLEDGE.md",
+      "sha": "b917dc559c9236ee9f696d675e74442a7458964e",
+      "bytes": 4914
+    },
+    {
+      "path": "docs/service-life/PUBLIC_PREVIEW.md",
+      "sha": "72b88baa8b04044aa05009b3ae95c3181672bf28",
+      "bytes": 1923
+    },
+    {
+      "path": "docs/service-life/R15-contract.json",
+      "sha": "38f260f45c17c8f60b2240033fd1171719a20039",
+      "bytes": 2547
+    },
+    {
+      "path": "docs/skin-joints/CONTRACT.md",
+      "sha": "dd1823bd7fb416aa8b5fa23a214da1a8c202f477",
+      "bytes": 1631
+    },
+    {
+      "path": "docs/skin-joints/KNOWLEDGE.md",
+      "sha": "9dae4b521632af7eea52ef4d325721ec819d9cb6",
+      "bytes": 4716
+    },
+    {
+      "path": "docs/skin-joints/PUBLIC_PREVIEW.md",
+      "sha": "fd3943d4ba3ceb871c7021d9ff6420adad85e761",
+      "bytes": 1450
+    },
+    {
+      "path": "docs/wing-seams-r16/KNOWLEDGE.md",
+      "sha": "aae6f23d569afb2f2c7246cdc402de902967fa66",
+      "bytes": 4693
+    },
+    {
+      "path": "docs/wing-seams-r16/PUBLIC_PREVIEW.md",
+      "sha": "ee1dd89407c0211c47c7884a23ac57fd8c9ec2f8",
+      "bytes": 1643
+    },
+    {
+      "path": "docs/wing-seams-r16/asset-contract.json",
+      "sha": "9b50de0e01b3220e9e61a8cbe892c73033752e10",
+      "bytes": 2522
+    },
+    {
+      "path": "knowledge/NATIVE_R1.md",
+      "sha": "74760af1a4e7eb37cfa184dd3af7d2e93263d995",
+      "bytes": 2764
+    },
+    {
+      "path": "knowledge/RECEIPT.md",
+      "sha": "39d47f83e4c42425ae1a1c56adad77319aa347d7",
+      "bytes": 5434
+    },
+    {
+      "path": "package.json",
+      "sha": "3b4e8663bafa698ca6490474159d2ce827279fff",
+      "bytes": 144
+    },
+    {
+      "path": "releases/B24_Skin_Mother_Full_Continuation_R12_2026-09-17.zip",
+      "sha": "8dc836b2b87564b1d61cd58c10718f334e54b6e3",
+      "bytes": 8811288
+    },
+    {
+      "path": "releases/B24_Skin_Mother_Full_Continuation_R12_2026-09-17.zip.sha256",
+      "sha": "2b5b1e0cfd03ece8dd69414864718e27731ea517",
+      "bytes": 128
+    },
+    {
+      "path": "runtime/asset-layout.js",
+      "sha": "4d3e70cdcfe072c5a7e3839383a7298869385906",
+      "bytes": 2615
+    },
+    {
+      "path": "runtime/asset-loader.js",
+      "sha": "97a8f32c8a096a6119c44b114872c8c920ccf7b2",
+      "bytes": 7468
+    },
+    {
+      "path": "runtime/assets/parts/bin-000-328814bb6f3b2678.part",
+      "sha": "d81cded16e9cc7e5cc2449ef854e07d0510c9591",
+      "bytes": 524288
+    },
+    {
+      "path": "runtime/assets/parts/bin-001-def9bcae9f915cd9.part",
+      "sha": "73c08390ce024afdc428091fd6935b7b8575da93",
+      "bytes": 524288
+    },
+    {
+      "path": "runtime/assets/parts/bin-002-b2c80b6ee3b4a64e.part",
+      "sha": "90d4bc110203f310e1a5546a0a4f0643eccc8d01",
+      "bytes": 524288
+    },
+    {
+      "path": "runtime/assets/parts/bin-003-d02f982b0ffd4a53.part",
+      "sha": "d1057ac74f608c2f9482915bfa2258eab0b48624",
+      "bytes": 524288
+    },
+    {
+      "path": "runtime/assets/parts/bin-004-dcf915b2a7c9db6c.part",
+      "sha": "9f3099776479b9ef51620e616b1d8a96cccd172b",
+      "bytes": 524288
+    },
+    {
+      "path": "runtime/assets/parts/bin-005-9881509e794eb6e7.part",
+      "sha": "9a43d983523f0ff54113aa89d45b33e81d3b5326",
+      "bytes": 524288
+    },
+    {
+      "path": "runtime/assets/parts/bin-006-ecb1e3940c8a586f.part",
+      "sha": "984a0159d8e03220e4152f268305e61faa0167a2",
+      "bytes": 524288
+    },
+    {
+      "path": "runtime/assets/parts/bin-007-d06d2dbc5c16bc46.part",
+      "sha": "8619b837194bdc7bf547bcb96228b534beda4b3e",
+      "bytes": 235010
+    },
+    {
+      "path": "runtime/assets/parts/json-000-7ab928624ced9d47.part",
+      "sha": "ace1a45e5ce777bf7bfde1a308b75d5028e0fdaa",
+      "bytes": 156451
+    },
+    {
+      "path": "runtime/b24-80days-instance-r12.js",
+      "sha": "7d20330e5a7df98406d7faac6639b92f5fddcc68",
+      "bytes": 23590
+    },
+    {
+      "path": "runtime/b24-r10-detail-materials.js",
+      "sha": "37e9ab5a4066d98b81c6b69330f0737075e86cc7",
+      "bytes": 11141
+    },
+    {
+      "path": "runtime/b24-r10-detail-regions.js",
+      "sha": "2c59ec888ebfc22307e9d53f2f4d8a8ed88a8f62",
+      "bytes": 4248
+    },
+    {
+      "path": "runtime/b24-r16-skin-system.js",
+      "sha": "83c4eafbad5a9bbb2295dd3bd2672f0c8a6ac973",
+      "bytes": 23429
+    },
+    {
+      "path": "runtime/b24-r7-reference.js",
+      "sha": "c40cf2232e697b1e01d916a1124fb2865d3d4e67",
+      "bytes": 10518
+    },
+    {
+      "path": "runtime/b24-r8-bay-poses.js",
+      "sha": "20f2169283be4677fef54025e31e3de49121f827",
+      "bytes": 19177
+    },
+    {
+      "path": "runtime/motion-system.js",
+      "sha": "c9602de47a743fec98b11de3aa3afe6a36d93107",
+      "bytes": 2588
+    },
+    {
+      "path": "runtime/native-aircraft.js",
+      "sha": "cb88f143cfd8002ae0f1772e22faecc500c8a981",
+      "bytes": 8641
+    },
+    {
+      "path": "runtime/vendor/OrbitControls.js",
+      "sha": "eea26706dae735dade19367026185f6e68f5cf55",
+      "bytes": 38703
+    },
+    {
+      "path": "runtime/vendor/THREE-LICENSE.txt",
+      "sha": "cf781430404b0ae0ba7d8dea3457a3515dd7c9b9",
+      "bytes": 1081
+    },
+    {
+      "path": "runtime/vendor/three.core.js",
+      "sha": "7dcd0fbcbc04b8d9a20ecb96c1ce344cb55150d5",
+      "bytes": 1403455
+    },
+    {
+      "path": "runtime/vendor/three.module.js",
+      "sha": "477ca4dafa7af919a2b9818e01b5ae25198d4aa4",
+      "bytes": 603113
+    }
+  ],
+  "deleted": [
+    {
+      "path": ".github/workflows/b24-80days-calibration-candidate-audit.yml",
+      "sha": "26ffc3fed8b714aa55f4038eedb833bc8d8319da",
+      "bytes": 2889
+    },
+    {
+      "path": ".github/workflows/b24-80days-instance-r1-qa.yml",
+      "sha": "fe636df01f586c13d874f95c4cdaf7fd02d57d02",
+      "bytes": 5281
+    },
+    {
+      "path": ".github/workflows/b24-80days-instance-r10-qa.yml",
+      "sha": "edd2de5578d02fe7fc30ac2e95438747123fca04",
+      "bytes": 3434
+    },
+    {
+      "path": ".github/workflows/b24-80days-instance-r3-qa.yml",
+      "sha": "190500bac3d4af1353a6480301aac92cecf8e7c3",
+      "bytes": 3495
+    },
+    {
+      "path": ".github/workflows/b24-80days-instance-r4-qa.yml",
+      "sha": "860e0f704a1c07cfee205ec7a91c0c5bdf364ffe",
+      "bytes": 3675
+    },
+    {
+      "path": ".github/workflows/b24-80days-instance-r5-qa.yml",
+      "sha": "0605d2bf2f9035f1cb3025a6727cb9f20491f7a4",
+      "bytes": 5157
+    },
+    {
+      "path": ".github/workflows/b24-80days-instance-r6-qa.yml",
+      "sha": "22fe250c05f0d9b282b2479e81764e311ca43e55",
+      "bytes": 5144
+    },
+    {
+      "path": ".github/workflows/b24-80days-nose-anchor-audit.yml",
+      "sha": "e4f3415d3465f0aa8f6aaebf9eaf69405ebfccf5",
+      "bytes": 2941
+    },
+    {
+      "path": ".github/workflows/b24-80days-r10-public-qa.yml",
+      "sha": "adf029bc4c084498fa28c5e1875f42cf2c1ff64d",
+      "bytes": 3535
+    },
+    {
+      "path": ".github/workflows/b24-80days-r11-frame-diagnostic.yml",
+      "sha": "3526651703706b3ca588672d4bdcab92e8df2778",
+      "bytes": 4039
+    },
+    {
+      "path": ".github/workflows/b24-80days-r11-public-qa.yml",
+      "sha": "7bdfcfb2ed0e7e009e30c79c67b4f6ad233d3f2a",
+      "bytes": 3580
+    },
+    {
+      "path": ".github/workflows/b24-80days-r11-qa.yml",
+      "sha": "d66a1336cedaa6fca42016fd7becbae3381c73dd",
+      "bytes": 4328
+    },
+    {
+      "path": ".github/workflows/b24-80days-window-candidates-qa.yml",
+      "sha": "639a8a9a54f633966395207e544a00766f497f03",
+      "bytes": 2870
+    },
+    {
+      "path": ".github/workflows/b24-80days-window-shape-match-qa.yml",
+      "sha": "ab67d6b993841280886783d6eccbfd2642c1bee3",
+      "bytes": 2921
+    },
+    {
+      "path": ".github/workflows/build-skin-mother-full-handoff.yml",
+      "sha": "5fcaa351d3a11b17b2b44e94685ca44121e4fef6",
+      "bytes": 2533
+    },
+    {
+      "path": ".github/workflows/build-skin-mother-r12-full-handoff.yml",
+      "sha": "52e3c880b181d80eb5c846810c358d2cb1ea1f4a",
+      "bytes": 2908
+    },
+    {
+      "path": ".github/workflows/materialize-80-days-r10-exact-sources.yml",
+      "sha": "7782df1ce8711634046941a708659e2044c14a93",
+      "bytes": 6190
+    },
+    {
+      "path": ".github/workflows/materialize-80-days-r10-inline-art.yml",
+      "sha": "001a045d01397304f2c55491e44858ba668a803a",
+      "bytes": 3321
+    },
+    {
+      "path": ".github/workflows/materialize-80-days-r11-art.yml",
+      "sha": "c5a3d63992516b5ca3fec6d142f3989ab8258dcc",
+      "bytes": 5695
+    },
+    {
+      "path": "CURRENT.json",
+      "sha": "bdb2dcd73e5b839b3a94575d86451371973d49ca",
+      "bytes": 707
+    },
+    {
+      "path": "MANIFEST.json",
+      "sha": "69e6eacc4675364861774f07cdb68ff57b5e203d",
+      "bytes": 17945
+    },
+    {
+      "path": "MOTHER_PUBLIC_PREVIEW_DELIVERY_RULE_2026-09-08.md",
+      "sha": "37e57d2789956cf2b53b6c8b17ed4d3432df8aa7",
+      "bytes": 1503
+    },
+    {
+      "path": "NEXT_START_HERE.md",
+      "sha": "d92133d7058c8dc0a74e303bcb9e04590cbf7e97",
+      "bytes": 483
+    },
+    {
+      "path": "aircraft-skin-joints-r14.html",
+      "sha": "e8c3f33f99f2423115d96127fbc03dfac0adfa74",
+      "bytes": 6088
+    },
+    {
+      "path": "b24-80days-calibration-candidate-audit.html",
+      "sha": "bd7fecf1933404a3cf58fd6be8f4bce82dd372ba",
+      "bytes": 631
+    },
+    {
+      "path": "b24-80days-instance-r1.html",
+      "sha": "b6c8edecf441cb732702b15b5ba635f95e0386d8",
+      "bytes": 6334
+    },
+    {
+      "path": "b24-80days-instance-r10-public.html",
+      "sha": "bd4a3778caa2e5a891a9a577748a0d89027fd83c",
+      "bytes": 2602
+    },
+    {
+      "path": "b24-80days-instance-r10.html",
+      "sha": "a4ab60c530d377427eb0b780a74d6fcddb1437bf",
+      "bytes": 2754
+    },
+    {
+      "path": "b24-80days-instance-r11.html",
+      "sha": "282f71ffef9189fd37f9c8e6fd387d9efbe299f8",
+      "bytes": 2499
+    },
+    {
+      "path": "b24-80days-instance-r2.html",
+      "sha": "307e9ecf15203ab620083dcf325f7fb879ae692f",
+      "bytes": 7098
+    },
+    {
+      "path": "b24-80days-instance-r3.html",
+      "sha": "44117aa4b775429c48d5837ce1cf67f65877d745",
+      "bytes": 6687
+    },
+    {
+      "path": "b24-80days-instance-r4.html",
+      "sha": "a2142b30a06f8f14ff40685df3707a2f6d456212",
+      "bytes": 6570
+    },
+    {
+      "path": "b24-80days-instance-r5.html",
+      "sha": "05989d5f2855afc29aaa4fee004b101bf8198588",
+      "bytes": 6456
+    },
+    {
+      "path": "b24-80days-instance-r6.html",
+      "sha": "5c82038af981646af3b1e1613f509ded815f6c0e",
+      "bytes": 6146
+    },
+    {
+      "path": "b24-80days-instance-r9.html",
+      "sha": "b3588ae231b11fb08dda64ec47b8f5994f57c117",
+      "bytes": 7573
+    },
+    {
+      "path": "b24-80days-nose-anchor-audit.html",
+      "sha": "6a51e989a3775dfe7a7bc96895fe4f64d1755d24",
+      "bytes": 584
+    },
+    {
+      "path": "b24-80days-r10-calibration.html",
+      "sha": "b5ed9f179cfa1199904778b5e91f19b3f1456d64",
+      "bytes": 5283
+    },
+    {
+      "path": "b24-80days-r10-review-public.html",
+      "sha": "7f49febe2b01cce20649c4f622f597366ff62333",
+      "bytes": 2138
+    },
+    {
+      "path": "b24-80days-r10-review-v2.html",
+      "sha": "3b30f02d77ef2ed35473c9332d7442cce95bd774",
+      "bytes": 2069
+    },
+    {
+      "path": "b24-80days-r10-review.html",
+      "sha": "fe285c9907a8c59e007d51706dce41d8fb1a5531",
+      "bytes": 2768
+    },
+    {
+      "path": "b24-80days-r11-review-direct.html",
+      "sha": "288158a48f78c238722e3617e3085b193a380784",
+      "bytes": 3684
+    },
+    {
+      "path": "b24-80days-r11-review.html",
+      "sha": "b065dedfd8e79badcddc6f0c7a7f2eb5cfce30dc",
+      "bytes": 2052
+    },
+    {
+      "path": "b24-80days-scan-r10.html",
+      "sha": "423d57c8dd6a1ba24e78e0ff613c9dc33b7ac741",
+      "bytes": 11319
+    },
+    {
+      "path": "b24-80days-window-candidates.html",
+      "sha": "5d9b59fa7502e9224423cb688a4f32fa5d0891fd",
+      "bytes": 1535
+    },
+    {
+      "path": "b24-80days-window-shape-match.html",
+      "sha": "088b76967a4bef9513a265180a85f19dacc618db",
+      "bytes": 1964
+    },
+    {
+      "path": "b24-skin-integration-r14.html",
+      "sha": "718e31a1520cb12ce5a3c9a0438d3994ab1017cb",
+      "bytes": 8940
+    },
+    {
+      "path": "b24-wing-seams-r16.html",
+      "sha": "a104e3f85f709b10978859330498b9820d105298",
+      "bytes": 11222
+    },
+    {
+      "path": "docs/80-days-r10/E04_SCAN_ANCHORS_R10.json",
+      "sha": "77b1242b6097d16a4c94014a695d66a34bf57425",
+      "bytes": 1211
+    },
+    {
+      "path": "docs/80-days-r10/PORT_DIRECT_PLACEMENT_SEED_2026-09-14.json",
+      "sha": "2d72fa5e6a2c1fa9b035c39e12a1badf8195bfab",
+      "bytes": 1614
+    },
+    {
+      "path": "docs/80-days-r10/SOURCE_ART_LOCK_2026-09-14.json",
+      "sha": "51ebc807889b61a4b2bc7125791d2619ba1ceb64",
+      "bytes": 1795
+    },
+    {
+      "path": "docs/80-days-r10/STATUS.md",
+      "sha": "e9bbc65bc8ffbde5437091a1a7d75950fe908b41",
+      "bytes": 2886
+    },
+    {
+      "path": "docs/80-days-r11/PLACEMENT.json",
+      "sha": "12669b10c54d74f4e4ada2e7c329834c73da3e26",
+      "bytes": 1063
+    },
+    {
+      "path": "docs/80-days-r9/STATUS.md",
+      "sha": "56b2cb3e88c164c6beaa846957e12e7cda359139",
+      "bytes": 2645
+    },
+    {
+      "path": "handoff/skin-mother-current/00_START_HERE.md",
+      "sha": "2ac2c158c75a9c67be161bcd900fefa86da33a48",
+      "bytes": 2148
+    },
+    {
+      "path": "handoff/skin-mother-current/01_HANDOFF_STATE.md",
+      "sha": "753deeacdbb01b692ea5b1a3998ec2377531a696",
+      "bytes": 3635
+    },
+    {
+      "path": "handoff/skin-mother-current/02_R12_CONTINUATION.md",
+      "sha": "bf71e870658698d1bf29cbfa6e5bee6965ce66ed",
+      "bytes": 589
+    },
+    {
+      "path": "handoff/skin-mother-current/02_SOURCE_LOCKS.json",
+      "sha": "424bd37a6cb0718830cb6de756c39f5e43e7665a",
+      "bytes": 1943
+    },
+    {
+      "path": "handoff/skin-mother-current/03_NEXT_METHOD.md",
+      "sha": "77b6ecfa9dfe41f6c55509f06e32748e11687b6a",
+      "bytes": 1959
+    },
+    {
+      "path": "handoff/skin-mother-current/04_PACKAGE_SCOPE.md",
+      "sha": "d9f91ee64133e5ad090c98de54d88316faff03ce",
+      "bytes": 1201
+    },
+    {
+      "path": "instances/80-days-r1/MARKING_CONTRACT.json",
+      "sha": "c0afca9899e3039d9157cabbd8cb88e218114e6e",
+      "bytes": 7602
+    },
+    {
+      "path": "releases/B24_Generic_Mother_01_Full_2026-09-09.zip",
+      "sha": "8b5e9ebd8510e01b08fbb75576877ab090089402",
+      "bytes": 17028001
+    },
+    {
+      "path": "releases/B24_Generic_Mother_01_Full_2026-09-09.zip.sha256",
+      "sha": "701574963817f47ac0dc49bb4caccee13c57cc6b",
+      "bytes": 108
+    },
+    {
+      "path": "releases/B24_Skin_Mother_Current_Full_Handoff_R9_WIP_2026-09-12.zip",
+      "sha": "64167b2e72b871b6ce3e1ba9db9feca8088498dd",
+      "bytes": 17133679
+    },
+    {
+      "path": "releases/B24_Skin_Mother_Current_Full_Handoff_R9_WIP_2026-09-12.zip.sha256",
+      "sha": "2f9e5a7e05d7ca05f09cf7a1bf87ed14d850d0f3",
+      "bytes": 134
+    },
+    {
+      "path": "releases/B24_Skin_Mother_Full_Continuation_R9_2026-09-13.zip",
+      "sha": "0699b673a12ce044fe932a75be22701b558e80f5",
+      "bytes": 22657203
+    },
+    {
+      "path": "releases/B24_Skin_Mother_Full_Continuation_R9_2026-09-13.zip.sha256",
+      "sha": "3b709906a7611ab1c37cd40ace78786dd394ef9c",
+      "bytes": 118
+    },
+    {
+      "path": "releases/B24_Skin_Mother_Full_Continuation_R9_2026-09-13_README.md",
+      "sha": "80b35915a5a73e1c3e647f51e1edf77007a39b40",
+      "bytes": 4723
+    },
+    {
+      "path": "reports/80-days-r10-source-materialization.json",
+      "sha": "187f7299a24486fbfe8ee9a04e157c133d3537e6",
+      "bytes": 11057
+    },
+    {
+      "path": "reports/service-life-r16/public/belly-angle-0.png",
+      "sha": "3bbb681efac957547ae2a88551d287506bf71446",
+      "bytes": 452023
+    },
+    {
+      "path": "reports/service-life-r16/public/belly-angle-1.png",
+      "sha": "0de0c59b167b15d65282d2dcb8e235fdd16fe008",
+      "bytes": 379065
+    },
+    {
+      "path": "reports/service-life-r16/public/belly-angle-2.png",
+      "sha": "2edd421da45ae212accd6cef4c7d969a47388b7d",
+      "bytes": 258411
+    },
+    {
+      "path": "reports/service-life-r16/public/belly-angle-3.png",
+      "sha": "8654626ec11c5da3f3c1ca54fd4f78ee778fae48",
+      "bytes": 411793
+    },
+    {
+      "path": "reports/service-life-r16/public/belly-angle-4.png",
+      "sha": "eb6e50ad0cf41ed93ab9035ecf9524c52cfcf41f",
+      "bytes": 460354
+    },
+    {
+      "path": "reports/service-life-r16/public/belly.png",
+      "sha": "6b418ecd1457a1e0f01990b7e64763e0b68e67c2",
+      "bytes": 411934
+    },
+    {
+      "path": "reports/service-life-r16/public/camera-bottom.png",
+      "sha": "557d4a8bc9c48660c62fa2cd5e71cc64d315e1bc",
+      "bytes": 154484
+    },
+    {
+      "path": "reports/service-life-r16/public/camera-front.png",
+      "sha": "5c07181d2d74cf5ae45a777007086f93c2b422e9",
+      "bytes": 116898
+    },
+    {
+      "path": "reports/service-life-r16/public/camera-orbit.png",
+      "sha": "033759375797ac28649c7ceaa5cfa4b3713866c3",
+      "bytes": 235187
+    },
+    {
+      "path": "reports/service-life-r16/public/camera-perspective-front.png",
+      "sha": "f0c79e54f64b6ec01696608bbd58bd4ded38ffd4",
+      "bytes": 191651
+    },
+    {
+      "path": "reports/service-life-r16/public/camera-perspective-rear.png",
+      "sha": "c17f212698209c7d8b0bec305d6934353ebd4bc4",
+      "bytes": 141933
+    },
+    {
+      "path": "reports/service-life-r16/public/camera-port.png",
+      "sha": "897a20abcac811cbacacf8ad64bb8a9a0210b823",
+      "bytes": 147127
+    },
+    {
+      "path": "reports/service-life-r16/public/camera-rear.png",
+      "sha": "5486e0a44e3c85d9ff81b41f694852758519af80",
+      "bytes": 108837
+    },
+    {
+      "path": "reports/service-life-r16/public/camera-starboard.png",
+      "sha": "d81823bddc9f0605f9a1517c2085588989df656c",
+      "bytes": 147640
+    },
+    {
+      "path": "reports/service-life-r16/public/camera-top.png",
+      "sha": "8fea8305e31af9c6018b5ce560560777f95f4c48",
+      "bytes": 142958
+    },
+    {
+      "path": "reports/service-life-r16/public/damage-exhaust-starboard.png",
+      "sha": "99799a28c1f57632069db858519bb369c606ca96",
+      "bytes": 488306
+    },
+    {
+      "path": "reports/service-life-r16/public/damage-exhaust.png",
+      "sha": "3f24ec2f35786db0b1b0c13688c3147075d1458e",
+      "bytes": 492916
+    },
+    {
+      "path": "reports/service-life-r16/public/exhaust-starboard.png",
+      "sha": "44fe0639d060a4b02106931dc2bf5d41ca019a45",
+      "bytes": 463734
+    },
+    {
+      "path": "reports/service-life-r16/public/exhaust.png",
+      "sha": "43440c34867b2b686e3fe165637b84d1ec0dd011",
+      "bytes": 457067
+    },
+    {
+      "path": "reports/service-life-r16/public/field-exhaust-starboard.png",
+      "sha": "51e57ce1a759fab7271cda8bafe62bc571c4af6c",
+      "bytes": 520250
+    },
+    {
+      "path": "reports/service-life-r16/public/field-exhaust.png",
+      "sha": "218641fa9deaf4ead7d9c4c918e346ca29b5c0b9",
+      "bytes": 520874
+    },
+    {
+      "path": "reports/service-life-r16/public/gear-port.png",
+      "sha": "1f1e2bac07b670b00414b2c357ced961d5aff251",
+      "bytes": 426014
+    },
+    {
+      "path": "reports/service-life-r16/public/gear-starboard.png",
+      "sha": "b2d39cea47733b3f4fc97f2a7041e110d680474c",
+      "bytes": 409938
+    },
+    {
+      "path": "reports/service-life-r16/public/maintained-exhaust-starboard.png",
+      "sha": "44fe0639d060a4b02106931dc2bf5d41ca019a45",
+      "bytes": 463734
+    },
+    {
+      "path": "reports/service-life-r16/public/maintained-exhaust.png",
+      "sha": "43440c34867b2b686e3fe165637b84d1ec0dd011",
+      "bytes": 457067
+    },
+    {
+      "path": "reports/service-life-r16/public/mobile-controls.png",
+      "sha": "0bc0aa2843809848e7f3f333ecf07a7a04059b47",
+      "bytes": 61365
+    },
+    {
+      "path": "reports/service-life-r16/public/mobile.png",
+      "sha": "889315a46949cd9263eabfeb2c91b626467d62ca",
+      "bytes": 84043
+    },
+    {
+      "path": "reports/service-life-r16/public/new-exhaust-starboard.png",
+      "sha": "34bd36812c30d6d2045195365e8888304abf32fc",
+      "bytes": 432030
+    },
+    {
+      "path": "reports/service-life-r16/public/new-exhaust.png",
+      "sha": "5e8d0efabefe9ee58656ff8af4e0ef48b48ed335",
+      "bytes": 415034
+    },
+    {
+      "path": "reports/service-life-r16/public/nose.png",
+      "sha": "5b83fcd6f99a14bfe2eacb33cfd427de8d0a7318",
+      "bytes": 272581
+    },
+    {
+      "path": "reports/service-life-r16/public/overview.png",
+      "sha": "3cd4fe0588e25ba13ac8404412a00d9bb8c00c54",
+      "bytes": 236127
+    },
+    {
+      "path": "reports/service-life-r16/public/port.png",
+      "sha": "6861f79533571da2fca71f98b5282019daaefa6b",
+      "bytes": 180375
+    },
+    {
+      "path": "reports/service-life-r16/public/qa.json",
+      "sha": "3b274698c2d049196829893cfb503e1ab10435bb",
+      "bytes": 67185
+    },
+    {
+      "path": "reports/service-life-r16/public/repaired-exhaust-starboard.png",
+      "sha": "0c13fada30283291120702dfd8694868fa38afe5",
+      "bytes": 465789
+    },
+    {
+      "path": "reports/service-life-r16/public/repaired-exhaust.png",
+      "sha": "7a99b560135163a16bcd30dffce4ccddfa8a6fd7",
+      "bytes": 462906
+    },
+    {
+      "path": "reports/service-life-r16/public/resized-perspective.png",
+      "sha": "0408f9d6c556e4d5a5fd083235645b0dc393b7d3",
+      "bytes": 164060
+    },
+    {
+      "path": "reports/service-life-r16/public/skin.png",
+      "sha": "d0ba6412a66fcd85e58b65ea31337ad7bf8cf63f",
+      "bytes": 162430
+    },
+    {
+      "path": "reports/service-life-r16/public/starboard.png",
+      "sha": "ccfa64092624ab6043166c86a28801cb48fc7acc",
+      "bytes": 195003
+    },
+    {
+      "path": "reports/service-life-r16/public/tail-root.png",
+      "sha": "1cacf5ecd348216b92c406edf3b1f735a7f9e4c9",
+      "bytes": 294390
+    },
+    {
+      "path": "reports/service-life-r16/public/tire.png",
+      "sha": "e13252c6a13e6457bef91f70340a602f7df5e0a2",
+      "bytes": 280259
+    },
+    {
+      "path": "reports/service-life-r16/public/wing-bottom.png",
+      "sha": "cdfce1c6116b55529ce03910d0c29e118d083880",
+      "bytes": 223972
+    },
+    {
+      "path": "reports/service-life-r16/public/wing.png",
+      "sha": "4f291586fc5f7a543db60604b29d6dee30ed5672",
+      "bytes": 157933
+    },
+    {
+      "path": "runtime/80-days-port-sheet.js",
+      "sha": "fcbd97dfbdc6a724225f0b3efaab6d0c015e1836",
+      "bytes": 2681
+    },
+    {
+      "path": "runtime/80-days-r11-art-inline.js",
+      "sha": "0fcc50ce608aea6221170f8ec9278d63b7e9199c",
+      "bytes": 1473557
+    },
+    {
+      "path": "runtime/80-days-source-loader.js",
+      "sha": "419437cfb030c38bec02690c85585a72d3fb663c",
+      "bytes": 2206
+    },
+    {
+      "path": "runtime/80-days-source-pixels-inline.js",
+      "sha": "4ee418567d65db48aec0b3e2ee2837741199ba58",
+      "bytes": 838036
+    },
+    {
+      "path": "runtime/b24-80days-calibration-candidate-audit.js",
+      "sha": "f403d05475cb5204aead08434054d204c5ef577a",
+      "bytes": 4012
+    },
+    {
+      "path": "runtime/b24-80days-instance-r1.js",
+      "sha": "e799bc35abec939e2e044d582833cfc0e0c097ca",
+      "bytes": 18317
+    },
+    {
+      "path": "runtime/b24-80days-instance-r10.js",
+      "sha": "d51a1d749ee26e7ad026eae85c5414cb9c606c38",
+      "bytes": 9689
+    },
+    {
+      "path": "runtime/b24-80days-instance-r11.js",
+      "sha": "cd7a942f7b4bc114f68ce75b20560e444cae3b6b",
+      "bytes": 10526
+    },
+    {
+      "path": "runtime/b24-80days-instance-r2.js",
+      "sha": "2861146e08955089228ee11fe479e929108a255e",
+      "bytes": 11420
+    },
+    {
+      "path": "runtime/b24-80days-instance-r3.js",
+      "sha": "34d924c192a83c3558d718041d4453ede1f8bcbf",
+      "bytes": 14818
+    },
+    {
+      "path": "runtime/b24-80days-instance-r4.js",
+      "sha": "7e66087db19b4aff61ae13b2ba5573aa62921818",
+      "bytes": 17352
+    },
+    {
+      "path": "runtime/b24-80days-instance-r5.js",
+      "sha": "839546512e4f38bc73c5f7fa2b6355f2a80e3c75",
+      "bytes": 14170
+    },
+    {
+      "path": "runtime/b24-80days-instance-r6.js",
+      "sha": "22e6bb351e0ec8af1a9a30c837b648ae0f81d58f",
+      "bytes": 18834
+    },
+    {
+      "path": "runtime/b24-80days-instance-r9.js",
+      "sha": "65d47adcc918500e890c08ac04cd8ae27dbb6658",
+      "bytes": 19915
+    },
+    {
+      "path": "runtime/b24-80days-nose-anchor-audit.js",
+      "sha": "26a2395f46165c83e92e3146c8ec5c0eb8f7d801",
+      "bytes": 3315
+    },
+    {
+      "path": "runtime/b24-80days-window-candidates.js",
+      "sha": "c5f29941b7cf72d3a88266c82c4e1eae46222c35",
+      "bytes": 4607
+    },
+    {
+      "path": "runtime/b24-80days-window-shape-match.js",
+      "sha": "7871c7d2500932dfa8946e720675fe29d2108877",
+      "bytes": 6818
+    },
+    {
+      "path": "runtime/b24-joint-demo-r14.js",
+      "sha": "3c80f88f7cde3c8258461002a021935fc44a7309",
+      "bytes": 2813
+    },
+    {
+      "path": "runtime/b24-r11-skin-system.js",
+      "sha": "7299e151c0003c5fc66a9c82319a550d184177d4",
+      "bytes": 21668
+    },
+    {
+      "path": "runtime/b24-r7-bay-poses.js",
+      "sha": "f1cb4a309494475b833369415fd6dc4ea84fe525",
+      "bytes": 17143
+    },
+    {
+      "path": "runtime/b24-reference-panels-r16.js",
+      "sha": "10a6bb97e834d6000f0afda3c6de033a002913ff",
+      "bytes": 6761
+    },
+    {
+      "path": "runtime/b24-service-life-r16.js",
+      "sha": "af88decbb363f222a5ce4f99899e30621b7ca99c",
+      "bytes": 17613
+    },
+    {
+      "path": "runtime/b24-skin-integration-r14.js",
+      "sha": "186b4e1635b2dd8b713910f6c9a258c0e78e7c86",
+      "bytes": 19357
+    },
+    {
+      "path": "runtime/b24-wing-seams-view-r16.js",
+      "sha": "5e4d7f141a865040be5cd93861902b0572b14670",
+      "bytes": 20608
+    },
+    {
+      "path": "runtime/skin-joints-r14.js",
+      "sha": "26c204396211544cba06d43d5a54d111b67f7a6a",
+      "bytes": 8065
+    },
+    {
+      "path": "runtime/skin-joints-workbench-r14.js",
+      "sha": "30c8c428181d1b5fa60aed94078e3e48a5be8761",
+      "bytes": 8839
+    },
+    {
+      "path": "tools/r9-check.py",
+      "sha": "37695552927c798e4fc67721f9397c16b4cec666",
+      "bytes": 1893
+    },
+    {
+      "path": "tools/verify-package.py",
+      "sha": "71e25790a6cf96c620a7e08d9a69d1e3746611be",
+      "bytes": 464
+    },
+    {
+      "path": "tools/wing-seams-r16-check.py",
+      "sha": "89cbfab44209b5927b43d237cfc516aa989061c4",
+      "bytes": 6994
+    }
+  ],
+  "modifiedMetadata": [
+    "README.md",
+    "CURRENT_SKIN_MOTHER_HANDOFF.md"
+  ]
+}

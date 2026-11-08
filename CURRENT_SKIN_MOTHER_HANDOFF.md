@@ -1,28 +1,11 @@
 # Current Skin Mother Handoff
 
-Authoritative continuation branch:
+Retained version: B-24 80 DAYS R12 component calibration.
 
-`feature/b24-80days-r12-component-calibration`
+Branch: `feature/b24-80days-r12-component-calibration`.
 
-Rollback baseline:
+Review entry: `b24-80days-r12-review-direct.html`.
 
-`feature/b24-80days-scan-calibration-r10`
-at `09b3ad195b77ce45f9d6d548d1e7ac808c49c512`
+Read `docs/80-days-r12/STATUS.md`, `docs/80-days-r12/PLACEMENT.json` and `CLEANUP_RECEIPT_2026-11-08.json`.
 
-Read first:
-
-- `handoff/skin-mother-current/00_START_HERE.md`
-- `handoff/skin-mother-current/01_HANDOFF_STATE.md`
-- `handoff/skin-mother-current/02_R12_CONTINUATION.md`
-- `docs/80-days-r12/STATUS.md`
-
-Direct review entry:
-
-`b24-80days-r12-review-direct.html`
-
-Current package target:
-
-`releases/B24_Skin_Mother_Full_Continuation_R12_2026-09-17.zip`
-
-This remains a continuation handoff. `visualAcceptance=false` and
-`productionReady=false` until the user approves the rendered placement.
+The existing R12 ZIP remains under `releases/`. The earlier continuation notes are recoverable at commit `0ec4d9d7c652e5b399a31b68b6de44ba24b9b274`. R12 remains `visualAcceptance=false` and `productionReady=false`.
